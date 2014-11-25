@@ -121,6 +121,9 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // It would be trivial to download these from a web service
     // as needed, but for the purposes of this sample app we'll
     // simply store them in memory.
+    
+    
+    
     return @[
         [[Person alloc] initWithName:@"Finn"
                                image:[UIImage imageNamed:@"finn"]
