@@ -7,11 +7,11 @@
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForTesting = "NO"
+            buildForRunning = "NO"
             buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA5B73E418F233EF00BB5F8E"
@@ -36,10 +36,10 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA5B73FF18F233EF00BB5F8E"
@@ -56,24 +56,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DA5B73FF18F233EF00BB5F8E"
-               BuildableName = "LikedOrNopeTests.xctest"
-               BlueprintName = "LikedOrNopeTests"
-               ReferencedContainer = "container:LikedOrNope.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA5B73E418F233EF00BB5F8E"
-            BuildableName = "LikedOrNope.app"
-            BlueprintName = "LikedOrNope"
-            ReferencedContainer = "container:LikedOrNope.xcodeproj">
+            BuildableName = "EatNow.app"
+            BlueprintName = "EatNow"
+            ReferencedContainer = "container:EatNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -90,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA5B73E418F233EF00BB5F8E"
-            BuildableName = "LikedOrNope.app"
-            BlueprintName = "LikedOrNope"
-            ReferencedContainer = "container:LikedOrNope.xcodeproj">
+            BuildableName = "EatNow.app"
+            BlueprintName = "EatNow"
+            ReferencedContainer = "container:EatNow.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
+		9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */; };
 		DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B73EB18F233EF00BB5F8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */; };
 		DA5B73ED18F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
@@ -166,7 +167,8 @@
 				DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */,
 				DA5B740818F233EF00BB5F8E /* Supporting Files */,
 			);
-			path = LikedOrNopeTests;
+			name = LikedOrNopeTests;
+			path = EatNowTests;
 			sourceTree = "<group>";
 		};
 		DA5B740818F233EF00BB5F8E /* Supporting Files */ = {
@@ -284,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 				9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */,
 				DA5B73FB18F233EF00BB5F8E /* Images.xcassets in Resources */,
@@ -406,7 +409,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREFIX_HEADER = "LikedOrNope/EatNow-Prefix.pch";
+				GCC_PREFIX_HEADER = "EatNow/EatNow-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -445,7 +448,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREFIX_HEADER = "LikedOrNope/EatNow-Prefix.pch";
+				GCC_PREFIX_HEADER = "EatNow/EatNow-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -466,8 +469,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LikedOrNope/EatNow-Prefix.pch";
-				INFOPLIST_FILE = "LikedOrNope/EatNow-Info.plist";
+				GCC_PREFIX_HEADER = "EatNow/EatNow-Prefix.pch";
+				INFOPLIST_FILE = "EatNow/EatNow-Info.plist";
 				PRODUCT_NAME = EatNow;
 				WRAPPER_EXTENSION = app;
 			};
@@ -479,8 +482,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LikedOrNope/EatNow-Prefix.pch";
-				INFOPLIST_FILE = "LikedOrNope/EatNow-Info.plist";
+				GCC_PREFIX_HEADER = "EatNow/EatNow-Prefix.pch";
+				INFOPLIST_FILE = "EatNow/EatNow-Info.plist";
 				PRODUCT_NAME = EatNow;
 				WRAPPER_EXTENSION = app;
 			};
@@ -489,7 +492,6 @@
 		DA5B741518F233EF00BB5F8E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LikedOrNope.app/LikedOrNope";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -500,7 +502,6 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "LikedOrNopeTests/EatNowTests-Info.plist";
 				PRODUCT_NAME = EatNowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -510,14 +511,12 @@
 		DA5B741618F233EF00BB5F8E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LikedOrNope.app/LikedOrNope";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				INFOPLIST_FILE = "LikedOrNopeTests/EatNowTests-Info.plist";
 				PRODUCT_NAME = EatNowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
