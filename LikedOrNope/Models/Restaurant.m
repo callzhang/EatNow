@@ -22,26 +22,28 @@
 // THE SOFTWARE.
 //
 
-#import "Person.h"
+#import "Restaurant.h"
 
-@implementation Person
+@implementation Restaurant
 
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithName:(NSString *)name
-                       image:(UIImage *)image
-                         age:(NSUInteger)age
-       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
-     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
-              numberOfPhotos:(NSUInteger)numberOfPhotos {
+					   image:(UIImage *)image
+					 cuisine:(NSString *)cuisine
+					  rating:(float)rating
+					   price:(float)price
+					distance:(float)distance
+					 reviews:(NSUInteger)reviews{
     self = [super init];
     if (self) {
         _name = name;
         _image = image;
-        _age = age;
-        _numberOfSharedFriends = numberOfSharedFriends;
-        _numberOfSharedInterests = numberOfSharedInterests;
-        _numberOfPhotos = numberOfPhotos;
+        _cuisine = cuisine;
+        _rating = rating;
+        _price = price;
+        _distance = distance;
+		_reviews = reviews;
     }
     return self;
 }

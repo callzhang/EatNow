@@ -23,14 +23,14 @@
 //
 
 #import "ChoosePersonViewController.h"
-#import "Person.h"
+#import "Restaurant.h"
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 
 static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 @interface ChoosePersonViewController ()
-@property (nonatomic, strong) NSMutableArray *people;
+@property (nonatomic, strong) NSMutableArray *restaurants;
 @end
 
 @implementation ChoosePersonViewController
@@ -42,7 +42,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     if (self) {
         // This view controller maintains a list of ChoosePersonView
         // instances to display.
-        _people = [[self defaultPeople] mutableCopy];
+        _restaurants = [[self defaultPeople] mutableCopy];
     }
     return self;
 }
@@ -54,13 +54,13 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
     // Display the first ChoosePersonView in front. Users can swipe to indicate
     // whether they like or dislike the person displayed.
-    self.frontCardView = [self popPersonViewWithFrame:[self frontCardViewFrame]];
+    self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
     [self.view addSubview:self.frontCardView];
 
     // Display the second ChoosePersonView in back. This view controller uses
     // the MDCSwipeToChooseDelegate protocol methods to update the front and
     // back views after each user swipe.
-    self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]];
+    self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
     [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
 
     // Add buttons to programmatically swipe the view left or right.
@@ -95,7 +95,7 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // MDCSwipeOptions class). Since the front card view is gone, we
     // move the back card to the front, and create a new back card.
     self.frontCardView = self.backCardView;
-    if ((self.backCardView = [self popPersonViewWithFrame:[self backCardViewFrame]])) {
+    if ((self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]])) {
         // Fade the back card into view.
         self.backCardView.alpha = 0.f;
         [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
@@ -110,11 +110,11 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 #pragma mark - Internal Methods
 
-- (void)setFrontCardView:(ChoosePersonView *)frontCardView {
+- (void)setFrontCardView:(RestaurantView *)frontCardView {
     // Keep track of the person currently being chosen.
     // Quick and dirty, just for the purposes of this sample app.
     _frontCardView = frontCardView;
-    self.currentPerson = frontCardView.person;
+    self.currentPerson = frontCardView.restaurant;
 }
 
 - (NSArray *)defaultPeople {
@@ -125,35 +125,42 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     
     
     return @[
-        [[Person alloc] initWithName:@"Finn"
-                               image:[UIImage imageNamed:@"finn"]
-                                 age:15
-               numberOfSharedFriends:3
-             numberOfSharedInterests:2
-                      numberOfPhotos:1],
-        [[Person alloc] initWithName:@"Jake"
-                               image:[UIImage imageNamed:@"jake"]
-                                 age:28
-               numberOfSharedFriends:2
-             numberOfSharedInterests:6
-                      numberOfPhotos:8],
-        [[Person alloc] initWithName:@"Fiona"
-                               image:[UIImage imageNamed:@"fiona"]
-                                 age:14
-               numberOfSharedFriends:1
-             numberOfSharedInterests:3
-                      numberOfPhotos:5],
-        [[Person alloc] initWithName:@"P. Gumball"
-                               image:[UIImage imageNamed:@"prince"]
-                                 age:18
-               numberOfSharedFriends:1
-             numberOfSharedInterests:1
-                      numberOfPhotos:2],
+			 [[Restaurant alloc] initWithName:@"Upstate"
+										image:[UIImage imageNamed:@"upstate"]
+									  cuisine:@""
+									   rating:4.5
+										price:2
+									 distance:0.41
+									  reviews:748],
+			 
+			 [[Restaurant alloc] initWithName:@"Traif"
+										image:[UIImage imageNamed:@"Traif"]
+									  cuisine:@"Soul Food"
+									   rating:4.5
+										price:2
+									 distance:0.368
+									  reviews:1273],
+			 
+        [[Restaurant alloc] initWithName:@"Il Falco"
+								   image:[UIImage imageNamed:@"Il Falco"]
+								 cuisine:@"Italian"
+								  rating:5
+								   price:3
+								distance:0.54
+								 reviews:40],
+			 
+        [[Restaurant alloc] initWithName:@"Hudson Eats At Brookfield Place"
+								   image:[UIImage imageNamed:@"Hudson Eats At Brookfield Place"]
+								 cuisine:@"Food Court"
+								  rating:4.5
+								   price:2
+								distance:1.22
+								 reviews:56],
     ];
 }
 
-- (ChoosePersonView *)popPersonViewWithFrame:(CGRect)frame {
-    if ([self.people count] == 0) {
+- (RestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
+    if ([self.restaurants count] == 0) {
         return nil;
     }
 
@@ -174,11 +181,11 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
-    ChoosePersonView *personView = [[ChoosePersonView alloc] initWithFrame:frame
-                                                                    person:self.people[0]
+    RestaurantView *card = [[RestaurantView alloc] initWithFrame:frame
+                                                                    restaurant:self.restaurants.firstObject
                                                                    options:options];
-    [self.people removeObjectAtIndex:0];
-    return personView;
+    [self.restaurants removeObjectAtIndex:0];
+    return card;
 }
 
 #pragma mark View Contruction

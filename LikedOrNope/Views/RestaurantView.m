@@ -22,13 +22,13 @@
 // THE SOFTWARE.
 //
 
-#import "ChoosePersonView.h"
+#import "RestaurantView.h"
 #import "ImageLabelView.h"
-#import "Person.h"
+#import "Restaurant.h"
 
 static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
-@interface ChoosePersonView ()
+@interface RestaurantView ()
 @property (nonatomic, strong) UIView *informationView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) ImageLabelView *cameraImageLabelView;
@@ -36,17 +36,17 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 @property (nonatomic, strong) ImageLabelView *friendsImageLabelView;
 @end
 
-@implementation ChoosePersonView
+@implementation RestaurantView
 
 #pragma mark - Object Lifecycle
 
 - (instancetype)initWithFrame:(CGRect)frame
-                       person:(Person *)person
+				   restaurant:(Restaurant *)restaurant
                       options:(MDCSwipeToChooseViewOptions *)options {
     self = [super initWithFrame:frame options:options];
     if (self) {
-        _person = person;
-        self.imageView.image = _person.image;
+        _restaurant = restaurant;
+        self.imageView.image = _restaurant.image;
 
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight |
                                 UIViewAutoresizingFlexibleWidth |
@@ -87,7 +87,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
                               floorf(CGRectGetWidth(_informationView.frame)/2),
                               CGRectGetHeight(_informationView.frame) - topPadding);
     _nameLabel = [[UILabel alloc] initWithFrame:frame];
-    _nameLabel.text = [NSString stringWithFormat:@"%@, %@", _person.name, @(_person.age)];
+    _nameLabel.text = [NSString stringWithFormat:@"%@, %@", _restaurant.name, _restaurant.cuisine];
     [_informationView addSubview:_nameLabel];
 }
 
@@ -96,7 +96,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     UIImage *image = [UIImage imageNamed:@"camera"];
     _cameraImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetWidth(_informationView.bounds) - rightPadding
                                                       image:image
-                                                       text:[@(_person.numberOfPhotos) stringValue]];
+                                                       text:[@(_restaurant.distance) stringValue]];
     [_informationView addSubview:_cameraImageLabelView];
 }
 
@@ -104,7 +104,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     UIImage *image = [UIImage imageNamed:@"book"];
     _interestsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_cameraImageLabelView.frame)
                                                          image:image
-                                                          text:[@(_person.numberOfPhotos) stringValue]];
+                                                          text:[@(_restaurant.distance) stringValue]];
     [_informationView addSubview:_interestsImageLabelView];
 }
 
@@ -112,7 +112,7 @@ static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
     UIImage *image = [UIImage imageNamed:@"group"];
     _friendsImageLabelView = [self buildImageLabelViewLeftOf:CGRectGetMinX(_interestsImageLabelView.frame)
                                                       image:image
-                                                       text:[@(_person.numberOfSharedFriends) stringValue]];
+                                                       text:[@(_restaurant.rating) stringValue]];
     [_informationView addSubview:_friendsImageLabelView];
 }
 

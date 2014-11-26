@@ -22,9 +22,9 @@
 		DA5B740C18F233EF00BB5F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA5B740A18F233EF00BB5F8E /* InfoPlist.strings */; };
 		DA5B740E18F233EF00BB5F8E /* LikedOrNopeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */; };
 		DA5B745F18F239B700BB5F8E /* ChoosePersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745618F239B700BB5F8E /* ChoosePersonViewController.m */; };
-		DA5B746018F239B700BB5F8E /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745918F239B700BB5F8E /* Person.m */; };
+		DA5B746018F239B700BB5F8E /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745918F239B700BB5F8E /* Restaurant.m */; };
 		DA5B746118F239B700BB5F8E /* ImageLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745C18F239B700BB5F8E /* ImageLabelView.m */; };
-		DA5B746218F239B700BB5F8E /* ChoosePersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745E18F239B700BB5F8E /* ChoosePersonView.m */; };
+		DA5B746218F239B700BB5F8E /* RestaurantView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745E18F239B700BB5F8E /* RestaurantView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,30 +42,30 @@
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = LikedOrNope/main.storyboard; sourceTree = SOURCE_ROOT; };
-		DA5B73E518F233EF00BB5F8E /* LikedOrNope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LikedOrNope.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA5B73E518F233EF00BB5F8E /* EatNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B73E818F233EF00BB5F8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DA5B73EC18F233EF00BB5F8E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		DA5B73F018F233EF00BB5F8E /* LikedOrNope-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LikedOrNope-Info.plist"; sourceTree = "<group>"; };
+		DA5B73F018F233EF00BB5F8E /* EatNow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EatNow-Info.plist"; sourceTree = "<group>"; };
 		DA5B73F218F233EF00BB5F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA5B73F418F233EF00BB5F8E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		DA5B73F618F233EF00BB5F8E /* LikedOrNope-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LikedOrNope-Prefix.pch"; sourceTree = "<group>"; };
+		DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EatNow-Prefix.pch"; sourceTree = "<group>"; };
 		DA5B73F718F233EF00BB5F8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA5B73F818F233EF00BB5F8E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DA5B73FA18F233EF00BB5F8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		DA5B740018F233EF00BB5F8E /* LikedOrNopeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LikedOrNopeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA5B740018F233EF00BB5F8E /* EatNowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EatNowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B740118F233EF00BB5F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DA5B740918F233EF00BB5F8E /* LikedOrNopeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LikedOrNopeTests-Info.plist"; sourceTree = "<group>"; };
+		DA5B740918F233EF00BB5F8E /* EatNowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EatNowTests-Info.plist"; sourceTree = "<group>"; };
 		DA5B740B18F233EF00BB5F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LikedOrNopeTests.m; sourceTree = "<group>"; };
 		DA5B745518F239B700BB5F8E /* ChoosePersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePersonViewController.h; sourceTree = "<group>"; };
 		DA5B745618F239B700BB5F8E /* ChoosePersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePersonViewController.m; sourceTree = "<group>"; };
-		DA5B745818F239B700BB5F8E /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		DA5B745918F239B700BB5F8E /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		DA5B745818F239B700BB5F8E /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
+		DA5B745918F239B700BB5F8E /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		DA5B745B18F239B700BB5F8E /* ImageLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLabelView.h; sourceTree = "<group>"; };
 		DA5B745C18F239B700BB5F8E /* ImageLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageLabelView.m; sourceTree = "<group>"; };
-		DA5B745D18F239B700BB5F8E /* ChoosePersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePersonView.h; sourceTree = "<group>"; };
-		DA5B745E18F239B700BB5F8E /* ChoosePersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePersonView.m; sourceTree = "<group>"; };
+		DA5B745D18F239B700BB5F8E /* RestaurantView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantView.h; sourceTree = "<group>"; };
+		DA5B745E18F239B700BB5F8E /* RestaurantView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +117,8 @@
 		DA5B73E618F233EF00BB5F8E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA5B73E518F233EF00BB5F8E /* LikedOrNope.app */,
-				DA5B740018F233EF00BB5F8E /* LikedOrNopeTests.xctest */,
+				DA5B73E518F233EF00BB5F8E /* EatNow.app */,
+				DA5B740018F233EF00BB5F8E /* EatNowTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,10 +152,10 @@
 		DA5B73EF18F233EF00BB5F8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DA5B73F018F233EF00BB5F8E /* LikedOrNope-Info.plist */,
+				DA5B73F018F233EF00BB5F8E /* EatNow-Info.plist */,
 				DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */,
 				DA5B73F418F233EF00BB5F8E /* main.m */,
-				DA5B73F618F233EF00BB5F8E /* LikedOrNope-Prefix.pch */,
+				DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -172,7 +172,7 @@
 		DA5B740818F233EF00BB5F8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DA5B740918F233EF00BB5F8E /* LikedOrNopeTests-Info.plist */,
+				DA5B740918F233EF00BB5F8E /* EatNowTests-Info.plist */,
 				DA5B740A18F233EF00BB5F8E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -190,8 +190,8 @@
 		DA5B745718F239B700BB5F8E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DA5B745818F239B700BB5F8E /* Person.h */,
-				DA5B745918F239B700BB5F8E /* Person.m */,
+				DA5B745818F239B700BB5F8E /* Restaurant.h */,
+				DA5B745918F239B700BB5F8E /* Restaurant.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -201,8 +201,8 @@
 			children = (
 				DA5B745B18F239B700BB5F8E /* ImageLabelView.h */,
 				DA5B745C18F239B700BB5F8E /* ImageLabelView.m */,
-				DA5B745D18F239B700BB5F8E /* ChoosePersonView.h */,
-				DA5B745E18F239B700BB5F8E /* ChoosePersonView.m */,
+				DA5B745D18F239B700BB5F8E /* RestaurantView.h */,
+				DA5B745E18F239B700BB5F8E /* RestaurantView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,9 +210,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DA5B73E418F233EF00BB5F8E /* LikedOrNope */ = {
+		DA5B73E418F233EF00BB5F8E /* EatNow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA5B741118F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "LikedOrNope" */;
+			buildConfigurationList = DA5B741118F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "EatNow" */;
 			buildPhases = (
 				7989DD9D1D4541818B62EB58 /* Check Pods Manifest.lock */,
 				DA5B73E118F233EF00BB5F8E /* Sources */,
@@ -224,14 +224,14 @@
 			);
 			dependencies = (
 			);
-			name = LikedOrNope;
+			name = EatNow;
 			productName = LikedOrNope;
-			productReference = DA5B73E518F233EF00BB5F8E /* LikedOrNope.app */;
+			productReference = DA5B73E518F233EF00BB5F8E /* EatNow.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DA5B73FF18F233EF00BB5F8E /* LikedOrNopeTests */ = {
+		DA5B73FF18F233EF00BB5F8E /* EatNowTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA5B741418F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "LikedOrNopeTests" */;
+			buildConfigurationList = DA5B741418F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "EatNowTests" */;
 			buildPhases = (
 				DA5B73FC18F233EF00BB5F8E /* Sources */,
 				DA5B73FD18F233EF00BB5F8E /* Frameworks */,
@@ -242,9 +242,9 @@
 			dependencies = (
 				DA5B740618F233EF00BB5F8E /* PBXTargetDependency */,
 			);
-			name = LikedOrNopeTests;
+			name = EatNowTests;
 			productName = LikedOrNopeTests;
-			productReference = DA5B740018F233EF00BB5F8E /* LikedOrNopeTests.xctest */;
+			productReference = DA5B740018F233EF00BB5F8E /* EatNowTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -261,7 +261,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DA5B73E018F233EF00BB5F8E /* Build configuration list for PBXProject "LikedOrNope" */;
+			buildConfigurationList = DA5B73E018F233EF00BB5F8E /* Build configuration list for PBXProject "EatNow" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -273,8 +273,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DA5B73E418F233EF00BB5F8E /* LikedOrNope */,
-				DA5B73FF18F233EF00BB5F8E /* LikedOrNopeTests */,
+				DA5B73E418F233EF00BB5F8E /* EatNow */,
+				DA5B73FF18F233EF00BB5F8E /* EatNowTests */,
 			);
 		};
 /* End PBXProject section */
@@ -341,9 +341,9 @@
 				DA5B746118F239B700BB5F8E /* ImageLabelView.m in Sources */,
 				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
 				DA5B745F18F239B700BB5F8E /* ChoosePersonViewController.m in Sources */,
-				DA5B746018F239B700BB5F8E /* Person.m in Sources */,
+				DA5B746018F239B700BB5F8E /* Restaurant.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
-				DA5B746218F239B700BB5F8E /* ChoosePersonView.m in Sources */,
+				DA5B746218F239B700BB5F8E /* RestaurantView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +360,7 @@
 /* Begin PBXTargetDependency section */
 		DA5B740618F233EF00BB5F8E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DA5B73E418F233EF00BB5F8E /* LikedOrNope */;
+			target = DA5B73E418F233EF00BB5F8E /* EatNow */;
 			targetProxy = DA5B740518F233EF00BB5F8E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -464,9 +464,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LikedOrNope/LikedOrNope-Prefix.pch";
-				INFOPLIST_FILE = "LikedOrNope/LikedOrNope-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "LikedOrNope/EatNow-Prefix.pch";
+				INFOPLIST_FILE = "LikedOrNope/EatNow-Info.plist";
+				PRODUCT_NAME = EatNow;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -478,9 +478,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LikedOrNope/LikedOrNope-Prefix.pch";
-				INFOPLIST_FILE = "LikedOrNope/LikedOrNope-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "LikedOrNope/EatNow-Prefix.pch";
+				INFOPLIST_FILE = "LikedOrNope/EatNow-Info.plist";
+				PRODUCT_NAME = EatNow;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -500,8 +500,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "LikedOrNopeTests/LikedOrNopeTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "LikedOrNopeTests/EatNowTests-Info.plist";
+				PRODUCT_NAME = EatNowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -518,8 +518,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LikedOrNope/LikedOrNope-Prefix.pch";
-				INFOPLIST_FILE = "LikedOrNopeTests/LikedOrNopeTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "LikedOrNopeTests/EatNowTests-Info.plist";
+				PRODUCT_NAME = EatNowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -528,7 +528,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA5B73E018F233EF00BB5F8E /* Build configuration list for PBXProject "LikedOrNope" */ = {
+		DA5B73E018F233EF00BB5F8E /* Build configuration list for PBXProject "EatNow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA5B740F18F233EF00BB5F8E /* Debug */,
@@ -537,7 +537,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA5B741118F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "LikedOrNope" */ = {
+		DA5B741118F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "EatNow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA5B741218F233EF00BB5F8E /* Debug */,
@@ -546,7 +546,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA5B741418F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "LikedOrNopeTests" */ = {
+		DA5B741418F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "EatNowTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA5B741518F233EF00BB5F8E /* Debug */,

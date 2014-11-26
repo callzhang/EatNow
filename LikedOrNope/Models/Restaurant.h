@@ -24,20 +24,22 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Person : NSObject
+@interface Restaurant : NSObject
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) NSUInteger age;
-@property (nonatomic, assign) NSUInteger numberOfSharedFriends;
-@property (nonatomic, assign) NSUInteger numberOfSharedInterests;
-@property (nonatomic, assign) NSUInteger numberOfPhotos;
+@property (nonatomic, assign) NSString *cuisine;
+@property (nonatomic, assign) float rating;
+@property (nonatomic, assign) float price;
+@property (nonatomic, assign) float	distance;
+@property (nonatomic, assign) NSUInteger reviews;
 
 - (instancetype)initWithName:(NSString *)name
                        image:(UIImage *)image
-                         age:(NSUInteger)age
-       numberOfSharedFriends:(NSUInteger)numberOfSharedFriends
-     numberOfSharedInterests:(NSUInteger)numberOfSharedInterests
-              numberOfPhotos:(NSUInteger)numberOfPhotos;
+					 cuisine:(NSString *)cuisine
+					  rating:(float)rating
+					   price:(float)price
+					distance:(float)distance
+					 reviews:(NSUInteger)reviews;
 
 @end
