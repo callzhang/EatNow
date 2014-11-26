@@ -41,7 +41,7 @@
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = LikedOrNope/main.storyboard; sourceTree = SOURCE_ROOT; };
+		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = EatNow/main.storyboard; sourceTree = SOURCE_ROOT; };
 		DA5B73E518F233EF00BB5F8E /* EatNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B73E818F233EF00BB5F8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
-				DA5B73EE18F233EF00BB5F8E /* LikedOrNope */,
+				DA5B73EE18F233EF00BB5F8E /* EatNow */,
 				DA5B740718F233EF00BB5F8E /* LikedOrNopeTests */,
 				DA5B73E718F233EF00BB5F8E /* Frameworks */,
 				DA5B73E618F233EF00BB5F8E /* Products */,
@@ -135,7 +135,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DA5B73EE18F233EF00BB5F8E /* LikedOrNope */ = {
+		DA5B73EE18F233EF00BB5F8E /* EatNow */ = {
 			isa = PBXGroup;
 			children = (
 				DA5B73F718F233EF00BB5F8E /* AppDelegate.h */,
@@ -146,7 +146,7 @@
 				DA5B73FA18F233EF00BB5F8E /* Images.xcassets */,
 				DA5B73EF18F233EF00BB5F8E /* Supporting Files */,
 			);
-			path = LikedOrNope;
+			path = EatNow;
 			sourceTree = "<group>";
 		};
 		DA5B73EF18F233EF00BB5F8E /* Supporting Files */ = {
@@ -406,6 +406,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "LikedOrNope/EatNow-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -444,6 +445,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREFIX_HEADER = "LikedOrNope/EatNow-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -473,7 +475,6 @@
 		};
 		DA5B741318F233EF00BB5F8E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -495,7 +496,6 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LikedOrNope/LikedOrNope-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -517,7 +517,6 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LikedOrNope/LikedOrNope-Prefix.pch";
 				INFOPLIST_FILE = "LikedOrNopeTests/EatNowTests-Info.plist";
 				PRODUCT_NAME = EatNowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";

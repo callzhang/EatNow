@@ -182,8 +182,8 @@ static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
     RestaurantView *card = [[RestaurantView alloc] initWithFrame:frame
-                                                                    restaurant:self.restaurants.firstObject
-                                                                   options:options];
+													  restaurant:self.restaurants.firstObject
+														 options:options];
     [self.restaurants removeObjectAtIndex:0];
     return card;
 }
