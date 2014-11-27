@@ -26,26 +26,4 @@
 
 @implementation Restaurant
 
-#pragma mark - Object Lifecycle
-
-- (instancetype)initWithName:(NSString *)name
-					   image:(UIImage *)image
-					 cuisine:(NSString *)cuisine
-					  rating:(float)rating
-					   price:(float)price
-					distance:(float)distance
-					 reviews:(NSUInteger)reviews{
-    self = [super init];
-    if (self) {
-        _name = name;
-        _image = image;
-        _cuisine = cuisine;
-        _rating = rating;
-        _price = price;
-        _distance = distance;
-		_reviews = reviews;
-    }
-    return self;
-}
-
 @end

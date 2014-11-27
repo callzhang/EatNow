@@ -23,23 +23,21 @@
 //
 
 #import <Foundation/Foundation.h>
+@import CoreLocation;
 
 @interface Restaurant : NSObject
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, assign) NSString *cuisine;
+@property (nonatomic, strong) NSString *imageUrl;
+@property (nonatomic, assign) NSArray *cuisines;
 @property (nonatomic, assign) float rating;
 @property (nonatomic, assign) float price;
 @property (nonatomic, assign) float	distance;
 @property (nonatomic, assign) NSUInteger reviews;
-
-- (instancetype)initWithName:(NSString *)name
-                       image:(UIImage *)image
-					 cuisine:(NSString *)cuisine
-					  rating:(float)rating
-					   price:(float)price
-					distance:(float)distance
-					 reviews:(NSUInteger)reviews;
+@property (nonatomic, strong) NSString *objectID;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) CLLocation *location;
 
 @end

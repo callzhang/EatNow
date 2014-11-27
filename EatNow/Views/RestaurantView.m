@@ -25,6 +25,7 @@
 #import "RestaurantView.h"
 #import "ImageLabelView.h"
 #import "Restaurant.h"
+#import "UIImageView+AFNetworking.h"
 
 //static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
@@ -62,10 +63,24 @@
 }
 
 - (void)setRestaurant:(Restaurant *)restaurant{
+    _restaurant = restaurant;
+    if (restaurant.image) {
+        self.imageView.image = restaurant.image;
+    }else{
+        //download first
+        [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:restaurant.imageUrl]]
+                              placeholderImage:nil
+                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                           self.imageView.image = image;
+                                           _restaurant.image = image;
+                                       }
+                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                           NSLog(@"*** Failed to download image with url: %@", restaurant.imageUrl);
+                                       }];
+    }
     
-    self.imageView.image = restaurant.image;
     self.name.text = restaurant.name;
-    self.cuisine.text = restaurant.cuisine;
+    self.cuisine.text = [self cuisineStringFromArray:restaurant.cuisines];
     self.price.text = [self pricesSignFromNumber:restaurant.price];
     self.rating.text = [NSString stringWithFormat:@"%.1f", restaurant.rating];
     self.reviews.text = [NSString stringWithFormat:@"%lu", (unsigned long)restaurant.reviews];
@@ -80,6 +95,15 @@
         [dollarSign appendString:@"$"];
     }
     return dollarSign.copy;
+}
+
+- (NSString *)cuisineStringFromArray:(NSArray *)list{
+    NSMutableString *cuisineStr = [NSMutableString new];
+    for (NSString *c in list) {
+        [cuisineStr appendFormat:@"%@, ", c];
+    }
+    [cuisineStr deleteCharactersInRange:NSMakeRange(cuisineStr.length-2, 2)];
+    return cuisineStr.copy;
 }
 
 #pragma mark - Internal Methods
