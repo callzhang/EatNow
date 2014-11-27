@@ -23,16 +23,16 @@
 //
 
 #import "AppDelegate.h"
-#import "ChoosePersonViewController.h"
+#import "MainViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-
-    self.window.rootViewController = [ChoosePersonViewController new];
+//    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    self.window.backgroundColor = [UIColor whiteColor];
+//    [self.window makeKeyAndVisible];
+//
+//    self.window.rootViewController = [MainViewController new];
 
     return YES;
 }

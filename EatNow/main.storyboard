@@ -1,7 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lU3-A1-eqa">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="QaD-ff-rKm">
+            <objects>
+                <navigationController id="lU3-A1-eqa" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qKa-Iz-YQY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="N2Z-hj-BcO" kind="relationship" relationship="rootViewController" id="Fmf-fr-Lzg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cfm-2p-3g4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-178" y="597"/>
+        </scene>
+        <!--Eat Now-->
+        <scene sceneID="ZQP-YZ-hL6">
+            <objects>
+                <viewController id="N2Z-hj-BcO" customClass="MainViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kgo-mR-Ptp"/>
+                        <viewControllerLayoutGuide type="bottom" id="0ai-QC-a0l"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Z8L-6K-Fh8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYq-YI-WqA">
+                                <rect key="frame" x="194" y="488" width="50" height="50"/>
+                                <color key="tintColor" red="0.064888718649999996" green="1" blue="0.1209398265" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="liked">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="like:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="I9T-pF-uqt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mm2-PP-OMh">
+                                <rect key="frame" x="76" y="488" width="50" height="50"/>
+                                <state key="normal" image="nope">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nope:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="NrF-RU-534"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kN-sq-rqs">
+                                <rect key="frame" x="16" y="72" width="288" height="393"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="LYq-YI-WqA" secondAttribute="bottom" constant="30" id="2r6-xz-FHE"/>
+                            <constraint firstItem="2kN-sq-rqs" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" id="ERT-49-bFS"/>
+                            <constraint firstItem="mm2-PP-OMh" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" constant="60" id="KTK-Kz-Kaa"/>
+                            <constraint firstItem="2kN-sq-rqs" firstAttribute="trailing" secondItem="Z8L-6K-Fh8" secondAttribute="trailingMargin" constant="8" id="OSt-2q-IaW"/>
+                            <constraint firstItem="2kN-sq-rqs" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" constant="-8" id="SmU-Oa-8Do"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LYq-YI-WqA" secondAttribute="trailing" constant="60" id="TbT-Zm-0aD"/>
+                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="mm2-PP-OMh" secondAttribute="bottom" constant="30" id="vzL-la-q3k"/>
+                            <constraint firstItem="mm2-PP-OMh" firstAttribute="top" secondItem="2kN-sq-rqs" secondAttribute="bottom" constant="20" id="y6S-rm-z2W"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4"/>
+                    <connections>
+                        <outlet property="restaurantFrame" destination="2kN-sq-rqs" id="dgo-lb-3c1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OLQ-6J-SNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="382" y="597"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="liked" width="50" height="50"/>
+        <image name="nope" width="50" height="50"/>
+    </resources>
 </document>

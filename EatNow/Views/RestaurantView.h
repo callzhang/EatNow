@@ -27,12 +27,24 @@
 
 @class Restaurant;
 
-@interface RestaurantView : MDCSwipeToChooseView
+@class RestaurantView;
+@interface ViewOwner : NSObject
+@property (nonatomic, weak) IBOutlet RestaurantView *subclassedView;
+@end
 
-@property (nonatomic, strong, readonly) Restaurant *restaurant;
+@interface RestaurantView : UIView
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *cuisine;
+@property (weak, nonatomic) IBOutlet UILabel *price;
+@property (weak, nonatomic) IBOutlet UILabel *rating;
+@property (weak, nonatomic) IBOutlet UILabel *reviews;
+@property (weak, nonatomic) IBOutlet UILabel *distance;
 
-- (instancetype)initWithFrame:(CGRect)frame
-				   restaurant:(Restaurant *)person
-                      options:(MDCSwipeToChooseViewOptions *)options;
+@property (nonatomic, strong) Restaurant *restaurant;
 
+//- (instancetype)initWithFrame:(CGRect)frame
+//				   restaurant:(Restaurant *)person
+//                      options:(MDCSwipeToChooseViewOptions *)options;
++ (instancetype)initViewWithOptions:(MDCSwipeOptions *)options;
 @end

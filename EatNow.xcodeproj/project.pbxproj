@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
+		9B23A9B31A26903200549871 /* RestaurantView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B23A9B21A26903200549871 /* RestaurantView.xib */; };
+		9B23A9B51A2692AC00549871 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B23A9B41A2692AC00549871 /* Entypo.ttf */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
 		9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */; };
 		DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
@@ -22,7 +24,7 @@
 		DA5B740418F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
 		DA5B740C18F233EF00BB5F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA5B740A18F233EF00BB5F8E /* InfoPlist.strings */; };
 		DA5B740E18F233EF00BB5F8E /* LikedOrNopeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */; };
-		DA5B745F18F239B700BB5F8E /* ChoosePersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745618F239B700BB5F8E /* ChoosePersonViewController.m */; };
+		DA5B745F18F239B700BB5F8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745618F239B700BB5F8E /* MainViewController.m */; };
 		DA5B746018F239B700BB5F8E /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745918F239B700BB5F8E /* Restaurant.m */; };
 		DA5B746118F239B700BB5F8E /* ImageLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745C18F239B700BB5F8E /* ImageLabelView.m */; };
 		DA5B746218F239B700BB5F8E /* RestaurantView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745E18F239B700BB5F8E /* RestaurantView.m */; };
@@ -42,6 +44,8 @@
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9B23A9B21A26903200549871 /* RestaurantView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RestaurantView.xib; path = ../RestaurantView.xib; sourceTree = "<group>"; };
+		9B23A9B41A2692AC00549871 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = EatNow/main.storyboard; sourceTree = SOURCE_ROOT; };
 		DA5B73E518F233EF00BB5F8E /* EatNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B73E818F233EF00BB5F8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,8 +63,8 @@
 		DA5B740918F233EF00BB5F8E /* EatNowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EatNowTests-Info.plist"; sourceTree = "<group>"; };
 		DA5B740B18F233EF00BB5F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LikedOrNopeTests.m; sourceTree = "<group>"; };
-		DA5B745518F239B700BB5F8E /* ChoosePersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoosePersonViewController.h; sourceTree = "<group>"; };
-		DA5B745618F239B700BB5F8E /* ChoosePersonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoosePersonViewController.m; sourceTree = "<group>"; };
+		DA5B745518F239B700BB5F8E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		DA5B745618F239B700BB5F8E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		DA5B745818F239B700BB5F8E /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
 		DA5B745918F239B700BB5F8E /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		DA5B745B18F239B700BB5F8E /* ImageLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLabelView.h; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 		DA5B73EF18F233EF00BB5F8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9B23A9B41A2692AC00549871 /* Entypo.ttf */,
 				DA5B73F018F233EF00BB5F8E /* EatNow-Info.plist */,
 				DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */,
 				DA5B73F418F233EF00BB5F8E /* main.m */,
@@ -183,8 +188,8 @@
 		DA5B745418F239B700BB5F8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				DA5B745518F239B700BB5F8E /* ChoosePersonViewController.h */,
-				DA5B745618F239B700BB5F8E /* ChoosePersonViewController.m */,
+				DA5B745518F239B700BB5F8E /* MainViewController.h */,
+				DA5B745618F239B700BB5F8E /* MainViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				DA5B745C18F239B700BB5F8E /* ImageLabelView.m */,
 				DA5B745D18F239B700BB5F8E /* RestaurantView.h */,
 				DA5B745E18F239B700BB5F8E /* RestaurantView.m */,
+				9B23A9B21A26903200549871 /* RestaurantView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -287,9 +293,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */,
+				9B23A9B51A2692AC00549871 /* Entypo.ttf in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 				9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */,
 				DA5B73FB18F233EF00BB5F8E /* Images.xcassets in Resources */,
+				9B23A9B31A26903200549871 /* RestaurantView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +351,7 @@
 			files = (
 				DA5B746118F239B700BB5F8E /* ImageLabelView.m in Sources */,
 				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
-				DA5B745F18F239B700BB5F8E /* ChoosePersonViewController.m in Sources */,
+				DA5B745F18F239B700BB5F8E /* MainViewController.m in Sources */,
 				DA5B746018F239B700BB5F8E /* Restaurant.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				DA5B746218F239B700BB5F8E /* RestaurantView.m in Sources */,

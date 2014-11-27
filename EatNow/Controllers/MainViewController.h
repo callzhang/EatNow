@@ -25,10 +25,13 @@
 #import <UIKit/UIKit.h>
 #import "RestaurantView.h"
 
-@interface ChoosePersonViewController : UIViewController <MDCSwipeToChooseDelegate>
+@interface MainViewController : UIViewController <MDCSwipeToChooseDelegate>
+- (IBAction)nope:(id)sender;
+- (IBAction)like:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *restaurantFrame;
 
-@property (nonatomic, strong) Restaurant *currentPerson;
-@property (nonatomic, strong) RestaurantView *frontCardView;
-@property (nonatomic, strong) RestaurantView *backCardView;
+@property (nonatomic, strong) Restaurant *currentRestaurant;
+@property (nonatomic, strong) UIView *frontCardView;
+@property (nonatomic, strong) UIView *backCardView;
 
 @end
