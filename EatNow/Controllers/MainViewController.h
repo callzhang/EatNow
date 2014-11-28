@@ -29,6 +29,7 @@
 - (IBAction)nope:(id)sender;
 - (IBAction)like:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *restaurantFrame;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 
 @property (nonatomic, strong) Restaurant *currentRestaurant;
 @property (nonatomic, strong) UIView *frontCardView;

@@ -57,7 +57,16 @@
                             </button>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kN-sq-rqs">
                                 <rect key="frame" x="16" y="72" width="288" height="393"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4Vu-uF-I11">
+                                        <rect key="frame" x="142" y="193" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="4Vu-uF-I11" secondAttribute="centerY" id="47u-f2-gpv"/>
+                                    <constraint firstAttribute="centerX" secondItem="4Vu-uF-I11" secondAttribute="centerX" id="mHn-cZ-Ukc"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -74,6 +83,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4"/>
                     <connections>
+                        <outlet property="loading" destination="4Vu-uF-I11" id="iBD-mk-ggI"/>
                         <outlet property="restaurantFrame" destination="2kN-sq-rqs" id="dgo-lb-3c1"/>
                     </connections>
                 </viewController>

@@ -30,10 +30,9 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *imageUrl;
-@property (nonatomic, assign) NSArray *cuisines;
+@property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, assign) float rating;
 @property (nonatomic, assign) float price;
-@property (nonatomic, assign) float	distance;
 @property (nonatomic, assign) NSUInteger reviews;
 @property (nonatomic, strong) NSString *objectID;
 @property (nonatomic, strong) NSString *url;

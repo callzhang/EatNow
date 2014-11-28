@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EatNow/Controllers/MainViewController.m"
-            timestampString = "438761684.07346"
+            timestampString = "438845291.174847"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "-popResuturantViewWithFrame:"
             landmarkType = "5">
          </BreakpointContent>
@@ -32,16 +32,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EatNow/Server/ENServerManager.m"
-            timestampString = "438809101.069869"
+            filePath = "EatNow/Controllers/MainViewController.m"
+            timestampString = "438845284.17868"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "-getRestaurantListWithCompletion:"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

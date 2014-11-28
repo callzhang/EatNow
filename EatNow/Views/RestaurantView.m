@@ -26,6 +26,7 @@
 #import "ImageLabelView.h"
 #import "Restaurant.h"
 #import "UIImageView+AFNetworking.h"
+#import "ENServerManager.h"
 
 //static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
@@ -84,7 +85,8 @@
     self.price.text = [self pricesSignFromNumber:restaurant.price];
     self.rating.text = [NSString stringWithFormat:@"%.1f", restaurant.rating];
     self.reviews.text = [NSString stringWithFormat:@"%lu", (unsigned long)restaurant.reviews];
-    self.distance.text = [NSString stringWithFormat:@"%.1fmi", restaurant.distance];
+    double distance = [[ENServerManager sharedInstance].currentLocation distanceFromLocation:restaurant.location]/1000;
+    self.distance.text = [NSString stringWithFormat:@"%.1fkm", distance];
     
 }
 
@@ -98,6 +100,9 @@
 }
 
 - (NSString *)cuisineStringFromArray:(NSArray *)list{
+    if (list.count == 0) {
+        return @"";
+    }
     NSMutableString *cuisineStr = [NSMutableString new];
     for (NSString *c in list) {
         [cuisineStr appendFormat:@"%@, ", c];

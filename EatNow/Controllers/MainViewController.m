@@ -25,6 +25,7 @@
 #import "MainViewController.h"
 #import "Restaurant.h"
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
+#import "ENServerManager.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -42,24 +43,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    _restaurants = [[self getRestaurants] mutableCopy];
     
-    // Display the first ChoosePersonView in front. Users can swipe to indicate
-    // whether they like or dislike the person displayed.
-    self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
-    [self.view addSubview:self.frontCardView];
+    //register notification
+    [[NSNotificationCenter defaultCenter] addObserverForName:kFetchedRestaurantList object:nil queue:nil usingBlock:^(NSNotification *note) {
+        //stop loading
+        [self.loading stopAnimating];
+        
+        //read list
+        [self getRestaurants];
+        
+        // Display the first ChoosePersonView in front. Users can swipe to indicate
+        // whether they like or dislike the person displayed.
+        self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
+        [self.view addSubview:self.frontCardView];
+        
+        // Display the second ChoosePersonView in back. This view controller uses
+        // the MDCSwipeToChooseDelegate protocol methods to update the front and
+        // back views after each user swipe.
+        self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
+        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    }];
 
-    // Display the second ChoosePersonView in back. This view controller uses
-    // the MDCSwipeToChooseDelegate protocol methods to update the front and
-    // back views after each user swipe.
-    self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
-    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
-
-    // Add buttons to programmatically swipe the view left or right.
-    // See the `nopeFrontCardView` and `likeFrontCardView` methods.
-//    [self constructNopeButton];
-//    [self constructLikedButton];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -110,51 +114,13 @@
     self.currentRestaurant = frontCardView.restaurant;
 }
 
-- (NSArray *)getRestaurants {
+- (NSMutableArray *)getRestaurants {
     // It would be trivial to download these from a web service
     // as needed, but for the purposes of this sample app we'll
     // simply store them in memory.
+    _restaurants = [ENServerManager sharedInstance].restaurants;
     
-    UIImage *img0 = [UIImage imageNamed:@"upstate.jpg"];
-    UIImage *img1 = [UIImage imageNamed:@"Traif.jpg"];
-    UIImage *img2 = [UIImage imageNamed:@"Il Falco.jpg"];
-    UIImage *img3 = [UIImage imageNamed:@"Hudson Eats At Brookfield Place.jpg"];
-    
-    NSArray *restaurants = @[
-         [[Restaurant alloc] initWithName:@"Upstate"
-                                    image:img0
-                                  cuisine:@"Sea Food"
-                                   rating:4.5
-                                    price:2
-                                 distance:0.41
-                                  reviews:748],
-         
-         [[Restaurant alloc] initWithName:@"Traif"
-                                    image:img1
-                                  cuisine:@"Soul Food"
-                                   rating:4.5
-                                    price:2
-                                 distance:0.368
-                                  reviews:1273],
-			 
-        [[Restaurant alloc] initWithName:@"Il Falco"
-                                   image:img2
-                                 cuisine:@"Italian"
-                                  rating:5
-                                   price:3
-                                distance:0.54
-                                 reviews:40],
-             
-        [[Restaurant alloc] initWithName:@"Hudson Eats At Brookfield Place"
-                                   image:img3
-                                 cuisine:@"Food Court"
-                                  rating:4.5
-                                   price:2
-                                distance:1.22
-                                 reviews:56],
-    ];
-    
-    return restaurants;
+    return _restaurants;
 }
 
 - (RestaurantView *)popResuturantViewWithFrame:(CGRect)frame {

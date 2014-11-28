@@ -9,11 +9,14 @@
 #define kUUID                       @"UUID"
 #define kSearchUrl                  @"https://dry-fortress-8563.herokuapp.com/search"
 #define kFetchedRestaurantList      @"fetched_restaurant_list"
+#define kUpdatedLocation            @"updated_location"
 
 #import <Foundation/Foundation.h>
+@import CoreLocation;
 
 @interface ENServerManager : NSObject
 @property (nonatomic, strong) NSMutableArray *restaurants;
+@property (nonatomic, strong) CLLocation *currentLocation;
 + (instancetype)sharedInstance;
 - (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
 @end
