@@ -17,6 +17,7 @@
 @interface ENServerManager : NSObject
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) CLLocation *currentLocation;
+@property (nonatomic) BOOL isRequesting;
 + (instancetype)sharedInstance;
 - (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
 @end

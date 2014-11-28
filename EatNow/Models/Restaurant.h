@@ -38,5 +38,7 @@
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) CLLocation *location;
-
+- (NSString *)pricesStr;
+- (NSString *)cuisineStr;
+- (double)distance;
 @end

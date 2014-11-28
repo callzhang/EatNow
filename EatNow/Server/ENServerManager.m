@@ -37,6 +37,7 @@
         _locationManager.delegate = self;
         _locationManager.distanceFilter = kCLDistanceFilterNone;
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        [_locationManager requestWhenInUseAuthorization];
         [_locationManager startUpdatingLocation];
     }
     return self;
@@ -45,6 +46,10 @@
 #pragma mark - Main method
 
 - (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block{
+    if (_isRequesting) {
+        return;
+    }
+    _isRequesting = YES;
     //first remove old location
     _currentLocation = nil;
     //start location manager
@@ -64,7 +69,7 @@
                               @"latitude":@(_currentLocation.coordinate.latitude),
                               @"longitude":@(_currentLocation.coordinate.longitude)
                               };
-        
+        NSLog(@"Request: %@", dic);
         [manager POST:kSearchUrl parameters:dic
               success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
                   NSLog(@"GET restaurant list %lu", (unsigned long)responseObject.count);
@@ -77,9 +82,10 @@
                       NSArray *cuisines = [ENServerManager getArrayOfCategories:list];
                       restaurant.cuisines = cuisines;
                       restaurant.objectID = restaurant_json[@"id"];
-                      restaurant.imageUrl = restaurant_json[@"snippet_image_url"];
+                      restaurant.imageUrl = restaurant_json[@"image_url"];
                       restaurant.phone = restaurant_json[@"phone"];
                       restaurant.name = restaurant_json[@"name"];
+                      restaurant.price = [(NSNumber *)restaurant_json[@"price"] floatValue];
                       NSDictionary *coordinate = [restaurant_json valueForKeyPath:@"location.coordinate"];
                       CLLocationDegrees lat = [(NSNumber *)coordinate[@"latitude"] doubleValue];
                       CLLocationDegrees lon = [(NSNumber *)coordinate[@"longitude"] doubleValue];
@@ -88,7 +94,7 @@
                       
                       [_restaurants addObject:restaurant];
                       
-                      NSLog(@"Fetched restaurant: %@", restaurant.name);
+                      NSLog(@"Fetched %@", restaurant);
                   }
                   
                   //post notification
@@ -97,6 +103,7 @@
                   if (block) {
                       block(YES, nil);
                   }
+                  _isRequesting = NO;
                   
               }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
                   
@@ -104,6 +111,7 @@
                   if (block) {
                       block(NO, error);
                   }
+                  _isRequesting = NO;
               }];
     }];
     
