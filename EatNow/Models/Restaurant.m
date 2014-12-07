@@ -28,7 +28,7 @@
 @implementation Restaurant
 
 - (NSString *)description{
-    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.2fkm", _name, _rating, _reviews, [self cuisineStr], [self pricesStr], [self distance]];
+    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.2fkm", _name, _rating, (unsigned long)_reviews, [self cuisineStr], [self pricesStr], [self distance]];
     
 }
 

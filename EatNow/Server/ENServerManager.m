@@ -37,7 +37,10 @@
         _locationManager.delegate = self;
         _locationManager.distanceFilter = kCLDistanceFilterNone;
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-        [_locationManager requestWhenInUseAuthorization];
+        if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            [_locationManager requestWhenInUseAuthorization];
+        }
+        
         [_locationManager startUpdatingLocation];
     }
     return self;
@@ -82,7 +85,7 @@
                       NSArray *cuisines = [ENServerManager getArrayOfCategories:list];
                       restaurant.cuisines = cuisines;
                       restaurant.objectID = restaurant_json[@"id"];
-                      restaurant.imageUrl = restaurant_json[@"image_url"];
+                      restaurant.imageUrl = restaurant_json[@"food_image_url"];
                       restaurant.phone = restaurant_json[@"phone"];
                       restaurant.name = restaurant_json[@"name"];
                       restaurant.price = [(NSNumber *)restaurant_json[@"price"] floatValue];
