@@ -25,3 +25,7 @@ build/
 
 # KZBootstrap
 KZBootstrapUserMacros.h
+
+*.xcuserstate
+
+*.xcuserstate
