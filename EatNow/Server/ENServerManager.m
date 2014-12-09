@@ -32,10 +32,9 @@
     if (self) {
         
         _restaurants = [NSMutableArray new];
-        
         _locationManager = [CLLocationManager new];
         _locationManager.delegate = self;
-        _locationManager.distanceFilter = kCLDistanceFilterNone;
+        //_locationManager.distanceFilter = kCLDistanceFilterNone;
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
         if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
             [_locationManager requestWhenInUseAuthorization];
@@ -117,8 +116,6 @@
                   _isRequesting = NO;
               }];
     }];
-    
-
 }
 
 #pragma mark - Location
