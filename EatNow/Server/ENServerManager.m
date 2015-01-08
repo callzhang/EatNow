@@ -53,12 +53,20 @@
     }
     _isRequesting = YES;
     //first remove old location
-    _currentLocation = nil;
-    //start location manager
-    [_locationManager startUpdatingLocation];
-    //listen to updates
-    [[NSNotificationCenter defaultCenter] addObserverForName:kUpdatedLocation object:nil queue:nil usingBlock:^(NSNotification *note) {
-        NSParameterAssert(_currentLocation);
+    if (!_currentLocation) {
+        //request new location and watch for the notification
+        //start location manager
+        [_locationManager startUpdatingLocation];
+        
+        //listen to updates
+        [[NSNotificationCenter defaultCenter] addObserverForName:kUpdatedLocation object:nil queue:nil usingBlock:^(NSNotification *note) {
+            [self getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
+                if (block) {
+                    block(success, error);
+                }
+            }];
+        }];
+    }else{
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         
@@ -115,7 +123,10 @@
                   }
                   _isRequesting = NO;
               }];
-    }];
+
+    }
+    
+    
 }
 
 #pragma mark - Location
