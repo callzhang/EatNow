@@ -58,6 +58,7 @@
     _isRequesting = YES;
     //first remove old location
     if (!_currentLocation) {
+        _isRequesting = NO;
         //request new location and watch for the notification
         //start location manager
         [_locationManager startUpdatingLocation];
@@ -71,6 +72,7 @@
             }];
         }];
     }else{
+        NSLog(@"Requesting restaurants");
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         
@@ -142,11 +144,11 @@
                       block(NO, error);
                   }
                   _isRequesting = NO;
+                  
+                  [self getRestaurantListWithCompletion:NULL];
               }];
-
+        
     }
-    
-    
 }
 
 #pragma mark - Location
