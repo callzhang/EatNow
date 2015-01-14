@@ -38,6 +38,7 @@
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) CLLocation *location;
+@property (nonatomic) float score;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
 - (double)distance;

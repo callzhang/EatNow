@@ -9,6 +9,7 @@
 #import "ENServerManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "Restaurant.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 @interface ENServerManager()<CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -41,6 +42,9 @@
         }
         
         [_locationManager startUpdatingLocation];
+        
+        //indicator
+        [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     }
     return self;
 }
@@ -96,16 +100,32 @@
                       restaurant.phone = restaurant_json[@"phone"];
                       restaurant.name = restaurant_json[@"name"];
                       restaurant.price = [(NSNumber *)restaurant_json[@"price"] floatValue];
+                      //location
                       NSDictionary *coordinate = [restaurant_json valueForKeyPath:@"location.coordinate"];
                       CLLocationDegrees lat = [(NSNumber *)coordinate[@"latitude"] doubleValue];
                       CLLocationDegrees lon = [(NSNumber *)coordinate[@"longitude"] doubleValue];
                       CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
                       restaurant.location = loc;
+                      //score
+                      NSDictionary *scores = restaurant_json[@"score"];
+                      NSNumber *totalScore = scores[@"total_score"];
+                      if ([totalScore isEqual: [NSNull null]]) {
+                          NSNumber *commentScore = scores[@"comment_score"] != [NSNull null] ? scores[@"comment_score"]:@0;
+                          NSNumber *cuisineScore = scores[@"cuisine_score"] != [NSNull null] ? scores[@"cuisine_score"]:@0;
+                          NSNumber *distanceScore = scores[@"distance_score"] != [NSNull null] ? scores[@"distance_score"]:@0;
+                          NSNumber *priceScore = scores[@"price_score"] != [NSNull null] ? scores[@"price_score"]:@0;
+                          NSNumber *ratingScore = scores[@"rating_score"] != [NSNull null] ? scores[@"rating_score"]:@0;
+                          totalScore = @(commentScore.floatValue + cuisineScore.floatValue + distanceScore.floatValue + priceScore.floatValue + ratingScore.floatValue);
+                      }
+                      restaurant.score = [totalScore floatValue];
                       
                       [_restaurants addObject:restaurant];
                       
-                      NSLog(@"Fetched %@", restaurant);
+                      NSLog(@"%@", restaurant);
+                      NSLog(@"Score: %@", restaurant_json[@"score"]);
                   }
+                  
+                  [_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
                   
                   //post notification
                   [[NSNotificationCenter defaultCenter] postNotificationName:kFetchedRestaurantList object:nil];
