@@ -36,11 +36,14 @@
         _locationManager.delegate = self;
         //_locationManager.distanceFilter = kCLDistanceFilterNone;
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-        if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
             [_locationManager requestWhenInUseAuthorization];
+        } else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] ==kCLAuthorizationStatusRestricted){
+            //need pop alert
+            NSLog(@"Location service disabled");
+        }else{
+            [_locationManager startUpdatingLocation];
         }
-        
-        [_locationManager startUpdatingLocation];
     }
     return self;
 }
@@ -48,12 +51,13 @@
 #pragma mark - Main method
 
 - (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block{
-    if (_isRequesting) {
-        return;
+    if (-_lastUpdatedLocation.timeIntervalSinceNow > 600) {
+        NSLog(@"Location outdated, set to nil");
+        _currentLocation = nil;
     }
-    _isRequesting = YES;
     //first remove old location
     if (!_currentLocation) {
+        NSLog(@"No location yet, locating.");
         //request new location and watch for the notification
         //start location manager
         [_locationManager startUpdatingLocation];
@@ -67,6 +71,14 @@
             }];
         }];
     }else{
+        if (_isRequesting) {
+            NSLog(@"Already requesting restaurants from server, skip");
+            return;
+        }
+        
+        _isRequesting = YES;
+        
+        NSLog(@"Got location, start requesting");
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         
@@ -132,9 +144,46 @@
 #pragma mark - Location
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     _currentLocation = locations.firstObject;
+    _lastUpdatedLocation = [NSDate date];
     NSLog(@"Get location of %@", locations);
     [_locationManager stopUpdatingLocation];
     [[NSNotificationCenter defaultCenter] postNotificationName:kUpdatedLocation object:nil];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    switch (status) {
+        case kCLAuthorizationStatusDenied:
+            NSLog(@"kCLAuthorizationStatusDenied");
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alertView show];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+        {
+            NSLog(@"kCLAuthorizationStatusAuthorizedWhenInUse");
+            manager.desiredAccuracy = kCLLocationAccuracyBest;
+            manager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
+            [manager startUpdatingLocation];
+            
+        }
+            break;
+        case kCLAuthorizationStatusAuthorizedAlways:
+        {
+            NSLog(@"kCLAuthorizationStatusAuthorizedAlways");
+            manager.desiredAccuracy = kCLLocationAccuracyBest;
+            manager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
+            [manager startUpdatingLocation];
+        }
+            break;
+        case kCLAuthorizationStatusNotDetermined:
+            NSLog(@"kCLAuthorizationStatusNotDetermined");
+            break;
+        case kCLAuthorizationStatusRestricted:
+            NSLog(@"kCLAuthorizationStatusRestricted");
+            break;
+    }
 }
 
 #pragma mark - Tools
