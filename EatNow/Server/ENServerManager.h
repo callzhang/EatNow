@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic) BOOL isRequesting;
+@property (nonatomic, strong) NSDate *lastUpdatedLocation;
 + (instancetype)sharedInstance;
 - (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
 @end
