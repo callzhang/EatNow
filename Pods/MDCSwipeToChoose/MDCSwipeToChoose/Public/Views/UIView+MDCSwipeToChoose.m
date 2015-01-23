@@ -107,6 +107,9 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     [[UIPanGestureRecognizer alloc] initWithTarget:self
                                             action:action];
     [self addGestureRecognizer:panGestureRecognizer];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mdc_finalizePosition)];
+    [self addGestureRecognizer:tapGesture];
 }
 
 #pragma mark Translation
@@ -250,5 +253,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
         [self mdc_executeOnPanBlockForTranslation:translation];
     }
 }
+
+
 
 @end

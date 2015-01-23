@@ -30,6 +30,7 @@
 
 typedef void (^MDCSwipeToChooseOnPanBlock)(MDCPanState *state);
 typedef void (^MDCSwipeToChooseOnChosenBlock)(MDCSwipeResult *state);
+typedef void (^MDCSwipeToChooseOnTapBlock)(MDCSwipeResult *state);
 
 /*!
  * A set of options used to customize the behavior of the
@@ -96,6 +97,7 @@ typedef void (^MDCSwipeToChooseOnChosenBlock)(MDCSwipeResult *state);
  block in order to properly notify the delegate of the swipe result.
  */
 @property (nonatomic, copy) MDCSwipeToChooseOnChosenBlock onChosen;
+@property (nonatomic, copy) MDCSwipeToChooseOnTapBlock onTap;
 
 /*!
  * The default callback for when a view is swiped an chosen. This callback moves the view

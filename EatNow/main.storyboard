@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lU3-A1-eqa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lU3-A1-eqa">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -55,14 +55,14 @@
                                     <action selector="nope:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="NrF-RU-534"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2kN-sq-rqs">
-                                <rect key="frame" x="16" y="72" width="288" height="393"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kN-sq-rqs">
+                                <rect key="frame" x="8" y="64" width="304" height="394"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4Vu-uF-I11">
-                                        <rect key="frame" x="142" y="193" width="20" height="20"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4Vu-uF-I11">
+                                        <rect key="frame" x="142" y="187" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="4Vu-uF-I11" secondAttribute="centerY" id="47u-f2-gpv"/>
                                     <constraint firstAttribute="centerX" secondItem="4Vu-uF-I11" secondAttribute="centerX" id="mHn-cZ-Ukc"/>
@@ -74,11 +74,11 @@
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="LYq-YI-WqA" secondAttribute="bottom" constant="30" id="2r6-xz-FHE"/>
                             <constraint firstItem="2kN-sq-rqs" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" id="ERT-49-bFS"/>
                             <constraint firstItem="mm2-PP-OMh" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" constant="60" id="KTK-Kz-Kaa"/>
-                            <constraint firstItem="2kN-sq-rqs" firstAttribute="trailing" secondItem="Z8L-6K-Fh8" secondAttribute="trailingMargin" constant="8" id="OSt-2q-IaW"/>
-                            <constraint firstItem="2kN-sq-rqs" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" constant="-8" id="SmU-Oa-8Do"/>
+                            <constraint firstItem="2kN-sq-rqs" firstAttribute="trailingMargin" secondItem="Z8L-6K-Fh8" secondAttribute="trailingMargin" id="OSt-2q-IaW"/>
+                            <constraint firstItem="2kN-sq-rqs" firstAttribute="leadingMargin" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="SmU-Oa-8Do"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LYq-YI-WqA" secondAttribute="trailing" constant="60" id="TbT-Zm-0aD"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="mm2-PP-OMh" secondAttribute="bottom" constant="30" id="vzL-la-q3k"/>
-                            <constraint firstItem="mm2-PP-OMh" firstAttribute="top" secondItem="2kN-sq-rqs" secondAttribute="bottom" constant="20" id="y6S-rm-z2W"/>
+                            <constraint firstItem="mm2-PP-OMh" firstAttribute="top" secondItem="2kN-sq-rqs" secondAttribute="bottom" constant="30" id="y6S-rm-z2W"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4"/>
@@ -90,6 +90,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OLQ-6J-SNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="382" y="597"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="x9F-LL-bAx">
+            <objects>
+                <viewController storyboardIdentifier="ENWebViewController" id="5Hf-SP-8Xa" customClass="ENWebViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kmJ-CV-KmT"/>
+                        <viewControllerLayoutGuide type="bottom" id="nUp-l9-XcY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2Zz-b3-LeU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0uo-oE-lP0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="webView" destination="0uo-oE-lP0" id="ua6-Qt-RMi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7VM-uE-ygP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="816" y="597"/>
         </scene>
     </scenes>
     <resources>

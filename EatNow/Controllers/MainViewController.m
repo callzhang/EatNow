@@ -26,6 +26,7 @@
 #import "Restaurant.h"
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "ENServerManager.h"
+#import "ENWebViewController.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -85,6 +86,11 @@
         NSLog(@"You noped %@.", self.currentRestaurant.name);
     } else {
         NSLog(@"You liked %@.", self.currentRestaurant.name);
+        RestaurantView *rv = (RestaurantView *)view;
+        NSString *url = rv.restaurant.url;
+        ENWebViewController *webView = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENWebViewController"];
+        webView.url = [NSURL URLWithString:url];
+        [self.navigationController pushViewController:webView animated:YES];
     }
 
     // MDCSwipeToChooseView removes the view from the view hierarchy
@@ -139,9 +145,9 @@
     options.onPan = ^(MDCPanState *state){
         CGRect frame = [self backCardViewFrame];
         CGRect frame2 = CGRectMake(frame.origin.x,
-                                             frame.origin.y - (state.thresholdRatio * 10.f),
-                                             CGRectGetWidth(frame),
-                                             CGRectGetHeight(frame));
+                                 frame.origin.y - (state.thresholdRatio * 10.f),
+                                 CGRectGetWidth(frame),
+                                 CGRectGetHeight(frame));
         self.backCardView.frame = frame2;
     };
 
@@ -156,7 +162,7 @@
     return card;
 }
 
-#pragma mark View Contruction
+#pragma mark - View Contruction
 
 - (CGRect)frontCardViewFrame {
     CGRect frame = self.restaurantFrame.frame;
@@ -166,7 +172,7 @@
 - (CGRect)backCardViewFrame {
     CGRect frontFrame = [self frontCardViewFrame];
     return CGRectMake(frontFrame.origin.x,
-                      frontFrame.origin.y - 10.f,
+                      frontFrame.origin.y + 10.f,
                       CGRectGetWidth(frontFrame),
                       CGRectGetHeight(frontFrame));
 }

@@ -13,6 +13,7 @@
 		9B23A9BC1A27ACCF00549871 /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B23A9BB1A27ACCF00549871 /* ENServerManager.m */; };
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
+		9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF9CC701A72301600B76D92 /* ENWebViewController.m */; };
 		9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */; };
 		DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B73EB18F233EF00BB5F8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */; };
@@ -51,6 +52,8 @@
 		9B23A9BB1A27ACCF00549871 /* ENServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENServerManager.m; path = Server/ENServerManager.m; sourceTree = "<group>"; };
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = EatNow/main.storyboard; sourceTree = SOURCE_ROOT; };
+		9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWebViewController.h; sourceTree = "<group>"; };
+		9BF9CC701A72301600B76D92 /* ENWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWebViewController.m; sourceTree = "<group>"; };
 		DA5B73E518F233EF00BB5F8E /* EatNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B73E818F233EF00BB5F8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
+				9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */,
+				9BF9CC701A72301600B76D92 /* ENWebViewController.m */,
 				DA5B73EE18F233EF00BB5F8E /* EatNow */,
 				DA5B740718F233EF00BB5F8E /* LikedOrNopeTests */,
 				DA5B73E718F233EF00BB5F8E /* Frameworks */,
@@ -366,6 +371,7 @@
 				9B23A9BC1A27ACCF00549871 /* ENServerManager.m in Sources */,
 				DA5B746018F239B700BB5F8E /* Restaurant.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
+				9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */,
 				DA5B746218F239B700BB5F8E /* RestaurantView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

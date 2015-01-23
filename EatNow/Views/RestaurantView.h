@@ -26,8 +26,8 @@
 #import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 
 @class Restaurant;
-
 @class RestaurantView;
+
 @interface ViewOwner : NSObject
 @property (nonatomic, weak) IBOutlet RestaurantView *subclassedView;
 @end

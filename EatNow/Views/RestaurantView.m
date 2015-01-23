@@ -86,7 +86,6 @@
     self.rating.text = [NSString stringWithFormat:@"%.1f", restaurant.rating];
     self.reviews.text = [NSString stringWithFormat:@"%lu", (unsigned long)restaurant.reviews];
     self.distance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];
-    
 }
 
 
