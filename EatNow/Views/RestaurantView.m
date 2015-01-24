@@ -60,6 +60,12 @@
     [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
     RestaurantView *view = owner.subclassedView;
     [view mdc_swipeToChooseSetup:options];
+    
+    //customize view
+    view.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.5].CGColor;
+    view.layer.borderWidth = 1;
+    view.layer.cornerRadius = 5;
+    
     return view;
 }
 

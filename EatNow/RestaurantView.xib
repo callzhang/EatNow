@@ -151,6 +151,9 @@
                 <constraint firstItem="Ygd-6W-mIc" firstAttribute="top" secondItem="tE7-BO-fio" secondAttribute="bottom" constant="3" id="zWm-lo-zjp"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="zWm-lo-zjp"/>
