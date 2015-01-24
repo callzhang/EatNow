@@ -190,4 +190,8 @@
 - (IBAction)like:(id)sender{
     [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
 }
+
+- (IBAction)refresh:(id)sender {
+}
+
 @end

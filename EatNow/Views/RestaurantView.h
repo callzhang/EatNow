@@ -40,6 +40,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UILabel *reviews;
 @property (weak, nonatomic) IBOutlet UILabel *distance;
+@property (weak, nonatomic) IBOutlet UILabel *yesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nopeLabel;
 
 @property (nonatomic, strong) Restaurant *restaurant;
 
