@@ -156,6 +156,7 @@
     //RestaurantView *card = [[RestaurantView alloc] initWithFrame:frame restaurant:self.restaurants.firstObject options:options];
     
     RestaurantView* card = [RestaurantView initViewWithOptions:options];
+    card.frame = frame;
     card.restaurant = self.restaurants.firstObject;
     [self.restaurants addObject:self.restaurants.firstObject];
     [self.restaurants removeObjectAtIndex:0];
@@ -192,6 +193,15 @@
 }
 
 - (IBAction)refresh:(id)sender {
+    self.restaurants = nil;
+    [self nope:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self nope:nil];
+    });
+    [self.loading startAnimating];
+    [[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
+        //
+    }];
 }
 
 @end

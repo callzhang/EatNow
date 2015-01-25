@@ -11,7 +11,7 @@
 #import "Restaurant.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
-@interface ENServerManager()<CLLocationManagerDelegate>
+@interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
@@ -38,10 +38,12 @@
         //_locationManager.distanceFilter = kCLDistanceFilterNone;
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+            NSLog(@"kCLAuthorizationStatusNotDetermined");
             [_locationManager requestWhenInUseAuthorization];
         } else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] ==kCLAuthorizationStatusRestricted){
             //need pop alert
             NSLog(@"Location service disabled");
+            [[[UIAlertView alloc] initWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Setting", nil] show];
         }else{
             [_locationManager startUpdatingLocation];
         }
@@ -50,6 +52,11 @@
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     }
     return self;
+}
+
+#pragma mark - Alert
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 #pragma mark - Main method
@@ -156,7 +163,8 @@
                   }
                   _isRequesting = NO;
                   
-                  [self getRestaurantListWithCompletion:NULL];
+                  //[self getRestaurantListWithCompletion:NULL];
+                  [[NSNotificationCenter defaultCenter] postNotificationName:kFetchRestaurantFailed object:nil];
               }];
         
     }
@@ -168,7 +176,7 @@
     _lastUpdatedLocation = [NSDate date];
     NSLog(@"Get location of %@", locations);
     [_locationManager stopUpdatingLocation];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kUpdatedLocation object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUpdatedLocation object:locations.lastObject];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {

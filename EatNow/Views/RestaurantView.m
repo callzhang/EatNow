@@ -61,7 +61,7 @@
     RestaurantView *view = owner.subclassedView;
     
     //customize view
-    view.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:1].CGColor;
+    view.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.5].CGColor;
     view.layer.borderWidth = 2;
     view.layer.cornerRadius = 5;
     //view.backgroundColor = [UIColor clearColor];

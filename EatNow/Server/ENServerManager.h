@@ -10,6 +10,7 @@
 #define kSearchUrl                  @"https://dry-fortress-8563.herokuapp.com/search"
 #define kFetchedRestaurantList      @"fetched_restaurant_list"
 #define kUpdatedLocation            @"updated_location"
+#define kFetchRestaurantFailed      @"fetch_restaurant_failed"
 
 #import <Foundation/Foundation.h>
 @import CoreLocation;
