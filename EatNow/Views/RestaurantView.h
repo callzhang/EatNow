@@ -42,6 +42,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *distance;
 @property (weak, nonatomic) IBOutlet UILabel *yesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nopeLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 
 @property (nonatomic, strong) Restaurant *restaurant;
 

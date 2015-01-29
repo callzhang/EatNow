@@ -52,6 +52,7 @@
 		9B23A9BA1A27ACCF00549871 /* ENServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENServerManager.h; path = Server/ENServerManager.h; sourceTree = "<group>"; };
 		9B23A9BB1A27ACCF00549871 /* ENServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENServerManager.m; path = Server/ENServerManager.m; sourceTree = "<group>"; };
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9BC8BE261A7AC87D0013EC91 /* ENDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDefines.h; sourceTree = "<group>"; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = EatNow/main.storyboard; sourceTree = SOURCE_ROOT; };
 		9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWebViewController.h; sourceTree = "<group>"; };
 		9BF9CC701A72301600B76D92 /* ENWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWebViewController.m; sourceTree = "<group>"; };
@@ -179,6 +180,7 @@
 		DA5B73EF18F233EF00BB5F8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9BC8BE261A7AC87D0013EC91 /* ENDefines.h */,
 				9B23A9B41A2692AC00549871 /* Entypo.ttf */,
 				DA5B73F018F233EF00BB5F8E /* EatNow-Info.plist */,
 				DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */,

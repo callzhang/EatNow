@@ -31,9 +31,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     ENServerManager *manager = [ENServerManager sharedInstance];
     [manager getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
-        //
+		[[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
+			if (!success){
+				NSString *str = [NSString stringWithFormat:@"Failed to get restaurant with error: %@", error];
+				ENAlert(str);
+				NSLog(@"%@", str);
+			}
+		}];
     }];
-
     return YES;
 }
 

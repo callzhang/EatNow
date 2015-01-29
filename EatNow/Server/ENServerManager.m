@@ -109,14 +109,15 @@
                   NSLog(@"GET restaurant list %lu", (unsigned long)responseObject.count);
                   for (NSDictionary *restaurant_json in responseObject) {
                       Restaurant *restaurant = [Restaurant new];
+					  restaurant.ID = restaurant_json[@"id"];
                       restaurant.url = restaurant_json[@"mobile_url"];
                       restaurant.rating = [(NSNumber *)restaurant_json[@"rating"] floatValue];
                       restaurant.reviews = [(NSNumber *)restaurant_json[@"review_count"] integerValue];
                       NSArray *list = restaurant_json[@"categories"];
                       NSArray *cuisines = [ENServerManager getArrayOfCategories:list];
                       restaurant.cuisines = cuisines;
-                      restaurant.objectID = restaurant_json[@"id"];
-                      restaurant.imageUrl = restaurant_json[@"food_image_url"];
+					  NSString *url = restaurant_json[@"food_image_url"];
+                      restaurant.imageUrls = [url componentsSeparatedByString:@","];
                       restaurant.phone = restaurant_json[@"phone"];
                       restaurant.name = restaurant_json[@"name"];
                       restaurant.price = [(NSNumber *)restaurant_json[@"price"] floatValue];
@@ -130,7 +131,9 @@
                       NSDictionary *scores = restaurant_json[@"score"];
                       NSNumber *totalScore = scores[@"total_score"];
                       if ([totalScore isEqual: [NSNull null]]) {
-                          NSNumber *commentScore = scores[@"comment_score"] != [NSNull null] ? scores[@"comment_score"]:@0;
+						  NSString *str = [NSString stringWithFormat:@"Returned null score (ID = %@", restaurant.ID];
+						  ENAlert(str);
+						  NSNumber *commentScore = scores[@"comment_score"] != [NSNull null] ? scores[@"comment_score"]:@0;
                           NSNumber *cuisineScore = scores[@"cuisine_score"] != [NSNull null] ? scores[@"cuisine_score"]:@0;
                           NSNumber *distanceScore = scores[@"distance_score"] != [NSNull null] ? scores[@"distance_score"]:@0;
                           NSNumber *priceScore = scores[@"price_score"] != [NSNull null] ? scores[@"price_score"]:@0;
@@ -140,9 +143,6 @@
                       restaurant.score = [totalScore floatValue];
                       
                       [_restaurants addObject:restaurant];
-                      
-                      NSLog(@"%@", restaurant);
-                      NSLog(@"Score: %@", restaurant_json[@"score"]);
                   }
                   
                   [_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];

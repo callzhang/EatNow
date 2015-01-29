@@ -30,7 +30,7 @@
 
 typedef void (^MDCSwipeToChooseOnPanBlock)(MDCPanState *state);
 typedef void (^MDCSwipeToChooseOnChosenBlock)(MDCSwipeResult *state);
-typedef void (^MDCSwipeToChooseOnTapBlock)(MDCSwipeResult *state);
+typedef void (^MDCSwipeToChooseOnTapBlock)(UITapGestureRecognizer *gesture);
 
 /*!
  * A set of options used to customize the behavior of the

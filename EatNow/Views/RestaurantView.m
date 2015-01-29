@@ -33,6 +33,11 @@
 @implementation ViewOwner
 @end
 
+@interface RestaurantView()
+@property (nonatomic) BOOL isLoadingImage;
+@property (nonatomic) NSInteger currentIdx;
+@end
+
 @implementation RestaurantView
 
 #pragma mark - Object Lifecycle
@@ -101,21 +106,10 @@
 }
 
 - (void)setRestaurant:(Restaurant *)restaurant{
-    _restaurant = restaurant;
-    if (restaurant.image) {
-        self.imageView.image = restaurant.image;
-    }else{
-        //download first
-        [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:restaurant.imageUrl]]
-                              placeholderImage:nil
-                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                           self.imageView.image = image;
-                                           _restaurant.image = image;
-                                       }
-                                       failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                           NSLog(@"*** Failed to download image with url: %@", restaurant.imageUrl);
-                                       }];
-    }
+	_restaurant = restaurant;
+	
+	_currentIdx = -1;
+	[self loadNextImage];
     
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
@@ -125,6 +119,58 @@
     self.distance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];
 }
 
+- (void)loadNextImage{
+	if (_isLoadingImage) {
+		NSLog(@"Loading image, skip");
+		return;
+	}
+	
+	_currentIdx = (_currentIdx + 1) % self.restaurant.imageUrls.count;
+	
+	//display if downloaded
+	if (self.restaurant.images.count > _currentIdx) {
+		[self showImage:self.restaurant.images[_currentIdx]];
+		return;
+	}
+	
+	//download
+	self.isLoadingImage = YES;
+	[self.loading startAnimating];
+	NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls[_currentIdx]];
+	//download first
+	[self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
+						  placeholderImage:self.imageView.image
+								   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+									   _isLoadingImage = NO;
+									   [self.loading stopAnimating];
+									   NSMutableArray *images = _restaurant.images.mutableCopy ?: [NSMutableArray arrayWithCapacity:_restaurant.imageUrls.count];
+									   [images addObject:image];
+									   _restaurant.images = images.copy;
+									   
+									   [self showImage:image];
+									   
+								   }
+								   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+									   NSLog(@"*** Failed to download image with error: %@", error);
+									   ENAlert(error.description);
+								   }];
+}
 
+- (void)showImage:(UIImage *)image{
+	
+	[UIView animateWithDuration:0.2 animations:^{
+		self.imageView.alpha = 0;
+	} completion:^(BOOL finished) {
+		self.imageView.image = image;
+		[UIView animateWithDuration:0.2 animations:^{
+			self.imageView.alpha = 1;
+		}];
+	}];
+	
+	//start next
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		[self loadNextImage];
+	});
+}
 
 @end

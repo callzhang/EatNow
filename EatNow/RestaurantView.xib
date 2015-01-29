@@ -157,12 +157,18 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="86g-sP-RKh">
+                    <rect key="frame" x="151" y="175" width="37" height="37"/>
+                    <color key="color" red="0.32003066990000001" green="0.55666045939999997" blue="0.70884627529999999" alpha="1" colorSpace="calibratedRGB"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="vBA-z5-zyo" secondAttribute="bottom" constant="40" id="32h-ux-1Ng"/>
+                <constraint firstItem="86g-sP-RKh" firstAttribute="centerX" secondItem="mLC-WA-DFq" secondAttribute="centerX" id="9Kr-o1-qAc"/>
                 <constraint firstAttribute="bottom" secondItem="Ygd-6W-mIc" secondAttribute="bottom" constant="20" id="BzA-VY-gz8"/>
                 <constraint firstAttribute="bottom" secondItem="ybQ-YV-xlH" secondAttribute="bottom" constant="40" id="DWc-qS-H4J"/>
+                <constraint firstItem="86g-sP-RKh" firstAttribute="centerY" secondItem="mLC-WA-DFq" secondAttribute="centerY" id="G28-zM-jve"/>
                 <constraint firstAttribute="bottom" secondItem="UBm-P4-9v6" secondAttribute="bottom" constant="55" id="IhH-Vw-ST1"/>
                 <constraint firstItem="C4P-ge-MdN" firstAttribute="centerX" secondItem="ybQ-YV-xlH" secondAttribute="centerX" constant="0.5" id="JLM-mh-k5P"/>
                 <constraint firstItem="mLC-WA-DFq" firstAttribute="top" secondItem="7ai-lF-xQI" secondAttribute="top" id="MKX-P9-ZlK"/>
@@ -200,6 +206,7 @@
                 <outlet property="cuisine" destination="Tmi-2p-kHa" id="Buc-r8-Q7c"/>
                 <outlet property="distance" destination="Ygd-6W-mIc" id="LcG-7A-Yvw"/>
                 <outlet property="imageView" destination="mLC-WA-DFq" id="j9S-Lw-i7Z"/>
+                <outlet property="loading" destination="86g-sP-RKh" id="2Gg-hP-JM5"/>
                 <outlet property="name" destination="UBm-P4-9v6" id="fU6-z4-v2p"/>
                 <outlet property="nopeLabel" destination="Y3Z-lR-KHo" id="WFA-gS-KBI"/>
                 <outlet property="price" destination="o66-Ku-E80" id="ZY8-Gp-fog"/>

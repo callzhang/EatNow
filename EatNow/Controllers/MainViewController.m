@@ -86,11 +86,6 @@
         NSLog(@"You noped %@.", self.currentRestaurant.name);
     } else {
         NSLog(@"You liked %@.", self.currentRestaurant.name);
-        RestaurantView *rv = (RestaurantView *)view;
-        NSString *url = rv.restaurant.url;
-        ENWebViewController *webView = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENWebViewController"];
-        webView.url = [NSURL URLWithString:url];
-        [self.navigationController pushViewController:webView animated:YES];
     }
 
     // MDCSwipeToChooseView removes the view from the view hierarchy
@@ -150,6 +145,14 @@
                                  CGRectGetHeight(frame));
         self.backCardView.frame = frame2;
     };
+	
+	options.onTap = ^(UITapGestureRecognizer *guesture){
+		RestaurantView *rv = (RestaurantView *)guesture.view;
+		NSString *url = rv.restaurant.url;
+		ENWebViewController *webView = [[UIStoryboard storyboardWithName:@"main" bundle:nil]  instantiateViewControllerWithIdentifier:NSStringFromClass([ENWebViewController class])];
+		webView.url = [NSURL URLWithString:url];
+		[self.navigationController pushViewController:webView animated:YES];
+	};
 
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
@@ -200,7 +203,11 @@
     });
     [self.loading startAnimating];
     [[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
-        //
+		if (!success){
+			NSString *str = [NSString stringWithFormat:@"Failed to get restaurant with error: %@", error];
+			ENAlert(str);
+			NSLog(@"%@", str);
+		}
     }];
 }
 

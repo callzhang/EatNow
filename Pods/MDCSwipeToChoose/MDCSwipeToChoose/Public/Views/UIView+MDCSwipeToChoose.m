@@ -40,7 +40,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     self.mdc_viewState = [MDCViewState new];
     self.mdc_viewState.originalCenter = self.center;
 
-    [self mdc_setupPanGestureRecognizer];
+    [self mdc_setupGestureRecognizer];
 }
 
 - (void)mdc_swipe:(MDCSwipeDirection)direction {
@@ -101,15 +101,16 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     }
 }
 
-- (void)mdc_setupPanGestureRecognizer {
+- (void)mdc_setupGestureRecognizer {
+	//pan
     SEL action = @selector(mdc_onSwipeToChoosePanGestureRecognizer:);
-    UIPanGestureRecognizer *panGestureRecognizer =
-    [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                            action:action];
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:action];
     [self addGestureRecognizer:panGestureRecognizer];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mdc_finalizePosition)];
-    [self addGestureRecognizer:tapGesture];
+	
+	//tap
+	SEL tap = @selector(mdc_onTapGestureRecognizer:);
+	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:tap];
+	[self addGestureRecognizer:tapGesture];
 }
 
 #pragma mark Translation
@@ -254,6 +255,10 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     }
 }
 
-
+- (void)mdc_onTapGestureRecognizer:(UITapGestureRecognizer *)tapGesture {
+	if (self.mdc_options.onTap) {
+		self.mdc_options.onTap(tapGesture);
+	}
+}
 
 @end

@@ -27,14 +27,14 @@
 
 @interface Restaurant : NSObject
 
+@property (nonatomic, strong) NSString *ID;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) NSString *imageUrl;
+@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSArray *imageUrls;
 @property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, assign) float rating;
 @property (nonatomic, assign) float price;
 @property (nonatomic, assign) NSUInteger reviews;
-@property (nonatomic, strong) NSString *objectID;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) CLLocation *location;
