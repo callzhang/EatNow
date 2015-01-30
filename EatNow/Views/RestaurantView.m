@@ -125,26 +125,33 @@
 		return;
 	}
 	
-	_currentIdx = (_currentIdx + 1) % self.restaurant.imageUrls.count;
+	NSInteger nextIdx = (_currentIdx + 1) % self.restaurant.imageUrls.count;
 	
 	//display if downloaded
-	if (self.restaurant.images.count > _currentIdx) {
-		[self showImage:self.restaurant.images[_currentIdx]];
-		return;
+	if (self.restaurant.images.count > nextIdx) {
+        if (self.restaurant.images[nextIdx] != [NSNull null]) {
+            _currentIdx = nextIdx;
+            [self showImage:self.restaurant.images[nextIdx]];
+            return;
+        }
 	}
 	
 	//download
 	self.isLoadingImage = YES;
 	[self.loading startAnimating];
-	NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls[_currentIdx]];
+	NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls[nextIdx]];
 	//download first
 	[self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
 						  placeholderImage:self.imageView.image
 								   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-									   _isLoadingImage = NO;
+                                       _currentIdx = nextIdx;
+                                       _isLoadingImage = NO;
 									   [self.loading stopAnimating];
 									   NSMutableArray *images = _restaurant.images.mutableCopy ?: [NSMutableArray arrayWithCapacity:_restaurant.imageUrls.count];
-									   [images addObject:image];
+                                       while (images.count <= _currentIdx) {
+                                           [images addObject:[NSNull null]];
+                                       }
+									   images[_currentIdx] = image;
 									   _restaurant.images = images.copy;
 									   
 									   [self showImage:image];
