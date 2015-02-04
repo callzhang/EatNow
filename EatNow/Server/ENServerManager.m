@@ -106,7 +106,7 @@
         NSLog(@"Request: %@", dic);
         [manager POST:kSearchUrl parameters:dic
               success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-                  NSLog(@"GET restaurant list %lu", (unsigned long)responseObject.count);
+                  NSLog(@"GET restaurant list %@", responseObject);
                   for (NSDictionary *restaurant_json in responseObject) {
                       Restaurant *restaurant = [Restaurant new];
 					  restaurant.ID = restaurant_json[@"id"];
