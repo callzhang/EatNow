@@ -11,6 +11,7 @@
 #define kFetchedRestaurantList      @"fetched_restaurant_list"
 #define kUpdatedLocation            @"updated_location"
 #define kFetchRestaurantFailed      @"fetch_restaurant_failed"
+#define kReachabilityChanged		@"reachability_changed"
 
 #import <Foundation/Foundation.h>
 @import CoreLocation;
