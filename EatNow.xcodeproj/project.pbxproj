@@ -54,8 +54,8 @@
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9BC8BE261A7AC87D0013EC91 /* ENDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDefines.h; sourceTree = "<group>"; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = EatNow/main.storyboard; sourceTree = SOURCE_ROOT; };
-		9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWebViewController.h; sourceTree = "<group>"; };
-		9BF9CC701A72301600B76D92 /* ENWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWebViewController.m; sourceTree = "<group>"; };
+		9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENWebViewController.h; path = ../../ENWebViewController.h; sourceTree = "<group>"; };
+		9BF9CC701A72301600B76D92 /* ENWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENWebViewController.m; path = ../../ENWebViewController.m; sourceTree = "<group>"; };
 		9BF9CC721A73869000B76D92 /* ENRestaurantViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantViewContainer.h; sourceTree = "<group>"; };
 		9BF9CC731A73869000B76D92 /* ENRestaurantViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantViewContainer.m; sourceTree = "<group>"; };
 		DA5B73E518F233EF00BB5F8E /* EatNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,9 +129,6 @@
 		DA5B73DC18F233EF00BB5F8E = {
 			isa = PBXGroup;
 			children = (
-				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
-				9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */,
-				9BF9CC701A72301600B76D92 /* ENWebViewController.m */,
 				DA5B73EE18F233EF00BB5F8E /* EatNow */,
 				DA5B740718F233EF00BB5F8E /* LikedOrNopeTests */,
 				DA5B73E718F233EF00BB5F8E /* Frameworks */,
@@ -165,6 +162,7 @@
 		DA5B73EE18F233EF00BB5F8E /* EatNow */ = {
 			isa = PBXGroup;
 			children = (
+				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
 				DA5B73F718F233EF00BB5F8E /* AppDelegate.h */,
 				DA5B73F818F233EF00BB5F8E /* AppDelegate.m */,
 				9B23A9B91A27AC7E00549871 /* Server */,
@@ -212,6 +210,8 @@
 		DA5B745418F239B700BB5F8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */,
+				9BF9CC701A72301600B76D92 /* ENWebViewController.m */,
 				9BF9CC721A73869000B76D92 /* ENRestaurantViewContainer.h */,
 				9BF9CC731A73869000B76D92 /* ENRestaurantViewContainer.m */,
 				DA5B745518F239B700BB5F8E /* MainViewController.h */,

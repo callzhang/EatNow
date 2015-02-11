@@ -46,6 +46,17 @@
             [[[UIAlertView alloc] initWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Setting", nil] show];
         }else{
             [_locationManager startUpdatingLocation];
+#ifdef DEBUG
+            //use default location in 10s
+            if (_currentLocation) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [[[UIAlertView alloc] initWithTitle:@"Warning" message:@"No location obtained, using fake location" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
+                    NSLog(@"Using fake location");
+                    _currentLocation = [[CLLocation alloc] initWithLatitude:41 longitude:-79];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kUpdatedLocation object:_currentLocation];
+                });
+            }
+#endif
         }
         
         //indicator

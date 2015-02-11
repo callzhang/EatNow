@@ -27,6 +27,7 @@
 #import "Restaurant.h"
 #import "UIImageView+AFNetworking.h"
 #import "ENServerManager.h"
+#import "ENRestaurantViewContainer.h"
 
 //static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
@@ -61,9 +62,10 @@
 //}
 
 + (instancetype)initViewWithOptions:(MDCSwipeOptions *)options{
-    ViewOwner *owner = [ViewOwner new];
-    [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
-    RestaurantView *view = owner.subclassedView;
+    //ViewOwner *owner = [ViewOwner new];
+    //[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
+    ENRestaurantViewContainer *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENRestaurantViewContainer"];
+    RestaurantView *view = container.restaurantView;
     
     //customize view
     view.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.5].CGColor;
