@@ -13,6 +13,7 @@
 
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) AFNetworkReachabilityManager *reachability;
 @end
 
 
@@ -50,6 +51,13 @@
         
         //indicator
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+		
+		//reachability
+		self.reachability = [AFNetworkReachabilityManager sharedManager];
+		[self.reachability startMonitoring];
+		[self.reachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+			[[NSNotificationCenter defaultCenter] postNotificationName:kReachabilityChanged object:@(status)];
+		}];
     }
     return self;
 }
@@ -90,7 +98,7 @@
         
         _isRequesting = YES;
         
-        NSLog(@"Got location, start requesting");
+        NSLog(@"Start requesting restaurants");
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         
