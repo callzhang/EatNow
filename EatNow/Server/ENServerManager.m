@@ -10,6 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Restaurant.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "FBKVOController.h"
 
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -47,14 +48,17 @@
             [[[UIAlertView alloc] initWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Setting", nil] show];
         }else{
             [_locationManager startUpdatingLocation];
+			//add getting location trait
+			self.status = self.status & GettingLocation;
 #ifdef DEBUG
             //use default location in 10s
             if (_currentLocation) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [[[UIAlertView alloc] initWithTitle:@"Warning" message:@"No location obtained, using fake location" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
                     NSLog(@"Using fake location");
-                    _currentLocation = [[CLLocation alloc] initWithLatitude:41 longitude:-79];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kUpdatedLocation object:_currentLocation];
+                    _currentLocation = [[CLLocation alloc] initWithLatitude:41 longitude:-73];
+					self.status = self.status & ~GettingLocation;
+					self.status = self.status & GotLocation;
                 });
             }
 #endif
@@ -66,8 +70,26 @@
 		//reachability
 		self.reachability = [AFNetworkReachabilityManager sharedManager];
 		[self.reachability startMonitoring];
+		__block ENServerManager *weakManager = self;
 		[self.reachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-			[[NSNotificationCenter defaultCenter] postNotificationName:kReachabilityChanged object:@(status)];
+			switch (status) {
+				case AFNetworkReachabilityStatusUnknown:{
+					weakManager.status |= DeterminReachability;
+					weakManager.status &= ~IsReachable;
+				}
+					break;
+				case AFNetworkReachabilityStatusNotReachable:{
+					weakManager.status &= ~DeterminReachability;
+					weakManager.status &= ~IsReachable;
+				}
+					break;
+
+				default:{
+					weakManager.status &= ~DeterminReachability;
+					weakManager.status |= IsReachable;
+				}
+					break;
+			}
 		}];
     }
     return self;
@@ -86,29 +108,30 @@
         _currentLocation = nil;
     }
     //first remove old location
-    if (!_currentLocation) {
-        NSLog(@"No location yet, locating.");
-        _isRequesting = NO;
+    if (!_currentLocation || (self.status & GettingLocation)) {
+        NSLog(@"locating, delay request");
+        self.status = self.status & ~FetchingRestaurant;
         //request new location and watch for the notification
         //start location manager
         [_locationManager startUpdatingLocation];
         
         //listen to updates
-        [[NSNotificationCenter defaultCenter] addObserverForName:kUpdatedLocation object:nil queue:nil usingBlock:^(NSNotification *note) {
-            [self getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
-                if (block) {
-                    block(success, error);
-                }
-            }];
+        [self.KVOController observe:self keyPath:@"status" options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *object, NSDictionary *change) {
+			if (object.status & GotLocation) {
+				[self getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
+					if (block) {
+						block(success, error);
+					}
+				}];
+			}
         }];
     }else{
-        if (_isRequesting) {
-            NSLog(@"Already requesting restaurants from server, skip");
-            return;
-        }
-        
-        _isRequesting = YES;
-        
+		if (self.status & FetchingRestaurant) {
+			NSLog(@"Already requesting restaurant.");
+			return;
+		}
+		self.status |= FetchingRestaurant;
+		
         NSLog(@"Start requesting restaurants");
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -135,8 +158,7 @@
                       NSArray *list = restaurant_json[@"categories"];
                       NSArray *cuisines = [ENServerManager getArrayOfCategories:list];
                       restaurant.cuisines = cuisines;
-					  NSString *url = restaurant_json[@"food_image_url"];
-                      restaurant.imageUrls = [url componentsSeparatedByString:@","];
+					  restaurant.imageUrls = restaurant_json[@"food_image_url"];
                       restaurant.phone = restaurant_json[@"phone"];
                       restaurant.name = restaurant_json[@"name"];
                       restaurant.price = [(NSNumber *)restaurant_json[@"price"] floatValue];
@@ -165,25 +187,24 @@
                   }
                   
                   [_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
-                  
-                  //post notification
-                  [[NSNotificationCenter defaultCenter] postNotificationName:kFetchedRestaurantList object:nil];
-                  
+				  
+				  
                   if (block) {
                       block(YES, nil);
-                  }
-                  _isRequesting = NO;
-                  
+				  }
+				  
+				  //post notification
+				  self.status |= FetchedRestaurant;
+				  self.status &= FetchingRestaurant;
+				  
               }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
                   
                   NSLog(@"Failed to get restaurant list with Error: %@", error);
                   if (block) {
                       block(NO, error);
                   }
-                  _isRequesting = NO;
-                  
-                  //[self getRestaurantListWithCompletion:NULL];
-                  [[NSNotificationCenter defaultCenter] postNotificationName:kFetchRestaurantFailed object:nil];
+				  self.status &= ~FetchedRestaurant;
+				  self.status |= FetchedRestaurant;
               }];
         
     }
@@ -195,7 +216,8 @@
     _lastUpdatedLocation = [NSDate date];
     NSLog(@"Get location of %@", locations);
     [_locationManager stopUpdatingLocation];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kUpdatedLocation object:locations.lastObject];
+	self.status &= ~GettingLocation;
+	self.status |= GotLocation;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {

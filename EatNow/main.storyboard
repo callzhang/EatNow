@@ -68,10 +68,22 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4Vu-uF-I11">
                                         <rect key="frame" x="142" y="187" width="20" height="20"/>
                                     </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wl0-KL-zNt">
+                                        <rect key="frame" x="47" y="215" width="211" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="3T6-2n-x6D"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.70999999999999996" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="4Vu-uF-I11" secondAttribute="centerY" id="47u-f2-gpv"/>
+                                    <constraint firstItem="Wl0-KL-zNt" firstAttribute="leading" secondItem="2kN-sq-rqs" secondAttribute="leading" constant="47" id="9i2-3K-Vc2"/>
                                     <constraint firstAttribute="centerX" secondItem="4Vu-uF-I11" secondAttribute="centerX" id="mHn-cZ-Ukc"/>
+                                    <constraint firstItem="Wl0-KL-zNt" firstAttribute="top" secondItem="4Vu-uF-I11" secondAttribute="bottom" constant="8" id="qEG-Zr-QFL"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wl0-KL-zNt" secondAttribute="trailing" constant="46" id="r4x-vc-XoV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -99,6 +111,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="loading" destination="4Vu-uF-I11" id="iBD-mk-ggI"/>
+                        <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
                         <outlet property="restaurantFrame" destination="2kN-sq-rqs" id="dgo-lb-3c1"/>
                     </connections>
                 </viewController>

@@ -8,77 +8,41 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
+		</dict>
+		<key>Pods-KVOController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-MDCSwipeToChoose.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>039CD2E99C47E464C6DC69EF</key>
+		<key>215F896ED36E7C0C355D95AB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>094B5E30FEC4F1B62BC55404</key>
+		<key>3E98FAE753B761184A257E50</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3DCB24E27BA6DFFAD39EDC56</key>
+		<key>9C6B54C5AA6C01288685269D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5B58D7CC4064E08E881D9CE1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>67DC1D34A67BCDE648FCE2DD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9D9EFE107877219FCABA9FD5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AD0FCC824A8D7459264EF568</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C80350F4D106C8CFA9FF6562</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CF6144A8AE1910217F21418E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D02C48C0E9363D979BD700B8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FADD46DA6086507A3558EE9F</key>
+		<key>D29DCD064DEB23EB2F7693BD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
