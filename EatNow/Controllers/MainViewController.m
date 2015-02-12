@@ -28,7 +28,6 @@
 #import "ENServerManager.h"
 #import "ENWebViewController.h"
 #import "FBKVOController.h"
-#import "MDCSwipeOptions+EatNow.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -71,28 +70,38 @@
 			self.loadingInfo.text = @"Finding the best restaurant";
 		} else{
 			if (manager.status & IsReachable){
-				self.loadingInfo.text = @"";
-				//stop loading
-				[self.loading stopAnimating];
-				//read list
-				[self getRestaurants];
-				
-				// Display the first ChoosePersonView in front. Users can swipe to indicate
-				// whether they like or dislike the person displayed.
-				self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
-				[self.view addSubview:self.frontCardView];
-				
-				// Display the second ChoosePersonView in back. This view controller uses
-				// the MDCSwipeToChooseDelegate protocol methods to update the front and
-				// back views after each user swipe.
-				self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
-				[self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+				[self showRestaurants];
 			}else{
 				self.loadingInfo.text = @"Failed to get restaurant list";
 			}
 		}
 	}];
+	
+	[[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
+		if (success) {
+			[self showRestaurants];
+		}
+	}];
+}
 
+- (void)showRestaurants{
+	
+	self.loadingInfo.text = @"";
+	//stop loading
+	[self.loading stopAnimating];
+	//read list
+	[self getRestaurants];
+	
+	// Display the first ChoosePersonView in front. Users can swipe to indicate
+	// whether they like or dislike the person displayed.
+	self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
+	[self.view addSubview:self.frontCardView];
+	
+	// Display the second ChoosePersonView in back. This view controller uses
+	// the MDCSwipeToChooseDelegate protocol methods to update the front and
+	// back views after each user swipe.
+	self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
+	[self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -235,6 +244,8 @@
 			NSString *str = [NSString stringWithFormat:@"Failed to get restaurant with error: %@", error];
 			ENAlert(str);
 			NSLog(@"%@", str);
+		} else {
+			[self showRestaurants];
 		}
     }];
 }

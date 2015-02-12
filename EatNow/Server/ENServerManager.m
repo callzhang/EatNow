@@ -194,8 +194,8 @@
 				  }
 				  
 				  //post notification
+				  self.status &= ~FetchingRestaurant;
 				  self.status |= FetchedRestaurant;
-				  self.status &= FetchingRestaurant;
 				  
               }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
                   
