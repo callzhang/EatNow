@@ -22,6 +22,8 @@ typedef NS_OPTIONS(NSUInteger, DZNWebNavigationTools) {
     DZNWebNavigationToolBackward = (1 << 0),
     DZNWebNavigationToolForward = (1 << 1),
     DZNWebNavigationToolStopReload = (1 << 2),
+    ENWebNavigationToolDislike = 1<<3,
+    ENWebNavigationToolLike = 1 << 4,
 };
 
 /**

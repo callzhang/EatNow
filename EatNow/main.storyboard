@@ -44,26 +44,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mm2-PP-OMh">
-                                <rect key="frame" x="0.0" y="508" width="160" height="60"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="tEP-W1-yh6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="18"/>
-                                <state key="normal" image="circle-with-minus">
-                                    <color key="titleColor" red="0.3843137254901961" green="0.71372549019607845" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.70999999999999996" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="nope:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="NrF-RU-534"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kN-sq-rqs">
-                                <rect key="frame" x="8" y="64" width="304" height="414"/>
+                                <rect key="frame" x="8" y="64" width="304" height="440"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wl0-KL-zNt">
-                                        <rect key="frame" x="47" y="225" width="211" height="21"/>
+                                        <rect key="frame" x="47" y="238" width="211" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="3T6-2n-x6D"/>
                                         </constraints>
@@ -72,7 +57,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4Vu-uF-I11">
-                                        <rect key="frame" x="142" y="197" width="20" height="20"/>
+                                        <rect key="frame" x="142" y="210" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
                                 <constraints>
@@ -83,43 +68,75 @@
                                     <constraint firstAttribute="trailing" secondItem="Wl0-KL-zNt" secondAttribute="trailing" constant="46" id="r4x-vc-XoV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYq-YI-WqA">
-                                <rect key="frame" x="160" y="508" width="160" height="60"/>
-                                <color key="backgroundColor" red="0.27058823529411763" green="0.67450980392156867" blue="0.79607843137254897" alpha="1" colorSpace="calibratedRGB"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8F-F7-Zwn">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="4YA-4X-lsY"/>
-                                    <constraint firstAttribute="height" constant="30" id="hth-IT-tKc"/>
+                                    <constraint firstAttribute="height" constant="44" id="dhI-uM-gQi"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="18"/>
-                                <color key="tintColor" red="0.064888718649999996" green="1" blue="0.1209398265" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="heart-outlined">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="hth-IT-tKc"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="like:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="I9T-pF-uqt"/>
-                                </connections>
-                            </button>
+                                <items>
+                                    <barButtonItem style="plain" id="5K3-AP-nza">
+                                        <button key="customView" opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mm2-PP-OMh">
+                                            <rect key="frame" x="16" y="0.0" width="160" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="60" id="tEP-W1-yh6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="18"/>
+                                            <state key="normal" image="circle-with-minus">
+                                                <color key="titleColor" red="0.3843137254901961" green="0.71372549019607845" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="tEP-W1-yh6"/>
+                                                </mask>
+                                            </variation>
+                                            <connections>
+                                                <action selector="nope:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="NrF-RU-534"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="fixedSpace" id="tBH-bh-r0h"/>
+                                    <barButtonItem style="plain" id="inw-bS-h8d">
+                                        <button key="customView" opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LYq-YI-WqA">
+                                            <rect key="frame" x="150" y="-8" width="160" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.27058823529411763" green="0.67450980392156867" blue="0.79607843137254897" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="4YA-4X-lsY"/>
+                                                <constraint firstAttribute="height" constant="30" id="hth-IT-tKc"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="18"/>
+                                            <color key="tintColor" red="0.064888718649999996" green="1" blue="0.1209398265" alpha="1" colorSpace="calibratedRGB"/>
+                                            <state key="normal" image="heart-outlined">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="hth-IT-tKc"/>
+                                                </mask>
+                                            </variation>
+                                            <connections>
+                                                <action selector="like:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="I9T-pF-uqt"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="fixedSpace" id="cR1-Jz-taq"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.4030108821448618" green="0.7724708017676768" blue="0.74289356001606066" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="LYq-YI-WqA" secondAttribute="bottom" id="2r6-xz-FHE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="H8F-F7-Zwn" secondAttribute="trailing" constant="-16" id="3U3-qP-SpA"/>
+                            <constraint firstItem="H8F-F7-Zwn" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" constant="-16" id="5Z7-98-GOM"/>
                             <constraint firstItem="2kN-sq-rqs" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="top" id="ERT-49-bFS"/>
-                            <constraint firstItem="mm2-PP-OMh" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" constant="-16" id="KTK-Kz-Kaa"/>
                             <constraint firstItem="2kN-sq-rqs" firstAttribute="trailingMargin" secondItem="Z8L-6K-Fh8" secondAttribute="trailingMargin" id="OSt-2q-IaW"/>
                             <constraint firstItem="2kN-sq-rqs" firstAttribute="leadingMargin" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="SmU-Oa-8Do"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LYq-YI-WqA" secondAttribute="trailing" constant="-16" id="TbT-Zm-0aD"/>
-                            <constraint firstItem="mm2-PP-OMh" firstAttribute="height" secondItem="LYq-YI-WqA" secondAttribute="height" id="cu9-DZ-3cS"/>
-                            <constraint firstItem="LYq-YI-WqA" firstAttribute="width" secondItem="mm2-PP-OMh" secondAttribute="width" id="gTO-QK-5lH"/>
-                            <constraint firstItem="LYq-YI-WqA" firstAttribute="leading" secondItem="mm2-PP-OMh" secondAttribute="trailing" id="hGf-Kp-m6Q"/>
-                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="mm2-PP-OMh" secondAttribute="bottom" id="vzL-la-q3k"/>
-                            <constraint firstItem="mm2-PP-OMh" firstAttribute="top" secondItem="2kN-sq-rqs" secondAttribute="bottom" constant="30" id="y6S-rm-z2W"/>
+                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="H8F-F7-Zwn" secondAttribute="bottom" id="Zta-DW-Fks"/>
+                            <constraint firstItem="H8F-F7-Zwn" firstAttribute="top" secondItem="2kN-sq-rqs" secondAttribute="bottom" constant="20" id="dde-bu-qup"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4">
@@ -346,40 +363,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ePo-du-8DY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="663" y="597"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="blQ-t6-pd1">
-            <objects>
-                <viewController id="lnT-80-Nob" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oAc-52-ZoH"/>
-                        <viewControllerLayoutGuide type="bottom" id="Pji-ba-9by"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="opP-GP-fYr">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aZf-k3-yuU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="h9o-hn-hTi">
-            <objects>
-                <viewController id="r2z-xf-siw" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="epf-TB-Sza"/>
-                        <viewControllerLayoutGuide type="bottom" id="OHU-xn-Ucx"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="EgY-5e-MZ3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oUp-IS-wGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

@@ -62,8 +62,12 @@
 //}
 
 + (instancetype)initViewWithOptions:(MDCSwipeOptions *)options{
-    //ViewOwner *owner = [ViewOwner new];
-    //[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
+//    DDLogInfo(@"Trying to load restaurant view from xib");
+//    TIC
+//    ViewOwner *owner = [ViewOwner new];
+//    [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
+//    TOC
+//    DDLogInfo(@"Trying to load restaurant view from storyboard");
     ENRestaurantViewContainer *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENRestaurantViewContainer"];
     RestaurantView *view = (RestaurantView *)container.view;
 	NSAssert(view, @"Failed to load restaurant view");

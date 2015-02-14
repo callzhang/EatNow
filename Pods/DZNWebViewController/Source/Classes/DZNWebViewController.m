@@ -236,6 +236,14 @@ static char DZNWebViewControllerKVOContext = 0;
         [items addObject:self.actionBarItem];
     }
     
+    if (self.supportedWebNavigationTools & ENWebNavigationToolLike) {
+        //add like
+    }
+    
+    if (self.supportedWebNavigationTools & ENWebNavigationToolDislike) {
+        //add dislike
+    }
+    
     return items;
 }
 

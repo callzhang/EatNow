@@ -202,8 +202,11 @@
 		WVC.showLoadingProgress = YES;
 		WVC.allowHistory = YES;
 		WVC.hideBarsWithGestures = YES;
-		//UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:WVC];
-		[self.navigationController pushViewController:WVC animated:YES];
+        [self.navigationController pushViewController:WVC animated:YES];
+        
+        //present
+        //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:WVC];
+        //UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
 		//[self presentViewController:nav animated:YES completion:nil];
 	};
 
@@ -218,6 +221,11 @@
     [self.restaurants removeObjectAtIndex:0];
     return card;
 }
+
+- (IBAction)close:(id)sender{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 #pragma mark - View Contruction
 
