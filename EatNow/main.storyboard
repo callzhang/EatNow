@@ -12,6 +12,7 @@
             <string>Entypo</string>
             <string>Entypo</string>
             <string>Entypo</string>
+            <string>Entypo</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -68,27 +69,6 @@
                                     <constraint firstAttribute="trailing" secondItem="Wl0-KL-zNt" secondAttribute="trailing" constant="46" id="r4x-vc-XoV"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86">
-                                <rect key="frame" x="0.0" y="524" width="160" height="44"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Oy4-wp-pBF"/>
-                                    <constraint firstAttribute="height" constant="60" id="kGT-7p-b6o"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="18"/>
-                                <state key="normal" image="circle-with-minus">
-                                    <color key="titleColor" red="0.38431372549999998" green="0.71372549019999998" blue="0.62745098040000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="kGT-7p-b6o"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="nope:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="XpY-Ab-9VQ"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-QR-9Zu">
                                 <rect key="frame" x="160" y="524" width="160" height="44"/>
                                 <color key="backgroundColor" red="0.27058823529999998" green="0.67450980390000004" blue="0.79607843140000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -97,9 +77,9 @@
                                     <constraint firstAttribute="height" constant="30" id="qc6-KN-dss"/>
                                     <constraint firstAttribute="height" constant="44" id="yDM-ir-tem"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="18"/>
+                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="60"/>
                                 <color key="tintColor" red="0.064888718649999996" green="1" blue="0.1209398265" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="heart-outlined">
+                                <state key="normal" title="♥">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -110,6 +90,26 @@
                                 </variation>
                                 <connections>
                                     <action selector="like:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="Zyw-cy-iP5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86">
+                                <rect key="frame" x="0.0" y="524" width="160" height="44"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Oy4-wp-pBF"/>
+                                    <constraint firstAttribute="height" constant="60" id="kGT-7p-b6o"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="60"/>
+                                <state key="normal" title="✖">
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kGT-7p-b6o"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="nope:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="XpY-Ab-9VQ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -129,10 +129,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="DJz-bI-xop">
-                            <color key="tintColor" red="0.40301088210000002" green="0.77247080180000005" blue="0.74289355999999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="LMB-kh-dRc">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Zng-ue-or6">
+                                <rect key="frame" x="90" y="376" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="60"/>
+                                <state key="normal" title="⚙">
+                                    <color key="titleColor" red="0.58462993240000005" green="0.83224415890000003" blue="0.85124684350000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                             <connections>
-                                <action selector="refresh:" destination="N2Z-hj-BcO" id="Spk-94-SQE"/>
+                                <action selector="more:" destination="N2Z-hj-BcO" id="p35-YS-3dj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -354,8 +362,4 @@
             <point key="canvasLocation" x="663" y="597"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="circle-with-minus" width="18" height="18"/>
-        <image name="heart-outlined" width="18" height="14"/>
-    </resources>
 </document>

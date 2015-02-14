@@ -256,7 +256,7 @@
 - (IBAction)refresh:(id)sender {
     [ENServerManager sharedInstance].currentLocation = nil;
     [ENServerManager sharedInstance].status = IsReachable;
-    self.restaurants = nil;
+    [self.restaurants removeAllObjects];
     [self nope:nil];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self nope:nil];
@@ -272,6 +272,11 @@
 		}
     }];
 }
+
+- (IBAction)more:(id)sender {
+    
+}
+
 
 //- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
 //	if ([segue.destinationViewController isKindOfClass:[DZNWebViewController class]]) {

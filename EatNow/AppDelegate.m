@@ -26,10 +26,12 @@
 #import "MainViewController.h"
 #import "ENServerManager.h"
 #import "ENUtil.h"
+#import "Crashlytics.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Crashlytics startWithAPIKey:@"6ec9eab6ca26fcd18d51d0322752b861c63bc348"];
 	[ENUtil initLogging];
 	ENServerManager *manager = [ENServerManager sharedInstance];
     [manager getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
