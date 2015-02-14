@@ -28,8 +28,8 @@
 #import "ENServerManager.h"
 #import "ENWebViewController.h"
 #import "FBKVOController.h"
-#import "DZNWebViewController.h"
-#import "RestaurantView.h"
+//#import "DZNWebViewController.h"
+#import "JBWebViewController.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -171,8 +171,6 @@
     if ([self.restaurants count] == 0) {
         return nil;
     }
-	static DZNWebViewController *WVC;
-
     // UIView+MDCSwipeToChoose and MDCSwipeToChooseView are heavily customizable.
     // Each take an "options" argument. Here, we specify the view controller as
     // a delegate, and provide a custom callback that moves the back card view
@@ -193,21 +191,16 @@
 	options.onTap = ^(UITapGestureRecognizer *guesture){
 		NSLog(@"Tapped");
 		RestaurantView *rv = (RestaurantView *)guesture.view;
-		NSURL *url = [NSURL URLWithString:rv.restaurant.url];
-		if (!WVC || ![WVC.URL isEqual:url]) {
-			WVC = [[DZNWebViewController alloc] initWithURL:url];
-		}
-		WVC.supportedWebNavigationTools = DZNWebNavigationToolAll;
-		WVC.supportedWebActions = DZNWebActionAll;
-		WVC.showLoadingProgress = YES;
-		WVC.allowHistory = YES;
-		WVC.hideBarsWithGestures = YES;
-        [self.navigationController pushViewController:WVC animated:YES];
+        NSURL *url = [NSURL URLWithString:rv.restaurant.url];
+        JBWebViewController *webVC = [[JBWebViewController alloc] initWithUrl:url];
+		//webVC.supportedWebNavigationTools = DZNWebNavigationToolAll;
+        //[self.navigationController pushViewController:WVC animated:YES];
         
         //present
-        //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:WVC];
-        //UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
-		//[self presentViewController:nav animated:YES completion:nil];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webVC];
+        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
+        webVC.navigationItem.rightBarButtonItem = close;
+		[self.navigationController presentViewController:nav animated:YES completion:nil];
 	};
 
     // Create a personView with the top person in the people array, then pop
@@ -257,6 +250,8 @@
 }
 
 - (IBAction)refresh:(id)sender {
+    [ENServerManager sharedInstance].currentLocation = nil;
+    [ENServerManager sharedInstance].status = IsReachable;
     self.restaurants = nil;
     [self nope:nil];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -274,11 +269,11 @@
     }];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-	if ([segue.destinationViewController isKindOfClass:[DZNWebViewController class]]) {
-		DZNWebViewController *controller = (DZNWebViewController *)segue.destinationViewController;
-		controller.URL = [NSURL URLWithString:self.frontCardView.restaurant.url];
-	}
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//	if ([segue.destinationViewController isKindOfClass:[DZNWebViewController class]]) {
+//		DZNWebViewController *controller = (DZNWebViewController *)segue.destinationViewController;
+//		controller.URL = [NSURL URLWithString:self.frontCardView.restaurant.url];
+//	}
+//}
 
 @end

@@ -48,6 +48,18 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// ARChromeActivity
+#define COCOAPODS_POD_AVAILABLE_ARChromeActivity
+#define COCOAPODS_VERSION_MAJOR_ARChromeActivity 1
+#define COCOAPODS_VERSION_MINOR_ARChromeActivity 0
+#define COCOAPODS_VERSION_PATCH_ARChromeActivity 0
+
+// ARSafariActivity
+#define COCOAPODS_POD_AVAILABLE_ARSafariActivity
+#define COCOAPODS_VERSION_MAJOR_ARSafariActivity 0
+#define COCOAPODS_VERSION_MINOR_ARSafariActivity 0
+#define COCOAPODS_VERSION_PATCH_ARSafariActivity 1
+
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
 #define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 2
@@ -85,11 +97,11 @@
 #define COCOAPODS_VERSION_MINOR_CrashlyticsLumberjack 0
 #define COCOAPODS_VERSION_PATCH_CrashlyticsLumberjack 0
 
-// DZNWebViewController
-#define COCOAPODS_POD_AVAILABLE_DZNWebViewController
-#define COCOAPODS_VERSION_MAJOR_DZNWebViewController 3
-#define COCOAPODS_VERSION_MINOR_DZNWebViewController 0
-#define COCOAPODS_VERSION_PATCH_DZNWebViewController 0
+// JBWebViewController
+#define COCOAPODS_POD_AVAILABLE_JBWebViewController
+#define COCOAPODS_VERSION_MAJOR_JBWebViewController 1
+#define COCOAPODS_VERSION_MINOR_JBWebViewController 0
+#define COCOAPODS_VERSION_PATCH_JBWebViewController 6
 
 // KVOController
 #define COCOAPODS_POD_AVAILABLE_KVOController
@@ -102,4 +114,22 @@
 #define COCOAPODS_VERSION_MAJOR_MDCSwipeToChoose 0
 #define COCOAPODS_VERSION_MINOR_MDCSwipeToChoose 2
 #define COCOAPODS_VERSION_PATCH_MDCSwipeToChoose 2
+
+// NJKWebViewProgress
+#define COCOAPODS_POD_AVAILABLE_NJKWebViewProgress
+#define COCOAPODS_VERSION_MAJOR_NJKWebViewProgress 0
+#define COCOAPODS_VERSION_MINOR_NJKWebViewProgress 2
+#define COCOAPODS_VERSION_PATCH_NJKWebViewProgress 0
+
+// NJKWebViewProgress/Core
+#define COCOAPODS_POD_AVAILABLE_NJKWebViewProgress_Core
+#define COCOAPODS_VERSION_MAJOR_NJKWebViewProgress_Core 0
+#define COCOAPODS_VERSION_MINOR_NJKWebViewProgress_Core 2
+#define COCOAPODS_VERSION_PATCH_NJKWebViewProgress_Core 0
+
+// NJKWebViewProgress/ProgressView
+#define COCOAPODS_POD_AVAILABLE_NJKWebViewProgress_ProgressView
+#define COCOAPODS_VERSION_MAJOR_NJKWebViewProgress_ProgressView 0
+#define COCOAPODS_VERSION_MINOR_NJKWebViewProgress_ProgressView 2
+#define COCOAPODS_VERSION_PATCH_NJKWebViewProgress_ProgressView 0
 

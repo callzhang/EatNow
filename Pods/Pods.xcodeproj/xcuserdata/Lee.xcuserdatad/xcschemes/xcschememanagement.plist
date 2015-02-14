@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-ARChromeActivity.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ARSafariActivity.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -24,7 +34,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-DZNWebViewController.xcscheme</key>
+		<key>Pods-JBWebViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -39,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-NJKWebViewProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,42 +62,57 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>172E38E7836EA46353977A96</key>
+		<key>26206067C9AFBA8A60E05B0D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2F4CBB6AA4A32D6C3928FDB0</key>
+		<key>2BC2CA4FD319BD77D7C598CF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>32EB4FFE8B09E5C86B8A28D5</key>
+		<key>38C2B4DCDFDE4212AA083C48</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>57C8039917A94CCFDF03E881</key>
+		<key>5883B8B16274D72B570DFEA9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C94CA40D0F1438E446D2E0B</key>
+		<key>5F6CCA70F68CA1CDA402AEAF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5EFA6EBF4F6E272741D81302</key>
+		<key>75CF9E29A536AF686173EFF1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6575C239A2167248A528C88C</key>
+		<key>7E7EF3F74AD92D4251A0064E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FBA0AC497FE5237D533DC8A3</key>
+		<key>9B873D3DBFCC228B4CE1B59F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C9CF2EB539CB9D6A0D999758</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DB5B42EB79ECD3ADE27EB922</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E497092C312BF855638A80CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
