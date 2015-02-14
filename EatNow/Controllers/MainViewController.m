@@ -57,6 +57,7 @@
 				self.loadingInfo.text = @"Connected";
 			}else{
 				self.loadingInfo.text = @"No internet connection";
+                return;
 			}
 		}
 		if (manager.status & GettingLocation) {
@@ -66,15 +67,17 @@
 				self.loadingInfo.text = @"Got location";
 			}else{
 				self.loadingInfo.text = @"Failed to get location";
+                return;
 			}
 		}
 		if (manager.status & FetchingRestaurant) {
 			self.loadingInfo.text = @"Finding the best restaurant";
 		} else{
-			if (manager.status & IsReachable){
+			if (manager.status & FetchedRestaurant){
 				[self showRestaurants];
 			}else{
 				self.loadingInfo.text = @"Failed to get restaurant list";
+                return;
 			}
 		}
 	}];
@@ -95,7 +98,7 @@
 	[self getRestaurants];
 	
 	if (self.frontCardView) {
-		NSLog(@"=== Front view already exists, skip showing restaurant");
+		DDLogWarn(@"=== Front view already exists, skip showing restaurant");
 		return;
 	}
 	// Display the first ChoosePersonView in front. Users can swipe to indicate
@@ -136,7 +139,8 @@
     // MDCSwipeOptions class). Since the front card view is gone, we
     // move the back card to the front, and create a new back card.
     self.frontCardView = self.backCardView;
-    if ((self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]])) {
+    self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
+    if (self.backCardView) {
         // Fade the back card into view.
         self.backCardView.alpha = 0.f;
         [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
