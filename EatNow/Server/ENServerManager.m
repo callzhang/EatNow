@@ -118,6 +118,7 @@
         //listen to updates
         [self.KVOController observe:self keyPath:@"status" options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *object, NSDictionary *change) {
 			if (object.status & GotLocation) {
+				[self.KVOController unobserve:self keyPath:@"status"];
 				[self getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
 					if (block) {
 						block(success, error);
@@ -148,7 +149,7 @@
         NSLog(@"Request: %@", dic);
         [manager POST:kSearchUrl parameters:dic
               success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-                  NSLog(@"GET restaurant list %@", responseObject);
+                  NSLog(@"GET restaurant list %ld", responseObject.count);
                   for (NSDictionary *restaurant_json in responseObject) {
                       Restaurant *restaurant = [Restaurant new];
 					  restaurant.ID = restaurant_json[@"id"];
@@ -184,9 +185,12 @@
                       restaurant.score = [totalScore floatValue];
                       
                       [_restaurants addObject:restaurant];
+					  
+					  DDLogInfo(@"Processed restaurant: %@", restaurant.name);
                   }
-                  
-                  [_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
+				  
+				  //server returned sorted from high to low
+				  //[_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
 				  
 				  
                   if (block) {

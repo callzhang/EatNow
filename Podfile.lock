@@ -20,16 +20,36 @@ PODS:
   - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - CocoaLumberjack (2.0.0-rc):
+    - CocoaLumberjack/Default (= 2.0.0-rc)
+    - CocoaLumberjack/Extensions (= 2.0.0-rc)
+  - CocoaLumberjack/Core (2.0.0-rc)
+  - CocoaLumberjack/Default (2.0.0-rc):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.0.0-rc):
+    - CocoaLumberjack/Default
+  - CrashlyticsFramework (2.2.5.2)
+  - CrashlyticsLumberjack (2.0.0-rc2):
+    - CocoaLumberjack/Default (>= 2.0.0-rc)
+  - DZNWebViewController (3.0)
   - KVOController (1.0.3)
   - MDCSwipeToChoose (0.2.2)
 
 DEPENDENCIES:
   - AFNetworking
+  - CocoaLumberjack (= 2.0.0-rc)
+  - CrashlyticsFramework
+  - CrashlyticsLumberjack (= 2.0.0-rc2)
+  - DZNWebViewController
   - KVOController
   - MDCSwipeToChoose
 
 SPEC CHECKSUMS:
   AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
+  CocoaLumberjack: 6186e27827fc574b50b16c10102fcc591437f06c
+  CrashlyticsFramework: 4e91082f3019bea7e718e1b67b0a3b56729dbc5d
+  CrashlyticsLumberjack: d41d1043ceee3312f546242e8bd3ee0ec22e39b1
+  DZNWebViewController: 73361f52eafcc6fc46a868b8bb2ec3bae65dfe69
   KVOController: b1139ef1fc373b6757e4b69493fedd7b56eb1272
   MDCSwipeToChoose: b14f3becc0011634d2f0a37f488b768b824a643d
 

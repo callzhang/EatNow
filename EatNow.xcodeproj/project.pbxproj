@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
+		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
 		9B23A9B31A26903200549871 /* RestaurantView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B23A9B21A26903200549871 /* RestaurantView.xib */; };
-		9B23A9B51A2692AC00549871 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B23A9B41A2692AC00549871 /* Entypo.ttf */; };
 		9B23A9BC1A27ACCF00549871 /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B23A9BB1A27ACCF00549871 /* ENServerManager.m */; };
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
+		9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B85D0321A8EB6BB0014DBED /* ENUtil.m */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
 		9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF9CC701A72301600B76D92 /* ENWebViewController.m */; };
 		9BF9CC741A73869000B76D92 /* ENRestaurantViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF9CC731A73869000B76D92 /* ENRestaurantViewContainer.m */; };
@@ -47,12 +48,14 @@
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9B1180F61A8E96FB00756E8F /* ENDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENDefines.h; path = ../ENDefines.h; sourceTree = "<group>"; };
+		9B1180F71A8E970700756E8F /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		9B23A9B21A26903200549871 /* RestaurantView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RestaurantView.xib; path = ../RestaurantView.xib; sourceTree = "<group>"; };
-		9B23A9B41A2692AC00549871 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		9B23A9BA1A27ACCF00549871 /* ENServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENServerManager.h; path = Server/ENServerManager.h; sourceTree = "<group>"; };
 		9B23A9BB1A27ACCF00549871 /* ENServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENServerManager.m; path = Server/ENServerManager.m; sourceTree = "<group>"; };
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		9BC8BE261A7AC87D0013EC91 /* ENDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDefines.h; sourceTree = "<group>"; };
+		9B85D0311A8EB6BB0014DBED /* ENUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUtil.h; sourceTree = "<group>"; };
+		9B85D0321A8EB6BB0014DBED /* ENUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENUtil.m; sourceTree = "<group>"; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = EatNow/main.storyboard; sourceTree = SOURCE_ROOT; };
 		9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENWebViewController.h; path = ../../ENWebViewController.h; sourceTree = "<group>"; };
 		9BF9CC701A72301600B76D92 /* ENWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENWebViewController.m; path = ../../ENWebViewController.m; sourceTree = "<group>"; };
@@ -117,6 +120,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9B1180F91A8E971300756E8F /* Recources */ = {
+			isa = PBXGroup;
+			children = (
+				9B1180F71A8E970700756E8F /* Entypo.ttf */,
+				DA5B73FA18F233EF00BB5F8E /* Images.xcassets */,
+				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
+			);
+			name = Recources;
+			sourceTree = "<group>";
+		};
 		9B23A9B91A27AC7E00549871 /* Server */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +142,9 @@
 		9BEE36B91A8D3DCF0052332C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9B1180F61A8E96FB00756E8F /* ENDefines.h */,
+				9B85D0311A8EB6BB0014DBED /* ENUtil.h */,
+				9B85D0321A8EB6BB0014DBED /* ENUtil.m */,
 			);
 			name = Extension;
 			path = Extensins;
@@ -171,14 +187,13 @@
 			isa = PBXGroup;
 			children = (
 				9BEE36B91A8D3DCF0052332C /* Extension */,
-				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
 				DA5B73F718F233EF00BB5F8E /* AppDelegate.h */,
 				DA5B73F818F233EF00BB5F8E /* AppDelegate.m */,
 				9B23A9B91A27AC7E00549871 /* Server */,
 				DA5B745718F239B700BB5F8E /* Models */,
 				DA5B745A18F239B700BB5F8E /* Views */,
 				DA5B745418F239B700BB5F8E /* Controllers */,
-				DA5B73FA18F233EF00BB5F8E /* Images.xcassets */,
+				9B1180F91A8E971300756E8F /* Recources */,
 				DA5B73EF18F233EF00BB5F8E /* Supporting Files */,
 			);
 			path = EatNow;
@@ -187,8 +202,6 @@
 		DA5B73EF18F233EF00BB5F8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9BC8BE261A7AC87D0013EC91 /* ENDefines.h */,
-				9B23A9B41A2692AC00549871 /* Entypo.ttf */,
 				DA5B73F018F233EF00BB5F8E /* EatNow-Info.plist */,
 				DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */,
 				DA5B73F418F233EF00BB5F8E /* main.m */,
@@ -326,7 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */,
-				9B23A9B51A2692AC00549871 /* Entypo.ttf in Resources */,
+				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 				9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */,
 				DA5B73FB18F233EF00BB5F8E /* Images.xcassets in Resources */,
@@ -384,6 +397,7 @@
 			files = (
 				9BF9CC741A73869000B76D92 /* ENRestaurantViewContainer.m in Sources */,
 				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
+				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
 				DA5B745F18F239B700BB5F8E /* MainViewController.m in Sources */,
 				9B23A9BC1A27ACCF00549871 /* ENServerManager.m in Sources */,
 				DA5B746018F239B700BB5F8E /* Restaurant.m in Sources */,

@@ -65,8 +65,9 @@
     //ViewOwner *owner = [ViewOwner new];
     //[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
     ENRestaurantViewContainer *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENRestaurantViewContainer"];
-    RestaurantView *view = container.restaurantView;
-    
+    RestaurantView *view = (RestaurantView *)container.view;
+	NSAssert(view, @"Failed to load restaurant view");
+	
     //customize view
     view.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.5].CGColor;
     view.layer.borderWidth = 2;

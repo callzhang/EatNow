@@ -40,7 +40,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     self.mdc_viewState = [MDCViewState new];
     self.mdc_viewState.originalCenter = self.center;
 
-    [self mdc_setupPanGestureRecognizer];
+    [self mdc_setupGestureRecognizer];
 }
 
 - (void)mdc_swipe:(MDCSwipeDirection)direction {
@@ -99,14 +99,6 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     if (!self.mdc_options || !self.mdc_viewState) {
         [self mdc_swipeToChooseSetup:nil];
     }
-}
-
-- (void)mdc_setupPanGestureRecognizer {
-    SEL action = @selector(mdc_onSwipeToChoosePanGestureRecognizer:);
-    UIPanGestureRecognizer *panGestureRecognizer =
-    [[UIPanGestureRecognizer alloc] initWithTarget:self
-                                            action:action];
-    [self addGestureRecognizer:panGestureRecognizer];
 }
 
 - (void)mdc_setupGestureRecognizer {

@@ -28,6 +28,8 @@
 #import "ENServerManager.h"
 #import "ENWebViewController.h"
 #import "FBKVOController.h"
+#import "DZNWebViewController.h"
+#import "RestaurantView.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -92,6 +94,10 @@
 	//read list
 	[self getRestaurants];
 	
+	if (self.frontCardView) {
+		NSLog(@"=== Front view already exists, skip showing restaurant");
+		return;
+	}
 	// Display the first ChoosePersonView in front. Users can swipe to indicate
 	// whether they like or dislike the person displayed.
 	self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
@@ -165,6 +171,7 @@
     if ([self.restaurants count] == 0) {
         return nil;
     }
+	static DZNWebViewController *WVC;
 
     // UIView+MDCSwipeToChoose and MDCSwipeToChooseView are heavily customizable.
     // Each take an "options" argument. Here, we specify the view controller as
@@ -184,11 +191,20 @@
     };
 	
 	options.onTap = ^(UITapGestureRecognizer *guesture){
+		NSLog(@"Tapped");
 		RestaurantView *rv = (RestaurantView *)guesture.view;
-		NSString *url = rv.restaurant.url;
-		ENWebViewController *webView = [[UIStoryboard storyboardWithName:@"main" bundle:nil]  instantiateViewControllerWithIdentifier:NSStringFromClass([ENWebViewController class])];
-		webView.url = [NSURL URLWithString:url];
-		[self.navigationController pushViewController:webView animated:YES];
+		NSURL *url = [NSURL URLWithString:rv.restaurant.url];
+		if (!WVC || ![WVC.URL isEqual:url]) {
+			WVC = [[DZNWebViewController alloc] initWithURL:url];
+		}
+		WVC.supportedWebNavigationTools = DZNWebNavigationToolAll;
+		WVC.supportedWebActions = DZNWebActionAll;
+		WVC.showLoadingProgress = YES;
+		WVC.allowHistory = YES;
+		WVC.hideBarsWithGestures = YES;
+		//UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:WVC];
+		[self.navigationController pushViewController:WVC animated:YES];
+		//[self presentViewController:nav animated:YES completion:nil];
 	};
 
     // Create a personView with the top person in the people array, then pop
@@ -248,6 +264,13 @@
 			[self showRestaurants];
 		}
     }];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+	if ([segue.destinationViewController isKindOfClass:[DZNWebViewController class]]) {
+		DZNWebViewController *controller = (DZNWebViewController *)segue.destinationViewController;
+		controller.URL = [NSURL URLWithString:self.frontCardView.restaurant.url];
+	}
 }
 
 @end
