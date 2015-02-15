@@ -252,10 +252,15 @@
 
 // Programmatically "likes" the front card view.
 - (IBAction)like:(id)sender{
+    [ENUtil showWatingHUB];
     Restaurant *restaurant = self.frontCardView.restaurant;
     [[ENServerManager sharedInstance] selectRestaurant:restaurant like:1 completion:^(NSError *error) {
         if (!error) {
+            [ENUtil showSuccessHUBWithString:@"Liked"];
             DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
+        }
+        else {
+            [ENUtil showFailureHUBWithString:@"Server error, try again later."];
         }
     }];
 }
@@ -303,9 +308,14 @@
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     if ([title isEqualToString:@"Dislike"]) {
         Restaurant *restaurant = self.frontCardView.restaurant;
+        [ENUtil showWatingHUB];
         [[ENServerManager sharedInstance] selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
             if (!error) {
+                [ENUtil showSuccessHUBWithString:@"Disliked"];
                 DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
+            }
+            else {
+                [ENUtil showFailureHUBWithString:@"Server error, try again later."];
             }
         }];
     

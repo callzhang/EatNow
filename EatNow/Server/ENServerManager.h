@@ -7,7 +7,7 @@
 //
 
 #define kSearchUrl                  @"http://dry-fortress-8563.herokuapp.com/search"
-#define kUserUrl                    @"http://dry-fortress-8563.herokuapp.com/"
+#define kUserUrl                    @"http://dry-fortress-8563.herokuapp.com/user/"
 #define kEatUrl                     @"http://dry-fortress-8563.herokuapp.com/select"
 #define kCuisineNames        @"Afghan,African,American_(New),American_(Traditional),Middle_Eastern,Argentine,Armenian,Asian,Spanish,Australian,Eastern_European,Delis,Bangladeshi,German,Bars,Pubs,Belgian,Brasseries,Turkish,Brazilian,Brunch,British,Buffets,Bulgarian,Fast_Food,Burmese,Cafes,Southern,Cambodian,Caribbean,Chilean,Chinese,Mediterranean,Cuban,Czech,Northern_European,Ethiopian,Filipino,French,Russian,Healthy,Greek,Hawaiian,Himalayan/Nepalese,Indian,Indonesian,Italian,Japanese,Korean,Persian,Laos,Latin_American,Seafood,Malaysian,Mexican,Mongolian,Moroccan,New_Zealand,Night_Food,Pakistani,Peruvian,Polish,International,Singaporean,Steakhouses,Taiwanese,Thai,Ukrainian,Vegetarian,Vietnamese,Tea_Rooms,Bubble_Tea"
 

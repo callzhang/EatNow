@@ -24,6 +24,7 @@
 
 #import "Restaurant.h"
 #import "ENServerManager.h"
+#import "ENUtil.h"
 
 @implementation Restaurant
 
@@ -42,15 +43,7 @@
 }
 
 - (NSString *)cuisineStr{
-    if (self.cuisines.count == 0) {
-        return @"";
-    }
-    NSMutableString *cuisineStr = [NSMutableString new];
-    for (NSString *c in self.cuisines) {
-        [cuisineStr appendFormat:@"%@, ", c];
-    }
-    [cuisineStr deleteCharactersInRange:NSMakeRange(cuisineStr.length-2, 2)];
-    return cuisineStr.copy;
+    return [ENUtil array2String:self.cuisines];
 }
 
 - (double)distance{

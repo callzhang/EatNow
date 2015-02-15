@@ -36,6 +36,30 @@
 
 - (void)setUser:(NSDictionary *)user{
     self.history = [user valueForKeyPath:@"user.history"];
+    [self updatePreference:[user valueForKey:@"preference"]];
+}
+
+- (void)updatePreference:(id)data{
+    if ([data isKindOfClass:[NSArray class]]) {
+        NSMutableDictionary *scoreDic = [NSMutableDictionary new];
+        NSArray *scoreArray = (NSArray *)data;
+        for (NSInteger i = 0; i<scoreArray.count; i++) {
+            NSString *name = [ENServerManager sharedInstance].cuisines[i];
+            NSNumber *score = scoreArray[i];
+            scoreDic[name] = score;
+        }
+        self.preference = scoreDic.copy;
+        return;
+        
+        NSMutableDictionary *sortedScoreDic = [NSMutableDictionary new];
+        [scoreDic enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
+            if (abs(obj.floatValue) > 0.1) {
+                sortedScoreDic[key] = obj;
+            }
+        }];
+        self.preference = sortedScoreDic.copy;
+    }
+    DDLogError(@"Unexpected preference data %@", [data class]);
 }
 
 #pragma mark - Table view data source
@@ -56,34 +80,54 @@
     return 0;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    switch (section) {
+        case 0:
+            return @"Histroy";
+        case 1:
+            return @"Preference";
+        default:
+            break;
+    }
+    return @"??";
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 1) {
+        return 22;
+    }
+    return 44;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell;
     if (indexPath.section == 0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"subtitle" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"subtitle"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"subtitle"];
         }
         //history
         NSDictionary *rest = _history[indexPath.row];
         cell.textLabel.text = @"unknown name";
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [rest valueForKey:@"categories"]];
+        cell.detailTextLabel.text = [ENUtil array2String:[rest valueForKey:@"categories"]];
         UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
         dateLabel.text = [ENUtil date2String:[NSDate date]];
+        dateLabel.font = [UIFont systemFontOfSize:12];
         cell.accessoryView = dateLabel;
         cell.imageView.image = [UIImage imageNamed:@"reataurant_default"];
     }
     else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"preference" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"preference"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"preference"];
         }
         //preference
-        NSString *name = [ENServerManager sharedInstance].cuisines[indexPath.row];
-        NSNumber *score = self.preference[indexPath.row];
+        NSString *name = self.preference.allKeys[indexPath.row];
+        NSNumber *score = self.preference[name];
         cell.textLabel.text = name;
-        cell.detailTextLabel.text = score.stringValue;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f%%", score.floatValue*100];
     }
     
     return cell;
