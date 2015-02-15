@@ -23,6 +23,7 @@
     [[ENServerManager sharedInstance] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         if (user) {
             self.user = user;
+            [self.tableView reloadData];
         }
     }];
     
@@ -57,12 +58,13 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier" forIndexPath:indexPath];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"reuseIdentifier"];
-    }
     
+    UITableViewCell *cell;
     if (indexPath.section == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"subtitle" forIndexPath:indexPath];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"subtitle"];
+        }
         //history
         NSDictionary *rest = _history[indexPath.row];
         cell.textLabel.text = @"unknown name";
@@ -70,6 +72,18 @@
         UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
         dateLabel.text = [ENUtil date2String:[NSDate date]];
         cell.accessoryView = dateLabel;
+        cell.imageView.image = [UIImage imageNamed:@"reataurant_default"];
+    }
+    else {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"preference" forIndexPath:indexPath];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"preference"];
+        }
+        //preference
+        NSString *name = [ENServerManager sharedInstance].cuisines[indexPath.row];
+        NSNumber *score = self.preference[indexPath.row];
+        cell.textLabel.text = name;
+        cell.detailTextLabel.text = score.stringValue;
     }
     
     return cell;

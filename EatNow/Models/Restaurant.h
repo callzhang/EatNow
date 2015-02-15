@@ -39,6 +39,7 @@
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic) float score;
+@property (nonatomic, strong) NSDictionary *json;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
 - (double)distance;

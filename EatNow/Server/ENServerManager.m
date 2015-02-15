@@ -137,9 +137,6 @@
         NSLog(@"Start requesting restaurants");
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        
-        //[manager.requestSerializer setValue:kParseApplicationId forHTTPHeaderField:@"X-Parse-Application-Id"];
-        //[manager.requestSerializer setValue:kParseRestAPIId forHTTPHeaderField:@"X-Parse-REST-API-Key"];
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         NSString *myID = [ENUtil myUUID];
@@ -147,7 +144,7 @@
                               @"latitude":@(_currentLocation.coordinate.latitude),
                               @"longitude":@(_currentLocation.coordinate.longitude)
                               };
-        NSLog(@"Request: %@", dic);
+        NSLog(@"Request restaurant: %@", dic);
         [manager POST:kSearchUrl parameters:dic
               success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
                   NSLog(@"GET restaurant list %ld", responseObject.count);
@@ -170,6 +167,7 @@
                       CLLocationDegrees lon = [(NSNumber *)coordinate[@"longitude"] doubleValue];
                       CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
                       restaurant.location = loc;
+                      restaurant.json = restaurant_json;
                       //score
                       NSDictionary *scores = restaurant_json[@"score"];
                       NSNumber *totalScore = scores[@"total_score"];
@@ -187,7 +185,7 @@
                       
                       [_restaurants addObject:restaurant];
 					  
-					  DDLogInfo(@"Processed restaurant: %@", restaurant.name);
+					  //DDLogInfo(@"Processed restaurant: %@", restaurant.name);
                   }
 				  
 				  //server returned sorted from high to low
@@ -216,19 +214,41 @@
 }
 
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block{
-    NSLog(@"Start requesting user");
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     NSString *myID = [ENUtil myUUID];
-    [manager GET:[NSString stringWithFormat:@"%@%@",kUserUrl, myID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *url = [NSString stringWithFormat:@"%@%@",kUserUrl, myID];
+    DDLogInfo(@"Requesting user: %@", url);
+    [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         block(responseObject, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error];
         DDLogError(s);
         ENAlert(s);
         block(nil, error);
+    }];
+}
+
+- (void)selectRestaurant:(Restaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+    NSString *myID = [ENUtil myUUID];
+    NSDictionary *dic = @{@"username": myID, @"restaurant": restaurant.json, @"like": @(value)};
+    DDLogVerbose(@"Select restaurant: %@", dic);
+    [manager POST:kEatUrl parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        block(nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        block(error);
+        NSString *s = [NSString stringWithFormat:@"%@", error];
+        ENAlert(s);
+        DDLogError(s);
     }];
 }
 
@@ -279,7 +299,6 @@
 }
 
 #pragma mark - Tools
-
 + (NSArray *)getArrayOfCategories:(NSArray *)list{
     NSMutableArray *types = [NSMutableArray new];
     for (NSArray *sub in list) {
@@ -288,5 +307,12 @@
     return types.copy;
 }
 
+- (NSArray *)cuisines{
+    if (!_cuisines) {
+        _cuisines = [kCuisineNames componentsSeparatedByString:@","];
+    }
+    
+    return _cuisines;
+}
 
 @end

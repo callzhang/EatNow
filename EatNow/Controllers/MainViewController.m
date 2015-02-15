@@ -35,7 +35,7 @@
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
-@interface MainViewController () <UIActionSheetDelegate>
+@interface MainViewController () <UIActionSheetDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @end
 
@@ -246,12 +246,18 @@
 
 // Programmatically "nopes" the front card view.
 - (IBAction)nope:(id)sender {
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
+    //[self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
+    [[[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Dislike", nil] show];
 }
 
 // Programmatically "likes" the front card view.
 - (IBAction)like:(id)sender{
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
+    Restaurant *restaurant = self.frontCardView.restaurant;
+    [[ENServerManager sharedInstance] selectRestaurant:restaurant like:1 completion:^(NSError *error) {
+        if (!error) {
+            DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
+        }
+    }];
 }
 
 - (IBAction)refresh:(id)sender {
@@ -275,7 +281,7 @@
 }
 
 - (IBAction)more:(id)sender {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Refresh", @"Food preference", @"About", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Refresh", @"Profile", @"About", nil];
     [sheet showFromBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
 }
 
@@ -284,7 +290,7 @@
     NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([title isEqualToString:@"Refresh"]) {
         [self refresh:nil];
-    } else if ([title isEqualToString:@"Food Preference"]){
+    } else if ([title isEqualToString:@"Profile"]){
         //push to preference
         ENProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([ENProfileViewController class])];
         [self.navigationController pushViewController:vc animated:YES];
@@ -293,12 +299,17 @@
     }
 }
 
-
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//	if ([segue.destinationViewController isKindOfClass:[DZNWebViewController class]]) {
-//		DZNWebViewController *controller = (DZNWebViewController *)segue.destinationViewController;
-//		controller.URL = [NSURL URLWithString:self.frontCardView.restaurant.url];
-//	}
-//}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Dislike"]) {
+        Restaurant *restaurant = self.frontCardView.restaurant;
+        [[ENServerManager sharedInstance] selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
+            if (!error) {
+                DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
+            }
+        }];
+    
+    }
+}
 
 @end
