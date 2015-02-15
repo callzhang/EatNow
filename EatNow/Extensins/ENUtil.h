@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ENDefines.h"
+
+#define kUUID                       @"UUID"
+
 extern DDLogLevel const ddLogLevel;
 @interface ENUtil : UIView
 + (void)initLogging;
++ (NSString *)myUUID;
++ (NSString *)generateUUID;
++ (NSString *)date2String:(NSDate *)date;
 @end

@@ -41,4 +41,29 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 	[DDLog addLogger:[CrashlyticsLogger sharedInstance]];
 }
 
++ (NSString *)myUUID{
+    NSString *myID = [[NSUserDefaults standardUserDefaults] objectForKey:kUUID];
+    if (!myID) {
+        myID = [self generateUUID];
+        [[NSUserDefaults standardUserDefaults] setObject:myID forKey:kUUID];
+    }
+    return myID;
+}
+
++ (NSString *)generateUUID
+{
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    
+    return (__bridge NSString *)string;
+}
+
++ (NSString *)date2String:(NSDate *)date{
+    NSDateFormatter *parseFormatter = [[NSDateFormatter alloc] init];
+    parseFormatter.timeZone = [NSTimeZone defaultTimeZone];
+    parseFormatter.dateFormat = @"EEE, MMM dd";
+    return [parseFormatter stringFromDate:date];
+}
+
 @end

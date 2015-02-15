@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
+		9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */; };
 		9B23A9B31A26903200549871 /* RestaurantView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B23A9B21A26903200549871 /* RestaurantView.xib */; };
 		9B23A9BC1A27ACCF00549871 /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B23A9BB1A27ACCF00549871 /* ENServerManager.m */; };
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
@@ -50,6 +51,8 @@
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9B1180F61A8E96FB00756E8F /* ENDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENDefines.h; path = ../ENDefines.h; sourceTree = "<group>"; };
 		9B1180F71A8E970700756E8F /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		9B141DD81A901F5700EB2CC8 /* ENProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENProfileViewController.h; sourceTree = "<group>"; };
+		9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENProfileViewController.m; sourceTree = "<group>"; };
 		9B23A9B21A26903200549871 /* RestaurantView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RestaurantView.xib; path = ../RestaurantView.xib; sourceTree = "<group>"; };
 		9B23A9BA1A27ACCF00549871 /* ENServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENServerManager.h; path = Server/ENServerManager.h; sourceTree = "<group>"; };
 		9B23A9BB1A27ACCF00549871 /* ENServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENServerManager.m; path = Server/ENServerManager.m; sourceTree = "<group>"; };
@@ -232,6 +235,8 @@
 		DA5B745418F239B700BB5F8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9B141DD81A901F5700EB2CC8 /* ENProfileViewController.h */,
+				9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */,
 				9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */,
 				9BF9CC701A72301600B76D92 /* ENWebViewController.m */,
 				9BF9CC721A73869000B76D92 /* ENRestaurantViewContainer.h */,
@@ -404,6 +409,7 @@
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */,
 				DA5B746218F239B700BB5F8E /* RestaurantView.m in Sources */,
+				9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

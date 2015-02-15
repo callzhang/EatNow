@@ -30,11 +30,12 @@
 #import "FBKVOController.h"
 //#import "DZNWebViewController.h"
 #import "JBWebViewController.h"
+#import "ENProfileViewController.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
-@interface MainViewController ()
+@interface MainViewController () <UIActionSheetDelegate>
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @end
 
@@ -274,7 +275,22 @@
 }
 
 - (IBAction)more:(id)sender {
-    
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Refresh", @"Food preference", @"About", nil];
+    [sheet showFromBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
+}
+
+#pragma mark - Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([title isEqualToString:@"Refresh"]) {
+        [self refresh:nil];
+    } else if ([title isEqualToString:@"Food Preference"]){
+        //push to preference
+        ENProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([ENProfileViewController class])];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if ([title isEqualToString:@"About"]){
+        [[[UIAlertView alloc] initWithTitle:@"About" message:@"EatNow v0.5" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
 }
 
 

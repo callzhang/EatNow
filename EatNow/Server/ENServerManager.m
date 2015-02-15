@@ -11,6 +11,7 @@
 #import "Restaurant.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FBKVOController.h"
+#import "ENUtil.h"
 
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -141,7 +142,7 @@
         //[manager.requestSerializer setValue:kParseRestAPIId forHTTPHeaderField:@"X-Parse-REST-API-Key"];
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        NSString *myID = [ENServerManager myUUID];
+        NSString *myID = [ENUtil myUUID];
         NSDictionary *dic = @{@"username":myID,
                               @"latitude":@(_currentLocation.coordinate.latitude),
                               @"longitude":@(_currentLocation.coordinate.longitude)
@@ -214,6 +215,23 @@
     }
 }
 
+- (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block{
+    NSLog(@"Start requesting user");
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSString *myID = [ENUtil myUUID];
+    [manager GET:[NSString stringWithFormat:@"%@%@",kUserUrl, myID] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        block(responseObject, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error];
+        DDLogError(s);
+        ENAlert(s);
+        block(nil, error);
+    }];
+}
+
 #pragma mark - Location
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     _currentLocation = locations.firstObject;
@@ -270,21 +288,5 @@
     return types.copy;
 }
 
-+ (NSString *)myUUID{
-    NSString *myID = [[NSUserDefaults standardUserDefaults] objectForKey:kUUID];
-    if (!myID) {
-        myID = [ENServerManager generateUUID];
-        [[NSUserDefaults standardUserDefaults] setObject:myID forKey:kUUID];
-    }
-    return myID;
-}
 
-+ (NSString *)generateUUID
-{
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    CFRelease(theUUID);
-    
-    return (__bridge NSString *)string;
-}
 @end

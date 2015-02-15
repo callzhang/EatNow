@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 modocache. All rights reserved.
 //
 
-#define kUUID                       @"UUID"
 #define kSearchUrl                  @"https://dry-fortress-8563.herokuapp.com/search"
+#define kUserUrl                  @"https://dry-fortress-8563.herokuapp.com/"
+#define kPreferenceNames        @"Afghan,African,American_(New),American_(Traditional),Middle_Eastern,Argentine,Armenian,Asian,Spanish,Australian,Eastern_European,Delis,Bangladeshi,German,Bars,Pubs,Belgian,Brasseries,Turkish,Brazilian,Brunch,British,Buffets,Bulgarian,Fast_Food,Burmese,Cafes,Southern,Cambodian,Caribbean,Chilean,Chinese,Mediterranean,Cuban,Czech,Northern_European,Ethiopian,Filipino,French,Russian,Healthy,Greek,Hawaiian,Himalayan/Nepalese,Indian,Indonesian,Italian,Japanese,Korean,Persian,Laos,Latin_American,Seafood,Malaysian,Mexican,Mongolian,Moroccan,New_Zealand,Night_Food,Pakistani,Peruvian,Polish,International,Singaporean,Steakhouses,Taiwanese,Thai,Ukrainian,Vegetarian,Vietnamese,Tea_Rooms,Bubble_Tea"
 
 typedef NS_OPTIONS(NSInteger, ENServerManagerStatus){
 	DeterminReachability = 1 << 0,
@@ -20,6 +21,8 @@ typedef NS_OPTIONS(NSInteger, ENServerManagerStatus){
 
 #import <Foundation/Foundation.h>
 @import CoreLocation;
+#import "AFNetworking.h"
+#import "ENDefines.h"
 
 @interface ENServerManager : NSObject
 @property (nonatomic, strong) NSMutableArray *restaurants;
@@ -27,5 +30,8 @@ typedef NS_OPTIONS(NSInteger, ENServerManagerStatus){
 @property (nonatomic) ENServerManagerStatus status;
 @property (nonatomic, strong) NSDate *lastUpdatedLocation;
 + (instancetype)sharedInstance;
+
+//functions
 - (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
+- (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
 @end
