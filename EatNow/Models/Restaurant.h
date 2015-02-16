@@ -32,15 +32,16 @@
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) NSArray *imageUrls;
 @property (nonatomic, strong) NSArray *cuisines;
-@property (nonatomic, assign) float rating;
-@property (nonatomic, assign) float price;
-@property (nonatomic, assign) NSUInteger reviews;
+@property (nonatomic, strong) NSNumber *rating;
+@property (nonatomic, strong) NSNumber *price;
+@property (nonatomic, strong) NSNumber *reviews;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) CLLocation *location;
-@property (nonatomic) float score;
+@property (nonatomic, strong) NSNumber *score;
 @property (nonatomic, strong) NSDictionary *json;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
 - (double)distance;
+- (BOOL)validate;
 @end

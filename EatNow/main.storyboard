@@ -78,9 +78,9 @@
                                     <constraint firstAttribute="height" constant="44" id="yDM-ir-tem"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="60"/>
-                                <color key="tintColor" red="0.064888718649999996" green="1" blue="0.1209398265" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="titleShadowOffset" width="0.0" height="1"/>
                                 <state key="normal" title="♥">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -100,6 +100,7 @@
                                     <constraint firstAttribute="height" constant="60" id="kGT-7p-b6o"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="60"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
                                 <state key="normal" title="✖">
                                     <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
@@ -135,7 +136,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="60"/>
                                 <state key="normal" title="⚙">
-                                    <color key="titleColor" red="0.58462993240000005" green="0.83224415890000003" blue="0.85124684350000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.23437808619884584" green="0.6511341738619898" blue="0.79235716540404044" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -144,8 +145,8 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="likeButton" destination="Fcq-QR-9Zu" id="BuM-qr-9le"/>
                         <outlet property="loading" destination="4Vu-uF-I11" id="iBD-mk-ggI"/>
                         <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
                         <outlet property="restaurantFrame" destination="2kN-sq-rqs" id="dgo-lb-3c1"/>
@@ -153,7 +154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OLQ-6J-SNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="240" y="597"/>
+            <point key="canvasLocation" x="254" y="597"/>
         </scene>
         <!--Restaurant View Container-->
         <scene sceneID="Xdq-3d-xGW">
@@ -168,12 +169,12 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👥" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91n-FD-9Vu">
-                                <rect key="frame" x="225" y="478" width="30" height="50"/>
+                                <rect key="frame" x="225" y="481" width="30" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="5ke-3P-dgR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="50"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="45"/>
+                                <color key="textColor" red="0.2343780862" green="0.65113417389999995" blue="0.79235716540000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywQ-RN-LGh">
@@ -182,13 +183,13 @@
                                     <constraint firstAttribute="width" constant="30" id="pLU-3G-4Ye"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="50"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.2343780862" green="0.65113417389999995" blue="0.79235716540000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Vm3-Qe-4kU">
                                 <rect key="frame" x="8" y="492" width="168" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.2343780862" green="0.65113417389999995" blue="0.79235716540000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cuisine Cuisine Cuisine Cuisine Cuisine" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ltz-vD-Skh">
@@ -221,7 +222,7 @@
                                     <constraint firstAttribute="width" constant="60" id="4OM-Xh-AON"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="532" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hLp-hQ-4qU">
@@ -231,7 +232,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="43" id="hWr-zJ-ZEQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -246,7 +247,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="43" id="u9r-MS-Ght"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -258,31 +259,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cp-iv-me7">
-                                <rect key="frame" x="150" y="187" width="154" height="77"/>
+                                <rect key="frame" x="161" y="187" width="154" height="77"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="77" id="ONZ-E3-m6D"/>
                                     <constraint firstAttribute="width" constant="154" id="r48-S5-tOd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" red="0.32003066990000001" green="0.55666045939999997" blue="0.70884627529999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGh-K0-Ayb">
-                                <rect key="frame" x="16" y="187" width="126" height="77"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="126" id="1Tg-ue-U41"/>
-                                    <constraint firstAttribute="height" constant="77" id="zsx-8X-faG"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" red="0.32003066990000001" green="0.55666045939999997" blue="0.70884627529999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.2343780862" green="0.65113417389999995" blue="0.79235716540000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -299,8 +282,26 @@
                                     <constraint firstAttribute="width" constant="30" id="nLv-zL-fBg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="50"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.2343780862" green="0.65113417389999995" blue="0.79235716540000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skip" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mGh-K0-Ayb">
+                                <rect key="frame" x="8" y="187" width="126" height="77"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="126" id="1Tg-ue-U41"/>
+                                    <constraint firstAttribute="height" constant="77" id="zsx-8X-faG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="0.2343780862" green="0.65113417389999995" blue="0.79235716540000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -313,10 +314,11 @@
                             <constraint firstItem="04a-vV-Nd6" firstAttribute="top" secondItem="ywQ-RN-LGh" secondAttribute="bottom" constant="3" id="76h-YS-1kw"/>
                             <constraint firstAttribute="trailing" secondItem="YTI-jm-jip" secondAttribute="trailing" id="7ym-be-P3i"/>
                             <constraint firstAttribute="bottom" secondItem="Vm3-Qe-4kU" secondAttribute="bottom" constant="55" id="8Ez-Md-xd2"/>
-                            <constraint firstItem="mGh-K0-Ayb" firstAttribute="leading" secondItem="1GZ-jU-x1D" secondAttribute="leading" constant="16" id="9Zq-XU-zKh"/>
-                            <constraint firstAttribute="trailing" secondItem="1cp-iv-me7" secondAttribute="trailing" constant="16" id="9e2-nx-UeW"/>
+                            <constraint firstItem="mGh-K0-Ayb" firstAttribute="leading" secondItem="1GZ-jU-x1D" secondAttribute="leading" constant="8" id="9Zq-XU-zKh"/>
+                            <constraint firstAttribute="trailing" secondItem="1cp-iv-me7" secondAttribute="trailing" constant="5" id="9e2-nx-UeW"/>
                             <constraint firstAttribute="bottom" secondItem="04a-vV-Nd6" secondAttribute="bottom" constant="20" id="Deh-Dz-fUU"/>
                             <constraint firstItem="qCq-Vo-swH" firstAttribute="leading" secondItem="1GZ-jU-x1D" secondAttribute="leading" constant="8" id="EZp-nD-iOm"/>
+                            <constraint firstItem="LMF-az-6mW" firstAttribute="centerY" secondItem="91n-FD-9Vu" secondAttribute="centerY" id="G6y-zo-ZAW"/>
                             <constraint firstItem="mGh-K0-Ayb" firstAttribute="top" secondItem="1GZ-jU-x1D" secondAttribute="top" constant="187" id="NON-Td-8dR"/>
                             <constraint firstItem="Vm3-Qe-4kU" firstAttribute="leading" secondItem="1GZ-jU-x1D" secondAttribute="leading" constant="8" id="Vn5-Ch-nvf"/>
                             <constraint firstItem="91n-FD-9Vu" firstAttribute="leading" secondItem="LMF-az-6mW" secondAttribute="trailing" constant="15" id="YX9-67-VCJ"/>
@@ -337,6 +339,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="f58-01-1Ui"/>
                                 <exclude reference="76h-YS-1kw"/>
                             </mask>
                         </variation>

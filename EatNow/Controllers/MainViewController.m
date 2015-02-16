@@ -82,6 +82,12 @@
 			}
 		}
 	}];
+    
+    if ([[ENUtil myUUID] isEqualToString:@"44D08937-F5F8-4688-A198-B4F57196B1A6"]) {
+        //change to red
+        DDLogInfo(@"Set special color");
+        [self.likeButton setTitleColor:[UIColor colorWithRed:0.988 green:0.643 blue:0.647 alpha:1.000] forState:UIControlStateNormal];
+    }
 	
 	[[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
 		if (success) {
@@ -246,7 +252,6 @@
 
 // Programmatically "nopes" the front card view.
 - (IBAction)nope:(id)sender {
-    //[self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
     [[[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Dislike", nil] show];
 }
 
@@ -269,9 +274,9 @@
     [ENServerManager sharedInstance].currentLocation = nil;
     [ENServerManager sharedInstance].status = IsReachable;
     [self.restaurants removeAllObjects];
-    [self nope:nil];
+    [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self nope:nil];
+        [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
     });
     [self.loading startAnimating];
     [[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {

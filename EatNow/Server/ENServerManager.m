@@ -148,19 +148,20 @@
         [manager POST:kSearchUrl parameters:dic
               success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
                   NSLog(@"GET restaurant list %ld", responseObject.count);
+                  TIC
                   for (NSDictionary *restaurant_json in responseObject) {
                       Restaurant *restaurant = [Restaurant new];
 					  restaurant.ID = restaurant_json[@"id"];
                       restaurant.url = restaurant_json[@"mobile_url"];
-                      restaurant.rating = [(NSNumber *)restaurant_json[@"rating"] floatValue];
-                      restaurant.reviews = [(NSNumber *)restaurant_json[@"review_count"] integerValue];
+                      restaurant.rating = (NSNumber *)restaurant_json[@"rating"];
+                      restaurant.reviews = (NSNumber *)restaurant_json[@"review_count"];
                       NSArray *list = restaurant_json[@"categories"];
                       NSArray *cuisines = [ENServerManager getArrayOfCategories:list];
                       restaurant.cuisines = cuisines;
 					  restaurant.imageUrls = restaurant_json[@"food_image_url"];
                       restaurant.phone = restaurant_json[@"phone"];
                       restaurant.name = restaurant_json[@"name"];
-                      restaurant.price = [(NSNumber *)restaurant_json[@"price"] floatValue];
+                      restaurant.price = (NSNumber *)restaurant_json[@"price"];
                       //location
                       NSDictionary *coordinate = [restaurant_json valueForKeyPath:@"location.coordinate"];
                       CLLocationDegrees lat = [(NSNumber *)coordinate[@"latitude"] doubleValue];
@@ -181,15 +182,18 @@
                           NSNumber *ratingScore = scores[@"rating_score"] != [NSNull null] ? scores[@"rating_score"]:@0;
                           totalScore = @(commentScore.floatValue + cuisineScore.floatValue + distanceScore.floatValue + priceScore.floatValue + ratingScore.floatValue);
                       }
-                      restaurant.score = [totalScore floatValue];
+                      restaurant.score = totalScore;
                       
-                      [_restaurants addObject:restaurant];
-					  
-					  //DDLogInfo(@"Processed restaurant: %@", restaurant.name);
+                      if ([restaurant validate]) {
+                          [_restaurants addObject:restaurant];
+                      }
                   }
+                  
+                  TOC
+                  DDLogInfo(@"Processed %ld restaurant", _restaurants.count);
 				  
 				  //server returned sorted from high to low
-				  //[_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
+				  [_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
 				  
 				  
                   if (block) {

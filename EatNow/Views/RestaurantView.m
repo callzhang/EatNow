@@ -121,8 +121,8 @@
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
     self.price.text = restaurant.pricesStr;
-    self.rating.text = [NSString stringWithFormat:@"%.1f", restaurant.rating];
-    self.reviews.text = [NSString stringWithFormat:@"%lu", (unsigned long)restaurant.reviews];
+    self.rating.text = [NSString stringWithFormat:@"%.1f", restaurant.rating.floatValue];
+    self.reviews.text = [NSString stringWithFormat:@"%lu", restaurant.reviews.integerValue];
     self.distance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];
 }
 

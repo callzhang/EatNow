@@ -29,14 +29,14 @@
 @implementation Restaurant
 
 - (NSString *)description{
-    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.2fkm", _name, _rating, (unsigned long)_reviews, [self cuisineStr], [self pricesStr], [self distance]];
+    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.1fkm", _name, self.rating.floatValue, _reviews.integerValue, [self cuisineStr], [self pricesStr], [self distance]];
     
 }
 
 
 - (NSString *)pricesStr{
     NSMutableString *dollarSign = [@"" mutableCopy];
-    for (NSUInteger i=0; i<self.price; i++) {
+    for (NSUInteger i=0; i<self.price.integerValue; i++) {
         [dollarSign appendString:@"$"];
     }
     return dollarSign.copy;
@@ -52,5 +52,51 @@
     }
     double d = [[ENServerManager sharedInstance].currentLocation distanceFromLocation:_location]/1000;
     return d;
+}
+
+- (BOOL)validate{
+    BOOL good = YES;
+    if (!_ID) {
+        DDLogError(@"Restaurant missing ID %@", self);
+        good = NO;
+    }
+    if (!_name) {
+        DDLogError(@"Restaurant missing name %@", self);
+        good = NO;
+    }
+    if (!_imageUrls || _imageUrls.count == 0) {
+        DDLogError(@"Restaurant missing image %@", self);
+        good = NO;
+    }
+    if (!_cuisines) {
+        DDLogError(@"Restaurant missing cuisine %@", self);
+        good = NO;
+    }
+    if (!_rating) {
+        DDLogError(@"Restaurant missing rating %@", self);
+        good = NO;
+    }
+    if (!_price) {
+        DDLogError(@"Restaurant missing price %@", self);
+        good = NO;
+    }
+    if (!_reviews) {
+        DDLogError(@"Restaurant missing reviews %@", self);
+        good = NO;
+    }
+    if (!_url) {
+        DDLogError(@"Restaurant missing url %@", self);
+        good = NO;
+    }
+    if (!_location) {
+        DDLogError(@"Restaurant missing location %@", self);
+        good = NO;
+    }
+    if (!_score) {
+        DDLogError(@"Restaurant missing score %@", self);
+        good = NO;
+    }
+    
+    return good;
 }
 @end
