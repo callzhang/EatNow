@@ -130,7 +130,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="LMB-kh-dRc">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="LMB-kh-dRc">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Zng-ue-or6">
                                 <rect key="frame" x="90" y="376" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -373,7 +373,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="UKA-5q-ZrQ" detailTextLabel="r0K-De-clR" rowHeight="72" style="IBUITableViewCellStyleValue1" id="GA2-o1-pWP">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="restaurantCell" textLabel="UKA-5q-ZrQ" detailTextLabel="r0K-De-clR" rowHeight="72" style="IBUITableViewCellStyleValue1" id="GA2-o1-pWP">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GA2-o1-pWP" id="C0U-vE-V71">
                                     <autoresizingMask key="autoresizingMask"/>

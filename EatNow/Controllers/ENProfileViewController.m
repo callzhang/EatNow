@@ -18,10 +18,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+	[ENUtil showWatingHUB];
     //fetch user info
     [[ENServerManager sharedInstance] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         if (user) {
+			[ENUtil dismissHUDinView:self.view];
             self.user = user;
             [self.tableView reloadData];
         }
@@ -41,23 +42,17 @@
 
 - (void)updatePreference:(id)data{
     if ([data isKindOfClass:[NSArray class]]) {
-        NSMutableDictionary *scoreDic = [NSMutableDictionary new];
+        NSMutableArray *scoreDic = [NSMutableArray new];
         NSArray *scoreArray = (NSArray *)data;
         for (NSInteger i = 0; i<scoreArray.count; i++) {
             NSString *name = [ENServerManager sharedInstance].cuisines[i];
             NSNumber *score = scoreArray[i];
-            scoreDic[name] = score;
+			scoreDic[i] = @{@"name":name, @"score": score};
         }
-        self.preference = scoreDic.copy;
+		NSSortDescriptor *sortByScore = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+		self.preference = [scoreDic sortedArrayUsingDescriptors:@[sortByScore]];
+		//sort
         return;
-        
-        NSMutableDictionary *sortedScoreDic = [NSMutableDictionary new];
-        [scoreDic enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *obj, BOOL *stop) {
-            if (abs(obj.floatValue) > 0.1) {
-                sortedScoreDic[key] = obj;
-            }
-        }];
-        self.preference = sortedScoreDic.copy;
     }
     DDLogError(@"Unexpected preference data %@", [data class]);
 }
@@ -85,7 +80,7 @@
         case 0:
             return @"Histroy";
         case 1:
-            return @"Preference";
+            return @"Preference (Internal testing)";
         default:
             break;
     }
@@ -96,7 +91,7 @@
     if (indexPath.section == 1) {
         return 22;
     }
-    return 44;
+    return 60;
 }
 
 
@@ -116,7 +111,8 @@
         dateLabel.text = [ENUtil date2String:[NSDate date]];
         dateLabel.font = [UIFont systemFontOfSize:12];
         cell.accessoryView = dateLabel;
-        cell.imageView.image = [UIImage imageNamed:@"reataurant_default"];
+        UIImage *img = [UIImage imageNamed:@"restaurant_default"];
+		cell.imageView.image = img;
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"preference"];
@@ -124,8 +120,9 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"preference"];
         }
         //preference
-        NSString *name = self.preference.allKeys[indexPath.row];
-        NSNumber *score = self.preference[name];
+		NSDictionary *info = self.preference[indexPath.row];
+        NSString *name = info[@"name"];
+        NSNumber *score = info[@"score"];
         cell.textLabel.text = name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f%%", score.floatValue*100];
     }

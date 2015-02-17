@@ -147,7 +147,7 @@
         NSLog(@"Request restaurant: %@", dic);
         [manager POST:kSearchUrl parameters:dic
               success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-                  NSLog(@"GET restaurant list %ld", responseObject.count);
+                  NSLog(@"GET restaurant list %ld", (unsigned long)responseObject.count);
                   TIC
                   for (NSDictionary *restaurant_json in responseObject) {
                       Restaurant *restaurant = [Restaurant new];
@@ -190,7 +190,7 @@
                   }
                   
                   TOC
-                  DDLogInfo(@"Processed %ld restaurant", _restaurants.count);
+                  DDLogInfo(@"Processed %ld restaurant", (unsigned long)_restaurants.count);
 				  
 				  //server returned sorted from high to low
 				  [_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];

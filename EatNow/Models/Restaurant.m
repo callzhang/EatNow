@@ -29,7 +29,7 @@
 @implementation Restaurant
 
 - (NSString *)description{
-    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.1fkm", _name, self.rating.floatValue, _reviews.integerValue, [self cuisineStr], [self pricesStr], [self distance]];
+    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.1fkm", _name, self.rating.floatValue, (long)_reviews.integerValue, [self cuisineStr], [self pricesStr], [self distance]];
     
 }
 

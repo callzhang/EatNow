@@ -11,5 +11,5 @@
 @interface ENProfileViewController : UITableViewController
 @property (nonatomic, strong) NSDictionary *user;
 @property (nonatomic, strong) NSArray *history;
-@property (nonatomic, strong) NSDictionary *preference;
+@property (nonatomic, strong) NSArray *preference;
 @end
