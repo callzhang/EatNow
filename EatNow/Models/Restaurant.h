@@ -24,6 +24,7 @@
 
 #import <Foundation/Foundation.h>
 @import CoreLocation;
+@import MapKit;
 
 @interface Restaurant : NSObject
 
@@ -40,6 +41,7 @@
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSNumber *score;
 @property (nonatomic, strong) NSDictionary *json;
+@property (nonatomic, strong) MKPlacemark *placemark;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
 - (double)distance;

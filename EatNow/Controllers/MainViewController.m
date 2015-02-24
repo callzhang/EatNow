@@ -31,6 +31,7 @@
 //#import "DZNWebViewController.h"
 #import "JBWebViewController.h"
 #import "ENProfileViewController.h"
+#import "ENMapViewController.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -324,6 +325,13 @@
             }
         }];
     
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.destinationViewController isKindOfClass:[ENMapViewController class]]) {
+        ENMapViewController *mapVC = (ENMapViewController *)segue.destinationViewController;
+        mapVC.destination = self.frontCardView.restaurant.placemark;
     }
 }
 

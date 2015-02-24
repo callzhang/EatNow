@@ -25,6 +25,7 @@
 #import "Restaurant.h"
 #import "ENServerManager.h"
 #import "ENUtil.h"
+@import AddressBook;
 
 @implementation Restaurant
 
@@ -98,5 +99,25 @@
     }
     
     return good;
+}
+
+- (MKPlacemark *)placemark{
+    if (!_placemark) {
+        NSDictionary *location = self.json[@"location"];
+        NSDictionary *coordinates = location[@"coordinate"];
+        float lat = [(NSNumber *)coordinates[@"latitude"] floatValue];
+        float lon = [(NSNumber *)coordinates[@"longitude"] floatValue];
+        NSDictionary *addressDict = @{
+                                      (__bridge NSString *) kABPersonAddressStreetKey : [(NSArray *)location[@"display_address"] firstObject]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCityKey : location[@"city"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressStateKey : location[@"state_code"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressZIPKey : location[@"postal_code"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCountryKey : location[@"country_code"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCountryCodeKey : location[@"country_code"]?:@""
+                                      };
+        CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+        _placemark = [[MKPlacemark alloc] initWithCoordinate:loc.coordinate addressDictionary:addressDict];
+    }
+    return _placemark;
 }
 @end

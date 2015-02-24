@@ -10,6 +10,5 @@
 @import MapKit;
 
 @interface ENMapViewController : UIViewController
-@property (nonatomic, strong) CLPlacemark *destination;
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) MKPlacemark *destination;
 @end

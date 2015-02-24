@@ -124,6 +124,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 }
 
 + (JGProgressHUD *)showWatingHUB{
+    [self dismissHUD];
     UIView *rootView = [self topView];
     JGProgressHUD *hud = [rootView showLoopingWithTimeout:0];
     [[ENUtil shared].HUDs addObject:hud];
