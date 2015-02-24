@@ -68,7 +68,7 @@
 			if (manager.status & GotLocation){
 				self.loadingInfo.text = @"Got location";
 			}else{
-				self.loadingInfo.text = @"Failed to get location";
+				self.loadingInfo.text = @"Waiting for location";
                 return;
 			}
 		}
@@ -253,7 +253,10 @@
 
 // Programmatically "nopes" the front card view.
 - (IBAction)nope:(id)sender {
-    [[[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Dislike", nil] show];
+	if (self.frontCardView.restaurant) {
+		
+		[[[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Dislike", nil] show];
+	}
 }
 
 // Programmatically "likes" the front card view.
@@ -328,11 +331,20 @@
     }
 }
 
+
+#pragma mark - Storyboard
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.destinationViewController isKindOfClass:[ENMapViewController class]]) {
         ENMapViewController *mapVC = (ENMapViewController *)segue.destinationViewController;
-        mapVC.destination = self.frontCardView.restaurant.placemark;
+        mapVC.restaurant = self.frontCardView.restaurant;
     }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+	if (!self.frontCardView.restaurant) {
+		return NO;
+	}
+	return YES;
 }
 
 @end

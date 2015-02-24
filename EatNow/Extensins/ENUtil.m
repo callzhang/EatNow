@@ -93,6 +93,33 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     return string.copy;
 }
 
+
++ (NSString *)getStringFromTimeInterval:(NSTimeInterval)time{
+	
+	NSString *timeStr;
+	time = fabs(time);
+	NSInteger t = (NSInteger)time;
+	CGFloat days = time / 3600 / 24;
+	CGFloat hours = (t % (3600*24)) / 3600;
+	CGFloat minutes = floor((t % 3600)/60);
+	CGFloat seconds = t % 60;
+	
+	if (days >=2) {
+		timeStr = [NSString stringWithFormat:@"%ld days", (long)days];
+	}else if (days >=1) {
+		timeStr = [NSString stringWithFormat:@"1 day %ld hours", (long)hours-24];
+	}else if (hours > 10) {
+		timeStr = [NSString stringWithFormat:@"%ld hours", (long)(hours)];
+	}else if (hours >= 1){
+		timeStr = [NSString stringWithFormat:@"%.1f hours", hours + minutes/60];
+	}else if(minutes >= 1){
+		timeStr = [NSString stringWithFormat:@"%ld minutes",(long)minutes];
+	}else{
+		timeStr = [NSString stringWithFormat:@"%ld seconds",(long)seconds];
+	}
+	return timeStr;
+}
+
 #pragma mark - HUD
 - (instancetype)init{
     self = [super init];

@@ -12,5 +12,4 @@
 
 @interface ENMapViewController : UIViewController
 @property (nonatomic, strong) Restaurant *restaurant;
-@property (nonatomic, strong) MKPlacemark *destination;
 @end

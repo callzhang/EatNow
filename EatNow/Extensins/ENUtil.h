@@ -26,6 +26,9 @@ extern DDLogLevel const ddLogLevel;
 + (NSString *)date2String:(NSDate *)date;
 + (NSString *)array2String:(NSArray *)array;
 
+//time
++ (NSString *)getStringFromTimeInterval:(NSTimeInterval)time;
+
 //HUD
 @property (nonatomic, strong) NSMutableArray *HUDs;
 + (JGProgressHUD *)showWatingHUB;
