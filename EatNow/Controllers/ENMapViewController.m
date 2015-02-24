@@ -22,6 +22,7 @@
     
     CLLocationCoordinate2D centerCoordinate = [ENServerManager sharedInstance].currentLocation.coordinate;
     self.mapView.region = MKCoordinateRegionMakeWithDistance(centerCoordinate, 500, 500);
+    self.mapView.showsUserLocation = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -71,12 +72,17 @@
              //change region
              CLLocationCoordinate2D from = [ENServerManager sharedInstance].currentLocation.coordinate;
              CLLocation *center = [[CLLocation alloc] initWithLatitude:(from.latitude + _destination.coordinate.latitude)/2 longitude:(from.longitude + _destination.coordinate.longitude)/2];
-             MKCoordinateSpan span = MKCoordinateSpanMake(abs(from.latitude - _destination.coordinate.latitude), abs(from.longitude - _destination.coordinate.longitude));
-             self.mapView.region = MKCoordinateRegionMake(center.coordinate, span);
+             MKCoordinateSpan span = MKCoordinateSpanMake(abs(from.latitude - _destination.coordinate.latitude)*1.25, abs(from.longitude - _destination.coordinate.longitude)*1.25);
+             [self.mapView setRegion:MKCoordinateRegionMake(center.coordinate, span) animated:YES];
              
              //add overlay
              MKRoute *route = response.routes[0];
              [self.mapView addOverlay:route.polyline];
+             
+             //add annotation
+             MKPointAnnotation *destinationAnnotation = [[MKPointAnnotation alloc] init];
+             destinationAnnotation.coordinate = _destination.coordinate;
+             [self.mapView addAnnotation:destinationAnnotation];
          }
      }];
 }
