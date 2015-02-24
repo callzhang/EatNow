@@ -139,3 +139,9 @@
 #define COCOAPODS_VERSION_MINOR_NJKWebViewProgress_ProgressView 2
 #define COCOAPODS_VERSION_PATCH_NJKWebViewProgress_ProgressView 0
 
+// SVProgressHUD
+#define COCOAPODS_POD_AVAILABLE_SVProgressHUD
+#define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
+#define COCOAPODS_VERSION_MINOR_SVProgressHUD 1
+#define COCOAPODS_VERSION_PATCH_SVProgressHUD 2
+

@@ -21,6 +21,15 @@
 DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
 @implementation ENUtil
++ (instancetype)shared{
+    static dispatch_once_t onceToken;
+    __strong static ENUtil *sharedInstance_;
+    dispatch_once(&onceToken, ^{
+        sharedInstance_ = [ENUtil new];
+    });
+    return sharedInstance_;
+}
+
 + (void)initLogging{
 	[DDLog addLogger:[DDASLLogger sharedInstance]];
 	DDTTYLogger *log = [DDTTYLogger sharedInstance];
@@ -85,43 +94,49 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 }
 
 #pragma mark - HUD
-+ (void)showSuccessHUBWithString:(NSString *)string{
-    UIView *rootView = [self getTopView];
-    [rootView showSuccessNotification:string];
-}
-
-+ (void)showFailureHUBWithString:(NSString *)string{
-    UIView *rootView = [self getTopView];
-    [rootView showFailureNotification:string];
-}
-
-+ (void)showWarningHUBWithString:(NSString *)string{
-    UIView *rootView = [self getTopView];
-    [rootView showNotification:string WithStyle:hudStyleWarning audoHide:5];
-}
-
-+ (void)showWatingHUB{
-    UIView *rootView = [self getTopView];
-    [rootView showLoopingWithTimeout:0];
-}
-
-+ (UIView *)getTopView{
-    UIView *rootView;
-    UIViewController *rootController = [UIWindow mainWindow].rootViewController;
-    if (rootController.presentedViewController) {
-        rootController = rootController.presentedViewController;
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        self.HUDs = [NSMutableArray new];
     }
-    if ([rootController isKindOfClass:[UINavigationController class]]) {
-        rootView = [(UINavigationController *)rootController topViewController].view;
-    }else{
-        rootView = rootController.view;
-    }
-    return rootView;
+    return self;
+}
+
++ (JGProgressHUD *)showSuccessHUBWithString:(NSString *)string{
+    UIView *rootView = [self topView];
+    JGProgressHUD *hud = [rootView showSuccessNotification:string];
+    [[ENUtil shared].HUDs addObject:hud];
+    return hud;
+}
+
++ (JGProgressHUD *)showFailureHUBWithString:(NSString *)string{
+    UIView *rootView = [self topView];
+    JGProgressHUD *hud = [rootView showFailureNotification:string];
+    [[ENUtil shared].HUDs addObject:hud];
+    return hud;
+}
+
++ (JGProgressHUD *)showWarningHUBWithString:(NSString *)string{
+    UIView *rootView = [self topView];
+    JGProgressHUD *hud = [rootView showNotification:string WithStyle:hudStyleWarning audoHide:4];
+    [[ENUtil shared].HUDs addObject:hud];
+    return hud;
+}
+
++ (JGProgressHUD *)showWatingHUB{
+    UIView *rootView = [self topView];
+    JGProgressHUD *hud = [rootView showLoopingWithTimeout:0];
+    [[ENUtil shared].HUDs addObject:hud];
+    return hud;
+}
+
++ (UIView *)topView{
+    return [self topViewController].view;
 }
 
 + (UIViewController *)topViewController{
     UIViewController *rootController = [UIWindow mainWindow].rootViewController;
-    if (rootController.presentedViewController) {
+    while (rootController.presentedViewController) {
         rootController = rootController.presentedViewController;
     }
     if ([rootController isKindOfClass:[UINavigationController class]]) {
@@ -132,9 +147,8 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     return nil;
 }
 
-+ (void)dismissHUDinView:(UIView *)view{
-    NSArray *huds = [JGProgressHUD allProgressHUDsInView:view];
-    for (JGProgressHUD *hud in huds) {
++ (void)dismissHUD{
+    for (JGProgressHUD *hud in [ENUtil shared].HUDs) {
         [hud dismiss];
     }
 }
@@ -166,7 +180,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
                 break;
                 
             case hudStyleWarning:
-                hud.indicatorView = [[JGProgressHUDIndicatorView alloc] initWithContentView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning_37x"]]];
+                hud.indicatorView = [[JGProgressHUDIndicatorView alloc] initWithContentView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning"]]];
                 break;
                 
             default:
@@ -182,11 +196,11 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 }
 
 - (JGProgressHUD *)showSuccessNotification:(NSString *)alert{
-    return [self showNotification:alert WithStyle:hudStyleSuccess audoHide:4];
+    return [self showNotification:alert WithStyle:hudStyleSuccess audoHide:2];
 }
 
 - (JGProgressHUD *)showFailureNotification:(NSString *)alert{
-    return [self showNotification:alert WithStyle:hudStyleFailed audoHide:4];
+    return [self showNotification:alert WithStyle:hudStyleFailed audoHide:2];
 }
 
 - ( JGProgressHUD*)showLoopingWithTimeout:(float)timeout{
@@ -200,6 +214,13 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     });
     
     return hud;
+}
+
+- (void)dismissHUD{
+    NSArray *huds = [JGProgressHUD allProgressHUDsInView:self];
+    for (JGProgressHUD *hud in huds) {
+        [hud dismiss];
+    }
 }
 
 @end

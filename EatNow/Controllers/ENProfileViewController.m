@@ -22,7 +22,7 @@
     //fetch user info
     [[ENServerManager sharedInstance] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         if (user) {
-			[ENUtil dismissHUDinView:self.view];
+			[ENUtil dismissHUD];
             self.user = user;
             [self.tableView reloadData];
         }

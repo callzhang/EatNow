@@ -19,6 +19,7 @@ typedef enum{
 
 extern DDLogLevel const ddLogLevel;
 @interface ENUtil : UIView
++ (instancetype)shared;
 + (void)initLogging;
 + (NSString *)myUUID;
 + (NSString *)generateUUID;
@@ -26,22 +27,23 @@ extern DDLogLevel const ddLogLevel;
 + (NSString *)array2String:(NSArray *)array;
 
 //HUD
-+ (void)showWatingHUB;
-+ (void)showSuccessHUBWithString:(NSString *)string;
-+ (void)showFailureHUBWithString:(NSString *)string;
-+ (void)showWarningHUBWithString:(NSString *)string;
-+ (void)dismissHUDinView:(UIView *)view;
-+ (UIView *)getTopView;
+@property (nonatomic, strong) NSMutableArray *HUDs;
++ (JGProgressHUD *)showWatingHUB;
++ (JGProgressHUD *)showSuccessHUBWithString:(NSString *)string;
++ (JGProgressHUD *)showFailureHUBWithString:(NSString *)string;
++ (JGProgressHUD *)showWarningHUBWithString:(NSString *)string;
++ (void)dismissHUD;
++ (UIView *)topView;
 + (UIViewController *)topViewController;
 
 @end
 
 @interface UIView(HUD)
-
 - (JGProgressHUD *)showNotification:(NSString *)alert WithStyle:(HUDStyle)style audoHide:(float)timeout;
 - (JGProgressHUD *)showSuccessNotification:(NSString *)alert;
 - (JGProgressHUD *)showFailureNotification:(NSString *)alert;
 - (JGProgressHUD *)showLoopingWithTimeout:(float)timeout;
+- (void)dismissHUD;
 @end
 
 @interface UIWindow(Extensions)
