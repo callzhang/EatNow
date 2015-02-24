@@ -9,6 +9,7 @@
 #import "ENMapViewController.h"
 #import "ENUtil.h"
 #import "ENServerManager.h"
+@import AddressBook;
 
 @interface ENMapViewController ()<MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -82,6 +83,8 @@
              //add annotation
              MKPointAnnotation *destinationAnnotation = [[MKPointAnnotation alloc] init];
              destinationAnnotation.coordinate = _destination.coordinate;
+             destinationAnnotation.title = _restaurant.name;
+             destinationAnnotation.subtitle = _restaurant.placemark.addressDictionary[(__bridge NSString *) kABPersonAddressStreetKey];
              [self.mapView addAnnotation:destinationAnnotation];
          }
      }];
