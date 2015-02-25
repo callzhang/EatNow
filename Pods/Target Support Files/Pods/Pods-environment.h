@@ -97,6 +97,12 @@
 #define COCOAPODS_VERSION_MINOR_CrashlyticsLumberjack 0
 #define COCOAPODS_VERSION_PATCH_CrashlyticsLumberjack 0
 
+// INTULocationManager
+#define COCOAPODS_POD_AVAILABLE_INTULocationManager
+#define COCOAPODS_VERSION_MAJOR_INTULocationManager 2
+#define COCOAPODS_VERSION_MINOR_INTULocationManager 0
+#define COCOAPODS_VERSION_PATCH_INTULocationManager 2
+
 // JBWebViewController
 #define COCOAPODS_POD_AVAILABLE_JBWebViewController
 #define COCOAPODS_VERSION_MAJOR_JBWebViewController 1
