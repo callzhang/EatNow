@@ -33,6 +33,7 @@ PODS:
   - CrashlyticsFramework (2.2.5.2)
   - CrashlyticsLumberjack (2.0.0-rc2):
     - CocoaLumberjack/Default (>= 2.0.0-rc)
+  - INTULocationManager (2.0.2)
   - JBWebViewController (1.0.6):
     - ARChromeActivity (= 1.0)
     - ARSafariActivity (= 0.0.1)
@@ -52,6 +53,7 @@ DEPENDENCIES:
   - CocoaLumberjack (= 2.0.0-rc)
   - CrashlyticsFramework
   - CrashlyticsLumberjack (= 2.0.0-rc2)
+  - INTULocationManager
   - JBWebViewController
   - JGProgressHUD
   - KVOController
@@ -65,6 +67,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 6186e27827fc574b50b16c10102fcc591437f06c
   CrashlyticsFramework: 4e91082f3019bea7e718e1b67b0a3b56729dbc5d
   CrashlyticsLumberjack: d41d1043ceee3312f546242e8bd3ee0ec22e39b1
+  INTULocationManager: 83bec34472a706e178face50a4e5e21ca986b7d2
   JBWebViewController: 058921a787a57ecf4f1c6f68cef4a8e8f36b2bee
   JGProgressHUD: 733523c80f69b6dfc41b88a0f33883a89a8b4c3b
   KVOController: b1139ef1fc373b6757e4b69493fedd7b56eb1272
