@@ -143,7 +143,7 @@
     </object>
     <object type="LMREQUEST" id="z113">
         <attribute name="uuid" type="string">D3DCB9F7-8D67-4D4D-83AD-A75876E70ABA</attribute>
-        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/user/79F4CC49-AC1D-43DB-9E69-C42A820A3DCB</attribute>
+        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/user/lei</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
