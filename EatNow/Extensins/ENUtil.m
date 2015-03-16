@@ -73,26 +73,13 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     return (__bridge NSString *)string;
 }
 
-+ (NSString *)date2String:(NSDate *)date{
++ (NSDate *)string2date:(NSString *)string{
     NSDateFormatter *parseFormatter = [[NSDateFormatter alloc] init];
     parseFormatter.timeZone = [NSTimeZone defaultTimeZone];
-    parseFormatter.dateFormat = @"M-d";
-    return [parseFormatter stringFromDate:date];
+    [parseFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSDate *date = [parseFormatter dateFromString:string];
+    return date;
 }
-
-+ (NSString *)array2String:(NSArray *)array{
-    
-    if (array.count == 0) {
-        return @"";
-    }
-    NSMutableString *string = [NSMutableString new];
-    for (NSString *c in array) {
-        [string appendFormat:@"%@, ", c];
-    }
-    [string deleteCharactersInRange:NSMakeRange(string.length-2, 2)];
-    return string.copy;
-}
-
 
 + (NSString *)getStringFromTimeInterval:(NSTimeInterval)time{
 	
@@ -259,3 +246,27 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     return delegate.window;
 }
 @end
+
+@implementation NSArray(Extend)
+
+- (NSString *)string{
+    NSMutableString *string = [NSMutableString stringWithString:@""];
+    for (NSString *key in self) {
+        [string appendFormat:@"%@, ", key];
+    }
+    return [string substringToIndex:string.length-2];
+}
+
+@end
+
+@implementation NSDate (Extend)
+
+- (NSString *)string{
+    NSDateFormatter *parseFormatter = [[NSDateFormatter alloc] init];
+    parseFormatter.timeZone = [NSTimeZone defaultTimeZone];
+    parseFormatter.dateFormat = @"M/d";
+    return [parseFormatter stringFromDate:self];
+}
+
+@end
+

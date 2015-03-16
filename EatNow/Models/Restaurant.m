@@ -44,7 +44,7 @@
 }
 
 - (NSString *)cuisineStr{
-    return [ENUtil array2String:self.cuisines];
+    return self.cuisines.string;
 }
 
 - (double)distance{

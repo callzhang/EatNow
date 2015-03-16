@@ -23,8 +23,7 @@ extern DDLogLevel const ddLogLevel;
 + (void)initLogging;
 + (NSString *)myUUID;
 + (NSString *)generateUUID;
-+ (NSString *)date2String:(NSDate *)date;
-+ (NSString *)array2String:(NSArray *)array;
++ (NSDate *)string2date:(NSString *)string;
 
 //time
 + (NSString *)getStringFromTimeInterval:(NSTimeInterval)time;
@@ -51,4 +50,12 @@ extern DDLogLevel const ddLogLevel;
 
 @interface UIWindow(Extensions)
 + (UIWindow *)mainWindow;
+@end
+
+@interface NSArray(Extend)
+- (NSString *)string;
+@end
+
+@interface NSDate (Extend)
+- (NSString *)string;
 @end

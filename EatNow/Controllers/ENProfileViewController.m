@@ -9,6 +9,7 @@
 #import "ENProfileViewController.h"
 #import "ENUtil.h"
 #import "ENServerManager.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface ENProfileViewController ()
 
@@ -104,15 +105,28 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"subtitle"];
         }
         //history
-        NSDictionary *rest = _history[indexPath.row];
-        cell.textLabel.text = @"unknown name";
-        cell.detailTextLabel.text = [ENUtil array2String:[rest valueForKey:@"categories"]];
+        NSDictionary *info = _history[indexPath.row];
+        NSDictionary *restaurant = info[@"restaurant"];
+        cell.textLabel.text = [restaurant valueForKey:@"name"];
+        cell.detailTextLabel.text = [(NSArray *)[restaurant valueForKey:@"categories"] string];
+        
+        //date
         UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-        dateLabel.text = [ENUtil date2String:[NSDate date]];
+        NSDate *date = [ENUtil string2date:[info valueForKey:@"date"]];
+        dateLabel.text = date.string;
         dateLabel.font = [UIFont systemFontOfSize:12];
+        dateLabel.textColor = [UIColor colorWithWhite:0 alpha:0.8];
         cell.accessoryView = dateLabel;
+        
+        //image
+        NSArray *imageUrls = [restaurant valueForKey:@"food_image_url"];
+        NSString *imageUrlString = imageUrls.firstObject;
+        if (!imageUrlString) {
+            imageUrlString = [restaurant valueForKey:@"image_url"];
+            imageUrlString = [imageUrlString stringByReplacingOccurrencesOfString:@"ms.jpg" withString:@"l.jpg"];
+        }
         UIImage *img = [UIImage imageNamed:@"restaurant_default"];
-		cell.imageView.image = img;
+        [cell.imageView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:img];
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"preference"];
@@ -123,6 +137,7 @@
 		NSDictionary *info = self.preference[indexPath.row];
         NSString *name = info[@"name"];
         NSNumber *score = info[@"score"];
+        if ((id)score == [NSNull null]) score = @0;
         cell.textLabel.text = name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f%%", score.floatValue*100];
     }

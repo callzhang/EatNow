@@ -165,8 +165,9 @@
 									   
 								   }
 								   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-									   NSLog(@"*** Failed to download image with error: %@", error);
-									   ENAlert(error.description);
+                                       NSString *str = [NSString stringWithFormat:@"Failed to download image with error %@ code %ld", error.domain, error.code];
+									   DDLogError(@"*** Failed to download image with error: %@", error);
+									   ENAlert(str);
 								   }];
 }
 
