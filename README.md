@@ -23,13 +23,16 @@
 - Once user dismisses the *Card Details View*, the *Card Details View* gets dismissed and the *Card Deck View* comes back, with the same *Card* on top of it, after a *Transform Animation*.
 - Once user chooses *Next* on a *Card Details View*, the *Card Details View* gets dismissed and the *Card Deck View* comes back, with the next *Card* on top of it, after a *Toss Animation*.
 - Once user chooses *I’m Going*!, a pop-up view will show up. 
+
 #### I’m Going Pop-up View
 - ensures user with a conforming message like “Great Choice! Bon Appetite!” and two options, *Get Me There* and *Done*.
 - Choosing *Get Me There*, will reveal a Navigation View, showing user directions to the according restaurant.
 - Choosing *Done* will dismiss the pop-up view and direct user back to the *Card Details View*. 
+
 #### Navigation View
 - **Walking is the default Transport Mode, while “Driving” is the other option.(TBD)**
 - **On the Navigation View, user can also choose to Show Directions in Apple Maps or Show Directions in Google Maps. (TBD)**
+
 ### Card Details View (continued)
 - Once user comes back to the “Card Details View“ by choosing *Done* on the pop-up view, or dismissing the *Navigation View*, the *I’m Going*! turns inactive and cannot be tapped again. This state will be removed once this *Card* is dismissed by user tapping on *Next*, either on the *Card Deck View* or *Card Details View*.
 - Additionally, on the *Card Details View* of the restaurants user has been to and left feedback for, a *Feedback Icon*, *Good*, *It’s OK*, or *Not Good*, will be displayed. User may tap on the *Feedback Icon* to alter the feedback.
