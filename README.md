@@ -20,18 +20,20 @@
 - **Other scenarios that will cause the Card Deck View to refresh itself.(TBD)**
 
 ### Card Details View
-![Alt text](/../<wireframes>/wireframes/card-details-view.png?raw=true "card-deck-view")
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/card-details-view.png "card-deck-view")
 - On *Card Details View*, user can either *Dismiss* the *Card Details View*, *Next*, or choose *I’m Going*!.
 - Once user dismisses the *Card Details View*, the *Card Details View* gets dismissed and the *Card Deck View* comes back, with the same *Card* on top of it, after a *Transform Animation*.
 - Once user chooses *Next* on a *Card Details View*, the *Card Details View* gets dismissed and the *Card Deck View* comes back, with the next *Card* on top of it, after a *Toss Animation*.
 - Once user chooses *I’m Going*!, a pop-up view will show up. 
 
 #### I’m Going Pop-up View
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/I'm-going-popup.png "card-deck-view")
 - ensures user with a conforming message like “Great Choice! Bon Appetite!” and two options, *Get Me There* and *Done*.
 - Choosing *Get Me There*, will reveal a Navigation View, showing user directions to the according restaurant.
 - Choosing *Done* will dismiss the pop-up view and direct user back to the *Card Details View*. 
 
 #### Navigation View
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/I'm-going-popup.png "card-deck-view")
 - **Walking is the default Transport Mode, while “Driving” is the other option.(TBD)**
 - **On the Navigation View, user can also choose to Show Directions in Apple Maps or Show Directions in Google Maps. (TBD)**
 
@@ -40,6 +42,7 @@
 - Additionally, on the *Card Details View* of the restaurants user has been to and left feedback for, a *Feedback Icon*, *Good*, *It’s OK*, or *Not Good*, will be displayed. User may tap on the *Feedback Icon* to alter the feedback.
 
 ### History View
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/history-view.png "card-deck-view")
 - *History View* is a view that shows a list of history restaurants user has chosen *I’m Going*!.
 - Each history item looks like a mini card, in order to be consistent to the *Card Deck View*.
 - Each history item shows the basic info of the restaurant, together with the user feedback icon, *Good*, *It’ OK*, or *Not Good*.
@@ -47,6 +50,7 @@
 - Tapping on any history item will reveal the *Card Details View* of corresponding restaurant, after a “Transform Animation“.
 
 ### Feedback Card
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/feedback-card.png "card-deck-view")
 - *Feedback Card* shows upon app launch the next day each time user chooses “I’m Going!” on a *Card Details View*. 
 - *Feedback Card* displays basic information of the restaurant, and offers four options, *Good*, *It’s OK*, *Not Good*, and *Didn’t Go*. The first three have their own graphic icons, while  the option *Didn’t Go* plays humble.
 - *Feedback Card* cannot be dismissed until one of the four options has been chosen.
@@ -60,6 +64,7 @@
 - Eat-Now Apple Watch App does not require Notification permission.
 
 ### Paginated Card Deck View
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/apple-watch-paginated-card-deck-view.png "card-deck-view")
 - Twelve restaurant *Cards* becomes available upon app launch, with the 13th *Card* as a *Refresh* button.
 - Each restaurant Card shows brief information of the restaurant.
 - Tapping on any restaurant *Card* will reveal the corresponding *Card Details View*.
@@ -69,6 +74,7 @@
 - *Digital Crown* can be used to navigate through *Cards*.
  
 ### Card Details View
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/apple-watch-card-details-view.png "card-deck-view")
 - *Card Details View* shows more information of the restaurant, and offers only one option, as *I’m Going*!. User can also navigate back to the *Paginated Card Deck* View by using the system *Back* button.
 - *Card Details View* also shows user feedback icon, *Good*, *It’s OK* or *Not Good*, if user has been to this restaurant previously(choosing *I’m Going*! on *Card Details View*) and left feedback.
 - Choosing *I’m Going*! does not trigger another view or pop-up like Eat-Now iPhone app, instead, it makes the *I’m Going*! button inactive and replace the button text label with Bon Appetite!.
@@ -79,6 +85,7 @@
 - **Further functionalities TBD**.
 
 ### Glance
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/apple-watch-glance.png "card-deck-view")
 - *Glance* shows a summary view of the top three restaurants from the *Paginated Card Deck View*, by showing the restaurant name, rating, and distance.
 - Tapping on the *Glance* view will launch the Eat-Now Apple Watch App, showing the top restaurants in the *Paginated Card Deck View*.
 
