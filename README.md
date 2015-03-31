@@ -8,6 +8,7 @@
 - Eat-Now’s philosophy is simple, elegant and instantly helpful.
 
 ### Card Deck View
+![Alt text](https://github.com/callzhang/EatNow/blob/wireframes/wireframes/card-deck-view.png "card-deck-view")
 - Eat-Now offers **12** *Cards* and a *Refresh* button as the 13th *Card* at a time on the *Card Deck View*.
 - *Card Deck View* also offers a button to reveal *History View*.
 - User may choose to refresh the *Card Deck View* and get another **12** *Cards* at the end of the deck.
@@ -19,6 +20,7 @@
 - **Other scenarios that will cause the Card Deck View to refresh itself.(TBD)**
 
 ### Card Details View
+![Alt text](/../<wireframes>/wireframes/card-details-view.png?raw=true "card-deck-view")
 - On *Card Details View*, user can either *Dismiss* the *Card Details View*, *Next*, or choose *I’m Going*!.
 - Once user dismisses the *Card Details View*, the *Card Details View* gets dismissed and the *Card Deck View* comes back, with the same *Card* on top of it, after a *Transform Animation*.
 - Once user chooses *Next* on a *Card Details View*, the *Card Details View* gets dismissed and the *Card Deck View* comes back, with the next *Card* on top of it, after a *Toss Animation*.
