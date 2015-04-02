@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB41ACCC5E700B989FF /* InterfaceController.m */; };
+		09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB71ACCC5E700B989FF /* NotificationController.m */; };
+		09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CBA1ACCC5E700B989FF /* GlanceController.m */; };
+		09432CBD1ACCC5E700B989FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CBC1ACCC5E700B989FF /* Images.xcassets */; };
+		09432CC11ACCC5E700B989FF /* EatNow WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */; };
+		09432CC91ACCC5E700B989FF /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC71ACCC5E700B989FF /* Interface.storyboard */; };
+		09432CCB1ACCC5E700B989FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CCA1ACCC5E700B989FF /* Images.xcassets */; };
+		09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
 		9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */; };
@@ -36,6 +45,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		09432CC21ACCC5E700B989FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA5B73DD18F233EF00BB5F8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09432CBF1ACCC5E700B989FF;
+			remoteInfo = "EatNow WatchKit App";
+		};
+		09432CCC1ACCC5E700B989FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA5B73DD18F233EF00BB5F8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09432CAD1ACCC5E700B989FF;
+			remoteInfo = "EatNow WatchKit Extension";
+		};
 		DA5B740518F233EF00BB5F8E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA5B73DD18F233EF00BB5F8E /* Project object */;
@@ -45,7 +68,37 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		09432CD51ACCC5E700B989FF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "EatNow WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09432CB11ACCC5E700B989FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09432CB21ACCC5E700B989FF /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		09432CB31ACCC5E700B989FF /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		09432CB41ACCC5E700B989FF /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		09432CB61ACCC5E700B989FF /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		09432CB71ACCC5E700B989FF /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		09432CB91ACCC5E700B989FF /* GlanceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlanceController.h; sourceTree = "<group>"; };
+		09432CBA1ACCC5E700B989FF /* GlanceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlanceController.m; sourceTree = "<group>"; };
+		09432CBC1ACCC5E700B989FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EatNow WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09432CC61ACCC5E700B989FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09432CC81ACCC5E700B989FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		09432CCA1ACCC5E700B989FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		09432CD61ACCCACB00B989FF /* ENWMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWMapInterfaceController.h; sourceTree = "<group>"; };
+		09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWMapInterfaceController.m; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +143,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		09432CAB1ACCC5E700B989FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5B73E218F233EF00BB5F8E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +175,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		09432CAF1ACCC5E700B989FF /* EatNow WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				09432CB31ACCC5E700B989FF /* InterfaceController.h */,
+				09432CB41ACCC5E700B989FF /* InterfaceController.m */,
+				09432CB61ACCC5E700B989FF /* NotificationController.h */,
+				09432CB71ACCC5E700B989FF /* NotificationController.m */,
+				09432CB91ACCC5E700B989FF /* GlanceController.h */,
+				09432CBA1ACCC5E700B989FF /* GlanceController.m */,
+				09432CBC1ACCC5E700B989FF /* Images.xcassets */,
+				09432CB01ACCC5E700B989FF /* Supporting Files */,
+				09432CD61ACCCACB00B989FF /* ENWMapInterfaceController.h */,
+				09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */,
+			);
+			path = "EatNow WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		09432CB01ACCC5E700B989FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				09432CB11ACCC5E700B989FF /* Info.plist */,
+				09432CB21ACCC5E700B989FF /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		09432CC41ACCC5E700B989FF /* EatNow WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				09432CC71ACCC5E700B989FF /* Interface.storyboard */,
+				09432CCA1ACCC5E700B989FF /* Images.xcassets */,
+				09432CC51ACCC5E700B989FF /* Supporting Files */,
+			);
+			path = "EatNow WatchKit App";
+			sourceTree = "<group>";
+		};
+		09432CC51ACCC5E700B989FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				09432CC61ACCC5E700B989FF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		69B6DAD60DF0A19A4F479B77 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +263,8 @@
 			children = (
 				DA5B73EE18F233EF00BB5F8E /* EatNow */,
 				DA5B740718F233EF00BB5F8E /* LikedOrNopeTests */,
+				09432CAF1ACCC5E700B989FF /* EatNow WatchKit Extension */,
+				09432CC41ACCC5E700B989FF /* EatNow WatchKit App */,
 				DA5B73E718F233EF00BB5F8E /* Frameworks */,
 				DA5B73E618F233EF00BB5F8E /* Products */,
 				69B6DAD60DF0A19A4F479B77 /* Pods */,
@@ -170,6 +276,8 @@
 			children = (
 				DA5B73E518F233EF00BB5F8E /* EatNow.app */,
 				DA5B740018F233EF00BB5F8E /* EatNowTests.xctest */,
+				09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */,
+				09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,6 +379,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		09432CAD1ACCC5E700B989FF /* EatNow WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09432CD21ACCC5E700B989FF /* Build configuration list for PBXNativeTarget "EatNow WatchKit Extension" */;
+			buildPhases = (
+				09432CAA1ACCC5E700B989FF /* Sources */,
+				09432CAB1ACCC5E700B989FF /* Frameworks */,
+				09432CAC1ACCC5E700B989FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				09432CC31ACCC5E700B989FF /* PBXTargetDependency */,
+			);
+			name = "EatNow WatchKit Extension";
+			productName = "EatNow WatchKit Extension";
+			productReference = 09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		09432CBF1ACCC5E700B989FF /* EatNow WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09432CCF1ACCC5E700B989FF /* Build configuration list for PBXNativeTarget "EatNow WatchKit App" */;
+			buildPhases = (
+				09432CBE1ACCC5E700B989FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EatNow WatchKit App";
+			productName = "EatNow WatchKit App";
+			productReference = 09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
 		DA5B73E418F233EF00BB5F8E /* EatNow */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA5B741118F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "EatNow" */;
@@ -280,10 +421,12 @@
 				DA5B73E218F233EF00BB5F8E /* Frameworks */,
 				DA5B73E318F233EF00BB5F8E /* Resources */,
 				A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */,
+				09432CD51ACCC5E700B989FF /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				09432CCD1ACCC5E700B989FF /* PBXTargetDependency */,
 			);
 			name = EatNow;
 			productName = LikedOrNope;
@@ -317,6 +460,12 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = modocache;
 				TargetAttributes = {
+					09432CAD1ACCC5E700B989FF = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					09432CBF1ACCC5E700B989FF = {
+						CreatedOnToolsVersion = 6.2;
+					};
 					DA5B73FF18F233EF00BB5F8E = {
 						TestTargetID = DA5B73E418F233EF00BB5F8E;
 					};
@@ -328,6 +477,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = DA5B73DC18F233EF00BB5F8E;
 			productRefGroup = DA5B73E618F233EF00BB5F8E /* Products */;
@@ -336,11 +486,31 @@
 			targets = (
 				DA5B73E418F233EF00BB5F8E /* EatNow */,
 				DA5B73FF18F233EF00BB5F8E /* EatNowTests */,
+				09432CAD1ACCC5E700B989FF /* EatNow WatchKit Extension */,
+				09432CBF1ACCC5E700B989FF /* EatNow WatchKit App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		09432CAC1ACCC5E700B989FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09432CC11ACCC5E700B989FF /* EatNow WatchKit App.app in Resources */,
+				09432CBD1ACCC5E700B989FF /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09432CBE1ACCC5E700B989FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09432CC91ACCC5E700B989FF /* Interface.storyboard in Resources */,
+				09432CCB1ACCC5E700B989FF /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5B73E318F233EF00BB5F8E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,6 +567,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		09432CAA1ACCC5E700B989FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */,
+				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
+				09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */,
+				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA5B73E118F233EF00BB5F8E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -426,6 +607,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		09432CC31ACCC5E700B989FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09432CBF1ACCC5E700B989FF /* EatNow WatchKit App */;
+			targetProxy = 09432CC21ACCC5E700B989FF /* PBXContainerItemProxy */;
+		};
+		09432CCD1ACCC5E700B989FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09432CAD1ACCC5E700B989FF /* EatNow WatchKit Extension */;
+			targetProxy = 09432CCC1ACCC5E700B989FF /* PBXContainerItemProxy */;
+		};
 		DA5B740618F233EF00BB5F8E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DA5B73E418F233EF00BB5F8E /* EatNow */;
@@ -434,6 +625,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		09432CC71ACCC5E700B989FF /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				09432CC81ACCC5E700B989FF /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -453,6 +652,82 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		09432CD01ACCC5E700B989FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IBSC_MODULE = EatNow_WatchKit_Extension;
+				INFOPLIST_FILE = "EatNow WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		09432CD11ACCC5E700B989FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IBSC_MODULE = EatNow_WatchKit_Extension;
+				INFOPLIST_FILE = "EatNow WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		09432CD31ACCC5E700B989FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "EatNow WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		09432CD41ACCC5E700B989FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "EatNow WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		DA5B740F18F233EF00BB5F8E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -571,6 +846,7 @@
 		};
 		DA5B741518F233EF00BB5F8E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -590,6 +866,7 @@
 		};
 		DA5B741618F233EF00BB5F8E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -606,6 +883,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		09432CCF1ACCC5E700B989FF /* Build configuration list for PBXNativeTarget "EatNow WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09432CD01ACCC5E700B989FF /* Debug */,
+				09432CD11ACCC5E700B989FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		09432CD21ACCC5E700B989FF /* Build configuration list for PBXNativeTarget "EatNow WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09432CD31ACCC5E700B989FF /* Debug */,
+				09432CD41ACCC5E700B989FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DA5B73E018F233EF00BB5F8E /* Build configuration list for PBXProject "EatNow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
