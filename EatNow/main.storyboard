@@ -201,11 +201,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H4b-9y-85a" userLabel="venueCard" customClass="DesignableView" customModule="EatNow" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4b-9y-85a" userLabel="venueCard" customClass="DesignableView" customModule="EatNow" customModuleProvider="target">
                                 <rect key="frame" x="24" y="15" width="327" height="637"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ElG-By-adf">
-                                        <rect key="frame" x="0.0" y="170" width="327" height="160"/>
+                                        <rect key="frame" x="0.0" y="267" width="327" height="160"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="160" id="v6R-6Z-vpM"/>
@@ -275,8 +275,8 @@ New York, NY 10014</string>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ful-I7-jD3" userLabel="map">
-                                        <rect key="frame" x="0.0" y="330" width="327" height="210"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ful-I7-jD3" userLabel="map">
+                                        <rect key="frame" x="0.0" y="427" width="327" height="210"/>
                                         <subviews>
                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-UQ-fkk">
                                                 <rect key="frame" x="0.0" y="0.0" width="327" height="210"/>
@@ -289,7 +289,7 @@ New York, NY 10014</string>
                                                     </mask>
                                                 </variation>
                                             </mapView>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ep-fn-Jlo" userLabel="collapseButton">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ep-fn-Jlo" userLabel="collapseButton">
                                                 <rect key="frame" x="8" y="160" width="42" height="42"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="42" id="QDD-Uo-igM"/>
@@ -299,7 +299,7 @@ New York, NY 10014</string>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x25-DJ-141" userLabel="goButton">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x25-DJ-141" userLabel="goButton">
                                                 <rect key="frame" x="169" y="160" width="150" height="42"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="42" id="8i5-Cb-vD0"/>
@@ -309,7 +309,7 @@ New York, NY 10014</string>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2a-nS-KDw" userLabel="rejectButton">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2a-nS-KDw" userLabel="rejectButton">
                                                 <rect key="frame" x="125" y="160" width="42" height="42"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="42" id="97c-Ph-mEG"/>
@@ -333,13 +333,13 @@ New York, NY 10014</string>
                                             <constraint firstAttribute="bottom" secondItem="0ep-fn-Jlo" secondAttribute="bottom" constant="8" id="zFi-tP-gsq"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-Ee-d2j" userLabel="Info">
-                                        <rect key="frame" x="0.0" y="0.0" width="327" height="170"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-Ee-d2j" userLabel="Info">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="267"/>
                                         <subviews>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" ambiguous="YES" misplaced="YES" image="eatnow-venue-image" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="eatnow-venue-image" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
                                                 <rect key="frame" x="-24" y="-15" width="480" height="320"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New American, Burger" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45L-e4-Y8S" userLabel="venueType" customClass="DesignableLabel" customModule="EatNow" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New American, Burger" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45L-e4-Y8S" userLabel="venueType" customClass="DesignableLabel" customModule="EatNow" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="35" width="236" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="236" id="Xvf-NX-sub"/>
@@ -351,7 +351,7 @@ New York, NY 10014</string>
                                                 <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="shadowOffset" width="0.0" height="2"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The Spotted Pig" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wt9-vs-bTu" userLabel="venueName" customClass="DesignableLabel" customModule="EatNow" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Spotted Pig" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wt9-vs-bTu" userLabel="venueName" customClass="DesignableLabel" customModule="EatNow" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="8" width="192" height="29"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="192" id="CO6-ET-BFU"/>
@@ -363,31 +363,31 @@ New York, NY 10014</string>
                                                 <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="shadowOffset" width="0.0" height="2"/>
                                             </label>
-                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhm-ml-CnK" userLabel="venueRating">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fhm-ml-CnK" userLabel="venueRating">
                                                 <rect key="frame" x="8" y="59" width="120" height="24"/>
                                                 <subviews>
-                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="eatnow-rating-star" translatesAutoresizingMaskIntoConstraints="NO" id="YuP-BB-PQn" userLabel="eatnow-rating-star-1">
+                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="eatnow-rating-star" translatesAutoresizingMaskIntoConstraints="NO" id="YuP-BB-PQn" userLabel="eatnow-rating-star-1">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="23"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="23" id="0oN-RJ-TH4"/>
                                                             <constraint firstAttribute="width" constant="24" id="hpt-6u-tdO"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="eatnow-rating-star" translatesAutoresizingMaskIntoConstraints="NO" id="4XD-5u-Mka" userLabel="eatnow-rating-star-2">
+                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="eatnow-rating-star" translatesAutoresizingMaskIntoConstraints="NO" id="4XD-5u-Mka" userLabel="eatnow-rating-star-2">
                                                         <rect key="frame" x="23" y="0.0" width="24" height="23"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="24" id="aed-tM-vrw"/>
                                                             <constraint firstAttribute="height" constant="23" id="zMS-cD-aCa"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="eatnow-rating-star" translatesAutoresizingMaskIntoConstraints="NO" id="Flw-cK-gDT" userLabel="eatnow-rating-star-3">
+                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="eatnow-rating-star" translatesAutoresizingMaskIntoConstraints="NO" id="Flw-cK-gDT" userLabel="eatnow-rating-star-3">
                                                         <rect key="frame" x="46" y="0.0" width="24" height="23"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="24" id="Zb3-v2-qLX"/>
                                                             <constraint firstAttribute="height" constant="23" id="snw-Q6-1I9"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="eatnow-rating-star" translatesAutoresizingMaskIntoConstraints="NO" id="6CG-vh-Zhq" userLabel="eatnow-rating-star-4">
+                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="eatnow-rating-star" translatesAutoresizingMaskIntoConstraints="NO" id="6CG-vh-Zhq" userLabel="eatnow-rating-star-4">
                                                         <rect key="frame" x="69" y="0.0" width="24" height="23"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="24" id="Rn9-of-6Mu"/>
@@ -409,7 +409,7 @@ New York, NY 10014</string>
                                                     <constraint firstAttribute="centerY" secondItem="4XD-5u-Mka" secondAttribute="centerY" id="oo1-FP-xBC"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9rp-Qh-TDe" userLabel="venueHighlights">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9rp-Qh-TDe" userLabel="venueHighlights">
                                                 <rect key="frame" x="8" y="83" width="269" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="KC9-gp-4Xw"/>
@@ -450,6 +450,7 @@ New York, NY 10014</string>
                                     <constraint firstAttribute="trailing" secondItem="fsH-Ee-d2j" secondAttribute="trailing" id="isH-e0-e62"/>
                                     <constraint firstAttribute="trailing" secondItem="ful-I7-jD3" secondAttribute="trailing" id="lzF-cv-vlj"/>
                                     <constraint firstItem="ful-I7-jD3" firstAttribute="top" secondItem="ElG-By-adf" secondAttribute="bottom" id="o7K-GG-KMv"/>
+                                    <constraint firstAttribute="bottom" secondItem="ful-I7-jD3" secondAttribute="bottom" id="uHO-1o-kJs"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

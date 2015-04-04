@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>EatNow WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>EatNow.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,11 +17,26 @@
 		<key>EatNowTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>1</integer>
+		</dict>
+		<key>Glance - EatNow WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>Notification - EatNow WatchKit App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>09432CBF1ACCC5E700B989FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DA5B73E418F233EF00BB5F8E</key>
 		<dict>
 			<key>primary</key>
