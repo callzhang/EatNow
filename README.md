@@ -20,13 +20,13 @@
 - *Card Deck View* only refreshes upon app launch and user request.
 
 ### Card Details View
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-details-view.png “card-details-view”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-details-view.png)
 - On *Card Details View*, there is only one action available, which is *I’m Going*!. Meanwhile, user can always choose to dismiss the view by tapping on the *Back* button to go back to the *Card Deck View*.
 - Once user dismisses the *Card Details View*, the *Card Details View* gets dismissed and the *Card Deck View* comes back, with the same *Card* on top of it, after a *Transform Animation*.
 - Once user chooses *I’m Going*!, see below. 
 
 #### I’m Going Button Pressed
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-details-view-I’m-going-button-pressed.png “card-details-view-I’m-going-button-pressed”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-details-view-I’m-going-button-pressed.png)
 - If user has chosen *I’m Going* on other *Card Details View*, a prompt will be displayed to confirm user’s action, like “Are you sure you’re going to $venueName1, instead of $venueName2?”. User may choose Yes or No.
 - A temporary toast message, like “Great Choice! Bon Appetite!”, will show and acknowledge user’s action.
 - The *I’m Going*! button becomes inactive and cannot be tapped again, unless user taps and confirms *I’m Going*! on other *Card Details View* within **30 min**.
@@ -39,7 +39,7 @@
 - Additionally, on the *Card Details View* of the restaurants user has been to and left feedback for, a *Feedback Icon*, *Good*, *It’s OK*, or *Not Good*, will be displayed. User may tap on the *Feedback Icon* to alter the feedback.
 
 ### History View
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/history-view.png “history-view”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/history-view.png)
 - *History View* is a view that shows a list of history restaurants user has chosen *I’m Going*!.
 - Each history item looks like a mini card, in order to be consistent to the *Card Deck View*.
 - Each history item shows the basic info of the restaurant, together with the user feedback icon, *Good*, *It’ OK*, or *Not Good*.
@@ -47,7 +47,7 @@
 - Tapping on any history item will reveal the *Card Details View* of corresponding restaurant, after a “Transform Animation“.
 
 ### Feedback Card
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/feedback-card.png “feedback-card”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/feedback-card.png)
 - *Feedback Card* shows upon app launch the next day each time user chooses “I’m Going!” on a *Card Details View*. 
 - *Feedback Card* displays basic information of the restaurant, and offers four options, *Good*, *It’s OK*, *Not Good*, and *Didn’t Go*. The first three have their own graphic icons, while  the option *Didn’t Go* plays humble.
 - *Feedback Card* cannot be dismissed until one of the four options has been chosen.
@@ -61,7 +61,7 @@
 - Eat-Now Apple Watch App does not require Notification permission.
 
 ### Paginated Card Deck View
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-paginated-card-deck-view.png “apple-watch-paginatedcard-deck-view”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-paginated-card-deck-view.png)
 - Twelve restaurant *Cards* becomes available upon app launch, with the 13th *Card* as a *Refresh* button.
 - Each restaurant Card shows brief information of the restaurant.
 - Tapping on any restaurant *Card* will reveal the corresponding *Card Details View*.
@@ -71,14 +71,14 @@
 - *Digital Crown* can be used to navigate through *Cards*.
  
 ### Card Details View
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-card-details-view.png “apple-watch-card-details-view”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-card-details-view.png)
 - *Card Details View* shows more information of the restaurant, and offers only one option, as *I’m Going*!. User can also navigate back to the *Paginated Card Deck* View by using the system *Back* button.
 - *Card Details View* also shows user feedback icon, *Good*, *It’s OK* or *Not Good*, if user has been to this restaurant previously(choosing *I’m Going*! on *Card Details View*) and left feedback.
 - Choosing *I’m Going*! does not trigger another view or pop-up like Eat-Now iPhone app, instead, it makes the *I’m Going*! button inactive and replace the button text label with Bon Appetite!.
 - A note at the end of the view saying, “You may use Eat-Now iPhone App to get directions to the venue.”
 
 ### Apple Watch Feedback Card
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-feedback-card.png “apple-watch-feedback-card”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-feedback-card.png)
 - *Feedback Card* shows upon first app launch, either Apple Watch or iPhone, the next day each time user chooses “I’m Going!” on a *Card Details View*.
 - Apple Watch *Feedback Card* works the same way as *Feedback Card*.
 
@@ -87,6 +87,6 @@
 - **Further functionalities TBD**.
 
 ### Glance
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-glance.png “apple-watch—glance”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-glance.png)
 - *Glance* shows a summary view of the top three restaurants from the *Paginated Card Deck View*, by showing the restaurant name, rating, and distance.
 - Tapping on the *Glance* view will launch the Eat-Now Apple Watch App, showing the top restaurants in the *Paginated Card Deck View*.
