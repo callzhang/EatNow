@@ -204,11 +204,11 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4b-9y-85a" userLabel="venueCard" customClass="DesignableView" customModule="EatNow" customModuleProvider="target">
                                 <rect key="frame" x="24" y="15" width="327" height="637"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ElG-By-adf">
-                                        <rect key="frame" x="0.0" y="267" width="327" height="160"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ElG-By-adf">
+                                        <rect key="frame" x="0.0" y="239" width="327" height="160"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="160" id="v6R-6Z-vpM"/>
+                                            <constraint firstAttribute="height" constant="160" id="Zg0-Sm-FPg"/>
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Pz4-Au-DhX" detailTextLabel="ZqA-Y7-OfX" imageView="zma-xC-sKu" style="IBUITableViewCellStyleSubtitle" id="Qcq-ex-0P7">
@@ -275,11 +275,11 @@ New York, NY 10014</string>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ful-I7-jD3" userLabel="map">
-                                        <rect key="frame" x="0.0" y="427" width="327" height="210"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ful-I7-jD3" userLabel="map">
+                                        <rect key="frame" x="0.0" y="399" width="327" height="238"/>
                                         <subviews>
-                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-UQ-fkk">
-                                                <rect key="frame" x="0.0" y="0.0" width="327" height="210"/>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hQ6-UQ-fkk">
+                                                <rect key="frame" x="0.0" y="0.0" width="327" height="238"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="210" id="2lu-Ef-Whn"/>
                                                 </constraints>
@@ -289,8 +289,8 @@ New York, NY 10014</string>
                                                     </mask>
                                                 </variation>
                                             </mapView>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ep-fn-Jlo" userLabel="collapseButton">
-                                                <rect key="frame" x="8" y="160" width="42" height="42"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ep-fn-Jlo" userLabel="collapseButton">
+                                                <rect key="frame" x="8" y="188" width="42" height="42"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="42" id="QDD-Uo-igM"/>
                                                     <constraint firstAttribute="width" constant="42" id="ggb-43-Tk0"/>
@@ -299,8 +299,8 @@ New York, NY 10014</string>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x25-DJ-141" userLabel="goButton">
-                                                <rect key="frame" x="169" y="160" width="150" height="42"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x25-DJ-141" userLabel="goButton">
+                                                <rect key="frame" x="169" y="188" width="150" height="42"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="42" id="8i5-Cb-vD0"/>
                                                     <constraint firstAttribute="width" constant="150" id="TSc-7g-rZN"/>
@@ -309,8 +309,8 @@ New York, NY 10014</string>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2a-nS-KDw" userLabel="rejectButton">
-                                                <rect key="frame" x="125" y="160" width="42" height="42"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E2a-nS-KDw" userLabel="rejectButton">
+                                                <rect key="frame" x="125" y="188" width="42" height="42"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="42" id="97c-Ph-mEG"/>
                                                     <constraint firstAttribute="width" constant="42" id="9hv-Qu-1rb"/>
@@ -324,7 +324,6 @@ New York, NY 10014</string>
                                             <constraint firstAttribute="bottom" secondItem="hQ6-UQ-fkk" secondAttribute="bottom" id="BeI-1l-DXY"/>
                                             <constraint firstAttribute="trailing" secondItem="x25-DJ-141" secondAttribute="trailing" constant="8" id="Eek-Vg-Jg2"/>
                                             <constraint firstItem="x25-DJ-141" firstAttribute="leading" secondItem="E2a-nS-KDw" secondAttribute="trailing" constant="2" id="HhQ-Qs-FNY"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="210" id="KXO-ax-Efc"/>
                                             <constraint firstAttribute="bottom" secondItem="E2a-nS-KDw" secondAttribute="bottom" constant="8" id="Yqm-6c-RTn"/>
                                             <constraint firstItem="hQ6-UQ-fkk" firstAttribute="leading" secondItem="ful-I7-jD3" secondAttribute="leading" id="kb1-y0-uPk"/>
                                             <constraint firstItem="0ep-fn-Jlo" firstAttribute="leading" secondItem="ful-I7-jD3" secondAttribute="leading" constant="8" id="lTB-NS-BHg"/>
@@ -333,11 +332,11 @@ New York, NY 10014</string>
                                             <constraint firstAttribute="bottom" secondItem="0ep-fn-Jlo" secondAttribute="bottom" constant="8" id="zFi-tP-gsq"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-Ee-d2j" userLabel="Info">
-                                        <rect key="frame" x="0.0" y="0.0" width="327" height="267"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-Ee-d2j" userLabel="Info">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="239"/>
                                         <subviews>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="eatnow-venue-image" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
-                                                <rect key="frame" x="-24" y="-15" width="480" height="320"/>
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eatnow-venue-image" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
+                                                <rect key="frame" x="0.0" y="0.0" width="327" height="239"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New American, Burger" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45L-e4-Y8S" userLabel="venueType" customClass="DesignableLabel" customModule="EatNow" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="35" width="236" height="25"/>
@@ -428,19 +427,23 @@ New York, NY 10014</string>
                                         <constraints>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="5Kx-Jx-9cx"/>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="top" secondItem="fhm-ml-CnK" secondAttribute="bottom" id="BFv-ig-5U0"/>
+                                            <constraint firstAttribute="trailing" secondItem="cy3-AH-BuV" secondAttribute="trailing" id="Bau-Z1-YWY"/>
+                                            <constraint firstItem="cy3-AH-BuV" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="GIO-Av-PQn"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="LdG-9F-uh3"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="OCd-oj-NLg"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="8" id="U23-yC-IEX"/>
+                                            <constraint firstAttribute="bottom" secondItem="cy3-AH-BuV" secondAttribute="bottom" id="UKJ-yg-PPM"/>
                                             <constraint firstItem="fhm-ml-CnK" firstAttribute="top" secondItem="45L-e4-Y8S" secondAttribute="bottom" constant="-1" id="eQn-3U-AMY"/>
+                                            <constraint firstItem="cy3-AH-BuV" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="jhw-3v-zwX"/>
                                             <constraint firstItem="fhm-ml-CnK" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="leG-yX-W0U"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="top" secondItem="Wt9-vs-bTu" secondAttribute="bottom" constant="-2" id="uyj-EB-nfZ"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="170" id="zJM-ak-0Jf"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="1te-XH-USY"/>
+                                    <constraint firstItem="cy3-AH-BuV" firstAttribute="height" secondItem="hQ6-UQ-fkk" secondAttribute="height" id="7Nm-V3-fN0"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="Bb2-PM-N74"/>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="top" secondItem="H4b-9y-85a" secondAttribute="top" id="Bjb-ul-iib"/>
                                     <constraint firstAttribute="trailing" secondItem="ElG-By-adf" secondAttribute="trailing" id="PJi-6A-tSw"/>
