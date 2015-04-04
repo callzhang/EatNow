@@ -26,7 +26,7 @@
 - Once user chooses *I’m Going*!, see below. 
 
 #### I’m Going Button Pressed
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-details-view-I&#39;m-going-button-pressed.png)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-details-view-Im-going-button-pressed.png)
 - If user has chosen *I’m Going* on other *Card Details View*, a prompt will be displayed to confirm user’s action, like “Are you sure you’re going to $venueName1, instead of $venueName2?”. User may choose Yes or No.
 - A temporary toast message, like “Great Choice! Bon Appetite!”, will show and acknowledge user’s action.
 - The *I’m Going*! button becomes inactive and cannot be tapped again, unless user taps and confirms *I’m Going*! on other *Card Details View* within **30 min**.
