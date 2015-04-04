@@ -39,4 +39,5 @@ typedef NS_OPTIONS(NSInteger, ENServerManagerStatus){
 - (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
 - (void)selectRestaurant:(Restaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block;
+- (void)watchKitRequestDownloadContentWithCompletion:(void (^)(NSData *content))completion;
 @end

@@ -1,33 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wU6-mF-UcC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--ResturantInterfaceController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController">
+                <controller identifier="ResturantInterfaceController" id="AgC-eL-Hgc" customClass="RestaurantInterfaceController">
                     <items>
-                        <label width="136" height="50" alignment="left" text="wah da" id="t4I-rR-oBd"/>
-                        <button width="1" alignment="left" title="I'm Going" id="Wpb-mZ-OvT">
-                            <connections>
-                                <segue destination="tuy-Ot-t0c" kind="modal" id="h30-VV-Syf"/>
-                            </connections>
-                        </button>
-                        <button width="1" alignment="left" title="Push" id="NEw-pX-Zh5">
-                            <connections>
-                                <segue destination="Z6k-R8-Hzx" kind="push" id="UTq-Tw-ymR"/>
-                            </connections>
-                        </button>
+                        <label width="136" height="19" alignment="left" text="Restaurant Name" id="vUi-pi-dh7"/>
+                        <label width="136" height="19" alignment="left" text="Rating &amp; Review" id="w0z-XP-5Jq"/>
+                        <label width="136" height="19" alignment="left" text="Cuisine/Category" id="WrN-zZ-6yJ"/>
+                        <label width="136" height="19" alignment="left" text="Highlights" id="Txh-oH-1zg"/>
+                        <label width="136" height="19" alignment="left" text="Distance" id="I6D-FW-agg"/>
+                        <button width="1" alignment="left" title="View Details" id="PYb-oH-cDG"/>
                     </items>
                     <connections>
                         <segue destination="Z6k-R8-Hzx" kind="relationship" relationship="nextPage" id="zf7-d4-JFh"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="148" y="370"/>
+            <point key="canvasLocation" x="148" y="429.75"/>
         </scene>
         <!--Interface Controller-->
         <scene sceneID="Mlb-Ec-dSQ">
@@ -41,7 +36,18 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="428" y="791"/>
+            <point key="canvasLocation" x="352" y="428"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="eMk-dw-3kG">
+            <objects>
+                <controller id="wU6-mF-UcC" customClass="InterfaceController">
+                    <items>
+                        <label width="110" height="74" alignment="left" text="Loading" id="Tdk-cq-fP1"/>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="416" y="749"/>
         </scene>
         <!--Map Interface Controller-->
         <scene sceneID="8Kd-wg-fl6">
@@ -55,7 +61,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="571" y="370"/>
+            <point key="canvasLocation" x="759" y="568"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
@@ -98,8 +104,4 @@
             <point key="canvasLocation" x="591" y="1118"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="zf7-d4-JFh"/>
-        <segue reference="h30-VV-Syf"/>
-    </inferredMetricsTieBreakers>
 </document>

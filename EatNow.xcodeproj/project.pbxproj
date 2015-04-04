@@ -16,6 +16,7 @@
 		09432CCB1ACCC5E700B989FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CCA1ACCC5E700B989FF /* Images.xcassets */; };
 		09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */; };
+		09A21B3D1AD0828800D50E44 /* RestaurantInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09A21B3C1AD0828800D50E44 /* RestaurantInterfaceController.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
 		9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */; };
@@ -99,6 +100,8 @@
 		09432CCA1ACCC5E700B989FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		09432CD61ACCCACB00B989FF /* ENWMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWMapInterfaceController.h; sourceTree = "<group>"; };
 		09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWMapInterfaceController.m; sourceTree = "<group>"; };
+		09A21B3B1AD0828800D50E44 /* RestaurantInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantInterfaceController.h; sourceTree = "<group>"; };
+		09A21B3C1AD0828800D50E44 /* RestaurantInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantInterfaceController.m; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 			children = (
 				09432CB31ACCC5E700B989FF /* InterfaceController.h */,
 				09432CB41ACCC5E700B989FF /* InterfaceController.m */,
+				09A21B3B1AD0828800D50E44 /* RestaurantInterfaceController.h */,
+				09A21B3C1AD0828800D50E44 /* RestaurantInterfaceController.m */,
 				09432CB61ACCC5E700B989FF /* NotificationController.h */,
 				09432CB71ACCC5E700B989FF /* NotificationController.m */,
 				09432CB91ACCC5E700B989FF /* GlanceController.h */,
@@ -573,6 +578,7 @@
 			files = (
 				09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */,
 				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
+				09A21B3D1AD0828800D50E44 /* RestaurantInterfaceController.m in Sources */,
 				09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */,
 				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
 			);

@@ -303,6 +303,17 @@
     }
 }
 
+- (void)watchKitRequestDownloadContentWithCompletion:(void (^)(NSData *content))completion {
+    NSURL *requestURL = [NSURL URLWithString:@"http://www.google.com"];
+    NSURLRequest *reuqest = [NSURLRequest requestWithURL:requestURL];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"watch-kit-test-google"]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:reuqest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        completion(data);
+    }];
+    
+    [task resume];
+}
+
 #pragma mark - Tools
 + (NSArray *)getArrayOfCategories:(NSArray *)list{
     NSMutableArray *types = [NSMutableArray new];
