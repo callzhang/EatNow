@@ -26,7 +26,7 @@
 - Once user chooses *I’m Going*!, see below. 
 
 #### I’m Going Button Pressed
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-details-view-Im-going-button-pressed.png)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-details-view-2.png)
 - If user has chosen *I’m Going* on other *Card Details View*, a prompt will be displayed to confirm user’s action, like “Are you sure you’re going to $venueName1, instead of $venueName2?”. User may choose Yes or No.
 - A temporary toast message, like “Great Choice! Bon Appetite!”, will show and acknowledge user’s action.
 - The *I’m Going*! button becomes inactive and cannot be tapped again, unless user taps and confirms *I’m Going*! on other *Card Details View* within **30 min**.
@@ -72,6 +72,7 @@
  
 ### Card Details View
 ![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-card-details-view.png)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/apple-watch-card-details-view-i'm-going-button-pressed.png)
 - *Card Details View* shows more information of the restaurant, and offers only one option, as *I’m Going*!. User can also navigate back to the *Paginated Card Deck* View by using the system *Back* button.
 - *Card Details View* also shows user feedback icon, *Good*, *It’s OK* or *Not Good*, if user has been to this restaurant previously(choosing *I’m Going*! on *Card Details View*) and left feedback.
 - Choosing *I’m Going*! does not trigger another view or pop-up like Eat-Now iPhone app, instead, it makes the *I’m Going*! button inactive and replace the button text label with Bon Appetite!.
