@@ -8,7 +8,7 @@
 - Eat-Now’s philosophy is simple, elegant and instantly helpful.
 
 ### Card Deck View
-![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-deck-view.png “card-deck-view”)
+![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-deck-view.png)
 - Eat-Now offers **12** *Cards* at a time on the *Card Deck View*.
 - *Card Deck View* also offers a button to Refresh the *Cards*.
 - *Card Deck View* also offers a button to reveal *History View*.
