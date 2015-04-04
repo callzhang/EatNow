@@ -142,7 +142,8 @@
         NSString *myID = [ENUtil myUUID];
         NSDictionary *dic = @{@"username":myID,
                               @"latitude":@(_currentLocation.coordinate.latitude),
-                              @"longitude":@(_currentLocation.coordinate.longitude)
+                              @"longitude":@(_currentLocation.coordinate.longitude),
+                              @"radius":@500
                               };
         NSLog(@"Request restaurant: %@", dic);
         [manager POST:kSearchUrl parameters:dic
@@ -205,8 +206,9 @@
 				  self.status |= FetchedRestaurant;
 				  
               }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
-                  
-                  NSLog(@"Failed to get restaurant list with Error: %@", error);
+                  NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
+                  DDLogError(str);
+                  ENAlert(str);
                   if (block) {
                       block(NO, error);
                   }
