@@ -7,7 +7,7 @@ Swipe to "like" or "dislike" any view, just like Tinder.app. Build a flashcard a
 - Use `UIView+MDCSwipeToChoose` to add a swipe gesture and callbacks to any `UIView`.
 - Use `MDCSwipeToChooseView` to get a UI nearly identical to Tinder.app in just a few lines of code.
 
-![](http://cl.ly/image/0M1j1J0E0s3G/MDCSwipeToChoose-v0.2.0.gif)
+![](http://f.cl.ly/items/0f1t1Z2E0Q2j3X47193d/7zrvo.gif)
 
 You may view slides on some the architecture decisions that went into this library [here](http://modocache.io/ios-ui-component-api-design).
 
@@ -22,8 +22,6 @@ pod "MDCSwipeToChoose"
 ## How to Use
 
 Check out [the sample app](https://github.com/modocache/MDCSwipeToChoose/tree/master/Examples/LikedOrNope) for an example of how to use `MDCSwipeToChooseView` to build the UI in the GIF above.
-
-> **NOTE:** You must run `pod install` in the `Examples/LikedOrNope` directory before building the example app.
 
 Every public class contains documentation in its header file.
 
@@ -64,20 +62,6 @@ The following is an example of how you can use `MDCSwipeToChooseView` to display
 // This is called when a user didn't fully swipe left or right.
 - (void)viewDidCancelSwipe:(UIView *)view {
     NSLog(@"Couldn't decide, huh?");
-}
-
-// Sent before a choice is made. Cancel the choice by returning `NO`. Otherwise return `YES`.
-- (BOOL)view:(UIView *)view shouldBeChosenWithDirection:(MDCSwipeDirection)direction {
-    if (direction == MDCSwipeDirectionLeft) {
-        return YES;
-    } else {
-        // Snap the view back and cancel the choice.
-        [UIView animateWithDuration:0.16 animations:^{
-            view.transform = CGAffineTransformIdentity;
-            view.center = self.superview.center;
-        }];
-        return NO;
-    }
 }
 
 // This is called then a user swipes the view fully left or right.

@@ -24,6 +24,7 @@
 //
 
 #import "INTULocationManager.h"
+#import "INTULocationManager+Internal.h"
 #import "INTULocationRequest.h"
 
 
@@ -64,6 +65,30 @@
 
 static id _sharedInstance;
 
+/**
+ Returns the current state of location services for this app, based on the system settings and user authorization status.
+ */
++ (INTULocationServicesState)locationServicesState
+{
+    if ([CLLocationManager locationServicesEnabled] == NO) {
+        return INTULocationServicesStateDisabled;
+    }
+    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        return INTULocationServicesStateNotDetermined;
+    }
+    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+        return INTULocationServicesStateDenied;
+    }
+    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
+        return INTULocationServicesStateRestricted;
+    }
+    
+    return INTULocationServicesStateAvailable;
+}
+
+/**
+ Returns the singleton instance of this class.
+ */
 + (instancetype)sharedInstance
 {
     static dispatch_once_t _onceToken;
@@ -86,31 +111,15 @@ static id _sharedInstance;
 }
 
 /**
- Returns YES if location services are enabled in the system settings, and the app has NOT been denied/restricted access. Returns NO otherwise.
- Note that this method will return YES even if the authorization status has not yet been determined.
- */
-- (BOOL)locationServicesAvailable
-{
-    if ([CLLocationManager locationServicesEnabled] == NO) {
-        return NO;
-    } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
-        return NO;
-    } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
-        return NO;
-    }
-    return YES;
-}
-
-/**
  Asynchronously requests the current location of the device using location services.
  
  @param desiredAccuracy The accuracy level desired (refers to the accuracy and recency of the location).
- @param timeout The maximum amount of time (in seconds) to wait for the desired accuracy before completing.
-                If this value is 0.0, no timeout will be set (will wait indefinitely for success, unless request is force completed or canceled).
- @param block The block to be executed when the request succeeds, fails, or times out. Three parameters are passed into the block:
-                    - The current location (the most recent one acquired, regardless of accuracy level), or nil if no valid location was acquired
-                    - The achieved accuracy for the current location (may be less than the desired accuracy if the request failed)
-                    - The request status (if it succeeded, or if not, why it failed)
+ @param timeout         The maximum amount of time (in seconds) to wait for a location with the desired accuracy before completing.
+                            If this value is 0.0, no timeout will be set (will wait indefinitely for success, unless request is force completed or canceled).
+ @param block           The block to be executed when the request succeeds, fails, or times out. Three parameters are passed into the block:
+                            - The current location (the most recent one acquired, regardless of accuracy level), or nil if no valid location was acquired
+                            - The achieved accuracy for the current location (may be less than the desired accuracy if the request failed)
+                            - The request status (if it succeeded, or if not, why it failed)
  
  @return The location request ID, which can be used to force early completion or cancel the request while it is in progress.
  */
@@ -128,16 +137,16 @@ static id _sharedInstance;
  Asynchronously requests the current location of the device using location services, optionally waiting until the user grants the app permission
  to access location services before starting the timeout countdown.
  
- @param desiredAccuracy The accuracy level desired (refers to the accuracy and recency of the location).
- @param timeout The maximum amount of time (in seconds) to wait for the desired accuracy before completing.
-                If this value is 0.0, no timeout will be set (will wait indefinitely for success, unless request is force completed or canceled).
+ @param desiredAccuracy      The accuracy level desired (refers to the accuracy and recency of the location).
+ @param timeout              The maximum amount of time (in seconds) to wait for a location with the desired accuracy before completing. If
+                             this value is 0.0, no timeout will be set (will wait indefinitely for success, unless request is force completed or canceled).
  @param delayUntilAuthorized A flag specifying whether the timeout should only take effect after the user responds to the system prompt requesting
                              permission for this app to access location services. If YES, the timeout countdown will not begin until after the
                              app receives location services permissions. If NO, the timeout countdown begins immediately when calling this method.
- @param block The block to be executed when the request succeeds, fails, or times out. Three parameters are passed into the block:
-                    - The current location (the most recent one acquired, regardless of accuracy level), or nil if no valid location was acquired
-                    - The achieved accuracy for the current location (may be less than the desired accuracy if the request failed)
-                    - The request status (if it succeeded, or if not, why it failed)
+ @param block                The block to be executed when the request succeeds, fails, or times out. Three parameters are passed into the block:
+                                 - The current location (the most recent one acquired, regardless of accuracy level), or nil if no valid location was acquired
+                                 - The achieved accuracy for the current location (may be less than the desired accuracy if the request failed)
+                                 - The request status (if it succeeded, or if not, why it failed)
  
  @return The location request ID, which can be used to force early completion or cancel the request while it is in progress.
  */
@@ -238,8 +247,11 @@ static id _sharedInstance;
  */
 - (void)addLocationRequest:(INTULocationRequest *)locationRequest
 {
-    if ([self locationServicesAvailable] == NO) {
-        // Don't even bother trying to do anything since location services are off or the user has explcitly denied us permission to use them
+    INTULocationServicesState locationServicesState = [INTULocationManager locationServicesState];
+    if (locationServicesState == INTULocationServicesStateDisabled ||
+        locationServicesState == INTULocationServicesStateDenied ||
+        locationServicesState == INTULocationServicesStateRestricted) {
+        // No need to add this location request, because location services are turned off device-wide, or the user has denied this app permissions to use them
         [self completeLocationRequest:locationRequest];
         return;
     }
@@ -427,17 +439,19 @@ static id _sharedInstance;
  */
 - (INTULocationStatus)statusForLocationRequest:(INTULocationRequest *)locationRequest
 {
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+    INTULocationServicesState locationServicesState = [INTULocationManager locationServicesState];
+    
+    if (locationServicesState == INTULocationServicesStateDisabled) {
+        return INTULocationStatusServicesDisabled;
+    }
+    else if (locationServicesState == INTULocationServicesStateNotDetermined) {
         return INTULocationStatusServicesNotDetermined;
     }
-    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+    else if (locationServicesState == INTULocationServicesStateDenied) {
         return INTULocationStatusServicesDenied;
     }
-    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
+    else if (locationServicesState == INTULocationServicesStateRestricted) {
         return INTULocationStatusServicesRestricted;
-    }
-    else if ([CLLocationManager locationServicesEnabled] == NO) {
-        return INTULocationStatusServicesDisabled;
     }
     else if (self.updateFailed) {
         return INTULocationStatusError;
@@ -544,6 +558,28 @@ static id _sharedInstance;
             [locationRequest startTimeoutTimerIfNeeded];
         }
     }
+}
+    
+#pragma mark Deprecated methods
+    
+/**
+ DEPRECATED, will be removed in a future release. Please use +[INTULocationManager locationServicesState] instead.
+ Returns YES if location services are enabled in the system settings, and the app has NOT been denied/restricted access. Returns NO otherwise.
+ Note that this method will return YES even if the authorization status has not yet been determined.
+ */
+- (BOOL)locationServicesAvailable
+{
+    if ([CLLocationManager locationServicesEnabled] == NO) {
+        return NO;
+    }
+    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
+        return NO;
+    }
+    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end

@@ -12,7 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 
 @interface ENProfileViewController ()
-
+@property (nonatomic, strong) ENServerManager *serverManager;
 @end
 
 @implementation ENProfileViewController
@@ -20,8 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[ENUtil showWatingHUB];
+    self.serverManager = [[ENServerManager alloc] init];
     //fetch user info
-    [[ENServerManager sharedInstance] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
+    [self.serverManager getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         if (user) {
 			[ENUtil dismissHUD];
             self.user = user;
@@ -46,7 +47,7 @@
         NSMutableArray *scoreDic = [NSMutableArray new];
         NSArray *scoreArray = (NSArray *)data;
         for (NSInteger i = 0; i<scoreArray.count; i++) {
-            NSString *name = [ENServerManager sharedInstance].cuisines[i];
+            NSString *name = self.serverManager.cuisines[i];
             NSNumber *score = scoreArray[i];
 			scoreDic[i] = @{@"name":name, @"score": score};
         }

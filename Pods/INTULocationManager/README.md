@@ -8,6 +8,24 @@ CLLocationManager requires you to manually detect and handle things like permiss
 
 INTULocationManager makes it easy to request the device's current location, either once or continuously. The API is extremely simple for both one-time requests and subscriptions. For one-time location requests, you can specify how accurate of a location you need, and how long you're willing to wait to get it. INTULocationManager is power efficient and conserves the user's battery by powering down location services (e.g. GPS) as soon as they are no longer needed.
 
+## Installation
+*INTULocationManager requires iOS 6.0 or later.*
+
+**Using [CocoaPods](http://cocoapods.org)**
+
+1.	Add the pod `INTULocationManager` to your [Podfile](http://guides.cocoapods.org/using/the-podfile.html).
+
+    	pod 'INTULocationManager'
+
+2.	Run `pod install` from Terminal, then open your app's `.xcworkspace` file to launch Xcode.
+3.	Import the `INTULocationManager.h` header. Typically, this should be written as `#import <INTULocationManager/INTULocationManager.h>`
+
+**Manually from GitHub**
+
+1.	Download all the files in the [Source directory](Source).
+2.	Add all the files to your Xcode project (drag and drop is easiest).
+3.	Import the `INTULocationManager.h` header.
+
 ## Usage
 
 ### Requesting Permission to Access Location Services
@@ -33,7 +51,7 @@ INTULocationAccuracyRoom          // 5 meters or better, received within the las
 
 The `timeout` parameter specifies how long you are willing to wait for a location with the accuracy you requested. The timeout guarantees that your block will execute within this period of time, either with a location of at least the accuracy you requested (`INTULocationStatusSuccess`), or with whatever location could be determined before the timeout interval was up (`INTULocationStatusTimedOut`). Pass `0.0` for no timeout *(not recommended)*.
 
-By default, the timeout countdown begins as soon as the `requestLocationWithDesiredAccuracy:timeout:block:` method is called. However, there is another variant of this method that includes a `delayUntilAuthorized` parameter, which allows you to pass YES to delay the start of the timeout countdown until the user has responded to the system location services permissions prompt (if the user hasn't allowed or denied the app access yet).
+By default, the timeout countdown begins as soon as the `requestLocationWithDesiredAccuracy:timeout:block:` method is called. However, there is another variant of this method that includes a `delayUntilAuthorized:` parameter, which allows you to pass `YES` to delay the start of the timeout countdown until the user has responded to the system location services permissions prompt (if the user hasn't allowed or denied the app access yet).
 
 Here's an example:
 ```objective-c
@@ -94,24 +112,6 @@ Note that subscriptions never timeout; calling `forceCompleteLocationRequest:` o
 
 ## Example Project
 An [example project](LocationManagerExample) is provided. It requires Xcode 5 and iOS 7.0 or later. Please note that it can run in the iOS Simulator, but you need to go to the iOS Simulator's **Debug > Location** menu once running the app to simulate a location (the default is **None**).
-
-## Installation
-*INTULocationManager requires iOS 6.0 or later.*
-
-**Using [CocoaPods](http://cocoapods.org)**
-
-1.	Add the pod `INTULocationManager` to your [Podfile](http://guides.cocoapods.org/using/the-podfile.html).
-
-    	pod 'INTULocationManager'
-
-2.	Run `pod install` from Terminal, then open your app's `.xcworkspace` file to launch Xcode.
-3.	`#import "INTULocationManager.h"` wherever you want to use it.
-
-**Manually from GitHub**
-
-1.	Download all the files in the [Source directory](Source).
-2.	Add all the files to your Xcode project (drag and drop is easiest).
-3.	`#import "INTULocationManager.h"` wherever you want to use it.
 
 ## Issues & Contributions
 Please [open an issue here on GitHub](https://github.com/intuit/LocationManager/issues/new) if you have a problem, suggestion, or other comment.
