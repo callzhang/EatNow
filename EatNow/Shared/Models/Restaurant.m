@@ -24,7 +24,6 @@
 
 #import "Restaurant.h"
 #import "ENServerManager.h"
-#import "ENUtil.h"
 @import AddressBook;
 
 @implementation Restaurant

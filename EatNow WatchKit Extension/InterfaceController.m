@@ -7,7 +7,7 @@
 //
 
 #import "InterfaceController.h"
-
+DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
 @interface InterfaceController()
 

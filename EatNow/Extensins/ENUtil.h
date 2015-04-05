@@ -17,7 +17,7 @@ typedef enum{
 }HUDStyle;
 #define kUUID                       @"UUID"
 
-extern DDLogLevel const ddLogLevel;
+
 @interface ENUtil : UIView
 + (instancetype)shared;
 + (void)initLogging;

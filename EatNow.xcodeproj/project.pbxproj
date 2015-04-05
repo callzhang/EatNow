@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
+		092974691AD0C28D00DDC35C /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974681AD0C28D00DDC35C /* ENServerManager.m */; };
+		0929746A1AD0C29200DDC35C /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974681AD0C28D00DDC35C /* ENServerManager.m */; };
+		0929746E1AD0C2B200DDC35C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0929746D1AD0C2B200DDC35C /* Restaurant.m */; };
+		0929746F1AD0C2B200DDC35C /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0929746D1AD0C2B200DDC35C /* Restaurant.m */; };
 		09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB41ACCC5E700B989FF /* InterfaceController.m */; };
 		09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB71ACCC5E700B989FF /* NotificationController.m */; };
 		09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CBA1ACCC5E700B989FF /* GlanceController.m */; };
@@ -20,7 +24,6 @@
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
 		9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */; };
-		9B23A9BC1A27ACCF00549871 /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B23A9BB1A27ACCF00549871 /* ENServerManager.m */; };
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
 		9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B85D0321A8EB6BB0014DBED /* ENUtil.m */; };
 		9BA07B5E1A9C3672008A3D67 /* ENMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA07B5D1A9C3672008A3D67 /* ENMapViewController.m */; };
@@ -41,7 +44,6 @@
 		DA5B740C18F233EF00BB5F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA5B740A18F233EF00BB5F8E /* InfoPlist.strings */; };
 		DA5B740E18F233EF00BB5F8E /* LikedOrNopeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */; };
 		DA5B745F18F239B700BB5F8E /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745618F239B700BB5F8E /* MainViewController.m */; };
-		DA5B746018F239B700BB5F8E /* Restaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745918F239B700BB5F8E /* Restaurant.m */; };
 		DA5B746218F239B700BB5F8E /* RestaurantView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745E18F239B700BB5F8E /* RestaurantView.m */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +88,11 @@
 /* Begin PBXFileReference section */
 		092974601AD09D4300DDC35C /* ENLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENLocationManager.h; path = Server/ENLocationManager.h; sourceTree = "<group>"; };
 		092974611AD09D4300DDC35C /* ENLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENLocationManager.m; path = Server/ENLocationManager.m; sourceTree = "<group>"; };
-		092974631AD09E8F00DDC35C /* ENServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ENServer.h; path = Server/ENServer.h; sourceTree = "<group>"; };
+		092974661AD0C28D00DDC35C /* ENServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENServer.h; sourceTree = "<group>"; };
+		092974671AD0C28D00DDC35C /* ENServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENServerManager.h; sourceTree = "<group>"; };
+		092974681AD0C28D00DDC35C /* ENServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENServerManager.m; sourceTree = "<group>"; };
+		0929746C1AD0C2B200DDC35C /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
+		0929746D1AD0C2B200DDC35C /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "EatNow WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09432CB11ACCC5E700B989FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09432CB21ACCC5E700B989FF /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -110,8 +116,6 @@
 		9B1180F71A8E970700756E8F /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		9B141DD81A901F5700EB2CC8 /* ENProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENProfileViewController.h; sourceTree = "<group>"; };
 		9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENProfileViewController.m; sourceTree = "<group>"; };
-		9B23A9BA1A27ACCF00549871 /* ENServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENServerManager.h; path = Server/ENServerManager.h; sourceTree = "<group>"; };
-		9B23A9BB1A27ACCF00549871 /* ENServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENServerManager.m; path = Server/ENServerManager.m; sourceTree = "<group>"; };
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9B85D0311A8EB6BB0014DBED /* ENUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUtil.h; sourceTree = "<group>"; };
 		9B85D0321A8EB6BB0014DBED /* ENUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENUtil.m; sourceTree = "<group>"; };
@@ -140,8 +144,6 @@
 		DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LikedOrNopeTests.m; sourceTree = "<group>"; };
 		DA5B745518F239B700BB5F8E /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		DA5B745618F239B700BB5F8E /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		DA5B745818F239B700BB5F8E /* Restaurant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Restaurant.h; sourceTree = "<group>"; };
-		DA5B745918F239B700BB5F8E /* Restaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Restaurant.m; sourceTree = "<group>"; };
 		DA5B745D18F239B700BB5F8E /* RestaurantView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RestaurantView.h; sourceTree = "<group>"; };
 		DA5B745E18F239B700BB5F8E /* RestaurantView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RestaurantView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,6 +181,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		092974651AD0C28D00DDC35C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				0929746B1AD0C2B200DDC35C /* Models */,
+				092974661AD0C28D00DDC35C /* ENServer.h */,
+				092974671AD0C28D00DDC35C /* ENServerManager.h */,
+				092974681AD0C28D00DDC35C /* ENServerManager.m */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		0929746B1AD0C2B200DDC35C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0929746C1AD0C2B200DDC35C /* Restaurant.h */,
+				0929746D1AD0C2B200DDC35C /* Restaurant.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		09432CAF1ACCC5E700B989FF /* EatNow WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,11 +267,8 @@
 		9B23A9B91A27AC7E00549871 /* Server */ = {
 			isa = PBXGroup;
 			children = (
-				9B23A9BA1A27ACCF00549871 /* ENServerManager.h */,
-				9B23A9BB1A27ACCF00549871 /* ENServerManager.m */,
 				092974601AD09D4300DDC35C /* ENLocationManager.h */,
 				092974611AD09D4300DDC35C /* ENLocationManager.m */,
-				092974631AD09E8F00DDC35C /* ENServer.h */,
 			);
 			name = Server;
 			sourceTree = "<group>";
@@ -308,6 +327,7 @@
 				9BEE36B91A8D3DCF0052332C /* Extension */,
 				DA5B73F718F233EF00BB5F8E /* AppDelegate.h */,
 				DA5B73F818F233EF00BB5F8E /* AppDelegate.m */,
+				092974651AD0C28D00DDC35C /* Shared */,
 				9B23A9B91A27AC7E00549871 /* Server */,
 				DA5B745718F239B700BB5F8E /* Models */,
 				DA5B745A18F239B700BB5F8E /* Views */,
@@ -368,8 +388,6 @@
 		DA5B745718F239B700BB5F8E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DA5B745818F239B700BB5F8E /* Restaurant.h */,
-				DA5B745918F239B700BB5F8E /* Restaurant.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -579,8 +597,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */,
+				0929746A1AD0C29200DDC35C /* ENServerManager.m in Sources */,
 				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
 				09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */,
+				0929746F1AD0C2B200DDC35C /* Restaurant.m in Sources */,
 				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -590,13 +610,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BA07B5E1A9C3672008A3D67 /* ENMapViewController.m in Sources */,
+				092974691AD0C28D00DDC35C /* ENServerManager.m in Sources */,
 				092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */,
 				9BF9CC741A73869000B76D92 /* ENRestaurantViewContainer.m in Sources */,
+				0929746E1AD0C2B200DDC35C /* Restaurant.m in Sources */,
 				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
 				DA5B745F18F239B700BB5F8E /* MainViewController.m in Sources */,
-				9B23A9BC1A27ACCF00549871 /* ENServerManager.m in Sources */,
-				DA5B746018F239B700BB5F8E /* Restaurant.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */,
 				DA5B746218F239B700BB5F8E /* RestaurantView.m in Sources */,

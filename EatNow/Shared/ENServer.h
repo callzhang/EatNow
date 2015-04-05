@@ -8,6 +8,7 @@
 
 #ifndef EatNow_ENServer_h
 #define EatNow_ENServer_h
+extern DDLogLevel const ddLogLevel;
 
 typedef NS_OPTIONS(NSInteger, ENServerManagerStatus){
 	DeterminReachability = 1 << 0,

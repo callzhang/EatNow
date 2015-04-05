@@ -11,7 +11,7 @@
 #import "Restaurant.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FBKVOController.h"
-#import "ENUtil.h"
+
 @import CoreLocation;
 
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>
@@ -90,7 +90,7 @@
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-        NSString *myID = [ENUtil myUUID];
+        NSString *myID = [[self class] myUUID];
         NSDictionary *dic = @{@"username":myID,
                               @"latitude":@(location.coordinate.latitude),
                               @"longitude":@(location.coordinate.longitude),
@@ -127,7 +127,8 @@
                       NSNumber *totalScore = scores[@"total_score"];
                       if ([totalScore isEqual: [NSNull null]]) {
 						  NSString *str = [NSString stringWithFormat:@"Returned null score (ID = %@", restaurant.ID];
-						  ENAlert(str);
+//						  ENAlert(str);
+                          DDLogError(@"error:%@", str);
 						  NSNumber *commentScore = scores[@"comment_score"] != [NSNull null] ? scores[@"comment_score"]:@0;
                           NSNumber *cuisineScore = scores[@"cuisine_score"] != [NSNull null] ? scores[@"cuisine_score"]:@0;
                           NSNumber *distanceScore = scores[@"distance_score"] != [NSNull null] ? scores[@"distance_score"]:@0;
@@ -171,8 +172,8 @@
 				  
               }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
                   NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
-                  DDLogError(str);
-                  ENAlert(str);
+                  DDLogError(@"%@", str);
+//                  ENAlert(str);
                   if (block) {
                       block(NO, error, nil);
                   }
@@ -188,7 +189,7 @@
 //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
 //    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    NSString *myID = [ENUtil myUUID];
+    NSString *myID = [self.class myUUID];
     NSString *url = [NSString stringWithFormat:@"%@%@",kUserUrl, myID];
     DDLogInfo(@"Requesting user: %@", url);
     [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -196,7 +197,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error];
         DDLogError(s);
-        ENAlert(s);
         block(nil, error);
     }];
 }
@@ -208,7 +208,7 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
-    NSString *myID = [ENUtil myUUID];
+    NSString *myID = [[self class] myUUID];
     NSDictionary *dic = @{@"username": myID, @"restaurant": restaurant.json, @"like": @(value)};
     DDLogVerbose(@"Select restaurant: %@", dic);
     [manager POST:kEatUrl parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -216,9 +216,26 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         block(error);
         NSString *s = [NSString stringWithFormat:@"%@", error];
-        ENAlert(s);
         DDLogError(s);
     }];
+}
+
++ (NSString *)myUUID{
+    NSString *myID = [[NSUserDefaults standardUserDefaults] objectForKey:kUUID];
+    if (!myID) {
+        myID = [self generateUUID];
+        [[NSUserDefaults standardUserDefaults] setObject:myID forKey:kUUID];
+    }
+    return myID;
+}
+
++ (NSString *)generateUUID
+{
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    
+    return (__bridge NSString *)string;
 }
 
 #pragma mark - Tools
