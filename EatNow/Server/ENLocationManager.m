@@ -12,6 +12,8 @@
 
 
 static CLLocation *_cachedCurrentLocation = nil;
+static void (^_locationDisabledHanlder)(void) = nil;
+static void (^_locationDeniedHanlder)(void) = nil;
 
 @interface ENLocationManager()<CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -41,7 +43,9 @@ static CLLocation *_cachedCurrentLocation = nil;
     else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] ==kCLAuthorizationStatusRestricted){
         //need pop alert
         NSLog(@"Location service disabled");
-        [[[UIAlertView alloc] initWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Setting", nil] show];
+        if (_locationDisabledHanlder) {
+            _locationDisabledHanlder();
+        }
     }
     else{
         [_locationManager startUpdatingLocation];
@@ -109,9 +113,9 @@ static CLLocation *_cachedCurrentLocation = nil;
         case kCLAuthorizationStatusDenied:
             NSLog(@"kCLAuthorizationStatusDenied");
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alertView show];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+            if (_locationDeniedHanlder) {
+                _locationDeniedHanlder();
+            }
         }
             break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:
@@ -149,5 +153,13 @@ static CLLocation *_cachedCurrentLocation = nil;
 
 + (CLLocation *)cachedCurrentLocation {
     return _cachedCurrentLocation;
+}
+
++ (void)registerLocationDeniedHandler:(void (^)(void))handler {
+    _locationDeniedHanlder = handler;
+}
+
++ (void)registerLocationDisabledHanlder:(void (^)(void))handler {
+    _locationDisabledHanlder = handler;
 }
 @end

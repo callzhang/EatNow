@@ -27,6 +27,7 @@
 #import "ENServerManager.h"
 #import "ENUtil.h"
 #import "Crashlytics.h"
+#import "ENLocationManager.h"
 
 @implementation AppDelegate
 
@@ -44,7 +45,34 @@
 //			}
 //		}];
 //    }];
+    [ENLocationManager registerLocationDeniedHandler:^{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+            [alertView show];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }];
+    
+    [ENLocationManager registerLocationDisabledHanlder:^{
+        [[[UIAlertView alloc] initWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Setting", nil] show];
+    }];
+    
     return YES;
 }
 
+- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
+    UIBackgroundTaskIdentifier identifier = [application beginBackgroundTaskWithName:@"watchkit-location-request" expirationHandler:^{
+        NSLog(@"expired");
+        reply(nil);
+        [application endBackgroundTask:identifier];
+    }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        reply(@{@"xxxx":@"xxfdsf"});
+//        [application endBackgroundTask:identifier];
+    ENLocationManager *locationManager = [[ENLocationManager alloc] init];
+    [locationManager getLocationWithCompletion:^(CLLocation *location) {
+        reply(@{@"location": location});
+        [application endBackgroundTask:identifier];
+    } forece:YES];
+    });
+}
 @end

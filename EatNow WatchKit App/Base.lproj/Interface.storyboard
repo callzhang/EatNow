@@ -10,24 +10,14 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <label width="136" height="50" alignment="left" text="wah da" id="t4I-rR-oBd"/>
-                        <button width="1" alignment="left" title="I'm Going" id="Wpb-mZ-OvT">
-                            <connections>
-                                <segue destination="tuy-Ot-t0c" kind="modal" id="h30-VV-Syf"/>
-                            </connections>
-                        </button>
-                        <button width="1" alignment="left" title="Push" id="NEw-pX-Zh5">
-                            <connections>
-                                <segue destination="Z6k-R8-Hzx" kind="push" id="UTq-Tw-ymR"/>
-                            </connections>
-                        </button>
+                        <label width="136" height="124" alignment="left" text="Loading" textAlignment="center" id="t4I-rR-oBd"/>
                     </items>
                     <connections>
                         <segue destination="Z6k-R8-Hzx" kind="relationship" relationship="nextPage" id="zf7-d4-JFh"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="148" y="370"/>
+            <point key="canvasLocation" x="80" y="433"/>
         </scene>
         <!--Interface Controller-->
         <scene sceneID="Mlb-Ec-dSQ">
@@ -97,9 +87,21 @@
             </objects>
             <point key="canvasLocation" x="591" y="1118"/>
         </scene>
+        <!--ResturantInterfaceController-->
+        <scene sceneID="GS7-MF-kae">
+            <objects>
+                <controller identifier="ResturantInterfaceController" id="GJD-oO-DHW" customClass="RestaurantInterfaceController">
+                    <items>
+                        <label width="136" height="19" alignment="left" text="Restaurant Name" id="n4k-MZ-3Jv"/>
+                        <label width="136" height="19" alignment="left" text="Rating &amp; Review" id="Dim-Vf-Sfr"/>
+                        <label width="136" height="19" alignment="left" text="Cuisine/Category" id="BZz-GR-59C"/>
+                        <label width="136" height="19" alignment="left" text="Highlights" id="HPu-GF-hgf"/>
+                        <label width="136" height="19" alignment="left" text="Distance" id="k7V-9A-6Ik"/>
+                        <button width="1" alignment="left" title="View Details" id="lUy-N1-VAz"/>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="292" y="205.75"/>
+        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="zf7-d4-JFh"/>
-        <segue reference="h30-VV-Syf"/>
-    </inferredMetricsTieBreakers>
 </document>

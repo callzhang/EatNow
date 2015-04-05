@@ -7,9 +7,14 @@
 //
 
 #import "InterfaceController.h"
+#import "ENLocationManager.h"
+#import "ENServerManager.h"
+
 DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
 @interface InterfaceController()
+@property (nonatomic, strong) ENLocationManager *locationManager;
+@property (nonatomic, strong) ENServerManager *serverManager;
 
 @end
 
@@ -19,7 +24,18 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
 
-    // Configure interface objects here.
+//    NSLog(@"start to request");
+//    [[self class] openParentApplication:@{} reply:^(NSDictionary *replyInfo, NSError *error) {
+//        NSLog(@"reply:%@", replyInfo);
+//    }];
+    self.locationManager = [[ENLocationManager alloc] init];
+    self.serverManager = [[ENServerManager alloc] init];
+    
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
+        [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+            NSLog(@"response:%@, error:%@", response, error);
+        }];
+    } forece:YES];
 }
 
 - (void)willActivate {

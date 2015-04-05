@@ -20,4 +20,7 @@
  *  return last fetched current location, if any.
  */
 + (CLLocation *)cachedCurrentLocation;
+
++ (void)registerLocationDeniedHandler:(void(^)(void))handler;
++ (void)registerLocationDisabledHanlder:(void (^)(void))handler;
 @end
