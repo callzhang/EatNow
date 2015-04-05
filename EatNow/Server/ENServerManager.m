@@ -12,62 +12,38 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FBKVOController.h"
 #import "ENUtil.h"
+@import CoreLocation;
 
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) AFNetworkReachabilityManager *reachability;
+@property (nonatomic, strong) NSMutableArray *completionGroup;
 @end
 
 
 @implementation ENServerManager
-+ (instancetype)sharedInstance{
-    static ENServerManager *manager;
-    if (!manager) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            manager = [ENServerManager new];
-        });
-    }
-    return manager;
-}
+//+ (instancetype)sharedInstance{
+//    static ENServerManager *manager;
+//    if (!manager) {
+//        static dispatch_once_t onceToken;
+//        dispatch_once(&onceToken, ^{
+//            manager = [ENServerManager new];
+//        });
+//    }
+//    return manager;
+//}
 
 - (ENServerManager *)init{
     self = [super init];
     if (self) {
         
         _restaurants = [NSMutableArray new];
-        _locationManager = [CLLocationManager new];
-        _locationManager.delegate = self;
-        //_locationManager.distanceFilter = kCLDistanceFilterNone;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-            NSLog(@"kCLAuthorizationStatusNotDetermined");
-            [_locationManager requestWhenInUseAuthorization];
-        } else if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] ==kCLAuthorizationStatusRestricted){
-            //need pop alert
-            NSLog(@"Location service disabled");
-            [[[UIAlertView alloc] initWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Setting", nil] show];
-        }else{
-            [_locationManager startUpdatingLocation];
-			//add getting location trait
-			self.status = self.status & GettingLocation;
-#ifdef DEBUG
-            //use default location in 10s
-            if (_currentLocation) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [[[UIAlertView alloc] initWithTitle:@"Warning" message:@"No location obtained, using fake location" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil] show];
-                    NSLog(@"Using fake location");
-                    _currentLocation = [[CLLocation alloc] initWithLatitude:41 longitude:-73];
-					self.status = self.status & ~GettingLocation;
-					self.status = self.status & GotLocation;
-                });
-            }
-#endif
-        }
+        _completionGroup = [NSMutableArray new];
         
         //indicator
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 		
+        /**
 		//reachability
 		self.reachability = [AFNetworkReachabilityManager sharedManager];
 		[self.reachability startMonitoring];
@@ -92,47 +68,22 @@
 					break;
 			}
 		}];
+         **/
     }
     return self;
 }
 
-#pragma mark - Alert
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-}
-
 #pragma mark - Main method
 
-- (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block{
-    if (-_lastUpdatedLocation.timeIntervalSinceNow > 600) {
-        NSLog(@"Location outdated, set to nil");
-        _currentLocation = nil;
-    }
-    //first remove old location
-    if (!_currentLocation || (self.status & GettingLocation)) {
-        NSLog(@"locating, delay request");
-        self.status = self.status & ~FetchingRestaurant;
-        //request new location and watch for the notification
-        //start location manager
-        [_locationManager startUpdatingLocation];
-        
-        //listen to updates
-        [self.KVOController observe:self keyPath:@"status" options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *object, NSDictionary *change) {
-			if (object.status & GotLocation) {
-				[self.KVOController unobserve:self keyPath:@"status"];
-				[self getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
-					if (block) {
-						block(success, error);
-					}
-				}];
-			}
-        }];
-    }else{
-		if (self.status & FetchingRestaurant) {
+- (void)getRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
+    {
+        if (self.fetchStatus == ENResturantDataStatusFetchingRestaurant) {
 			NSLog(@"Already requesting restaurant.");
+            [self.completionGroup addObject:block];
 			return;
-		}
-		self.status |= FetchingRestaurant;
+        }
+        
+        self.fetchStatus = ENResturantDataStatusFetchingRestaurant;
 		
         NSLog(@"Start requesting restaurants");
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -141,8 +92,8 @@
         
         NSString *myID = [ENUtil myUUID];
         NSDictionary *dic = @{@"username":myID,
-                              @"latitude":@(_currentLocation.coordinate.latitude),
-                              @"longitude":@(_currentLocation.coordinate.longitude),
+                              @"latitude":@(location.coordinate.latitude),
+                              @"longitude":@(location.coordinate.longitude),
                               @"radius":@500
                               };
         NSLog(@"Request restaurant: %@", dic);
@@ -150,6 +101,7 @@
               success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
                   NSLog(@"GET restaurant list %ld", (unsigned long)responseObject.count);
                   TIC
+                  NSMutableArray *mutableResturants = [NSMutableArray array];
                   for (NSDictionary *restaurant_json in responseObject) {
                       Restaurant *restaurant = [Restaurant new];
 					  restaurant.ID = restaurant_json[@"id"];
@@ -185,8 +137,12 @@
                       }
                       restaurant.score = totalScore;
                       
+                      //distance calculate
+                      
+                      restaurant.distance = [location distanceFromLocation:restaurant.location]/1000;
+                      
                       if ([restaurant validate]) {
-                          [_restaurants addObject:restaurant];
+                          [mutableResturants addObject:restaurant];
                       }
                   }
                   
@@ -194,26 +150,34 @@
                   DDLogInfo(@"Processed %ld restaurant", (unsigned long)_restaurants.count);
 				  
 				  //server returned sorted from high to low
-				  [_restaurants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
+				  [mutableResturants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
 				  
 				  
                   if (block) {
-                      block(YES, nil);
+                      block(YES, nil, mutableResturants.copy);
 				  }
+                  
+                  if (self.completionGroup) {
+                      for (id completion in self.completionGroup) {
+                          void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
+                          cachedCompletion(YES, nil, mutableResturants.copy);
+                      }
+                      
+                      [self.completionGroup removeAllObjects];
+                  }
 				  
 				  //post notification
-				  self.status &= ~FetchingRestaurant;
-				  self.status |= FetchedRestaurant;
+                  self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
 				  
               }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
                   NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
                   DDLogError(str);
                   ENAlert(str);
                   if (block) {
-                      block(NO, error);
+                      block(NO, error, nil);
                   }
-				  self.status &= ~FetchedRestaurant;
-				  self.status |= FetchedRestaurant;
+                  
+                  self.fetchStatus = ENResturantDataStatusError;
               }];
         
     }
@@ -255,52 +219,6 @@
         ENAlert(s);
         DDLogError(s);
     }];
-}
-
-#pragma mark - Location
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    _currentLocation = locations.firstObject;
-    _lastUpdatedLocation = [NSDate date];
-    NSLog(@"Get location of %@", locations);
-    [_locationManager stopUpdatingLocation];
-	self.status &= ~GettingLocation;
-	self.status |= GotLocation;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    switch (status) {
-        case kCLAuthorizationStatusDenied:
-            NSLog(@"kCLAuthorizationStatusDenied");
-        {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alertView show];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-        }
-            break;
-        case kCLAuthorizationStatusAuthorizedWhenInUse:
-        {
-            NSLog(@"kCLAuthorizationStatusAuthorizedWhenInUse");
-            manager.desiredAccuracy = kCLLocationAccuracyBest;
-            manager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
-            [manager startUpdatingLocation];
-            
-        }
-            break;
-        case kCLAuthorizationStatusAuthorizedAlways:
-        {
-            NSLog(@"kCLAuthorizationStatusAuthorizedAlways");
-            manager.desiredAccuracy = kCLLocationAccuracyBest;
-            manager.distanceFilter = kCLLocationAccuracyNearestTenMeters;
-            [manager startUpdatingLocation];
-        }
-            break;
-        case kCLAuthorizationStatusNotDetermined:
-            NSLog(@"kCLAuthorizationStatusNotDetermined");
-            break;
-        case kCLAuthorizationStatusRestricted:
-            NSLog(@"kCLAuthorizationStatusRestricted");
-            break;
-    }
 }
 
 #pragma mark - Tools

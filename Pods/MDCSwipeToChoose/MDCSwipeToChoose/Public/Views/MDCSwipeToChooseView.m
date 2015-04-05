@@ -59,7 +59,6 @@ static CGFloat const MDCSwipeToChooseViewLabelWidth = 65.f;
 - (void)setupView {
     self.backgroundColor = [UIColor clearColor];
     self.layer.cornerRadius = 5.f;
-    self.layer.masksToBounds = YES;
     self.layer.borderWidth = 2.f;
     self.layer.borderColor = [UIColor colorWith8BitRed:220.f
                                                  green:220.f
@@ -107,7 +106,6 @@ static CGFloat const MDCSwipeToChooseViewLabelWidth = 65.f;
 
     __block UIView *likedImageView = self.likedView;
     __block UIView *nopeImageView = self.nopeView;
-    __weak MDCSwipeToChooseView *weakself = self;
     options.onPan = ^(MDCPanState *state) {
         if (state.direction == MDCSwipeDirectionNone) {
             likedImageView.alpha = 0.f;
@@ -120,8 +118,8 @@ static CGFloat const MDCSwipeToChooseViewLabelWidth = 65.f;
             nopeImageView.alpha = 0.f;
         }
 
-        if (weakself.options.onPan) {
-            weakself.options.onPan(state);
+        if (self.options.onPan) {
+            self.options.onPan(state);
         }
     };
 

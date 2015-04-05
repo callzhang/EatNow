@@ -47,14 +47,6 @@
     return self.cuisines.string;
 }
 
-- (double)distance{
-    if (!_location) {
-        return 0;
-    }
-    double d = [[ENServerManager sharedInstance].currentLocation distanceFromLocation:_location]/1000;
-    return d;
-}
-
 - (BOOL)validate{
     BOOL good = YES;
     if (!_ID) {

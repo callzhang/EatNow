@@ -33,17 +33,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Crashlytics startWithAPIKey:@"6ec9eab6ca26fcd18d51d0322752b861c63bc348"];
 	[ENUtil initLogging];
-	ENServerManager *manager = [ENServerManager sharedInstance];
-    [manager getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
-		[[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
-			if (!success){
-				NSString *str = [NSString stringWithFormat:@"Failed to get restaurant with error: %@", error];
-				ENAlert(str);
-				
-				DDLogError(@"%@", str);
-			}
-		}];
-    }];
+//	ENServerManager *manager = [ENServerManager sharedInstance];
+//    [manager getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
+//		[[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
+//			if (!success){
+//				NSString *str = [NSString stringWithFormat:@"Failed to get restaurant with error: %@", error];
+//				ENAlert(str);
+//				
+//				DDLogError(@"%@", str);
+//			}
+//		}];
+//    }];
     return YES;
 }
 

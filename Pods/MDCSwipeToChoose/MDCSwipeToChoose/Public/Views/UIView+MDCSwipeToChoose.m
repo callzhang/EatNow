@@ -40,7 +40,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     self.mdc_viewState = [MDCViewState new];
     self.mdc_viewState.originalCenter = self.center;
 
-    [self mdc_setupGestureRecognizer];
+    [self mdc_setupPanGestureRecognizer];
 }
 
 - (void)mdc_swipe:(MDCSwipeDirection)direction {
@@ -101,16 +101,12 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
     }
 }
 
-- (void)mdc_setupGestureRecognizer {
-	//pan
-	SEL action = @selector(mdc_onSwipeToChoosePanGestureRecognizer:);
-	UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:action];
-	[self addGestureRecognizer:panGestureRecognizer];
-	
-	//tap
-	SEL tap = @selector(mdc_onTapGestureRecognizer:);
-	UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:tap];
-	[self addGestureRecognizer:tapGesture];
+- (void)mdc_setupPanGestureRecognizer {
+    SEL action = @selector(mdc_onSwipeToChoosePanGestureRecognizer:);
+    UIPanGestureRecognizer *panGestureRecognizer =
+    [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                            action:action];
+    [self addGestureRecognizer:panGestureRecognizer];
 }
 
 #pragma mark Translation
@@ -118,7 +114,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
 - (void)mdc_finalizePosition {
     MDCSwipeDirection direction = [self mdc_directionOfExceededThreshold];
     switch (direction) {
-        case MDCSwipeDirectionRight://same as left
+        case MDCSwipeDirectionRight:
         case MDCSwipeDirectionLeft: {
             CGPoint translation = MDCCGPointSubtract(self.center,
                                                      self.mdc_viewState.originalCenter);
@@ -137,7 +133,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
                           delay:0.0
                         options:self.mdc_options.swipeCancelledAnimationOptions
                      animations:^{
-                         self.transform = self.mdc_viewState.originalTransform;
+                         self.transform = CGAffineTransformIdentity;
                          self.center = self.mdc_viewState.originalCenter;
                      } completion:^(BOOL finished) {
                          id<MDCSwipeToChooseDelegate> delegate = self.mdc_options.delegate;
@@ -193,7 +189,7 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
 - (void)mdc_rotateForTranslation:(CGPoint)translation
                rotationDirection:(MDCRotationDirection)rotationDirection {
     CGFloat rotation = MDCDegreesToRadians(translation.x/100 * self.mdc_options.rotationFactor);
-    self.transform = CGAffineTransformRotate(self.mdc_viewState.originalTransform,
+    self.transform = CGAffineTransformRotate(CGAffineTransformIdentity,
                                              rotationDirection * rotation);
 }
 
@@ -233,7 +229,6 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
 
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         self.mdc_viewState.originalCenter = view.center;
-        self.mdc_viewState.originalTransform = view.transform;
 
         // If the pan gesture originated at the top half of the view, rotate the view
         // away from the center. Otherwise, rotate towards the center.
@@ -254,12 +249,6 @@ const void * const MDCViewStateKey = &MDCViewStateKey;
                      rotationDirection:self.mdc_viewState.rotationDirection];
         [self mdc_executeOnPanBlockForTranslation:translation];
     }
-}
-
-- (void)mdc_onTapGestureRecognizer:(UITapGestureRecognizer *)tapGesture {
-	if (self.mdc_options.onTap) {
-		self.mdc_options.onTap(tapGesture);
-	}
 }
 
 @end

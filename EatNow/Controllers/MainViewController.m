@@ -29,15 +29,19 @@
 #import "ENWebViewController.h"
 #import "FBKVOController.h"
 //#import "DZNWebViewController.h"
-#import "JBWebViewController.h"
+//#import "JBWebViewController.h"
 #import "ENProfileViewController.h"
 #import "ENMapViewController.h"
+#import "ENLocationManager.h"
+#import "extobjc.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 @interface MainViewController () <UIActionSheetDelegate, UIAlertViewDelegate>
-@property (nonatomic, strong) NSMutableArray *restaurants;
+@property (nonatomic, strong) NSArray *restaurants;
+@property (nonatomic, strong) ENLocationManager *locationManager;
+@property (nonatomic, strong) ENServerManager *serverManager;
 @end
 
 @implementation MainViewController
@@ -49,76 +53,107 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.locationManager = [ENLocationManager new];
+    self.serverManager = [ENServerManager new];
     
-    //register notification
-	[self.KVOController observe:[ENServerManager sharedInstance] keyPath:@"status" options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
-		if (manager.status & DeterminReachability) {
-			self.loadingInfo.text = @"Determining connecting";
-		} else{
-			if (manager.status & IsReachable){
-				self.loadingInfo.text = @"Connected";
-			}else{
-				self.loadingInfo.text = @"No internet connection";
-                return;
-			}
-		}
-		if (manager.status & GettingLocation) {
-			self.loadingInfo.text = @"Determining location";
-		} else{
-			if (manager.status & GotLocation){
-				self.loadingInfo.text = @"Got location";
-			}else{
-				self.loadingInfo.text = @"Waiting for location";
-                return;
-			}
-		}
-		if (manager.status & FetchingRestaurant) {
-			self.loadingInfo.text = @"Finding the best restaurant";
-		} else{
-			if (manager.status & FetchedRestaurant){
-				[self showRestaurants];
-			}else{
-				self.loadingInfo.text = @"Failed to get restaurant list";
-                return;
-			}
-		}
-	}];
+    [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
+        if (manager != NULL) {
+            ENLocationStatus locationStatus = manager.locationStatus;
+            switch (locationStatus) {
+                case ENLocationStatusGettingLocation:
+                    self.loadingInfo.text = @"Determining location";
+                    break;
+                case ENLocationStatusGotLocation:
+                    self.loadingInfo.text = @"Got location";
+                    break;
+                default:
+                    break;
+            }
+        }
+    }];
+    
+    [self.KVOController observe:self.serverManager keyPath:@keypath(self.serverManager, fetchStatus) options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
+        if (manager != NULL) {
+            ENResturantDataStatus dataStatus = manager.fetchStatus;
+            switch (dataStatus) {
+                case ENResturantDataStatusFetchingRestaurant:
+                    self.loadingInfo.text = @"Finding the best restaurant";
+                    break;
+                case ENResturantDataStatusFetchedRestaurant:
+                    [self showRestaurants];
+                    break;
+                case ENResturantDataStatusError:
+                    self.loadingInfo.text = @"Failed to get restaurant list";
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }];
+    
+    [self.KVOController observe:[AFNetworkReachabilityManager sharedManager] keyPath:@keypath([AFNetworkReachabilityManager sharedManager], networkReachabilityStatus) options:NSKeyValueObservingOptionNew block:^(id observer, AFNetworkReachabilityManager *manager, NSDictionary *change) {
+        if (manager != NULL) {
+            AFNetworkReachabilityStatus status = manager.networkReachabilityStatus;
+            switch (status) {
+                case AFNetworkReachabilityStatusUnknown:
+                    self.loadingInfo.text = @"Determining connecting";
+                    break;
+                case AFNetworkReachabilityStatusNotReachable:
+                    self.loadingInfo.text = @"No internet connection";
+                    break;
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    self.loadingInfo.text = @"Connected";
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }];
+    
     
     if ([[ENUtil myUUID] isEqualToString:@"44D08937-F5F8-4688-A198-B4F57196B1A6"]) {
         //change to red
         DDLogInfo(@"Set special color");
         [self.likeButton setTitleColor:[UIColor colorWithRed:0.988 green:0.643 blue:0.647 alpha:1.000] forState:UIControlStateNormal];
     }
-	
-	[[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
-		if (success) {
-			[self showRestaurants];
-		}
-	}];
+    
+    @weakify(self);
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
+        @strongify(self);
+        [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+            if (success) {
+                _restaurants = response;
+                [self showRestaurants];
+            }
+        }];
+    }];
 }
 
 - (void)showRestaurants{
-	
-	self.loadingInfo.text = @"";
-	//stop loading
-	[self.loading stopAnimating];
-	//read list
-	[self getRestaurants];
-	
-	if (self.frontCardView) {
-		DDLogWarn(@"=== Front view already exists, skip showing restaurant");
-		return;
-	}
-	// Display the first ChoosePersonView in front. Users can swipe to indicate
-	// whether they like or dislike the person displayed.
-	self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
-	[self.view addSubview:self.frontCardView];
-	
-	// Display the second ChoosePersonView in back. This view controller uses
-	// the MDCSwipeToChooseDelegate protocol methods to update the front and
-	// back views after each user swipe.
-	self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
-	[self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    
+    self.loadingInfo.text = @"";
+    //stop loading
+    [self.loading stopAnimating];
+    //read list
+    //    [self getRestaurants];
+    
+    if (self.frontCardView) {
+        DDLogWarn(@"=== Front view already exists, skip showing restaurant");
+        return;
+    }
+    // Display the first ChoosePersonView in front. Users can swipe to indicate
+    // whether they like or dislike the person displayed.
+    self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
+    [self.view addSubview:self.frontCardView];
+    
+    // Display the second ChoosePersonView in back. This view controller uses
+    // the MDCSwipeToChooseDelegate protocol methods to update the front and
+    // back views after each user swipe.
+    self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
+    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -141,7 +176,7 @@
     } else {
         NSLog(@"You liked %@.", self.currentRestaurant.name);
     }
-
+    
     // MDCSwipeToChooseView removes the view from the view hierarchy
     // after it is swiped (this behavior can be customized via the
     // MDCSwipeOptions class). Since the front card view is gone, we
@@ -170,14 +205,14 @@
     self.currentRestaurant = frontCardView.restaurant;
 }
 
-- (NSMutableArray *)getRestaurants {
-    // It would be trivial to download these from a web service
-    // as needed, but for the purposes of this sample app we'll
-    // simply store them in memory.
-    _restaurants = [ENServerManager sharedInstance].restaurants;
-    
-    return _restaurants;
-}
+//- (NSMutableArray *)getRestaurants {
+// It would be trivial to download these from a web service
+// as needed, but for the purposes of this sample app we'll
+// simply store them in memory.
+//    _restaurants = [ENServerManager sharedInstance].restaurants;
+
+//    return _restaurants;
+//}
 
 - (RestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
     if ([self.restaurants count] == 0) {
@@ -194,27 +229,27 @@
     options.onPan = ^(MDCPanState *state){
         CGRect frame = [self backCardViewFrame];
         CGRect frame2 = CGRectMake(frame.origin.x,
-                                 frame.origin.y - (state.thresholdRatio * 10.f),
-                                 CGRectGetWidth(frame),
-                                 CGRectGetHeight(frame));
+                                   frame.origin.y - (state.thresholdRatio * 10.f),
+                                   CGRectGetWidth(frame),
+                                   CGRectGetHeight(frame));
         self.backCardView.frame = frame2;
     };
-	
-	options.onTap = ^(UITapGestureRecognizer *guesture){
-		NSLog(@"Tapped");
-		RestaurantView *rv = (RestaurantView *)guesture.view;
-        NSURL *url = [NSURL URLWithString:rv.restaurant.url];
-        JBWebViewController *webVC = [[JBWebViewController alloc] initWithUrl:url];
-		//webVC.supportedWebNavigationTools = DZNWebNavigationToolAll;
-        //[self.navigationController pushViewController:WVC animated:YES];
-        
-        //present
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webVC];
-        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
-        webVC.navigationItem.rightBarButtonItem = close;
-		[self.navigationController presentViewController:nav animated:YES completion:nil];
-	};
-
+    
+    //	options.onTap = ^(UITapGestureRecognizer *guesture){
+    //		NSLog(@"Tapped");
+    //		RestaurantView *rv = (RestaurantView *)guesture.view;
+    //        NSURL *url = [NSURL URLWithString:rv.restaurant.url];
+    //        JBWebViewController *webVC = [[JBWebViewController alloc] initWithUrl:url];
+    //		//webVC.supportedWebNavigationTools = DZNWebNavigationToolAll;
+    //        //[self.navigationController pushViewController:WVC animated:YES];
+    //        
+    //        //present
+    //        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webVC];
+    //        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
+    //        webVC.navigationItem.rightBarButtonItem = close;
+    //		[self.navigationController presentViewController:nav animated:YES completion:nil];
+    //	};
+    
     // Create a personView with the top person in the people array, then pop
     // that person off the stack.
     //RestaurantView *card = [[RestaurantView alloc] initWithFrame:frame restaurant:self.restaurants.firstObject options:options];
@@ -222,8 +257,8 @@
     RestaurantView* card = [RestaurantView initViewWithOptions:options];
     card.frame = frame;
     card.restaurant = self.restaurants.firstObject;
-    [self.restaurants addObject:self.restaurants.firstObject];
-    [self.restaurants removeObjectAtIndex:0];
+    //    [self.restaurants addObject:self.restaurants.firstObject];
+    //    [self.restaurants removeObjectAtIndex:0];
     return card;
 }
 
@@ -253,17 +288,17 @@
 
 // Programmatically "nopes" the front card view.
 - (IBAction)nope:(id)sender {
-	if (self.frontCardView.restaurant) {
-		
-		[[[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Dislike", nil] show];
-	}
+    if (self.frontCardView.restaurant) {
+        
+        [[[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Dislike", nil] show];
+    }
 }
 
 // Programmatically "likes" the front card view.
 - (IBAction)like:(id)sender{
     [ENUtil showWatingHUB];
     Restaurant *restaurant = self.frontCardView.restaurant;
-    [[ENServerManager sharedInstance] selectRestaurant:restaurant like:1 completion:^(NSError *error) {
+    [[self serverManager] selectRestaurant:restaurant like:1 completion:^(NSError *error) {
         if (!error) {
             [ENUtil showSuccessHUBWithString:@"Liked"];
             DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
@@ -275,23 +310,27 @@
 }
 
 - (IBAction)refresh:(id)sender {
-    [ENServerManager sharedInstance].currentLocation = nil;
-    [ENServerManager sharedInstance].status = IsReachable;
-    [self.restaurants removeAllObjects];
+    //    [ENServerManager sharedInstance].currentLocation = nil;
+    //    [ENServerManager sharedInstance].status = IsReachable;
+    //    [self.restaurants removeAllObjects];
+    self.restaurants = nil;
     [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
     });
     [self.loading startAnimating];
-    [[ENServerManager sharedInstance] getRestaurantListWithCompletion:^(BOOL success, NSError *error) {
-		if (!success){
-			NSString *str = [NSString stringWithFormat:@"Failed to get restaurant with error: %@", error];
-			ENAlert(str);
-			NSLog(@"%@", str);
-		} else {
-			[self showRestaurants];
-		}
-    }];
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
+        [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+            _restaurants = response;
+            if (!success){
+                NSString *str = [NSString stringWithFormat:@"Failed to get restaurant with error: %@", error];
+                ENAlert(str);
+                NSLog(@"%@", str);
+            } else {
+                [self showRestaurants];
+            }
+        }];
+    } forece:YES];
 }
 
 - (IBAction)more:(id)sender {
@@ -318,7 +357,7 @@
     if ([title isEqualToString:@"Dislike"]) {
         Restaurant *restaurant = self.frontCardView.restaurant;
         [ENUtil showWatingHUB];
-        [[ENServerManager sharedInstance] selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
+        [[self serverManager] selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
             if (!error) {
                 [ENUtil showSuccessHUBWithString:@"Disliked"];
                 DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
@@ -327,7 +366,7 @@
                 [ENUtil showFailureHUBWithString:@"Server error, try again later."];
             }
         }];
-    
+        
     }
 }
 
@@ -341,10 +380,10 @@
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
-	if (!self.frontCardView.restaurant) {
-		return NO;
-	}
-	return YES;
+    if (!self.frontCardView.restaurant) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

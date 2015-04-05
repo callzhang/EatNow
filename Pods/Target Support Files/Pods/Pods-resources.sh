@@ -6,6 +6,8 @@ mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 RESOURCES_TO_COPY=${PODS_ROOT}/resources-to-copy-${TARGETNAME}.txt
 > "$RESOURCES_TO_COPY"
 
+XCASSET_FILES=""
+
 install_resource()
 {
   case $1 in
@@ -36,6 +38,7 @@ install_resource()
       xcrun mapc "${PODS_ROOT}/$1" "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/`basename "$1" .xcmappingmodel`.cdm"
       ;;
     *.xcassets)
+      XCASSET_FILES="$XCASSET_FILES '$1'"
       ;;
     /*)
       echo "$1"
@@ -47,42 +50,22 @@ install_resource()
       ;;
   esac
 }
-          install_resource "ARChromeActivity/ARChromeActivity/ARChromeActivity.png"
-                    install_resource "ARChromeActivity/ARChromeActivity/ARChromeActivity@2x.png"
-                    install_resource "ARChromeActivity/ARChromeActivity/ARChromeActivity@2x~ipad.png"
-                    install_resource "ARChromeActivity/ARChromeActivity/ARChromeActivity~ipad.png"
-                    install_resource "ARSafariActivity/ARSafariActivity/ARSafariActivity-iPad.png"
-                    install_resource "ARSafariActivity/ARSafariActivity/ARSafariActivity-iPad@2x.png"
-                    install_resource "ARSafariActivity/ARSafariActivity/ARSafariActivity@2x.png"
-                    install_resource "ARSafariActivity/ARSafariActivity/cs.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/da.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/de.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/en.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/es-ES.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/es.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/fr.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/it.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/ja.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/ko.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/nb.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/nl.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/ru.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/sk.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/sv.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/vi.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/zh-Hans.lproj"
-                    install_resource "ARSafariActivity/ARSafariActivity/zh-Hant.lproj"
-                    install_resource "JBWebViewController/JBWebViewController/Icons.xcassets"
-                    install_resource "JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD Resources.bundle"
-                    install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
-          
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD Resources.bundle"
+  install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD Resources.bundle"
+  install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+fi
+
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then
   rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 fi
 rm -f "$RESOURCES_TO_COPY"
 
-if [[ -n "${WRAPPER_EXTENSION}" ]] && [ "`xcrun --find actool`" ] && [ `find . -name '*.xcassets' | wc -l` -ne 0 ]
+if [[ -n "${WRAPPER_EXTENSION}" ]] && [ "`xcrun --find actool`" ] && [ -n $XCASSET_FILES ]
 then
   case "${TARGETED_DEVICE_FAMILY}" in
     1,2)
@@ -98,5 +81,5 @@ then
       TARGET_DEVICE_ARGS="--target-device mac"
       ;;
   esac
-  find "${PWD}" -name "*.xcassets" -print0 | xargs -0 actool --output-format human-readable-text --notices --warnings --platform "${PLATFORM_NAME}" --minimum-deployment-target "${IPHONEOS_DEPLOYMENT_TARGET}" ${TARGET_DEVICE_ARGS} --compress-pngs --compile "${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
+  echo $XCASSET_FILES | xargs actool --output-format human-readable-text --notices --warnings --platform "${PLATFORM_NAME}" --minimum-deployment-target "${IPHONEOS_DEPLOYMENT_TARGET}" ${TARGET_DEVICE_ARGS} --compress-pngs --compile "${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 fi

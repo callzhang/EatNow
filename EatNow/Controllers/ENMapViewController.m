@@ -10,6 +10,8 @@
 #import "ENUtil.h"
 #import "ENServerManager.h"
 #import "INTULocationManager.h"
+#import "ENLocationManager.h"
+
 @import AddressBook;
 
 @interface ENMapViewController ()<MKMapViewDelegate>
@@ -29,7 +31,8 @@
 	self.destination = self.restaurant.placemark;
 	self.title = self.restaurant.name;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
-    CLLocationCoordinate2D centerCoordinate = [ENServerManager sharedInstance].currentLocation.coordinate;
+
+    CLLocationCoordinate2D centerCoordinate = [ENLocationManager cachedCurrentLocation].coordinate;
     self.mapView.region = MKCoordinateRegionMakeWithDistance(centerCoordinate, 500, 500);
     self.mapView.showsUserLocation = YES;
 	_firstTimeShowRoute = YES;
@@ -122,7 +125,7 @@
 				 [self.mapView selectAnnotation:destinationAnnotation animated:YES];
 				
 				//change region
-				CLLocationCoordinate2D from = [ENServerManager sharedInstance].currentLocation.coordinate;
+				CLLocationCoordinate2D from = [ENLocationManager cachedCurrentLocation].coordinate;
 				CLLocation *center = [[CLLocation alloc] initWithLatitude:(from.latitude + _destination.coordinate.latitude)/2 longitude:(from.longitude + _destination.coordinate.longitude)/2];
 				MKCoordinateSpan span = MKCoordinateSpanMake(abs(from.latitude - _destination.coordinate.latitude)*1.5, abs(from.longitude - _destination.coordinate.longitude)*1.5);
 				[self.mapView setRegion:MKCoordinateRegionMake(center.coordinate, span) animated:YES];

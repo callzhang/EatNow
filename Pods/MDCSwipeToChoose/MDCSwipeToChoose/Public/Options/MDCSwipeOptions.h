@@ -30,7 +30,6 @@
 
 typedef void (^MDCSwipeToChooseOnPanBlock)(MDCPanState *state);
 typedef void (^MDCSwipeToChooseOnChosenBlock)(MDCSwipeResult *state);
-typedef void (^MDCSwipeToChooseOnTapBlock)(UITapGestureRecognizer *gesture);
 
 /*!
  * A set of options used to customize the behavior of the
@@ -69,8 +68,8 @@ typedef void (^MDCSwipeToChooseOnTapBlock)(UITapGestureRecognizer *gesture);
 @property (nonatomic, assign) UIViewAnimationOptions swipeAnimationOptions;
 
 /*!
- * The distance, in points, that a view must be panned in order to constitue a selection.
- * For example, if the `threshold` is `100.f`, panning the view `101.f` points to the right
+ * The distance, in pixels, that a view must be panned in order to constitue a selection.
+ * For example, if the `threshold` is `100.f`, panning the view `101.f` pixels to the right
  * is considered a selection in the `MDCSwipeDirectionRight` direction. A default value is
  * provided in the `-init` method.
  */
@@ -88,8 +87,6 @@ typedef void (^MDCSwipeToChooseOnTapBlock)(UITapGestureRecognizer *gesture);
  * and the distance until the threshold is reached.
  */
 @property (nonatomic, copy) MDCSwipeToChooseOnPanBlock onPan;
-
-@property (nonatomic, copy) MDCSwipeToChooseOnTapBlock onTap;
 
 /*!
  * A callback to be executed when the view is swiped and chosen. The default
