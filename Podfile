@@ -13,3 +13,4 @@ pod 'libextobjc'       # Useful macros and some craziness
 pod 'KVOController', '~> 1.0.3'
 pod 'Bolts', '~> 1.1.4'
 pod 'INTULocationManager', '~> 3.0.1'
+pod 'hpple', '~> 0.2'

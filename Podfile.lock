@@ -32,6 +32,7 @@ PODS:
   - CrashlyticsFramework (2.2.9)
   - CrashlyticsLumberjack (2.0.0-rc2):
     - CocoaLumberjack/Default (>= 2.0.0-rc)
+  - hpple (0.2.0)
   - INTULocationManager (3.0.1)
   - JGProgressHUD (1.2.3)
   - KVOController (1.0.3)
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - CocoaLumberjack (= 2.0.0-rc)
   - CrashlyticsFramework
   - CrashlyticsLumberjack (= 2.0.0-rc2)
+  - hpple (~> 0.2)
   - INTULocationManager (~> 3.0.1)
   - JGProgressHUD
   - KVOController (~> 1.0.3)
@@ -92,6 +94,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 04c5b9b7479dd4276a09700fcd6644423ea1751c
   CrashlyticsFramework: 5a6a8d7a0731bc75c63c3bd3d704962d5d8717cc
   CrashlyticsLumberjack: 109eba5693487358215a04665a9526190ed73712
+  hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
   JGProgressHUD: 02eb5fc5f1069dc3a6aaf74a0da06f05c2546f32
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
@@ -99,4 +102,4 @@ SPEC CHECKSUMS:
   MDCSwipeToChoose: 0a1995bcfbac8f8ab26e57950626ddfe60c99599
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
 
-COCOAPODS: 0.36.0
+COCOAPODS: 0.35.0
