@@ -39,7 +39,7 @@
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 @interface MainViewController () <UIActionSheetDelegate, UIAlertViewDelegate>
-@property (nonatomic, strong) NSArray *restaurants;
+@property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENServerManager *serverManager;
 @end
@@ -125,7 +125,7 @@
         @strongify(self);
         [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
             if (success) {
-                _restaurants = response;
+                _restaurants = response.mutableCopy;
                 [self showRestaurants];
             }
         }];
@@ -258,8 +258,8 @@
     card.frame = frame;
     card.restaurant = self.restaurants.firstObject;
     //    [self.restaurants addObject:self.restaurants.firstObject];
-    //    [self.restaurants removeObjectAtIndex:0];
-    return card;
+	[self.restaurants removeObjectAtIndex:0];
+	return card;
 }
 
 - (IBAction)close:(id)sender{

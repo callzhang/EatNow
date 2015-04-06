@@ -28,6 +28,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ENServerManager.h"
 #import "ENRestaurantViewContainer.h"
+#import "TFHpple.h"
 
 //static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
@@ -116,7 +117,20 @@
 	_restaurant = restaurant;
 	
 	_currentIdx = -1;
-	[self loadNextImage];
+	//[self loadNextImage];
+	[self parseFoursquareWebsiteForImagesWithUrl:restaurant.url completion:^(NSArray *imageUrls, NSError *error) {
+		if (!imageUrls) {
+			DDLogError(@"Failed to parse foursquare %@", restaurant.url);
+			return;
+		}
+		//save urls
+		NSMutableArray *images = restaurant.imageUrls.mutableCopy;
+		[images addObjectsFromArray:imageUrls];
+		restaurant.imageUrls = images.copy;
+		
+		//start fetching
+		[self loadNextImage];
+	}];
     
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
@@ -126,9 +140,30 @@
     self.distance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];
 }
 
+- (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
+	NSURL *url = [NSURL URLWithString:urlString];
+	NSURLRequest *request = [NSURLRequest requestWithURL:url];
+	AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+	[op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+		NSData *data = responseObject;
+		TFHpple * doc       = [[TFHpple alloc] initWithHTMLData:data];
+		NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='photosSection']/ul/li/img"];
+		NSMutableArray *images = [NSMutableArray array];
+		for (TFHppleElement *element in elements) {
+			NSString *imgUrl = [element objectForKey:@"data-retina-url"];
+			[images addObject:imgUrl];
+		}
+		DDLogVerbose(@"Parsed img urls: %@", images);
+		block(images, nil);
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		DDLogError(@"Failed to download website %@", urlString);
+		block(nil, error);
+	}];;
+}
+
 - (void)loadNextImage{
 	if (_isLoadingImage) {
-		NSLog(@"Loading image, skip");
+		DDLogVerbose(@"Loading image, skip");
 		return;
 	}
 	

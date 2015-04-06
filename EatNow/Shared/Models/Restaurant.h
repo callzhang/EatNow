@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSArray *imageUrls;
 @property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, strong) NSNumber *rating;
-@property (nonatomic, strong) NSNumber *price;
+@property (nonatomic, strong) NSDictionary *price;
 @property (nonatomic, strong) NSNumber *reviews;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *phone;

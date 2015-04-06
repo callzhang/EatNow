@@ -24,6 +24,7 @@
 
 #import "Restaurant.h"
 #import "ENServerManager.h"
+#import "TFHpple.h"
 @import AddressBook;
 
 @implementation Restaurant
@@ -35,11 +36,13 @@
 
 
 - (NSString *)pricesStr{
-    NSMutableString *dollarSign = [@"" mutableCopy];
-    for (NSUInteger i=0; i<self.price.integerValue; i++) {
-        [dollarSign appendString:@"$"];
+    NSMutableString *priceString = [NSMutableString string];
+	NSString *currencySign = self.price[@"currency"];
+	NSNumber *tier = self.price[@"tier"];
+    for (NSUInteger i=0; i<tier.integerValue; i++) {
+        [priceString appendString:currencySign];
     }
-    return dollarSign.copy;
+    return priceString.copy;
 }
 
 - (NSString *)cuisineStr{
@@ -95,18 +98,15 @@
 - (MKPlacemark *)placemark{
     if (!_placemark) {
         NSDictionary *location = self.json[@"location"];
-        NSDictionary *coordinates = location[@"coordinate"];
-        float lat = [(NSNumber *)coordinates[@"latitude"] floatValue];
-        float lon = [(NSNumber *)coordinates[@"longitude"] floatValue];
         NSDictionary *addressDict = @{
-                                      (__bridge NSString *) kABPersonAddressStreetKey : [(NSArray *)location[@"display_address"] firstObject]?:@"",
+                                      (__bridge NSString *) kABPersonAddressStreetKey : location[@"address"]?:@"",
                                       (__bridge NSString *) kABPersonAddressCityKey : location[@"city"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressStateKey : location[@"state_code"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressZIPKey : location[@"postal_code"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressCountryKey : location[@"country_code"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressCountryCodeKey : location[@"country_code"]?:@""
+                                      (__bridge NSString *) kABPersonAddressStateKey : location[@"state"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressZIPKey : location[@"postalCode"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCountryKey : location[@"country"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCountryCodeKey : location[@"cc"]?:@""
                                       };
-        CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+        CLLocation *loc = self.location;
         _placemark = [[MKPlacemark alloc] initWithCoordinate:loc.coordinate addressDictionary:addressDict];
     }
     return _placemark;
