@@ -9,7 +9,7 @@
 #define kSearchUrl                  @"http://dry-fortress-8563.herokuapp.com/search"
 #define kUserUrl                    @"http://dry-fortress-8563.herokuapp.com/user/"
 #define kEatUrl                     @"http://dry-fortress-8563.herokuapp.com/select"
-#define kCuisineNames        @"Afghan,African,American_(New),American_(Traditional),Middle_Eastern,Argentine,Armenian,Asian,Spanish,Australian,Eastern_European,Delis,Bangladeshi,German,Bars,Pubs,Belgian,Brasseries,Turkish,Brazilian,Brunch,British,Buffets,Bulgarian,Fast_Food,Burmese,Cafes,Southern,Cambodian,Caribbean,Chilean,Chinese,Mediterranean,Cuban,Czech,Northern_European,Ethiopian,Filipino,French,Russian,Healthy,Greek,Hawaiian,Himalayan/Nepalese,Indian,Indonesian,Italian,Japanese,Korean,Persian,Laos,Latin_American,Seafood,Malaysian,Mexican,Mongolian,Moroccan,New_Zealand,Night_Food,Pakistani,Peruvian,Polish,International,Singaporean,Steakhouses,Taiwanese,Thai,Ukrainian,Vegetarian,Vietnamese,Tea_Rooms,Bubble_Tea"
+#define kCuisineNames        @"Afghan,African,American,Argentine,Asian,Australian,Bakery,Bangladeshi,Bars,Belgian,Brasseries,Brazilian,Breakfast,British,Buffets,Cafes,Cambodian,Caribbean,Chinese,Coffee,Creperie,Cuban,Czech,Delis,Dessert,Eastern_European,Ethiopian,Fast_Food,Fast_Truck,Filipino,Food_Truck,French,German,Greek,Halal,Hawaiian,Healthy,Himalayan,Indian,Indonesian,Italian,Japanese,Korean,Kosher,Latin_American,Malaysian,Mediterranean,Mexican,Middle_Eastern,Modern,Mongolian,Moroccan,Night_Life,Northern_European,Pakistani,Persian,Peruvian,Polish,Russian,Seafood,Southern,Spanish,Steakhouses,Tea_Rooms,Thai,Turkish,Ukrainian,Vegetarian,Vietnamese"
 
 #import <Foundation/Foundation.h>
 //@import CoreLocation;

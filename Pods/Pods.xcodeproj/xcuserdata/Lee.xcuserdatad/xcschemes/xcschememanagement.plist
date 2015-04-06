@@ -21,25 +21,43 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Bolts.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
 		<key>Pods-CocoaLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>Pods-CrashlyticsFramework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>Pods-CrashlyticsLumberjack.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>Pods-DZNWebViewController.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>Pods-INTULocationManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 		<key>Pods-JBWebViewController.xcscheme</key>
 		<dict>
@@ -50,11 +68,15 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>12</integer>
 		</dict>
 		<key>Pods-KVOController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>Pods-MDCSwipeToChoose.xcscheme</key>
 		<dict>
@@ -72,6 +94,13 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>Pods-libextobjc.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
@@ -83,7 +112,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0C0FF6B78293195965DD57CA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1682988658B6B1866427BC21</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>205186EE6905BB09338EDF18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2053716EAE03216F60859C93</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>481822FEF3F50D6193241D27</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -113,6 +162,16 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>591FB080A6E081EFBADBDD51</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>694086619882067D5D731143</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6BF5DC34CE240A84C863A009</key>
 		<dict>
 			<key>primary</key>
@@ -138,7 +197,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9FBFED2BBD15C8D628BA89B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A22EE0C4B1C1B0892AE1D997</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A293A989995FF31978A2E25C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A52E9E5F67B319D2B31BD1C5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A78FE75DF3D171DA7E6F7778</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -148,7 +227,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C6624322F8898F386B057D07</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>E019C5A979C3AF16312EC465</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FDBA391284BDD08093F7985F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -35,11 +35,13 @@
 
 
 - (NSString *)pricesStr{
-    NSMutableString *dollarSign = [@"" mutableCopy];
-    for (NSUInteger i=0; i<self.price.integerValue; i++) {
-        [dollarSign appendString:@"$"];
+    NSMutableString *priceString = [NSMutableString string];
+	NSString *currencySign = self.price[@"currency"];
+	NSNumber *tier = self.price[@"tier"];
+    for (NSUInteger i=0; i<tier.integerValue; i++) {
+        [priceString appendString:currencySign];
     }
-    return dollarSign.copy;
+    return priceString.copy;
 }
 
 - (NSString *)cuisineStr{

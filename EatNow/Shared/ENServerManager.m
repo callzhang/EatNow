@@ -75,52 +75,57 @@
 
 #pragma mark - Main method
 
-- (void)getRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
-    {
+- (void)getRestaurantsAtLocation:(CLLocation *)currenLocation WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
+	{
+		//add to completion block
+		[self.completionGroup addObject:block];
+		
         if (self.fetchStatus == ENResturantDataStatusFetchingRestaurant) {
-			NSLog(@"Already requesting restaurant.");
-            [self.completionGroup addObject:block];
+			DDLogInfo(@"Already requesting restaurant.");
 			return;
         }
         
         self.fetchStatus = ENResturantDataStatusFetchingRestaurant;
 		
-        NSLog(@"Start requesting restaurants");
+        DDLogVerbose(@"Start requesting restaurants");
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         NSString *myID = [[self class] myUUID];
         NSDictionary *dic = @{@"username":myID,
-                              @"latitude":@(location.coordinate.latitude),
-                              @"longitude":@(location.coordinate.longitude),
+                              @"latitude":@(currenLocation.coordinate.latitude),
+                              @"longitude":@(currenLocation.coordinate.longitude),
                               @"radius":@500
                               };
-        NSLog(@"Request restaurant: %@", dic);
+        DDLogInfo(@"Request restaurant: %@", dic);
         [manager POST:kSearchUrl parameters:dic
               success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-                  NSLog(@"GET restaurant list %ld", (unsigned long)responseObject.count);
+                  DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
                   TIC
                   NSMutableArray *mutableResturants = [NSMutableArray array];
                   for (NSDictionary *restaurant_json in responseObject) {
                       Restaurant *restaurant = [Restaurant new];
 					  restaurant.ID = restaurant_json[@"id"];
-                      restaurant.url = restaurant_json[@"mobile_url"];
+                      restaurant.url = restaurant_json[@"url"];
                       restaurant.rating = (NSNumber *)restaurant_json[@"rating"];
-                      restaurant.reviews = (NSNumber *)restaurant_json[@"review_count"];
+                      restaurant.reviews = (NSNumber *)restaurant_json[@"ratingSignals"];
                       NSArray *list = restaurant_json[@"categories"];
-                      NSArray *cuisines = [ENServerManager getArrayOfCategories:list];
-                      restaurant.cuisines = cuisines;
+                      restaurant.cuisines = [list valueForKey:@"shortName"];
 					  restaurant.imageUrls = restaurant_json[@"food_image_url"];
-                      restaurant.phone = restaurant_json[@"phone"];
+                      restaurant.phone = [restaurant_json valueForKeyPath:@"contact.formattedPhone"];
                       restaurant.name = restaurant_json[@"name"];
-                      restaurant.price = (NSNumber *)restaurant_json[@"price"];
+                      restaurant.price = restaurant_json[@"price"];
                       //location
-                      NSDictionary *coordinate = [restaurant_json valueForKeyPath:@"location.coordinate"];
-                      CLLocationDegrees lat = [(NSNumber *)coordinate[@"latitude"] doubleValue];
-                      CLLocationDegrees lon = [(NSNumber *)coordinate[@"longitude"] doubleValue];
+                      NSDictionary *address = restaurant_json[@"location"];
+                      CLLocationDegrees lat = [(NSNumber *)address[@"lat"] doubleValue];
+                      CLLocationDegrees lon = [(NSNumber *)address[@"lng"] doubleValue];
                       CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
                       restaurant.location = loc;
+					  restaurant.distance = [(NSNumber *)address[@"distance"] doubleValue]/1000;
+					  if (!restaurant.distance) {
+						  restaurant.distance = [currenLocation distanceFromLocation:restaurant.location]/1000;
+					  }
                       restaurant.json = restaurant_json;
                       //score
                       NSDictionary *scores = restaurant_json[@"score"];
@@ -137,10 +142,7 @@
                           totalScore = @(commentScore.floatValue + cuisineScore.floatValue + distanceScore.floatValue + priceScore.floatValue + ratingScore.floatValue);
                       }
                       restaurant.score = totalScore;
-                      
-                      //distance calculate
-                      
-                      restaurant.distance = [location distanceFromLocation:restaurant.location]/1000;
+					  
                       
                       if ([restaurant validate]) {
                           [mutableResturants addObject:restaurant];
@@ -148,15 +150,11 @@
                   }
                   
                   TOC
-                  DDLogInfo(@"Processed %ld restaurant", (unsigned long)_restaurants.count);
+                  DDLogInfo(@"Processed %ld restaurant", (unsigned long)mutableResturants.count);
 				  
 				  //server returned sorted from high to low
-				  [mutableResturants sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
+				  [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
 				  
-				  
-                  if (block) {
-                      block(YES, nil, mutableResturants.copy);
-				  }
                   
                   if (self.completionGroup) {
                       for (id completion in self.completionGroup) {
@@ -239,14 +237,6 @@
 }
 
 #pragma mark - Tools
-+ (NSArray *)getArrayOfCategories:(NSArray *)list{
-    NSMutableArray *types = [NSMutableArray new];
-    for (NSArray *sub in list) {
-        [types addObject:sub.firstObject];
-    }
-    return types.copy;
-}
-
 - (NSArray *)cuisines{
     if (!_cuisines) {
         _cuisines = [kCuisineNames componentsSeparatedByString:@","];
