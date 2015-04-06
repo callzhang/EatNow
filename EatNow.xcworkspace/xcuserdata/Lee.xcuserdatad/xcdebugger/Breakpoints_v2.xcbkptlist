@@ -19,29 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EatNow/Shared/Models/Restaurant.m"
-            timestampString = "450044771.744908"
+            filePath = "Pods/JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD.m"
+            timestampString = "447213670.861391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "-placemark"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EatNow/Views/RestaurantView.m"
-            timestampString = "450050199.381869"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "-setRestaurant:"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
+            landmarkName = "-HUDView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
