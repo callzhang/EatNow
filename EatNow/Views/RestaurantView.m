@@ -117,20 +117,20 @@
 	_restaurant = restaurant;
 	
 	_currentIdx = -1;
-	//[self loadNextImage];
-	[self parseFoursquareWebsiteForImagesWithUrl:restaurant.url completion:^(NSArray *imageUrls, NSError *error) {
-		if (!imageUrls) {
-			DDLogError(@"Failed to parse foursquare %@", restaurant.url);
-			return;
-		}
-		//save urls
-		NSMutableArray *images = restaurant.imageUrls.mutableCopy;
-		[images addObjectsFromArray:imageUrls];
-		restaurant.imageUrls = images.copy;
-		
-		//start fetching
-		[self loadNextImage];
-	}];
+	[self loadNextImage];
+//	[self parseFoursquareWebsiteForImagesWithUrl:restaurant.url completion:^(NSArray *imageUrls, NSError *error) {
+//		if (!imageUrls) {
+//			DDLogError(@"Failed to parse foursquare %@", restaurant.url);
+//			return;
+//		}
+//		//save urls
+//		NSMutableArray *images = restaurant.imageUrls.mutableCopy;
+//		[images addObjectsFromArray:imageUrls];
+//		restaurant.imageUrls = images.copy;
+//		
+//		//start fetching
+//		[self loadNextImage];
+//	}];
     
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
