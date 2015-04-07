@@ -321,7 +321,7 @@
     [self.loading startAnimating];
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
-            _restaurants = response;
+            _restaurants = response.mutableCopy;
             if (!success){
                 NSString *str = [NSString stringWithFormat:@"Failed to get restaurant with error: %@", error];
                 ENAlert(str);

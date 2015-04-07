@@ -76,110 +76,107 @@
 #pragma mark - Main method
 
 - (void)getRestaurantsAtLocation:(CLLocation *)currenLocation WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
-	{
-		//add to completion block
-		[self.completionGroup addObject:block];
-		
-        if (self.fetchStatus == ENResturantDataStatusFetchingRestaurant) {
-			DDLogInfo(@"Already requesting restaurant.");
-			return;
-        }
-        
-        self.fetchStatus = ENResturantDataStatusFetchingRestaurant;
-		
-        DDLogVerbose(@"Start requesting restaurants");
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        
-        NSString *myID = [[self class] myUUID];
-        NSDictionary *dic = @{@"username":myID,
-                              @"latitude":@(currenLocation.coordinate.latitude),
-                              @"longitude":@(currenLocation.coordinate.longitude),
-                              @"radius":@500
-                              };
-        DDLogInfo(@"Request restaurant: %@", dic);
-        [manager POST:kSearchUrl parameters:dic
-              success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-                  DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
-                  TIC
-                  NSMutableArray *mutableResturants = [NSMutableArray array];
-                  for (NSDictionary *restaurant_json in responseObject) {
-                      Restaurant *restaurant = [Restaurant new];
-					  restaurant.ID = restaurant_json[@"id"];
-                      restaurant.url = restaurant_json[@"url"];
-                      restaurant.rating = (NSNumber *)restaurant_json[@"rating"];
-                      restaurant.reviews = (NSNumber *)restaurant_json[@"ratingSignals"];
-                      NSArray *list = restaurant_json[@"categories"];
-                      restaurant.cuisines = [list valueForKey:@"shortName"];
-					  restaurant.imageUrls = restaurant_json[@"food_image_url"];
-                      restaurant.phone = [restaurant_json valueForKeyPath:@"contact.formattedPhone"];
-                      restaurant.name = restaurant_json[@"name"];
-                      restaurant.price = restaurant_json[@"price"];
-                      //location
-                      NSDictionary *address = restaurant_json[@"location"];
-                      CLLocationDegrees lat = [(NSNumber *)address[@"lat"] doubleValue];
-                      CLLocationDegrees lon = [(NSNumber *)address[@"lng"] doubleValue];
-                      CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
-                      restaurant.location = loc;
-					  restaurant.distance = [(NSNumber *)address[@"distance"] doubleValue]/1000;
-					  if (!restaurant.distance) {
-						  restaurant.distance = [currenLocation distanceFromLocation:restaurant.location]/1000;
-					  }
-                      restaurant.json = restaurant_json;
-                      //score
-                      NSDictionary *scores = restaurant_json[@"score"];
-                      NSNumber *totalScore = scores[@"total_score"];
-                      if ([totalScore isEqual: [NSNull null]]) {
-						  NSString *str = [NSString stringWithFormat:@"Returned null score (ID = %@", restaurant.ID];
-//						  ENAlert(str);
-                          DDLogError(@"error:%@", str);
-						  NSNumber *commentScore = scores[@"comment_score"] != [NSNull null] ? scores[@"comment_score"]:@0;
-                          NSNumber *cuisineScore = scores[@"cuisine_score"] != [NSNull null] ? scores[@"cuisine_score"]:@0;
-                          NSNumber *distanceScore = scores[@"distance_score"] != [NSNull null] ? scores[@"distance_score"]:@0;
-                          NSNumber *priceScore = scores[@"price_score"] != [NSNull null] ? scores[@"price_score"]:@0;
-                          NSNumber *ratingScore = scores[@"rating_score"] != [NSNull null] ? scores[@"rating_score"]:@0;
-                          totalScore = @(commentScore.floatValue + cuisineScore.floatValue + distanceScore.floatValue + priceScore.floatValue + ratingScore.floatValue);
-                      }
-                      restaurant.score = totalScore;
-					  
-                      
-                      if ([restaurant validate]) {
-                          [mutableResturants addObject:restaurant];
-                      }
-                  }
-                  
-                  TOC
-                  DDLogInfo(@"Processed %ld restaurant", (unsigned long)mutableResturants.count);
-				  
-				  //server returned sorted from high to low
-				  [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
-				  
-                  
-                  if (self.completionGroup) {
-                      for (id completion in self.completionGroup) {
-                          void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
-                          cachedCompletion(YES, nil, mutableResturants.copy);
-                      }
-                      
-                      [self.completionGroup removeAllObjects];
-                  }
-				  
-				  //post notification
-                  self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
-				  
-              }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
-                  NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
-                  DDLogError(@"%@", str);
-//                  ENAlert(str);
-                  if (block) {
-                      block(NO, error, nil);
-                  }
-                  
-                  self.fetchStatus = ENResturantDataStatusError;
-              }];
-        
+    //add to completion block
+    [self.completionGroup addObject:block];
+    
+    if (self.fetchStatus == ENResturantDataStatusFetchingRestaurant) {
+        DDLogInfo(@"Already requesting restaurant.");
+        return;
     }
+    
+    self.fetchStatus = ENResturantDataStatusFetchingRestaurant;
+    
+    DDLogVerbose(@"Start requesting restaurants");
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    
+    NSString *myID = [[self class] myUUID];
+    NSDictionary *dic = @{@"username":myID,
+                          @"latitude":@(currenLocation.coordinate.latitude),
+                          @"longitude":@(currenLocation.coordinate.longitude),
+                          @"radius":@500
+                          };
+    DDLogInfo(@"Request restaurant: %@", dic);
+    [manager POST:kSearchUrl parameters:dic
+          success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
+              DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
+              TIC
+              NSMutableArray *mutableResturants = [NSMutableArray array];
+              for (NSDictionary *restaurant_json in responseObject) {
+                  Restaurant *restaurant = [Restaurant new];
+                  restaurant.ID = restaurant_json[@"id"];
+                  restaurant.url = restaurant_json[@"url"];
+                  restaurant.rating = (NSNumber *)restaurant_json[@"rating"];
+                  restaurant.reviews = (NSNumber *)restaurant_json[@"ratingSignals"];
+                  NSArray *list = restaurant_json[@"categories"];
+                  restaurant.cuisines = [list valueForKey:@"shortName"];
+                  restaurant.imageUrls = restaurant_json[@"food_image_url"];
+                  restaurant.phone = [restaurant_json valueForKeyPath:@"contact.formattedPhone"];
+                  restaurant.name = restaurant_json[@"name"];
+                  restaurant.price = restaurant_json[@"price"];
+                  //location
+                  NSDictionary *address = restaurant_json[@"location"];
+                  CLLocationDegrees lat = [(NSNumber *)address[@"lat"] doubleValue];
+                  CLLocationDegrees lon = [(NSNumber *)address[@"lng"] doubleValue];
+                  CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+                  restaurant.location = loc;
+                  restaurant.distance = [(NSNumber *)address[@"distance"] doubleValue]/1000;
+                  if (!restaurant.distance) {
+                      restaurant.distance = [currenLocation distanceFromLocation:restaurant.location]/1000;
+                  }
+                  restaurant.json = restaurant_json;
+                  //score
+                  NSDictionary *scores = restaurant_json[@"score"];
+                  NSNumber *totalScore = scores[@"total_score"];
+                  if ([totalScore isEqual: [NSNull null]]) {
+                      NSString *str = [NSString stringWithFormat:@"Returned null score (ID = %@", restaurant.ID];
+//						  ENAlert(str);
+                      DDLogError(@"error:%@", str);
+                      NSNumber *commentScore = scores[@"comment_score"] != [NSNull null] ? scores[@"comment_score"]:@0;
+                      NSNumber *cuisineScore = scores[@"cuisine_score"] != [NSNull null] ? scores[@"cuisine_score"]:@0;
+                      NSNumber *distanceScore = scores[@"distance_score"] != [NSNull null] ? scores[@"distance_score"]:@0;
+                      NSNumber *priceScore = scores[@"price_score"] != [NSNull null] ? scores[@"price_score"]:@0;
+                      NSNumber *ratingScore = scores[@"rating_score"] != [NSNull null] ? scores[@"rating_score"]:@0;
+                      totalScore = @(commentScore.floatValue + cuisineScore.floatValue + distanceScore.floatValue + priceScore.floatValue + ratingScore.floatValue);
+                  }
+                  restaurant.score = totalScore;
+                  
+                  
+                  if ([restaurant validate]) {
+                      [mutableResturants addObject:restaurant];
+                  }
+              }
+              
+              TOC
+              DDLogInfo(@"Processed %ld restaurant", (unsigned long)mutableResturants.count);
+              
+              //server returned sorted from high to low
+              [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
+              
+              
+              if (self.completionGroup) {
+                  for (id completion in self.completionGroup) {
+                      void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
+                      cachedCompletion(YES, nil, mutableResturants.copy);
+                  }
+                  
+                  [self.completionGroup removeAllObjects];
+              }
+              
+              //post notification
+              self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
+              
+          }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
+              NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
+              DDLogError(@"%@", str);
+//                  ENAlert(str);
+              if (block) {
+                  block(NO, error, nil);
+              }
+              
+              self.fetchStatus = ENResturantDataStatusError;
+          }];
 }
 
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block{

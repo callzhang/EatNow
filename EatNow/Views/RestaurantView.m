@@ -118,19 +118,17 @@
 	
 	_currentIdx = -1;
 	[self loadNextImage];
-//	[self parseFoursquareWebsiteForImagesWithUrl:restaurant.url completion:^(NSArray *imageUrls, NSError *error) {
-//		if (!imageUrls) {
-//			DDLogError(@"Failed to parse foursquare %@", restaurant.url);
-//			return;
-//		}
-//		//save urls
+    NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", restaurant.ID];
+	[self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
+		if (!imageUrls) {
+			DDLogError(@"Failed to parse foursquare %@", restaurant.url);
+			return;
+		}
+		//save urls -> replace exisiting image
 //		NSMutableArray *images = restaurant.imageUrls.mutableCopy;
 //		[images addObjectsFromArray:imageUrls];
-//		restaurant.imageUrls = images.copy;
-//		
-//		//start fetching
-//		[self loadNextImage];
-//	}];
+		restaurant.imageUrls = imageUrls;
+	}];
     
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
@@ -151,7 +149,15 @@
 		NSMutableArray *images = [NSMutableArray array];
 		for (TFHppleElement *element in elements) {
 			NSString *imgUrl = [element objectForKey:@"data-retina-url"];
-			[images addObject:imgUrl];
+            if (imgUrl) {
+                NSMutableArray *urlComponents = [imgUrl componentsSeparatedByString:@"/"].mutableCopy;
+                NSString *sizeStr = urlComponents[urlComponents.count-2];
+                if (sizeStr.length == 7 && [sizeStr characterAtIndex:3] == 'x') {
+                    urlComponents[urlComponents.count-2] = @"original";
+                    imgUrl = [urlComponents componentsJoinedByString:@"/"];
+                }
+                [images addObject:imgUrl];
+            }
 		}
 		DDLogVerbose(@"Parsed img urls: %@", images);
 		block(images, nil);
@@ -159,6 +165,7 @@
 		DDLogError(@"Failed to download website %@", urlString);
 		block(nil, error);
 	}];;
+    [op start];
 }
 
 - (void)loadNextImage{
@@ -166,6 +173,13 @@
 		DDLogVerbose(@"Loading image, skip");
 		return;
 	}
+    if (_restaurant.imageUrls.count == 1 && self.imageView.image) {
+        DDLogVerbose(@"Only one image, skip");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadNextImage];
+        });
+        return;
+    }
 	
 	NSInteger nextIdx = (_currentIdx + 1) % self.restaurant.imageUrls.count;
 	
