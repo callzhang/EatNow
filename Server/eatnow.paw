@@ -205,7 +205,7 @@
     </object>
     <object type="LMREQUEST" id="z118">
         <attribute name="uuid" type="string">B46D7A38-1FED-4AE7-9E17-4D19FE008F2D</attribute>
-        <attribute name="url" type="string">https://api.foursquare.com/v2/venues/explore?client_id=34ODCLKTFMWOIQ5G5F0GK254CIXM0CS2T0MN0A0HPMV44LUN\u2600client_secret=Q2IFOXLTCWJZ0UZDK45QRJ5M4MVIDKB4JUSXGDQB5PRV0T2T\u2600ll=51.5072%2C0.1275\u2600categoryId=4d4b7105d754a06374d81259\u2600v=20150310\u2600openNow=1\u2600intent=browse\u2600radius=10000\u2600venuePhotos=1</attribute>
+        <attribute name="url" type="string">https://api.foursquare.com/v2/venues/explore?client_id=34ODCLKTFMWOIQ5G5F0GK254CIXM0CS2T0MN0A0HPMV44LUN\u2600client_secret=Q2IFOXLTCWJZ0UZDK45QRJ5M4MVIDKB4JUSXGDQB5PRV0T2T\u2600ll=51.5072%2C-0.1275\u2600categoryId=4d4b7105d754a06374d81259\u2600v=20150310\u2600openNow=1\u2600intent=browse\u2600venuePhotos=1</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -254,7 +254,7 @@
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[{"data":{"keyValues":[["username","lei",true],["latitude","51.5072",true],["longitude","0.1275",true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
         <attribute name="order" type="int64">5</attribute>
-        <attribute name="name" type="string">Search</attribute>
+        <attribute name="name" type="string">Search local</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z122"></relationship>
