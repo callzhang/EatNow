@@ -25,10 +25,11 @@
 #import <UIKit/UIKit.h>
 #import "RestaurantView.h"
 
-@interface MainViewController : UIViewController <MDCSwipeToChooseDelegate>
+@interface MainViewController : UIViewController
 - (IBAction)nope:(id)sender;
 - (IBAction)like:(id)sender;
-@property (weak, nonatomic) IBOutlet UIView *restaurantFrame;
+@property (weak, nonatomic) IBOutlet UIView *cardFrame;
+@property (weak, nonatomic) IBOutlet UIView *detailFrame;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;

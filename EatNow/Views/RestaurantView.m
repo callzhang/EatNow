@@ -32,8 +32,6 @@
 
 //static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
-@implementation ViewOwner
-@end
 
 @interface RestaurantView()
 @property (nonatomic) BOOL isLoadingImage;
@@ -62,15 +60,10 @@
 //    return self;
 //}
 
-+ (instancetype)initViewWithOptions:(MDCSwipeOptions *)options{
-//    DDLogInfo(@"Trying to load restaurant view from xib");
-//    TIC
-//    ViewOwner *owner = [ViewOwner new];
-//    [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
-//    TOC
-//    DDLogInfo(@"Trying to load restaurant view from storyboard");
++ (instancetype)loadView{
     ENRestaurantViewContainer *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENRestaurantViewContainer"];
-    RestaurantView *view = (RestaurantView *)container.view;
+    RestaurantView *view = container.restaurantView;
+    [view removeFromSuperview];
 	NSAssert(view, @"Failed to load restaurant view");
 	
     //customize view
@@ -79,37 +72,6 @@
     view.layer.cornerRadius = 5;
     //view.backgroundColor = [UIColor clearColor];
     
-    //label
-    view.yesLabel.alpha = 0;
-    view.nopeLabel.alpha = 0;
-    view.yesLabel.layer.borderColor = view.yesLabel.textColor.CGColor;
-    view.nopeLabel.layer.borderColor = view.nopeLabel.textColor.CGColor;
-    view.yesLabel.transform = CGAffineTransformRotate(CGAffineTransformIdentity, -15/180*M_PI);
-    view.nopeLabel.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 15/180*M_PI);
-    
-    //wrap onPan block
-    __block UILabel *weakLikedLabel = view.yesLabel;
-    __block UILabel *weakNopeLabel = view.nopeLabel;
-    MDCSwipeToChooseOnPanBlock block = options.onPan;
-    options.onPan = ^(MDCPanState *state){
-        if (state.direction == MDCSwipeDirectionNone) {
-            weakLikedLabel.alpha = 0.f;
-            weakNopeLabel.alpha = 0.f;
-        } else if (state.direction == MDCSwipeDirectionLeft) {
-            weakLikedLabel.alpha = 0.f;
-            weakNopeLabel.alpha = state.thresholdRatio;
-        } else if (state.direction == MDCSwipeDirectionRight) {
-            weakLikedLabel.alpha = state.thresholdRatio;
-            weakNopeLabel.alpha = 0.f;
-        }
-        
-        if (block) {
-            block(state);
-        }
-    };
-    
-    //setup options
-    [view mdc_swipeToChooseSetup:options];
     return view;
 }
 

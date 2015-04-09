@@ -24,7 +24,6 @@
 
 #import "MainViewController.h"
 #import "Restaurant.h"
-#import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 #import "ENServerManager.h"
 #import "ENWebViewController.h"
 #import "FBKVOController.h"
@@ -160,7 +159,7 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
-#pragma mark - MDCSwipeToChooseDelegate Protocol Methods
+#pragma mark - Guesture actions
 
 // This is called when a user didn't fully swipe left or right.
 - (void)viewDidCancelSwipe:(UIView *)view {
@@ -168,19 +167,14 @@
 }
 
 // This is called then a user swipes the view fully left or right.
-- (void)view:(UIView *)view wasChosenWithDirection:(MDCSwipeDirection)direction {
-    // MDCSwipeToChooseView shows "NOPE" on swipes to the left,
-    // and "LIKED" on swipes to the right.
-    if (direction == MDCSwipeDirectionLeft) {
-        NSLog(@"You noped %@.", self.currentRestaurant.name);
+- (void)view:(UIView *)view wasChosenWithDirection:(UIPanGestureRecognizer *)direction {
+    CGPoint velocity = [direction velocityInView:self.view];
+    if (velocity.x <0) {
+        NSLog(@"You swipt left %@.", self.currentRestaurant.name);
     } else {
-        NSLog(@"You liked %@.", self.currentRestaurant.name);
+        NSLog(@"You swipt right %@.", self.currentRestaurant.name);
     }
     
-    // MDCSwipeToChooseView removes the view from the view hierarchy
-    // after it is swiped (this behavior can be customized via the
-    // MDCSwipeOptions class). Since the front card view is gone, we
-    // move the back card to the front, and create a new back card.
     self.frontCardView = self.backCardView;
     self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
     if (self.backCardView) {
@@ -197,7 +191,6 @@
 }
 
 #pragma mark - Internal Methods
-
 - (void)setFrontCardView:(RestaurantView *)frontCardView {
     // Keep track of the person currently being chosen.
     // Quick and dirty, just for the purposes of this sample app.
@@ -218,43 +211,7 @@
     if ([self.restaurants count] == 0) {
         return nil;
     }
-    // UIView+MDCSwipeToChoose and MDCSwipeToChooseView are heavily customizable.
-    // Each take an "options" argument. Here, we specify the view controller as
-    // a delegate, and provide a custom callback that moves the back card view
-    // based on how far the user has panned the front card view.
-    //MDCSwipeToChooseViewOptions *options = [MDCSwipeToChooseViewOptions new];
-    MDCSwipeOptions *options = [MDCSwipeOptions new];
-    options.delegate = self;
-    options.threshold = 160.f;
-    options.onPan = ^(MDCPanState *state){
-        CGRect frame = [self backCardViewFrame];
-        CGRect frame2 = CGRectMake(frame.origin.x,
-                                   frame.origin.y - (state.thresholdRatio * 10.f),
-                                   CGRectGetWidth(frame),
-                                   CGRectGetHeight(frame));
-        self.backCardView.frame = frame2;
-    };
-    
-    //	options.onTap = ^(UITapGestureRecognizer *guesture){
-    //		NSLog(@"Tapped");
-    //		RestaurantView *rv = (RestaurantView *)guesture.view;
-    //        NSURL *url = [NSURL URLWithString:rv.restaurant.url];
-    //        JBWebViewController *webVC = [[JBWebViewController alloc] initWithUrl:url];
-    //		//webVC.supportedWebNavigationTools = DZNWebNavigationToolAll;
-    //        //[self.navigationController pushViewController:WVC animated:YES];
-    //        
-    //        //present
-    //        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:webVC];
-    //        UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
-    //        webVC.navigationItem.rightBarButtonItem = close;
-    //		[self.navigationController presentViewController:nav animated:YES completion:nil];
-    //	};
-    
-    // Create a personView with the top person in the people array, then pop
-    // that person off the stack.
-    //RestaurantView *card = [[RestaurantView alloc] initWithFrame:frame restaurant:self.restaurants.firstObject options:options];
-    
-    RestaurantView* card = [RestaurantView initViewWithOptions:options];
+    RestaurantView* card = [RestaurantView loadView];
     card.frame = frame;
     card.restaurant = self.restaurants.firstObject;
     //    [self.restaurants addObject:self.restaurants.firstObject];
@@ -270,7 +227,7 @@
 #pragma mark - View Contruction
 
 - (CGRect)frontCardViewFrame {
-    CGRect frame = self.restaurantFrame.frame;
+    CGRect frame = self.cardFrame.frame;
     return frame;
 }
 
@@ -336,6 +293,27 @@
 - (IBAction)more:(id)sender {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Refresh", @"Profile", @"About", nil];
     [sheet showFromBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
+}
+
+
+#pragma mark - UIDynamics
+- (void)showCard:(UIView *)card fromTopTo:(CGRect)frame{
+    //just get shit done
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        card.frame = frame;
+    } completion:^(BOOL finished) {
+        DDLogVerbose(@"Show card animation finished");
+    }];
+}
+
+- (void)dismissCard:(UIView *)card withVelocity:(CGPoint)velocity{
+    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        CGRect frame = card.frame;
+        frame.origin.y -= 1000;
+        card.frame = frame;
+    } completion:^(BOOL finished) {
+        DDLogVerbose(@"Dismissed card animation finished");
+    }];
 }
 
 #pragma mark - Delegate

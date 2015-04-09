@@ -85,8 +85,8 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="iXy-En-42G"/>
                                         <exclude reference="CXl-M5-MhQ"/>
+                                        <exclude reference="iXy-En-42G"/>
                                     </mask>
                                 </variation>
                             </button>
@@ -149,8 +149,8 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="V3R-5f-EQd"/>
                                         <exclude reference="I4I-y8-QBk"/>
+                                        <exclude reference="V3R-5f-EQd"/>
                                     </mask>
                                 </variation>
                             </button>
@@ -205,10 +205,11 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="cardFrame" destination="2kN-sq-rqs" id="e31-We-SPW"/>
+                        <outlet property="detailFrame" destination="pNF-QT-1bI" id="Wmd-qp-WeT"/>
                         <outlet property="likeButton" destination="Fcq-QR-9Zu" id="BuM-qr-9le"/>
                         <outlet property="loading" destination="4Vu-uF-I11" id="iBD-mk-ggI"/>
                         <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
-                        <outlet property="restaurantFrame" destination="2kN-sq-rqs" id="dgo-lb-3c1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OLQ-6J-SNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -922,11 +923,11 @@ New York, NY 10014</string>
                         <viewControllerLayoutGuide type="bottom" id="ur2-Se-mSA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1GZ-jU-x1D" customClass="RestaurantView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="350"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👥" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91n-FD-9Vu">
-                                <rect key="frame" x="225" y="481" width="30" height="45"/>
+                                <rect key="frame" x="205" y="263" width="30" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="5ke-3P-dgR"/>
                                 </constraints>
@@ -935,7 +936,7 @@ New York, NY 10014</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywQ-RN-LGh">
-                                <rect key="frame" x="270" y="478" width="30" height="50"/>
+                                <rect key="frame" x="250" y="260" width="30" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="pLU-3G-4Ye"/>
                                 </constraints>
@@ -944,13 +945,13 @@ New York, NY 10014</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Vm3-Qe-4kU">
-                                <rect key="frame" x="8" y="492" width="168" height="21"/>
+                                <rect key="frame" x="8" y="274" width="148" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.2343780862" green="0.65113417389999995" blue="0.79235716540000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cuisine Cuisine Cuisine Cuisine Cuisine" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ltz-vD-Skh">
-                                <rect key="frame" x="8" y="512" width="168" height="26"/>
+                                <rect key="frame" x="8" y="294" width="148" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="TBb-os-HRY"/>
                                     <constraint firstAttribute="width" constant="160" id="pFo-Z7-fGi"/>
@@ -965,7 +966,7 @@ New York, NY 10014</string>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$$$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qCq-Vo-swH">
-                                <rect key="frame" x="8" y="543" width="39" height="15"/>
+                                <rect key="frame" x="8" y="325" width="39" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="39" id="uGQ-fC-M3p"/>
                                 </constraints>
@@ -974,7 +975,7 @@ New York, NY 10014</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.5mi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="04a-vV-Nd6">
-                                <rect key="frame" x="255" y="531" width="60" height="17"/>
+                                <rect key="frame" x="235" y="313" width="60" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="4OM-Xh-AON"/>
                                 </constraints>
@@ -983,7 +984,7 @@ New York, NY 10014</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="532" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hLp-hQ-4qU">
-                                <rect key="frame" x="210" y="531" width="60" height="17"/>
+                                <rect key="frame" x="190" y="313" width="60" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="eUN-H4-9V2"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="43" id="hWr-zJ-ZEQ"/>
@@ -998,7 +999,7 @@ New York, NY 10014</string>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KK6-Ga-Ip8">
-                                <rect key="frame" x="165" y="531" width="60" height="17"/>
+                                <rect key="frame" x="145" y="313" width="60" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="s0G-Ia-onV"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="43" id="u9r-MS-Ght"/>
@@ -1013,10 +1014,10 @@ New York, NY 10014</string>
                                 </variation>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YTI-jm-jip">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="478"/>
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="260"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="★" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMF-az-6mW">
-                                <rect key="frame" x="180" y="478" width="30" height="50"/>
+                                <rect key="frame" x="160" y="260" width="30" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="nLv-zL-fBg"/>
                                 </constraints>
@@ -1070,14 +1071,15 @@ New York, NY 10014</string>
                             <outlet property="reviews" destination="hLp-hQ-4qU" id="PWT-Mo-QTi"/>
                         </connections>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="350"/>
                     <connections>
                         <outlet property="restaurantView" destination="1GZ-jU-x1D" id="eEA-85-j5b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ePo-du-8DY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="254" y="1299"/>
+            <point key="canvasLocation" x="254" y="1264"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="QeA-Y2-u23">

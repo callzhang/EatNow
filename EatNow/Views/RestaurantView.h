@@ -23,14 +23,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 
 @class Restaurant;
 @class RestaurantView;
 
-@interface ViewOwner : NSObject
-@property (nonatomic, weak) IBOutlet RestaurantView *subclassedView;
-@end
+//@interface ViewOwner : NSObject
+//@property (nonatomic, weak) IBOutlet RestaurantView *subclassedView;
+//@end
 
 @interface RestaurantView : UIView
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -44,8 +43,6 @@
 
 @property (nonatomic, strong) Restaurant *restaurant;
 
-//- (instancetype)initWithFrame:(CGRect)frame
-//				   restaurant:(Restaurant *)person
-//                      options:(MDCSwipeToChooseViewOptions *)options;
-+ (instancetype)initViewWithOptions:(MDCSwipeOptions *)options;
++ (instancetype)loadView;
+
 @end
