@@ -85,7 +85,6 @@
 
 
 #pragma mark - Private
-
 - (void)findDirectionsFrom:(MKMapItem *)source to:(MKMapItem *)destination
 {
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
