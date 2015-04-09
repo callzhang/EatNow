@@ -62,7 +62,7 @@
 
 + (instancetype)loadView{
     ENRestaurantViewContainer *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENRestaurantViewContainer"];
-    RestaurantView *view = container.restaurantView;
+    RestaurantView *view = (RestaurantView *)container.view;
     [view removeFromSuperview];
 	NSAssert(view, @"Failed to load restaurant view");
 	

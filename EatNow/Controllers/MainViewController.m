@@ -27,20 +27,21 @@
 #import "ENServerManager.h"
 #import "ENWebViewController.h"
 #import "FBKVOController.h"
-//#import "DZNWebViewController.h"
-//#import "JBWebViewController.h"
 #import "ENProfileViewController.h"
 #import "ENMapViewController.h"
 #import "ENLocationManager.h"
+#import "UIAlertView+BlocksKit.h"
+#import "UIActionSheet+BlocksKit.h"
 #import "extobjc.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
-@interface MainViewController () <UIActionSheetDelegate, UIAlertViewDelegate>
+@interface MainViewController ()
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENServerManager *serverManager;
+@property (weak, nonatomic) IBOutlet UIImageView *background;
 @end
 
 @implementation MainViewController
@@ -79,7 +80,7 @@
                     self.loadingInfo.text = @"Finding the best restaurant";
                     break;
                 case ENResturantDataStatusFetchedRestaurant:
-                    [self showRestaurants];
+                    [self showRestaurantCard];
                     break;
                 case ENResturantDataStatusError:
                     self.loadingInfo.text = @"Failed to get restaurant list";
@@ -125,13 +126,13 @@
         [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
             if (success) {
                 _restaurants = response.mutableCopy;
-                [self showRestaurants];
+                [self showRestaurantCard];
             }
         }];
     }];
 }
 
-- (void)showRestaurants{
+- (void)showRestaurantCard{
     
     self.loadingInfo.text = @"";
     //stop loading
@@ -143,80 +144,104 @@
         DDLogWarn(@"=== Front view already exists, skip showing restaurant");
         return;
     }
-    // Display the first ChoosePersonView in front. Users can swipe to indicate
-    // whether they like or dislike the person displayed.
-    self.frontCardView = [self popResuturantViewWithFrame:[self frontCardViewFrame]];
-    [self.view addSubview:self.frontCardView];
-    
-    // Display the second ChoosePersonView in back. This view controller uses
-    // the MDCSwipeToChooseDelegate protocol methods to update the front and
-    // back views after each user swipe.
-    self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
-    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    // Display the front card
+    if (self.backCardView) {
+        self.frontCardView = self.backCardView;
+        self.backCardView = nil;
+    }else {
+        self.frontCardView = [self popResuturantViewWithFrame:[self initialCardFrame]];
+        [self.view addSubview:self.frontCardView];
+        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.frontCardView.frame = [self cardViewFrame];
+        } completion:^(BOOL finished) {
+            //load back card
+            self.backCardView = [self popResuturantViewWithFrame:[self initialCardFrame]];
+            [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+            [UIView animateWithDuration:0.5 delay:0.2 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                self.backCardView.frame = [self cardViewFrame];
+            } completion:^(BOOL finished) {
+                //
+            }];
+        }];
+    }
+
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
+
+
+- (void)dismissFrontCardwithVelocity:(CGPoint)velocity completion:(void (^)(void))block{
+    UIView *card = self.frontCardView;
+    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        CGRect frame = card.frame;
+        frame.origin.y += [UIScreen mainScreen].bounds.size.height/2 + card.frame.size.height/2;
+        card.frame = frame;
+    } completion:^(BOOL finished) {
+        DDLogVerbose(@"Dismissed card animation finished");
+        [card removeFromSuperview];
+        self.frontCardView = nil;
+        if (block) {
+            block();
+        }
+    }];
+}
+
+- (void)showDetail:(BOOL)show{
+    
+    if (show) {
+        //transform
+        //disable gesture
+    } else {
+        //transform
+        //enable gesture
+    }
 }
 
 #pragma mark - Guesture actions
 
 // This is called when a user didn't fully swipe left or right.
 - (void)viewDidCancelSwipe:(UIView *)view {
-    NSLog(@"You couldn't decide on %@.", self.currentRestaurant.name);
+    NSLog(@"You couldn't decide on %@.", self.frontCardView.restaurant.name);
 }
 
 // This is called then a user swipes the view fully left or right.
-- (void)view:(UIView *)view wasChosenWithDirection:(UIPanGestureRecognizer *)direction {
+- (void)view:(UIView *)view didSwipeWithDirection:(UIPanGestureRecognizer *)direction {
     CGPoint velocity = [direction velocityInView:self.view];
     if (velocity.x <0) {
-        NSLog(@"You swipt left %@.", self.currentRestaurant.name);
+        NSLog(@"You swipt left %@.", self.frontCardView.restaurant.name);
     } else {
-        NSLog(@"You swipt right %@.", self.currentRestaurant.name);
+        NSLog(@"You swipt right %@.", self.frontCardView.restaurant.name);
     }
     
-    self.frontCardView = self.backCardView;
-    self.backCardView = [self popResuturantViewWithFrame:[self backCardViewFrame]];
-    if (self.backCardView) {
-        // Fade the back card into view.
-        self.backCardView.alpha = 0.f;
-        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
-        [UIView animateWithDuration:0.5
-                              delay:0.0
-                            options:UIViewAnimationOptionCurveEaseInOut
-                         animations:^{
-                             self.backCardView.alpha = 1.f;
-                         } completion:nil];
-    }
+    //dismiss the front view
+    [self dismissFrontCardwithVelocity:velocity completion:^{
+        //show card
+        [self showRestaurantCard];
+    }];
+    
 }
 
 #pragma mark - Internal Methods
-- (void)setFrontCardView:(RestaurantView *)frontCardView {
-    // Keep track of the person currently being chosen.
-    // Quick and dirty, just for the purposes of this sample app.
-    _frontCardView = frontCardView;
-    self.currentRestaurant = frontCardView.restaurant;
-}
-
-//- (NSMutableArray *)getRestaurants {
-// It would be trivial to download these from a web service
-// as needed, but for the purposes of this sample app we'll
-// simply store them in memory.
-//    _restaurants = [ENServerManager sharedInstance].restaurants;
-
-//    return _restaurants;
-//}
-
 - (RestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
     if ([self.restaurants count] == 0) {
+        DDLogWarn(@"No restaurant to pop");
         return nil;
     }
     RestaurantView* card = [RestaurantView loadView];
     card.frame = frame;
     card.restaurant = self.restaurants.firstObject;
-    //    [self.restaurants addObject:self.restaurants.firstObject];
 	[self.restaurants removeObjectAtIndex:0];
+    
+    //set background iamge
 	return card;
+}
+
+- (void)setBackgroundImage:(UIImage *)image{
+    UIImage *blured = image.bluredImage;
+    [UIView animateWithDuration:0.8 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.background.image = blured;
+    } completion:^(BOOL finished) {
+        DDLogVerbose(@"Changed background image");
+    }];
 }
 
 - (IBAction)close:(id)sender{
@@ -224,19 +249,27 @@
 }
 
 
-#pragma mark - View Contruction
+#pragma mark - Card frame
+- (CGRect)initialCardFrame{
+    CGRect frame = self.cardFrame.frame;
+    frame.origin.y -= [UIScreen mainScreen].bounds.size.height/2 + frame.size.height/2;
+    return frame;
+}
 
-- (CGRect)frontCardViewFrame {
+- (CGRect)cardViewFrame {
     CGRect frame = self.cardFrame.frame;
     return frame;
 }
 
-- (CGRect)backCardViewFrame {
-    CGRect frontFrame = [self frontCardViewFrame];
-    return CGRectMake(frontFrame.origin.x,
-                      frontFrame.origin.y + 10.f,
-                      CGRectGetWidth(frontFrame),
-                      CGRectGetHeight(frontFrame));
+- (CGRect)dismissedCardFrame{
+    CGRect frame = self.cardFrame.frame;
+    frame.origin.y += [UIScreen mainScreen].bounds.size.height/2 + frame.size.height/2;
+    return frame;
+}
+
+- (CGRect)detailViewFrame{
+    CGRect frame = self.detailFrame.frame;
+    return frame;
 }
 
 
@@ -246,8 +279,22 @@
 // Programmatically "nopes" the front card view.
 - (IBAction)nope:(id)sender {
     if (self.frontCardView.restaurant) {
-        
-        [[[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Dislike", nil] show];
+        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Confirm"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+            if ([title isEqualToString:@"Confirm"]) {
+                Restaurant *restaurant = self.frontCardView.restaurant;
+                [ENUtil showWatingHUB];
+                [[self serverManager] selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
+                    if (!error) {
+                        [ENUtil showSuccessHUBWithString:@"Disliked"];
+                        DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
+                    }
+                    else {
+                        [ENUtil showFailureHUBWithString:@"Server error, try again later."];
+                    }
+                }];
+            }
+        }];
     }
 }
 
@@ -271,10 +318,15 @@
     //    [ENServerManager sharedInstance].status = IsReachable;
     //    [self.restaurants removeAllObjects];
     self.restaurants = nil;
-    [self.frontCardView mdc_swipe:MDCSwipeDirectionLeft];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.frontCardView mdc_swipe:MDCSwipeDirectionRight];
-    });
+    [self dismissFrontCardwithVelocity:CGPointMake(0, 0) completion:^{
+        self.frontCardView = self.backCardView;
+        self.backCardView = nil;
+        [self dismissFrontCardwithVelocity:CGPointMake(0, 0) completion:^{
+            //if animation finished before server return, the restaurants is nil, no new card will be loaded
+            //if animation finished after, the earlier call to showRestaurantCard will fail, and this call will work
+            [self showRestaurantCard];
+        }];
+    }];
     [self.loading startAnimating];
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
@@ -284,17 +336,17 @@
                 ENAlert(str);
                 NSLog(@"%@", str);
             } else {
-                [self showRestaurants];
+                //KVO will refresh automatically
+                //[self showRestaurantCard];
             }
         }];
     } forece:YES];
 }
 
-- (IBAction)more:(id)sender {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Refresh", @"Profile", @"About", nil];
-    [sheet showFromBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
+- (IBAction)showHistory:(id)sender{
+    ENProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([ENProfileViewController class])];
+    [self.navigationController pushViewController:vc animated:YES];
 }
-
 
 #pragma mark - UIDynamics
 - (void)showCard:(UIView *)card fromTopTo:(CGRect)frame{
@@ -304,48 +356,6 @@
     } completion:^(BOOL finished) {
         DDLogVerbose(@"Show card animation finished");
     }];
-}
-
-- (void)dismissCard:(UIView *)card withVelocity:(CGPoint)velocity{
-    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        CGRect frame = card.frame;
-        frame.origin.y -= 1000;
-        card.frame = frame;
-    } completion:^(BOOL finished) {
-        DDLogVerbose(@"Dismissed card animation finished");
-    }];
-}
-
-#pragma mark - Delegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([title isEqualToString:@"Refresh"]) {
-        [self refresh:nil];
-    } else if ([title isEqualToString:@"Profile"]){
-        //push to preference
-        ENProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([ENProfileViewController class])];
-        [self.navigationController pushViewController:vc animated:YES];
-    } else if ([title isEqualToString:@"About"]){
-        [[[UIAlertView alloc] initWithTitle:@"About" message:@"EatNow v0.5" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([title isEqualToString:@"Dislike"]) {
-        Restaurant *restaurant = self.frontCardView.restaurant;
-        [ENUtil showWatingHUB];
-        [[self serverManager] selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
-            if (!error) {
-                [ENUtil showSuccessHUBWithString:@"Disliked"];
-                DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
-            }
-            else {
-                [ENUtil showFailureHUBWithString:@"Server error, try again later."];
-            }
-        }];
-        
-    }
 }
 
 

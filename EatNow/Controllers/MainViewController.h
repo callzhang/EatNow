@@ -33,8 +33,6 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
-
-@property (nonatomic, strong) Restaurant *currentRestaurant;
 @property (nonatomic, strong) RestaurantView *frontCardView;
 @property (nonatomic, strong) RestaurantView *backCardView;
 

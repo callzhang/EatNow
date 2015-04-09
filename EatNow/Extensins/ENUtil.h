@@ -59,3 +59,7 @@ typedef enum{
 @interface NSDate (Extend)
 - (NSString *)string;
 @end
+
+@interface UIImage (Blur)
+- (UIImage *)bluredImage;
+@end

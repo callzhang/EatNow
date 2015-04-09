@@ -32,6 +32,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q0J-Z4-Pim">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-QT-1bI" userLabel="detail">
                                 <rect key="frame" x="16" y="20" width="288" height="456"/>
                                 <color key="backgroundColor" white="1" alpha="0.16" colorSpace="calibratedWhite"/>
@@ -61,12 +64,11 @@
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="R">
+                                <state key="normal" title="G">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="like:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="Zyw-cy-iP5"/>
-                                    <segue destination="mho-5s-l7b" kind="show" id="qF2-55-lcZ"/>
+                                    <action selector="like:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="wU6-Tr-GUJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKA-ct-IU7">
@@ -119,10 +121,8 @@
                                     <constraint firstAttribute="height" constant="60" id="kGT-7p-b6o"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
-                                <size key="titleShadowOffset" width="1" height="1"/>
-                                <state key="normal" title="M">
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </state>
+                                <size key="titleShadowOffset" width="0.0" height="1"/>
+                                <state key="normal" title="H"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="kGT-7p-b6o"/>
@@ -130,6 +130,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="nope:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="XpY-Ab-9VQ"/>
+                                    <action selector="showHistory:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="j6T-ta-PiA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-rF-ccT">
@@ -140,12 +141,12 @@
                                     <constraint firstAttribute="height" constant="60" id="JCy-oa-iE6"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="V3R-5f-EQd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="60"/>
+                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="3">
-                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="R">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -153,20 +154,27 @@
                                         <exclude reference="V3R-5f-EQd"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="refresh:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="IkL-AT-KAm"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.4030108821448618" green="0.7724708017676768" blue="0.74289356001606066" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="width" secondItem="D4e-Sg-nPl" secondAttribute="width" id="3qi-W4-SWT"/>
+                            <constraint firstItem="q0J-Z4-Pim" firstAttribute="top" secondItem="Z8L-6K-Fh8" secondAttribute="top" id="8xR-Qg-93z"/>
                             <constraint firstItem="TEb-SL-p86" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="9LM-hg-apG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pNF-QT-1bI" secondAttribute="trailing" id="9mN-6s-KNE"/>
                             <constraint firstAttribute="centerY" secondItem="4Vu-uF-I11" secondAttribute="centerY" id="F2B-O5-0Bg"/>
                             <constraint firstItem="TEb-SL-p86" firstAttribute="width" secondItem="Fcq-QR-9Zu" secondAttribute="width" id="IAp-dT-EsW"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="JA9-KX-A7U"/>
+                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="q0J-Z4-Pim" secondAttribute="bottom" id="MQs-2s-kn4"/>
+                            <constraint firstAttribute="trailing" secondItem="q0J-Z4-Pim" secondAttribute="trailing" id="Nqc-Iy-t4b"/>
                             <constraint firstItem="2kN-sq-rqs" firstAttribute="trailingMargin" secondItem="Z8L-6K-Fh8" secondAttribute="trailingMargin" id="OSt-2q-IaW"/>
                             <constraint firstItem="2kN-sq-rqs" firstAttribute="leadingMargin" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="SmU-Oa-8Do"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="D4e-Sg-nPl" secondAttribute="bottom" constant="16" id="T4t-WJ-ZV0"/>
+                            <constraint firstItem="q0J-Z4-Pim" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" id="TIz-2d-3aG"/>
                             <constraint firstItem="aKA-ct-IU7" firstAttribute="leading" secondItem="GCg-rF-ccT" secondAttribute="trailing" id="UK8-bC-ZRC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D4e-Sg-nPl" secondAttribute="trailing" id="WeF-u4-Ux4"/>
                             <constraint firstAttribute="centerY" secondItem="Wl0-KL-zNt" secondAttribute="centerY" constant="-25" id="aNw-Y3-TxA"/>
@@ -205,6 +213,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="background" destination="q0J-Z4-Pim" id="VCv-RK-3rj"/>
                         <outlet property="cardFrame" destination="2kN-sq-rqs" id="e31-We-SPW"/>
                         <outlet property="detailFrame" destination="pNF-QT-1bI" id="Wmd-qp-WeT"/>
                         <outlet property="likeButton" destination="Fcq-QR-9Zu" id="BuM-qr-9le"/>
