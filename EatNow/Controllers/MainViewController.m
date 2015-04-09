@@ -113,12 +113,11 @@
         }
     }];
     
-    
-    if ([[ENUtil myUUID] isEqualToString:@"44D08937-F5F8-4688-A198-B4F57196B1A6"]) {
-        //change to red
-        DDLogInfo(@"Set special color");
-        [self.likeButton setTitleColor:[UIColor colorWithRed:0.988 green:0.643 blue:0.647 alpha:1.000] forState:UIControlStateNormal];
-    }
+    [[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        if (note.object == self.frontCardView) {
+            [self setBackgroundImage:note.userInfo[@"image"]];
+        }
+    }];
     
     @weakify(self);
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
@@ -130,6 +129,12 @@
             }
         }];
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.cardFrame.backgroundColor = [UIColor clearColor];
+    self.detailFrame.backgroundColor = [UIColor clearColor];
 }
 
 - (void)showRestaurantCard{

@@ -27,9 +27,7 @@
 @class Restaurant;
 @class RestaurantView;
 
-//@interface ViewOwner : NSObject
-//@property (nonatomic, weak) IBOutlet RestaurantView *subclassedView;
-//@end
+#define kRestaurantViewImageChangedNotification     @"restaurant_view_image_changed"
 
 @interface RestaurantView : UIView
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -40,7 +38,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *reviews;
 @property (weak, nonatomic) IBOutlet UILabel *distance;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
-
 @property (nonatomic, strong) Restaurant *restaurant;
 
 + (instancetype)loadView;

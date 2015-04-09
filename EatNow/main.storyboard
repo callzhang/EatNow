@@ -32,7 +32,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q0J-Z4-Pim">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q0J-Z4-Pim" userLabel="background">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-QT-1bI" userLabel="detail">
@@ -931,7 +931,7 @@ New York, NY 10014</string>
                         <viewControllerLayoutGuide type="top" id="uzr-6H-5ZU"/>
                         <viewControllerLayoutGuide type="bottom" id="ur2-Se-mSA"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="1GZ-jU-x1D" customClass="RestaurantView">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="1GZ-jU-x1D" customClass="RestaurantView">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="350"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -1034,8 +1034,11 @@ New York, NY 10014</string>
                                 <color key="textColor" red="0.2343780862" green="0.65113417389999995" blue="0.79235716540000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="SzA-Ef-Hun">
+                                <rect key="frame" x="140" y="165" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Ltz-vD-Skh" firstAttribute="leading" secondItem="1GZ-jU-x1D" secondAttribute="leading" constant="8" id="1op-rj-S3F"/>
                             <constraint firstItem="04a-vV-Nd6" firstAttribute="centerX" secondItem="ywQ-RN-LGh" secondAttribute="centerX" id="3Ke-CW-hvs"/>
@@ -1048,6 +1051,7 @@ New York, NY 10014</string>
                             <constraint firstAttribute="bottom" secondItem="04a-vV-Nd6" secondAttribute="bottom" constant="20" id="Deh-Dz-fUU"/>
                             <constraint firstItem="qCq-Vo-swH" firstAttribute="leading" secondItem="1GZ-jU-x1D" secondAttribute="leading" constant="8" id="EZp-nD-iOm"/>
                             <constraint firstItem="LMF-az-6mW" firstAttribute="centerY" secondItem="91n-FD-9Vu" secondAttribute="centerY" id="G6y-zo-ZAW"/>
+                            <constraint firstAttribute="centerX" secondItem="SzA-Ef-Hun" secondAttribute="centerX" id="KJY-hP-RUo"/>
                             <constraint firstItem="Vm3-Qe-4kU" firstAttribute="leading" secondItem="1GZ-jU-x1D" secondAttribute="leading" constant="8" id="Vn5-Ch-nvf"/>
                             <constraint firstItem="91n-FD-9Vu" firstAttribute="leading" secondItem="LMF-az-6mW" secondAttribute="trailing" constant="15" id="YX9-67-VCJ"/>
                             <constraint firstAttribute="bottom" secondItem="YTI-jm-jip" secondAttribute="bottom" constant="90" id="YfQ-ml-08Y"/>
@@ -1059,6 +1063,7 @@ New York, NY 10014</string>
                             <constraint firstItem="KK6-Ga-Ip8" firstAttribute="centerX" secondItem="LMF-az-6mW" secondAttribute="centerX" id="iy9-lW-3PO"/>
                             <constraint firstAttribute="bottom" secondItem="hLp-hQ-4qU" secondAttribute="bottom" constant="20" id="mRX-zh-5ow"/>
                             <constraint firstAttribute="bottom" secondItem="KK6-Ga-Ip8" secondAttribute="bottom" constant="20" id="nXw-I6-rsa"/>
+                            <constraint firstAttribute="centerY" secondItem="SzA-Ef-Hun" secondAttribute="centerY" id="nbH-Fp-V3P"/>
                             <constraint firstAttribute="bottom" secondItem="Ltz-vD-Skh" secondAttribute="bottom" constant="30" id="tfI-qT-Wne"/>
                             <constraint firstAttribute="bottom" secondItem="LMF-az-6mW" secondAttribute="bottom" constant="40" id="wgW-NQ-OAE"/>
                             <constraint firstItem="LMF-az-6mW" firstAttribute="leading" secondItem="Vm3-Qe-4kU" secondAttribute="trailing" constant="4" id="zKh-0W-GB2"/>
@@ -1074,6 +1079,7 @@ New York, NY 10014</string>
                             <outlet property="cuisine" destination="Ltz-vD-Skh" id="849-ha-UYO"/>
                             <outlet property="distance" destination="04a-vV-Nd6" id="vFL-IG-zHd"/>
                             <outlet property="imageView" destination="YTI-jm-jip" id="iFc-bo-XZ1"/>
+                            <outlet property="loading" destination="SzA-Ef-Hun" id="w4b-nx-5WP"/>
                             <outlet property="name" destination="Vm3-Qe-4kU" id="lzO-4a-lIh"/>
                             <outlet property="price" destination="qCq-Vo-swH" id="dEW-0a-H7n"/>
                             <outlet property="rating" destination="KK6-Ga-Ip8" id="GcS-oR-gfA"/>

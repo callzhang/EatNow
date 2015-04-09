@@ -67,10 +67,7 @@
 	NSAssert(view, @"Failed to load restaurant view");
 	
     //customize view
-    view.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.5].CGColor;
-    view.layer.borderWidth = 2;
-    view.layer.cornerRadius = 5;
-    //view.backgroundColor = [UIColor clearColor];
+    view.layer.cornerRadius = 15;
     
     return view;
 }
@@ -183,7 +180,9 @@
 }
 
 - (void)showImage:(UIImage *)image{
-	
+    if (self.loading.isAnimating) {
+        [self.loading stopAnimating];
+    }
 	[UIView animateWithDuration:0.2 animations:^{
 		self.imageView.alpha = 0;
 	} completion:^(BOOL finished) {
@@ -192,6 +191,9 @@
 			self.imageView.alpha = 1;
 		}];
 	}];
+    
+    //send image change notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
 	
 	//start next
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
