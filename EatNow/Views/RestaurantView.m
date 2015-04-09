@@ -173,7 +173,7 @@
 									   
 								   }
 								   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                       NSString *str = [NSString stringWithFormat:@"Failed to download image with error %@ code %ld", error.domain, error.code];
+                                       NSString *str = [NSString stringWithFormat:@"Failed to download image with error %@ code %ld", error.domain, (long)error.code];
 									   DDLogError(@"*** Failed to download image with error: %@", error);
 									   ENAlert(str);
 								   }];
@@ -183,13 +183,15 @@
     if (self.loading.isAnimating) {
         [self.loading stopAnimating];
     }
-	[UIView animateWithDuration:0.2 animations:^{
-		self.imageView.alpha = 0;
+    //duplicate view
+    UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
+    [self insertSubview:imageViewCopy aboveSubview:self.imageView];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.imageView.image = image;
+		imageViewCopy.alpha = 0;
 	} completion:^(BOOL finished) {
-		self.imageView.image = image;
-		[UIView animateWithDuration:0.2 animations:^{
-			self.imageView.alpha = 1;
-		}];
+        [imageViewCopy removeFromSuperview];
 	}];
     
     //send image change notification

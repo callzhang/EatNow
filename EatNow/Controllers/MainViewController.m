@@ -242,10 +242,17 @@
 
 - (void)setBackgroundImage:(UIImage *)image{
     UIImage *blured = image.bluredImage;
-    [UIView animateWithDuration:0.8 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    
+    //duplicate view
+    UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
+    [self.view insertSubview:imageViewCopy aboveSubview:self.background];
+    
+    [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.background.image = blured;
+        imageViewCopy.alpha = 0;
     } completion:^(BOOL finished) {
         DDLogVerbose(@"Changed background image");
+        [imageViewCopy removeFromSuperview];
     }];
 }
 
