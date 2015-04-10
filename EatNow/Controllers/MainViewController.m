@@ -42,6 +42,8 @@
 @property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENServerManager *serverManager;
 @property (weak, nonatomic) IBOutlet UIImageView *background;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
+@property (nonatomic, strong) UIDynamicAnimator *animator;
 @end
 
 @implementation MainViewController
@@ -55,6 +57,9 @@
     [super viewDidLoad];
     self.locationManager = [ENLocationManager new];
     self.serverManager = [ENServerManager new];
+    
+    //Dynamics
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     
     [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
         if (manager != NULL) {
@@ -159,14 +164,16 @@
         [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.frontCardView.frame = [self cardViewFrame];
         } completion:^(BOOL finished) {
-            //load back card
-            self.backCardView = [self popResuturantViewWithFrame:[self initialCardFrame]];
-            [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
-            [UIView animateWithDuration:0.5 delay:0.2 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                self.backCardView.frame = [self cardViewFrame];
-            } completion:^(BOOL finished) {
-                //
-            }];
+            [self.frontCardView addGestureRecognizer:self.panGesture];
+        }];
+        
+        //load back card
+        self.backCardView = [self popResuturantViewWithFrame:[self initialCardFrame]];
+        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+        [UIView animateWithDuration:0.5 delay:0.2 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.backCardView.frame = [self cardViewFrame];
+        } completion:^(BOOL finished) {
+            //
         }];
     }
 
@@ -174,20 +181,36 @@
 
 
 
-- (void)dismissFrontCardwithVelocity:(CGPoint)velocity completion:(void (^)(void))block{
-    UIView *card = self.frontCardView;
-    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        CGRect frame = card.frame;
-        frame.origin.y += [UIScreen mainScreen].bounds.size.height/2 + card.frame.size.height/2;
-        card.frame = frame;
-    } completion:^(BOOL finished) {
-        DDLogVerbose(@"Dismissed card animation finished");
-        [card removeFromSuperview];
-        self.frontCardView = nil;
-        if (block) {
-            block();
-        }
-    }];
+- (void)dismissFrontCardWithCompletion:(void (^)(void))block{
+//    UIView *card = self.frontCardView;
+//    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//        CGRect frame = card.frame;
+//        frame.origin.y += [UIScreen mainScreen].bounds.size.height/2 + card.frame.size.height/2;
+//        card.frame = frame;
+//    } completion:^(BOOL finished) {
+//        DDLogVerbose(@"Dismissed card animation finished");
+//        [card removeFromSuperview];
+//        self.frontCardView = nil;
+//        if (block) {
+//            block();
+//        }
+//    }];
+    if (self.frontCardView) {
+        UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[self.frontCardView]];
+        CGPoint velocity = [self.panGesture velocityInView:self.view];
+        gravity.magnitude = sqrt(pow(velocity.x, 2)+pow(velocity.y, 2));
+        [_animator addBehavior:gravity];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_animator removeBehavior:gravity];
+        });
+        
+        [self.frontCardView removeGestureRecognizer:self.panGesture];
+    }
+    
+    if (block) {
+        block();
+    }
+    
 }
 
 - (void)showDetail:(BOOL)show{
@@ -202,30 +225,44 @@
 }
 
 #pragma mark - Guesture actions
-
-// This is called when a user didn't fully swipe left or right.
-- (void)viewDidCancelSwipe:(UIView *)view {
-    NSLog(@"You couldn't decide on %@.", self.frontCardView.restaurant.name);
+- (IBAction)gustureHandler:(UIPanGestureRecognizer *)gesture {
+    CGPoint locInView = [gesture locationInView:self.view];
+    CGPoint locInCard = [gesture locationInView:self.frontCardView];
+    UIView *card = self.frontCardView;
+    UIAttachmentBehavior *attachment;
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        [_animator removeAllBehaviors];
+        UIOffset offset = UIOffsetMake(locInCard.x - card.bounds.size.width/2, locInCard.y - card.bounds.size.height/2);
+        attachment = [[UIAttachmentBehavior alloc] initWithItem:card offsetFromCenter:offset attachedToAnchor:locInView];
+        [_animator addBehavior:attachment];
+        //attachment.frequency = 0;
+    }
+    else if (gesture.state == UIGestureRecognizerStateChanged) {
+        attachment.anchorPoint = locInView;
+    }
+    else if (gesture.state == UIGestureRecognizerStateEnded){
+        [_animator removeBehavior:attachment];
+        CGPoint translation = [gesture translationInView:self.view];
+        if (sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > 50) {
+            [self dismissFrontCardWithCompletion:^{
+                [self showRestaurantCard];
+            }];
+        }
+        else {
+            [self cardDidCancelSwipe:card];
+        }
+    }
 }
 
-// This is called then a user swipes the view fully left or right.
-- (void)view:(UIView *)view didSwipeWithDirection:(UIPanGestureRecognizer *)direction {
-    CGPoint velocity = [direction velocityInView:self.view];
-    if (velocity.x <0) {
-        NSLog(@"You swipt left %@.", self.frontCardView.restaurant.name);
-    } else {
-        NSLog(@"You swipt right %@.", self.frontCardView.restaurant.name);
-    }
-    
-    //dismiss the front view
-    [self dismissFrontCardwithVelocity:velocity completion:^{
-        //show card
-        [self showRestaurantCard];
-    }];
-    
+// This is called when a user didn't fully swipe left or right.
+- (void)cardDidCancelSwipe:(UIView *)card {
+    DDLogInfo(@"You couldn't decide on %@.", self.frontCardView.restaurant.name);
+    UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardFrame.center];
+    [_animator addBehavior:snap];
 }
 
 #pragma mark - Internal Methods
+//data methods, should not add UI codes
 - (RestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
     if ([self.restaurants count] == 0) {
         DDLogWarn(@"No restaurant to pop");
@@ -330,10 +367,10 @@
     //    [ENServerManager sharedInstance].status = IsReachable;
     //    [self.restaurants removeAllObjects];
     self.restaurants = nil;
-    [self dismissFrontCardwithVelocity:CGPointMake(0, 0) completion:^{
+    [self dismissFrontCardWithCompletion:^{
         self.frontCardView = self.backCardView;
         self.backCardView = nil;
-        [self dismissFrontCardwithVelocity:CGPointMake(0, 0) completion:^{
+        [self dismissFrontCardWithCompletion:^{
             //if animation finished before server return, the restaurants is nil, no new card will be loaded
             //if animation finished after, the earlier call to showRestaurantCard will fail, and this call will work
             [self showRestaurantCard];
