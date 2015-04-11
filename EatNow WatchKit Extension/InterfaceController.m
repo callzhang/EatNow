@@ -9,6 +9,7 @@
 #import "InterfaceController.h"
 #import "ENLocationManager.h"
 #import "ENServerManager.h"
+#import "NSError+TMError.h"
 
 DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
@@ -24,16 +25,18 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
 
-//    NSLog(@"start to request");
-//    [[self class] openParentApplication:@{} reply:^(NSDictionary *replyInfo, NSError *error) {
-//        NSLog(@"reply:%@", replyInfo);
-//    }];
     self.locationManager = [[ENLocationManager alloc] init];
     self.serverManager = [[ENServerManager alloc] init];
     
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
-            NSLog(@"response:%@, error:%@", response, error);
+            NSMutableArray *restaurants = [NSMutableArray array];
+            NSMutableArray *objests = [NSMutableArray array];
+            for (NSUInteger i = 0; i < 12 && i < response.count; i++) {
+                [restaurants addObject:@"ResturantInterfaceController"];
+                [objests addObject:response[i]];
+            }
+            [WKInterfaceController reloadRootControllersWithNames:restaurants contexts:objests];
         }];
     } forece:YES];
 }

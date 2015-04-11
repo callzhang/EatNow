@@ -27,6 +27,10 @@
 		09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C831AD497F8007147B2 /* TextfieldWithInset.swift */; };
 		09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C841AD497F8007147B2 /* WJCustomizeView.swift */; };
 		09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C851AD497F8007147B2 /* ApplicationButton.swift */; };
+		0982B4591AD9A30500982740 /* NSError+TMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B4581AD9A30500982740 /* NSError+TMError.m */; };
+		0982B45A1AD9A30500982740 /* NSError+TMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B4581AD9A30500982740 /* NSError+TMError.m */; };
+		0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
+		0982B45E1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
 		9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */; };
@@ -124,6 +128,10 @@
 		09777C831AD497F8007147B2 /* TextfieldWithInset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldWithInset.swift; sourceTree = "<group>"; };
 		09777C841AD497F8007147B2 /* WJCustomizeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WJCustomizeView.swift; sourceTree = "<group>"; };
 		09777C851AD497F8007147B2 /* ApplicationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationButton.swift; sourceTree = "<group>"; };
+		0982B4571AD9A30500982740 /* NSError+TMError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+TMError.h"; sourceTree = "<group>"; };
+		0982B4581AD9A30500982740 /* NSError+TMError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+TMError.m"; sourceTree = "<group>"; };
+		0982B45B1AD9A7D700982740 /* ResturantDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResturantDetailInterfaceController.h; sourceTree = "<group>"; };
+		0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResturantDetailInterfaceController.m; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -203,6 +211,8 @@
 			children = (
 				0929746B1AD0C2B200DDC35C /* Models */,
 				092974661AD0C28D00DDC35C /* ENServer.h */,
+				0982B4571AD9A30500982740 /* NSError+TMError.h */,
+				0982B4581AD9A30500982740 /* NSError+TMError.m */,
 				092974671AD0C28D00DDC35C /* ENServerManager.h */,
 				092974681AD0C28D00DDC35C /* ENServerManager.m */,
 			);
@@ -231,6 +241,8 @@
 				09432CB01ACCC5E700B989FF /* Supporting Files */,
 				09432CD61ACCCACB00B989FF /* ENWMapInterfaceController.h */,
 				09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */,
+				0982B45B1AD9A7D700982740 /* ResturantDetailInterfaceController.h */,
+				0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */,
 				092974701AD0C3CE00DDC35C /* ResturantInterfaceController.h */,
 				092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */,
 			);
@@ -624,6 +636,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0982B45A1AD9A30500982740 /* NSError+TMError.m in Sources */,
+				0982B45E1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
 				092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */,
 				09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */,
 				0929746A1AD0C29200DDC35C /* ENServerManager.m in Sources */,
@@ -648,7 +662,9 @@
 				0929746E1AD0C2B200DDC35C /* Restaurant.m in Sources */,
 				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
+				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
 				DA5B745F18F239B700BB5F8E /* MainViewController.m in Sources */,
+				0982B4591AD9A30500982740 /* NSError+TMError.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,

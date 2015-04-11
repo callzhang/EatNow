@@ -33,6 +33,26 @@
             </objects>
             <point key="canvasLocation" x="428" y="791"/>
         </scene>
+        <!--Resturant Detail Interface Controller-->
+        <scene sceneID="HON-0N-6qt">
+            <objects>
+                <controller id="Fsi-4x-S9K" customClass="ResturantDetailInterfaceController">
+                    <items>
+                        <label alignment="left" text="Restaurant Name" id="kY3-uj-1UQ"/>
+                        <map height="123" alignment="left" id="1x4-04-3oB"/>
+                        <label width="132" height="100" alignment="left" text="More Info" textAlignment="center" id="7Jc-5i-yUm"/>
+                        <button width="1" alignment="left" title="I'm Going!" id="Qlf-rV-Zuq"/>
+                    </items>
+                    <connections>
+                        <outlet property="resturantMap" destination="1x4-04-3oB" id="UAg-Y1-mMX"/>
+                        <outlet property="resturantMoreInfo" destination="7Jc-5i-yUm" id="1bK-X9-Nzc"/>
+                        <outlet property="resturantName" destination="kY3-uj-1UQ" id="75k-ny-GKT"/>
+                        <outlet property="resturantNameIMGoing" destination="Qlf-rV-Zuq" id="rff-9K-SaK"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="577" y="204.75"/>
+        </scene>
         <!--Map Interface Controller-->
         <scene sceneID="8Kd-wg-fl6">
             <objects>
@@ -45,7 +65,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="571" y="370"/>
+            <point key="canvasLocation" x="642" y="627"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
@@ -90,15 +110,26 @@
         <!--ResturantInterfaceController-->
         <scene sceneID="GS7-MF-kae">
             <objects>
-                <controller identifier="ResturantInterfaceController" id="GJD-oO-DHW" customClass="RestaurantInterfaceController">
+                <controller identifier="ResturantInterfaceController" id="GJD-oO-DHW" customClass="ResturantInterfaceController">
                     <items>
                         <label width="136" height="19" alignment="left" text="Restaurant Name" id="n4k-MZ-3Jv"/>
                         <label width="136" height="19" alignment="left" text="Rating &amp; Review" id="Dim-Vf-Sfr"/>
                         <label width="136" height="19" alignment="left" text="Cuisine/Category" id="BZz-GR-59C"/>
                         <label width="136" height="19" alignment="left" text="Highlights" id="HPu-GF-hgf"/>
                         <label width="136" height="19" alignment="left" text="Distance" id="k7V-9A-6Ik"/>
-                        <button width="1" alignment="left" title="View Details" id="lUy-N1-VAz"/>
+                        <button width="1" alignment="left" title="View Details" id="lUy-N1-VAz">
+                            <connections>
+                                <segue destination="Fsi-4x-S9K" kind="modal" id="wzH-pa-AEf"/>
+                            </connections>
+                        </button>
                     </items>
+                    <connections>
+                        <outlet property="restaurantCategory" destination="BZz-GR-59C" id="vey-XP-3J1"/>
+                        <outlet property="restaurantDistance" destination="k7V-9A-6Ik" id="BYz-tj-vcu"/>
+                        <outlet property="restaurantHighlights" destination="HPu-GF-hgf" id="Myv-XN-hh1"/>
+                        <outlet property="restaurantName" destination="n4k-MZ-3Jv" id="wcW-5Z-2Zp"/>
+                        <outlet property="restaurantRating" destination="Dim-Vf-Sfr" id="qT3-Va-Lc9"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="292" y="205.75"/>

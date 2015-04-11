@@ -7,19 +7,31 @@
 //
 
 #import "ResturantInterfaceController.h"
+#import "Restaurant.h"
 
 
 @interface ResturantInterfaceController()
-
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantName;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantRating;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantCategory;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantHighlights;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantDistance;
+@property (nonatomic, strong) Restaurant *restaurant;
 @end
 
 
 @implementation ResturantInterfaceController
 
-- (void)awakeWithContext:(id)context {
+- (void)awakeWithContext:(Restaurant *)context {
     [super awakeWithContext:context];
     
-    // Configure interface objects here.
+    self.restaurantName.text = context.name;
+    self.restaurantRating.text = [NSString stringWithFormat:@"%.2f", [context.rating floatValue]];
+    self.restaurantCategory.text = [self stringFromArray:context.cuisines];
+    self.restaurantHighlights.text = context.name;
+    self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance)];
+    
+    self.restaurant = context;
 }
 
 - (void)willActivate {
@@ -32,6 +44,22 @@
     [super didDeactivate];
 }
 
+- (id)contextForSegueWithIdentifier:(NSString *)segueIdentifier {
+    if ([segueIdentifier isEqualToString:@"toRestaurantDetail"]) {
+        return self.restaurant;
+    }
+    
+    return self.restaurant;
+}
+
+#pragma mark -
+- (NSString *)stringFromArray:(NSArray *)array{
+    NSMutableString *string = [NSMutableString stringWithString:@""];
+    for (NSString *key in array) {
+        [string appendFormat:@"%@, ", key];
+    }
+    return [string substringToIndex:string.length-2];
+}
 @end
 
 

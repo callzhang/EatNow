@@ -98,13 +98,14 @@
                           @"radius":@500
                           };
     DDLogInfo(@"Request restaurant: %@", dic);
-    [manager POST:kSearchUrl parameters:dic
+    [manager GET:kSearchUrl parameters:dic
           success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
               DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
               TIC
               NSMutableArray *mutableResturants = [NSMutableArray array];
               for (NSDictionary *restaurant_json in responseObject) {
                   Restaurant *restaurant = [Restaurant new];
+                  
                   restaurant.ID = restaurant_json[@"id"];
                   restaurant.url = restaurant_json[@"url"];
                   restaurant.rating = (NSNumber *)restaurant_json[@"rating"];
