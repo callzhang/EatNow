@@ -13,8 +13,6 @@
  *  decide view's height and top margin, animate those properites with param for each devices for fine control
  **/
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *normalCardInsideContainerTopLayoutConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *normalCardInsideContainerHeightConstraints;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *expandCardInsideContainerTopLayoutConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *expandCardInsideContainerHeightConstraints;
 

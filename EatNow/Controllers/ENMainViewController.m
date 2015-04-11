@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 //
 
-#import "MainViewController.h"
+#import "ENMainViewController.h"
 #import "Restaurant.h"
 #import "ENServerManager.h"
 #import "ENWebViewController.h"
@@ -37,7 +37,7 @@
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
-@interface MainViewController ()
+@interface ENMainViewController ()
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENServerManager *serverManager;
@@ -46,7 +46,7 @@
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 @end
 
-@implementation MainViewController
+@implementation ENMainViewController
 
 #pragma mark - Object Lifecycle
 
@@ -263,12 +263,12 @@
 
 #pragma mark - Internal Methods
 //data methods, should not add UI codes
-- (RestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
+- (ENRestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
     if ([self.restaurants count] == 0) {
         DDLogWarn(@"No restaurant to pop");
         return nil;
     }
-    RestaurantView* card = [RestaurantView loadView];
+    ENRestaurantView* card = [ENRestaurantView loadView];
     card.frame = frame;
     card.restaurant = self.restaurants.firstObject;
 	[self.restaurants removeObjectAtIndex:0];
@@ -288,7 +288,6 @@
         self.background.image = blured;
         imageViewCopy.alpha = 0;
     } completion:^(BOOL finished) {
-        DDLogVerbose(@"Changed background image");
         [imageViewCopy removeFromSuperview];
     }];
 }

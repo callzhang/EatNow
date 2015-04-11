@@ -23,7 +23,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MainViewController.h"
+#import "ENMainViewController.h"
 #import "ENServerManager.h"
 #import "ENUtil.h"
 #import "Crashlytics.h"
