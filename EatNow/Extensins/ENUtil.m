@@ -271,3 +271,21 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
 @end
 
+@implementation UIImage (Blur)
+
+- (UIImage*)bluredImage{
+    
+    CIImage *ciImage = [CIImage imageWithCGImage:self.CGImage];
+    CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    [filter setValue:ciImage forKey:kCIInputImageKey];
+    [filter setValue:@(30) forKey:kCIInputRadiusKey];
+    
+    CIImage *outputCIImage = filter.outputImage;
+    CIContext *context = [CIContext contextWithOptions:nil];
+    
+    UIImage *blured = [UIImage imageWithCGImage: [context createCGImage:outputCIImage fromRect:ciImage.extent]];
+    return blured;
+}
+
+@end
+

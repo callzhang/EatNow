@@ -98,7 +98,7 @@
                           @"radius":@500
                           };
     DDLogInfo(@"Request restaurant: %@", dic);
-    [manager POST:kSearchUrl parameters:dic
+    [manager GET:kSearchUrl parameters:dic
           success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
               DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
               TIC
