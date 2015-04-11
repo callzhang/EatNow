@@ -221,13 +221,13 @@
                         <outlet property="likeButton" destination="Fcq-QR-9Zu" id="BuM-qr-9le"/>
                         <outlet property="loading" destination="4Vu-uF-I11" id="iBD-mk-ggI"/>
                         <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
-                        <outlet property="panGesture" destination="yUq-Ir-CBt" id="c6o-Ro-MJv"/>
+                        <outlet property="panGesture" destination="yUq-Ir-CBt" id="PpJ-sD-gmq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OLQ-6J-SNW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="yUq-Ir-CBt">
                     <connections>
-                        <action selector="gustureHandler:" destination="N2Z-hj-BcO" id="JpO-Aw-KXz"/>
+                        <action selector="gestureHandler:" destination="N2Z-hj-BcO" id="UBf-lf-MDh"/>
                     </connections>
                 </panGestureRecognizer>
             </objects>

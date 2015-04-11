@@ -44,6 +44,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (nonatomic, strong) UIDynamicAnimator *animator;
+@property (nonatomic, strong) UIAttachmentBehavior *attachment;
+@property (nonatomic, strong) UIGravityBehavior *gravity;
 @end
 
 @implementation ENMainViewController
@@ -157,6 +159,7 @@
     // Display the front card
     if (self.backCardView) {
         self.frontCardView = self.backCardView;
+        [self.frontCardView addGestureRecognizer:self.panGesture];
         self.backCardView = nil;
     }else {
         self.frontCardView = [self popResuturantViewWithFrame:[self initialCardFrame]];
@@ -166,16 +169,18 @@
         } completion:^(BOOL finished) {
             [self.frontCardView addGestureRecognizer:self.panGesture];
         }];
-        
-        //load back card
-        self.backCardView = [self popResuturantViewWithFrame:[self initialCardFrame]];
-        [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
-        [UIView animateWithDuration:0.5 delay:0.2 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.backCardView.frame = [self cardViewFrame];
-        } completion:^(BOOL finished) {
-            //
-        }];
     }
+    
+    
+    //load back card
+    NSParameterAssert(!self.backCardView);
+    self.backCardView = [self popResuturantViewWithFrame:[self initialCardFrame]];
+    [self.view insertSubview:self.backCardView belowSubview:self.frontCardView];
+    [UIView animateWithDuration:0.5 delay:0.2 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.backCardView.frame = [self cardViewFrame];
+    } completion:^(BOOL finished) {
+        //
+    }];
 
 }
 
@@ -196,14 +201,16 @@
 //        }
 //    }];
     if (self.frontCardView) {
-        UIGravityBehavior *gravity = [[UIGravityBehavior alloc] initWithItems:@[self.frontCardView]];
-        CGPoint velocity = [self.panGesture velocityInView:self.view];
-        gravity.magnitude = sqrt(pow(velocity.x, 2)+pow(velocity.y, 2));
-        [_animator addBehavior:gravity];
+        UIView *frontView = self.frontCardView;
+        _gravity = [[UIGravityBehavior alloc] initWithItems:@[self.frontCardView]];
+        _gravity.gravityDirection = CGVectorMake(0, 10);
+        [_animator addBehavior:_gravity];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_animator removeBehavior:gravity];
+            [_animator removeBehavior:_gravity];
+            [frontView removeFromSuperview];
+            
         });
-        
+        self.frontCardView = nil;
         [self.frontCardView removeGestureRecognizer:self.panGesture];
     }
     
@@ -225,23 +232,22 @@
 }
 
 #pragma mark - Guesture actions
-- (IBAction)gustureHandler:(UIPanGestureRecognizer *)gesture {
+- (IBAction)gestureHandler:(UIPanGestureRecognizer *)gesture {
     CGPoint locInView = [gesture locationInView:self.view];
     CGPoint locInCard = [gesture locationInView:self.frontCardView];
     UIView *card = self.frontCardView;
-    UIAttachmentBehavior *attachment;
     if (gesture.state == UIGestureRecognizerStateBegan) {
         [_animator removeAllBehaviors];
         UIOffset offset = UIOffsetMake(locInCard.x - card.bounds.size.width/2, locInCard.y - card.bounds.size.height/2);
-        attachment = [[UIAttachmentBehavior alloc] initWithItem:card offsetFromCenter:offset attachedToAnchor:locInView];
-        [_animator addBehavior:attachment];
+        _attachment = [[UIAttachmentBehavior alloc] initWithItem:card offsetFromCenter:offset attachedToAnchor:locInView];
+        [_animator addBehavior:_attachment];
         //attachment.frequency = 0;
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
-        attachment.anchorPoint = locInView;
+        _attachment.anchorPoint = locInView;
     }
     else if (gesture.state == UIGestureRecognizerStateEnded){
-        [_animator removeBehavior:attachment];
+        [_animator removeBehavior:_attachment];
         CGPoint translation = [gesture translationInView:self.view];
         if (sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > 50) {
             [self dismissFrontCardWithCompletion:^{
@@ -263,12 +269,12 @@
 
 #pragma mark - Internal Methods
 //data methods, should not add UI codes
-- (ENRestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
+- (RestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
     if ([self.restaurants count] == 0) {
         DDLogWarn(@"No restaurant to pop");
         return nil;
     }
-    ENRestaurantView* card = [ENRestaurantView loadView];
+    RestaurantView* card = [RestaurantView loadView];
     card.frame = frame;
     card.restaurant = self.restaurants.firstObject;
 	[self.restaurants removeObjectAtIndex:0];

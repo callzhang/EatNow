@@ -23,8 +23,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ENRestaurantView.h"
-
+//#import "ENRestaurantView.h"
+#import "RestaurantView.h"
 @interface ENMainViewController : UIViewController
 - (IBAction)nope:(id)sender;
 - (IBAction)like:(id)sender;
@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
-@property (nonatomic, strong) ENRestaurantView *frontCardView;
-@property (nonatomic, strong) ENRestaurantView *backCardView;
+@property (nonatomic, strong) RestaurantView *frontCardView;
+@property (nonatomic, strong) RestaurantView *backCardView;
 
 @end
