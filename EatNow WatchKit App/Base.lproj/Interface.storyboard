@@ -119,7 +119,7 @@
                         <label width="136" height="19" alignment="left" text="Distance" id="k7V-9A-6Ik"/>
                         <button width="1" alignment="left" title="View Details" id="lUy-N1-VAz">
                             <connections>
-                                <segue destination="Fsi-4x-S9K" kind="modal" id="wzH-pa-AEf"/>
+                                <segue destination="Fsi-4x-S9K" kind="push" id="wzH-pa-AEf"/>
                             </connections>
                         </button>
                     </items>
