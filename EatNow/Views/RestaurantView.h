@@ -23,14 +23,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MDCSwipeToChoose/MDCSwipeToChoose.h>
 
 @class Restaurant;
 @class RestaurantView;
 
-@interface ViewOwner : NSObject
-@property (nonatomic, weak) IBOutlet RestaurantView *subclassedView;
-@end
+#define kRestaurantViewImageChangedNotification     @"restaurant_view_image_changed"
 
 @interface RestaurantView : UIView
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -41,11 +38,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *reviews;
 @property (weak, nonatomic) IBOutlet UILabel *distance;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
-
 @property (nonatomic, strong) Restaurant *restaurant;
 
-//- (instancetype)initWithFrame:(CGRect)frame
-//				   restaurant:(Restaurant *)person
-//                      options:(MDCSwipeToChooseViewOptions *)options;
-+ (instancetype)initViewWithOptions:(MDCSwipeOptions *)options;
++ (instancetype)loadView;
+
 @end

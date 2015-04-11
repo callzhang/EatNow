@@ -32,8 +32,6 @@
 
 //static const CGFloat ChoosePersonViewImageLabelWidth = 42.f;
 
-@implementation ViewOwner
-@end
 
 @interface RestaurantView()
 @property (nonatomic) BOOL isLoadingImage;
@@ -62,54 +60,15 @@
 //    return self;
 //}
 
-+ (instancetype)initViewWithOptions:(MDCSwipeOptions *)options{
-//    DDLogInfo(@"Trying to load restaurant view from xib");
-//    TIC
-//    ViewOwner *owner = [ViewOwner new];
-//    [[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:owner options:nil];
-//    TOC
-//    DDLogInfo(@"Trying to load restaurant view from storyboard");
++ (instancetype)loadView{
     ENRestaurantViewContainer *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENRestaurantViewContainer"];
     RestaurantView *view = (RestaurantView *)container.view;
+    [view removeFromSuperview];
 	NSAssert(view, @"Failed to load restaurant view");
 	
     //customize view
-    view.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.5].CGColor;
-    view.layer.borderWidth = 2;
-    view.layer.cornerRadius = 5;
-    //view.backgroundColor = [UIColor clearColor];
+    view.layer.cornerRadius = 15;
     
-//    //label
-//    view.yesLabel.alpha = 0;
-//    view.nopeLabel.alpha = 0;
-//    view.yesLabel.layer.borderColor = view.yesLabel.textColor.CGColor;
-//    view.nopeLabel.layer.borderColor = view.nopeLabel.textColor.CGColor;
-//    view.yesLabel.transform = CGAffineTransformRotate(CGAffineTransformIdentity, -15/180*M_PI);
-//    view.nopeLabel.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 15/180*M_PI);
-//    
-//    //wrap onPan block
-//    __block UILabel *weakLikedLabel = view.yesLabel;
-//    __block UILabel *weakNopeLabel = view.nopeLabel;
-//    MDCSwipeToChooseOnPanBlock block = options.onPan;
-//    options.onPan = ^(MDCPanState *state){
-//        if (state.direction == MDCSwipeDirectionNone) {
-//            weakLikedLabel.alpha = 0.f;
-//            weakNopeLabel.alpha = 0.f;
-//        } else if (state.direction == MDCSwipeDirectionLeft) {
-//            weakLikedLabel.alpha = 0.f;
-//            weakNopeLabel.alpha = state.thresholdRatio;
-//        } else if (state.direction == MDCSwipeDirectionRight) {
-//            weakLikedLabel.alpha = state.thresholdRatio;
-//            weakNopeLabel.alpha = 0.f;
-//        }
-//        
-//        if (block) {
-//            block(state);
-//        }
-//    };
-//    
-    //setup options
-    [view mdc_swipeToChooseSetup:options];
     return view;
 }
 
@@ -214,22 +173,29 @@
 									   
 								   }
 								   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                       NSString *str = [NSString stringWithFormat:@"Failed to download image with error %@ code %ld", error.domain, error.code];
+                                       NSString *str = [NSString stringWithFormat:@"Failed to download image with error %@ code %ld", error.domain, (long)error.code];
 									   DDLogError(@"*** Failed to download image with error: %@", error);
 									   ENAlert(str);
 								   }];
 }
 
 - (void)showImage:(UIImage *)image{
-	
-	[UIView animateWithDuration:0.2 animations:^{
-		self.imageView.alpha = 0;
+    if (self.loading.isAnimating) {
+        [self.loading stopAnimating];
+    }
+    //duplicate view
+    UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
+    [self insertSubview:imageViewCopy aboveSubview:self.imageView];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.imageView.image = image;
+		imageViewCopy.alpha = 0;
 	} completion:^(BOOL finished) {
-		self.imageView.image = image;
-		[UIView animateWithDuration:0.2 animations:^{
-			self.imageView.alpha = 1;
-		}];
+        [imageViewCopy removeFromSuperview];
 	}];
+    
+    //send image change notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
 	
 	//start next
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
