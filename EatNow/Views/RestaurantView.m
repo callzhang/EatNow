@@ -118,7 +118,7 @@
                 [images addObject:imgUrl];
             }
 		}
-		DDLogVerbose(@"Parsed img urls: %@", images);
+		//DDLogVerbose(@"Parsed img urls: %@", images);
 		block(images, nil);
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 		DDLogError(@"Failed to download website %@", urlString);
@@ -183,24 +183,27 @@
     if (self.loading.isAnimating) {
         [self.loading stopAnimating];
     }
-    //duplicate view
-    UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
-    [self insertSubview:imageViewCopy aboveSubview:self.imageView];
     
-    [UIView animateWithDuration:0.5 animations:^{
-        self.imageView.image = image;
-		imageViewCopy.alpha = 0;
-	} completion:^(BOOL finished) {
-        [imageViewCopy removeFromSuperview];
-	}];
+    self.imageView.image = image;
+    //duplicate view
+    if (self.superview) {
+        UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
+        [self insertSubview:imageViewCopy aboveSubview:self.imageView];
+        [UIView animateWithDuration:0.5 animations:^{
+            imageViewCopy.alpha = 0;
+        } completion:^(BOOL finished) {
+            [imageViewCopy removeFromSuperview];
+        }];
+    }
+    
     
     //send image change notification
     [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
 	
 	//start next
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		[self loadNextImage];
-	});
+//	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//		[self loadNextImage];
+//	});
 }
 
 @end

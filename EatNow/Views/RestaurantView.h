@@ -39,7 +39,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *distance;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (nonatomic, strong) Restaurant *restaurant;
-
+@property (weak, nonatomic) UISnapBehavior *snap;
 + (instancetype)loadView;
 
 @end

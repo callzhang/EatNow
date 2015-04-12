@@ -23,8 +23,11 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "ENRestaurantView.h"
-#import "RestaurantView.h"
+#import "ENRestaurantView.h"
+
+#define kMaxRestaurants     12
+#define kMaxCardsToAnimate  4
+
 @interface ENMainViewController : UIViewController
 - (IBAction)nope:(id)sender;
 - (IBAction)like:(id)sender;
@@ -33,7 +36,6 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
-@property (nonatomic, strong) RestaurantView *frontCardView;
-@property (nonatomic, strong) RestaurantView *backCardView;
-
+@property (nonatomic, readonly) ENRestaurantView *frontCardView;
+@property (nonatomic, strong) NSMutableArray *restaurantCards;
 @end

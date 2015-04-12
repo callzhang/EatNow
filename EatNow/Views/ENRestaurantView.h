@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @interface ENRestaurantView : UIView
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, assign) ENRestaurantViewStatus status;
+@property (nonatomic, weak) UISnapBehavior *snap;
 
 + (instancetype)loadView;
 @end

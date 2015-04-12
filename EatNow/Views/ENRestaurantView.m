@@ -154,17 +154,18 @@
     if (self.loading.isAnimating) {
         [self.loading stopAnimating];
     }
+    self.imageView.image = image;
     //duplicate view
-    UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
-    [self insertSubview:imageViewCopy aboveSubview:self.imageView];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        self.imageView.image = image;
-        imageViewCopy.alpha = 0;
-    } completion:^(BOOL finished) {
-        [imageViewCopy removeFromSuperview];
-    }];
-    
+    if (self.superview) {
+        UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
+        [self insertSubview:imageViewCopy aboveSubview:self.imageView];
+        [UIView animateWithDuration:0.5 animations:^{
+            imageViewCopy.alpha = 0;
+        } completion:^(BOOL finished) {
+            [imageViewCopy removeFromSuperview];
+        }];
+    }
+        
     //send image change notification
     [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
     
