@@ -118,7 +118,7 @@
     <object type="LMREQUEST" id="z111">
         <attribute name="body" type="string"></attribute>
         <attribute name="uuid" type="string">909F20D3-4C32-4E62-BE9C-FAF334DD9C14</attribute>
-        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/search?username=lei\u2600latitude=40.7127\u2600longitude=-74.0059</attribute>
+        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -205,7 +205,7 @@
     </object>
     <object type="LMREQUEST" id="z118">
         <attribute name="uuid" type="string">B46D7A38-1FED-4AE7-9E17-4D19FE008F2D</attribute>
-        <attribute name="url" type="string">https://api.foursquare.com/v2/venues/explore?client_id=34ODCLKTFMWOIQ5G5F0GK254CIXM0CS2T0MN0A0HPMV44LUN\u2600client_secret=Q2IFOXLTCWJZ0UZDK45QRJ5M4MVIDKB4JUSXGDQB5PRV0T2T\u2600ll=40.7127%2C-74.0059\u2600categoryId=4d4b7105d754a06374d81259\u2600v=20150310\u2600openNow=1\u2600intent=browse\u2600venuePhotos=1</attribute>
+        <attribute name="url" type="string">https://api.foursquare.com/v2/venues/explore?client_id=34ODCLKTFMWOIQ5G5F0GK254CIXM0CS2T0MN0A0HPMV44LUN\u2600client_secret=Q2IFOXLTCWJZ0UZDK45QRJ5M4MVIDKB4JUSXGDQB5PRV0T2T\u2600ll=40.759211%2C-73.984638\u2600categoryId=4d4b7105d754a06374d81259\u2600v=20150310\u2600openNow=1\u2600intent=browse\u2600venuePhotos=1</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>

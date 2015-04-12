@@ -12,3 +12,4 @@ pod 'Bolts', '~> 1.1.4'
 pod 'INTULocationManager', '~> 3.0.1'
 pod 'hpple', '~> 0.2'
 pod 'BlocksKit', '~> 2.2'
+pod 

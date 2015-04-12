@@ -180,11 +180,11 @@
         return;
     }
     if (_isDismissingCard) {
-        DDLogWarn(@"Dismissing card!");
+        DDLogWarn(@"Dismissing in progress, skip show restaurant!");
         return;
     }
     // Display cards animated
-    for (NSInteger i = kMaxRestaurants; i > 0; i--) {
+    for (NSInteger i = _restaurants.count; i > 0; i--) {
         ENRestaurantView *card;
         if (i > kMaxCardsToAnimate){
             card = [self popResuturantViewWithFrame:self.cardViewFrame];
@@ -198,6 +198,7 @@
         float delay = (float)i * 0.1;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSLog(@"Poping %@th card", @(i));
+            NSParameterAssert(card);
             if (i>=2) {
                 UIView *lastCard = self.restaurantCards[i-2];
                 NSParameterAssert(lastCard.superview);
@@ -218,7 +219,7 @@
 - (void)dismissFrontCard{
     if (self.frontCardView) {
         ENRestaurantView *frontCard = self.frontCardView;
-        DDLogInfo(@"Dismissing card %@", frontCard.restaurant.name);
+        DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
         //remove snap
         if (frontCard.snap) {
             [_animator removeBehavior:frontCard.snap];
@@ -347,11 +348,8 @@
 #pragma mark - Card frame
 - (CGRect)initialCardFrame{
     CGRect frame = self.cardFrame.frame;
-    static NSInteger i;
-    i++;
-    i = i%10;
-    frame.origin.x = 20*1 - 100;
-    frame.origin.y -= [UIScreen mainScreen].bounds.size.height/2 + frame.size.height/2;
+    frame.origin.x = arc4random_uniform(400) - 200.0f;
+    frame.origin.y -= [UIScreen mainScreen].bounds.size.height/2 + frame.size.height/2 - arc4random_uniform(200);
     DDLogDebug(@"Frame x: %@", @(frame.origin.x));
     return frame;
 }
@@ -428,15 +426,15 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self dismissFrontCard];
                 if (i == kMaxCardsToAnimate) {
-                    _isDismissingCard = NO;
                     [self showAllRestaurantCards];
                 }
             });
         }
     }
-    if (_restaurantCards.count == 0) {
+    float dismissDuration = MIN(_restaurantCards.count, kMaxRestaurants)*0.1;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(dismissDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         _isDismissingCard = NO;
-    }
+    });
     [self.loading startAnimating];
     [self searchNewRestaurantsForced:YES];
 }

@@ -45,6 +45,8 @@
 - (void)setRestaurant:(Restaurant *)restaurant{
     _restaurant = restaurant;
     _currentImageIndex = -1;
+    self.status = ENRestaurantViewStatusCard;
+    [self updateLayoutConstraintValue];
     
     [self loadNextImage];
     NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", restaurant.ID];
@@ -62,10 +64,15 @@
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
     self.price.text = restaurant.pricesStr;
-    self.rating.text = [NSString stringWithFormat:@"%.1f", restaurant.rating.floatValue];
+    self.rating.text = [NSString stringWithFormat:@"%ld", (long)restaurant.rating.integerValue];
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
     //self.distance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];
+}
 
+- (void)updateLayoutConstraintValue{
+    //radio
+    float multiplier = self.status == ENRestaurantViewStatusCard ? 1:0.45;
+    self.infoHightRatio = [NSLayoutConstraint constraintWithItem:_infoHightRatio.firstItem attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_infoHightRatio.secondItem attribute:NSLayoutAttributeHeight multiplier:multiplier constant:0];
 }
 
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
@@ -89,7 +96,7 @@
                 [images addObject:imgUrl];
             }
         }
-        DDLogVerbose(@"Parsed img urls: %@", images);
+        //DDLogVerbose(@"Parsed img urls: %@", images);
         block(images, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DDLogError(@"Failed to download website %@", urlString);
@@ -170,9 +177,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
     
     //start next
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self loadNextImage];
-    });
+    if (self.status == ENRestaurantViewStatusDetail) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadNextImage];
+        });
+    }
+    
 }
 
 @end

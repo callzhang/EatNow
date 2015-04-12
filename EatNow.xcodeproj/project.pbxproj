@@ -40,7 +40,6 @@
 		9B97952A1AD8B40D00136764 /* ENRestaurantView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9795291AD8B40D00136764 /* ENRestaurantView.m */; };
 		9BA07B5E1A9C3672008A3D67 /* ENMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA07B5D1A9C3672008A3D67 /* ENMapViewController.m */; };
 		9BB789A41AD384BC00998D8F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB789A31AD384BC00998D8F /* libPods.a */; };
-		9BD25C901AD9990400967659 /* RestaurantView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745E18F239B700BB5F8E /* RestaurantView.m */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
 		9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF9CC701A72301600B76D92 /* ENWebViewController.m */; };
 		9BF9CC741A73869000B76D92 /* ENRestaurantViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF9CC731A73869000B76D92 /* ENRestaurantViewContainer.m */; };
@@ -658,7 +657,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BD25C901AD9990400967659 /* RestaurantView.m in Sources */,
 				9BA07B5E1A9C3672008A3D67 /* ENMapViewController.m in Sources */,
 				092974691AD0C28D00DDC35C /* ENServerManager.m in Sources */,
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
