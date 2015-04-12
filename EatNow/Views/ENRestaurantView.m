@@ -10,6 +10,7 @@
 #import "TFHpple.h"
 #import "UIImageView+AFNetworking.h"
 #import "ENServerManager.h"
+#import "FBKVOController.h"
 
 @interface ENRestaurantView()
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -37,6 +38,10 @@
     
     //customize view
     view.layer.cornerRadius = 15;
+    
+    [view.KVOController observe:view keyPath:@"status" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+        [view updateLayoutConstraintValue];
+    }];
     
     return view;
 }
@@ -72,7 +77,11 @@
 - (void)updateLayoutConstraintValue{
     //radio
     float multiplier = self.status == ENRestaurantViewStatusCard ? 1:0.45;
-    self.infoHightRatio = [NSLayoutConstraint constraintWithItem:_infoHightRatio.firstItem attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_infoHightRatio.secondItem attribute:NSLayoutAttributeHeight multiplier:multiplier constant:0];
+    NSLayoutConstraint *newRatio = [NSLayoutConstraint constraintWithItem:_infoHightRatio.firstItem attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_infoHightRatio.secondItem attribute:NSLayoutAttributeHeight multiplier:multiplier constant:0];
+    self.infoHightRatio.active = NO;
+    self.infoHightRatio = newRatio;
+    self.infoHightRatio.active = YES;
+    [self layoutIfNeeded];
 }
 
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{

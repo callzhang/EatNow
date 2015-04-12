@@ -252,15 +252,22 @@
     }
 }
 
-- (void)showDetail:(BOOL)show{
+- (void)toggleCardDetails{
     
-    if (show) {
-        //transform
-        //disable gesture
-    } else {
-        //transform
-        //enable gesture
-    }
+    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        if (self.frontCardView.status == ENRestaurantViewStatusCard) {
+            self.frontCardView.frame = self.detailViewFrame;
+            self.frontCardView.status = ENRestaurantViewStatusDetail;
+            [self.frontCardView removeGestureRecognizer:self.panGesture];
+        } else {
+            self.frontCardView.frame = self.cardViewFrame;
+            self.frontCardView.status = ENRestaurantViewStatusCard;
+            [self.frontCardView addGestureRecognizer:self.panGesture];
+        }
+    } completion:^(BOOL finished) {
+        //
+    }];
+    
 }
 
 #pragma mark - Guesture actions
@@ -445,9 +452,7 @@
 }
 
 - (IBAction)dismissAll:(id)sender {
-    for (UIView *card in _restaurantCards) {
-        [_gravity addItem:card];
-    }
+    [self toggleCardDetails];
 }
 
 
