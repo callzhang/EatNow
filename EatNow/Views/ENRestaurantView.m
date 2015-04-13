@@ -20,6 +20,10 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
+@property (weak, nonatomic) IBOutlet UILabel *openTime;
+@property (weak, nonatomic) IBOutlet UILabel *walkingDistance;
+@property (weak, nonatomic) IBOutlet UIView *openInfo;
+@property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -27,6 +31,10 @@
 //internal
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) BOOL isLoadingImage;
+@end
+
+@interface ENRestaurantView (UITableView) <UITableViewDelegate, UITableViewDataSource>
+
 @end
 
 @implementation ENRestaurantView
@@ -38,10 +46,6 @@
     
     //customize view
     view.layer.cornerRadius = 15;
-    
-    [view.KVOController observe:view keyPath:@"status" options:NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
-        [view updateLayoutConstraintValue];
-    }];
     
     return view;
 }
@@ -71,9 +75,25 @@
     self.price.text = restaurant.pricesStr;
     self.rating.text = [NSString stringWithFormat:@"%ld", (long)restaurant.rating.integerValue];
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
-    //self.distance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];
+    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];//TODO: add waking time api
 }
 
+- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame{
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.frame = frame;
+        self.status = status;
+        [self updateLayoutConstraintValue];
+    } completion:^(BOOL finished) {
+        //
+    }];
+}
+
+- (void)didChangedToFrontCard{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.imageView.image}];
+}
+
+
+#pragma mark - Private
 - (void)updateLayoutConstraintValue{
     //radio
     float multiplier = self.status == ENRestaurantViewStatusCard ? 1:0.45;
@@ -192,6 +212,21 @@
         });
     }
     
+}
+
+@end
+
+
+@implementation ENRestaurantView (UITableView)
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    
+    return cell;
 }
 
 @end

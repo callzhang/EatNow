@@ -33,6 +33,7 @@
 #import "UIAlertView+BlocksKit.h"
 #import "UIActionSheet+BlocksKit.h"
 #import "extobjc.h"
+#import "NSTimer+BlocksKit.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -201,8 +202,9 @@
         //add pan gesture
         if (i == 1) {
             [card addGestureRecognizer:self.panGesture];
+            [card didChangedToFrontCard];
         }
-        float delay = (float)i * 0.1;
+        float delay = i * 0.1;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             NSLog(@"Poping %@th card", @(i));
             NSParameterAssert(card);
@@ -241,6 +243,9 @@
         [frontCard removeGestureRecognizer:self.panGesture];
         [self.frontCardView addGestureRecognizer:self.panGesture];
         
+        //notify next card
+        [self.frontCardView didChangedToFrontCard];
+        
         //delay
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:0.5 animations:^{
@@ -256,19 +261,13 @@
 
 - (void)toggleCardDetails{
     
-    [UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        if (self.frontCardView.status == ENRestaurantViewStatusCard) {
-            self.frontCardView.frame = self.detailViewFrame;
-            self.frontCardView.status = ENRestaurantViewStatusDetail;
-            [self.frontCardView removeGestureRecognizer:self.panGesture];
-        } else {
-            self.frontCardView.frame = self.cardViewFrame;
-            self.frontCardView.status = ENRestaurantViewStatusCard;
-            [self.frontCardView addGestureRecognizer:self.panGesture];
-        }
-    } completion:^(BOOL finished) {
-        //
-    }];
+    if (self.frontCardView.status == ENRestaurantViewStatusCard) {
+        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailViewFrame];
+        [self.frontCardView removeGestureRecognizer:self.panGesture];
+    } else {
+        [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame];
+        [self.frontCardView addGestureRecognizer:self.panGesture];
+    }
     
 }
 
@@ -342,18 +341,28 @@
 }
 
 - (void)setBackgroundImage:(UIImage *)image{
-    UIImage *blured = image.bluredImage;
-    
-    //duplicate view
-    UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
-    [self.view insertSubview:imageViewCopy aboveSubview:self.background];
-    
-    [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.background.image = blured;
-        imageViewCopy.alpha = 0;
-    } completion:^(BOOL finished) {
-        [imageViewCopy removeFromSuperview];
-    }];
+    if (_animator.isRunning) {
+        //delay
+        DDLogInfo(@"Animator is running, delay background image setting");
+        static NSTimer* backgroundFadeDelayTimer;
+        [backgroundFadeDelayTimer invalidate];
+        backgroundFadeDelayTimer = [NSTimer bk_scheduledTimerWithTimeInterval:0.5 block:^(NSTimer *timer) {
+            [self setBackgroundImage:image];
+        } repeats:NO];
+    }else {
+        UIImage *blured = image.bluredImage;
+        
+        //duplicate view
+        UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
+        [self.view insertSubview:imageViewCopy aboveSubview:self.background];
+        
+        [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.background.image = blured;
+            imageViewCopy.alpha = 0;
+        } completion:^(BOOL finished) {
+            [imageViewCopy removeFromSuperview];
+        }];
+    }
 }
 
 - (IBAction)close:(id)sender{

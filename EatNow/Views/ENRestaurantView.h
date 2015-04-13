@@ -22,4 +22,6 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (nonatomic, weak) UISnapBehavior *snap;
 
 + (instancetype)loadView;
+- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame;
+- (void)didChangedToFrontCard;
 @end
