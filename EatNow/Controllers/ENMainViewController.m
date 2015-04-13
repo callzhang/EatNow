@@ -39,16 +39,21 @@
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 @interface ENMainViewController ()
+//data
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENServerManager *serverManager;
-@property (weak, nonatomic) IBOutlet UIImageView *background;
-@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
+//UIDynamics
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 @property (nonatomic, strong) UIAttachmentBehavior *attachment;
 @property (nonatomic, strong) UIGravityBehavior *gravity;
-@property (nonatomic, assign) BOOL isDismissingCard;
 @property (nonatomic, strong) UIDynamicItemBehavior *dynamicItem;
+//gesture
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
+@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
+//UI
+@property (weak, nonatomic) IBOutlet UIImageView *background;
+
 @end
 
 @implementation ENMainViewController
@@ -64,7 +69,8 @@
     if (restaurants.count > kMaxRestaurants) {
         DDLogInfo(@"Trunked restaurant list from %@ to %d", @(restaurants.count), kMaxRestaurants);
         restaurants = [restaurants objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,kMaxRestaurants)]].mutableCopy;
-    }
+	}
+	DDLogVerbose(@"%@", [restaurants valueForKey:@"name"]);
     _restaurants = restaurants;
 }
 
@@ -184,15 +190,21 @@
         return;
     }
     if (self.restaurants.count == 0) {
-        DDLogWarn(@"No restaurant to show, skip show all restaurants");
+        DDLogWarn(@"No restaurant to show, skip showing restaurants");
         return;
     }
     if (_isDismissingCard) {
-        DDLogWarn(@"Dismissing in progress, skip show restaurant!");
+        DDLogWarn(@"Dismissing in progress, skip showing restaurant!");
         return;
     }
+	if (_isShowingCards) {
+		DDLogWarn(@"Showing cards in progress, skip showing again");
+		return;
+	}
+	_isShowingCards = YES;
     // Display cards animated
-    for (NSInteger i = _restaurants.count; i > 0; i--) {
+	NSUInteger restaurantCount = _restaurants.count;
+    for (NSInteger i = 1; i <= restaurantCount; i++) {
         ENRestaurantView *card;
         if (i > kMaxCardsToAnimate){
             card = [self popResuturantViewWithFrame:self.cardViewFrame];
@@ -200,34 +212,42 @@
             card = [self popResuturantViewWithFrame:self.initialCardFrame];
         }
         NSParameterAssert(card);
-        //add pan gesture
-        if (i == 1) {
-            [card addGestureRecognizer:self.panGesture];
-            [card didChangedToFrontCard];
-        }
         if (i <= kMaxCardsToAnimate) {
             float delay = (kMaxCardsToAnimate - i) * 0.1;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSLog(@"Poping %@th card", @(i));
+                NSLog(@"Poping %@th card: %@", @(i), card.restaurant.name);
                 [self.view addSubview:card];
-                [self snapCardToCenter:card];
+				[self snapCardToCenter:card];
+				//add pan gesture
+				if (i == 1) {
+					[card addGestureRecognizer:self.panGesture];
+					[card addGestureRecognizer:self.tapGesture];
+					[card didChangedToFrontCard];
+				}
             });
         }else{
-            float delay = (kMaxCardsToAnimate + i) * 0.1;
+            float delay = i * 0.1;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSLog(@"Poping %@th card", @(i));
+                NSLog(@"Poping %@th card: %@", @(i), card.restaurant.name);
                 UIView *previousCard = self.restaurantCards[i-2];
                 NSParameterAssert(previousCard.superview);
                 [self.view insertSubview:card belowSubview:previousCard];
             });
         }
-        
     }
+	
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(restaurantCount * 0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		_isShowingCards = NO;
+	});
 }
 
 
 
-- (void)dismissFrontCard{
+- (void)dismissFrontCardWithVelocity:(CGPoint)velocity{
+	if (_isShowingCards) {
+		DDLogWarn(@"Showing cards, skip dismiss");
+		return;
+	}
     if (self.frontCardView) {
         ENRestaurantView *frontCard = self.frontCardView;
         DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
@@ -235,15 +255,21 @@
         if (frontCard.snap) {
             [_animator removeBehavior:frontCard.snap];
         }
-        //add gravity
-        [_gravity addItem:frontCard];
-        
+        //add dynamics
+		[_gravity addItem:frontCard];
+		[_dynamicItem addItem:frontCard];
+		if (velocity.x) {
+			[_dynamicItem addLinearVelocity:velocity forItem:frontCard];
+		}
+		
         //remove front card from cards
         [self.restaurantCards removeObjectAtIndex:0];
         
         //add pan gesture to next
         [frontCard removeGestureRecognizer:self.panGesture];
+		[frontCard removeGestureRecognizer:self.tapGesture];
         [self.frontCardView addGestureRecognizer:self.panGesture];
+		[self.frontCardView addGestureRecognizer:self.tapGesture];
         
         //notify next card
         [self.frontCardView didChangedToFrontCard];
@@ -266,14 +292,19 @@
     if (self.frontCardView.status == ENRestaurantViewStatusCard) {
         [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailViewFrame];
         [self.frontCardView removeGestureRecognizer:self.panGesture];
+		[self.frontCardView removeGestureRecognizer:self.tapGesture];
     } else {
         [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame];
-        [self.frontCardView addGestureRecognizer:self.panGesture];
+		[self.frontCardView addGestureRecognizer:self.panGesture];
+		[self.frontCardView addGestureRecognizer:self.tapGesture];
     }
-    
 }
 
 #pragma mark - Guesture actions
+- (IBAction)panHandler:(UITapGestureRecognizer *)gesture {
+	[self toggleCardDetails];
+}
+
 - (IBAction)gestureHandler:(UIPanGestureRecognizer *)gesture {
     CGPoint locInView = [gesture locationInView:self.view];
     CGPoint locInCard = [gesture locationInView:self.frontCardView];
@@ -299,12 +330,7 @@
         if (sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > 50) {
             //add dynamic item behavior
             CGPoint velocity = [gesture velocityInView:self.view];
-            [_dynamicItem addItem:card];
-            [_dynamicItem addLinearVelocity:velocity forItem:card];
-            
-            [self dismissFrontCard];
-            //assign pan gesture to next card
-            [self.frontCardView addGestureRecognizer:self.panGesture];
+            [self dismissFrontCardWithVelocity:velocity];
         }
         else {
             [self snapCardToCenter:card];
@@ -325,7 +351,7 @@
 }
 
 #pragma mark - Internal Methods
-//data methods, should not add UI codes
+//data methods, should not add view related codes
 //Pop start from the first one
 - (ENRestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
     if (self.restaurants.count == 0) {
@@ -337,7 +363,7 @@
     card.frame = frame;
     card.restaurant = self.restaurants.firstObject;
 	[self.restaurants removeObjectAtIndex:0];
-    [self.restaurantCards insertObject:card atIndex:0];
+    [self.restaurantCards addObject:card];
     //set background iamge
 	return card;
 }
@@ -345,7 +371,7 @@
 - (void)setBackgroundImage:(UIImage *)image{
     if (_animator.isRunning) {
         //delay
-        DDLogInfo(@"Animator is running, delay background image setting");
+		//DDLogInfo(@"Animator is running, delay background image setting");
         static NSTimer* backgroundFadeDelayTimer;
         [backgroundFadeDelayTimer invalidate];
         backgroundFadeDelayTimer = [NSTimer bk_scheduledTimerWithTimeInterval:0.5 block:^(NSTimer *timer) {
@@ -437,6 +463,10 @@
         DDLogWarn(@"Already dismissing card!");
         return;
     }
+	if (_isShowingCards) {
+		DDLogWarn(@"Showing cards, skip refresh");
+		return;
+	}
     _isDismissingCard = YES;
     //    [ENServerManager sharedInstance].currentLocation = nil;
     //    [ENServerManager sharedInstance].status = IsReachable;
@@ -451,7 +481,8 @@
         }else {
             float delay = i * 0.1;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissFrontCard];
+				CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
+                [self dismissFrontCardWithVelocity:v];
                 if (i == kMaxCardsToAnimate) {
                     [self showAllRestaurantCards];
                 }
@@ -471,7 +502,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (IBAction)dismissAll:(id)sender {
+- (IBAction)clapse:(id)sender {
     [self toggleCardDetails];
 }
 

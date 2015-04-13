@@ -11,8 +11,12 @@
 #import "UIImageView+AFNetworking.h"
 #import "ENServerManager.h"
 #import "FBKVOController.h"
+@import AddressBook;
 
-@interface ENRestaurantView()
+@interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) NSDictionary *restautantInfo;
+
+//IB
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UILabel *cuisine;
@@ -33,9 +37,6 @@
 @property (nonatomic, assign) BOOL isLoadingImage;
 @end
 
-@interface ENRestaurantView (UITableView) <UITableViewDelegate, UITableViewDataSource>
-
-@end
 
 @implementation ENRestaurantView
 + (instancetype)loadView{
@@ -46,14 +47,21 @@
     
     //customize view
     view.layer.cornerRadius = 15;
+	
+	//data
+	view.tableView.dataSource = view;
+	view.tableView.delegate = view;
     
     return view;
 }
 
-
+//initialization method
 - (void)setRestaurant:(Restaurant *)restaurant{
-    _restaurant = restaurant;
+	_restaurant = restaurant;
+	[self prepareData];
+	
     _currentImageIndex = -1;
+	
     self.status = ENRestaurantViewStatusCard;
     [self updateLayoutConstraintValue];
     
@@ -61,7 +69,7 @@
     NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", restaurant.ID];
     [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
         if (!imageUrls) {
-            DDLogError(@"Failed to parse foursquare %@", restaurant.url);
+            ENLogError(@"Failed to parse foursquare %@", restaurant.url);
             return;
         }
         //save urls -> replace exisiting image
@@ -76,6 +84,7 @@
     self.rating.text = [NSString stringWithFormat:@"%ld", (long)restaurant.rating.integerValue];
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];//TODO: add waking time api
+	
 }
 
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame{
@@ -130,7 +139,7 @@
         //DDLogVerbose(@"Parsed img urls: %@", images);
         block(images, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DDLogError(@"Failed to download website %@", urlString);
+        ENLogError(@"Failed to download website %@", urlString);
         block(nil, error);
     }];;
     [op start];
@@ -182,9 +191,7 @@
                                        
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                       NSString *str = [NSString stringWithFormat:@"Failed to download image with error %@ code %ld", error.domain, (long)error.code];
-                                       DDLogError(@"*** Failed to download image with error: %@", error);
-                                       ENAlert(str);
+                                       ENLogError(@"*** Failed to download image with error: %@", error);
                                    }];
 }
 
@@ -216,18 +223,43 @@
     
 }
 
-@end
 
-
-@implementation ENRestaurantView (UITableView)
+- (void)prepareData{
+	NSParameterAssert(_restaurant.json);
+	NSMutableDictionary *info = [NSMutableDictionary new];
+	if (self.restaurant.placemark) {
+		info[@"address"] = self.restaurant.placemark;
+	}
+	if (self.restaurant.openInfo) {
+		info[@"openInfo"] = self.restaurant.openInfo;
+	}
+	if (self.restaurant.phone) {
+		info[@"phone"] = self.restaurant.phone;
+	}
+	if (self.restaurant.url) {
+		info[@"url"] = _restaurant.url;
+	}
+	if (_restaurant.reviews) {
+		info[@"reviews"] = [NSString stringWithFormat:@"%@ reviews available for this restaurant", _restaurant.reviews];
+	}
+	
+	self.restautantInfo = info.copy;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.restautantInfo.allKeys.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    
+	NSString *type = self.restautantInfo.allKeys[indexPath.row];
+	NSString *detail = self.restautantInfo[type];
+	if ([type isEqualToString:@"address"]) {
+		cell.textLabel.text = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1fkm away", _restaurant.distance];
+	}else{
+		cell.textLabel.text = detail;
+	}
     return cell;
 }
 

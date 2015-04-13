@@ -17,6 +17,7 @@ typedef enum{
 }HUDStyle;
 #define kUUID                       @"UUID"
 
+void ENLogError(NSString *fmt, ...);
 
 @interface ENUtil : UIView
 + (instancetype)shared;

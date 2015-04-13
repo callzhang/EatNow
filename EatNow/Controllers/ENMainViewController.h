@@ -38,4 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (nonatomic, readonly) ENRestaurantView *frontCardView;
 @property (nonatomic, strong) NSMutableArray *restaurantCards;
+//states
+@property (nonatomic, assign) BOOL isDismissingCard;
+@property (nonatomic, assign) BOOL isShowingCards;
 @end

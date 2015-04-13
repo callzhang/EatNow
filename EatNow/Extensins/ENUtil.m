@@ -21,6 +21,18 @@
 @import UIKit;
 DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
+void ENLogError(NSString *fmt,...){
+	NSString *contents;
+	va_list args;
+	va_start(args, fmt);
+	contents = [[NSString alloc] initWithFormat:fmt arguments:args];
+	va_end(args);
+#ifdef DEBUG
+	ENAlert(contents);
+#endif
+	DDLogError(contents);
+}
+
 @implementation ENUtil
 + (instancetype)shared{
     static dispatch_once_t onceToken;
