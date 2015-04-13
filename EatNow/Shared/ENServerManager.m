@@ -94,8 +94,8 @@
     NSString *myID = [[self class] myUUID];
     NSDictionary *dic = @{@"username":myID,
                           @"latitude":@(currenLocation.coordinate.latitude),
-                          @"longitude":@(currenLocation.coordinate.longitude),
-                          @"radius":@500
+                          @"longitude":@(currenLocation.coordinate.longitude)//,
+                          //@"radius":@500
                           };
     DDLogInfo(@"Request restaurant: %@", dic);
     [manager GET:kSearchUrl parameters:dic

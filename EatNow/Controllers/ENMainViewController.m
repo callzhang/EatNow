@@ -199,27 +199,29 @@
         } else {
             card = [self popResuturantViewWithFrame:self.initialCardFrame];
         }
+        NSParameterAssert(card);
         //add pan gesture
         if (i == 1) {
             [card addGestureRecognizer:self.panGesture];
             [card didChangedToFrontCard];
         }
-        float delay = i * 0.1;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLog(@"Poping %@th card", @(i));
-            NSParameterAssert(card);
-            if (i>=2) {
-                UIView *lastCard = self.restaurantCards[i-2];
-                NSParameterAssert(lastCard.superview);
-                [self.view insertSubview:card belowSubview:lastCard];
-            }else{
+        if (i <= kMaxCardsToAnimate) {
+            float delay = (kMaxCardsToAnimate - i) * 0.1;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"Poping %@th card", @(i));
                 [self.view addSubview:card];
-            }
-            if (i <= kMaxCardsToAnimate) {
-                //snap to center
                 [self snapCardToCenter:card];
-            }
-        });
+            });
+        }else{
+            float delay = (kMaxCardsToAnimate + i) * 0.1;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSLog(@"Poping %@th card", @(i));
+                UIView *previousCard = self.restaurantCards[i-2];
+                NSParameterAssert(previousCard.superview);
+                [self.view insertSubview:card belowSubview:previousCard];
+            });
+        }
+        
     }
 }
 
@@ -356,7 +358,7 @@
         UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
         [self.view insertSubview:imageViewCopy aboveSubview:self.background];
         
-        [UIView animateWithDuration:1 delay:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.background.image = blured;
             imageViewCopy.alpha = 0;
         } completion:^(BOOL finished) {

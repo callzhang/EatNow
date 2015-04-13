@@ -89,7 +89,9 @@
 }
 
 - (void)didChangedToFrontCard{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.imageView.image}];
+    if (self.imageView.image) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.imageView.image}];
+    }
 }
 
 
