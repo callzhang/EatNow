@@ -47,6 +47,7 @@
 @property (nonatomic, strong) UIAttachmentBehavior *attachment;
 @property (nonatomic, strong) UIGravityBehavior *gravity;
 @property (nonatomic, assign) BOOL isDismissingCard;
+@property (nonatomic, strong) UIDynamicItemBehavior *dynamicItem;
 @end
 
 @implementation ENMainViewController
@@ -76,6 +77,12 @@
     
     //Dynamics
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.gravity = [[UIGravityBehavior alloc] init];
+    self.gravity.gravityDirection = CGVectorMake(0, 10);
+    [self.animator addBehavior:_gravity];
+    self.dynamicItem = [[UIDynamicItemBehavior alloc] init];
+    self.dynamicItem.density = 1.0;
+    [self.animator addBehavior:_dynamicItem];
     
     [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
         if (manager != NULL) {
@@ -136,7 +143,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         if (note.object == self.frontCardView) {
-            //[self setBackgroundImage:note.userInfo[@"image"]];
+            [self setBackgroundImage:note.userInfo[@"image"]];
         }
     }];
     
@@ -225,13 +232,7 @@
             [_animator removeBehavior:frontCard.snap];
         }
         //add gravity
-        if (!_gravity) {
-            self.gravity = [[UIGravityBehavior alloc] init];
-            _gravity.gravityDirection = CGVectorMake(0, 10);
-            [self.animator addBehavior:_gravity];
-        }else{
-            [_gravity addItem:frontCard];
-        }
+        [_gravity addItem:frontCard];
         
         //remove front card from cards
         [self.restaurantCards removeObjectAtIndex:0];
@@ -246,6 +247,7 @@
                 frontCard.alpha = 0;
             } completion:^(BOOL finished) {
                 [_gravity removeItem:frontCard];
+                [_dynamicItem removeItem:frontCard];
                 [frontCard removeFromSuperview];
             }];
         });
@@ -279,11 +281,13 @@
         if (card.snap) {
             [_animator removeBehavior:card.snap];
         }
+        //attachment behavior
         [_animator removeBehavior:_attachment];
         UIOffset offset = UIOffsetMake(locInCard.x - card.bounds.size.width/2, locInCard.y - card.bounds.size.height/2);
         _attachment = [[UIAttachmentBehavior alloc] initWithItem:card offsetFromCenter:offset attachedToAnchor:locInView];
         [_animator addBehavior:_attachment];
         //attachment.frequency = 0;
+        
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         _attachment.anchorPoint = locInView;
@@ -292,6 +296,11 @@
         [_animator removeBehavior:_attachment];
         CGPoint translation = [gesture translationInView:self.view];
         if (sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > 50) {
+            //add dynamic item behavior
+            CGPoint velocity = [gesture velocityInView:self.view];
+            [_dynamicItem addItem:card];
+            [_dynamicItem addLinearVelocity:velocity forItem:card];
+            
             [self dismissFrontCard];
             //assign pan gesture to next card
             [self.frontCardView addGestureRecognizer:self.panGesture];
