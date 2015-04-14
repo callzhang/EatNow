@@ -246,7 +246,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-587" y="586"/>
+            <point key="canvasLocation" x="-588" y="612"/>
         </scene>
         <!--Restaurant View Controller-->
         <scene sceneID="IJr-98-71c">
@@ -791,6 +791,11 @@ New York, NY 10014</string>
                                     <constraint firstAttribute="trailing" secondItem="fsH-Ee-d2j" secondAttribute="trailing" id="isH-e0-e62"/>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="height" secondItem="H4b-9y-85a" secondAttribute="height" multiplier="0.45" priority="900" id="jGo-xL-n5F"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ZCU-XY-LPQ"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -826,7 +831,7 @@ New York, NY 10014</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaU-vb-oKz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-128" y="586"/>
+            <point key="canvasLocation" x="-159" y="586"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="QeA-Y2-u23">

@@ -45,6 +45,7 @@
     UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
     ENRestaurantView *view = (ENRestaurantView *)container.view;
     NSParameterAssert([view isKindOfClass:[ENRestaurantView class]]);
+    
     [view removeFromSuperview];
     
     //customize view
