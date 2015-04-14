@@ -19,6 +19,7 @@
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *actionButtonGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *actionButton;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *openTil;
 @end
 
 
@@ -26,15 +27,17 @@
 
 - (void)awakeWithContext:(Restaurant *)context {
     [super awakeWithContext:context];
+    self.restaurant = context;
+    [self.restaurant getWalkDurationWithCompletion:^(NSTimeInterval time, NSError *error) {
+        self.restaurantDistance.text = [NSString stringWithFormat:@"%.1f mins walk", time / 60.0];
+    }];
+    NSLog(@"load restaurant:%@", context);
     
     self.restaurantName.text = context.name;
-//    self.restaurantRating.text = [NSString stringWithFormat:@"%.2f", [context.rating floatValue]];
-    self.restaurantCategory.text = [self stringFromArray:context.cuisines];
-//    self.restaurantHighlights.text = context.name;
+    self.restaurantCategory.text = context.cuisineStr;
+    self.restaurantPrice.text = [context.price valueForKey:@"currency"];
+    self.openTil.text = context.openInfo;
     self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance)];
-    
-    self.restaurant = context;
-
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls.firstObject];
@@ -63,10 +66,6 @@
     }
     
     return self.restaurant;
-}
-
-- (IBAction)onButton {
-    NSLog(@"xx");
 }
 
 #pragma mark -

@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *resturantNameIMGoing;
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *address;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantCategory;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantPrice;
 
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *detailTable;
 
@@ -44,7 +46,10 @@
     }
     self.restaurant = context;
     self.resturantName.text = self.restaurant.name;
+    self.restaurantCategory.text = context.cuisineStr;
+    self.restaurantPrice.text = [context.price valueForKey:@"currency"];
     
+    /** two points
     CGFloat scale = 2;
     CLLocationCoordinate2D from = [ENLocationManager cachedCurrentLocation].coordinate;
     CLLocation *_destination = self.restaurant.location;
@@ -53,6 +58,12 @@
     [self.resturantMap setRegion:MKCoordinateRegionMake(center.coordinate, span)];
     
     [self.resturantMap addAnnotation:from withPinColor:WKInterfaceMapPinColorPurple];
+    [self.resturantMap addAnnotation:_destination.coordinate withPinColor:WKInterfaceMapPinColorRed];
+     **/
+    
+    CLLocation *_destination = self.restaurant.location;
+    [self.resturantMap setRegion:MKCoordinateRegionMake(_destination.coordinate, MKCoordinateSpanMake(0.005, 0.005))];
+    
     [self.resturantMap addAnnotation:_destination.coordinate withPinColor:WKInterfaceMapPinColorRed];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -66,9 +77,15 @@
     });
     
     NSMutableArray *items = [self loadDetailRows];
-    [items addObject:@"More Info"];
+    if ([self needLoadMore]) {
+        [items addObject:@"More Info"];
+    }
 
     [self loadTableWithArray:items];
+}
+
+- (BOOL)needLoadMore {
+    return self.restaurant.url != nil;
 }
 
 - (void)willActivate {
@@ -99,9 +116,9 @@
     if (self.restaurant.phone) {
         [mutableArray addObject:self.restaurant.phone];
     }
-    
-//    if (self.restaurant.opentil?) {
-//        <#statements#>
+//    
+//    if (self.restaurant.url) {
+//        [mutableArray addObject:self.restaurant.url];
 //    }
     
     return mutableArray;
@@ -110,13 +127,9 @@
 - (NSMutableArray *)loadMoreDetailRows {
     NSMutableArray *mutableArray = [self loadDetailRows];
     
-    if (self.restaurant.phone) {
-        [mutableArray addObject:self.restaurant.phone];
+    if (self.restaurant.url) {
+        [mutableArray addObject:self.restaurant.url];
     }
-    
-    //    if (self.restaurant.opentil?) {
-    //        <#statements#>
-    //    }
     
     return mutableArray;
 }

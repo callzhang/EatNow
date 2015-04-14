@@ -10,10 +10,15 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <label width="136" height="124" alignment="left" text="Loading" textAlignment="center" id="t4I-rR-oBd"/>
+                        <imageView alignment="center" verticalAlignment="center" image="eat-now-apple-watch-loading-indicator-1" animationDuration="2" id="bSj-Fu-p8J"/>
                     </items>
+                    <variation key="device=watch42mm">
+                        <mask key="items">
+                            <include reference="bSj-Fu-p8J"/>
+                        </mask>
+                    </variation>
                     <connections>
-                        <segue destination="Z6k-R8-Hzx" kind="relationship" relationship="nextPage" id="zf7-d4-JFh"/>
+                        <outlet property="loadingImageView" destination="bSj-Fu-p8J" id="Csv-Lu-yee"/>
                     </connections>
                 </controller>
             </objects>
@@ -46,14 +51,15 @@
                                             <items>
                                                 <group width="1" alignment="left" id="7Ju-dN-nGL">
                                                     <items>
-                                                        <label width="101" alignment="left" text="Restaurant" id="kY3-uj-1UQ">
+                                                        <label width="99" alignment="left" text="Restaurant" id="kY3-uj-1UQ">
                                                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                                            <variation key="device=watch38mm" width="100"/>
+                                                            <variation key="device=watch38mm" width="93"/>
                                                             <variation key="device=watch42mm" width="101"/>
                                                         </label>
-                                                        <label alignment="right" text="9.6" textAlignment="right" id="Enf-YN-ARW">
+                                                        <label width="100" alignment="right" text="9.6" textAlignment="left" id="Enf-YN-ARW">
                                                             <color key="textColor" red="0.0" green="0.82017356157302856" blue="0.36374658346176147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                                            <variation key="device=watch38mm" width="29"/>
                                                         </label>
                                                     </items>
                                                 </group>
@@ -64,13 +70,6 @@
                                                     <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
                                                 </label>
                                             </items>
-                                            <variation key="default">
-                                                <mask key="items">
-                                                    <exclude reference="7Ju-dN-nGL"/>
-                                                    <exclude reference="U9f-Xo-Qgl"/>
-                                                    <exclude reference="0wN-qc-5Li"/>
-                                                </mask>
-                                            </variation>
                                             <variation key="device=watch42mm">
                                                 <mask key="items">
                                                     <include reference="7Ju-dN-nGL"/>
@@ -80,11 +79,6 @@
                                             </variation>
                                         </group>
                                     </items>
-                                    <variation key="default">
-                                        <mask key="items">
-                                            <exclude reference="o7s-0j-LTs"/>
-                                        </mask>
-                                    </variation>
                                     <variation key="device=watch42mm">
                                         <mask key="items">
                                             <include reference="o7s-0j-LTs"/>
@@ -93,11 +87,6 @@
                                 </group>
                             </items>
                             <color key="backgroundColor" red="0.14115631580352783" green="0.14118805527687073" blue="0.14115431904792786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <variation key="default">
-                                <mask key="items">
-                                    <exclude reference="R9Y-dt-TdC"/>
-                                </mask>
-                            </variation>
                             <variation key="device=watch42mm">
                                 <mask key="items">
                                     <include reference="R9Y-dt-TdC"/>
@@ -106,7 +95,7 @@
                         </group>
                         <group width="1" widthAdjustment="-4" height="86" alignment="center" id="z9a-9r-Vbn">
                             <items>
-                                <label width="1" widthAdjustment="-8" height="1" alignment="center" text="14 W 19th St (btwn 5th &amp; 6th) Ave) New York, NY 10011" textAlignment="left" numberOfLines="0" id="nxc-F1-pHE">
+                                <label width="1" widthAdjustment="-8" alignment="center" verticalAlignment="center" text="14 W 19th St (btwn 5th &amp; 6th) Ave) New York, NY 10011" textAlignment="left" numberOfLines="0" id="nxc-F1-pHE">
                                     <color key="textColor" red="0.78422760963439941" green="0.78436332941055298" blue="0.78421902656555176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </label>
                             </items>
@@ -143,11 +132,6 @@
                                 </table>
                             </items>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <variation key="default">
-                                <mask key="items">
-                                    <exclude reference="T2m-QD-bXh"/>
-                                </mask>
-                            </variation>
                             <variation key="device=watch42mm">
                                 <mask key="items">
                                     <include reference="T2m-QD-bXh"/>
@@ -169,14 +153,6 @@
                                             </imageView>
                                             <label width="1" alignment="left" verticalAlignment="center" text="    I'm going!" textAlignment="left" id="DhZ-Wk-EpN"/>
                                         </items>
-                                        <variation key="default">
-                                            <mask key="items">
-                                                <exclude reference="3xB-VR-R3b"/>
-                                                <exclude reference="3Zt-hd-6OJ"/>
-                                                <exclude reference="1Qy-9a-hgV"/>
-                                                <exclude reference="jMv-lB-sgq"/>
-                                            </mask>
-                                        </variation>
                                         <variation key="device=watch42mm">
                                             <mask key="items">
                                                 <include reference="3xB-VR-R3b"/>
@@ -197,14 +173,16 @@
                     <connections>
                         <outlet property="address" destination="nxc-F1-pHE" id="TCA-Xj-350"/>
                         <outlet property="detailTable" destination="T2m-QD-bXh" id="LfU-82-ulm"/>
+                        <outlet property="restaurantCategory" destination="U9f-Xo-Qgl" id="dYT-Lv-Qr6"/>
                         <outlet property="restaurantNameGroup" destination="k4n-b9-Lyk" id="PkI-t2-ysn"/>
+                        <outlet property="restaurantPrice" destination="0wN-qc-5Li" id="ESa-z9-4Ad"/>
                         <outlet property="resturantMap" destination="1x4-04-3oB" id="UAg-Y1-mMX"/>
                         <outlet property="resturantName" destination="kY3-uj-1UQ" id="75k-ny-GKT"/>
                         <outlet property="resturantNameIMGoing" destination="Qlf-rV-Zuq" id="rff-9K-SaK"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="555.33333333333337" y="192.23076923076925"/>
+            <point key="canvasLocation" x="555" y="191.5"/>
         </scene>
         <!--Close-->
         <scene sceneID="0ge-SG-2LJ">
@@ -321,26 +299,10 @@
                                                     <label width="136" height="19" alignment="left" text="Open till 10:30 pm" id="HPu-GF-hgf">
                                                         <fontDescription key="font" type="system" weight="thin" pointSize="12"/>
                                                     </label>
-                                                    <label width="69" height="19" alignment="left" text="5 mins walk" id="k7V-9A-6Ik">
+                                                    <label height="19" alignment="left" text="5 mins walk" id="k7V-9A-6Ik">
                                                         <fontDescription key="font" type="system" pointSize="12"/>
                                                     </label>
                                                 </items>
-                                                <variation key="default">
-                                                    <mask key="items">
-                                                        <exclude reference="n4k-MZ-3Jv"/>
-                                                        <exclude reference="BZz-GR-59C"/>
-                                                        <exclude reference="Dim-Vf-Sfr"/>
-                                                        <exclude reference="OkZ-3D-INg"/>
-                                                        <exclude reference="jSc-qT-0DM"/>
-                                                        <exclude reference="vOZ-Ms-esB"/>
-                                                        <exclude reference="Tg4-jp-l9j"/>
-                                                        <exclude reference="YdP-S8-ejz"/>
-                                                        <exclude reference="40t-q7-aWF"/>
-                                                        <exclude reference="zby-Gv-eRn"/>
-                                                        <exclude reference="HPu-GF-hgf"/>
-                                                        <exclude reference="k7V-9A-6Ik"/>
-                                                    </mask>
-                                                </variation>
                                                 <variation key="device=watch42mm">
                                                     <mask key="items">
                                                         <include reference="n4k-MZ-3Jv"/>
@@ -359,11 +321,6 @@
                                                 </variation>
                                             </group>
                                         </items>
-                                        <variation key="default">
-                                            <mask key="items">
-                                                <exclude reference="BHn-c7-88V"/>
-                                            </mask>
-                                        </variation>
                                         <variation key="device=watch42mm">
                                             <mask key="items">
                                                 <include reference="BHn-c7-88V"/>
@@ -371,12 +328,8 @@
                                         </variation>
                                     </group>
                                 </items>
-                                <variation key="default">
-                                    <mask key="items">
-                                        <exclude reference="ibS-iq-bNh"/>
-                                    </mask>
-                                </variation>
-                                <variation key="device=watch42mm" backgroundImage="eat-now-apple-watch-card-deck-view-venue-sample-image@2x (deleted 55798d0a800e40bcf195835b37b06a9c)">
+                                <variation key="device=watch42mm">
+                                    <nil key="backgroundImage"/>
                                     <mask key="items">
                                         <include reference="ibS-iq-bNh"/>
                                     </mask>
@@ -391,6 +344,7 @@
                     <connections>
                         <outlet property="actionButton" destination="lUy-N1-VAz" id="L3d-Td-RH8"/>
                         <outlet property="actionButtonGroup" destination="K2G-FG-IGZ" id="tcH-YW-WzR"/>
+                        <outlet property="openTil" destination="HPu-GF-hgf" id="Jag-FP-aJ2"/>
                         <outlet property="restaurantCategory" destination="BZz-GR-59C" id="vey-XP-3J1"/>
                         <outlet property="restaurantDistance" destination="k7V-9A-6Ik" id="BYz-tj-vcu"/>
                         <outlet property="restaurantName" destination="n4k-MZ-3Jv" id="wcW-5Z-2Zp"/>

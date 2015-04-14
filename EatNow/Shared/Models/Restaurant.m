@@ -26,12 +26,21 @@
 #import "ENServerManager.h"
 #import "TFHpple.h"
 #import "ENUtil.h"
+#import "ENLocationManager.h"
 @import AddressBook;
 
 @implementation Restaurant
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.walkDuration = NSTimeIntervalSince1970;
+    }
+    return self;
+}
+
 - (NSString *)description{
-    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.1fkm", _name, self.rating.floatValue, (long)_reviews.integerValue, [self cuisineStr], [self pricesStr], [self distance]];
+    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.1fkm \n", _name, self.rating.floatValue, (long)_reviews.integerValue, [self cuisineStr], [self pricesStr], [self distance]];
     
 }
 
@@ -47,7 +56,11 @@
 }
 
 - (NSString *)cuisineStr{
-    return self.cuisines.string;
+    NSMutableString *string = [NSMutableString stringWithString:@""];
+    for (NSString *key in self.cuisines) {
+        [string appendFormat:@"%@, ", key];
+    }
+    return [string substringToIndex:string.length-2];
 }
 
 - (NSString *)openInfo{
@@ -126,5 +139,38 @@
         _placemark = [[MKPlacemark alloc] initWithCoordinate:loc.coordinate addressDictionary:addressDict];
     }
     return _placemark;
+}
+
+- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block {
+    if (self.walkDuration != NSTimeIntervalSince1970) {
+        block(self.walkDuration, nil);
+        return;
+    }
+    
+    MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
+    CLLocationCoordinate2D coordinate = [ENLocationManager cachedCurrentLocation].coordinate;
+    MKPlacemark *sourcePlaceMark = [[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil];
+    request.source = [[MKMapItem alloc] initWithPlacemark:sourcePlaceMark];
+    MKPlacemark *destinationPlaceMark = [[MKPlacemark alloc] initWithCoordinate:self.location.coordinate addressDictionary:nil];
+    request.destination = [[MKMapItem alloc] initWithPlacemark:destinationPlaceMark];
+    request.transportType = MKDirectionsTransportTypeWalking;
+    request.requestsAlternateRoutes = NO;
+    
+    MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
+    
+    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+        
+        if (error) {
+            DDLogError(@"error:%@", error);
+            block(NSTimeIntervalSince1970, error);
+        }
+        else {
+            if (block && response.routes[0]) {
+                MKRoute *route = response.routes[0];
+                self.walkDuration = route.expectedTravelTime;
+                block(route.expectedTravelTime, nil);
+            }
+        }
+    }];
 }
 @end

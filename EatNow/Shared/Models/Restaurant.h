@@ -44,7 +44,9 @@
 @property (nonatomic, strong) MKPlacemark *placemark;
 @property (nonatomic, strong) NSString *openInfo;
 @property (nonatomic, assign) double distance;
+@property (nonatomic, assign) NSTimeInterval walkDuration;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
 - (BOOL)validate;
+- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block;
 @end
