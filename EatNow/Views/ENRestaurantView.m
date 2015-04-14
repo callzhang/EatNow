@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ENServerManager.h"
 #import "FBKVOController.h"
+#import "NSTimer+BlocksKit.h"
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *walkingDistance;
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -84,16 +86,22 @@
     self.rating.text = [NSString stringWithFormat:@"%ld", (long)restaurant.rating.integerValue];
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];//TODO: add waking time api
-	
+    self.openTime.text = restaurant.openInfo;
 }
 
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame{
+    static NSTimer *nextImageDelay;
+    [nextImageDelay invalidate];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.frame = frame;
         self.status = status;
         [self updateLayoutConstraintValue];
     } completion:^(BOOL finished) {
-        //
+        if (status == ENRestaurantViewStatusDetail) {
+            nextImageDelay = [NSTimer bk_scheduledTimerWithTimeInterval:5 block:^(NSTimer *timer) {
+                [self loadNextImage];
+            } repeats:NO];
+        }
     }];
 }
 
@@ -113,6 +121,21 @@
     self.infoHightRatio = newRatio;
     self.infoHightRatio.active = YES;
     [self layoutIfNeeded];
+    
+    //show information only for card view
+    if (self.status == ENRestaurantViewStatusCard) {
+        if (self.walkingDistance.text) {
+            self.distanceInfo.alpha = 1;
+        }
+        if (self.openTime.text) {
+            self.openInfo.alpha = 1;
+        }
+        self.pageControl.alpha = 0;
+    }else{
+        self.distanceInfo.alpha = 0;
+        self.openInfo.alpha = 0;
+        self.pageControl.alpha = 1;
+    }
 }
 
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
@@ -146,6 +169,10 @@
 }
 
 - (void)loadNextImage{
+    if (self.status == ENRestaurantViewStatusCard && _currentImageIndex != -1) {
+        DDLogVerbose(@"Skip loading next image in card mode");
+        return;
+    }
     if (_isLoadingImage) {
         DDLogVerbose(@"Loading image, skip");
         return;
@@ -164,6 +191,7 @@
     if (self.restaurant.images.count > nextIdx) {
         if (self.restaurant.images[nextIdx] != [NSNull null]) {
             _currentImageIndex = nextIdx;
+            self.pageControl.currentPage = nextIdx;
             [self showImage:self.restaurant.images[nextIdx]];
             return;
         }
@@ -189,6 +217,7 @@
                                        
                                        [self showImage:image];
                                        
+                                       self.pageControl.currentPage = nextIdx;
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
                                        ENLogError(@"*** Failed to download image with error: %@", error);
