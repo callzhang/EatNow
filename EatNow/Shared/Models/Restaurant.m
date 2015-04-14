@@ -25,6 +25,7 @@
 #import "Restaurant.h"
 #import "ENServerManager.h"
 #import "TFHpple.h"
+#import "ENUtil.h"
 @import AddressBook;
 
 @implementation Restaurant
@@ -49,8 +50,20 @@
     return self.cuisines.string;
 }
 
+- (NSString *)openInfo{
+	return [self.json valueForKeyPath:@"hours.status"];
+}
+
+- (NSNumber *)tips{
+	return [_json valueForKeyPath:@"stats.tipCount"];
+}
+
 - (BOOL)validate{
     BOOL good = YES;
+	if (!_json) {
+		DDLogError(@"Missing json data %@", self);
+		return NO;
+	}
     if (!_ID) {
         DDLogError(@"Restaurant missing ID %@", self);
         good = NO;
@@ -73,15 +86,15 @@
     }
     if (!_price) {
         DDLogError(@"Restaurant missing price %@", self);
-        good = NO;
+		//good = NO;
     }
     if (!_reviews) {
         DDLogError(@"Restaurant missing reviews %@", self);
         good = NO;
     }
     if (!_url) {
-        DDLogError(@"Restaurant missing url %@", self);
-        good = NO;
+        DDLogWarn(@"Restaurant missing url %@", self);
+		//good = NO;
     }
     if (!_location) {
         DDLogError(@"Restaurant missing location %@", self);
@@ -91,20 +104,23 @@
         DDLogError(@"Restaurant missing score %@", self);
         good = NO;
     }
+	if (!self.openInfo) {
+		DDLogWarn(@"Resaurant missing open info %@", self);
+	}
     
     return good;
 }
 
 - (MKPlacemark *)placemark{
-    if (!_placemark) {
-        NSDictionary *location = self.json[@"location"];
+	NSDictionary *address = self.json[@"location"];
+    if (!_placemark && address && self.location) {
         NSDictionary *addressDict = @{
-                                      (__bridge NSString *) kABPersonAddressStreetKey : location[@"address"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressCityKey : location[@"city"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressStateKey : location[@"state"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressZIPKey : location[@"postalCode"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressCountryKey : location[@"country"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressCountryCodeKey : location[@"cc"]?:@""
+                                      (__bridge NSString *) kABPersonAddressStreetKey : address[@"address"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCityKey : address[@"city"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressStateKey : address[@"state"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressZIPKey : address[@"postalCode"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCountryKey : address[@"country"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCountryCodeKey : address[@"cc"]?:@""
                                       };
         CLLocation *loc = self.location;
         _placemark = [[MKPlacemark alloc] initWithCoordinate:loc.coordinate addressDictionary:addressDict];

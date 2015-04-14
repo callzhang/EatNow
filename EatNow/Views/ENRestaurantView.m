@@ -10,8 +10,13 @@
 #import "TFHpple.h"
 #import "UIImageView+AFNetworking.h"
 #import "ENServerManager.h"
+#import "FBKVOController.h"
+@import AddressBook;
 
-@interface ENRestaurantView()
+@interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
+@property (nonatomic, strong) NSDictionary *restautantInfo;
+
+//IB
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UILabel *cuisine;
@@ -19,6 +24,10 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
+@property (weak, nonatomic) IBOutlet UILabel *openTime;
+@property (weak, nonatomic) IBOutlet UILabel *walkingDistance;
+@property (weak, nonatomic) IBOutlet UIView *openInfo;
+@property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -27,6 +36,7 @@
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) BOOL isLoadingImage;
 @end
+
 
 @implementation ENRestaurantView
 + (instancetype)loadView{
@@ -37,20 +47,29 @@
     
     //customize view
     view.layer.cornerRadius = 15;
+	
+	//data
+	view.tableView.dataSource = view;
+	view.tableView.delegate = view;
     
     return view;
 }
 
-
+//initialization method
 - (void)setRestaurant:(Restaurant *)restaurant{
-    _restaurant = restaurant;
+	_restaurant = restaurant;
+	[self prepareData];
+	
     _currentImageIndex = -1;
+	
+    self.status = ENRestaurantViewStatusCard;
+    [self updateLayoutConstraintValue];
     
     [self loadNextImage];
     NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", restaurant.ID];
     [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
         if (!imageUrls) {
-            DDLogError(@"Failed to parse foursquare %@", restaurant.url);
+            ENLogError(@"Failed to parse foursquare %@", restaurant.url);
             return;
         }
         //save urls -> replace exisiting image
@@ -62,10 +81,38 @@
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
     self.price.text = restaurant.pricesStr;
-    self.rating.text = [NSString stringWithFormat:@"%.1f", restaurant.rating.floatValue];
+    self.rating.text = [NSString stringWithFormat:@"%ld", (long)restaurant.rating.integerValue];
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
-    //self.distance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];
+    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];//TODO: add waking time api
+	
+}
 
+- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame{
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.frame = frame;
+        self.status = status;
+        [self updateLayoutConstraintValue];
+    } completion:^(BOOL finished) {
+        //
+    }];
+}
+
+- (void)didChangedToFrontCard{
+    if (self.imageView.image) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.imageView.image}];
+    }
+}
+
+
+#pragma mark - Private
+- (void)updateLayoutConstraintValue{
+    //radio
+    float multiplier = self.status == ENRestaurantViewStatusCard ? 1:0.45;
+    NSLayoutConstraint *newRatio = [NSLayoutConstraint constraintWithItem:_infoHightRatio.firstItem attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_infoHightRatio.secondItem attribute:NSLayoutAttributeHeight multiplier:multiplier constant:0];
+    self.infoHightRatio.active = NO;
+    self.infoHightRatio = newRatio;
+    self.infoHightRatio.active = YES;
+    [self layoutIfNeeded];
 }
 
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
@@ -89,10 +136,10 @@
                 [images addObject:imgUrl];
             }
         }
-        DDLogVerbose(@"Parsed img urls: %@", images);
+        //DDLogVerbose(@"Parsed img urls: %@", images);
         block(images, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DDLogError(@"Failed to download website %@", urlString);
+        ENLogError(@"Failed to download website %@", urlString);
         block(nil, error);
     }];;
     [op start];
@@ -144,9 +191,7 @@
                                        
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                       NSString *str = [NSString stringWithFormat:@"Failed to download image with error %@ code %ld", error.domain, (long)error.code];
-                                       DDLogError(@"*** Failed to download image with error: %@", error);
-                                       ENAlert(str);
+                                       ENLogError(@"*** Failed to download image with error: %@", error);
                                    }];
 }
 
@@ -154,24 +199,68 @@
     if (self.loading.isAnimating) {
         [self.loading stopAnimating];
     }
+    self.imageView.image = image;
     //duplicate view
-    UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
-    [self insertSubview:imageViewCopy aboveSubview:self.imageView];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        self.imageView.image = image;
-        imageViewCopy.alpha = 0;
-    } completion:^(BOOL finished) {
-        [imageViewCopy removeFromSuperview];
-    }];
-    
+    if (self.superview) {
+        UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
+        [self insertSubview:imageViewCopy aboveSubview:self.imageView];
+        [UIView animateWithDuration:0.5 animations:^{
+            imageViewCopy.alpha = 0;
+        } completion:^(BOOL finished) {
+            [imageViewCopy removeFromSuperview];
+        }];
+    }
+        
     //send image change notification
     [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
     
     //start next
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self loadNextImage];
-    });
+    if (self.status == ENRestaurantViewStatusDetail) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadNextImage];
+        });
+    }
+    
+}
+
+
+- (void)prepareData{
+	NSParameterAssert(_restaurant.json);
+	NSMutableDictionary *info = [NSMutableDictionary new];
+	if (self.restaurant.placemark) {
+		info[@"address"] = self.restaurant.placemark;
+	}
+	if (self.restaurant.openInfo) {
+		info[@"openInfo"] = self.restaurant.openInfo;
+	}
+	if (self.restaurant.phone) {
+		info[@"phone"] = self.restaurant.phone;
+	}
+	if (self.restaurant.url) {
+		info[@"url"] = _restaurant.url;
+	}
+	if (_restaurant.reviews) {
+		info[@"reviews"] = [NSString stringWithFormat:@"%@ reviews available for this restaurant", _restaurant.reviews];
+	}
+	
+	self.restautantInfo = info.copy;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.restautantInfo.allKeys.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+	NSString *type = self.restautantInfo.allKeys[indexPath.row];
+	NSString *detail = self.restautantInfo[type];
+	if ([type isEqualToString:@"address"]) {
+		cell.textLabel.text = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey];
+		cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1fkm away", _restaurant.distance];
+	}else{
+		cell.textLabel.text = detail;
+	}
+    return cell;
 }
 
 @end

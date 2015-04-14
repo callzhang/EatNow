@@ -126,7 +126,7 @@
 				//change region
 				CLLocationCoordinate2D from = [ENLocationManager cachedCurrentLocation].coordinate;
 				CLLocation *center = [[CLLocation alloc] initWithLatitude:(from.latitude + _destination.coordinate.latitude)/2 longitude:(from.longitude + _destination.coordinate.longitude)/2];
-				MKCoordinateSpan span = MKCoordinateSpanMake(abs(from.latitude - _destination.coordinate.latitude)*1.5, abs(from.longitude - _destination.coordinate.longitude)*1.5);
+				MKCoordinateSpan span = MKCoordinateSpanMake(fabs(from.latitude - _destination.coordinate.latitude)*1.5, fabs(from.longitude - _destination.coordinate.longitude)*1.5);
 				[self.mapView setRegion:MKCoordinateRegionMake(center.coordinate, span) animated:YES];
 			 }
 			 _firstTimeShowRoute = NO;

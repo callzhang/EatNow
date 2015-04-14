@@ -72,13 +72,13 @@ static void (^_locationDeniedHanlder)(void) = nil;
 
 - (void)getLocationWithCompletion:(void (^)(CLLocation *location))completion forece:(BOOL)forceUpdate {
     if (!forceUpdate) {
-        if (self.lastUpdatedLocationDate) {
+        if (self.currentLocation) {
             if (self.lastUpdatedLocationDate.timeIntervalSinceNow < 60) {
                 completion(self.currentLocation);
             }
             else {
                 self.currentLocation = nil;
-                self.lastUpdatedLocationDate = nil;
+                self.lastUpdatedLocationDate = [NSDate date];
                 [self getLocationWithCompletion:^(CLLocation *location) {
                     completion(location);
                 }];
