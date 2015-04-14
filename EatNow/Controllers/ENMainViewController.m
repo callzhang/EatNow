@@ -393,10 +393,6 @@
     }
 }
 
-- (IBAction)close:(id)sender{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 
 #pragma mark - Card frame
 - (CGRect)initialCardFrame{
@@ -506,6 +502,18 @@
     [self toggleCardDetails];
 }
 
+- (IBAction)test:(id)sender {
+	UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
+	[self presentViewController:container animated:YES completion:^{
+		UIButton *close = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 40, 40)];
+		[close addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
+		[container.view addSubview:close];
+	}];
+}
+
+- (IBAction)close:(id)sender{
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - Storyboard
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

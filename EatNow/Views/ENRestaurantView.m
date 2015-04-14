@@ -15,7 +15,7 @@
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
-@property (nonatomic, strong) NSDictionary *restautantInfo;
+@property (nonatomic, strong) NSArray *restautantInfo;
 
 //IB
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UIView *card;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -45,16 +46,7 @@
     UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
     ENRestaurantView *view = (ENRestaurantView *)container.view;
     NSParameterAssert([view isKindOfClass:[ENRestaurantView class]]);
-    
-    [view removeFromSuperview];
-    
-    //customize view
-    view.layer.cornerRadius = 15;
-	
-	//data
-	view.tableView.dataSource = view;
-	view.tableView.delegate = view;
-    
+	view.rating.layer.cornerRadius = 10;
     return view;
 }
 
@@ -88,6 +80,12 @@
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];//TODO: add waking time api
     self.openTime.text = restaurant.openInfo;
+	
+//	[self.KVOController observe:self.card keyPath:@"frame" options:NSKeyValueObservingOptionNew block:^(id observer, UIView *object, NSDictionary *change) {
+//		if (object.frame.origin.y > 0) {
+//			DDLogWarn(@"Y changed to %@", NSStringFromCGRect(object.frame));
+//		}
+//	}];
 }
 
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame{
@@ -256,40 +254,54 @@
 
 - (void)prepareData{
 	NSParameterAssert(_restaurant.json);
-	NSMutableDictionary *info = [NSMutableDictionary new];
+	NSMutableArray *info = [NSMutableArray new];
 	if (self.restaurant.placemark) {
-		info[@"address"] = self.restaurant.placemark;
+		[info addObject:@{@"type": @"address",
+						  @"cellID": @"mapCell",
+						  @"image": @"eat-now-card-details-view-map-icon",
+						  @"title": _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey],
+						  @"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance]}];
 	}
 	if (self.restaurant.openInfo) {
-		info[@"openInfo"] = self.restaurant.openInfo;
+		[info addObject:@{@"type": @"address",
+						  @"cellID": @"cell",
+						  @"image": @"eat-now-card-details-view-time-icon",
+						  @"title": self.restaurant.openInfo}];
 	}
 	if (self.restaurant.phone) {
-		info[@"phone"] = self.restaurant.phone;
+		[info addObject:@{@"type": @"phone",
+						  @"cellID": @"cell",
+						  @"image": @"eat-now-card-details-view-phone-icon",
+						  @"title": self.restaurant.phone}];
 	}
 	if (self.restaurant.url) {
-		info[@"url"] = _restaurant.url;
+		[info addObject:@{@"type": @"url",
+						  @"cellID": @"cell",
+						  @"image": @"eat-now-card-details-view-web-icon",
+						  @"title": self.restaurant.url}];
 	}
 	if (_restaurant.reviews) {
-		info[@"reviews"] = [NSString stringWithFormat:@"%@ reviews available for this restaurant", _restaurant.reviews];
+		[info addObject:@{@"type": @"reviews",
+						  @"cellID": @"cell",
+						  @"image": @"eat-now-card-details-view-twitter-icon",
+						  @"title": [NSString stringWithFormat:@"%@ reviews available for this restaurant", _restaurant.reviews]}];
 	}
 	
 	self.restautantInfo = info.copy;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.restautantInfo.allKeys.count;
+    return self.restautantInfo.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-	NSString *type = self.restautantInfo.allKeys[indexPath.row];
-	NSString *detail = self.restautantInfo[type];
-	if ([type isEqualToString:@"address"]) {
-		cell.textLabel.text = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey];
-		cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1fkm away", _restaurant.distance];
-	}else{
-		cell.textLabel.text = detail;
-	}
+    UITableViewCell *cell;
+	NSDictionary *info = self.restautantInfo[indexPath.row];
+	cell = [tableView dequeueReusableCellWithIdentifier:info[@"cellID"]];
+	cell.textLabel.text = info[@"title"];
+	if (info[@"detail"]) cell.detailTextLabel.text = info[@"detail"];
+	cell.imageView.image = [UIImage imageNamed:info[@"image"]];
+
     return cell;
 }
 
