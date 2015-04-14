@@ -37,7 +37,7 @@
     self.restaurantCategory.text = context.cuisineStr;
     self.restaurantPrice.text = [context.price valueForKey:@"currency"];
     self.openTil.text = context.openInfo;
-    self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance)];
+    self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance.floatValue/1000)];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls.firstObject];

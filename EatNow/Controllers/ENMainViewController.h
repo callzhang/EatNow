@@ -29,13 +29,13 @@
 #define kMaxCardsToAnimate  4
 
 @interface ENMainViewController : UIViewController
-- (IBAction)nope:(id)sender;
-- (IBAction)like:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *cardFrame;
 @property (weak, nonatomic) IBOutlet UIView *detailFrame;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
-@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UIButton *reloadButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+//frame
 @property (nonatomic, readonly) ENRestaurantView *frontCardView;
 @property (nonatomic, strong) NSMutableArray *restaurantCards;
 //states

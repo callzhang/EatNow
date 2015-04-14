@@ -10,6 +10,7 @@
 #import "Restaurant.h"
 
 #define kRestaurantViewImageChangedNotification     @"restaurant_view_image_changed"
+#define kSelectedRestaurantNotification				@"selected_restaurant"
 
 typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
     ENRestaurantViewStatusCard,

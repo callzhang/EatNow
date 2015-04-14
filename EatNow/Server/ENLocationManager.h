@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ENServer.h"
-@import CoreLocation;
+#import "INTULocationManager.h"
 
 @interface ENLocationManager : NSObject
 @property (nonatomic, assign) ENLocationStatus locationStatus;

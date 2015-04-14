@@ -101,6 +101,9 @@
                 case ENLocationStatusGotLocation:
                     self.loadingInfo.text = @"Got location";
                     break;
+				case ENLocationStatusError:
+					self.loadingInfo.text = @"Failed to get location";
+					ENLogError(@"Failed to get location");
                 default:
                     break;
             }
@@ -119,6 +122,7 @@
                     break;
                 case ENResturantDataStatusError:
                     self.loadingInfo.text = @"Failed to get restaurant list";
+					ENLogError(@"Server error");
                     break;
                     
                 default:
@@ -126,33 +130,42 @@
             }
         }
     }];
-    
-    [self.KVOController observe:[AFNetworkReachabilityManager sharedManager] keyPath:@keypath([AFNetworkReachabilityManager sharedManager], networkReachabilityStatus) options:NSKeyValueObservingOptionNew block:^(id observer, AFNetworkReachabilityManager *manager, NSDictionary *change) {
-        if (manager != NULL) {
-            AFNetworkReachabilityStatus status = manager.networkReachabilityStatus;
-            switch (status) {
-                case AFNetworkReachabilityStatusUnknown:
-                    self.loadingInfo.text = @"Determining connecting";
-                    break;
-                case AFNetworkReachabilityStatusNotReachable:
-                    self.loadingInfo.text = @"No internet connection";
-                    break;
-                case AFNetworkReachabilityStatusReachableViaWWAN:
-                case AFNetworkReachabilityStatusReachableViaWiFi:
-                    self.loadingInfo.text = @"Connected";
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-    }];
-    
+	
+	[[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+		switch (status) {
+			case AFNetworkReachabilityStatusUnknown:
+				self.loadingInfo.text = @"Determining connecting";
+				break;
+			case AFNetworkReachabilityStatusNotReachable:
+				self.loadingInfo.text = @"No internet connection";
+				ENLogError(@"No internet connection");
+				break;
+			case AFNetworkReachabilityStatusReachableViaWWAN:
+			case AFNetworkReachabilityStatusReachableViaWiFi:
+				self.loadingInfo.text = @"Connected";
+				break;
+				
+			default:
+				break;
+		}
+	}];
+	[[AFNetworkReachabilityManager sharedManager] startMonitoring];
+	
+	//notification
     [[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         if (note.object == self.frontCardView) {
             [self setBackgroundImage:note.userInfo[@"image"]];
         }
     }];
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:kSelectedRestaurantNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+		Restaurant *selected = note.object;
+		
+		ENMapViewController *controller = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMapViewController"];
+		controller.restaurant = selected;
+		
+		[self presentViewController:controller animated:YES completion:nil];
+	}];
     
     [self searchNewRestaurantsForced:NO];
 }
@@ -168,12 +181,18 @@
     @weakify(self);
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         @strongify(self);
-        [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
-            if (success) {
-                self.restaurants = response.mutableCopy;
-                [self showAllRestaurantCards];
-            }
-        }];
+		if (location) {
+			[self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+				if (success) {
+					self.restaurants = response.mutableCopy;
+					[self showAllRestaurantCards];
+				}
+			}];
+		}
+		else{
+			
+		}
+		
     } forece:force];
 }
 
@@ -293,10 +312,16 @@
         [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailViewFrame];
         [self.frontCardView removeGestureRecognizer:self.panGesture];
 		[self.frontCardView removeGestureRecognizer:self.tapGesture];
+		[UIView animateWithDuration:0.3 animations:^{
+			self.closeButton.alpha = 1;
+		}];
     } else {
         [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame];
 		[self.frontCardView addGestureRecognizer:self.panGesture];
 		[self.frontCardView addGestureRecognizer:self.tapGesture];
+		[UIView animateWithDuration:0.3 animations:^{
+			self.closeButton.alpha = 0;
+		}];
     }
 }
 
@@ -439,20 +464,6 @@
     }
 }
 
-// Programmatically "likes" the front card view.
-- (IBAction)like:(id)sender{
-    [ENUtil showWatingHUB];
-    Restaurant *restaurant = self.frontCardView.restaurant;
-    [[self serverManager] selectRestaurant:restaurant like:1 completion:^(NSError *error) {
-        if (!error) {
-            [ENUtil showSuccessHUBWithString:@"Liked"];
-            DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
-        }
-        else {
-            [ENUtil showFailureHUBWithString:@"Server error, try again later."];
-        }
-    }];
-}
 
 - (IBAction)refresh:(id)sender {
     if (_isDismissingCard) {
@@ -503,12 +514,12 @@
 }
 
 - (IBAction)test:(id)sender {
-	UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
-	[self presentViewController:container animated:YES completion:^{
-		UIButton *close = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 40, 40)];
-		[close addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
-		[container.view addSubview:close];
-	}];
+//	UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
+//	[self presentViewController:container animated:YES completion:^{
+//		UIButton *close = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 40, 40)];
+//		[close addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
+//		[container.view addSubview:close];
+//	}];
 }
 
 - (IBAction)close:(id)sender{

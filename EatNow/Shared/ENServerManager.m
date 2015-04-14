@@ -11,6 +11,8 @@
 #import "Restaurant.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FBKVOController.h"
+#import "ENLocationManager.h"
+#import "ENUtil.h"
 
 @import CoreLocation;
 
@@ -122,9 +124,9 @@
                   CLLocationDegrees lon = [(NSNumber *)address[@"lng"] doubleValue];
                   CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
                   restaurant.location = loc;
-                  restaurant.distance = [(NSNumber *)address[@"distance"] doubleValue]/1000;
+                  restaurant.distance = (NSNumber *)address[@"distance"];
                   if (!restaurant.distance) {
-                      restaurant.distance = [currenLocation distanceFromLocation:restaurant.location]/1000;
+                      restaurant.distance = [NSNumber numberWithFloat:[currenLocation distanceFromLocation:restaurant.location]];
                   }
                   restaurant.json = restaurant_json;
                   //score
@@ -132,7 +134,6 @@
                   NSNumber *totalScore = scores[@"total_score"];
                   if ([totalScore isEqual: [NSNull null]]) {
                       NSString *str = [NSString stringWithFormat:@"Returned null score (ID = %@", restaurant.ID];
-//						  ENAlert(str);
                       DDLogError(@"error:%@", str);
                       NSNumber *commentScore = scores[@"comment_score"] != [NSNull null] ? scores[@"comment_score"]:@0;
                       NSNumber *cuisineScore = scores[@"cuisine_score"] != [NSNull null] ? scores[@"cuisine_score"]:@0;
@@ -205,7 +206,13 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     NSString *myID = [[self class] myUUID];
-    NSDictionary *dic = @{@"username": myID, @"restaurant": restaurant.json, @"like": @(value)};
+    NSDictionary *dic = @{@"username": myID,
+						  @"restaurantId": restaurant.ID,
+						  @"like": @(value),
+						  @"date": [NSDate date].ISO8601,
+						  @"latitude": @([ENLocationManager cachedCurrentLocation].coordinate.latitude),
+						  @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude),
+						  @"distance": restaurant.distance};
     DDLogVerbose(@"Select restaurant: %@", dic);
     [manager POST:kEatUrl parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         block(nil);

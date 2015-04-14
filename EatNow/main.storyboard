@@ -37,27 +37,23 @@
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dNm-VN-6br" userLabel="color">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="0.5" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.41000000000000003" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-QT-1bI" userLabel="detail">
-                                <rect key="frame" x="16" y="20" width="288" height="456"/>
-                                <color key="backgroundColor" white="1" alpha="0.16" colorSpace="calibratedWhite"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kN-sq-rqs" userLabel="card">
                                 <rect key="frame" x="16" y="120" width="288" height="332"/>
                                 <color key="backgroundColor" white="1" alpha="0.16" colorSpace="calibratedWhite"/>
                             </view>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4Vu-uF-I11">
-                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4Vu-uF-I11">
+                                <rect key="frame" x="142" y="266" width="37" height="37"/>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wl0-KL-zNt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wl0-KL-zNt" userLabel="info">
                                 <rect key="frame" x="54" y="299" width="211" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="3T6-2n-x6D"/>
                                     <constraint firstAttribute="width" constant="211" id="zet-HD-tOf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.70999999999999996" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.33427051130009289" green="0.50330828989839038" blue="0.61230985449735442" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-QR-9Zu">
@@ -68,11 +64,11 @@
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="G">
+                                <state key="normal" image="eat-now-card-deck-view-refresh-button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="like:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="wU6-Tr-GUJ"/>
+                                    <action selector="refresh:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="4EV-LS-0LH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl">
@@ -86,7 +82,7 @@
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="T">
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -115,7 +111,6 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="nope:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="XpY-Ab-9VQ"/>
                                     <action selector="showHistory:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="j6T-ta-PiA"/>
                                 </connections>
                             </button>
@@ -129,7 +124,7 @@
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="C">
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -139,11 +134,8 @@
                                         <exclude reference="iXy-En-42G"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="clapse:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="Xtf-DP-Wif"/>
-                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-rF-ccT">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-rF-ccT">
                                 <rect key="frame" x="131" y="492" width="58" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -154,7 +146,7 @@
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" image="eat-now-card-deck-view-refresh-button">
+                                <state key="normal" image="eat-now-close-button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -165,9 +157,13 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="refresh:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="IkL-AT-KAm"/>
+                                    <action selector="clapse:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="hAH-cc-bmW"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-QT-1bI" userLabel="detail">
+                                <rect key="frame" x="16" y="20" width="288" height="456"/>
+                                <color key="backgroundColor" white="1" alpha="0.16" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.4030108821448618" green="0.7724708017676768" blue="0.74289356001606066" alpha="1" colorSpace="calibratedRGB"/>
@@ -229,11 +225,12 @@
                     <connections>
                         <outlet property="background" destination="q0J-Z4-Pim" id="VCv-RK-3rj"/>
                         <outlet property="cardFrame" destination="2kN-sq-rqs" id="e31-We-SPW"/>
+                        <outlet property="closeButton" destination="GCg-rF-ccT" id="lhI-Ew-aUd"/>
                         <outlet property="detailFrame" destination="pNF-QT-1bI" id="Wmd-qp-WeT"/>
-                        <outlet property="likeButton" destination="Fcq-QR-9Zu" id="BuM-qr-9le"/>
                         <outlet property="loading" destination="4Vu-uF-I11" id="iBD-mk-ggI"/>
                         <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
                         <outlet property="panGesture" destination="yUq-Ir-CBt" id="PpJ-sD-gmq"/>
+                        <outlet property="reloadButton" destination="Fcq-QR-9Zu" id="Ctu-id-Ctm"/>
                         <outlet property="tapGesture" destination="O3U-Ob-hea" id="2zT-0B-l7C"/>
                     </connections>
                 </viewController>
@@ -269,15 +266,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n05-Yp-M9y" userLabel="expand-card-inside-container">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="450"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QqH-rK-Tx4" userLabel="expand-background-buttn">
-                                                <rect key="frame" x="0.0" y="0.0" width="300" height="240"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="240" id="2RJ-ve-cMc"/>
-                                                </constraints>
-                                                <state key="normal" image="eatnow-venue-image">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                            </button>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ydE-2W-xCH">
                                                 <rect key="frame" x="0.0" y="240" width="300" height="210"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -386,9 +374,13 @@
                                                     <constraint firstAttribute="height" constant="100" id="LVe-Zf-3l2"/>
                                                 </constraints>
                                             </mapView>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZy-J2-2RW" userLabel="going-button">
-                                                <rect key="frame" x="76" y="398" width="150" height="42"/>
-                                                <state key="normal" image="eatnew-venue-details-go-button">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZy-J2-2RW" userLabel="going-button">
+                                                <rect key="frame" x="75" y="392" width="150" height="42"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="2fO-kE-Pup"/>
+                                                    <constraint firstAttribute="height" constant="42" id="GHs-ih-zVr"/>
+                                                </constraints>
+                                                <state key="normal" image="eatnew-card-details-view-go-button">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
@@ -437,14 +429,21 @@
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QqH-rK-Tx4" userLabel="expand-background-buttn">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="240"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="240" id="2RJ-ve-cMc"/>
+                                                </constraints>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="FwY-eO-eTY" firstAttribute="top" secondItem="QqH-rK-Tx4" secondAttribute="bottom" constant="10" id="03Q-PD-rDu"/>
-                                            <constraint firstAttribute="bottom" secondItem="dZy-J2-2RW" secondAttribute="bottom" constant="10" id="42h-GF-ed5"/>
                                             <constraint firstItem="QqH-rK-Tx4" firstAttribute="top" secondItem="n05-Yp-M9y" secondAttribute="top" id="5Io-Vi-VlA"/>
                                             <constraint firstItem="l2a-5E-GQK" firstAttribute="leading" secondItem="an4-kb-BsZ" secondAttribute="leading" id="5Qw-4q-7Sr"/>
-                                            <constraint firstAttribute="centerX" secondItem="dZy-J2-2RW" secondAttribute="centerX" id="67j-Ye-UCK"/>
                                             <constraint firstAttribute="trailing" secondItem="FwY-eO-eTY" secondAttribute="trailing" constant="10" id="7jp-eW-2gu"/>
                                             <constraint firstItem="ydE-2W-xCH" firstAttribute="top" secondItem="QqH-rK-Tx4" secondAttribute="bottom" id="ABj-Oj-M4h"/>
                                             <constraint firstItem="QqH-rK-Tx4" firstAttribute="leading" secondItem="n05-Yp-M9y" secondAttribute="leading" id="AVg-up-YSy"/>
@@ -455,13 +454,16 @@
                                             <constraint firstItem="Meb-2n-OPJ" firstAttribute="trailing" secondItem="QqH-rK-Tx4" secondAttribute="trailing" id="KS6-gw-Exy"/>
                                             <constraint firstAttribute="trailing" secondItem="ydE-2W-xCH" secondAttribute="trailing" id="OBX-oy-zzF"/>
                                             <constraint firstAttribute="trailing" secondItem="QqH-rK-Tx4" secondAttribute="trailing" id="Puw-XG-VWr"/>
+                                            <constraint firstAttribute="trailing" secondItem="dZy-J2-2RW" secondAttribute="trailing" constant="75" id="RUe-nW-tbX"/>
                                             <constraint firstItem="HVz-7j-hr7" firstAttribute="centerY" secondItem="n05-Yp-M9y" secondAttribute="top" constant="32" id="W4G-ik-BGe"/>
                                             <constraint firstItem="l2a-5E-GQK" firstAttribute="top" secondItem="G4G-GH-kSg" secondAttribute="bottom" constant="8" id="aOO-MS-FeS"/>
                                             <constraint firstItem="FwY-eO-eTY" firstAttribute="top" secondItem="n05-Yp-M9y" secondAttribute="top" constant="262" id="aPu-Gf-8AS"/>
+                                            <constraint firstItem="dZy-J2-2RW" firstAttribute="leading" secondItem="n05-Yp-M9y" secondAttribute="leading" constant="75" id="cX1-Bs-Xea"/>
                                             <constraint firstItem="G4G-GH-kSg" firstAttribute="top" secondItem="n05-Yp-M9y" secondAttribute="top" constant="21" id="jUJ-DS-q0W"/>
                                             <constraint firstItem="an4-kb-BsZ" firstAttribute="top" secondItem="l2a-5E-GQK" secondAttribute="bottom" constant="8" id="lF2-3n-vhY"/>
                                             <constraint firstItem="ydE-2W-xCH" firstAttribute="leading" secondItem="n05-Yp-M9y" secondAttribute="leading" id="lGL-oM-rl0"/>
                                             <constraint firstAttribute="bottom" secondItem="ydE-2W-xCH" secondAttribute="bottom" id="r7c-EC-g8z"/>
+                                            <constraint firstAttribute="bottom" secondItem="dZy-J2-2RW" secondAttribute="bottom" constant="16" id="sFk-MK-HGg"/>
                                             <constraint firstItem="G4G-GH-kSg" firstAttribute="leading" secondItem="n05-Yp-M9y" secondAttribute="leading" constant="13" id="yZ1-Bh-QWE"/>
                                         </constraints>
                                         <variation key="default">
@@ -501,7 +503,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qbK-Pc-eyf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-159" y="1232"/>
+            <point key="canvasLocation" x="-190" y="1229"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="dfb-Ms-0bQ">
@@ -546,7 +548,7 @@ New York, NY 10014</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eatnow-venue-details-location-icon" id="zma-xC-sKu">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eat-now-card-details-view-map-icon" id="zma-xC-sKu">
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </imageView>
                                                     </subviews>
@@ -564,7 +566,7 @@ New York, NY 10014</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eatnow-venue-details-phone-icon" id="xwK-KE-Iqy">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eat-now-card-details-view-phone-icon" id="xwK-KE-Iqy">
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </imageView>
                                                     </subviews>
@@ -582,13 +584,13 @@ New York, NY 10014</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eatnow-venue-details-website-icon" id="iDo-6l-Sgt">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eat-now-card-details-view-web-icon" id="iDo-6l-Sgt">
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </imageView>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="4VX-5N-Iep" style="IBUITableViewCellStyleDefault" id="FHG-s6-G6I">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="4VX-5N-Iep" imageView="k3T-Io-sM6" style="IBUITableViewCellStyleDefault" id="FHG-s6-G6I">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FHG-s6-G6I" id="V81-DL-DqA">
@@ -600,6 +602,9 @@ New York, NY 10014</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eat-now-card-details-view-time-icon" id="k3T-Io-sM6">
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </imageView>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -643,22 +648,6 @@ New York, NY 10014</string>
                                                 <nil key="highlightedColor"/>
                                                 <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="shadowOffset" width="0.0" height="1"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rc-cj-kSW">
-                                                <rect key="frame" x="266" y="10" width="44" height="44"/>
-                                                <color key="backgroundColor" red="0.3213169575" green="0.71965128180000004" blue="0.29948410390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="Wrm-wG-uz6"/>
-                                                    <constraint firstAttribute="width" constant="44" id="iMv-DN-A7l"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="15"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Spotted Pig" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Wt9-vs-bTu" userLabel="venueName">
                                                 <rect key="frame" x="8" y="8" width="236" height="40"/>
@@ -752,6 +741,22 @@ New York, NY 10014</string>
                                                     <constraint firstItem="xKx-ie-3fb" firstAttribute="leading" secondItem="gcz-Rl-rmq" secondAttribute="trailing" constant="8" id="dOe-4r-GMr"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="9.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rc-cj-kSW">
+                                                <rect key="frame" x="268" y="8" width="44" height="44"/>
+                                                <color key="backgroundColor" red="0.3213169575" green="0.71965128180000004" blue="0.29948410390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="Wrm-wG-uz6"/>
+                                                    <constraint firstAttribute="width" constant="44" id="iMv-DN-A7l"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.25" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -781,22 +786,41 @@ New York, NY 10014</string>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="zhW-hf-ci6"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcM-Kx-ZZ9" userLabel="going">
+                                        <rect key="frame" x="85" y="394" width="150" height="42"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="0bo-7U-3s3"/>
+                                            <constraint firstAttribute="height" constant="42" id="xmF-ib-AAo"/>
+                                        </constraints>
+                                        <state key="normal" image="eatnew-card-details-view-go-button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="go:" destination="Rlz-6w-TNj" eventType="touchUpInside" id="XMn-MF-9Ks"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="1te-XH-USY"/>
+                                    <constraint firstItem="GcM-Kx-ZZ9" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" constant="85" id="6f6-Od-BBi"/>
                                     <constraint firstAttribute="bottom" secondItem="ElG-By-adf" secondAttribute="bottom" id="7YF-Zh-c5a"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="Bb2-PM-N74"/>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="top" secondItem="H4b-9y-85a" secondAttribute="top" id="Bjb-ul-iib"/>
+                                    <constraint firstAttribute="bottom" secondItem="GcM-Kx-ZZ9" secondAttribute="bottom" constant="16" id="MU9-oB-AeI"/>
                                     <constraint firstAttribute="trailing" secondItem="ElG-By-adf" secondAttribute="trailing" id="PJi-6A-tSw"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="bottom" id="SPK-sJ-D5P"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="ZCU-XY-LPQ"/>
                                     <constraint firstAttribute="trailing" secondItem="fsH-Ee-d2j" secondAttribute="trailing" id="isH-e0-e62"/>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="height" secondItem="H4b-9y-85a" secondAttribute="height" multiplier="0.45" priority="900" id="jGo-xL-n5F"/>
+                                    <constraint firstAttribute="trailing" secondItem="GcM-Kx-ZZ9" secondAttribute="trailing" constant="85" id="kdP-5b-8rn"/>
+                                    <constraint firstAttribute="centerX" secondItem="GcM-Kx-ZZ9" secondAttribute="centerX" id="qxI-LY-PC2"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="ZCU-XY-LPQ"/>
+                                        <exclude reference="6f6-Od-BBi"/>
+                                        <exclude reference="kdP-5b-8rn"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -817,6 +841,7 @@ New York, NY 10014</string>
                             <outlet property="card" destination="H4b-9y-85a" id="HMP-bc-fK4"/>
                             <outlet property="cuisine" destination="45L-e4-Y8S" id="kcN-p1-TJx"/>
                             <outlet property="distanceInfo" destination="DBA-UH-kFT" id="gMc-wX-gBe"/>
+                            <outlet property="goButton" destination="GcM-Kx-ZZ9" id="m1b-mO-dwI"/>
                             <outlet property="imageView" destination="cy3-AH-BuV" id="tWw-pa-DBE"/>
                             <outlet property="infoHightRatio" destination="jGo-xL-n5F" id="xL4-Vh-E1N"/>
                             <outlet property="loading" destination="3xH-uo-hHt" id="0Pp-G7-Vub"/>
@@ -878,16 +903,69 @@ New York, NY 10014</string>
             </objects>
             <point key="canvasLocation" x="295" y="612"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="0xa-9K-42h">
+            <objects>
+                <viewController storyboardIdentifier="ENMapViewController" id="24z-YT-339" customClass="ENMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iDz-hW-l5e"/>
+                        <viewControllerLayoutGuide type="bottom" id="deY-rl-Z6I"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uKD-Bx-b3m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgL-Fj-bSU">
+                                <rect key="frame" x="67" y="511" width="187" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="187" id="L7U-bb-abT"/>
+                                    <constraint firstAttribute="height" constant="49" id="fao-LR-AWh"/>
+                                </constraints>
+                                <state key="normal" image="eat-now-card-details-view-cancel-button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancel:" destination="24z-YT-339" eventType="touchUpInside" id="O9i-jt-1eW"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c1A-af-8kd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <connections>
+                                    <outlet property="delegate" destination="24z-YT-339" id="aPp-lr-Lzh"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="c1A-af-8kd" secondAttribute="trailing" id="7Wh-J4-fmK"/>
+                            <constraint firstItem="deY-rl-Z6I" firstAttribute="top" secondItem="pgL-Fj-bSU" secondAttribute="bottom" constant="8" id="Cfd-Um-VOI"/>
+                            <constraint firstItem="deY-rl-Z6I" firstAttribute="top" secondItem="c1A-af-8kd" secondAttribute="bottom" id="Gis-Ur-j2M"/>
+                            <constraint firstItem="c1A-af-8kd" firstAttribute="leading" secondItem="uKD-Bx-b3m" secondAttribute="leading" id="KBn-a4-Fb2"/>
+                            <constraint firstItem="c1A-af-8kd" firstAttribute="top" secondItem="uKD-Bx-b3m" secondAttribute="top" id="fYv-8f-HI0"/>
+                            <constraint firstAttribute="centerX" secondItem="pgL-Fj-bSU" secondAttribute="centerX" id="tTm-Lx-sSS"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="mapView" destination="c1A-af-8kd" id="jfP-7F-umM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v1g-Zy-FEi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="281" y="1267"/>
+        </scene>
     </scenes>
     <resources>
         <image name="eat-now-card-deck-view-history-button" width="110" height="110"/>
         <image name="eat-now-card-deck-view-refresh-button" width="55" height="55"/>
         <image name="eat-now-card-deck-view-time-icon" width="29" height="29"/>
         <image name="eat-now-card-deck-view-walk-icon" width="29" height="29"/>
-        <image name="eatnew-venue-details-go-button" width="150" height="42"/>
-        <image name="eatnow-venue-details-location-icon" width="32" height="32"/>
-        <image name="eatnow-venue-details-phone-icon" width="32" height="32"/>
-        <image name="eatnow-venue-details-website-icon" width="32" height="32"/>
-        <image name="eatnow-venue-image" width="480" height="320"/>
+        <image name="eat-now-card-details-view-cancel-button" width="185" height="49"/>
+        <image name="eat-now-card-details-view-map-icon" width="25" height="25"/>
+        <image name="eat-now-card-details-view-phone-icon" width="25" height="25"/>
+        <image name="eat-now-card-details-view-time-icon" width="25" height="25"/>
+        <image name="eat-now-card-details-view-web-icon" width="25" height="25"/>
+        <image name="eat-now-close-button" width="55" height="55"/>
+        <image name="eatnew-card-details-view-go-button" width="165" height="49"/>
     </resources>
 </document>

@@ -8,8 +8,7 @@
 
 #import "ENMapViewController.h"
 #import "ENUtil.h"
-#import "ENServerManager.h"
-#import "INTULocationManager.h"
+#import "ENMapManager.h"
 #import "ENLocationManager.h"
 
 @import AddressBook;
@@ -19,8 +18,7 @@
 @property (nonatomic, strong) MKPlacemark *destination;
 @property (nonatomic, strong) NSTimer *refreshtimer;
 @property (nonatomic, assign) BOOL firstTimeShowRoute;
-@property (nonatomic, strong) INTULocationManager *locationManager;
-@property (nonatomic, assign) INTULocationRequestID requestID;
+@property (nonatomic, strong) ENLocationManager *locationManager;
 @end
 
 @implementation ENMapViewController
@@ -33,25 +31,27 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
 
     CLLocationCoordinate2D centerCoordinate = [ENLocationManager cachedCurrentLocation].coordinate;
-    self.mapView.region = MKCoordinateRegionMakeWithDistance(centerCoordinate, 500, 500);
+    self.mapView.region = MKCoordinateRegionMakeWithDistance(centerCoordinate, 1000, 1000);
     self.mapView.showsUserLocation = YES;
 	_firstTimeShowRoute = YES;
-    
-    
+	_locationManager = [ENLocationManager new];
+	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    
-    // add mark for me
-    //TODO
-    
+	
+	//add annotation
+	MKPointAnnotation *destinationAnnotation = [[MKPointAnnotation alloc] init];
+	destinationAnnotation.coordinate = _destination.coordinate;
+	destinationAnnotation.title = _restaurant.name;
+	destinationAnnotation.subtitle = _restaurant.placemark.addressDictionary[(__bridge NSString *) kABPersonAddressStreetKey];
+	[self.mapView addAnnotation:destinationAnnotation];
+	[self.mapView selectAnnotation:destinationAnnotation animated:YES];
+	
     // ---- Start searching ----
-    [ENUtil showWatingHUB];
-    
-    //update location
-    _locationManager = [INTULocationManager sharedInstance];
+	//[ENUtil showWatingHUB];
     
     //request location
 	[self requestRoute:nil];
@@ -64,76 +64,44 @@
 - (void)viewDidDisappear:(BOOL)animated{
 	[super viewDidDisappear:animated];
 	[_refreshtimer invalidate];
-    [_locationManager cancelLocationRequest:_requestID];
 }
 
 - (void)requestRoute:(NSTimer *)timer{
-    [_locationManager cancelLocationRequest:_requestID];
-    _requestID = [_locationManager requestLocationWithDesiredAccuracy:INTULocationAccuracyRoom timeout:10 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-        if (status == INTULocationStatusSuccess) {
-            MKPlacemark *fromPlacemark = [[MKPlacemark alloc] initWithCoordinate:currentLocation.coordinate addressDictionary:nil];
-            MKMapItem *fromItem = [[MKMapItem alloc] initWithPlacemark:fromPlacemark];
-            MKMapItem *toItem   = [[MKMapItem alloc] initWithPlacemark:self.destination];
-            //routing
-            [self findDirectionsFrom:fromItem to:toItem];
-        }
-        else {
-            DDLogError(@"Failed to get location with status: %ld, with accuracy: %ld, with location %@", (long)status, (long)achievedAccuracy, currentLocation);
-        }
-    }];
-}
-
-
-#pragma mark - Private
-- (void)findDirectionsFrom:(MKMapItem *)source to:(MKMapItem *)destination
-{
-    MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
-    request.source = source;
-    request.destination = destination;
-    request.transportType = MKDirectionsTransportTypeWalking;
-    request.requestsAlternateRoutes = NO;
-    
-    MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
-    
-    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-         
-         [ENUtil dismissHUD];
-         
-         if (error) {
-             
-             DDLogError(@"error:%@", error);
-         }
-         else {
-
-             //add overlay
-             MKRoute *route = response.routes[0];
-             [self.mapView removeOverlays:_mapView.overlays];
-             [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
-			 
-			 //add ETA
-			 NSString *time = [ENUtil getStringFromTimeInterval:route.expectedTravelTime * 0.75];
-			 self.title = [NSString stringWithFormat:@"%@ (%@)", _restaurant.name, time];
-             
-			if (_firstTimeShowRoute) {
-				//add annotation
-				 MKPointAnnotation *destinationAnnotation = [[MKPointAnnotation alloc] init];
-				 destinationAnnotation.coordinate = _destination.coordinate;
-				 destinationAnnotation.title = _restaurant.name;
-				 destinationAnnotation.subtitle = _restaurant.placemark.addressDictionary[(__bridge NSString *) kABPersonAddressStreetKey];
-				 [self.mapView addAnnotation:destinationAnnotation];
-				 [self.mapView selectAnnotation:destinationAnnotation animated:YES];
+	[_locationManager getLocationWithCompletion:^(CLLocation *location) {
+		[[ENMapManager new] findDirectionsTo:location completion:^(MKDirectionsResponse *response, NSError *error) {
+			//[ENUtil dismissHUD];
+			
+			if (!response) {
+				//[ENUtil showFailureHUBWithString:@"Please retry"];
+				DDLogError(@"error:%@", error);
+			}
+			else {
 				
-				//change region
-				CLLocationCoordinate2D from = [ENLocationManager cachedCurrentLocation].coordinate;
-				CLLocation *center = [[CLLocation alloc] initWithLatitude:(from.latitude + _destination.coordinate.latitude)/2 longitude:(from.longitude + _destination.coordinate.longitude)/2];
-				MKCoordinateSpan span = MKCoordinateSpanMake(fabs(from.latitude - _destination.coordinate.latitude)*1.5, fabs(from.longitude - _destination.coordinate.longitude)*1.5);
-				[self.mapView setRegion:MKCoordinateRegionMake(center.coordinate, span) animated:YES];
-			 }
-			 _firstTimeShowRoute = NO;
-         }
-     }];
+				//add overlay
+				MKRoute *route = response.routes[0];
+				[self.mapView removeOverlays:_mapView.overlays];
+				[self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+			 
+				//add ETA
+				NSString *time = [ENUtil getStringFromTimeInterval:route.expectedTravelTime * 0.75];
+				self.title = [NSString stringWithFormat:@"%@ (%@)", _restaurant.name, time];
+				
+				if (_firstTimeShowRoute) {
+					//change region
+					CLLocationCoordinate2D from = location.coordinate;
+					CLLocation *center = [[CLLocation alloc] initWithLatitude:(from.latitude + _destination.coordinate.latitude)/2 longitude:(from.longitude + _destination.coordinate.longitude)/2];
+					MKCoordinateSpan span = MKCoordinateSpanMake(fabs(from.latitude - _destination.coordinate.latitude)*1.5, fabs(from.longitude - _destination.coordinate.longitude)*1.5);
+					[self.mapView setRegion:MKCoordinateRegionMake(center.coordinate, span) animated:YES];
+				}
+				_firstTimeShowRoute = NO;
+			}
+		}];
+	}];
 }
 
+- (IBAction)cancel:(id)sender {
+	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - MKMapViewDelegate
 

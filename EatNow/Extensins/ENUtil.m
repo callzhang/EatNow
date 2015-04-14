@@ -28,7 +28,7 @@ void ENLogError(NSString *fmt,...){
 	contents = [[NSString alloc] initWithFormat:fmt arguments:args];
 	va_end(args);
 #ifdef DEBUG
-	ENAlert(contents);
+	[ENUtil showWarningHUBWithString:@"Location error"];
 #endif
 	DDLogError(contents);
 }
@@ -279,6 +279,14 @@ void ENLogError(NSString *fmt,...){
     parseFormatter.timeZone = [NSTimeZone defaultTimeZone];
     parseFormatter.dateFormat = @"M/d";
     return [parseFormatter stringFromDate:self];
+}
+
+- (NSString *)ISO8601 {
+	NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+	formatter.timeZone = [NSTimeZone defaultTimeZone];
+	[formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+	NSString *string = [formatter stringFromDate:self];
+	return string;
 }
 
 @end

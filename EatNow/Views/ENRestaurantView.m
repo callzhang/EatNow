@@ -12,6 +12,7 @@
 #import "ENServerManager.h"
 #import "FBKVOController.h"
 #import "NSTimer+BlocksKit.h"
+#import "ENMapViewController.h"
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
@@ -31,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIView *card;
+@property (weak, nonatomic) IBOutlet UIButton *goButton;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -46,7 +48,9 @@
     UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
     ENRestaurantView *view = (ENRestaurantView *)container.view;
     NSParameterAssert([view isKindOfClass:[ENRestaurantView class]]);
-	view.rating.layer.cornerRadius = 10;
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		view.rating.layer.cornerRadius = 10;
+	});
     return view;
 }
 
@@ -67,9 +71,7 @@
             ENLogError(@"Failed to parse foursquare %@", restaurant.url);
             return;
         }
-        //save urls -> replace exisiting image
-        //		NSMutableArray *images = restaurant.imageUrls.mutableCopy;
-        //		[images addObjectsFromArray:imageUrls];
+		
         restaurant.imageUrls = imageUrls;
     }];
     
@@ -78,14 +80,8 @@
     self.price.text = restaurant.pricesStr;
     self.rating.text = [NSString stringWithFormat:@"%ld", (long)restaurant.rating.integerValue];
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
-    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance];//TODO: add waking time api
+    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];//TODO: add waking time api
     self.openTime.text = restaurant.openInfo;
-	
-//	[self.KVOController observe:self.card keyPath:@"frame" options:NSKeyValueObservingOptionNew block:^(id observer, UIView *object, NSDictionary *change) {
-//		if (object.frame.origin.y > 0) {
-//			DDLogWarn(@"Y changed to %@", NSStringFromCGRect(object.frame));
-//		}
-//	}];
 }
 
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame{
@@ -110,6 +106,13 @@
     }
 }
 
+#pragma mark - UI
+- (IBAction)go:(id)sender {
+	[[ENServerManager new] selectRestaurant:_restaurant like:1 completion:^(NSError *error) {
+		[ENUtil showSuccessHUBWithString:@"Good choice"];
+	}];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kSelectedRestaurantNotification object:_restaurant];
+}
 
 #pragma mark - Private
 - (void)updateLayoutConstraintValue{
@@ -130,10 +133,12 @@
             self.openInfo.alpha = 1;
         }
         self.pageControl.alpha = 0;
+		self.goButton.alpha = 0;
     }else{
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
-        self.pageControl.alpha = 1;
+		self.pageControl.alpha = 1;
+		self.goButton.alpha = 1;
     }
 }
 
@@ -201,26 +206,23 @@
     [self.loading startAnimating];
     NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls[nextIdx]];
     //download first
-    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url]
-                          placeholderImage:self.imageView.image
-                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       _currentImageIndex = nextIdx;
-                                       _isLoadingImage = NO;
-                                       [self.loading stopAnimating];
-                                       NSMutableArray *images = _restaurant.images.mutableCopy ?: [NSMutableArray arrayWithCapacity:_restaurant.imageUrls.count];
-                                       while (images.count <= _currentImageIndex) {
-                                           [images addObject:[NSNull null]];
-                                       }
-                                       images[_currentImageIndex] = image;
-                                       _restaurant.images = images.copy;
-                                       
-                                       [self showImage:image];
-                                       
-                                       self.pageControl.currentPage = nextIdx;
-                                   }
-                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                       ENLogError(@"*** Failed to download image with error: %@", error);
-                                   }];
+    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:self.imageView.image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+		_currentImageIndex = nextIdx;
+		_isLoadingImage = NO;
+		[self.loading stopAnimating];
+		NSMutableArray *images = _restaurant.images.mutableCopy ?: [NSMutableArray arrayWithCapacity:_restaurant.imageUrls.count];
+		while (images.count <= _currentImageIndex) {
+			[images addObject:[NSNull null]];
+		}
+		images[_currentImageIndex] = image;
+		_restaurant.images = images.copy;
+		
+		[self showImage:image];
+		
+		self.pageControl.currentPage = nextIdx;
+	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+		ENLogError(@"*** Failed to download image with error: %@", error);
+	}];
 }
 
 - (void)showImage:(UIImage *)image{
@@ -260,7 +262,7 @@
 						  @"cellID": @"mapCell",
 						  @"image": @"eat-now-card-details-view-map-icon",
 						  @"title": _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey],
-						  @"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance]}];
+						  @"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000]}];
 	}
 	if (self.restaurant.openInfo) {
 		[info addObject:@{@"type": @"address",

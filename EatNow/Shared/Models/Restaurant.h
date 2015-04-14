@@ -43,7 +43,7 @@
 @property (nonatomic, strong) NSDictionary *json;
 @property (nonatomic, strong) MKPlacemark *placemark;
 @property (nonatomic, strong) NSString *openInfo;
-@property (nonatomic, assign) double distance;
+@property (nonatomic, strong) NSNumber* distance;
 @property (nonatomic, assign) NSTimeInterval walkDuration;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;

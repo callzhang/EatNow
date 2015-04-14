@@ -21,10 +21,7 @@
 @class CLLocation;
 @interface ENServerManager : NSObject
 @property (nonatomic, strong) NSMutableArray *restaurants;
-//@property (nonatomic, strong) CLLocation *currentLocation;
-//@property (nonatomic, strong) NSDate *lastUpdatedLocation;
 @property (nonatomic, strong) NSArray *cuisines;
-
 @property (nonatomic, assign) ENResturantDataStatus fetchStatus;
 
 //+ (instancetype)sharedInstance;

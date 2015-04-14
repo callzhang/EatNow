@@ -23,6 +23,7 @@ typedef NS_ENUM(NSUInteger, ENLocationStatus) {
     ENLocationStatusUnknown,
     ENLocationStatusGettingLocation,
     ENLocationStatusGotLocation,
+	ENLocationStatusError
 };
 
 typedef NS_ENUM(NSUInteger, ENResturantDataStatus) {
@@ -31,5 +32,7 @@ typedef NS_ENUM(NSUInteger, ENResturantDataStatus) {
     ENResturantDataStatusFetchedRestaurant,
     ENResturantDataStatusError,
 };
+
+
 
 #endif
