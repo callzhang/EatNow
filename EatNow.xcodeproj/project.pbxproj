@@ -24,6 +24,7 @@
 		09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */; };
 		0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745618F239B700BB5F8E /* ENMainViewController.m */; };
+		09757F8C1ADC97EE002B1515 /* NiceChoiceInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09757F8B1ADC97EE002B1515 /* NiceChoiceInterfaceController.m */; };
 		09777C811AD4933C007147B2 /* ENRestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09777C801AD4933C007147B2 /* ENRestaurantViewController.m */; };
 		09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C831AD497F8007147B2 /* TextfieldWithInset.swift */; };
 		09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C841AD497F8007147B2 /* WJCustomizeView.swift */; };
@@ -123,6 +124,8 @@
 		09432CCA1ACCC5E700B989FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		09432CD61ACCCACB00B989FF /* ENWMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWMapInterfaceController.h; sourceTree = "<group>"; };
 		09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWMapInterfaceController.m; sourceTree = "<group>"; };
+		09757F8A1ADC97EE002B1515 /* NiceChoiceInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceChoiceInterfaceController.h; sourceTree = "<group>"; };
+		09757F8B1ADC97EE002B1515 /* NiceChoiceInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiceChoiceInterfaceController.m; sourceTree = "<group>"; };
 		09777C7F1AD4933C007147B2 /* ENRestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantViewController.h; sourceTree = "<group>"; };
 		09777C801AD4933C007147B2 /* ENRestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantViewController.m; sourceTree = "<group>"; };
 		09777C821AD497F7007147B2 /* EatNow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EatNow-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -246,6 +249,8 @@
 				09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */,
 				0982B45B1AD9A7D700982740 /* ResturantDetailInterfaceController.h */,
 				0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */,
+				09757F8A1ADC97EE002B1515 /* NiceChoiceInterfaceController.h */,
+				09757F8B1ADC97EE002B1515 /* NiceChoiceInterfaceController.m */,
 				092974701AD0C3CE00DDC35C /* ResturantInterfaceController.h */,
 				092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */,
 			);
@@ -651,6 +656,7 @@
 				092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */,
 				0929746F1AD0C2B200DDC35C /* Restaurant.m in Sources */,
 				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
+				09757F8C1ADC97EE002B1515 /* NiceChoiceInterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,15 +8,17 @@
 
 #import "ResturantInterfaceController.h"
 #import "Restaurant.h"
+#import "AFNetworking.h"
 
 
 @interface ResturantInterfaceController()
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantName;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantRating;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantCategory;
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantHighlights;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantDistance;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantPrice;
 @property (nonatomic, strong) Restaurant *restaurant;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *actionButtonGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *actionButton;
 @end
 
 
@@ -26,12 +28,23 @@
     [super awakeWithContext:context];
     
     self.restaurantName.text = context.name;
-    self.restaurantRating.text = [NSString stringWithFormat:@"%.2f", [context.rating floatValue]];
+//    self.restaurantRating.text = [NSString stringWithFormat:@"%.2f", [context.rating floatValue]];
     self.restaurantCategory.text = [self stringFromArray:context.cuisines];
-    self.restaurantHighlights.text = context.name;
+//    self.restaurantHighlights.text = context.name;
     self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance)];
     
     self.restaurant = context;
+
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls.firstObject];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *placeholder = [UIImage imageWithData:data];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.actionButtonGroup setBackgroundImage:placeholder];
+        });
+    });
 }
 
 - (void)willActivate {
@@ -50,6 +63,10 @@
     }
     
     return self.restaurant;
+}
+
+- (IBAction)onButton {
+    NSLog(@"xx");
 }
 
 #pragma mark -
