@@ -741,7 +741,7 @@ New York, NY 10014</string>
                                                     <constraint firstItem="xKx-ie-3fb" firstAttribute="leading" secondItem="gcz-Rl-rmq" secondAttribute="trailing" constant="8" id="dOe-4r-GMr"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rc-cj-kSW">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rc-cj-kSW">
                                                 <rect key="frame" x="266" y="10" width="44" height="44"/>
                                                 <color key="backgroundColor" red="0.3213169575" green="0.71965128180000004" blue="0.29948410390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>

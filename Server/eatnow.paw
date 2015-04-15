@@ -118,7 +118,7 @@
     <object type="LMREQUEST" id="z111">
         <attribute name="body" type="string"></attribute>
         <attribute name="uuid" type="string">909F20D3-4C32-4E62-BE9C-FAF334DD9C14</attribute>
-        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638</attribute>
+        <attribute name="url" type="string">["http:\\/\\/dry-fortress-8563.herokuapp.com\\/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638\u2600time=",{"data":{"format":3,"customFormat":"","now":true,"useTSeparator":1,"date":1429045509.018471,"delta":0,"useZForUTC":0},"identifier":"com.luckymarmot.TimestampDynamicValue"}]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -166,7 +166,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"lei\\",\\"restaurantId\\":\\"42f15a80f964a520bb261fe3\\",\\"like\\":\\"1\\",\\"latitude\\":\\"1\\",\\"longitude\\":\\"2\\",\\"distance\\":\\"100\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"lei\\",\\"restaurantId\\":\\"4b0c24fef964a520be3723e3\\",\\"like\\":\\"1\\",\\"latitude\\":\\"1\\",\\"longitude\\":\\"2\\",\\"distance\\":\\"100\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="order" type="int64">7</attribute>
         <attribute name="name" type="string">Select</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>

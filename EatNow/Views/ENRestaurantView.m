@@ -53,7 +53,7 @@
     UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
     ENRestaurantView *view = (ENRestaurantView *)container.view;
     NSParameterAssert([view isKindOfClass:[ENRestaurantView class]]);
-	view.rating.layer.cornerRadius = 10;
+	//view.rating.layer.cornerRadius = 10;
     return view;
 }
 
@@ -76,21 +76,24 @@
     //image
     _currentImageIndex = -1;
     [self loadNextImage];
-    NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", restaurant.ID];
-    [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
-        if (!imageUrls) {
-            ENLogError(@"Failed to parse foursquare %@", restaurant.url);
-            return;
-        }
-		
-        restaurant.imageUrls = imageUrls;
-    }];
-    
+	if (_restaurant.imageUrls.count <= 1) {
+		NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", restaurant.ID];
+		[self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
+			if (!imageUrls) {
+				ENLogError(@"Failed to parse foursquare image %@", restaurant.url);
+				return;
+			}
+			
+			restaurant.imageUrls = imageUrls;
+		}];
+	}
+	
+	
     //UI
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
     self.price.text = restaurant.pricesStr;
-    self.rating.text = [NSString stringWithFormat:@"%ld", (long)restaurant.rating.integerValue];
+    self.rating.text = [NSString stringWithFormat:@"%.0f", round(restaurant.rating.integerValue)];
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];//TODO: add waking time api
     self.openTime.text = restaurant.openInfo;
@@ -269,7 +272,7 @@
 
 - (void)loadNextImage{
     if (self.status == ENRestaurantViewStatusCard && _currentImageIndex != -1) {
-        DDLogVerbose(@"Skip loading next image in card mode");
+		//DDLogVerbose(@"Skip loading next image in card mode");
         return;
     }
     if (_isLoadingImage) {
@@ -369,13 +372,26 @@
 		[info addObject:@{@"type": @"phone",
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-phone-icon",
-						  @"title": self.restaurant.phone}];
+						  @"title": self.restaurant.phone,
+						  @"action": ^{
+			NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",_restaurant.phoneNumber];
+			NSURL *phoneUrl = [NSURL URLWithString:phoneStr];
+			if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+				[[UIApplication sharedApplication] openURL:phoneUrl];
+			}
+		}}];
 	}
 	if (self.restaurant.url) {
 		[info addObject:@{@"type": @"url",
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-web-icon",
-						  @"title": self.restaurant.url}];
+						  @"title": self.restaurant.url,
+						  @"action": ^{
+			NSURL *url = [NSURL URLWithString:_restaurant.url];
+			if ([[UIApplication sharedApplication] canOpenURL:url]) {
+				[[UIApplication sharedApplication] openURL:url];
+			}
+		}}];
 	}
 	if (_restaurant.reviews) {
 		[info addObject:@{@"type": @"reviews",

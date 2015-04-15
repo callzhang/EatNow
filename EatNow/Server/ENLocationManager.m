@@ -83,7 +83,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 		}
 		else if (status == INTULocationStatusError){
 			self.locationStatus = ENLocationStatusError;
-			DDLogWarn(@"Failed location request: %ld", (long)status);
+			if (!currentLocation) {
+				DDLogWarn(@"Failed location request: %ld", (long)status);
+			}
 		}
 		else{
 			self.locationStatus = ENLocationStatusUnknown;

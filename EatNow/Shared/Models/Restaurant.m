@@ -79,6 +79,10 @@
     return [_json valueForKeyPath:@"twitter.facebook"];
 }
 
+- (NSString *)phoneNumber{
+	return [_json valueForKeyPath:@"contact.phone"];
+}
+
 - (BOOL)validate{
     BOOL good = YES;
 	if (!_json) {

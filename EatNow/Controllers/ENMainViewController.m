@@ -103,7 +103,6 @@
                     break;
 				case ENLocationStatusError:
 					self.loadingInfo.text = @"Failed to get location";
-					ENLogError(@"Failed to get location");
                 default:
                     break;
             }
@@ -269,7 +268,7 @@
 	}
     if (self.frontCardView) {
         ENRestaurantView *frontCard = self.frontCardView;
-        DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
+		//DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
         //remove snap
         if (frontCard.snap) {
             [_animator removeBehavior:frontCard.snap];

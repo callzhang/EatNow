@@ -38,6 +38,7 @@
 @property (nonatomic, strong) NSNumber *reviews;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *phone;
+@property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSNumber *score;
 @property (nonatomic, strong) NSDictionary *json;
