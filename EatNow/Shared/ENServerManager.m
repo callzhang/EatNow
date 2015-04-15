@@ -24,16 +24,7 @@
 
 
 @implementation ENServerManager
-//+ (instancetype)sharedInstance{
-//    static ENServerManager *manager;
-//    if (!manager) {
-//        static dispatch_once_t onceToken;
-//        dispatch_once(&onceToken, ^{
-//            manager = [ENServerManager new];
-//        });
-//    }
-//    return manager;
-//}
+GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 - (ENServerManager *)init{
     self = [super init];
@@ -44,33 +35,6 @@
         
         //indicator
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-		
-        /**
-		//reachability
-		self.reachability = [AFNetworkReachabilityManager sharedManager];
-		[self.reachability startMonitoring];
-		__block ENServerManager *weakManager = self;
-		[self.reachability setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-			switch (status) {
-				case AFNetworkReachabilityStatusUnknown:{
-					weakManager.status |= DeterminReachability;
-					weakManager.status &= ~IsReachable;
-				}
-					break;
-				case AFNetworkReachabilityStatusNotReachable:{
-					weakManager.status &= ~DeterminReachability;
-					weakManager.status &= ~IsReachable;
-				}
-					break;
-
-				default:{
-					weakManager.status &= ~DeterminReachability;
-					weakManager.status |= IsReachable;
-				}
-					break;
-			}
-		}];
-         **/
     }
     return self;
 }
@@ -96,7 +60,8 @@
     NSString *myID = [[self class] myUUID];
     NSDictionary *dic = @{@"username":myID,
                           @"latitude":@(currenLocation.coordinate.latitude),
-                          @"longitude":@(currenLocation.coordinate.longitude)//,
+                          @"longitude":@(currenLocation.coordinate.longitude),
+						  @"time": [NSDate date].ISO8601
                           //@"radius":@500
                           };
     DDLogInfo(@"Request restaurant: %@", dic);
@@ -199,6 +164,12 @@
 }
 
 - (void)selectRestaurant:(Restaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block{
+	NSParameterAssert(!self.selectedRestaurant);
+	if (value > 0) {
+		self.selectedRestaurant = restaurant;
+		self.selectedTime = [NSDate date];
+	}
+	
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -222,6 +193,25 @@
         DDLogError(s);
     }];
 }
+
+- (BOOL)canSelectNewRestaurant{
+	if (self.selectedRestaurant) {
+		if ([[NSDate date] timeIntervalSinceDate:self.selectedTime] < kMaxSelectedRestaurantRetainTime) {
+			return NO;
+		}
+		else{
+			[self clearSelectedRestaurant];
+		}
+	}
+	return YES;
+}
+
+- (void)clearSelectedRestaurant{
+	self.selectedRestaurant = nil;
+	self.selectedTime = nil;
+}
+
+#pragma mark - Tools
 
 + (NSString *)myUUID{
     NSString *myID = [[NSUserDefaults standardUserDefaults] objectForKey:kUUID];

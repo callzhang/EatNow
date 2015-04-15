@@ -28,7 +28,7 @@ void ENLogError(NSString *fmt,...){
 	contents = [[NSString alloc] initWithFormat:fmt arguments:args];
 	va_end(args);
 #ifdef DEBUG
-	[ENUtil showWarningHUBWithString:@"Location error"];
+	ENAlert(contents);
 #endif
 	DDLogError(contents);
 }

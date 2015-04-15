@@ -79,7 +79,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.locationManager = [ENLocationManager new];
-    self.serverManager = [ENServerManager new];
+    self.serverManager = [ENServerManager shared];
     self.restaurantCards = [NSMutableArray array];
     
     //Dynamics
@@ -224,38 +224,38 @@
     // Display cards animated
 	NSUInteger restaurantCount = _restaurants.count;
     for (NSInteger i = 1; i <= restaurantCount; i++) {
-        ENRestaurantView *card;
-        if (i > kMaxCardsToAnimate){
-            card = [self popResuturantViewWithFrame:self.cardViewFrame];
-        } else {
-            card = [self popResuturantViewWithFrame:self.initialCardFrame];
-        }
-        NSParameterAssert(card);
-        if (i <= kMaxCardsToAnimate) {
-            float delay = (kMaxCardsToAnimate - i) * 0.1;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSLog(@"Poping %@th card: %@", @(i), card.restaurant.name);
-                [self.view addSubview:card];
+		//insert card
+        ENRestaurantView *card = [self popResuturantViewWithFrame:self.cardViewFrame];
+		if (i==1) {
+			DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
+			[self.view addSubview:card];
+			[card addGestureRecognizer:self.panGesture];
+			[card.imageView addGestureRecognizer:self.tapGesture];
+			[card didChangedToFrontCard];
+		} else{
+			//insert behind previous card
+			UIView *previousCard = self.restaurantCards[i-2];
+			NSParameterAssert(previousCard.superview);
+			[self.view insertSubview:card belowSubview:previousCard];
+		}
+		//animate
+		if (i <= kMaxCardsToAnimate){
+			//animate
+			float delay = (kMaxCardsToAnimate - i) * 0.1;
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
 				[self snapCardToCenter:card];
-				//add pan gesture
-				if (i == 1) {
-					[card addGestureRecognizer:self.panGesture];
-					[card addGestureRecognizer:self.tapGesture];
-					[card didChangedToFrontCard];
-				}
-            });
-        }else{
-            float delay = i * 0.1;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSLog(@"Poping %@th card: %@", @(i), card.restaurant.name);
-                UIView *previousCard = self.restaurantCards[i-2];
-                NSParameterAssert(previousCard.superview);
-                [self.view insertSubview:card belowSubview:previousCard];
-            });
-        }
+			});
+		}else {
+			float delay = i * 0.1;
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((delay + 2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
+				card.frame = [self cardViewFrame];
+			});
+		}
     }
 	
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(restaurantCount * 0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((restaurantCount * 0.1 +2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		_isShowingCards = NO;
 	});
 }
@@ -286,9 +286,9 @@
         
         //add pan gesture to next
         [frontCard removeGestureRecognizer:self.panGesture];
-		[frontCard removeGestureRecognizer:self.tapGesture];
+		[frontCard.imageView removeGestureRecognizer:self.tapGesture];
         [self.frontCardView addGestureRecognizer:self.panGesture];
-		[self.frontCardView addGestureRecognizer:self.tapGesture];
+		[self.frontCardView.imageView addGestureRecognizer:self.tapGesture];
         
         //notify next card
         [self.frontCardView didChangedToFrontCard];
@@ -311,14 +311,14 @@
     if (self.frontCardView.status == ENRestaurantViewStatusCard) {
         [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailViewFrame];
         [self.frontCardView removeGestureRecognizer:self.panGesture];
-		[self.frontCardView removeGestureRecognizer:self.tapGesture];
+		//[self.frontCardView removeGestureRecognizer:self.tapGesture];
 		[UIView animateWithDuration:0.3 animations:^{
 			self.closeButton.alpha = 1;
 		}];
     } else {
         [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame];
 		[self.frontCardView addGestureRecognizer:self.panGesture];
-		[self.frontCardView addGestureRecognizer:self.tapGesture];
+		//[self.frontCardView addGestureRecognizer:self.tapGesture];
 		[UIView animateWithDuration:0.3 animations:^{
 			self.closeButton.alpha = 0;
 		}];

@@ -11,6 +11,7 @@
 
 #define kRestaurantViewImageChangedNotification     @"restaurant_view_image_changed"
 #define kSelectedRestaurantNotification				@"selected_restaurant"
+
 typedef void (^VoidBlock)();
 
 typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
@@ -19,6 +20,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 };
 
 @interface ENRestaurantView : UIView
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, assign) ENRestaurantViewStatus status;
 @property (nonatomic, weak) UISnapBehavior *snap;

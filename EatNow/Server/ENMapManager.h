@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Restaurant.h"
 @import MapKit;
 @interface ENMapManager : NSObject<MKMapViewDelegate>
 
@@ -18,6 +19,10 @@
 
 - (void)estimatedWalkingTimeToLocation:(CLLocation *)location completion:(void (^)(NSTimeInterval length, NSError *error))block;
 
-- (void)routeToLocation:(CLLocation *)location repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block;
+- (void)routeToRestaurant:(Restaurant *)restaurant repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block;
+
+
+- (void)addAnnotationForRestaurant:(Restaurant *)restaurant;
+
 - (void)cancelRouting;
 @end

@@ -60,7 +60,7 @@
 }
 
 - (void)startRoute{
-	[self.mapManager routeToLocation:_restaurant.location repeat:15 completion:^(NSTimeInterval length, NSError *error) {
+	[self.mapManager routeToRestaurant:_restaurant repeat:15 completion:^(NSTimeInterval length, NSError *error) {
         if (error) {
             ENLogError(@"Failed to route to restaurant %@", _restaurant.name);
         }

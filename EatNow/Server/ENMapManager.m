@@ -10,6 +10,7 @@
 #import "ENUtil.h"
 #import "ENLocationManager.h"
 #import "NSTimer+BlocksKit.h"
+@import AddressBook;
 
 @interface ENMapManager()
 @property (nonatomic, weak) MKMapView *map;
@@ -78,9 +79,15 @@
 }
 
 #pragma mark - MAP management
-- (void)routeToLocation:(CLLocation *)location repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block{
+- (void)routeToRestaurant:(Restaurant *)restaurant repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block{
     [_repeatTimer invalidate];
-    [self findDirectionsTo:location completion:^(MKDirectionsResponse *response, NSError *error) {
+	CLLocation *destination = restaurant.location;
+	
+	if (self.map.annotations.count == 0) {
+		[self addAnnotationForRestaurant:restaurant];
+	}
+	
+    [self findDirectionsTo:destination completion:^(MKDirectionsResponse *response, NSError *error) {
         CLLocation *origin = [ENLocationManager cachedCurrentLocation];
         
         if (!response) {
@@ -101,8 +108,8 @@
                 self.firstTimeRoute = NO;
                 //change region
                 CLLocationCoordinate2D from = origin.coordinate;
-                CLLocation *center = [[CLLocation alloc] initWithLatitude:(from.latitude + location.coordinate.latitude)/2 longitude:(from.longitude + location.coordinate.longitude)/2];
-                MKCoordinateSpan span = MKCoordinateSpanMake(fabs(from.latitude - location.coordinate.latitude)*1.5, fabs(from.longitude - location.coordinate.longitude)*1.5);
+                CLLocation *center = [[CLLocation alloc] initWithLatitude:(from.latitude + destination.coordinate.latitude)/2 longitude:(from.longitude + destination.coordinate.longitude)/2];
+                MKCoordinateSpan span = MKCoordinateSpanMake(fabs(from.latitude - destination.coordinate.latitude)*1.5, fabs(from.longitude - destination.coordinate.longitude)*1.5);
                 [self.map setRegion:MKCoordinateRegionMake(center.coordinate, span) animated:YES];
             }
             
@@ -113,12 +120,23 @@
             if (updateInterval > 0) {
                 _repeatTimer = [NSTimer bk_scheduledTimerWithTimeInterval:updateInterval block:^(NSTimer *timer) {
                     [[ENLocationManager shared] getLocationWithCompletion:^(CLLocation *loc) {
-                        [self routeToLocation:location repeat:updateInterval completion:block];
+                        [self routeToRestaurant:restaurant repeat:updateInterval completion:block];
                     } forece:YES];
                 } repeats:NO];
             }
         }
     }];
+}
+
+- (void)addAnnotationForRestaurant:(Restaurant *)restaurant{
+	//add annotation
+	[self.map removeAnnotations:_map.annotations];
+	MKPointAnnotation *destinationAnnotation = [[MKPointAnnotation alloc] init];
+	destinationAnnotation.coordinate = restaurant.location.coordinate;
+	destinationAnnotation.title = restaurant.name;
+	destinationAnnotation.subtitle = restaurant.placemark.addressDictionary[(__bridge NSString *) kABPersonAddressStreetKey];
+	[self.map addAnnotation:destinationAnnotation];
+	[self.map selectAnnotation:destinationAnnotation animated:YES];
 }
 
 - (void)cancelRouting{

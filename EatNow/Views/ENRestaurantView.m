@@ -14,6 +14,7 @@
 #import "NSTimer+BlocksKit.h"
 #import "ENMapViewController.h"
 #import "ENMapManager.h"
+#import "UIAlertView+BlocksKit.h"
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
@@ -25,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *cuisine;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *openTime;
 @property (weak, nonatomic) IBOutlet UILabel *walkingDistance;
@@ -94,6 +94,9 @@
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];//TODO: add waking time api
     self.openTime.text = restaurant.openInfo;
+	
+	//go button
+	[self updateGoButton];
 }
 
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame{
@@ -124,32 +127,73 @@
 
 #pragma mark - UI
 - (IBAction)go:(id)sender {
+	if ([ENServerManager shared].selectedRestaurant == _restaurant) {
+		//cancel
+		//ENAlert(@"Need cancel API! Using dislike API for now.");
+		[[ENServerManager shared] clearSelectedRestaurant];
+		[[ENServerManager shared] selectRestaurant:_restaurant like:-1 completion:^(NSError *error) {
+			if (error) {
+				ENLogError(error.localizedDescription);
+				[ENUtil showFailureHUBWithString:@"failed"];
+			}else{
+				DDLogInfo(@"Disliked %@", _restaurant.name);
+				[self updateGoButton];
+			}
+		}];
+		return;
+	}
+	if (![ENServerManager shared].canSelectNewRestaurant) {
+		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", _restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes, I changed my mind."] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+			if (buttonIndex == 1) {
+				[[ENServerManager shared] clearSelectedRestaurant];
+				[self go:nil];
+			}
+		}];
+		return;
+	}
+	
+	//select
+	[[ENServerManager shared] selectRestaurant:_restaurant like:1 completion:^(NSError *error) {
+		if (error) {
+			ENLogError(error.localizedDescription);
+			[ENUtil showFailureHUBWithString:@"failed"];
+		}else{
+			DDLogInfo(@"Selected %@", _restaurant.name);
+		}
+	}];
+	
+	//map
     if (self.map.frame.size.height == 0) {
         [self toggleMap:nil];
     }
     
-    [self.mapManager routeToLocation:_restaurant.location repeat:10 completion:^(NSTimeInterval length, NSError *error) {
-        self.walkingDistance.text = [NSString stringWithFormat:@"%@ Min Walking", @(length/60)];
+    [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
+        self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
     }];
+	
+	//button
+	[self updateGoButton];
 }
 
 - (IBAction)toggleMap:(id)sender{
     if (self.map.frame.size.height == 0) {
         //show
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+		self.map.hidden = NO;
+        [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             CGFloat tableHeight = self.tableView.frame.size.height;
             self.mapHeight.constant = tableHeight;
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
-            //
+			[self.mapManager addAnnotationForRestaurant:_restaurant];
         }];
     }else{
         //hide
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.mapHeight.constant = 0;
             [self layoutIfNeeded];
         } completion:^(BOOL finished) {
             [self.mapManager cancelRouting];
+			self.map.hidden = YES;
         }];
     }
 }
@@ -179,6 +223,16 @@
         self.pageControl.alpha = 1;
         self.goButton.alpha = 1;
     }
+}
+
+- (void)updateGoButton{
+	
+	if ([ENServerManager shared].selectedRestaurant == _restaurant) {
+		[self.goButton setImage:[UIImage imageNamed:@"eat-now-card-details-view-cancel-button"] forState:UIControlStateNormal];
+	}
+	else{
+		[self.goButton setImage:[UIImage imageNamed:@"eatnew-card-details-view-go-button"] forState:UIControlStateNormal];
+	}
 }
 
 #pragma mark - Private

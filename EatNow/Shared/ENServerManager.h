@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 modocache. All rights reserved.
 //
 
+#define kMaxSelectedRestaurantRetainTime			3600
 #define kSearchUrl                  @"http://dry-fortress-8563.herokuapp.com/search"
 #define kUserUrl                    @"http://dry-fortress-8563.herokuapp.com/user/"
 #define kEatUrl                     @"http://dry-fortress-8563.herokuapp.com/select"
@@ -17,18 +18,26 @@
 #import "ENDefines.h"
 #import "Restaurant.h"
 #import "ENServer.h"
+#import "GCDSingleton.h"
 
 @class CLLocation;
 @interface ENServerManager : NSObject
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, assign) ENResturantDataStatus fetchStatus;
+@property (nonatomic, strong) Restaurant *selectedRestaurant;
+@property (nonatomic, strong) NSDate *selectedTime;
 
-//+ (instancetype)sharedInstance;
+//We still need Singleton as it stores shared information
+GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 
 //functions
 //- (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
 - (void)selectRestaurant:(Restaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block;
 - (void)getRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
+
+//select restaurant
+- (BOOL)canSelectNewRestaurant;
+- (void)clearSelectedRestaurant;
 @end
