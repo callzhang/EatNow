@@ -11,6 +11,7 @@
 
 #define kRestaurantViewImageChangedNotification     @"restaurant_view_image_changed"
 #define kSelectedRestaurantNotification				@"selected_restaurant"
+typedef void (^VoidBlock)();
 
 typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
     ENRestaurantViewStatusCard,

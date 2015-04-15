@@ -13,6 +13,7 @@
 #import "FBKVOController.h"
 #import "NSTimer+BlocksKit.h"
 #import "ENMapViewController.h"
+#import "ENMapManager.h"
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
@@ -33,13 +34,17 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIView *card;
 @property (weak, nonatomic) IBOutlet UIButton *goButton;
+@property (weak, nonatomic) IBOutlet MKMapView *map;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapHeight;
+
 
 //internal
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) BOOL isLoadingImage;
+@property (nonatomic, strong) ENMapManager *mapManager;
 @end
 
 
@@ -48,22 +53,28 @@
     UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
     ENRestaurantView *view = (ENRestaurantView *)container.view;
     NSParameterAssert([view isKindOfClass:[ENRestaurantView class]]);
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		view.rating.layer.cornerRadius = 10;
-	});
+	view.rating.layer.cornerRadius = 10;
     return view;
 }
 
 //initialization method
 - (void)setRestaurant:(Restaurant *)restaurant{
 	_restaurant = restaurant;
+    //table view data
 	[self prepareData];
 	
-    _currentImageIndex = -1;
-	
+	//update view
     self.status = ENRestaurantViewStatusCard;
     [self updateLayoutConstraintValue];
     
+    //map
+    self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
+    self.map.region = MKCoordinateRegionMakeWithDistance(_restaurant.location.coordinate, 1000, 1000);
+    self.map.showsUserLocation = YES;
+    self.map.delegate = _mapManager;
+    
+    //image
+    _currentImageIndex = -1;
     [self loadNextImage];
     NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", restaurant.ID];
     [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
@@ -75,6 +86,7 @@
         restaurant.imageUrls = imageUrls;
     }];
     
+    //UI
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineStr;
     self.price.text = restaurant.pricesStr;
@@ -98,6 +110,10 @@
             } repeats:NO];
         }
     }];
+    
+    if (status == ENRestaurantViewStatusCard && self.map.frame.size.height > 0) {
+        [self toggleMap:nil];
+    }
 }
 
 - (void)didChangedToFrontCard{
@@ -108,13 +124,36 @@
 
 #pragma mark - UI
 - (IBAction)go:(id)sender {
-	[[ENServerManager new] selectRestaurant:_restaurant like:1 completion:^(NSError *error) {
-		[ENUtil showSuccessHUBWithString:@"Good choice"];
-	}];
-	[[NSNotificationCenter defaultCenter] postNotificationName:kSelectedRestaurantNotification object:_restaurant];
+    if (self.map.frame.size.height == 0) {
+        [self toggleMap:nil];
+    }
+    
+    [self.mapManager routeToLocation:_restaurant.location repeat:10 completion:^(NSTimeInterval length, NSError *error) {
+        self.walkingDistance.text = [NSString stringWithFormat:@"%@ Min Walking", @(length/60)];
+    }];
 }
 
-#pragma mark - Private
+- (IBAction)toggleMap:(id)sender{
+    if (self.map.frame.size.height == 0) {
+        //show
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            CGFloat tableHeight = self.tableView.frame.size.height;
+            self.mapHeight.constant = tableHeight;
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            //
+        }];
+    }else{
+        //hide
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.mapHeight.constant = 0;
+            [self layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            [self.mapManager cancelRouting];
+        }];
+    }
+}
+
 - (void)updateLayoutConstraintValue{
     //radio
     float multiplier = self.status == ENRestaurantViewStatusCard ? 1:0.45;
@@ -133,14 +172,16 @@
             self.openInfo.alpha = 1;
         }
         self.pageControl.alpha = 0;
-		self.goButton.alpha = 0;
+        self.goButton.alpha = 0;
     }else{
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
-		self.pageControl.alpha = 1;
-		self.goButton.alpha = 1;
+        self.pageControl.alpha = 1;
+        self.goButton.alpha = 1;
     }
 }
+
+#pragma mark - Private
 
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
     NSURL *url = [NSURL URLWithString:urlString];
@@ -261,7 +302,7 @@
 						  @"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000],
                           @"action": ^{
             //action to open map
-            
+            [self toggleMap:nil];
         }}];
 	}
 	if (self.restaurant.openInfo) {
@@ -286,7 +327,7 @@
 		[info addObject:@{@"type": @"reviews",
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-twitter-icon",
-						  @"title": [NSString stringWithFormat:@"%@ reviews available for this restaurant", _restaurant.reviews],
+						  @"title": [NSString stringWithFormat:@"%@ tips", _restaurant.reviews],
                           @"accessory": @"disclosure"}];
 	}
 	
@@ -304,8 +345,25 @@
 	cell.textLabel.text = info[@"title"];
 	if (info[@"detail"]) cell.detailTextLabel.text = info[@"detail"];
 	cell.imageView.image = [UIImage imageNamed:info[@"image"]];
-
+    if (info[@"accessory"]) {
+        if ([info[@"accessory"] isEqualToString:@"disclosure"]) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+    }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *info = self.restautantInfo[indexPath.row];
+    VoidBlock action = info[@"action"];
+    if (action) {
+        action();
+    }
+    
+    //deselect
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    });
 }
 
 @end

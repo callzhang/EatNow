@@ -16,8 +16,6 @@
 @interface ENMapViewController ()<MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) MKPlacemark *destination;
-@property (nonatomic, assign) BOOL firstTimeShowRoute;
-@property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENMapManager *mapManager;
 @end
 
@@ -33,8 +31,6 @@
     CLLocationCoordinate2D centerCoordinate = [ENLocationManager cachedCurrentLocation].coordinate;
     self.mapView.region = MKCoordinateRegionMakeWithDistance(centerCoordinate, 1000, 1000);
     self.mapView.showsUserLocation = YES;
-	_firstTimeShowRoute = YES;
-	_locationManager = [ENLocationManager shared];
     _mapManager = [[ENMapManager alloc] initWithMap:self.mapView];
     self.mapView.delegate = _mapManager;
 }

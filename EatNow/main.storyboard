@@ -526,7 +526,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="160" id="Zg0-Sm-FPg"/>
                                         </constraints>
-                                        <inset key="scrollIndicatorInsets" minX="0.0" minY="50" maxX="0.0" maxY="0.0"/>
+                                        <inset key="scrollIndicatorInsets" minX="0.0" minY="100" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="mapCell" textLabel="Pz4-Au-DhX" detailTextLabel="ZqA-Y7-OfX" imageView="zma-xC-sKu" rowHeight="80" style="IBUITableViewCellStyleSubtitle" id="Qcq-ex-0P7">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
@@ -707,8 +707,8 @@ New York, NY 10014</string>
                                                 <rect key="frame" x="142" y="83" width="37" height="37"/>
                                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             </activityIndicatorView>
-                                            <view alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uVW-6x-hlL" userLabel="Open">
-                                                <rect key="frame" x="8" y="109" width="304" height="44"/>
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uVW-6x-hlL" userLabel="Open">
+                                                <rect key="frame" x="8" y="107" width="304" height="44"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open until 11:00 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKx-ie-3fb">
                                                         <rect key="frame" x="52" y="0.0" width="252" height="44"/>
@@ -741,8 +741,8 @@ New York, NY 10014</string>
                                                     <constraint firstItem="xKx-ie-3fb" firstAttribute="leading" secondItem="gcz-Rl-rmq" secondAttribute="trailing" constant="8" id="dOe-4r-GMr"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="9.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rc-cj-kSW">
-                                                <rect key="frame" x="268" y="8" width="44" height="44"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rc-cj-kSW">
+                                                <rect key="frame" x="266" y="10" width="44" height="44"/>
                                                 <color key="backgroundColor" red="0.3213169575" green="0.71965128180000004" blue="0.29948410390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="Wrm-wG-uz6"/>
@@ -786,8 +786,39 @@ New York, NY 10014</string>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="zhW-hf-ci6"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcM-Kx-ZZ9" userLabel="going">
-                                        <rect key="frame" x="85" y="394" width="150" height="42"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efH-oA-dNi" userLabel="map">
+                                        <rect key="frame" x="0.0" y="450" width="320" height="0.0"/>
+                                        <subviews>
+                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7Cc-bS-Gj5">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="0.0"/>
+                                            </mapView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DtZ-ag-kjJ" userLabel="closeMap">
+                                                <rect key="frame" x="265" y="0.0" width="55" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="39g-6O-glx"/>
+                                                    <constraint firstAttribute="width" constant="55" id="6y6-Rk-al7"/>
+                                                </constraints>
+                                                <state key="normal" image="eat-now-close-button">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="toggleMap:" destination="Rlz-6w-TNj" eventType="touchUpInside" id="Ifb-Bb-bHx"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="DtZ-ag-kjJ" firstAttribute="top" secondItem="efH-oA-dNi" secondAttribute="top" id="7DN-M9-Vu5"/>
+                                            <constraint firstAttribute="bottom" secondItem="7Cc-bS-Gj5" secondAttribute="bottom" id="BLy-Fn-J4R"/>
+                                            <constraint firstAttribute="height" id="DaO-u5-kdB"/>
+                                            <constraint firstAttribute="trailing" secondItem="7Cc-bS-Gj5" secondAttribute="trailing" id="Rf1-9u-b1i"/>
+                                            <constraint firstAttribute="trailing" secondItem="DtZ-ag-kjJ" secondAttribute="trailing" id="abO-Ld-kus"/>
+                                            <constraint firstItem="7Cc-bS-Gj5" firstAttribute="leading" secondItem="efH-oA-dNi" secondAttribute="leading" id="bMK-Wt-kwo"/>
+                                            <constraint firstItem="7Cc-bS-Gj5" firstAttribute="top" secondItem="efH-oA-dNi" secondAttribute="top" id="gSN-PR-x3r"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcM-Kx-ZZ9" userLabel="going">
+                                        <rect key="frame" x="85" y="392" width="150" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="0bo-7U-3s3"/>
                                             <constraint firstAttribute="height" constant="42" id="xmF-ib-AAo"/>
@@ -805,16 +836,19 @@ New York, NY 10014</string>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="1te-XH-USY"/>
                                     <constraint firstItem="GcM-Kx-ZZ9" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" constant="85" id="6f6-Od-BBi"/>
                                     <constraint firstAttribute="bottom" secondItem="ElG-By-adf" secondAttribute="bottom" id="7YF-Zh-c5a"/>
+                                    <constraint firstItem="efH-oA-dNi" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="8dN-d6-Bnw"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="Bb2-PM-N74"/>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="top" secondItem="H4b-9y-85a" secondAttribute="top" id="Bjb-ul-iib"/>
                                     <constraint firstAttribute="bottom" secondItem="GcM-Kx-ZZ9" secondAttribute="bottom" constant="16" id="MU9-oB-AeI"/>
                                     <constraint firstAttribute="trailing" secondItem="ElG-By-adf" secondAttribute="trailing" id="PJi-6A-tSw"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="bottom" id="SPK-sJ-D5P"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="ZCU-XY-LPQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="efH-oA-dNi" secondAttribute="bottom" id="aV4-QS-wmO"/>
                                     <constraint firstAttribute="trailing" secondItem="fsH-Ee-d2j" secondAttribute="trailing" id="isH-e0-e62"/>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="height" secondItem="H4b-9y-85a" secondAttribute="height" multiplier="0.45" priority="900" id="jGo-xL-n5F"/>
                                     <constraint firstAttribute="trailing" secondItem="GcM-Kx-ZZ9" secondAttribute="trailing" constant="85" id="kdP-5b-8rn"/>
                                     <constraint firstAttribute="centerX" secondItem="GcM-Kx-ZZ9" secondAttribute="centerX" id="qxI-LY-PC2"/>
+                                    <constraint firstAttribute="trailing" secondItem="efH-oA-dNi" secondAttribute="trailing" id="zDm-nX-6V1"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -845,6 +879,8 @@ New York, NY 10014</string>
                             <outlet property="imageView" destination="cy3-AH-BuV" id="tWw-pa-DBE"/>
                             <outlet property="infoHightRatio" destination="jGo-xL-n5F" id="xL4-Vh-E1N"/>
                             <outlet property="loading" destination="3xH-uo-hHt" id="0Pp-G7-Vub"/>
+                            <outlet property="map" destination="7Cc-bS-Gj5" id="Cs3-ph-Bob"/>
+                            <outlet property="mapHeight" destination="DaO-u5-kdB" id="Z3x-ML-f0D"/>
                             <outlet property="name" destination="Wt9-vs-bTu" id="xvc-cN-Jo4"/>
                             <outlet property="openInfo" destination="uVW-6x-hlL" id="ywR-f8-LOW"/>
                             <outlet property="openTime" destination="xKx-ie-3fb" id="P0k-hx-UAA"/>
