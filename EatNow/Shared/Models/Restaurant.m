@@ -71,6 +71,14 @@
 	return [_json valueForKeyPath:@"stats.tipCount"];
 }
 
+- (NSString *)twitter{
+    return [_json valueForKeyPath:@"twitter.twitter"];
+}
+
+- (NSString *)facebook{
+    return [_json valueForKeyPath:@"twitter.facebook"];
+}
+
 - (BOOL)validate{
     BOOL good = YES;
 	if (!_json) {

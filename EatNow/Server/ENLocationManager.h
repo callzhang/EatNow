@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "ENServer.h"
 #import "INTULocationManager.h"
+#import "GCDSingleton.h"
 
 @interface ENLocationManager : NSObject
 @property (nonatomic, assign) ENLocationStatus locationStatus;
-
+GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENLocationManager)
 - (void)getLocationWithCompletion:(void (^)(CLLocation *location))completion;
 - (void)getLocationWithCompletion:(void (^)(CLLocation *location))completion forece:(BOOL)forceUpdate;
 

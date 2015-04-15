@@ -21,6 +21,7 @@ static void (^_locationDeniedHanlder)(void) = nil;
 @end
 
 @implementation ENLocationManager
+GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 - (instancetype)init {
     self = [super init];
     if (self) {

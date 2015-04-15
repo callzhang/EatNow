@@ -45,6 +45,8 @@
 @property (nonatomic, strong) NSString *openInfo;
 @property (nonatomic, strong) NSNumber* distance;
 @property (nonatomic, assign) NSTimeInterval walkDuration;
+@property (nonatomic, strong) NSString *twitter;
+@property (nonatomic, strong) NSString *facebook;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
 - (BOOL)validate;

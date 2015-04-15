@@ -183,9 +183,6 @@
     }
     if (_restaurant.imageUrls.count == 1 && self.imageView.image) {
         DDLogVerbose(@"Only one image, skip");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self loadNextImage];
-        });
         return;
     }
     
@@ -246,9 +243,8 @@
     
     //start next
     if (self.status == ENRestaurantViewStatusDetail) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self loadNextImage];
-        });
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadNextImage) object:nil];
+        [self performSelector:@selector(loadNextImage) withObject:nil afterDelay:5];
     }
     
 }
@@ -262,7 +258,11 @@
 						  @"cellID": @"mapCell",
 						  @"image": @"eat-now-card-details-view-map-icon",
 						  @"title": _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey],
-						  @"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000]}];
+						  @"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000],
+                          @"action": ^{
+            //action to open map
+            
+        }}];
 	}
 	if (self.restaurant.openInfo) {
 		[info addObject:@{@"type": @"address",
@@ -286,7 +286,8 @@
 		[info addObject:@{@"type": @"reviews",
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-twitter-icon",
-						  @"title": [NSString stringWithFormat:@"%@ reviews available for this restaurant", _restaurant.reviews]}];
+						  @"title": [NSString stringWithFormat:@"%@ reviews available for this restaurant", _restaurant.reviews],
+                          @"accessory": @"disclosure"}];
 	}
 	
 	self.restautantInfo = info.copy;

@@ -8,11 +8,16 @@
 
 #import <Foundation/Foundation.h>
 @import MapKit;
-@interface ENMapManager : NSObject
+@interface ENMapManager : NSObject<MKMapViewDelegate>
+
+- (instancetype)initWithMap:(MKMapView *)map;
 
 - (void)findDirectionsTo:(CLLocation *)location completion:(void (^)(MKDirectionsResponse *response, NSError *error))block;
 
 - (void)findDirectionsFrom:(MKMapItem *)source to:(MKMapItem *)destination completion:(void (^)(MKDirectionsResponse *response, NSError *error))block;
 
 - (void)estimatedWalkingTimeToLocation:(CLLocation *)location completion:(void (^)(NSTimeInterval length, NSError *error))block;
+
+- (void)routeToLocation:(CLLocation *)location repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block;
+- (void)cancelRouting;
 @end

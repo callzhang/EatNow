@@ -8,13 +8,25 @@
 
 #import "ENMapManager.h"
 #import "ENUtil.h"
-//#import "ENServerManager.h"
-//#import "INTULocationManager.h"
 #import "ENLocationManager.h"
-//@import AddressBook;
+#import "NSTimer+BlocksKit.h"
 
+@interface ENMapManager()
+@property (nonatomic, weak) MKMapView *map;
+@property (nonatomic, strong) NSTimer *repeatTimer;
+@property (nonatomic, assign) BOOL firstTimeRoute;
+@end
 
 @implementation ENMapManager
+- (instancetype)initWithMap:(MKMapView *)map{
+    self = [super init];
+    if (self) {
+        self.map = map;
+        self.firstTimeRoute = YES;
+    }
+    return self;
+}
+
 - (void)findDirectionsTo:(CLLocation *)location completion:(void (^)(MKDirectionsResponse *response, NSError *error))block{
 	CLLocation *currentLocation = [ENLocationManager cachedCurrentLocation];
 	if (currentLocation) {
@@ -64,4 +76,65 @@
 		}
 	}];
 }
+
+#pragma mark - MAP management
+- (void)routeToLocation:(CLLocation *)location repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block{
+    [_repeatTimer invalidate];
+    [self findDirectionsTo:location completion:^(MKDirectionsResponse *response, NSError *error) {
+        CLLocation *origin = [ENLocationManager cachedCurrentLocation];
+        
+        if (!response) {
+            //[ENUtil showFailureHUBWithString:@"Please retry"];
+            DDLogError(@"error:%@", error);
+            if (block) {
+                block(-1, error);
+            }
+        }
+        else {
+            
+            //add overlay
+            MKRoute *route = response.routes[0];
+            [self.map removeOverlays:_map.overlays];
+            [self.map addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+            
+            if (self.firstTimeRoute) {
+                self.firstTimeRoute = NO;
+                //change region
+                CLLocationCoordinate2D from = origin.coordinate;
+                CLLocation *center = [[CLLocation alloc] initWithLatitude:(from.latitude + location.coordinate.latitude)/2 longitude:(from.longitude + location.coordinate.longitude)/2];
+                MKCoordinateSpan span = MKCoordinateSpanMake(fabs(from.latitude - location.coordinate.latitude)*1.5, fabs(from.longitude - location.coordinate.longitude)*1.5);
+                [self.map setRegion:MKCoordinateRegionMake(center.coordinate, span) animated:YES];
+            }
+            
+            if (block) {
+                block(route.expectedTravelTime, error);
+            }
+            
+            if (updateInterval > 0) {
+                _repeatTimer = [NSTimer bk_scheduledTimerWithTimeInterval:updateInterval block:^(NSTimer *timer) {
+                    [[ENLocationManager shared] getLocationWithCompletion:^(CLLocation *loc) {
+                        [self routeToLocation:location repeat:updateInterval completion:block];
+                    } forece:YES];
+                } repeats:NO];
+            }
+        }
+    }];
+}
+
+- (void)cancelRouting{
+    [_repeatTimer invalidate];
+}
+
+
+#pragma mark - MKMapViewDelegate
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+{
+    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+    renderer.lineWidth = 10.0;
+    renderer.strokeColor = [UIColor colorWithRed:0.224 green:0.724 blue:1.000 alpha:0.800];
+    renderer.fillColor = [UIColor blueColor];
+    return renderer;
+}
+
 @end
