@@ -211,6 +211,24 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 	self.selectedTime = nil;
 }
 
+- (void)updateRestaurant:(Restaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *))block{
+	AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+	manager.requestSerializer = [AFJSONRequestSerializer serializer];
+	
+	//DDLogVerbose(@"update restaurant(%@): %@", restaurant.ID, dic);
+	NSParameterAssert([dic.allKeys containsObject:@"img_url"]);
+	NSParameterAssert([dic[@"img_url"] isKindOfClass:[NSArray class]]);
+	NSString *url = [NSString stringWithFormat:@"%@%@/%@",kServerUrl, @"restaurant", restaurant.ID];
+	[manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		if(block) block(nil);
+		
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		if(block) block(error);
+		DDLogError(error.localizedDescription);
+	}];
+
+}
+
 #pragma mark - Tools
 
 + (NSString *)myUUID{

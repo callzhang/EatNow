@@ -32,6 +32,7 @@ void ENLogError(NSString *fmt, ...);
 //HUD
 @property (nonatomic, strong) NSMutableArray *HUDs;
 + (JGProgressHUD *)showWatingHUB;
++ (JGProgressHUD *)showText:(NSString *)string;
 + (JGProgressHUD *)showSuccessHUBWithString:(NSString *)string;
 + (JGProgressHUD *)showFailureHUBWithString:(NSString *)string;
 + (JGProgressHUD *)showWarningHUBWithString:(NSString *)string;

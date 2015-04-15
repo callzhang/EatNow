@@ -7,6 +7,7 @@
 //
 
 #define kMaxSelectedRestaurantRetainTime			3600
+#define kServerUrl                  @"http://dry-fortress-8563.herokuapp.com/"
 #define kSearchUrl                  @"http://dry-fortress-8563.herokuapp.com/search"
 #define kUserUrl                    @"http://dry-fortress-8563.herokuapp.com/user/"
 #define kEatUrl                     @"http://dry-fortress-8563.herokuapp.com/select"
@@ -36,6 +37,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
 - (void)selectRestaurant:(Restaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block;
 - (void)getRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
+- (void)updateRestaurant:(Restaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
 
 //select restaurant
 - (BOOL)canSelectNewRestaurant;

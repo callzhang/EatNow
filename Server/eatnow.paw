@@ -271,14 +271,14 @@
     </object>
     <object type="LMREQUEST" id="z125">
         <attribute name="uuid" type="string">68E6726D-4BE5-41A3-8711-96498AA64F8F</attribute>
-        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/restaurant/49ebf933f964a5204c671fe3</attribute>
+        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/restaurant/4b59e21df964a520209e28e3</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">PUT</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"json":"{\\"img_url\\":[\\"\\\\u50bbx\\"]}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"img_url\\":[\\"https:\\\\\\/\\\\\\/irs2.4sqi.net\\\\\\/img\\\\\\/general\\\\\\/original\\\\\\/Bzs_-149pVjHLoD9ElvnpSgEM5Njk92TEsBzmkHik9o.jpg\\"]}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="order" type="int64">5</attribute>
         <attribute name="name" type="string">Update restaurant</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>

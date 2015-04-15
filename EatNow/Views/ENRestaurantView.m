@@ -15,6 +15,7 @@
 #import "ENMapViewController.h"
 #import "ENMapManager.h"
 #import "UIAlertView+BlocksKit.h"
+#import "ENUtil.h"
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
@@ -203,7 +204,7 @@
 
 - (void)updateLayoutConstraintValue{
     //radio
-    float multiplier = self.status == ENRestaurantViewStatusCard ? 1:0.45;
+    float multiplier = self.status == ENRestaurantViewStatusCard ? 1:0.4;
     NSLayoutConstraint *newRatio = [NSLayoutConstraint constraintWithItem:_infoHightRatio.firstItem attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_infoHightRatio.secondItem attribute:NSLayoutAttributeHeight multiplier:multiplier constant:0];
     self.infoHightRatio.active = NO;
     self.infoHightRatio = newRatio;
@@ -261,8 +262,13 @@
                 [images addObject:imgUrl];
             }
         }
+		
         //DDLogVerbose(@"Parsed img urls: %@", images);
         block(images, nil);
+		
+		//update to server
+		[[ENServerManager shared] updateRestaurant:_restaurant withInfo:@{@"img_url":images} completion:nil];
+		
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         ENLogError(@"Failed to download website %@", urlString);
         block(nil, error);
@@ -398,7 +404,10 @@
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-twitter-icon",
 						  @"title": [NSString stringWithFormat:@"%@ tips", _restaurant.reviews],
-                          @"accessory": @"disclosure"}];
+                          @"accessory": @"disclosure",
+						  @"action": ^{
+			[ENUtil showText:@"Coming soon"];
+		}}];
 	}
 	
 	self.restautantInfo = info.copy;
