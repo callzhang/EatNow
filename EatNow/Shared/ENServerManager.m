@@ -40,7 +40,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 #pragma mark - Main method
-
+//TODO: need to cancel previous operation
 - (void)getRestaurantsAtLocation:(CLLocation *)currenLocation WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
     //add to completion block
     [self.completionGroup addObject:block];
@@ -54,7 +54,6 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     
     DDLogVerbose(@"Start requesting restaurants");
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSString *myID = [[self class] myUUID];
     NSDictionary *dic = @{@"username":myID,

@@ -15,7 +15,10 @@ typedef enum{
     hudStyleWarning,
     HUDStyleInfo
 }HUDStyle;
-#define kUUID                       @"UUID"
+#define kUUID                           @"UUID"
+#define TICK                            NSDate *startTime = [NSDate date];
+#define TICK2                           startTime = [NSDate date];
+#define TOCK                            NSLog(@"Time: %f", -[startTime timeIntervalSinceNow]);
 
 void ENLogError(NSString *fmt, ...);
 
