@@ -48,6 +48,7 @@
 @property (nonatomic, assign) NSTimeInterval walkDuration;
 @property (nonatomic, strong) NSString *twitter;
 @property (nonatomic, strong) NSString *facebook;
+@property (nonatomic, strong) NSString *scoreComponentsString;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
 - (BOOL)validate;

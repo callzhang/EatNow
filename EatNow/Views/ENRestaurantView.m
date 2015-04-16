@@ -409,6 +409,13 @@
 			[ENUtil showText:@"Coming soon"];
 		}}];
 	}
+	//score
+	[info addObject:@{@"type": @"score",
+					  @"cellID":@"subtitle",
+					  @"title": [NSString stringWithFormat:@"Total score: %.1f", _restaurant.score.floatValue],
+					  @"detail": [NSString stringWithFormat:@"%@", _restaurant.scoreComponentsString]
+					  }];
+
 	
 	self.restautantInfo = info.copy;
 }
