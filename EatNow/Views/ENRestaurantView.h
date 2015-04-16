@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic, strong) Restaurant *restaurant;
 @property (nonatomic, assign) ENRestaurantViewStatus status;
-//@property (nonatomic, weak) UISnapBehavior *snap;
+@property (nonatomic, weak) UISnapBehavior *snap;
 
 + (instancetype)loadView;
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame;
