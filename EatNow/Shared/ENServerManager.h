@@ -28,6 +28,8 @@
 @property (nonatomic, assign) ENResturantDataStatus fetchStatus;
 @property (nonatomic, strong) Restaurant *selectedRestaurant;
 @property (nonatomic, strong) NSDate *selectedTime;
+@property (nonatomic, strong) NSString *selectionHistoryID;
+@property (nonatomic, strong) NSDictionary *me;
 
 //We still need Singleton as it stores shared information
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)

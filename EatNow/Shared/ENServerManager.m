@@ -20,6 +20,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) AFNetworkReachabilityManager *reachability;
 @property (nonatomic, strong) NSMutableArray *completionGroup;
+@property (nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
 @end
 
 
@@ -35,6 +36,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         
         //indicator
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+		
+		//manager
+		self.requestManager = [AFHTTPRequestOperationManager manager];
     }
     return self;
 }
@@ -69,46 +73,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
               TIC
               NSMutableArray *mutableResturants = [NSMutableArray array];
               for (NSDictionary *restaurant_json in responseObject) {
-                  Restaurant *restaurant = [Restaurant new];
-                  
-                  restaurant.ID = restaurant_json[@"id"];
-                  restaurant.url = restaurant_json[@"url"];
-                  restaurant.rating = (NSNumber *)restaurant_json[@"rating"];
-                  restaurant.reviews = (NSNumber *)restaurant_json[@"ratingSignals"];
-                  NSArray *list = restaurant_json[@"categories"];
-                  restaurant.cuisines = [list valueForKey:@"shortName"];
-                  restaurant.imageUrls = restaurant_json[@"food_image_url"];
-                  restaurant.phone = [restaurant_json valueForKeyPath:@"contact.formattedPhone"];
-                  restaurant.name = restaurant_json[@"name"];
-                  restaurant.price = restaurant_json[@"price"];
-                  //location
-                  NSDictionary *address = restaurant_json[@"location"];
-                  CLLocationDegrees lat = [(NSNumber *)address[@"lat"] doubleValue];
-                  CLLocationDegrees lon = [(NSNumber *)address[@"lng"] doubleValue];
-                  CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
-                  restaurant.location = loc;
-                  restaurant.distance = (NSNumber *)address[@"distance"];
-                  if (!restaurant.distance) {
-                      restaurant.distance = [NSNumber numberWithFloat:[currenLocation distanceFromLocation:restaurant.location]];
-                  }
-                  restaurant.json = restaurant_json;
-                  //score
-                  NSDictionary *scores = restaurant_json[@"score"];
-                  NSNumber *totalScore = scores[@"total_score"];
-                  if ([totalScore isEqual: [NSNull null]]) {
-                      NSString *str = [NSString stringWithFormat:@"Returned null score (ID = %@", restaurant.ID];
-                      DDLogError(@"error:%@", str);
-                      NSNumber *commentScore = scores[@"comment_score"] != [NSNull null] ? scores[@"comment_score"]:@0;
-                      NSNumber *cuisineScore = scores[@"cuisine_score"] != [NSNull null] ? scores[@"cuisine_score"]:@0;
-                      NSNumber *distanceScore = scores[@"distance_score"] != [NSNull null] ? scores[@"distance_score"]:@0;
-                      NSNumber *priceScore = scores[@"price_score"] != [NSNull null] ? scores[@"price_score"]:@0;
-                      NSNumber *ratingScore = scores[@"rating_score"] != [NSNull null] ? scores[@"rating_score"]:@0;
-                      totalScore = @(commentScore.floatValue + cuisineScore.floatValue + distanceScore.floatValue + priceScore.floatValue + ratingScore.floatValue);
-                  }
-                  restaurant.score = totalScore;
-                  
-                  
-                  if ([restaurant validate]) {
+				  Restaurant *restaurant = [Restaurant restaurantWithData:restaurant_json];
+				  
+                  if (restaurant) {
                       [mutableResturants addObject:restaurant];
                   }
               }
@@ -146,13 +113,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     NSString *myID = [self.class myUUID];
     NSString *url = [NSString stringWithFormat:@"%@%@",kUserUrl, myID];
     DDLogInfo(@"Requesting user: %@", url);
     [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		NSParameterAssert([responseObject isKindOfClass:[NSDictionary class]]);
+		self.me = responseObject;
         block(responseObject, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error];
@@ -169,10 +136,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 	}
 	
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
     NSString *myID = [[self class] myUUID];
     NSDictionary *dic = @{@"username": myID,

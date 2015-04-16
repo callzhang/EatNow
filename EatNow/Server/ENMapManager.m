@@ -65,7 +65,7 @@
 		if (error) {
 			DDLogError(@"error:%@", error);
 			if (block) {
-				block(-1, error);
+				block(NSTimeIntervalSince1970, error);
 			}
 		}
 		else {

@@ -34,6 +34,7 @@
 #import "UIActionSheet+BlocksKit.h"
 #import "extobjc.h"
 #import "NSTimer+BlocksKit.h"
+#import "ENHistoryViewController.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -361,7 +362,7 @@
 - (void)snapCardToCenter:(ENRestaurantView *)card {
     NSParameterAssert(card);
 	if (card.snap) {
-		return;
+		[_animator removeBehavior:card.snap];
 	}
 	UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardFrame.center];
 	
@@ -370,7 +371,6 @@
     card.snap = snap;
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		[_animator removeBehavior:card.snap];
-		card.snap = nil;
 	});
 }
 
@@ -495,8 +495,8 @@
 }
 
 - (IBAction)showHistory:(id)sender{
-    ENProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([ENProfileViewController class])];
-    [self.navigationController pushViewController:vc animated:YES];
+    ENHistoryViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENHistoryNavigationView"];
+	[self presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)clapse:(id)sender {

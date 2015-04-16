@@ -240,6 +240,94 @@
             </objects>
             <point key="canvasLocation" x="-588" y="612"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Agq-ec-sDx">
+            <objects>
+                <navigationController storyboardIdentifier="ENHistoryNavigationView" id="AhE-GN-MNF" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="SFQ-TL-1vi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="0oE-vH-Giu" kind="relationship" relationship="rootViewController" id="HwS-BW-hpD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Af2-9y-hSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1007" y="1288"/>
+        </scene>
+        <!--History View Controller-->
+        <scene sceneID="fEb-E9-N2Z">
+            <objects>
+                <tableViewController storyboardIdentifier="ENHistoryViewController" id="0oE-vH-Giu" customClass="ENHistoryViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gKA-EL-JRE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" rowHeight="80" id="IwC-Kl-E5t" customClass="ENHistoryViewCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IwC-Kl-E5t" id="10f-yZ-HBL">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OHl-62-t0d">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-uL-f3t">
+                                            <rect key="frame" x="8" y="29" width="131" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="131" id="gTk-mp-UM5"/>
+                                                <constraint firstAttribute="height" constant="21" id="mHY-Dt-MeS"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SzB-Ax-Nkp">
+                                            <rect key="frame" x="8" y="51" width="186" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="186" id="mDL-hZ-U37"/>
+                                                <constraint firstAttribute="height" constant="21" id="yg7-bf-zZ7"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="SzB-Ax-Nkp" firstAttribute="leading" secondItem="10f-yZ-HBL" secondAttribute="leadingMargin" id="4UP-j6-87d"/>
+                                        <constraint firstAttribute="centerY" secondItem="Muc-uL-f3t" secondAttribute="centerY" id="Bm1-1t-lKx"/>
+                                        <constraint firstItem="Muc-uL-f3t" firstAttribute="leading" secondItem="10f-yZ-HBL" secondAttribute="leadingMargin" id="Jh9-2O-Oxj"/>
+                                        <constraint firstItem="SzB-Ax-Nkp" firstAttribute="top" secondItem="Muc-uL-f3t" secondAttribute="bottom" constant="1" id="x96-hr-bHf"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="background" destination="OHl-62-t0d" id="UdQ-5l-ToY"/>
+                                    <outlet property="subTitile" destination="SzB-Ax-Nkp" id="mFU-8h-2Cx"/>
+                                    <outlet property="title" destination="Muc-uL-f3t" id="VQo-Sp-49C"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0oE-vH-Giu" id="TYz-gm-RRc"/>
+                            <outlet property="delegate" destination="0oE-vH-Giu" id="jiV-dr-Jkp"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="thY-hd-18h"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Khw-XY-Nwi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-588" y="1288"/>
+        </scene>
         <!--Restaurant View Controller-->
         <scene sceneID="IJr-98-71c">
             <objects>

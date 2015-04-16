@@ -36,21 +36,26 @@
 @property (nonatomic, strong) NSNumber *rating;
 @property (nonatomic, strong) NSDictionary *price;
 @property (nonatomic, strong) NSNumber *reviews;
+@property (nonatomic, strong) NSNumber *tips;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) CLLocation *location;
 @property (nonatomic, strong) NSNumber *score;
 @property (nonatomic, strong) NSDictionary *json;
-@property (nonatomic, strong) MKPlacemark *placemark;
 @property (nonatomic, strong) NSString *openInfo;
 @property (nonatomic, strong) NSNumber* distance;
+
+//convienence method
+@property (nonatomic, strong) MKPlacemark *placemark;
 @property (nonatomic, assign) NSTimeInterval walkDuration;
 @property (nonatomic, strong) NSString *twitter;
 @property (nonatomic, strong) NSString *facebook;
 @property (nonatomic, strong) NSString *scoreComponentsString;
+
++ (instancetype)restaurantWithData:(NSDictionary *)json;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
 - (BOOL)validate;
-- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block;
+- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block __deprecated;
 @end
