@@ -23,7 +23,7 @@
 
 @class CLLocation;
 @interface ENServerManager : NSObject
-@property (nonatomic, strong) NSMutableArray *restaurants;
+//@property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, assign) ENResturantDataStatus fetchStatus;
 @property (nonatomic, strong) Restaurant *selectedRestaurant;

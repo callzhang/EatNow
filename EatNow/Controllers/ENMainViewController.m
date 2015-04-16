@@ -38,7 +38,7 @@
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
-@interface ENMainViewController ()
+@interface ENMainViewController ()<UIDynamicAnimatorDelegate>
 //data
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) ENLocationManager *locationManager;
@@ -53,7 +53,8 @@
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
-
+//blocks
+@property (nonatomic, strong) NSMutableArray *animatorPausedBlocks;
 @end
 
 @implementation ENMainViewController
@@ -81,9 +82,11 @@
     self.locationManager = [ENLocationManager new];
     self.serverManager = [ENServerManager shared];
     self.restaurantCards = [NSMutableArray array];
+    self.animatorPausedBlocks = [NSMutableArray array];
     
     //Dynamics
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.animator.delegate = self;
     self.gravity = [[UIGravityBehavior alloc] init];
     self.gravity.gravityDirection = CGVectorMake(0, 10);
     [self.animator addBehavior:_gravity];
@@ -166,6 +169,7 @@
 		[self presentViewController:controller animated:YES completion:nil];
 	}];
     
+    //load restaurants from server
     [self searchNewRestaurantsForced:NO];
 }
 
@@ -231,7 +235,8 @@
 			[card addGestureRecognizer:self.panGesture];
 			[card.imageView addGestureRecognizer:self.tapGesture];
 			[card didChangedToFrontCard];
-		} else{
+        } else{
+            DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
 			//insert behind previous card
 			UIView *previousCard = self.restaurantCards[i-2];
 			NSParameterAssert(previousCard.superview);
@@ -242,13 +247,11 @@
 			//animate
 			float delay = (kMaxCardsToAnimate - i) * 0.1;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
 				[self snapCardToCenter:card];
 			});
 		}else {
 			float delay = i * 0.1;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((delay + 2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
 				card.frame = [self cardViewFrame];
 			});
 		}
@@ -269,10 +272,6 @@
     if (self.frontCardView) {
         ENRestaurantView *frontCard = self.frontCardView;
 		//DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
-        //remove snap
-        if (frontCard.snap) {
-            [_animator removeBehavior:frontCard.snap];
-        }
         //add dynamics
 		[_gravity addItem:frontCard];
 		[_dynamicItem addItem:frontCard];
@@ -306,21 +305,20 @@
 }
 
 - (void)toggleCardDetails{
-    
     if (self.frontCardView.status == ENRestaurantViewStatusCard) {
         [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailViewFrame];
         [self.frontCardView removeGestureRecognizer:self.panGesture];
-		//[self.frontCardView removeGestureRecognizer:self.tapGesture];
-		[UIView animateWithDuration:0.3 animations:^{
-			self.closeButton.alpha = 1;
-		}];
+        //[self.frontCardView removeGestureRecognizer:self.tapGesture];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.closeButton.alpha = 1;
+        }];
     } else {
         [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame];
-		[self.frontCardView addGestureRecognizer:self.panGesture];
-		//[self.frontCardView addGestureRecognizer:self.tapGesture];
-		[UIView animateWithDuration:0.3 animations:^{
-			self.closeButton.alpha = 0;
-		}];
+        [self.frontCardView addGestureRecognizer:self.panGesture];
+        //[self.frontCardView addGestureRecognizer:self.tapGesture];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.closeButton.alpha = 0;
+        }];
     }
 }
 
@@ -334,9 +332,6 @@
     CGPoint locInCard = [gesture locationInView:self.frontCardView];
     ENRestaurantView *card = self.frontCardView;
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        if (card.snap) {
-            [_animator removeBehavior:card.snap];
-        }
         //attachment behavior
         [_animator removeBehavior:_attachment];
         UIOffset offset = UIOffsetMake(locInCard.x - card.bounds.size.width/2, locInCard.y - card.bounds.size.height/2);
@@ -368,10 +363,11 @@
     //DDLogInfo(@"You couldn't decide on %@.", self.frontCardView.restaurant.name);
     UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardFrame.center];
     [_animator addBehavior:snap];
-    card.snap = snap;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [_animator removeBehavior:snap];
-    });
+    //card.snap = snap;
+    __weak UIDynamicAnimator *weakAnimator = self.animator;
+    [self addAnimatorPausedBlock:^{
+        [weakAnimator removeBehavior:snap];
+    }];
 }
 
 #pragma mark - Internal Methods
@@ -393,28 +389,21 @@
 }
 
 - (void)setBackgroundImage:(UIImage *)image{
-    if (_animator.isRunning) {
-        //delay
-		//DDLogInfo(@"Animator is running, delay background image setting");
-        static NSTimer* backgroundFadeDelayTimer;
-        [backgroundFadeDelayTimer invalidate];
-        backgroundFadeDelayTimer = [NSTimer bk_scheduledTimerWithTimeInterval:0.5 block:^(NSTimer *timer) {
-            [self setBackgroundImage:image];
-        } repeats:NO];
-    }else {
+    ENMainViewController *wakeSelf = self;
+    [self addAnimatorPausedBlock:^{
         UIImage *blured = image.bluredImage;
         
         //duplicate view
-        UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
-        [self.view insertSubview:imageViewCopy aboveSubview:self.background];
+        UIView *imageViewCopy = [wakeSelf.background snapshotViewAfterScreenUpdates:NO];
+        [wakeSelf.view insertSubview:imageViewCopy aboveSubview:wakeSelf.background];
         
         [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.background.image = blured;
+            wakeSelf.background.image = blured;
             imageViewCopy.alpha = 0;
         } completion:^(BOOL finished) {
             [imageViewCopy removeFromSuperview];
         }];
-    }
+    }];
 }
 
 
@@ -538,6 +527,31 @@
         return NO;
     }
     return YES;
+}
+
+
+
+#pragma mark - UIDynamicAnimator delegate
+- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator{
+    [self performAnimatorPausedActions];
+}
+
+- (void)dynamicAnimatorWillResume:(UIDynamicAnimator *)animator{
+    
+}
+
+- (void)performAnimatorPausedActions{
+    if (_animator.isRunning){
+        for (VoidBlock  block in self.animatorPausedBlocks) {
+            block();
+        }
+        [self.animatorPausedBlocks removeAllObjects];
+    }
+}
+
+- (void)addAnimatorPausedBlock:(VoidBlock)block{
+    [self.animatorPausedBlocks addObject:block];
+    [self performSelector:@selector(performAnimatorPausedActions) withObject:nil afterDelay:0.1];
 }
 
 @end

@@ -19,13 +19,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EatNow/Controllers/ENMapViewController.m"
-            timestampString = "450746768.856411"
+            filePath = "EatNow/Shared/ENServerManager.m"
+            timestampString = "450840191.970727"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "-viewDidUnload"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "-getRestaurantsAtLocation:WithCompletion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

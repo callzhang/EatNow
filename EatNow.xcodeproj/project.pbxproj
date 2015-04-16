@@ -153,6 +153,7 @@
 		9BA07B5C1A9C3672008A3D67 /* ENMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMapViewController.h; sourceTree = "<group>"; };
 		9BA07B5D1A9C3672008A3D67 /* ENMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMapViewController.m; sourceTree = "<group>"; };
 		9BB789A31AD384BC00998D8F /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWBlockTypes.h; sourceTree = "<group>"; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = EatNow/main.storyboard; sourceTree = SOURCE_ROOT; };
 		9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWebViewController.h; sourceTree = "<group>"; };
 		9BF9CC701A72301600B76D92 /* ENWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWebViewController.m; sourceTree = "<group>"; };
@@ -314,6 +315,7 @@
 		9BEE36B91A8D3DCF0052332C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */,
 				9B1180F61A8E96FB00756E8F /* ENDefines.h */,
 				9B85D0311A8EB6BB0014DBED /* ENUtil.h */,
 				9B85D0321A8EB6BB0014DBED /* ENUtil.m */,

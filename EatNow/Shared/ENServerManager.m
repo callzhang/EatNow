@@ -30,7 +30,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     self = [super init];
     if (self) {
         
-        _restaurants = [NSMutableArray new];
+        //_restaurants = [NSMutableArray new];
         _completionGroup = [NSMutableArray new];
         
         //indicator
@@ -54,8 +54,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     
     DDLogVerbose(@"Start requesting restaurants");
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSString *myID = [[self class] myUUID];
     NSDictionary *dic = @{@"username":myID,

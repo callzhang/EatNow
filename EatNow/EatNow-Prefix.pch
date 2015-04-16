@@ -39,5 +39,6 @@
 #import <Foundation/Foundation.h>
 #import <CocoaLumberjack/DDLog.h>
 #import "ENUtil.h"
+#import "EWBlockTypes.h"
 #endif
 

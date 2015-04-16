@@ -204,8 +204,6 @@ void ENLogError(NSString *fmt,...){
     JGProgressHUD *hud = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        
         JGProgressHUDFadeZoomAnimation *an = [JGProgressHUDFadeZoomAnimation animation];
         hud.animation = an;
         hud.textLabel.text = alert;
