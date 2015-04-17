@@ -391,28 +391,18 @@
 
 - (void)setBackgroundImage:(UIImage *)image{
     ENMainViewController *wakeSelf = self;
-    NSLog(@"Set background");
-    //duplicate view
-    UIView *imageViewCopy = [wakeSelf.background snapshotViewAfterScreenUpdates:NO];
-    wakeSelf.background.image = image;
-    [wakeSelf.view insertSubview:imageViewCopy aboveSubview:wakeSelf.background];
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        imageViewCopy.alpha = 0;
-    } completion:^(BOOL finished) {
-        [imageViewCopy removeFromSuperview];
+    [self addAnimatorPausedBlock:^{
+        NSLog(@"Set background");
+        //duplicate view
+        UIView *imageViewCopy = [wakeSelf.background snapshotViewAfterScreenUpdates:NO];
+        wakeSelf.background.image = image;
+        [wakeSelf.view insertSubview:imageViewCopy aboveSubview:wakeSelf.background];
+        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            imageViewCopy.alpha = 0;
+        } completion:^(BOOL finished) {
+            [imageViewCopy removeFromSuperview];
+        }];
     }];
-//    [self addAnimatorPausedBlock:^{
-//        NSLog(@"Set background");
-//        //duplicate view
-//        UIView *imageViewCopy = [wakeSelf.background snapshotViewAfterScreenUpdates:NO];
-//        wakeSelf.background.image = image;
-//        [wakeSelf.view insertSubview:imageViewCopy aboveSubview:wakeSelf.background];
-//        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//            imageViewCopy.alpha = 0;
-//        } completion:^(BOOL finished) {
-//            [imageViewCopy removeFromSuperview];
-//        }];
-//    }];
 }
 
 
