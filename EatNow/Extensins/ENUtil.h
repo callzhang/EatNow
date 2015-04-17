@@ -15,7 +15,10 @@ typedef enum{
     hudStyleWarning,
     HUDStyleInfo
 }HUDStyle;
-#define kUUID                       @"UUID"
+#define kUUID                           @"UUID"
+#define TICK                            NSDate *startTime = [NSDate date];
+#define TICK2                           startTime = [NSDate date];
+#define TOCK                            NSLog(@"Time: %f", -[startTime timeIntervalSinceNow]);
 
 void ENLogError(NSString *fmt, ...);
 
@@ -66,6 +69,7 @@ void ENLogError(NSString *fmt, ...);
  *  @return ISO8601 date format
  */
 - (NSString *)ISO8601;
++ (NSDate *)dateFromISO1861:(NSString *)str;
 @end
 
 @interface UIImage (Blur)

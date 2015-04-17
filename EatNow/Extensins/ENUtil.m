@@ -204,8 +204,6 @@ void ENLogError(NSString *fmt,...){
     JGProgressHUD *hud = [JGProgressHUD progressHUDWithStyle:JGProgressHUDStyleDark];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        
         JGProgressHUDFadeZoomAnimation *an = [JGProgressHUDFadeZoomAnimation animation];
         hud.animation = an;
         hud.textLabel.text = alert;
@@ -298,6 +296,14 @@ void ENLogError(NSString *fmt,...){
 	[formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
 	NSString *string = [formatter stringFromDate:self];
 	return string;
+}
+
++ (NSDate *)dateFromISO1861:(NSString *)str{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone defaultTimeZone];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'sss'Z'"];
+    NSDate *date = [formatter dateFromString:str];
+    return date;
 }
 
 @end

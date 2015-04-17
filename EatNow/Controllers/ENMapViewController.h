@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Restaurant.h"
+#import "ENRestaurant.h"
 @import MapKit;
 
 @interface ENMapViewController : UIViewController
-@property (nonatomic, strong) Restaurant *restaurant;
+@property (nonatomic, strong) ENRestaurant *restaurant;
 @end

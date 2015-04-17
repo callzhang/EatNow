@@ -22,14 +22,50 @@
 // THE SOFTWARE.
 //
 
-#import "Restaurant.h"
+#import "ENRestaurant.h"
 #import "ENServerManager.h"
 #import "TFHpple.h"
 #import "ENUtil.h"
 #import "ENLocationManager.h"
+#import "ENMapManager.h"
 @import AddressBook;
 
-@implementation Restaurant
+@implementation ENRestaurant
++ (instancetype)restaurantWithData:(NSDictionary *)json{
+	ENRestaurant *restaurant = [ENRestaurant new];
+	NSParameterAssert([json isKindOfClass:[NSDictionary class]]);
+	restaurant.json = json;
+	
+	restaurant.ID = json[@"id"];
+	restaurant.url = json[@"url"];
+	restaurant.rating = (NSNumber *)json[@"rating"];
+	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];
+	NSArray *list = json[@"categories"];
+	restaurant.cuisines = [list valueForKey:@"shortName"];
+	restaurant.imageUrls = json[@"food_image_url"];
+	restaurant.phone = [json valueForKeyPath:@"contact.formattedPhone"];
+	restaurant.name = json[@"name"];
+	restaurant.price = json[@"price"];
+	restaurant.openInfo = [json valueForKeyPath:@"hours.status"];
+	restaurant.tips	= [json valueForKeyPath:@"stats.tipCount"];
+	//location
+	NSDictionary *address = json[@"location"];
+	CLLocationDegrees lat = [(NSNumber *)address[@"lat"] doubleValue];
+	CLLocationDegrees lon = [(NSNumber *)address[@"lng"] doubleValue];
+	CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+	restaurant.location = loc;
+	restaurant.distance = (NSNumber *)address[@"distance"];
+	//score
+	NSDictionary *scores = json[@"score"];
+	NSNumber *totalScore = scores[@"total_score"];
+	NSParameterAssert(![totalScore isEqual:[NSNull null]]);
+	restaurant.score = totalScore;
+	if (![restaurant validate]) {
+		return nil;
+	}
+	return restaurant;
+}
+
 
 - (instancetype)init {
     self = [super init];
@@ -41,7 +77,7 @@
 
 - (NSString *)description{
     return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.1fkm \n", _name, self.rating.floatValue, (long)_reviews.integerValue, [self cuisineStr], [self pricesStr], [self.distance floatValue]/1000];
-    
+	
 }
 
 
@@ -63,14 +99,6 @@
     return [string substringToIndex:string.length-2];
 }
 
-- (NSString *)openInfo{
-	return [self.json valueForKeyPath:@"hours.status"];
-}
-
-- (NSNumber *)tips{
-	return [_json valueForKeyPath:@"stats.tipCount"];
-}
-
 - (NSString *)twitter{
     return [_json valueForKeyPath:@"twitter.twitter"];
 }
@@ -81,6 +109,18 @@
 
 - (NSString *)phoneNumber{
 	return [_json valueForKeyPath:@"contact.phone"];
+}
+
+- (NSString *)scoreComponentsString{
+	NSMutableString *scores = [NSMutableString new];
+	[scores appendFormat:@"Rate:%ld ", [(NSNumber *)[_json valueForKeyPath:@"score.rating_score"] integerValue]];
+	[scores appendFormat:@"Food:%ld ", [(NSNumber *)[_json valueForKeyPath:@"score.cuisine_score"] integerValue]];
+	[scores appendFormat:@"Dist:%ld ", [(NSNumber *)[_json valueForKeyPath:@"score.distance_score"] integerValue]];
+	[scores appendFormat:@"Tips:%ld ", [(NSNumber *)[_json valueForKeyPath:@"score.comment_score"] integerValue]];
+	[scores appendFormat:@"Price:%ld ", [(NSNumber *)[_json valueForKeyPath:@"score.price_score"] integerValue]];
+	[scores appendFormat:@"Time:%ld", [(NSNumber *)[_json valueForKeyPath:@"score.time_score"] integerValue]];
+	
+	return scores.copy;
 }
 
 - (BOOL)validate{
@@ -117,13 +157,8 @@
         DDLogError(@"Restaurant missing reviews %@", self);
         good = NO;
     }
-    if (!_url) {
-        DDLogWarn(@"Restaurant missing url %@", self);
-		//good = NO;
-    }
     if (!_location) {
-        DDLogError(@"Restaurant missing location %@", self);
-        good = NO;
+        DDLogWarn(@"Restaurant missing location %@", self);
     }
     if (!_score) {
         DDLogError(@"Restaurant missing score %@", self);
@@ -158,31 +193,16 @@
         block(self.walkDuration, nil);
         return;
     }
-    
-    MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
-    CLLocationCoordinate2D coordinate = [ENLocationManager cachedCurrentLocation].coordinate;
-    MKPlacemark *sourcePlaceMark = [[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil];
-    request.source = [[MKMapItem alloc] initWithPlacemark:sourcePlaceMark];
-    MKPlacemark *destinationPlaceMark = [[MKPlacemark alloc] initWithCoordinate:self.location.coordinate addressDictionary:nil];
-    request.destination = [[MKMapItem alloc] initWithPlacemark:destinationPlaceMark];
-    request.transportType = MKDirectionsTransportTypeWalking;
-    request.requestsAlternateRoutes = NO;
-    
-    MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
-    
-    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-        
-        if (error) {
-            DDLogError(@"error:%@", error);
-            block(NSTimeIntervalSince1970, error);
-        }
-        else {
-            if (block && response.routes[0]) {
-                MKRoute *route = response.routes[0];
-                self.walkDuration = route.expectedTravelTime;
-                block(route.expectedTravelTime, nil);
-            }
-        }
-    }];
+	
+//	[[ENMapManager new] estimatedWalkingTimeToLocation:self.location completion:^(NSTimeInterval length, NSError *error) {
+//		if (error) {
+//			DDLogError(@"error:%@", error);
+//			if (block) block(NSTimeIntervalSince1970, error);
+//		}
+//		else {
+//			self.walkDuration = length;
+//			if (block) block(length, nil);
+//		}
+//	}];
 }
 @end

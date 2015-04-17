@@ -17,17 +17,19 @@
 //@import CoreLocation;
 #import "AFNetworking.h"
 #import "ENDefines.h"
-#import "Restaurant.h"
+#import "ENRestaurant.h"
 #import "ENServer.h"
 #import "GCDSingleton.h"
 
 @class CLLocation;
 @interface ENServerManager : NSObject
-@property (nonatomic, strong) NSMutableArray *restaurants;
+//@property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, assign) ENResturantDataStatus fetchStatus;
-@property (nonatomic, strong) Restaurant *selectedRestaurant;
+@property (nonatomic, strong) ENRestaurant *selectedRestaurant;
 @property (nonatomic, strong) NSDate *selectedTime;
+@property (nonatomic, strong) NSString *selectionHistoryID;
+@property (nonatomic, strong) NSDictionary *me;
 
 //We still need Singleton as it stores shared information
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
@@ -35,9 +37,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 //functions
 //- (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
-- (void)selectRestaurant:(Restaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block;
+- (void)selectRestaurant:(ENRestaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block;
 - (void)getRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
-- (void)updateRestaurant:(Restaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
+- (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
 
 //select restaurant
 - (BOOL)canSelectNewRestaurant;
