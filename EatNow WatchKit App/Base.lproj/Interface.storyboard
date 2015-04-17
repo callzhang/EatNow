@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6751" systemVersion="14D131" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
     </dependencies>
     <scenes>
@@ -218,10 +218,61 @@
             <objects>
                 <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController">
                     <items>
-                        <group alignment="left" id="t8f-Gd-c4y"/>
-                        <group alignment="left" id="uCw-4Q-Ouw">
+                        <group alignment="left" layout="vertical" id="t8f-Gd-c4y">
                             <items>
-                                <label alignment="left" text="glance" id="qxY-uq-A6c"/>
+                                <imageView width="27" height="27" alignment="left" image="eat-now-apple-watch-glance-app-icon-55x55-round" id="S7r-O4-CNb"/>
+                                <label alignment="left" text="Best Nearby" id="rf3-JC-3Qz">
+                                    <color key="textColor" red="0.60132600000000003" green="0.60132600000000003" blue="0.60132600000000003" alpha="0.5" colorSpace="calibratedRGB"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group alignment="left" layout="vertical" spacing="0.0" id="uCw-4Q-Ouw">
+                            <items>
+                                <label alignment="left" text="The Spotted pig" id="l23-wC-RMV"/>
+                                <group width="1" alignment="left" id="Rg3-N2-Ngw">
+                                    <items>
+                                        <label alignment="left" text="9.6" id="Fe0-GV-Sbc">
+                                            <color key="textColor" red="0.0" green="0.82017356157302856" blue="0.36374658346176147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                        <separator alignment="left" alpha="0.0" id="ywR-WB-u45"/>
+                                        <separator alignment="left" alpha="0.0" id="NMw-T8-IbS"/>
+                                        <separator alignment="left" alpha="0.0" id="TGi-s4-hMf"/>
+                                        <separator alignment="left" alpha="0.0" id="C1U-jd-iOW"/>
+                                        <label alignment="left" text="3 min" id="YIr-fC-MYL">
+                                            <color key="textColor" red="0.60132600000000003" green="0.60132600000000003" blue="0.60132600000000003" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <label alignment="left" text="The Hudson River" id="7am-mr-0zt"/>
+                                <group width="1" alignment="left" id="81z-a3-wfV">
+                                    <items>
+                                        <label alignment="left" text="9.6" id="cRd-wE-7Az">
+                                            <color key="textColor" red="0.0" green="0.82017356157302856" blue="0.36374658346176147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                        <separator alignment="left" alpha="0.0" id="Dj8-sf-9zx"/>
+                                        <separator alignment="left" alpha="0.0" id="DZM-Vn-P7W"/>
+                                        <separator alignment="left" alpha="0.0" id="pGf-N7-Cf3"/>
+                                        <separator alignment="left" alpha="0.0" id="lTA-Gi-Ji1"/>
+                                        <label alignment="left" text="3 min" id="FJp-0p-sCN">
+                                            <color key="textColor" red="0.60132600000000003" green="0.60132600000000003" blue="0.60132600000000003" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <label alignment="left" text="Takashi" id="ocq-Gj-Ake"/>
+                                <group width="1" alignment="left" id="7gC-rV-EAb">
+                                    <items>
+                                        <label alignment="left" text="9.6" id="xcr-GW-mf2">
+                                            <color key="textColor" red="0.0" green="0.82017356157302856" blue="0.36374658346176147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </label>
+                                        <separator alignment="left" alpha="0.0" id="HWS-53-eSc"/>
+                                        <separator alignment="left" alpha="0.0" id="kDr-AW-3dh"/>
+                                        <separator alignment="left" alpha="0.0" id="j0k-fQ-fB6"/>
+                                        <separator alignment="left" alpha="0.0" id="71r-FY-e57"/>
+                                        <label alignment="left" text="3 min" id="erD-HP-OfM">
+                                            <color key="textColor" red="0.60132600000000003" green="0.60132600000000003" blue="0.60132600000000003" alpha="0.5" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </items>
+                                </group>
                             </items>
                         </group>
                     </items>
