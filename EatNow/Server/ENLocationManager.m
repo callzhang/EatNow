@@ -85,6 +85,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 			self.locationStatus = ENLocationStatusError;
 			if (!currentLocation) {
 				DDLogWarn(@"Failed location request: %ld", (long)status);
+				static NSInteger locationRetryCount;
+				if (locationRetryCount < 5) {
+					locationRetryCount++;
+					DDLogWarn(@"Retrying location for the %ldth time", locationRetryCount);
+					[self getLocationWithCompletion:completion forece:forceUpdate];
+					return;
+				}
 			}
 		}
 		else{

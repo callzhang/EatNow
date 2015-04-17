@@ -23,7 +23,7 @@
 //
 
 #import "ENMainViewController.h"
-#import "Restaurant.h"
+#import "ENRestaurant.h"
 #import "ENServerManager.h"
 #import "ENWebViewController.h"
 #import "FBKVOController.h"
@@ -34,11 +34,12 @@
 #import "UIActionSheet+BlocksKit.h"
 #import "extobjc.h"
 #import "NSTimer+BlocksKit.h"
+#import "ENHistoryViewController.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
-@interface ENMainViewController ()<UIDynamicAnimatorDelegate>
+@interface ENMainViewController ()
 //data
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) ENLocationManager *locationManager;
@@ -53,8 +54,6 @@
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
-//blocks
-@property (nonatomic, strong) NSMutableArray *animatorPausedBlocks;
 @end
 
 @implementation ENMainViewController
@@ -82,11 +81,9 @@
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
     self.restaurantCards = [NSMutableArray array];
-    self.animatorPausedBlocks = [NSMutableArray array];
     
     //Dynamics
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    self.animator.delegate = self;
     self.gravity = [[UIGravityBehavior alloc] init];
     self.gravity.gravityDirection = CGVectorMake(0, 10);
     [self.animator addBehavior:_gravity];
@@ -163,7 +160,6 @@
             [self setBackgroundImage:note.userInfo[@"image"]];
         }
     }];
-	
     
     //load restaurants from server
     [self searchNewRestaurantsForced:NO];
@@ -224,7 +220,8 @@
 	NSUInteger restaurantCount = _restaurants.count;
     for (NSInteger i = 1; i <= restaurantCount; i++) {
 		//insert card
-        ENRestaurantView *card = [self popResuturantViewWithFrame:[self initialCardFrame]];
+		ENRestaurantView *card = [self popResuturantViewWithFrame:[self initialCardFrame]];
+		card.hidden = YES;
 		if (i==1) {
 			DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
 			[self.view addSubview:card];
@@ -244,17 +241,19 @@
             float delay = (kMaxCardsToAnimate - i) * 0.2;
             DDLogVerbose(@"Delay %f sec for %ldth card", delay, i);
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				card.hidden = NO;
 				[self snapCardToCenter:card];
 			});
 		}else {
 			float delay = i * 0.2 + 2;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 				card.frame = [self cardViewFrame];
+				card.hidden = NO;
 			});
 		}
     }
 	
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((restaurantCount * 0.1 +2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((restaurantCount * 0.2 +2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		_isShowingCards = NO;
 	});
 }
@@ -270,6 +269,7 @@
         ENRestaurantView *frontCard = self.frontCardView;
 		//DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
         //add dynamics
+		[_animator removeBehavior:frontCard.snap];
 		[_gravity addItem:frontCard];
 		[_dynamicItem addItem:frontCard];
 		if (velocity.x) {
@@ -289,31 +289,32 @@
         [self.frontCardView didChangedToFrontCard];
         
         //delay
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.5 animations:^{
-                frontCard.alpha = 0;
-            } completion:^(BOOL finished) {
-                [_gravity removeItem:frontCard];
-                [_dynamicItem removeItem:frontCard];
-                [frontCard removeFromSuperview];
-            }];
-        });
-        
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[UIView animateWithDuration:0.5 animations:^{
+				frontCard.alpha = 0;
+			} completion:^(BOOL finished) {
+				[_gravity removeItem:frontCard];
+				[_dynamicItem removeItem:frontCard];
+				[frontCard removeFromSuperview];
+			}];
+		});
+		
         //if last card, show refreshing button
         //TODO
     }
 }
 
 - (void)toggleCardDetails{
+	[_animator removeBehavior:self.frontCardView.snap];
     if (self.frontCardView.status == ENRestaurantViewStatusCard) {
-        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailViewFrame];
+        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailViewFrame animated:YES];
         [self.frontCardView removeGestureRecognizer:self.panGesture];
         //[self.frontCardView removeGestureRecognizer:self.tapGesture];
         [UIView animateWithDuration:0.3 animations:^{
             self.closeButton.alpha = 1;
         }];
     } else {
-        [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame];
+        [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES];
         [self.frontCardView addGestureRecognizer:self.panGesture];
         //[self.frontCardView addGestureRecognizer:self.tapGesture];
         [UIView animateWithDuration:0.3 animations:^{
@@ -360,15 +361,17 @@
 // This is called when a user didn't fully swipe left or right.
 - (void)snapCardToCenter:(ENRestaurantView *)card {
     NSParameterAssert(card);
-    DDLogInfo(@"Snap card to center %@.", self.frontCardView.restaurant.name);
-    UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardFrame.center];
-    snap.damping = 0.95;
+	if (card.snap) {
+		[_animator removeBehavior:card.snap];
+	}
+	UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardFrame.center];
+	
+    snap.damping = 0.98;
     [_animator addBehavior:snap];
-    //card.snap = snap;
-    __weak UIDynamicAnimator *weakAnimator = self.animator;
-    [self addAnimatorPausedBlock:^{
-        [weakAnimator removeBehavior:snap];
-    }];
+    card.snap = snap;
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		[_animator removeBehavior:card.snap];
+	});
 }
 
 #pragma mark - Internal Methods
@@ -390,19 +393,19 @@
 }
 
 - (void)setBackgroundImage:(UIImage *)image{
-    ENMainViewController *wakeSelf = self;
-    [self addAnimatorPausedBlock:^{
-        NSLog(@"Set background");
-        //duplicate view
-        UIView *imageViewCopy = [wakeSelf.background snapshotViewAfterScreenUpdates:NO];
-        wakeSelf.background.image = image;
-        [wakeSelf.view insertSubview:imageViewCopy aboveSubview:wakeSelf.background];
-        [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            imageViewCopy.alpha = 0;
-        } completion:^(BOOL finished) {
-            [imageViewCopy removeFromSuperview];
-        }];
-    }];
+	static NSTimer *BGTimer;
+	[BGTimer invalidate];
+    BGTimer = [NSTimer bk_scheduledTimerWithTimeInterval:1 block:^(NSTimer *timer) {
+		//duplicate view
+		UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
+		self.background.image = image;
+		[self.view insertSubview:imageViewCopy aboveSubview:self.background];
+		[UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+			imageViewCopy.alpha = 0;
+		} completion:^(BOOL finished) {
+			[imageViewCopy removeFromSuperview];
+		}];
+	} repeats:NO];
 }
 
 
@@ -434,7 +437,7 @@
         [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Confirm"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
             if ([title isEqualToString:@"Confirm"]) {
-                Restaurant *restaurant = self.frontCardView.restaurant;
+                ENRestaurant *restaurant = self.frontCardView.restaurant;
                 [ENUtil showWatingHUB];
                 [[self serverManager] selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
                     if (!error) {
@@ -492,8 +495,8 @@
 }
 
 - (IBAction)showHistory:(id)sender{
-    ENProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:NSStringFromClass([ENProfileViewController class])];
-    [self.navigationController pushViewController:vc animated:YES];
+    ENHistoryViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENHistoryNavigationView"];
+	[self presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)clapse:(id)sender {
@@ -527,31 +530,4 @@
     }
     return YES;
 }
-
-
-
-#pragma mark - UIDynamicAnimator delegate
-- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator{
-    [self performSelector:@selector(performAnimatorPausedActions) withObject:nil afterDelay:0.5];
-}
-
-- (void)dynamicAnimatorWillResume:(UIDynamicAnimator *)animator{
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-}
-
-- (void)performAnimatorPausedActions{
-    if (!_animator.isRunning){
-        for (VoidBlock  block in self.animatorPausedBlocks) {
-            block();
-        }
-        [self.animatorPausedBlocks removeAllObjects];
-    }
-}
-
-- (void)addAnimatorPausedBlock:(VoidBlock)block{
-    [self.animatorPausedBlocks addObject:block];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self performSelector:@selector(performAnimatorPausedActions) withObject:nil afterDelay:0.5];
-}
-
 @end

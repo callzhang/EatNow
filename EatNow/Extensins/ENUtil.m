@@ -298,6 +298,14 @@ void ENLogError(NSString *fmt,...){
 	return string;
 }
 
++ (NSDate *)dateFromISO1861:(NSString *)str{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone defaultTimeZone];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'sss'Z'"];
+    NSDate *date = [formatter dateFromString:str];
+    return date;
+}
+
 @end
 
 @implementation UIImage (Blur)

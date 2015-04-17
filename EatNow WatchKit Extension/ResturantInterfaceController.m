@@ -7,7 +7,7 @@
 //
 
 #import "ResturantInterfaceController.h"
-#import "Restaurant.h"
+#import "ENRestaurant.h"
 #import "AFNetworking.h"
 
 
@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantCategory;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantDistance;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantPrice;
-@property (nonatomic, strong) Restaurant *restaurant;
+@property (nonatomic, strong) ENRestaurant *restaurant;
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *actionButtonGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *actionButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *openTil;
@@ -25,7 +25,7 @@
 
 @implementation ResturantInterfaceController
 
-- (void)awakeWithContext:(Restaurant *)context {
+- (void)awakeWithContext:(ENRestaurant *)context {
     [super awakeWithContext:context];
     self.restaurant = context;
     [self.restaurant getWalkDurationWithCompletion:^(NSTimeInterval time, NSError *error) {

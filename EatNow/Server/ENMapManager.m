@@ -65,7 +65,7 @@
 		if (error) {
 			DDLogError(@"error:%@", error);
 			if (block) {
-				block(-1, error);
+				block(NSTimeIntervalSince1970, error);
 			}
 		}
 		else {
@@ -79,7 +79,7 @@
 }
 
 #pragma mark - MAP management
-- (void)routeToRestaurant:(Restaurant *)restaurant repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block{
+- (void)routeToRestaurant:(ENRestaurant *)restaurant repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block{
     [_repeatTimer invalidate];
 	CLLocation *destination = restaurant.location;
 	
@@ -128,7 +128,7 @@
     }];
 }
 
-- (void)addAnnotationForRestaurant:(Restaurant *)restaurant{
+- (void)addAnnotationForRestaurant:(ENRestaurant *)restaurant{
 	//add annotation
 	[self.map removeAnnotations:_map.annotations];
 	MKPointAnnotation *destinationAnnotation = [[MKPointAnnotation alloc] init];

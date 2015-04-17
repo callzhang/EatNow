@@ -7,7 +7,7 @@
 //
 
 #import "ResturantDetailInterfaceController.h"
-#import "Restaurant.h"
+#import "ENRestaurant.h"
 #import "ENLocationManager.h"
 
 @interface RestaurantRowController : NSObject
@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *resturantName;
 @property (weak, nonatomic) IBOutlet WKInterfaceMap *resturantMap;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *resturantNameIMGoing;
-@property (nonatomic, strong) Restaurant *restaurant;
+@property (nonatomic, strong) ENRestaurant *restaurant;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *address;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantCategory;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantPrice;
@@ -37,7 +37,7 @@
 
 @implementation ResturantDetailInterfaceController
 
-- (void)awakeWithContext:(Restaurant *)context {
+- (void)awakeWithContext:(ENRestaurant *)context {
     [self setTitle:@"Close"];
     
     [super awakeWithContext:context];

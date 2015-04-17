@@ -59,7 +59,7 @@
 }
 
 //initialization method
-- (void)setRestaurant:(Restaurant *)restaurant{
+- (void)setRestaurant:(ENRestaurant *)restaurant{
 	_restaurant = restaurant;
     //table view data
 	[self prepareData];
@@ -103,7 +103,7 @@
 	[self updateGoButton];
 }
 
-- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame{
+- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate{
     static NSTimer *nextImageDelay;
     [nextImageDelay invalidate];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -409,6 +409,13 @@
 			[ENUtil showText:@"Coming soon"];
 		}}];
 	}
+	//score
+	[info addObject:@{@"type": @"score",
+					  @"cellID":@"subtitle",
+					  @"title": [NSString stringWithFormat:@"Total score: %.1f", _restaurant.score.floatValue],
+					  @"detail": [NSString stringWithFormat:@"%@", _restaurant.scoreComponentsString]
+					  }];
+
 	
 	self.restautantInfo = info.copy;
 }

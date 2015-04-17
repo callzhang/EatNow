@@ -69,6 +69,7 @@ void ENLogError(NSString *fmt, ...);
  *  @return ISO8601 date format
  */
 - (NSString *)ISO8601;
++ (NSDate *)dateFromISO1861:(NSString *)str;
 @end
 
 @interface UIImage (Blur)
