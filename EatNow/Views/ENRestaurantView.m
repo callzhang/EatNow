@@ -452,4 +452,13 @@
     });
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UITableViewCell *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"foursquare"];
+    return footer;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 60;
+}
+
 @end
