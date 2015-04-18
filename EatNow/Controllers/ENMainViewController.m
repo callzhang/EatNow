@@ -54,6 +54,13 @@
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardLeadingConstraint;
+@property (nonatomic, strong) ENHistoryViewController *historyViewController;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerLeadingConstraint;
+@property (nonatomic, assign) BOOL isHistoryShown;
 @end
 
 @implementation ENMainViewController
@@ -495,8 +502,37 @@
 }
 
 - (IBAction)showHistory:(id)sender{
-    ENHistoryViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENHistoryNavigationView"];
-	[self presentViewController:vc animated:YES completion:nil];
+//    ENHistoryViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENHistoryNavigationView"];
+//	[self presentViewController:vc animated:YES completion:nil];
+    [self toggleHistory];
+    [self updateViewConstraints];
+    [UIView animateWithDuration:3 animations:^{[self.view layoutIfNeeded];}];
+}
+
+- (void)toggleHistory {
+    if (self.isHistoryShown) {
+        self.isHistoryShown = NO;
+    }
+    else {
+        self.isHistoryShown = YES;
+    }
+}
+
+- (void)updateViewConstraints {
+    if (self.isHistoryShown) {
+        self.historyChildViewControllerLeadingConstraint.constant = 0;
+        self.historyChildViewControllerTrailingConstraint.constant = 0;
+        self.detailCardLeadingConstraint.constant = self.view.frame.size.width;
+        self.detailCardTrailingConstraint.constant = -self.view.frame.size.width;
+    }
+    else {
+        self.historyChildViewControllerLeadingConstraint.constant = self.view.frame.size.width;
+        self.historyChildViewControllerTrailingConstraint.constant = -self.view.frame.size.width;
+        self.detailCardLeadingConstraint.constant = 0;
+        self.detailCardTrailingConstraint.constant = 0;
+    }
+    
+    [super updateViewConstraints];
 }
 
 - (IBAction)clapse:(id)sender {
@@ -518,13 +554,21 @@
 
 #pragma mark - Storyboard
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.destinationViewController isKindOfClass:[ENMapViewController class]]) {
-        ENMapViewController *mapVC = (ENMapViewController *)segue.destinationViewController;
-        mapVC.restaurant = self.frontCardView.restaurant;
+    if ([segue.identifier isEqualToString:@"embedHistorySegue"]) {
+        self.historyViewController = segue.destinationViewController;
+    }
+    else {
+        if ([segue.destinationViewController isKindOfClass:[ENMapViewController class]]) {
+            ENMapViewController *mapVC = (ENMapViewController *)segue.destinationViewController;
+            mapVC.restaurant = self.frontCardView.restaurant;
+        }
     }
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    if ([identifier isEqualToString:@"embedHistorySegue"]) {
+        return YES;
+    }
     if (!self.frontCardView.restaurant) {
         return NO;
     }

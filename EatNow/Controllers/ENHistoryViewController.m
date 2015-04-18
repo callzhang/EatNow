@@ -9,11 +9,8 @@
 #import "ENHistoryViewController.h"
 #import "ENServerManager.h"
 #import "ENHistoryViewCell.h"
-<<<<<<< HEAD
 #import "NSDate+MTDates.h"
-=======
 #import "NSDate+Extension.h"
->>>>>>> 1052f65fb919e5ce16f0f79c0ffa31b658a7f94f
 
 @interface ENHistoryViewController ()
 @property (nonatomic, strong) NSDictionary *user;
