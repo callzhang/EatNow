@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 2
 
+// AMRatingControl
+#define COCOAPODS_POD_AVAILABLE_AMRatingControl
+#define COCOAPODS_VERSION_MAJOR_AMRatingControl 1
+#define COCOAPODS_VERSION_MINOR_AMRatingControl 3
+#define COCOAPODS_VERSION_PATCH_AMRatingControl 0
+
 // BlocksKit
 #define COCOAPODS_POD_AVAILABLE_BlocksKit
 #define COCOAPODS_VERSION_MAJOR_BlocksKit 2
@@ -143,6 +149,12 @@
 #define COCOAPODS_VERSION_MAJOR_KVOController 1
 #define COCOAPODS_VERSION_MINOR_KVOController 0
 #define COCOAPODS_VERSION_PATCH_KVOController 3
+
+// MTDates
+#define COCOAPODS_POD_AVAILABLE_MTDates
+#define COCOAPODS_VERSION_MAJOR_MTDates 1
+#define COCOAPODS_VERSION_MINOR_MTDates 0
+#define COCOAPODS_VERSION_PATCH_MTDates 1
 
 // Masonry
 #define COCOAPODS_POD_AVAILABLE_Masonry

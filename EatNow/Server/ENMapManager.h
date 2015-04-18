@@ -19,8 +19,8 @@
 
 - (void)estimatedWalkingTimeToLocation:(CLLocation *)location completion:(void (^)(NSTimeInterval length, NSError *error))block;
 
+#pragma mark - Map routing
 - (void)routeToRestaurant:(ENRestaurant *)restaurant repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block;
-
 
 - (void)addAnnotationForRestaurant:(ENRestaurant *)restaurant;
 

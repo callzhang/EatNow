@@ -81,6 +81,11 @@
 #pragma mark - MAP management
 - (void)routeToRestaurant:(ENRestaurant *)restaurant repeat:(NSTimeInterval)updateInterval completion:(void (^)(NSTimeInterval length, NSError *error))block{
     [_repeatTimer invalidate];
+    if (!_map) {
+        DDLogWarn(@"No map exists, abord routing to restaurant %@", restaurant.name);
+        [_repeatTimer invalidate];
+        return;
+    }
 	CLLocation *destination = restaurant.location;
 	
 	if (self.map.annotations.count == 0) {
@@ -141,6 +146,7 @@
 
 - (void)cancelRouting{
     [_repeatTimer invalidate];
+    self.map = nil;
 }
 
 

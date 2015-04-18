@@ -9,6 +9,7 @@
 #import "ENHistoryViewController.h"
 #import "ENServerManager.h"
 #import "ENHistoryViewCell.h"
+#import "NSDate+MTDates.h"
 
 @interface ENHistoryViewController ()
 @property (nonatomic, strong) NSDictionary *user;
@@ -61,25 +62,24 @@
 
 - (void)setHistoryWithData:(NSArray *)data{
 	//generate restaurant
-    NSMutableSet *dates = [NSMutableSet new];
     for (NSDictionary *json in data) {
         //json: {restaurant, like, _id, date}
         NSString *dateStr = json[@"date"];
         NSDate *date = [NSDate dateFromISO1861:dateStr];
-        NSMutableArray *restaurantsDataForThatDay = self.history[date.YYYYMMDD];
+        NSMutableArray *restaurantsDataForThatDay = self.history[[date mt_endOfCurrentDay]];
         if (!restaurantsDataForThatDay) {
             restaurantsDataForThatDay = [NSMutableArray array];
-            [dates addObject:date];
         }
         NSDictionary *data = json[@"restaurant"];
         ENRestaurant *restaurant = [ENRestaurant restaurantWithData:data];
         if (!restaurant) continue;
         [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": json[@"like"], @"_id": json[@"_id"]}];
-        self.history[date.YYYYMMDD] = restaurantsDataForThatDay;
+        self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
     }
-    self.orderedDates = [dates.allObjects sortedArrayUsingComparator:^NSComparisonResult(NSDate *obj1, NSDate *obj2) {
+    self.orderedDates = [_history.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSDate *obj1, NSDate *obj2) {
         return -[obj1 compare:obj2];
     }];
+    DDLogVerbose(@"Updated history: %@", _history);
 }
 
 #pragma mark - Table view data source
@@ -108,7 +108,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     NSDate *date = self.orderedDates[section];
-    NSArray *restaurants = self.history[date.YYYYMMDD];
+    NSArray *restaurants = self.history[date.mt_endOfCurrentDay];
     return restaurants.count;
 }
 
@@ -116,7 +116,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ENHistoryViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
     NSDate *date = self.orderedDates[indexPath.section];
-    NSArray *restaurantsData = self.history[date.YYYYMMDD];
+    NSArray *restaurantsData = self.history[date.mt_endOfCurrentDay];
     NSDictionary *dataPoint = restaurantsData[indexPath.row];
     ENRestaurant *restaurant = dataPoint[@"restaurant"];
     cell.restaurant = restaurant;

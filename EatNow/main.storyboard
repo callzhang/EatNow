@@ -644,14 +644,14 @@
                         <viewControllerLayoutGuide type="bottom" id="dhx-kU-wTy"/>
                     </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Rlz-6w-TNj" customClass="ENRestaurantView">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4b-9y-85a" userLabel="venueCard">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ElG-By-adf">
-                                        <rect key="frame" x="0.0" y="203" width="320" height="247"/>
+                                        <rect key="frame" x="0.0" y="248" width="320" height="302"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="160" id="Zg0-Sm-FPg"/>
@@ -701,7 +701,57 @@ New York, NY 10014</string>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="subtitle" textLabel="K3q-bS-1FS" detailTextLabel="SsN-xo-SjL" imageView="iDo-6l-Sgt" style="IBUITableViewCellStyleSubtitle" id="Rq8-Tw-Sbf">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Aa7-t1-MdC">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aa7-t1-MdC" id="hdv-9Z-DdU">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-details-view-feedback-icon" translatesAutoresizingMaskIntoConstraints="NO" id="rtG-1n-AlP" userLabel="icon">
+                                                            <rect key="frame" x="8" y="14" width="25" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="rtG-1n-AlP" secondAttribute="height" multiplier="1:1" id="RwX-8t-d1F"/>
+                                                                <constraint firstAttribute="height" constant="25" id="tnR-ME-gk7"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <view tag="99" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsb-6D-B8K" userLabel="rating">
+                                                            <rect key="frame" x="41" y="16" width="120" height="20"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="120" id="4fh-SZ-TsP"/>
+                                                                <constraint firstAttribute="height" constant="20" id="VMi-QV-Efs"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apr 14, 2015" lineBreakMode="tailTruncation" numberOfLines="88" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5R-Xp-eui" userLabel="time">
+                                                            <rect key="frame" x="169" y="16" width="143" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="egK-SP-PXy"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="rtG-1n-AlP" firstAttribute="bottom" secondItem="hdv-9Z-DdU" secondAttribute="bottomMargin" constant="4" id="Ivk-R8-RJT"/>
+                                                        <constraint firstAttribute="centerY" secondItem="nsb-6D-B8K" secondAttribute="centerY" id="LCY-z1-6pQ"/>
+                                                        <constraint firstAttribute="centerY" secondItem="B5R-Xp-eui" secondAttribute="centerY" id="QZI-Qi-CoJ"/>
+                                                        <constraint firstItem="nsb-6D-B8K" firstAttribute="leading" secondItem="rtG-1n-AlP" secondAttribute="trailing" constant="8" id="S34-yF-wqJ"/>
+                                                        <constraint firstItem="B5R-Xp-eui" firstAttribute="trailing" secondItem="hdv-9Z-DdU" secondAttribute="trailingMargin" id="a9w-Yv-RFZ"/>
+                                                        <constraint firstAttribute="centerY" secondItem="rtG-1n-AlP" secondAttribute="centerY" id="cc4-IT-Ygm"/>
+                                                        <constraint firstItem="rtG-1n-AlP" firstAttribute="top" secondItem="hdv-9Z-DdU" secondAttribute="topMargin" constant="4" id="dqE-vf-WG1"/>
+                                                        <constraint firstItem="rtG-1n-AlP" firstAttribute="leading" secondItem="hdv-9Z-DdU" secondAttribute="leadingMargin" id="sS5-YO-VEi"/>
+                                                        <constraint firstItem="B5R-Xp-eui" firstAttribute="leading" secondItem="nsb-6D-B8K" secondAttribute="trailing" constant="8" id="wAF-bQ-UyM"/>
+                                                    </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="Ivk-R8-RJT"/>
+                                                            <exclude reference="dqE-vf-WG1"/>
+                                                        </mask>
+                                                    </variation>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="subtitle" textLabel="K3q-bS-1FS" detailTextLabel="SsN-xo-SjL" style="IBUITableViewCellStyleSubtitle" id="Rq8-Tw-Sbf">
                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rq8-Tw-Sbf" id="6sh-N7-1t9">
@@ -713,9 +763,6 @@ New York, NY 10014</string>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eat-now-card-details-view-web-icon" id="iDo-6l-Sgt">
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </imageView>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SsN-xo-SjL">
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -757,10 +804,10 @@ New York, NY 10014</string>
                                         </connections>
                                     </tableView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-Ee-d2j" userLabel="Info">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="203"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                         <subviews>
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="203"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New American, Burger" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="45L-e4-Y8S" userLabel="venueType">
                                                 <rect key="frame" x="8" y="46" width="236" height="30"/>
@@ -804,7 +851,7 @@ New York, NY 10014</string>
                                                 </variation>
                                             </label>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DBA-UH-kFT" userLabel="Waling">
-                                                <rect key="frame" x="8" y="151" width="304" height="44"/>
+                                                <rect key="frame" x="8" y="196" width="304" height="44"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 Min Waking" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zY-ds-bCm">
                                                         <rect key="frame" x="47" y="0.0" width="257" height="44"/>
@@ -838,14 +885,14 @@ New York, NY 10014</string>
                                                 </constraints>
                                             </view>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="do4-M6-1Ht">
-                                                <rect key="frame" x="141" y="166" width="39" height="37"/>
+                                                <rect key="frame" x="141" y="211" width="39" height="37"/>
                                             </pageControl>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3xH-uo-hHt">
-                                                <rect key="frame" x="142" y="83" width="37" height="37"/>
+                                                <rect key="frame" x="142" y="106" width="37" height="37"/>
                                                 <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             </activityIndicatorView>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uVW-6x-hlL" userLabel="Open">
-                                                <rect key="frame" x="8" y="107" width="304" height="44"/>
+                                                <rect key="frame" x="8" y="152" width="304" height="44"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open until 11:00 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKx-ie-3fb">
                                                         <rect key="frame" x="47" y="0.0" width="257" height="44"/>
@@ -924,7 +971,7 @@ New York, NY 10014</string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcM-Kx-ZZ9" userLabel="going">
-                                        <rect key="frame" x="85" y="392" width="150" height="42"/>
+                                        <rect key="frame" x="85" y="492" width="150" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="150" id="0bo-7U-3s3"/>
                                             <constraint firstAttribute="height" constant="42" id="xmF-ib-AAo"/>
@@ -993,11 +1040,11 @@ New York, NY 10014</string>
                         </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="450"/>
+                    <size key="freeformSize" width="320" height="550"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaU-vb-oKz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-159" y="586"/>
+            <point key="canvasLocation" x="-160" y="603"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="QeA-Y2-u23">
@@ -1098,10 +1145,10 @@ New York, NY 10014</string>
         <image name="eat-now-card-deck-view-time-icon" width="29" height="29"/>
         <image name="eat-now-card-deck-view-walk-icon" width="29" height="29"/>
         <image name="eat-now-card-details-view-cancel-button" width="185" height="49"/>
+        <image name="eat-now-card-details-view-feedback-icon" width="25" height="25"/>
         <image name="eat-now-card-details-view-foursquare-attribution" width="174" height="29"/>
         <image name="eat-now-card-details-view-map-icon" width="25" height="25"/>
         <image name="eat-now-card-details-view-phone-icon" width="25" height="25"/>
-        <image name="eat-now-card-details-view-web-icon" width="25" height="25"/>
         <image name="eat-now-close-button" width="55" height="55"/>
         <image name="eatnew-card-details-view-go-button" width="165" height="49"/>
     </resources>

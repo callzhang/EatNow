@@ -180,6 +180,10 @@
 }
 
 - (IBAction)toggleMap:(id)sender{
+    if (!_map) {
+        DDLogWarn(@"No map");
+        return;
+    }
     if (self.map.frame.size.height == 0) {
         //show
 		self.map.hidden = NO;
@@ -415,6 +419,12 @@
 					  @"title": [NSString stringWithFormat:@"Total score: %.1f", _restaurant.score.floatValue],
 					  @"detail": [NSString stringWithFormat:@"%@", _restaurant.scoreComponentsString]
 					  }];
+    
+    //footer
+    [info addObject:@{
+                      @"type": @"footer",
+                      @"cellID": @"foursquare"
+                      }];
 
 	
 	self.restautantInfo = info.copy;
@@ -428,9 +438,9 @@
     UITableViewCell *cell;
 	NSDictionary *info = self.restautantInfo[indexPath.row];
 	cell = [tableView dequeueReusableCellWithIdentifier:info[@"cellID"]];
-	cell.textLabel.text = info[@"title"];
+	if (info[@"title"]) cell.textLabel.text = info[@"title"];
 	if (info[@"detail"]) cell.detailTextLabel.text = info[@"detail"];
-	cell.imageView.image = [UIImage imageNamed:info[@"image"]];
+	if (info[@"image"]) cell.imageView.image = [UIImage imageNamed:info[@"image"]];
     if (info[@"accessory"]) {
         if ([info[@"accessory"] isEqualToString:@"disclosure"]) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -450,15 +460,6 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     });
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UITableViewCell *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"foursquare"];
-    return footer;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 60;
 }
 
 @end
