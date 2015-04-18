@@ -61,17 +61,6 @@ void ENLogError(NSString *fmt, ...);
 - (NSString *)string;
 @end
 
-@interface NSDate (Extend)
-- (NSString *)string;
-/**
- *  2012-04-23T18:25:43.511Z
- *
- *  @return ISO8601 date format
- */
-- (NSString *)ISO8601;
-+ (NSDate *)dateFromISO1861:(NSString *)str;
-@end
-
 @interface UIImage (Blur)
 - (UIImage *)bluredImage;
 @end

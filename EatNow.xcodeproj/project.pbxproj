@@ -33,6 +33,9 @@
 		0982B45A1AD9A30500982740 /* NSError+TMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B4581AD9A30500982740 /* NSError+TMError.m */; };
 		0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
 		0982B45E1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
+		09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
+		09DC93291AE2CBE20054D665 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
+		09DC932A1AE2D8F60054D665 /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
 		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
@@ -137,6 +140,8 @@
 		0982B4581AD9A30500982740 /* NSError+TMError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+TMError.m"; sourceTree = "<group>"; };
 		0982B45B1AD9A7D700982740 /* ResturantDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResturantDetailInterfaceController.h; sourceTree = "<group>"; };
 		0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResturantDetailInterfaceController.m; sourceTree = "<group>"; };
+		09DC93261AE2C94F0054D665 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
+		09DC93271AE2C94F0054D665 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -325,6 +330,8 @@
 				9B1180F61A8E96FB00756E8F /* ENDefines.h */,
 				9B85D0311A8EB6BB0014DBED /* ENUtil.h */,
 				9B85D0321A8EB6BB0014DBED /* ENUtil.m */,
+				09DC93261AE2C94F0054D665 /* NSDate+Extension.h */,
+				09DC93271AE2C94F0054D665 /* NSDate+Extension.m */,
 			);
 			name = Extension;
 			path = Extensins;
@@ -663,9 +670,11 @@
 				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
 				09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */,
 				092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */,
+				09DC93291AE2CBE20054D665 /* NSDate+Extension.m in Sources */,
 				0929746F1AD0C2B200DDC35C /* ENRestaurant.m in Sources */,
 				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
 				09757F8C1ADC97EE002B1515 /* NiceChoiceInterfaceController.m in Sources */,
+				09DC932A1AE2D8F60054D665 /* ENMapManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +696,7 @@
 				0982B4591AD9A30500982740 /* NSError+TMError.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */,
+				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
 				09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */,
 				0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */,

@@ -10,6 +10,7 @@
 #import "ENUtil.h"
 #import "ENServerManager.h"
 #import "UIImageView+AFNetworking.h"
+#import "NSDate+Extension.h"
 
 @interface ENProfileViewController ()
 @property (nonatomic, strong) ENServerManager *serverManager;

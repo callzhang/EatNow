@@ -9,6 +9,7 @@
 #import "ENHistoryViewController.h"
 #import "ENServerManager.h"
 #import "ENHistoryViewCell.h"
+#import "NSDate+Extension.h"
 
 @interface ENHistoryViewController ()
 @property (nonatomic, strong) NSDictionary *user;
