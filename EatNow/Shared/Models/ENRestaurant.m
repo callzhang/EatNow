@@ -41,7 +41,7 @@
 	restaurant.rating = (NSNumber *)json[@"rating"];
 	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];
 	NSArray *list = json[@"categories"];
-	restaurant.cuisines = [list valueForKey:@"shortName"];
+	restaurant.cuisines = [list valueForKey:@"global"];
 	restaurant.imageUrls = json[@"food_image_url"];
 	restaurant.phone = [json valueForKeyPath:@"contact.formattedPhone"];
 	restaurant.name = json[@"name"];
@@ -154,16 +154,16 @@
 		//good = NO;
     }
     if (!_reviews) {
-        DDLogError(@"Restaurant missing reviews %@", self);
-        good = NO;
+        DDLogWarn(@"Restaurant missing reviews %@", self);
+        //good = NO;
     }
     if (!_location) {
         DDLogWarn(@"Restaurant missing location %@", self);
     }
-    if (!_score) {
-        DDLogError(@"Restaurant missing score %@", self);
-        good = NO;
-    }
+//    if (!_score) {
+//        DDLogError(@"Restaurant missing score %@", self);
+//        good = NO;
+//    }
 	if (!self.openInfo) {
 		DDLogWarn(@"Resaurant missing open info %@", self);
 	}

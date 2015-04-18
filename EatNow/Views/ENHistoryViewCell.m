@@ -13,6 +13,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.contentView.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -22,7 +24,8 @@
 }
 
 - (void)setRestaurant:(ENRestaurant *)restaurant{
-    [self.background setImageWithURL:self.restaurant.imageUrls.firstObject];
+    _restaurant = restaurant;
+    [self.background setImageWithURL:[NSURL URLWithString:self.restaurant.imageUrls.firstObject]];
     self.title.text = _restaurant.name;
     self.subTitile.text = _restaurant.cuisineStr;
 }

@@ -286,14 +286,14 @@ void ENLogError(NSString *fmt,...){
 - (NSString *)string{
     NSDateFormatter *parseFormatter = [[NSDateFormatter alloc] init];
     parseFormatter.timeZone = [NSTimeZone defaultTimeZone];
-    parseFormatter.dateFormat = @"M/d";
+    parseFormatter.dateFormat = @"MMM dd, yyyy";
     return [parseFormatter stringFromDate:self];
 }
 
 - (NSString *)ISO8601 {
 	NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
 	formatter.timeZone = [NSTimeZone defaultTimeZone];
-	[formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+	[formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssz"];
 	NSString *string = [formatter stringFromDate:self];
 	return string;
 }
@@ -301,9 +301,21 @@ void ENLogError(NSString *fmt,...){
 + (NSDate *)dateFromISO1861:(NSString *)str{
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     formatter.timeZone = [NSTimeZone defaultTimeZone];
-    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'sss'Z'"];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssz"];
     NSDate *date = [formatter dateFromString:str];
+    if (!date) {
+        [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
+        date = [formatter dateFromString:str];
+    }
     return date;
+}
+
+- (NSString *)YYYYMMDD{
+    NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone defaultTimeZone];
+    [formatter setDateFormat:@"yyyyMMdd"];
+    NSString *string = [formatter stringFromDate:self];
+    return string;
 }
 
 @end
