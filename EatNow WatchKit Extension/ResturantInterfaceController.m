@@ -9,6 +9,7 @@
 #import "ResturantInterfaceController.h"
 #import "ENRestaurant.h"
 #import "AFNetworking.h"
+#import "ENMapManager.h"
 
 
 @interface ResturantInterfaceController()
@@ -20,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *actionButtonGroup;
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *actionButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *openTil;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *ratingLabel;
+@property (nonatomic, strong) ENMapManager *mapManager;
 @end
 
 
@@ -28,16 +31,21 @@
 - (void)awakeWithContext:(ENRestaurant *)context {
     [super awakeWithContext:context];
     self.restaurant = context;
-    [self.restaurant getWalkDurationWithCompletion:^(NSTimeInterval time, NSError *error) {
-        self.restaurantDistance.text = [NSString stringWithFormat:@"%.1f mins walk", time / 60.0];
-    }];
     NSLog(@"load restaurant:%@", context);
+    self.mapManager = [[ENMapManager alloc] init];
+    
+    [self.mapManager estimatedWalkingTimeToLocation:self.restaurant.location
+                                         completion:^(NSTimeInterval length, NSError *error) {
+                                             self.restaurantDistance.text = [NSString stringWithFormat:@"%.1f mins walk", length / 60.0];
+                                         }];
+    
     
     self.restaurantName.text = context.name;
     self.restaurantCategory.text = context.cuisineStr;
     self.restaurantPrice.text = [context.price valueForKey:@"currency"];
     self.openTil.text = context.openInfo;
-    self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance.floatValue/1000)];
+    self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", context.rating.floatValue];
+//    self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance.floatValue/1000)];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls.firstObject];

@@ -7,10 +7,27 @@
 //
 
 #import "GlanceController.h"
-
+#import "ENLocationManager.h"
+#import "ENServerManager.h"
+#import "NSError+TMError.h"
+#import "ENRestaurant.h"
+#import "ENMapManager.h"
+#import "ENMapViewController.h"
 
 @interface GlanceController()
+@property (nonatomic, strong) ENLocationManager *locationManager;
+@property (nonatomic, strong) ENServerManager *serverManager;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *nameLabel1;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *reviewLabel1;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *walkMins1;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *nameLabel2;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *reviewLabel2;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *walkMins2;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *nameLabel3;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *reviewLabel3;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *walkMIns3;
 
+@property (nonatomic, strong) ENMapManager *mapManager;
 @end
 
 
@@ -18,6 +35,37 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
+    self.mapManager = [[ENMapManager alloc] init];
+    
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
+        NSLog(@"got location:%@", location);
+        [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+            for (NSUInteger i = 0; i < 3 && i < response.count; i++) {
+                ENRestaurant *restaurant = response[i];
+                if (i == 0) {
+                    [self.nameLabel1 setText:restaurant.name];
+                    [self.reviewLabel1 setText:[NSString stringWithFormat:@"%@", restaurant.rating]];
+                    [self.mapManager estimatedWalkingTimeToLocation:restaurant.location completion:^(NSTimeInterval length, NSError *error) {
+                        self.walkMins1.text = [NSString stringWithFormat:@"%.1f mins walk", length / 60.0];
+                    }];
+                }
+                else if (i == 1) {
+                    [self.nameLabel2 setText:restaurant.name];
+                    [self.reviewLabel2 setText:[NSString stringWithFormat:@"%@", restaurant.rating]];
+                    [self.mapManager estimatedWalkingTimeToLocation:restaurant.location completion:^(NSTimeInterval length, NSError *error) {
+                        self.walkMins2.text = [NSString stringWithFormat:@"%.1f mins walk", length / 60.0];
+                    }];
+                }
+                else if (i == 2) {
+                    [self.nameLabel3 setText:restaurant.name];
+                    [self.reviewLabel3 setText:[NSString stringWithFormat:@"%@", restaurant.rating]];
+                    [self.mapManager estimatedWalkingTimeToLocation:restaurant.location completion:^(NSTimeInterval length, NSError *error) {
+                        self.walkMIns3.text = [NSString stringWithFormat:@"%.1f mins walk", length / 60.0];
+                    }];
+                }
+            }
+        }];
+    } forece:YES];
 }
 
 - (void)willActivate {

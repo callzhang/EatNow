@@ -9,6 +9,7 @@
 #import "ResturantDetailInterfaceController.h"
 #import "ENRestaurant.h"
 #import "ENLocationManager.h"
+#import <AddressBookUI/AddressBookUI.h>
 
 @interface RestaurantRowController : NSObject
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* textLabel;
@@ -27,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *address;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantCategory;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *restaurantPrice;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *ratingLabel;
 
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *detailTable;
 
@@ -48,6 +50,9 @@
     self.resturantName.text = self.restaurant.name;
     self.restaurantCategory.text = context.cuisineStr;
     self.restaurantPrice.text = [context.price valueForKey:@"currency"];
+    self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", [context.rating floatValue]];
+    NSString *address = ABCreateStringWithAddressDictionary(context.placemark.addressDictionary, NO);
+    self.address.text = [NSString stringWithFormat:@"%@", address];
     
     /** two points
     CGFloat scale = 2;
@@ -77,9 +82,9 @@
     });
     
     NSMutableArray *items = [self loadDetailRows];
-    if ([self needLoadMore]) {
-        [items addObject:@"More Info"];
-    }
+//    if ([self needLoadMore]) {
+//        [items addObject:@"More Info"];
+//    }
 
     [self loadTableWithArray:items];
 }

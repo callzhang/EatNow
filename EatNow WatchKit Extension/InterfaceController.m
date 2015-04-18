@@ -36,7 +36,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
             NSLog(@"got restaurant:%@", response);
             NSMutableArray *restaurants = [NSMutableArray array];
             NSMutableArray *objests = [NSMutableArray array];
-            for (NSUInteger i = 0; i < 3 && i < response.count; i++) {
+            for (NSUInteger i = 0; i < 6 && i < response.count; i++) {
                 [restaurants addObject:@"ResturantInterfaceController"];
                 [objests addObject:response[i]];
             }

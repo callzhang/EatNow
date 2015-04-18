@@ -13,6 +13,7 @@
 #import "FBKVOController.h"
 #import "ENLocationManager.h"
 #import "ENUtil.h"
+#import "NSDate+Extension.h"
 
 @import CoreLocation;
 
