@@ -16,3 +16,4 @@ typedef void (^ArrayBlock)(NSArray *array, NSError *error);
 typedef void (^FloatBlock)(float percent);
 typedef void (^SenderBlock)(id sender);
 typedef void (^ManagedObjectErrorBlock)(EWServerObject *MO, NSError *error);
+typedef void (^tableViewCellLayoutBlock)(UITableViewCell *cell);

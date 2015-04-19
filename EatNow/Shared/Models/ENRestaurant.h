@@ -47,6 +47,7 @@
 @property (nonatomic, strong) NSNumber* distance;
 
 //convienence method
+@property (nonatomic, strong) NSString *foursquareID;
 @property (nonatomic, strong) MKPlacemark *placemark;
 @property (nonatomic, assign) NSTimeInterval walkDuration;
 @property (nonatomic, strong) NSString *twitter;

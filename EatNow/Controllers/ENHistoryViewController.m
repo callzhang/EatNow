@@ -97,6 +97,7 @@
     UILabel *title = (UILabel *)[secionHeader viewWithTag:89];
     NSDate *date = self.orderedDates[section];
     title.text = date.string;
+
     return secionHeader;
 }
 
@@ -121,6 +122,7 @@
     NSDictionary *dataPoint = restaurantsData[indexPath.row];
     ENRestaurant *restaurant = dataPoint[@"restaurant"];
     cell.restaurant = restaurant;
+    cell.rate = [(NSNumber *)dataPoint[@"like"] integerValue];
     return cell;
 }
 

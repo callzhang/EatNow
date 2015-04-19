@@ -16,6 +16,8 @@
 #import "ENMapManager.h"
 #import "UIAlertView+BlocksKit.h"
 #import "ENUtil.h"
+#import "AMRatingControl.h"
+#import "NSDate+Extension.h"
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
@@ -77,18 +79,6 @@
     //image
     _currentImageIndex = -1;
     [self loadNextImage];
-	if (_restaurant.imageUrls.count <= 1) {
-		NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", restaurant.ID];
-		[self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
-			if (!imageUrls) {
-				ENLogError(@"Failed to parse foursquare image %@", restaurant.url);
-				return;
-			}
-			
-			restaurant.imageUrls = imageUrls;
-		}];
-	}
-	
 	
     //UI
     self.name.text = restaurant.name;
@@ -127,6 +117,18 @@
     if (self.imageView.image) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.imageView.image}];
     }
+    //load image from webpage
+    if (_restaurant.imageUrls.count <= 1) {
+        NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", _restaurant.foursquareID];
+        [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
+            if (!imageUrls) {
+                ENLogError(@"Failed to parse foursquare image %@", _restaurant.url);
+                return;
+            }
+            
+            _restaurant.imageUrls = imageUrls;
+        }];
+    }
 }
 
 #pragma mark - UI
@@ -146,6 +148,7 @@
 		}];
 		return;
 	}
+    
 	if (![ENServerManager shared].canSelectNewRestaurant) {
 		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", _restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes, I changed my mind."] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
 			if (buttonIndex == 1) {
@@ -413,17 +416,52 @@
 			[ENUtil showText:@"Coming soon"];
 		}}];
 	}
-	//score
-	[info addObject:@{@"type": @"score",
-					  @"cellID":@"subtitle",
-					  @"title": [NSString stringWithFormat:@"Total score: %.1f", _restaurant.score.floatValue],
-					  @"detail": [NSString stringWithFormat:@"%@", _restaurant.scoreComponentsString]
-					  }];
+    
+	//rating
+    NSDictionary *history = [ENServerManager shared].userRating;
+    NSDictionary *rating = history[_restaurant.ID];
+    if (rating) {
+        [info addObject:@{@"type": @"score",
+                          @"cellID": @"rating",
+                          @"layout": ^(UITableViewCell *cell){
+            
+                                NSNumber *rate = rating[@"rating"];
+                                UIImage *emptyImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-grey"];
+                                UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-yellow"];
+                                AMRatingControl *imagesRatingControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
+                                                                                                      emptyImage:emptyImageOrNil
+                                                                                                      solidImage:solidImageOrNil
+                                                                                                    andMaxRating:5];
+                                [imagesRatingControl setStarSpacing:3];
+                                imagesRatingControl.rating = rate.integerValue + 3;
+                                //Set rating from history
+                                UIView *ratingView = [cell viewWithTag:99];
+                                [ratingView addSubview:imagesRatingControl];
+                                
+                                //set time
+                                NSDate *time = rating[@"time"];
+                                UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];
+                                timeLabel.text = [NSString stringWithFormat:@"(%@)", time.string];
+                            },
+                          @"image": @"eat-now-card-details-view-feedback-icon",
+                          @"detail": [NSString stringWithFormat:@"%@", _restaurant.scoreComponentsString]
+                          }];
+    }
+	
+    //score
+    [info addObject:@{@"type": @"score",
+                      @"cellID":@"subtitle",
+                      @"title": [NSString stringWithFormat:@"Total score: %.1f", _restaurant.score.floatValue],
+                      @"detail": [NSString stringWithFormat:@"%@", _restaurant.scoreComponentsString]
+                      }];
     
     //footer
     [info addObject:@{
                       @"type": @"footer",
-                      @"cellID": @"foursquare"
+                      @"cellID": @"foursquare",
+                      @"layout": ^(UITableViewCell *cell){
+                            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.tableView.bounds));
+                        }
                       }];
 
 	
@@ -438,6 +476,10 @@
     UITableViewCell *cell;
 	NSDictionary *info = self.restautantInfo[indexPath.row];
 	cell = [tableView dequeueReusableCellWithIdentifier:info[@"cellID"]];
+    if (info[@"layout"]) {
+        tableViewCellLayoutBlock block = info[@"layout"];
+        block(cell);
+    }
 	if (info[@"title"]) cell.textLabel.text = info[@"title"];
 	if (info[@"detail"]) cell.detailTextLabel.text = info[@"detail"];
 	if (info[@"image"]) cell.imageView.image = [UIImage imageNamed:info[@"image"]];

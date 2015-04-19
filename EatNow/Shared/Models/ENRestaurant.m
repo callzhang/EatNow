@@ -36,7 +36,7 @@
 	NSParameterAssert([json isKindOfClass:[NSDictionary class]]);
 	restaurant.json = json;
 	
-	restaurant.ID = json[@"id"];
+    restaurant.ID = json[@"_id"];
 	restaurant.url = json[@"url"];
 	restaurant.rating = (NSNumber *)json[@"rating"];
 	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];
@@ -109,6 +109,10 @@
 
 - (NSString *)phoneNumber{
 	return [_json valueForKeyPath:@"contact.phone"];
+}
+
+- (NSString *)foursquareID{
+    return [_json valueForKey:@"id"];
 }
 
 - (NSString *)scoreComponentsString{

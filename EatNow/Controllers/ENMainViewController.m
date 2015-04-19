@@ -35,6 +35,7 @@
 #import "extobjc.h"
 #import "NSTimer+BlocksKit.h"
 #import "ENHistoryViewController.h"
+#import "ENUtil.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -88,6 +89,12 @@
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
     self.restaurantCards = [NSMutableArray array];
+    
+    //fetch user first
+    [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
+        NSParameterAssert([ENServerManager shared].userRating);
+        DDLogVerbose(@"Got user history and rating data");
+    }];
     
     //Dynamics
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];

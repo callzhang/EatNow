@@ -293,7 +293,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-uL-f3t" userLabel="title">
-                                            <rect key="frame" x="28" y="35" width="171" height="21"/>
+                                            <rect key="frame" x="28" y="35" width="151" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="131" id="gTk-mp-UM5"/>
                                                 <constraint firstAttribute="height" constant="21" id="mHY-Dt-MeS"/>
@@ -317,12 +317,12 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FsB-i5-4hA">
-                                            <rect key="frame" x="200" y="35" width="100" height="20"/>
+                                        <view tag="88" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FsB-i5-4hA">
+                                            <rect key="frame" x="180" y="35" width="120" height="20"/>
                                             <color key="backgroundColor" white="1" alpha="0.10000000000000001" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="8aL-mm-tpy"/>
-                                                <constraint firstAttribute="width" constant="100" id="te5-9d-Gbx"/>
+                                                <constraint firstAttribute="width" constant="120" id="te5-9d-Gbx"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -712,29 +712,21 @@ New York, NY 10014</string>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Aa7-t1-MdC">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="rating" id="Aa7-t1-MdC">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Aa7-t1-MdC" id="hdv-9Z-DdU">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-details-view-feedback-icon" translatesAutoresizingMaskIntoConstraints="NO" id="rtG-1n-AlP" userLabel="icon">
-                                                            <rect key="frame" x="8" y="14" width="25" height="25"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="rtG-1n-AlP" secondAttribute="height" multiplier="1:1" id="RwX-8t-d1F"/>
-                                                                <constraint firstAttribute="height" constant="25" id="tnR-ME-gk7"/>
-                                                            </constraints>
-                                                        </imageView>
                                                         <view tag="99" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nsb-6D-B8K" userLabel="rating">
-                                                            <rect key="frame" x="41" y="16" width="120" height="20"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <rect key="frame" x="48" y="16" width="120" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="120" id="4fh-SZ-TsP"/>
                                                                 <constraint firstAttribute="height" constant="20" id="VMi-QV-Efs"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apr 14, 2015" lineBreakMode="tailTruncation" numberOfLines="88" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5R-Xp-eui" userLabel="time">
-                                                            <rect key="frame" x="169" y="16" width="143" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="88" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apr 14, 2005" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B5R-Xp-eui" userLabel="time">
+                                                            <rect key="frame" x="176" y="16" width="136" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="egK-SP-PXy"/>
                                                             </constraints>
@@ -744,22 +736,12 @@ New York, NY 10014</string>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="rtG-1n-AlP" firstAttribute="bottom" secondItem="hdv-9Z-DdU" secondAttribute="bottomMargin" constant="4" id="Ivk-R8-RJT"/>
                                                         <constraint firstAttribute="centerY" secondItem="nsb-6D-B8K" secondAttribute="centerY" id="LCY-z1-6pQ"/>
                                                         <constraint firstAttribute="centerY" secondItem="B5R-Xp-eui" secondAttribute="centerY" id="QZI-Qi-CoJ"/>
-                                                        <constraint firstItem="nsb-6D-B8K" firstAttribute="leading" secondItem="rtG-1n-AlP" secondAttribute="trailing" constant="8" id="S34-yF-wqJ"/>
                                                         <constraint firstItem="B5R-Xp-eui" firstAttribute="trailing" secondItem="hdv-9Z-DdU" secondAttribute="trailingMargin" id="a9w-Yv-RFZ"/>
-                                                        <constraint firstAttribute="centerY" secondItem="rtG-1n-AlP" secondAttribute="centerY" id="cc4-IT-Ygm"/>
-                                                        <constraint firstItem="rtG-1n-AlP" firstAttribute="top" secondItem="hdv-9Z-DdU" secondAttribute="topMargin" constant="4" id="dqE-vf-WG1"/>
-                                                        <constraint firstItem="rtG-1n-AlP" firstAttribute="leading" secondItem="hdv-9Z-DdU" secondAttribute="leadingMargin" id="sS5-YO-VEi"/>
+                                                        <constraint firstItem="nsb-6D-B8K" firstAttribute="leading" secondItem="hdv-9Z-DdU" secondAttribute="leadingMargin" constant="40" id="lpT-ea-cB8"/>
                                                         <constraint firstItem="B5R-Xp-eui" firstAttribute="leading" secondItem="nsb-6D-B8K" secondAttribute="trailing" constant="8" id="wAF-bQ-UyM"/>
                                                     </constraints>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="Ivk-R8-RJT"/>
-                                                            <exclude reference="dqE-vf-WG1"/>
-                                                        </mask>
-                                                    </variation>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="subtitle" textLabel="K3q-bS-1FS" detailTextLabel="SsN-xo-SjL" style="IBUITableViewCellStyleSubtitle" id="Rq8-Tw-Sbf">
@@ -1156,7 +1138,6 @@ New York, NY 10014</string>
         <image name="eat-now-card-deck-view-time-icon" width="29" height="29"/>
         <image name="eat-now-card-deck-view-walk-icon" width="29" height="29"/>
         <image name="eat-now-card-details-view-cancel-button" width="185" height="49"/>
-        <image name="eat-now-card-details-view-feedback-icon" width="25" height="25"/>
         <image name="eat-now-card-details-view-foursquare-attribution" width="174" height="29"/>
         <image name="eat-now-card-details-view-map-icon" width="25" height="25"/>
         <image name="eat-now-card-details-view-phone-icon" width="25" height="25"/>

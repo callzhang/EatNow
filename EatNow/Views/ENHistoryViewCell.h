@@ -15,4 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *subTitile;
 @property (nonatomic, strong) ENRestaurant *restaurant;
 @property (weak, nonatomic) IBOutlet UIView *rating;
+@property (nonatomic, assign) NSInteger rate;
 @end

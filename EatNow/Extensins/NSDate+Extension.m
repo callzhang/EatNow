@@ -22,7 +22,7 @@
 - (NSString *)ISO8601 {
     NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
     formatter.timeZone = [NSTimeZone defaultTimeZone];
-    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ssz"];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
     NSString *string = [formatter stringFromDate:self];
     return string;
 }
