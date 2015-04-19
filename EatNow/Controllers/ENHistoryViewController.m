@@ -9,11 +9,8 @@
 #import "ENHistoryViewController.h"
 #import "ENServerManager.h"
 #import "ENHistoryViewCell.h"
-<<<<<<< HEAD
 #import "NSDate+MTDates.h"
-=======
 #import "NSDate+Extension.h"
->>>>>>> 1052f65fb919e5ce16f0f79c0ffa31b658a7f94f
 
 @interface ENHistoryViewController ()
 @property (nonatomic, strong) NSDictionary *user;
@@ -100,6 +97,7 @@
     UILabel *title = (UILabel *)[secionHeader viewWithTag:89];
     NSDate *date = self.orderedDates[section];
     title.text = date.string;
+
     return secionHeader;
 }
 
@@ -124,6 +122,7 @@
     NSDictionary *dataPoint = restaurantsData[indexPath.row];
     ENRestaurant *restaurant = dataPoint[@"restaurant"];
     cell.restaurant = restaurant;
+    cell.rate = [(NSNumber *)dataPoint[@"like"] integerValue];
     return cell;
 }
 

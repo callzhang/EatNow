@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSDate *selectedTime;
 @property (nonatomic, strong) NSString *selectionHistoryID;
 @property (nonatomic, strong) NSDictionary *me;
+@property (nonatomic, strong) NSMutableDictionary *userRating;
 
 //We still need Singleton as it stores shared information
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)

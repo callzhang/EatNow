@@ -118,10 +118,37 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSString *myID = [self.class myUUID];
     NSString *url = [NSString stringWithFormat:@"%@%@",kUserUrl, myID];
     DDLogInfo(@"Requesting user: %@", url);
-    [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id responseObject) {
-		NSParameterAssert([responseObject isKindOfClass:[NSDictionary class]]);
-		self.me = responseObject;
-        block(responseObject, nil);
+    [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id user) {
+		NSParameterAssert([user isKindOfClass:[NSDictionary class]]);
+		self.me = user;
+        
+        //parse history rating
+        NSArray *history = [user valueForKeyPath:@"user.history"];
+        self.userRating = [NSMutableDictionary new];
+        for (NSDictionary *data in history) {
+            NSString *dateStr = data[@"date"];
+            NSDate *date = [NSDate dateFromISO1861:dateStr];
+            if (!date) {
+                DDLogWarn(@"Date string not expected %@", dateStr);
+                continue;
+            }
+            NSNumber *rate = data[@"like"];
+            NSDictionary *restaurant = data[@"restaurant"];
+            NSString *ID = restaurant[@"_id"];
+            NSDictionary *ratingDic = self.userRating[ID] ?: [NSDictionary new];
+            if (ratingDic.allKeys.count == 0) {
+                _userRating[ID] = @{@"rating": rate, @"time":date};
+            }else{
+                NSDate *prevTime = ratingDic[@"time"];
+                if ([prevTime compare:date] == NSOrderedAscending) {
+                    //date is later
+                    _userRating[ID] = @{@"rating": rate, @"time":date};
+                }
+            }
+        }
+        
+        //return
+        block(user, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error];
         DDLogError(s);

@@ -41,4 +41,6 @@
 //states
 @property (nonatomic, assign) BOOL isDismissingCard;
 @property (nonatomic, assign) BOOL isShowingCards;
+//data
+@property (nonatomic, strong) NSMutableDictionary *userRating;
 @end
