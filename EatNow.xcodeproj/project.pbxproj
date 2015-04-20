@@ -40,6 +40,8 @@
 		9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
 		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
 		9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */; };
+		9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658BC1AE4613D0035572C /* UIView+Extend.m */; };
+		9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658BF1AE4B5330035572C /* UIView+Material.m */; };
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
 		9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B85D0321A8EB6BB0014DBED /* ENUtil.m */; };
 		9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9424071AE0450300411D1F /* ENHistoryViewController.m */; };
@@ -152,6 +154,10 @@
 		9B141DD81A901F5700EB2CC8 /* ENProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENProfileViewController.h; sourceTree = "<group>"; };
 		9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENProfileViewController.m; sourceTree = "<group>"; };
 		9B1658B51ADE1CCE0035572C /* GCDSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDSingleton.h; sourceTree = "<group>"; };
+		9B1658BB1AE4613D0035572C /* UIView+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extend.h"; sourceTree = "<group>"; };
+		9B1658BC1AE4613D0035572C /* UIView+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extend.m"; sourceTree = "<group>"; };
+		9B1658BE1AE4B5330035572C /* UIView+Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Material.h"; sourceTree = "<group>"; };
+		9B1658BF1AE4B5330035572C /* UIView+Material.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Material.m"; sourceTree = "<group>"; };
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9B85D0311A8EB6BB0014DBED /* ENUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUtil.h; sourceTree = "<group>"; };
 		9B85D0321A8EB6BB0014DBED /* ENUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENUtil.m; sourceTree = "<group>"; };
@@ -326,6 +332,10 @@
 		9BEE36B91A8D3DCF0052332C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				9B1658BE1AE4B5330035572C /* UIView+Material.h */,
+				9B1658BF1AE4B5330035572C /* UIView+Material.m */,
+				9B1658BB1AE4613D0035572C /* UIView+Extend.h */,
+				9B1658BC1AE4613D0035572C /* UIView+Extend.m */,
 				9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */,
 				9B1180F61A8E96FB00756E8F /* ENDefines.h */,
 				9B85D0311A8EB6BB0014DBED /* ENUtil.h */,
@@ -683,6 +693,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BA07B5E1A9C3672008A3D67 /* ENMapViewController.m in Sources */,
+				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
 				092974691AD0C28D00DDC35C /* ENServerManager.m in Sources */,
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
 				09777C811AD4933C007147B2 /* ENRestaurantViewController.m in Sources */,
@@ -700,6 +711,7 @@
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
 				09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */,
 				0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */,
+				9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */,
 				9B97952A1AD8B40D00136764 /* ENRestaurantView.m in Sources */,
 				9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */,
 				9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */,

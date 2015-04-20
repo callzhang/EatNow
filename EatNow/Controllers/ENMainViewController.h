@@ -31,8 +31,9 @@
 @interface ENMainViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *cardFrame;
 @property (weak, nonatomic) IBOutlet UIView *detailFrame;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
+@property (weak, nonatomic) IBOutlet UIImageView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
+@property (weak, nonatomic) IBOutlet UIButton *historyButton;
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 //frame

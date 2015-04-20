@@ -36,7 +36,7 @@
 	NSParameterAssert([json isKindOfClass:[NSDictionary class]]);
 	restaurant.json = json;
 	
-    restaurant.ID = json[@"_id"];
+    restaurant.ID = json[@"_id"]?:json[@"id"];
 	restaurant.url = json[@"url"];
 	restaurant.rating = (NSNumber *)json[@"rating"];
 	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];

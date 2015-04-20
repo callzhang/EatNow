@@ -18,6 +18,7 @@
 #import "ENUtil.h"
 #import "AMRatingControl.h"
 #import "NSDate+Extension.h"
+#import "UIView+Material.h"
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
@@ -37,7 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIView *card;
 @property (weak, nonatomic) IBOutlet UIButton *goButton;
-@property (weak, nonatomic) IBOutlet MKMapView *map;
+@property (strong, nonatomic) MKMapView *map;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -48,6 +49,7 @@
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) BOOL isLoadingImage;
 @property (nonatomic, strong) ENMapManager *mapManager;
+@property (nonatomic, weak) UIView *mapIcon;
 @end
 
 
@@ -69,12 +71,6 @@
 	//update view
     self.status = ENRestaurantViewStatusCard;
     [self updateLayoutConstraintValue];
-    
-    //map
-    self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
-    self.map.region = MKCoordinateRegionMakeWithDistance(_restaurant.location.coordinate, 1000, 1000);
-    self.map.showsUserLocation = YES;
-    self.map.delegate = _mapManager;
     
     //image
     _currentImageIndex = -1;
@@ -184,27 +180,23 @@
 
 - (IBAction)toggleMap:(id)sender{
     if (!_map) {
-        DDLogWarn(@"No map");
-        return;
-    }
-    if (self.map.frame.size.height == 0) {
-        //show
-		self.map.hidden = NO;
-        [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            CGFloat tableHeight = self.tableView.frame.size.height;
-            self.mapHeight.constant = tableHeight;
-            [self layoutIfNeeded];
-        } completion:^(BOOL finished) {
-			[self.mapManager addAnnotationForRestaurant:_restaurant];
-        }];
+        //map
+        self.map = [[MKMapView alloc] initWithFrame:self.bounds];
+        self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
+        self.map.region = MKCoordinateRegionMakeWithDistance(_restaurant.location.coordinate, 1000, 1000);
+        self.map.showsUserLocation = YES;
+        self.map.delegate = _mapManager;
+        [self addSubview:self.map];
+        [UIView collapse:self.mapIcon view:self.map animated:NO completion:nil];
+        [UIView expand:self.mapIcon view:self.map completion:nil];
+        [self.mapManager addAnnotationForRestaurant:_restaurant];
     }else{
         //hide
-        [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.mapHeight.constant = 0;
-            [self layoutIfNeeded];
-        } completion:^(BOOL finished) {
+        [UIView collapse:self.mapIcon view:self.map animated:YES completion:^{
             [self.mapManager cancelRouting];
-			self.map.hidden = YES;
+            [self.map removeFromSuperview];
+            self.map = nil;
+            self.mapManager = nil;
         }];
     }
 }
@@ -292,7 +284,7 @@
         DDLogVerbose(@"Loading image, skip");
         return;
     }
-    if (_restaurant.imageUrls.count == 1 && self.imageView.image) {
+    if (_restaurant.imageUrls.count == 1 && self.imageView.image && _currentImageIndex != -1) {
         DDLogVerbose(@"Only one image, skip");
         return;
     }
@@ -353,10 +345,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
     
     //start next
-    if (self.status == ENRestaurantViewStatusDetail) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadNextImage) object:nil];
-        [self performSelector:@selector(loadNextImage) withObject:nil afterDelay:5];
-    }
+//    if (self.status == ENRestaurantViewStatusDetail) {
+//        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadNextImage) object:nil];
+//        [self performSelector:@selector(loadNextImage) withObject:nil afterDelay:5];
+//    }
     
 }
 
@@ -367,9 +359,22 @@
 	if (self.restaurant.placemark) {
 		[info addObject:@{@"type": @"address",
 						  @"cellID": @"mapCell",
+                          @"height": @80,
 						  @"image": @"eat-now-card-details-view-map-icon",
-						  @"title": _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey],
-						  @"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000],
+						  //@"title": _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey],
+						  //@"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000],
+                          @"layout": ^(UITableViewCell *cell){
+            UILabel *address = (UILabel *)[cell viewWithTag:111];
+            UILabel *distance = (UILabel *)[cell viewWithTag:222];
+            NSString *street = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey];
+            NSString *city = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressCityKey];
+            NSString *state = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStateKey];
+            NSString *zip = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressZIPKey];
+            address.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", street, city, state, zip];
+            distance.text = [NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000];
+            
+            self.mapIcon = [cell viewWithTag:333];
+        },
                           @"action": ^{
             //action to open map
             [self toggleMap:nil];
@@ -472,6 +477,15 @@
     return self.restautantInfo.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *info = self.restautantInfo[indexPath.row];
+    if (info[@"height"]) {
+        NSNumber *height = info[@"height"];
+        return height.floatValue;
+    }
+    return tableView.rowHeight;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell;
 	NSDictionary *info = self.restautantInfo[indexPath.row];
@@ -499,9 +513,11 @@
     }
     
     //deselect
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    });
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)dealloc{
+    DDLogVerbose(@"Card dismissed: %@", _restaurant.name);
 }
 
 @end

@@ -36,6 +36,7 @@
 #import "NSTimer+BlocksKit.h"
 #import "ENHistoryViewController.h"
 #import "ENUtil.h"
+#import "UIView+Extend.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -92,12 +93,14 @@
     
     //fetch user first
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
-        NSParameterAssert([ENServerManager shared].userRating);
-        DDLogVerbose(@"Got user history and rating data");
+        if (user) {
+            NSParameterAssert([ENServerManager shared].userRating);
+            DDLogVerbose(@"Got user history and rating data");
+        }
     }];
     
     //Dynamics
-    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.detailFrame];
     self.gravity = [[UIGravityBehavior alloc] init];
     self.gravity.gravityDirection = CGVectorMake(0, 10);
     [self.animator addBehavior:_gravity];
@@ -143,6 +146,7 @@
             }
         }
     }];
+    
 	
 	[[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
 		switch (status) {
@@ -169,6 +173,7 @@
     UIVisualEffectView *bluredEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [bluredEffectView setFrame:self.view.frame];
     [self.view insertSubview:bluredEffectView aboveSubview:self.background];
+    [self setBackgroundImage:[UIImage imageNamed:@"eat-now-default-background"]];
     [[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         if (note.object == self.frontCardView) {
             [self setBackgroundImage:note.userInfo[@"image"]];
@@ -238,7 +243,7 @@
 		card.hidden = YES;
 		if (i==1) {
 			DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
-			[self.view addSubview:card];
+			[self.detailFrame addSubview:card];
 			[card addGestureRecognizer:self.panGesture];
 			[card.imageView addGestureRecognizer:self.tapGesture];
 			[card didChangedToFrontCard];
@@ -247,7 +252,7 @@
 			//insert behind previous card
 			UIView *previousCard = self.restaurantCards[i-2];
 			NSParameterAssert(previousCard.superview);
-			[self.view insertSubview:card belowSubview:previousCard];
+			[self.detailFrame insertSubview:card belowSubview:previousCard];
 		}
 		//animate
 		if (i <= kMaxCardsToAnimate){
@@ -275,10 +280,6 @@
 
 
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity{
-	if (_isShowingCards) {
-		DDLogWarn(@"Showing cards, skip dismiss");
-		return;
-	}
     if (self.frontCardView) {
         ENRestaurantView *frontCard = self.frontCardView;
 		//DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
@@ -321,7 +322,7 @@
 - (void)toggleCardDetails{
 	[_animator removeBehavior:self.frontCardView.snap];
     if (self.frontCardView.status == ENRestaurantViewStatusCard) {
-        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailViewFrame animated:YES];
+        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailFrame.bounds animated:YES];
         [self.frontCardView removeGestureRecognizer:self.panGesture];
         //[self.frontCardView removeGestureRecognizer:self.tapGesture];
         [UIView animateWithDuration:0.3 animations:^{
@@ -338,12 +339,12 @@
 }
 
 #pragma mark - Guesture actions
-- (IBAction)panHandler:(UITapGestureRecognizer *)gesture {
+- (IBAction)tapHandler:(UITapGestureRecognizer *)gesture {
 	[self toggleCardDetails];
 }
 
 - (IBAction)gestureHandler:(UIPanGestureRecognizer *)gesture {
-    CGPoint locInView = [gesture locationInView:self.view];
+    CGPoint locInView = [gesture locationInView:self.detailFrame];
     CGPoint locInCard = [gesture locationInView:self.frontCardView];
     ENRestaurantView *card = self.frontCardView;
     if (gesture.state == UIGestureRecognizerStateBegan) {
@@ -403,6 +404,8 @@
 	[self.restaurants removeObjectAtIndex:0];
     [self.restaurantCards addObject:card];
     //set background iamge
+    [card.imageView applyGredient2];
+    
 	return card;
 }
 
@@ -506,31 +509,33 @@
     });
     [self.loading startAnimating];
     [self searchNewRestaurantsForced:YES];
+        
+    //show loading info
+    [self.loading startAnimating];
+    self.loadingInfo.text = @"You have dismissed all cards.";
 }
 
 - (IBAction)showHistory:(id)sender{
-//    ENHistoryViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENHistoryNavigationView"];
-//	[self presentViewController:vc animated:YES completion:nil];
-    [self toggleHistory];
+    self.isHistoryShown = !_isHistoryShown;
     [self updateViewConstraints];
-    [UIView animateWithDuration:3 animations:^{[self.view layoutIfNeeded];}];
-}
-
-- (void)toggleHistory {
-    if (self.isHistoryShown) {
-        self.isHistoryShown = NO;
-    }
-    else {
-        self.isHistoryShown = YES;
-    }
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        //replace the button icon
+        if (self.isHistoryShown) {
+            [self.historyButton setImage:[UIImage imageNamed:@"eat-now-history-view-deck-button"] forState:UIControlStateNormal];
+        }else{
+            [self.historyButton setImage:[UIImage imageNamed:@"eat-now-card-deck-view-history-button"] forState:UIControlStateNormal];
+        }
+    }];
 }
 
 - (void)updateViewConstraints {
     if (self.isHistoryShown) {
         self.historyChildViewControllerLeadingConstraint.constant = 0;
         self.historyChildViewControllerTrailingConstraint.constant = 0;
-        self.detailCardLeadingConstraint.constant = self.view.frame.size.width;
-        self.detailCardTrailingConstraint.constant = -self.view.frame.size.width;
+        self.detailCardLeadingConstraint.constant = -self.view.frame.size.width;
+        self.detailCardTrailingConstraint.constant = self.view.frame.size.width;
     }
     else {
         self.historyChildViewControllerLeadingConstraint.constant = self.view.frame.size.width;

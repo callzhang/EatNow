@@ -68,10 +68,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
                           //@"radius":@500
                           };
     DDLogInfo(@"Request restaurant: %@", dic);
-    [manager GET:kSearchUrl parameters:dic
+    NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"search"];
+    [manager GET:path parameters:dic
           success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
               DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
-              TIC
+              
+              //process data
               NSMutableArray *mutableResturants = [NSMutableArray array];
               for (NSDictionary *restaurant_json in responseObject) {
 				  ENRestaurant *restaurant = [ENRestaurant restaurantWithData:restaurant_json];
@@ -81,12 +83,14 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
                   }
               }
               
-              TOC
               DDLogInfo(@"Processed %ld restaurant", (unsigned long)mutableResturants.count);
               
               //server returned sorted from high to low
               [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
               
+              
+              //change status
+              self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
               
               if (self.completionGroup) {
                   for (id completion in self.completionGroup) {
@@ -97,13 +101,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
                   [self.completionGroup removeAllObjects];
               }
               
-              //post notification
-              self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
-              
           }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
               NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
               DDLogError(@"%@", str);
-//                  ENAlert(str);
               if (block) {
                   block(NO, error, nil);
               }
@@ -116,7 +116,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSString *myID = [self.class myUUID];
-    NSString *url = [NSString stringWithFormat:@"%@%@",kUserUrl, myID];
+    NSString *url = [NSString stringWithFormat:@"%@/user/%@",kServerUrl, myID];
     DDLogInfo(@"Requesting user: %@", url);
     [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id user) {
 		NSParameterAssert([user isKindOfClass:[NSDictionary class]]);
@@ -176,7 +176,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 						  @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude),
 						  @"distance": restaurant.distance};
     DDLogVerbose(@"Select restaurant: %@", dic);
-    [manager POST:kEatUrl parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"select"];
+    [manager POST:path parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         block(nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         block(error);
