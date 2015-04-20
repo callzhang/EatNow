@@ -90,17 +90,13 @@
 }
 
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate{
-    static NSTimer *nextImageDelay;
-    [nextImageDelay invalidate];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.frame = frame;
         self.status = status;
         [self updateLayoutConstraintValue];
     } completion:^(BOOL finished) {
         if (status == ENRestaurantViewStatusDetail) {
-            nextImageDelay = [NSTimer bk_scheduledTimerWithTimeInterval:5 block:^(NSTimer *timer) {
-                [self loadNextImage];
-            } repeats:NO];
+            [self loadNextImage];
         }
     }];
     
@@ -366,6 +362,7 @@
     
 }
 
+#pragma mark - Table view
 
 - (void)prepareData{
 	NSParameterAssert(_restaurant.json);
