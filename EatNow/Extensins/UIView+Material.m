@@ -13,15 +13,16 @@
 + (void)collapse:(UIView *)button view:(UIView *)view animated:(BOOL)animated completion:(VoidBlock)block {
     
     CGFloat radius = sqrtf(powf(button.frame.origin.x + button.frame.size.width / 2, 2) + powf(button.frame.origin.y + button.frame.size.height / 2, 2)) ;
-    CGFloat scale = radius / MIN(button.bounds.size.width, button.bounds.size.height) * 2;
+    CGFloat scale = radius / MIN(button.bounds.size.width, button.bounds.size.height) * 3;
     CABasicAnimation *animation = [self shapeAnimationWithTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut] scale:scale inflating:YES];
     
     CAShapeLayer *circle = [CAShapeLayer layer];
-    circle.bounds = [button.superview convertRect:button.bounds toView:view];
+    circle.bounds = button.bounds;
     CGFloat toRadius = button.bounds.size.width / 2;
     circle.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 2.0*toRadius, 2.0*toRadius)
                                              cornerRadius:radius].CGPath;
-    circle.position = CGPointMake(button.center.x, button.center.y);
+    circle.position = [button.superview convertPoint:CGPointMake(button.center.x, button.center.y) toView:view];
+    //circle.position = CGPointMake(button.center.x, button.center.y);
     view.layer.mask = circle;
     
     if (!animated) {
@@ -31,11 +32,11 @@
     [CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithFloat:kAnimationDuration] forKey:kCATransactionAnimationDuration];
     
-    [CATransaction setCompletionBlock:^{
-    }];
+    [CATransaction setCompletionBlock:block];
     
     [circle addAnimation:animation forKey:@"shapeMaskAnimation"];
     [CATransaction commit];
+    
 }
 
 + (void)collapse:(UIView *)button view:(UIView *)view {
@@ -45,7 +46,7 @@
 + (void)expand:(UIView *)button view:(UIView *)view completion:(VoidBlock)block {
     
     CGFloat radius = sqrtf(powf(button.frame.origin.x + button.frame.size.width / 2, 2) + powf(button.frame.origin.y + button.frame.size.height / 2, 2)) ;
-    CGFloat scale = radius / MIN(button.bounds.size.width, button.bounds.size.height) * 2;
+    CGFloat scale = radius / MIN(button.bounds.size.width, button.bounds.size.height) * 3;
     
     CABasicAnimation *animation = [self shapeAnimationWithTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut] scale:scale inflating:NO];
     animation.duration = kAnimationDuration;
@@ -56,6 +57,9 @@
     
     [CATransaction setCompletionBlock:^{
         [cycle removeFromSuperlayer];
+        if (block) {
+            block();
+        }
     }];
     
     [cycle addAnimation:animation forKey:@"shapeMaskAnimation"];

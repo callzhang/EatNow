@@ -126,6 +126,7 @@
         }
     }];
     
+    //server status
     [self.KVOController observe:self.serverManager keyPath:@keypath(self.serverManager, fetchStatus) options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
         if (manager != NULL) {
             ENResturantDataStatus dataStatus = manager.fetchStatus;
@@ -147,7 +148,7 @@
         }
     }];
     
-	
+	//Internet connection
 	[[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
 		switch (status) {
 			case AFNetworkReachabilityStatusUnknown:
@@ -162,7 +163,7 @@
 				self.loadingInfo.text = @"Connected";
 				break;
 				
-			default:
+			default://
 				break;
 		}
 	}];
@@ -173,7 +174,6 @@
     UIVisualEffectView *bluredEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [bluredEffectView setFrame:self.view.frame];
     [self.view insertSubview:bluredEffectView aboveSubview:self.background];
-    [self setBackgroundImage:[UIImage imageNamed:@"eat-now-default-background"]];
     [[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         if (note.object == self.frontCardView) {
             [self setBackgroundImage:note.userInfo[@"image"]];

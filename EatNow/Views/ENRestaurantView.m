@@ -166,7 +166,7 @@
 	}];
 	
 	//map
-    if (self.map.frame.size.height == 0) {
+    if (!self.map) {
         [self toggleMap:nil];
     }
     
@@ -179,24 +179,38 @@
 }
 
 - (IBAction)toggleMap:(id)sender{
+    static UIButton *closeMap;
     if (!_map) {
         //map
+        
+        //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         self.map = [[MKMapView alloc] initWithFrame:self.bounds];
         self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
         self.map.region = MKCoordinateRegionMakeWithDistance(_restaurant.location.coordinate, 1000, 1000);
         self.map.showsUserLocation = YES;
         self.map.delegate = _mapManager;
-        [self addSubview:self.map];
+        [self insertSubview:self.map belowSubview:self.goButton];
+        closeMap = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+        [closeMap setTitle:@"X" forState:UIControlStateNormal];
+        [closeMap addTarget:self action:@selector(toggleMap:) forControlEvents:UIControlEventTouchUpInside];
+        closeMap.tintColor = [UIColor blueColor];
         [UIView collapse:self.mapIcon view:self.map animated:NO completion:nil];
-        [UIView expand:self.mapIcon view:self.map completion:nil];
+        [UIView expand:self.mapIcon view:self.map completion:^{
+            [self addSubview:closeMap];
+        }];
         [self.mapManager addAnnotationForRestaurant:_restaurant];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidShow object:nil];
     }else{
         //hide
+        //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        [closeMap removeFromSuperview];
+        closeMap = nil;
         [UIView collapse:self.mapIcon view:self.map animated:YES completion:^{
             [self.mapManager cancelRouting];
             [self.map removeFromSuperview];
             self.map = nil;
             self.mapManager = nil;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidDismiss object:nil];
         }];
     }
 }

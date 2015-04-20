@@ -11,6 +11,8 @@
 
 #define kRestaurantViewImageChangedNotification     @"restaurant_view_image_changed"
 #define kSelectedRestaurantNotification				@"selected_restaurant"
+#define kMapViewDidShow                             @"map_view_did_show"
+#define kMapViewDidDismiss                          @"map_view_did_dismiss"
 
 //typedef void (^VoidBlock)();
 
