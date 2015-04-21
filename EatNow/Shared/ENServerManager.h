@@ -7,7 +7,7 @@
 //
 
 #define kMaxSelectedRestaurantRetainTime			3600
-#define kServerUrl                  @"http://thawing-reef-5403.herokuapp.com"
+#define kServerUrl                  @"http://api.eatnow.cc"
 //#define kServerUrl                  @"http://dry-fortress-8563.herokuapp.com"
 #define kCuisineNames        @"Afghan,African,American,Argentine,Asian,Australian,Bakery,Bangladeshi,Bars,Belgian,Brasseries,Brazilian,Breakfast,British,Buffets,Cafes,Cambodian,Caribbean,Chinese,Coffee,Creperie,Cuban,Czech,Delis,Dessert,Eastern_European,Ethiopian,Fast_Food,Fast_Truck,Filipino,Food_Truck,French,German,Greek,Halal,Hawaiian,Healthy,Himalayan,Indian,Indonesian,Italian,Japanese,Korean,Kosher,Latin_American,Malaysian,Mediterranean,Mexican,Middle_Eastern,Modern,Mongolian,Moroccan,Night_Life,Northern_European,Pakistani,Persian,Peruvian,Polish,Russian,Seafood,Southern,Spanish,Steakhouses,Tea_Rooms,Thai,Turkish,Ukrainian,Vegetarian,Vietnamese"
 
@@ -29,6 +29,9 @@
 @property (nonatomic, strong) NSString *selectionHistoryID;
 @property (nonatomic, strong) NSDictionary *me;
 @property (nonatomic, strong) NSMutableDictionary *userRating; //{restaurant_id: {rating: 9, date: Mar 15, 2015}}
+@property (nonatomic, strong) NSMutableDictionary *history;
+@property (nonatomic, strong) NSMutableDictionary *preference;
+@property (nonatomic, strong) NSDictionary *stats;
 
 //We still need Singleton as it stores shared information
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
@@ -36,11 +39,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 //functions
 //- (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
-- (void)selectRestaurant:(ENRestaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block;
 - (void)getRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
 
 //select restaurant
+- (void)selectRestaurant:(ENRestaurant *)restaurant like:(NSInteger)value completion:(ErrorBlock)block;
+- (void)cancelSelectedRestaurant:(NSString *)historyID completion:(ErrorBlock)block;
 - (BOOL)canSelectNewRestaurant;
 - (void)clearSelectedRestaurant;
 @end

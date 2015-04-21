@@ -245,7 +245,7 @@
 			DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
 			[self.detailFrame addSubview:card];
 			[card addGestureRecognizer:self.panGesture];
-			[card.imagePager addGestureRecognizer:self.tapGesture];
+			[card.info addGestureRecognizer:self.tapGesture];
 			[card didChangedToFrontCard];
         } else{
             DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
@@ -296,9 +296,9 @@
         
         //add pan gesture to next
         [frontCard removeGestureRecognizer:self.panGesture];
-		[frontCard.imagePager removeGestureRecognizer:self.tapGesture];
+		[frontCard.info removeGestureRecognizer:self.tapGesture];
         [self.frontCardView addGestureRecognizer:self.panGesture];
-		[self.frontCardView.imagePager addGestureRecognizer:self.tapGesture];
+		[self.frontCardView.info addGestureRecognizer:self.tapGesture];
         
         //notify next card
         [self.frontCardView didChangedToFrontCard];
@@ -404,7 +404,7 @@
 	[self.restaurants removeObjectAtIndex:0];
     [self.restaurantCards addObject:card];
     //set background iamge
-    [card.imagePager applyGredient2];
+    [card.imageView applyGredient2];
     
 	return card;
 }

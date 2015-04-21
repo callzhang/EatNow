@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>A9855ED3-38E5-4946-B5EA-B89A9D215ED6</UUID>
-        <nextObjectID>132</nextObjectID>
+        <nextObjectID>135</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -74,7 +74,7 @@
         <attribute name="name" type="string">Yelp</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z110 z109"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z109 z110"></relationship>
     </object>
     <object type="LMENVIRONMENT" id="z103">
         <attribute name="uuid" type="string">864D7705-CC21-4B63-A1A4-F8388A3154F9</attribute>
@@ -118,14 +118,14 @@
     <object type="LMREQUEST" id="z111">
         <attribute name="body" type="string"></attribute>
         <attribute name="uuid" type="string">909F20D3-4C32-4E62-BE9C-FAF334DD9C14</attribute>
-        <attribute name="url" type="string">["http:\\/\\/dry-fortress-8563.herokuapp.com\\/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638\u2600time=",{"data":{"format":3,"customFormat":"","now":true,"useTSeparator":1,"date":1429045509.018471,"delta":0,"useZForUTC":0},"identifier":"com.luckymarmot.TimestampDynamicValue"}]</attribute>
+        <attribute name="url" type="string">["http:\\/\\/api.eatnow.cc\\/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638\u2600time=",{"data":{"format":3,"customFormat":"","now":true,"useTSeparator":1,"date":1429045509.018471,"delta":0,"useZForUTC":0},"identifier":"com.luckymarmot.TimestampDynamicValue"}]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">4</attribute>
+        <attribute name="order" type="int64">3</attribute>
         <attribute name="name" type="string">Search</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -143,7 +143,7 @@
     </object>
     <object type="LMREQUEST" id="z113">
         <attribute name="uuid" type="string">D3DCB9F7-8D67-4D4D-83AD-A75876E70ABA</attribute>
-        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/user/lei</attribute>
+        <attribute name="url" type="string">http://api.eatnow.cc/user/lei</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -151,7 +151,7 @@
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[{"data":{"json":"{}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
-        <attribute name="order" type="int64">10</attribute>
+        <attribute name="order" type="int64">8</attribute>
         <attribute name="name" type="string">user</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -159,7 +159,7 @@
     </object>
     <object type="LMREQUEST" id="z114">
         <attribute name="uuid" type="string">A0A81EAD-6579-496B-9EC1-B7329652939B</attribute>
-        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/select</attribute>
+        <attribute name="url" type="string">http://api.eatnow.cc/select</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -167,7 +167,7 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">["{\\n  \\"username\\": \\"lei\\",\\n  \\"restaurantId\\": \\"4b0c24fef964a520be3723e3\\",\\n  \\"like\\": \\"1\\",\\n  \\"latitude\\": \\"1\\",\\n  \\"longitude\\": \\"2\\",\\n  \\"distance\\": \\"100\\"\\n}"]</attribute>
-        <attribute name="order" type="int64">8</attribute>
+        <attribute name="order" type="int64">6</attribute>
         <attribute name="name" type="string">Select</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -243,35 +243,9 @@
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z119"></relationship>
     </object>
-    <object type="LMREQUEST" id="z121">
-        <attribute name="uuid" type="string">33376A1B-9484-4BC1-908C-0D30EA6EE036</attribute>
-        <attribute name="url" type="string">localhost:3000/</attribute>
-        <attribute name="storecookies" type="bool">1</attribute>
-        <attribute name="sendcookies" type="bool">1</attribute>
-        <attribute name="redirectmethod" type="bool">0</attribute>
-        <attribute name="redirectauthorization" type="bool">0</attribute>
-        <attribute name="method" type="string">GET</attribute>
-        <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"keyValues":[["username","lei",true],["latitude","51.5072",true],["longitude","0.1275",true]]},"identifier":"com.luckymarmot.BodyFormKeyValueDynamicValue"}]</attribute>
-        <attribute name="order" type="int64">7</attribute>
-        <attribute name="name" type="string">Search local</attribute>
-        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z122"></relationship>
-    </object>
-    <object type="LMKEYVALUE" id="z122">
-        <attribute name="value" type="string"></attribute>
-        <attribute name="order" type="int64">0</attribute>
-        <attribute name="name" type="string"></attribute>
-        <attribute name="enabled" type="bool">1</attribute>
-        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
-        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
-        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
-        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z121"></relationship>
-    </object>
     <object type="LMREQUEST" id="z125">
         <attribute name="uuid" type="string">68E6726D-4BE5-41A3-8711-96498AA64F8F</attribute>
-        <attribute name="url" type="string">http://dry-fortress-8563.herokuapp.com/restaurant/4b59e21df964a520209e28e3</attribute>
+        <attribute name="url" type="string">http://api.eatnow.cc/restaurant/4b59e21df964a520209e28e3</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -279,7 +253,7 @@
         <attribute name="method" type="string">PUT</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[{"data":{"json":"{\\"img_url\\":[\\"https:\\\\\\/\\\\\\/irs2.4sqi.net\\\\\\/img\\\\\\/general\\\\\\/original\\\\\\/Bzs_-149pVjHLoD9ElvnpSgEM5Njk92TEsBzmkHik9o.jpg\\"]}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
-        <attribute name="order" type="int64">6</attribute>
+        <attribute name="order" type="int64">5</attribute>
         <attribute name="name" type="string">Update restaurant</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -315,7 +289,7 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[" {\\"username\\": \\"qatest\\", \\"rating\\": 5, \\"restaurantId\\": \\"49e8aef4f964a52067651fe3\\", \\"like\\": 1, \\"location\\": {\\"latitude\\": 40.73461, \\"distance\\": 10, \\"longitude\\": -73.87629}, \\"date\\": \\"2014-04-01T13:00:00\\"}"]</attribute>
-        <attribute name="order" type="int64">9</attribute>
+        <attribute name="order" type="int64">7</attribute>
         <attribute name="name" type="string">Select dev</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -331,7 +305,7 @@
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[{"data":{"json":"{}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
-        <attribute name="order" type="int64">11</attribute>
+        <attribute name="order" type="int64">9</attribute>
         <attribute name="name" type="string">user dev</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -357,7 +331,7 @@
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string"></attribute>
-        <attribute name="order" type="int64">5</attribute>
+        <attribute name="order" type="int64">4</attribute>
         <attribute name="name" type="string">Search dev</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -372,5 +346,31 @@
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z131"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z133">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">1</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z135"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z135">
+        <attribute name="uuid" type="string">4EE5CAAF-3FB5-4718-BBE2-982B9EDAD3B3</attribute>
+        <attribute name="url" type="string">http://api.eatnow.cc/user/lei/restaurant/552ecc2b2a646e23009d24e6</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">DELETE</attribute>
+        <attribute name="followredirects" type="bool">1</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="order" type="int64">10</attribute>
+        <attribute name="name" type="string">Delete history</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z133"></relationship>
     </object>
 </database>

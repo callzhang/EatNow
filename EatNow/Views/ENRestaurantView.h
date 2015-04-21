@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ENRestaurant.h"
-#import "KIImagePager.h"
 
 #define kRestaurantViewImageChangedNotification     @"restaurant_view_image_changed"
 #define kSelectedRestaurantNotification				@"selected_restaurant"
@@ -28,7 +27,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (nonatomic, assign) ENRestaurantViewStatus status;
 @property (nonatomic, weak) UISnapBehavior *snap;
 @property (weak, nonatomic) IBOutlet UIView *info;
-@property (weak, nonatomic) IBOutlet KIImagePager *imagePager;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 + (instancetype)loadView;
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate;

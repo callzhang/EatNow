@@ -33,14 +33,21 @@
 	}
 	
 	//data
-    self.history = [NSMutableDictionary new];
-	self.user = [ENServerManager shared].me;
+    self.history = [ENServerManager shared].history;
+	//self.user = [ENServerManager shared].me;
 	[[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
-		self.user = user;
+		self.history = [ENServerManager shared].history;
 		[self.tableView reloadData];
 	}];
     
     self.tableView.contentInset = UIEdgeInsetsMake(90, 0, 0, 0);
+}
+
+- (void)setHistory:(NSMutableDictionary *)history{
+    _history = history;
+    self.orderedDates = [_history.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSDate *obj1, NSDate *obj2) {
+        return -[obj1 compare:obj2];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -61,33 +68,6 @@
 	}
 }
 
-- (void)setUser:(NSDictionary *)user{
-	[self setHistoryWithData:[user valueForKeyPath:@"user.history"]];
-	_user = user;
-}
-
-- (void)setHistoryWithData:(NSArray *)data{
-	//generate restaurant
-    for (NSDictionary *json in data) {
-        //json: {restaurant, like, _id, date}
-        NSString *dateStr = json[@"date"];
-        NSDate *date = [NSDate dateFromISO1861:dateStr];
-        NSMutableArray *restaurantsDataForThatDay = self.history[[date mt_endOfCurrentDay]];
-        if (!restaurantsDataForThatDay) {
-            restaurantsDataForThatDay = [NSMutableArray array];
-        }
-        NSDictionary *data = json[@"restaurant"];
-        ENRestaurant *restaurant = [ENRestaurant restaurantWithData:data];
-        if (!restaurant) continue;
-        [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": json[@"like"], @"_id": json[@"_id"]}];
-        self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
-    }
-    self.orderedDates = [_history.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSDate *obj1, NSDate *obj2) {
-        return -[obj1 compare:obj2];
-    }];
-    DDLogVerbose(@"Updated history: %@", _history);
-}
-
 #pragma mark - Table view data source
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100;
@@ -104,12 +84,6 @@
     title.text = date.string;
     return secionHeader;
 }
-
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-//    NSDate *date = self.orderedDates[section];
-//    return date.string;
-//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.

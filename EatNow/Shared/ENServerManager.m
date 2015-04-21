@@ -14,6 +14,7 @@
 #import "ENLocationManager.h"
 #import "ENUtil.h"
 #import "NSDate+Extension.h"
+#import "NSDate+MTDates.h"
 
 @import CoreLocation;
 
@@ -124,31 +125,6 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 		NSParameterAssert([user isKindOfClass:[NSDictionary class]]);
 		self.me = user;
         
-        //parse history rating
-        NSArray *history = [user valueForKeyPath:@"user.history"];
-        self.userRating = [NSMutableDictionary new];
-        for (NSDictionary *data in history) {
-            NSString *dateStr = data[@"date"];
-            NSDate *date = [NSDate dateFromISO1861:dateStr];
-            if (!date) {
-                DDLogWarn(@"Date string not expected %@", dateStr);
-                continue;
-            }
-            NSNumber *rate = data[@"like"];
-            NSDictionary *restaurant = data[@"restaurant"];
-            NSString *ID = restaurant[@"_id"];
-            NSDictionary *ratingDic = self.userRating[ID] ?: [NSDictionary new];
-            if (ratingDic.allKeys.count == 0) {
-                _userRating[ID] = @{@"rating": rate, @"time":date};
-            }else{
-                NSDate *prevTime = ratingDic[@"time"];
-                if ([prevTime compare:date] == NSOrderedAscending) {
-                    //date is later
-                    _userRating[ID] = @{@"rating": rate, @"time":date};
-                }
-            }
-        }
-        
         //return
         block(user, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -188,6 +164,21 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
 }
 
+- (void)cancelSelectedRestaurant:(NSString *)historyID completion:(ErrorBlock)block{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *path = [NSString stringWithFormat:@"%@/user/%@/restaurant/%@", kServerUrl, [ENServerManager myUUID], historyID];//TODO
+    [manager DELETE:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self getUserWithCompletion:nil];
+        if (block) {
+            block(nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(error);
+        }
+    }];
+}
+
 - (BOOL)canSelectNewRestaurant{
 	if (self.selectedRestaurant) {
 		if ([[NSDate date] timeIntervalSinceDate:self.selectedTime] < kMaxSelectedRestaurantRetainTime) {
@@ -221,6 +212,59 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 		DDLogError(error.localizedDescription);
 	}];
 
+}
+
+#pragma mark - Data processing
+- (void)setMe:(NSDictionary *)me{
+    _me = me;
+    [self setHistoryWithData:[me valueForKeyPath:@"user.history"]];
+    [self setUserRatingWithData:[me valueForKey:@"user.histroy"]];
+    self.preference = [me valueForKey:@"preference"];
+}
+
+- (void)setHistoryWithData:(NSArray *)data{
+    //generate restaurant
+    for (NSDictionary *json in data) {
+        //json: {restaurant, like, _id, date}
+        NSString *dateStr = json[@"date"];
+        NSDate *date = [NSDate dateFromISO1861:dateStr];
+        NSMutableArray *restaurantsDataForThatDay = self.history[[date mt_endOfCurrentDay]];
+        if (!restaurantsDataForThatDay) {
+            restaurantsDataForThatDay = [NSMutableArray array];
+        }
+        NSDictionary *data = json[@"restaurant"];
+        ENRestaurant *restaurant = [ENRestaurant restaurantWithData:data];
+        if (!restaurant) continue;
+        [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": json[@"like"], @"_id": json[@"_id"]}];
+        self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
+    }
+    DDLogVerbose(@"Updated history: %@", _history);
+}
+
+- (void)setUserRatingWithData:(NSArray *)history{
+    //parse history rating
+    self.userRating = [NSMutableDictionary new];
+    for (NSDictionary *data in history) {
+        NSString *dateStr = data[@"date"];
+        NSDate *date = [NSDate dateFromISO1861:dateStr];
+        if (!date) {
+            DDLogWarn(@"Date string not expected %@", dateStr);
+            continue;
+        }
+        NSNumber *rate = data[@"like"];
+        NSDictionary *restaurant = data[@"restaurant"];
+        NSString *ID = restaurant[@"_id"];
+        NSDictionary *ratingDic = self.userRating[ID] ?: [NSDictionary new];
+        if (ratingDic.allKeys.count == 0) {
+            _userRating[ID] = @{@"rating": rate, @"time":date};
+        }else{
+            NSDate *prevTime = ratingDic[@"time"];
+            if ([prevTime compare:date] == NSOrderedAscending) {
+                //date is later
+                _userRating[ID] = @{@"rating": rate, @"time":date};
+            }
+        }
+    }
 }
 
 #pragma mark - Tools
