@@ -19,6 +19,7 @@
 #import "AMRatingControl.h"
 #import "NSDate+Extension.h"
 #import "UIView+Material.h"
+#import "extobjc.h"
 @import AddressBook;
 
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
@@ -111,14 +112,16 @@
     }
     //load image from webpage
     if (_restaurant.imageUrls.count <= 1) {
+        @weakify(self);
         NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", _restaurant.foursquareID];
         [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
+            @strongify(self);
             if (!imageUrls) {
                 ENLogError(@"Failed to parse foursquare image %@", _restaurant.url);
                 return;
             }
             
-            _restaurant.imageUrls = imageUrls;
+            self.restaurant.imageUrls = imageUrls;
         }];
     }
 }
@@ -129,7 +132,9 @@
 		//cancel
 		//ENAlert(@"Need cancel API! Using dislike API for now.");
 		[[ENServerManager shared] clearSelectedRestaurant];
+        @weakify(self);
 		[[ENServerManager shared] selectRestaurant:_restaurant like:-1 completion:^(NSError *error) {
+            @strongify(self);
 			if (error) {
 				ENLogError(error.localizedDescription);
 				[ENUtil showFailureHUBWithString:@"failed"];
@@ -166,7 +171,9 @@
         [self toggleMap:nil];
     }
     
+    @weakify(self);
     [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
+        @strongify(self);
         self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
     }];
 	
@@ -254,7 +261,9 @@
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    @weakify(self);
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @strongify(self);
         NSData *data = responseObject;
         TFHpple * doc       = [[TFHpple alloc] initWithHTMLData:data];
         NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='photosSection']/ul/li/img"];
@@ -276,7 +285,7 @@
         block(images, nil);
 		
 		//update to server
-		[[ENServerManager shared] updateRestaurant:_restaurant withInfo:@{@"img_url":images} completion:nil];
+		[[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":images} completion:nil];
 		
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         ENLogError(@"Failed to download website %@", urlString);
@@ -316,7 +325,9 @@
     [self.loading startAnimating];
     NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls[nextIdx]];
     //download first
+    @weakify(self);
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:self.imageView.image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        @strongify(self);
 		_currentImageIndex = nextIdx;
 		_isLoadingImage = NO;
 		[self.loading stopAnimating];
@@ -367,7 +378,8 @@
 - (void)prepareData{
 	NSParameterAssert(_restaurant.json);
 	NSMutableArray *info = [NSMutableArray new];
-	if (self.restaurant.placemark) {
+    __weak __typeof(self)weakSelf = self;
+	if (weakSelf.restaurant.placemark) {
 		[info addObject:@{@"type": @"address",
 						  @"cellID": @"mapCell",
                           @"height": @80,
@@ -377,56 +389,56 @@
                           @"layout": ^(UITableViewCell *cell){
             UILabel *address = (UILabel *)[cell viewWithTag:111];
             UILabel *distance = (UILabel *)[cell viewWithTag:222];
-            NSString *street = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey];
-            NSString *city = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressCityKey];
-            NSString *state = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStateKey];
-            NSString *zip = _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressZIPKey];
+            NSString *street = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey];
+            NSString *city = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressCityKey];
+            NSString *state = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStateKey];
+            NSString *zip = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressZIPKey];
             address.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", street, city, state, zip];
-            distance.text = [NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000];
+            distance.text = [NSString stringWithFormat:@"%.1fkm away", weakSelf.restaurant.distance.floatValue/1000];
             
-            self.mapIcon = [cell viewWithTag:333];
+            weakSelf.mapIcon = [cell viewWithTag:333];
         },
                           @"action": ^{
             //action to open map
-            [self toggleMap:nil];
+            [weakSelf toggleMap:nil];
         }}];
 	}
-	if (self.restaurant.openInfo) {
+	if (weakSelf.restaurant.openInfo) {
 		[info addObject:@{@"type": @"address",
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-time-icon",
-						  @"title": self.restaurant.openInfo}];
+						  @"title": weakSelf.restaurant.openInfo}];
 	}
-	if (self.restaurant.phone) {
+	if (weakSelf.restaurant.phone) {
 		[info addObject:@{@"type": @"phone",
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-phone-icon",
-						  @"title": self.restaurant.phone,
+						  @"title": weakSelf.restaurant.phone,
 						  @"action": ^{
-			NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",_restaurant.phoneNumber];
+			NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",weakSelf.restaurant.phoneNumber];
 			NSURL *phoneUrl = [NSURL URLWithString:phoneStr];
 			if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
 				[[UIApplication sharedApplication] openURL:phoneUrl];
 			}
 		}}];
 	}
-	if (self.restaurant.url) {
+	if (weakSelf.restaurant.url) {
 		[info addObject:@{@"type": @"url",
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-web-icon",
-						  @"title": self.restaurant.url,
+						  @"title": weakSelf.restaurant.url,
 						  @"action": ^{
-			NSURL *url = [NSURL URLWithString:_restaurant.url];
+			NSURL *url = [NSURL URLWithString:weakSelf.restaurant.url];
 			if ([[UIApplication sharedApplication] canOpenURL:url]) {
 				[[UIApplication sharedApplication] openURL:url];
 			}
 		}}];
 	}
-	if (_restaurant.reviews) {
+	if (weakSelf.restaurant.reviews) {
 		[info addObject:@{@"type": @"reviews",
 						  @"cellID": @"cell",
 						  @"image": @"eat-now-card-details-view-twitter-icon",
-						  @"title": [NSString stringWithFormat:@"%@ tips", _restaurant.reviews],
+						  @"title": [NSString stringWithFormat:@"%@ tips", weakSelf.restaurant.reviews],
                           @"accessory": @"disclosure",
 						  @"action": ^{
 			[ENUtil showText:@"Coming soon"];
@@ -435,7 +447,7 @@
     
 	//rating
     NSDictionary *history = [ENServerManager shared].userRating;
-    NSDictionary *rating = history[_restaurant.ID];
+    NSDictionary *rating = history[weakSelf.restaurant.ID];
     if (rating) {
         [info addObject:@{@"type": @"score",
                           @"cellID": @"rating",
@@ -460,15 +472,15 @@
                                 timeLabel.text = [NSString stringWithFormat:@"(%@)", time.string];
                             },
                           @"image": @"eat-now-card-details-view-feedback-icon",
-                          @"detail": [NSString stringWithFormat:@"%@", _restaurant.scoreComponentsString]
+                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsString]
                           }];
     }
 	
     //score
     [info addObject:@{@"type": @"score",
                       @"cellID":@"subtitle",
-                      @"title": [NSString stringWithFormat:@"Total score: %.1f", _restaurant.score.floatValue],
-                      @"detail": [NSString stringWithFormat:@"%@", _restaurant.scoreComponentsString]
+                      @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
+                      @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsString]
                       }];
     
     //footer
@@ -476,7 +488,7 @@
                       @"type": @"footer",
                       @"cellID": @"foursquare",
                       @"layout": ^(UITableViewCell *cell){
-                            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.tableView.bounds));
+        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(weakSelf.tableView.bounds));
                         }
                       }];
 

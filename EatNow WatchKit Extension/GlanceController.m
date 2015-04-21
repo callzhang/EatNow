@@ -13,6 +13,7 @@
 #import "ENRestaurant.h"
 #import "ENMapManager.h"
 #import "ENMapViewController.h"
+#import "extobjc.h"
 
 @interface GlanceController()
 @property (nonatomic, strong) ENLocationManager *locationManager;
@@ -37,9 +38,11 @@
     [super awakeWithContext:context];
     self.mapManager = [[ENMapManager alloc] init];
     
+    @weakify(self);
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         NSLog(@"got location:%@", location);
         [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+            @strongify(self);
             for (NSUInteger i = 0; i < 3 && i < response.count; i++) {
                 ENRestaurant *restaurant = response[i];
                 if (i == 0) {

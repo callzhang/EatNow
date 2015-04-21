@@ -92,21 +92,23 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
               //change status
               self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
               
-              if (self.completionGroup) {
-                  for (id completion in self.completionGroup) {
-                      void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
-                      cachedCompletion(YES, nil, mutableResturants.copy);
-                  }
-                  
-                  [self.completionGroup removeAllObjects];
+              for (id completion in self.completionGroup) {
+                  void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
+                  cachedCompletion(YES, nil, mutableResturants.copy);
               }
+              
+              [self.completionGroup removeAllObjects];
               
           }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
               NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
               DDLogError(@"%@", str);
-              if (block) {
-                  block(NO, error, nil);
+              
+              for (id completion in self.completionGroup) {
+                  void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
+                  cachedCompletion(NO, error, nil);
               }
+              
+              [self.completionGroup removeAllObjects];
               
               self.fetchStatus = ENResturantDataStatusError;
           }];

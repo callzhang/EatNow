@@ -8,6 +8,7 @@
 
 #import "ENLocationManager.h"
 #import "FBKVOController.h"
+#import "extobjc.h"
 
 
 static CLLocation *_cachedCurrentLocation = nil;
@@ -57,8 +58,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 	//status
 	self.locationStatus = ENLocationStatusGettingLocation;
 	//request
+    @weakify(self);
     [self.locationManager requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:10 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
 		
+        @strongify(self);
 		//update location
 		self.currentLocation = currentLocation;
 		if (status == INTULocationStatusSuccess) {
@@ -88,7 +91,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 				static NSInteger locationRetryCount;
 				if (locationRetryCount < 5) {
 					locationRetryCount++;
-					DDLogWarn(@"Retrying location for the %ldth time", locationRetryCount);
+					DDLogWarn(@"Retrying location for the %@th time", @(locationRetryCount));
 					[self getLocationWithCompletion:completion forece:forceUpdate];
 					return;
 				}
