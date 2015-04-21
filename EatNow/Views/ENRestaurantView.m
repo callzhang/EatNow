@@ -21,7 +21,7 @@
 #import "UIView+Material.h"
 @import AddressBook;
 
-@interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
+@interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource, KIImagePagerDelegate, KIImagePagerDataSource, KIImagePagerImageSource>
 @property (nonatomic, strong) NSArray *restautantInfo;
 
 //IB
@@ -35,7 +35,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *walkingDistance;
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIView *card;
 @property (weak, nonatomic) IBOutlet UIButton *goButton;
 @property (strong, nonatomic) MKMapView *map;
@@ -46,8 +45,8 @@
 
 
 //internal
-@property (nonatomic, assign) NSInteger currentImageIndex;
-@property (nonatomic, assign) BOOL isLoadingImage;
+//@property (nonatomic, assign) NSInteger currentImageIndex;
+//@property (nonatomic, assign) BOOL isLoadingImage;
 @property (nonatomic, strong) ENMapManager *mapManager;
 @property (nonatomic, weak) UIView *mapIcon;
 @end
@@ -58,7 +57,7 @@
     UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
     ENRestaurantView *view = (ENRestaurantView *)container.view;
     NSParameterAssert([view isKindOfClass:[ENRestaurantView class]]);
-	//view.rating.layer.cornerRadius = 10;
+    //view.tableView.contentInset = UIEdgeInsetsMake(90, 0, 0, 0);
     return view;
 }
 
@@ -71,10 +70,6 @@
 	//update view
     self.status = ENRestaurantViewStatusCard;
     [self updateLayoutConstraintValue];
-    
-    //image
-    _currentImageIndex = -1;
-    [self loadNextImage];
 	
     //UI
     self.name.text = restaurant.name;
@@ -89,6 +84,8 @@
 	[self updateGoButton];
 }
 
+
+#pragma mark - State change
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate{
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.frame = frame;
@@ -96,7 +93,7 @@
         [self updateLayoutConstraintValue];
     } completion:^(BOOL finished) {
         if (status == ENRestaurantViewStatusDetail) {
-            [self loadNextImage];
+            //[self loadNextImage];
         }
     }];
     
@@ -106,8 +103,8 @@
 }
 
 - (void)didChangedToFrontCard{
-    if (self.imageView.image) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.imageView.image}];
+    if ([self.restaurant.images.firstObject isKindOfClass:[UIImage class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.restaurant.images.firstObject}];
     }
     //load image from webpage
     if (_restaurant.imageUrls.count <= 1) {
@@ -121,6 +118,10 @@
             _restaurant.imageUrls = imageUrls;
         }];
     }
+}
+
+- (void)didDismiss{
+    //
 }
 
 #pragma mark - UI
@@ -228,12 +229,10 @@
         if (self.openTime.text) {
             self.openInfo.alpha = 1;
         }
-        self.pageControl.alpha = 0;
         self.goButton.alpha = 0;
     }else{
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
-        self.pageControl.alpha = 1;
         self.goButton.alpha = 1;
     }
 }
@@ -285,82 +284,82 @@
     [op start];
 }
 
-- (void)loadNextImage{
-    if (self.status == ENRestaurantViewStatusCard && _currentImageIndex != -1) {
-		//DDLogVerbose(@"Skip loading next image in card mode");
-        return;
-    }
-    if (_isLoadingImage) {
-        DDLogVerbose(@"Loading image, skip");
-        return;
-    }
-    if (_restaurant.imageUrls.count == 1 && self.imageView.image && _currentImageIndex != -1) {
-        DDLogVerbose(@"Only one image, skip");
-        return;
-    }
-    
-    NSInteger nextIdx = (_currentImageIndex + 1) % self.restaurant.imageUrls.count;
-    
-    //display if downloaded
-    if (self.restaurant.images.count > nextIdx) {
-        if (self.restaurant.images[nextIdx] != [NSNull null]) {
-            _currentImageIndex = nextIdx;
-            self.pageControl.currentPage = nextIdx;
-            [self showImage:self.restaurant.images[nextIdx]];
-            return;
-        }
-    }
-    
-    //download
-    self.isLoadingImage = YES;
-    [self.loading startAnimating];
-    NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls[nextIdx]];
-    //download first
-    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:self.imageView.image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-		_currentImageIndex = nextIdx;
-		_isLoadingImage = NO;
-		[self.loading stopAnimating];
-		NSMutableArray *images = _restaurant.images.mutableCopy ?: [NSMutableArray arrayWithCapacity:_restaurant.imageUrls.count];
-		while (images.count <= _currentImageIndex) {
-			[images addObject:[NSNull null]];
-		}
-		images[_currentImageIndex] = image;
-		_restaurant.images = images.copy;
-		
-		[self showImage:image];
-		
-		self.pageControl.currentPage = nextIdx;
-	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-		ENLogError(@"*** Failed to download image with error: %@", error);
-	}];
-}
-
-- (void)showImage:(UIImage *)image{
-    if (self.loading.isAnimating) {
-        [self.loading stopAnimating];
-    }
-    self.imageView.image = image;
-    //duplicate view
-    if (self.superview) {
-        UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
-        [self insertSubview:imageViewCopy aboveSubview:self.imageView];
-        [UIView animateWithDuration:0.5 animations:^{
-            imageViewCopy.alpha = 0;
-        } completion:^(BOOL finished) {
-            [imageViewCopy removeFromSuperview];
-        }];
-    }
-        
-    //send image change notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
-    
-    //start next
-//    if (self.status == ENRestaurantViewStatusDetail) {
-//        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadNextImage) object:nil];
-//        [self performSelector:@selector(loadNextImage) withObject:nil afterDelay:5];
+//- (void)loadNextImage{
+//    if (self.status == ENRestaurantViewStatusCard && _currentImageIndex != -1) {
+//		//DDLogVerbose(@"Skip loading next image in card mode");
+//        return;
 //    }
-    
-}
+//    if (_isLoadingImage) {
+//        DDLogVerbose(@"Loading image, skip");
+//        return;
+//    }
+//    if (_restaurant.imageUrls.count == 1 && self.imageView.image && _currentImageIndex != -1) {
+//        DDLogVerbose(@"Only one image, skip");
+//        return;
+//    }
+//    
+//    NSInteger nextIdx = (_currentImageIndex + 1) % self.restaurant.imageUrls.count;
+//    
+//    //display if downloaded
+//    if (self.restaurant.images.count > nextIdx) {
+//        if (self.restaurant.images[nextIdx] != [NSNull null]) {
+//            _currentImageIndex = nextIdx;
+//            self.pageControl.currentPage = nextIdx;
+//            [self showImage:self.restaurant.images[nextIdx]];
+//            return;
+//        }
+//    }
+//    
+//    //download
+//    self.isLoadingImage = YES;
+//    [self.loading startAnimating];
+//    NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls[nextIdx]];
+//    //download first
+//    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:self.imageView.image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//		_currentImageIndex = nextIdx;
+//		_isLoadingImage = NO;
+//		[self.loading stopAnimating];
+//		NSMutableArray *images = _restaurant.images.mutableCopy ?: [NSMutableArray arrayWithCapacity:_restaurant.imageUrls.count];
+//		while (images.count <= _currentImageIndex) {
+//			[images addObject:[NSNull null]];
+//		}
+//		images[_currentImageIndex] = image;
+//		_restaurant.images = images.copy;
+//		
+//		[self showImage:image];
+//		
+//		self.pageControl.currentPage = nextIdx;
+//	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+//		ENLogError(@"*** Failed to download image with error: %@", error);
+//	}];
+//}
+
+//- (void)showImage:(UIImage *)image{
+//    if (self.loading.isAnimating) {
+//        [self.loading stopAnimating];
+//    }
+//    self.imageView.image = image;
+//    //duplicate view
+//    if (self.superview) {
+//        UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
+//        [self insertSubview:imageViewCopy aboveSubview:self.imageView];
+//        [UIView animateWithDuration:0.5 animations:^{
+//            imageViewCopy.alpha = 0;
+//        } completion:^(BOOL finished) {
+//            [imageViewCopy removeFromSuperview];
+//        }];
+//    }
+//        
+//    //send image change notification
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
+//    
+//    //start next
+////    if (self.status == ENRestaurantViewStatusDetail) {
+////        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadNextImage) object:nil];
+////        [self performSelector:@selector(loadNextImage) withObject:nil afterDelay:5];
+////    }
+//    
+//}
 
 #pragma mark - Table view
 
@@ -529,6 +528,50 @@
 
 - (void)dealloc{
     DDLogVerbose(@"Card dismissed: %@", _restaurant.name);
+}
+
+#pragma mark - Image pager
+- (NSArray *) arrayWithImages:(KIImagePager*)pager {
+    return _restaurant.imageUrls;
+}
+
+- (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager*)pager {
+    return UIViewContentModeScaleAspectFill;
+}
+
+
+- (void) imageWithUrl:(NSURL*)url completion:(KIImagePagerImageRequestBlock)completion{
+    NSUInteger index = [_restaurant.imageUrls indexOfObject:url.absoluteString];
+    if (index == NSNotFound) {
+        DDLogWarn(@"image url not found %@", url.absoluteString);
+        return;
+    }
+    UIImage *img = self.restaurant.images[index];
+    if (img && img != (id)[NSNull null]) {
+        completion(img, nil);
+        return;
+    }
+    DDLogVerbose(@"Start downloading image: %@", url);
+    [self.loading startAnimating];
+    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:url]];
+    requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, UIImage *responseObject) {
+        NSParameterAssert([responseObject isKindOfClass:[UIImage class]]);
+        [self.loading stopAnimating];
+        _restaurant.images[index] = responseObject;
+        completion(responseObject, nil);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        ENLogError(@"Image download error: %@", error);
+        completion(nil, error);
+    }];
+    [requestOperation start];
+}
+
+
+- (void) imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index{
+    UIImage *img = self.restaurant.images[index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":img}];
 }
 
 @end

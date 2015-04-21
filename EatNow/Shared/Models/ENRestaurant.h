@@ -30,7 +30,7 @@
 
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSArray *imageUrls;
 @property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, strong) NSNumber *rating;

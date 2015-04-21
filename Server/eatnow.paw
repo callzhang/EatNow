@@ -323,7 +323,7 @@
     </object>
     <object type="LMREQUEST" id="z129">
         <attribute name="uuid" type="string">7494A5A1-A43D-47E6-8E60-BFDD88EFA9BA</attribute>
-        <attribute name="url" type="string">http://thawing-reef-5403.herokuapp.com/user/lei</attribute>
+        <attribute name="url" type="string">http://api.eatnow.cc/user/lei</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -349,7 +349,7 @@
     </object>
     <object type="LMREQUEST" id="z131">
         <attribute name="uuid" type="string">8AE44902-CE1C-40AE-931D-83E60FDBB6FE</attribute>
-        <attribute name="url" type="string">["http:\\/\\/thawing-reef-5403.herokuapp.com\\/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638\u2600time=",{"data":{"format":3,"customFormat":"","now":true,"useTSeparator":1,"date":1429045509.018471,"delta":0,"useZForUTC":0},"identifier":"com.luckymarmot.TimestampDynamicValue"}]</attribute>
+        <attribute name="url" type="string">["http:\\/\\/api.eatnow.cc\\/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638\u2600time=",{"data":{"format":3,"customFormat":"","now":true,"useTSeparator":1,"date":1429045509.018471,"delta":0,"useZForUTC":0},"identifier":"com.luckymarmot.TimestampDynamicValue"}]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>

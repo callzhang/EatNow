@@ -39,6 +39,8 @@
 		self.user = user;
 		[self.tableView reloadData];
 	}];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(90, 0, 0, 0);
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -130,7 +132,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 60;
+    return 30;
 }
 
 @end

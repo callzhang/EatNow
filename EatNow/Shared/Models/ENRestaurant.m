@@ -41,7 +41,8 @@
 	restaurant.rating = (NSNumber *)json[@"rating"];
 	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];
 	NSArray *list = json[@"categories"];
-	restaurant.cuisines = [list valueForKey:@"global"];
+    restaurant.cuisines = [list valueForKey:@"shortName"];
+    restaurant.images = [NSMutableArray array];
 	restaurant.imageUrls = json[@"food_image_url"];
 	restaurant.phone = [json valueForKeyPath:@"contact.formattedPhone"];
 	restaurant.name = json[@"name"];
@@ -64,6 +65,21 @@
 		return nil;
 	}
 	return restaurant;
+}
+
+//update images
+- (void)setImageUrls:(NSArray *)imageUrls{
+    NSParameterAssert(_images); 
+    while (_images.count < imageUrls.count) {
+        [_images addObject:[NSNull null]];
+    }
+    for (NSUInteger i = 0; i < imageUrls.count; i++) {
+        NSString *url = imageUrls[i];
+        NSUInteger j = [_imageUrls indexOfObject:url];
+        if (j == NSNotFound) continue;
+        [_images exchangeObjectAtIndex:i withObjectAtIndex:j];
+    }
+    _imageUrls = imageUrls;
 }
 
 

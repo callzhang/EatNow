@@ -54,12 +54,16 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "AMRatingControl/star.png"
   install_resource "AMRatingControl/dot.png"
   install_resource "JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD Resources.bundle"
+  install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
+  install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "AMRatingControl/star.png"
   install_resource "AMRatingControl/dot.png"
   install_resource "JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD Resources.bundle"
+  install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera.png"
+  install_resource "KIImagePager/KIImagePager/KIImagePager/KICamera@2x.png"
   install_resource "SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
 fi
 
