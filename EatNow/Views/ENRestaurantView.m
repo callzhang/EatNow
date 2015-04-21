@@ -191,12 +191,11 @@
         [closeMap addTarget:self action:@selector(toggleMap:) forControlEvents:UIControlEventTouchUpInside];
         closeMap.tintColor = [UIColor blueColor];
         [UIView collapse:self.mapIcon view:self.map animated:NO completion:nil];
-        [UIView expand:self.mapi view:<#(UIView *)#> completion:<#^(void)block#>]
-//        [UIView expand:self.mapIcon view:self.map completion:^{
-//            [self addSubview:closeMap];
-//        }];
-//        [self.mapManager addAnnotationForRestaurant:_restaurant];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidShow object:nil];
+        [UIView expand:self.mapIcon view:self.map completion:^{
+            [self addSubview:closeMap];
+        }];
+        [self.mapManager addAnnotationForRestaurant:_restaurant];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidShow object:nil];
     }else{
         //hide
         //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
