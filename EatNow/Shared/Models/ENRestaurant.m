@@ -168,7 +168,7 @@
         DDLogError(@"Restaurant missing image %@", self);
         good = NO;
     }
-    if (!_cuisines) {
+    if (!_cuisines || _cuisines.firstObject == (id)[NSNull null]) {
         DDLogError(@"Restaurant missing cuisine %@", self);
         good = NO;
     }

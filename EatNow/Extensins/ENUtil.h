@@ -13,7 +13,8 @@ typedef enum{
     hudStyleSuccess,
     hudStyleFailed,
     hudStyleWarning,
-    HUDStyleInfo
+    HUDStyleInfo,
+    HUDStyleNiceChioce
 }HUDStyle;
 #define kUUID                           @"UUID"
 #define TICK                            NSDate *startTime = [NSDate date];
@@ -39,6 +40,7 @@ void ENLogError(NSString *fmt, ...);
 + (JGProgressHUD *)showSuccessHUBWithString:(NSString *)string;
 + (JGProgressHUD *)showFailureHUBWithString:(NSString *)string;
 + (JGProgressHUD *)showWarningHUBWithString:(NSString *)string;
++ (JGProgressHUD *)showNiceChoice:(NSString *)string;
 + (void)dismissHUD;
 + (UIView *)topView;
 + (UIViewController *)topViewController;

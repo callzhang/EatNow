@@ -43,6 +43,7 @@
 		9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658BC1AE4613D0035572C /* UIView+Extend.m */; };
 		9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658BF1AE4B5330035572C /* UIView+Material.m */; };
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
+		9B63A8411AE61B1300705364 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B63A8401AE61B1300705364 /* Images.xcassets */; };
 		9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B85D0321A8EB6BB0014DBED /* ENUtil.m */; };
 		9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9424071AE0450300411D1F /* ENHistoryViewController.m */; };
 		9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */; };
@@ -58,7 +59,6 @@
 		DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */; };
 		DA5B73F518F233EF00BB5F8E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B73F418F233EF00BB5F8E /* main.m */; };
 		DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B73F818F233EF00BB5F8E /* AppDelegate.m */; };
-		DA5B73FB18F233EF00BB5F8E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA5B73FA18F233EF00BB5F8E /* Images.xcassets */; };
 		DA5B740218F233EF00BB5F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B740118F233EF00BB5F8E /* XCTest.framework */; };
 		DA5B740318F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B740418F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
@@ -159,6 +159,7 @@
 		9B1658BE1AE4B5330035572C /* UIView+Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Material.h"; sourceTree = "<group>"; };
 		9B1658BF1AE4B5330035572C /* UIView+Material.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Material.m"; sourceTree = "<group>"; };
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9B63A8401AE61B1300705364 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9B85D0311A8EB6BB0014DBED /* ENUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUtil.h; sourceTree = "<group>"; };
 		9B85D0321A8EB6BB0014DBED /* ENUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENUtil.m; sourceTree = "<group>"; };
 		9B9424061AE0450300411D1F /* ENHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryViewController.h; sourceTree = "<group>"; };
@@ -184,7 +185,6 @@
 		DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EatNow-Prefix.pch"; sourceTree = "<group>"; };
 		DA5B73F718F233EF00BB5F8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DA5B73F818F233EF00BB5F8E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DA5B73FA18F233EF00BB5F8E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DA5B740018F233EF00BB5F8E /* EatNowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EatNowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B740118F233EF00BB5F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DA5B740918F233EF00BB5F8E /* EatNowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EatNowTests-Info.plist"; sourceTree = "<group>"; };
@@ -314,7 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				9B1180F71A8E970700756E8F /* Entypo.ttf */,
-				DA5B73FA18F233EF00BB5F8E /* Images.xcassets */,
+				9B63A8401AE61B1300705364 /* Images.xcassets */,
 				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
 			);
 			name = Recources;
@@ -617,10 +617,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */,
+				9B63A8411AE61B1300705364 /* Images.xcassets in Resources */,
 				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 				9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */,
-				DA5B73FB18F233EF00BB5F8E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

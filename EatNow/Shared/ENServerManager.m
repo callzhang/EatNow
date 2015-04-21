@@ -156,6 +156,25 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     DDLogVerbose(@"Select restaurant: %@", dic);
     NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"select"];
     [manager POST:path parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *user = responseObject;
+        NSString *ID;
+        for (NSDictionary *historyData in [user valueForKeyPath:@"history"]) {
+            NSString *restaurantID = [historyData valueForKeyPath:@"restaurant"];
+            NSTimeInterval interval = NSIntegerMax;
+            if ([restaurantID isEqualToString:restaurant.ID]) {
+                //compare datas
+                NSString *dateStr = [historyData valueForKeyPath:@"date"];
+                NSDate *time = [NSDate dateFromISO1861:dateStr];
+                NSTimeInterval diff = fabs([time timeIntervalSinceNow]);
+                if (diff < interval) {
+                    interval = diff;
+                    ID = [historyData valueForKeyPath:@"_id"];
+                }
+            }
+        }
+        _selectionHistoryID = ID;
+        
+        
         block(nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         block(error);
@@ -224,6 +243,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 - (void)setHistoryWithData:(NSArray *)data{
     //generate restaurant
+    self.history = [NSMutableDictionary new];
     for (NSDictionary *json in data) {
         //json: {restaurant, like, _id, date}
         NSString *dateStr = json[@"date"];

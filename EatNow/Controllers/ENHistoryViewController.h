@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ENHistoryViewController : UITableViewController
-
+- (void)loadData;
 @end

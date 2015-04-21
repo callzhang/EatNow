@@ -52,7 +52,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT5-uY-qhM" userLabel="history">
-                                <rect key="frame" x="16" y="20" width="288" height="476"/>
+                                <rect key="frame" x="16" y="70" width="288" height="426"/>
                                 <connections>
                                     <segue destination="0oE-vH-Giu" kind="embed" identifier="embedHistorySegue" id="PSw-pV-ble"/>
                                 </connections>
@@ -201,7 +201,7 @@
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="aKA-ct-IU7" secondAttribute="bottom" constant="16" id="eq4-ZE-Rcx"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="GCg-rF-ccT" secondAttribute="bottom" constant="16" id="fua-Jc-ZSb"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="Fcq-QR-9Zu" secondAttribute="bottom" constant="16" id="hvi-1Y-fsw"/>
-                            <constraint firstItem="tT5-uY-qhM" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" id="ier-hE-C5x"/>
+                            <constraint firstItem="tT5-uY-qhM" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="50" id="ier-hE-C5x"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="leading" secondItem="TEb-SL-p86" secondAttribute="trailing" id="ixE-Jl-rSb"/>
                             <constraint firstItem="GCg-rF-ccT" firstAttribute="top" secondItem="pNF-QT-1bI" secondAttribute="bottom" constant="16" id="jmB-us-Tn3"/>
                             <constraint firstItem="D4e-Sg-nPl" firstAttribute="leading" secondItem="aKA-ct-IU7" secondAttribute="trailing" id="m4Z-6o-xsD"/>
@@ -265,6 +265,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Agq-ec-sDx">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Af2-9y-hSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="ENHistoryNavigationView" id="AhE-GN-MNF" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="SFQ-TL-1vi">
@@ -272,7 +273,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Af2-9y-hSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1007" y="1288"/>
         </scene>

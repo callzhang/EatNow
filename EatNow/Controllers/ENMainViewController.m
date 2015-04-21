@@ -56,10 +56,10 @@
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
+@property (nonatomic, strong) ENHistoryViewController *historyViewController;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardLeadingConstraint;
-@property (nonatomic, strong) ENHistoryViewController *historyViewController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerLeadingConstraint;
 @property (nonatomic, assign) BOOL isHistoryShown;
@@ -109,6 +109,7 @@
     [self.animator addBehavior:_dynamicItem];
     
     [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
+        if (self.restaurantCards.count)  return;
         if (manager != NULL) {
             ENLocationStatus locationStatus = manager.locationStatus;
             switch (locationStatus) {
@@ -128,6 +129,7 @@
     
     //server status
     [self.KVOController observe:self.serverManager keyPath:@keypath(self.serverManager, fetchStatus) options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
+        if (self.restaurantCards.count)  return;
         if (manager != NULL) {
             ENResturantDataStatus dataStatus = manager.fetchStatus;
             switch (dataStatus) {
@@ -338,6 +340,27 @@
     }
 }
 
+
+- (void)toggleHistoryView {
+    if (self.isHistoryShown) {
+        //show
+        self.historyChildViewControllerLeadingConstraint.constant = 0;
+        self.historyChildViewControllerTrailingConstraint.constant = 0;
+        self.detailCardLeadingConstraint.constant = self.view.frame.size.width;
+        self.detailCardTrailingConstraint.constant = -self.view.frame.size.width;
+        [self.historyViewController loadData];
+    }
+    else {
+        //close
+        self.historyChildViewControllerLeadingConstraint.constant = -self.view.frame.size.width;
+        self.historyChildViewControllerTrailingConstraint.constant = self.view.frame.size.width;
+        self.detailCardLeadingConstraint.constant = 0;
+        self.detailCardTrailingConstraint.constant = 0;
+    }
+    
+    [super updateViewConstraints];
+}
+
 #pragma mark - Guesture actions
 - (IBAction)tapHandler:(UITapGestureRecognizer *)gesture {
 	[self toggleCardDetails];
@@ -517,34 +540,21 @@
 
 - (IBAction)showHistory:(id)sender{
     self.isHistoryShown = !_isHistoryShown;
-    [self updateViewConstraints];
+    [self toggleHistoryView];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
         //replace the button icon
         if (self.isHistoryShown) {
             [self.historyButton setImage:[UIImage imageNamed:@"eat-now-history-view-deck-button"] forState:UIControlStateNormal];
+            self.reloadButton.alpha = 0;
+            self.closeButton.alpha = 0;
         }else{
             [self.historyButton setImage:[UIImage imageNamed:@"eat-now-card-deck-view-history-button"] forState:UIControlStateNormal];
+            self.reloadButton.alpha = 1;
+            self.closeButton.alpha = 1;
         }
+    } completion:^(BOOL finished) {
     }];
-}
-
-- (void)updateViewConstraints {
-    if (self.isHistoryShown) {
-        self.historyChildViewControllerLeadingConstraint.constant = 0;
-        self.historyChildViewControllerTrailingConstraint.constant = 0;
-        self.detailCardLeadingConstraint.constant = -self.view.frame.size.width;
-        self.detailCardTrailingConstraint.constant = self.view.frame.size.width;
-    }
-    else {
-        self.historyChildViewControllerLeadingConstraint.constant = self.view.frame.size.width;
-        self.historyChildViewControllerTrailingConstraint.constant = -self.view.frame.size.width;
-        self.detailCardLeadingConstraint.constant = 0;
-        self.detailCardTrailingConstraint.constant = 0;
-    }
-    
-    [super updateViewConstraints];
 }
 
 - (IBAction)clapse:(id)sender {

@@ -170,6 +170,14 @@ void ENLogError(NSString *fmt,...){
 	return hud;
 }
 
++ (JGProgressHUD *)showNiceChoice:(NSString *)string{
+    [self dismissHUD];
+    UIView *rootView = [self topView];
+    JGProgressHUD *hud = [rootView showNotification:string WithStyle:HUDStyleNiceChioce audoHide:4];
+    [[ENUtil shared].HUDs addObject:hud];
+    return hud;
+}
+
 + (UIView *)topView{
     return [self topViewController].view;
 }
@@ -221,7 +229,12 @@ void ENLogError(NSString *fmt,...){
                 hud.indicatorView = [[JGProgressHUDIndicatorView alloc] initWithContentView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"warning"]]];
                 break;
                 
+            case HUDStyleNiceChioce:
+                hud.indicatorView = [[JGProgressHUDIndicatorView alloc] initWithContentView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eat-now-card-details-view-feedback-icon"]]];
+                break;
+            case HUDStyleInfo:
             default:
+                hud.indicatorView = nil;
                 break;
         }
         [hud showInView:self];

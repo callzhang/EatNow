@@ -32,15 +32,18 @@
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
 	}
 	
-	//data
-    self.history = [ENServerManager shared].history;
-	//self.user = [ENServerManager shared].me;
-	[[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
-		self.history = [ENServerManager shared].history;
-		[self.tableView reloadData];
-	}];
-    
     self.tableView.contentInset = UIEdgeInsetsMake(90, 0, 0, 0);
+}
+
+- (void)loadData{
+    
+    //data
+    self.history = [ENServerManager shared].history;
+    //self.user = [ENServerManager shared].me;
+    [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
+        self.history = [ENServerManager shared].history;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)setHistory:(NSMutableDictionary *)history{
@@ -106,7 +109,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 30;
+    return 60;
 }
 
 @end

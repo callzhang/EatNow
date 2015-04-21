@@ -138,7 +138,7 @@
 		//ENAlert(@"Need cancel API! Using dislike API for now.");
 		[[ENServerManager shared] clearSelectedRestaurant];
         @weakify(self);
-		[[ENServerManager shared] selectRestaurant:_restaurant like:-1 completion:^(NSError *error) {
+        [[ENServerManager shared] cancelSelectedRestaurant:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
             @strongify(self);
 			if (error) {
 				ENLogError(error.localizedDescription);
@@ -168,6 +168,7 @@
 			[ENUtil showFailureHUBWithString:@"failed"];
 		}else{
 			DDLogInfo(@"Selected %@", _restaurant.name);
+            [self showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:4];
 		}
 	}];
 	
