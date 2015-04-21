@@ -10,6 +10,7 @@
 #import "ENLocationManager.h"
 #import "ENServerManager.h"
 #import "NSError+TMError.h"
+#import "extobjc.h"
 
 DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
@@ -30,7 +31,9 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     self.locationManager = [[ENLocationManager alloc] init];
     self.serverManager = [[ENServerManager alloc] init];
     
+    @weakify(self);
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
+        @strongify(self);
         NSLog(@"got location:%@", location);
         [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
             NSLog(@"got restaurant:%@", response);

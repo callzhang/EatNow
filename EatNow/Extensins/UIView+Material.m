@@ -43,7 +43,8 @@
     [self collapse:button view:view animated:YES completion:nil];
 }
 
-+ (void)expand:(UIView *)button view:(UIView *)view completion:(VoidBlock)block {
++ (void)expand:(UIView *)button view:(UIView *)view animated:(BOOL)animated completion:(VoidBlock)block {
+    
     
     CGFloat radius = sqrtf(powf(button.frame.origin.x + button.frame.size.width / 2, 2) + powf(button.frame.origin.y + button.frame.size.height / 2, 2)) ;
     CGFloat scale = radius / MIN(button.bounds.size.width, button.bounds.size.height) * 3;
@@ -51,6 +52,14 @@
     CABasicAnimation *animation = [self shapeAnimationWithTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut] scale:scale inflating:NO];
     animation.duration = kAnimationDuration;
     CAShapeLayer *cycle = (CAShapeLayer *)view.layer.mask;
+    
+    if (!animated) {
+        [cycle removeFromSuperlayer];
+        if (block) {
+            block();
+        }
+        return;
+    }
     
     [CATransaction begin];
     [CATransaction setValue:[NSNumber numberWithFloat:kAnimationDuration] forKey:kCATransactionAnimationDuration];
@@ -61,9 +70,16 @@
             block();
         }
     }];
-    
     [cycle addAnimation:animation forKey:@"shapeMaskAnimation"];
+    
+    [CATransaction setDisableActions:YES];
+    view.layer.mask.transform = [animation.toValue CATransform3DValue];
+ 
     [CATransaction commit];
+}
+
++ (void)expand:(UIView *)button view:(UIView *)view completion:(VoidBlock)block {
+    [self expand:button view:view animated:YES completion:block];
 }
 
 + (CABasicAnimation *)shapeAnimationWithTimingFunction:(CAMediaTimingFunction *)timingFunction scale:(CGFloat)scale inflating:(BOOL)inflating {
@@ -76,7 +92,8 @@
         animation.fromValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)];
     }
     animation.timingFunction = timingFunction;
-    animation.removedOnCompletion = YES;
+    animation.fillMode = kCAFillModeForwards;
+//    animation.removedOnCompletion = YES;
     return animation;
 }
 @end

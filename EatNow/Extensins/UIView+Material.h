@@ -13,4 +13,5 @@
 + (void)collapse:(UIView *)button view:(UIView *)view;
 + (void)expand:(UIView *)button view:(UIView *)view completion:(VoidBlock)block;
 + (void)collapse:(UIView *)button view:(UIView *)view animated:(BOOL)animated completion:(VoidBlock)block;
++ (void)expand:(UIView *)button view:(UIView *)view animated:(BOOL)animated completion:(VoidBlock)block;
 @end
