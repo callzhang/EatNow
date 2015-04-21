@@ -37,6 +37,7 @@
 #import "ENHistoryViewController.h"
 #import "ENUtil.h"
 #import "UIView+Extend.h"
+//#import "AnimatedGIFImageSerialization.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
 //static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
@@ -141,7 +142,9 @@
                     //[self showAllRestaurantCards];
                     break;
                 case ENResturantDataStatusError:
-                    self.loadingInfo.text = @"Failed to get restaurant list";
+					self.loadingInfo.text = @"Failed to get restaurant list";
+					self.loading.alpha = 0;
+					[self.loading stopAnimating];
 					ENLogError(@"Server error");
                     break;
                 default:
@@ -159,6 +162,8 @@
 			case AFNetworkReachabilityStatusNotReachable:
 				self.loadingInfo.text = @"No internet connection";
 				ENLogError(@"No internet connection");
+				self.loading.alpha = 0;
+				[self.loading stopAnimating];
 				break;
 			case AFNetworkReachabilityStatusReachableViaWWAN:
 			case AFNetworkReachabilityStatusReachableViaWiFi:
@@ -171,16 +176,6 @@
 	}];
 	[[AFNetworkReachabilityManager sharedManager] startMonitoring];
 	
-	//background
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView *bluredEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    [bluredEffectView setFrame:self.view.frame];
-    [self.view insertSubview:bluredEffectView aboveSubview:self.background];
-    [[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        if (note.object == self.frontCardView) {
-            [self setBackgroundImage:note.userInfo[@"image"]];
-        }
-    }];
     
     //load restaurants from server
     [self searchNewRestaurantsForced:NO];
@@ -190,6 +185,28 @@
     [super viewWillAppear:animated];
     self.cardFrame.backgroundColor = [UIColor clearColor];
     self.detailFrame.backgroundColor = [UIColor clearColor];
+	
+	//loading gif
+	NSArray *images = @[[UIImage imageNamed:@"eat-now-loading-indicator-1"],
+						[UIImage imageNamed:@"eat-now-loading-indicator-2"],
+						[UIImage imageNamed:@"eat-now-loading-indicator-3"],
+						[UIImage imageNamed:@"eat-now-loading-indicator-4"],
+						[UIImage imageNamed:@"eat-now-loading-indicator-5"],
+						[UIImage imageNamed:@"eat-now-loading-indicator-6"]];
+	self.loading.animationImages = images;
+	self.loading.animationDuration = 1.2;
+	[self.loading startAnimating];
+	
+	//background
+	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+	UIVisualEffectView *bluredEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+	[bluredEffectView setFrame:self.view.frame];
+	[self.view insertSubview:bluredEffectView aboveSubview:self.background];
+	[[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+		if (note.object == self.frontCardView) {
+			[self setBackgroundImage:note.userInfo[@"image"]];
+		}
+	}];
 }
 
 #pragma mark - Main methods
@@ -216,10 +233,9 @@
     
     self.loadingInfo.text = @"";
     //stop loading
-    [self.loading stopAnimating];
-    //read list
-    //    [self getRestaurants];
-    
+    self.loading.alpha = 0;
+	[self.loading stopAnimating];
+	
     if (self.restaurantCards.count > 0) {
         DDLogWarn(@"=== Already have cards, skip showing restaurant");
         return;
@@ -317,7 +333,10 @@
 		});
 		
         //if last card, show refreshing button
-        //TODO
+		if (!self.frontCardView) {
+			self.loading.alpha = 1;
+			[self.loading startAnimating];
+		}
     }
 }
 
@@ -504,11 +523,8 @@
 		return;
 	}
     _isDismissingCard = YES;
-    //view
-    self.loadingInfo.text = @"Loading...";
-    //stop loading
-    [self.loading startAnimating];
     self.restaurants = nil;
+	//dismiss cards
     for (NSUInteger i=self.restaurantCards.count; i > 0; i--) {
         if (i>kMaxCardsToAnimate) {
             ENRestaurantView *card = self.restaurantCards[i-1];
@@ -526,15 +542,18 @@
             });
         }
     }
+	//state
     float dismissDuration = MIN(_restaurantCards.count, kMaxRestaurants)*0.1;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(dismissDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         _isDismissingCard = NO;
     });
-    [self.loading startAnimating];
+	
+	//search for new
     [self searchNewRestaurantsForced:YES];
         
     //show loading info
-    [self.loading startAnimating];
+	self.loading.alpha = 1;
+	[self.loading startAnimating];
     self.loadingInfo.text = @"You have dismissed all cards.";
 }
 

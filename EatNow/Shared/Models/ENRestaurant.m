@@ -42,6 +42,7 @@
 	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];
 	NSArray *list = json[@"categories"];
     restaurant.cuisines = [list valueForKey:@"shortName"];
+	if (restaurant.cuisines.firstObject == [NSNull null]) restaurant.cuisines = [list valueForKey:@"global"];
     restaurant.images = [NSMutableArray array];
 	restaurant.imageUrls = json[@"food_image_url"];
 	restaurant.phone = [json valueForKeyPath:@"contact.formattedPhone"];

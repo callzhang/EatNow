@@ -21,6 +21,7 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - AMRatingControl (1.3.0)
+  - AnimatedGIFImageSerialization (0.2.0)
   - BlocksKit (2.2.5):
     - BlocksKit/All (= 2.2.5)
   - BlocksKit/All (2.2.5):
@@ -51,7 +52,6 @@ PODS:
   - hpple (0.2.0)
   - INTULocationManager (3.0.1)
   - JGProgressHUD (1.2.3)
-  - KIImagePager (2.1.0)
   - KVOController (1.0.3)
   - libextobjc (0.4.1):
     - libextobjc/EXTADT (= 0.4.1)
@@ -96,6 +96,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - AMRatingControl (~> 1.3)
+  - AnimatedGIFImageSerialization (~> 0.2)
   - BlocksKit (~> 2.2)
   - Bolts (~> 1.1.4)
   - CocoaLumberjack (= 2.0.0-rc)
@@ -104,7 +105,6 @@ DEPENDENCIES:
   - hpple (~> 0.2)
   - INTULocationManager (~> 3.0.1)
   - JGProgressHUD
-  - KIImagePager (~> 2.1)
   - KVOController (~> 1.0)
   - KVOController (~> 1.0.3)
   - libextobjc
@@ -116,6 +116,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
   AMRatingControl: f209fd394188ba48a818f2df091db438123db362
+  AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bolts: f8e2f94edbf9fec7bb8de5ecaaa3aa6b7de6f64e
   CocoaLumberjack: 04c5b9b7479dd4276a09700fcd6644423ea1751c
@@ -124,7 +125,6 @@ SPEC CHECKSUMS:
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
   JGProgressHUD: 02eb5fc5f1069dc3a6aaf74a0da06f05c2546f32
-  KIImagePager: aea488f00879fda4a4b81e2b83187da070907c85
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
