@@ -168,17 +168,23 @@
 #define COCOAPODS_VERSION_MINOR_Masonry 6
 #define COCOAPODS_VERSION_PATCH_Masonry 1
 
-// SVProgressHUD
-#define COCOAPODS_POD_AVAILABLE_SVProgressHUD
-#define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
-#define COCOAPODS_VERSION_MINOR_SVProgressHUD 1
-#define COCOAPODS_VERSION_PATCH_SVProgressHUD 3
-
 // SparkInspector
 #define COCOAPODS_POD_AVAILABLE_SparkInspector
 #define COCOAPODS_VERSION_MAJOR_SparkInspector 1
 #define COCOAPODS_VERSION_MINOR_SparkInspector 3
 #define COCOAPODS_VERSION_PATCH_SparkInspector 4
+
+// apptentive-ios
+#define COCOAPODS_POD_AVAILABLE_apptentive_ios
+#define COCOAPODS_VERSION_MAJOR_apptentive_ios 1
+#define COCOAPODS_VERSION_MINOR_apptentive_ios 7
+#define COCOAPODS_VERSION_PATCH_apptentive_ios 2
+
+// apptentive-ios/arc-files
+#define COCOAPODS_POD_AVAILABLE_apptentive_ios_arc_files
+#define COCOAPODS_VERSION_MAJOR_apptentive_ios_arc_files 1
+#define COCOAPODS_VERSION_MINOR_apptentive_ios_arc_files 7
+#define COCOAPODS_VERSION_PATCH_apptentive_ios_arc_files 2
 
 // hpple
 #define COCOAPODS_POD_AVAILABLE_hpple

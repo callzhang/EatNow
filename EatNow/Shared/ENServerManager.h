@@ -28,10 +28,15 @@
 @property (nonatomic, strong) NSDate *selectedTime;
 @property (nonatomic, strong) NSString *selectionHistoryID;
 @property (nonatomic, strong) NSDictionary *me;
-@property (nonatomic, strong) NSMutableDictionary *userRating; //{restaurant_id: {rating: 9, date: Mar 15, 2015}}
+/**
+ *  keeps users LATEST rating for restaurants
+ *  Example: {restaurant_id: {rating: 9, date: Mar 15, 2015}}
+ */
+@property (nonatomic, strong) NSMutableDictionary *userRating;
 @property (nonatomic, strong) NSMutableDictionary *history;
 @property (nonatomic, strong) NSMutableDictionary *preference;
 @property (nonatomic, strong) NSDictionary *stats;
+@property (nonatomic, strong) NSString *myID;
 
 //We still need Singleton as it stores shared information
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
@@ -39,7 +44,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 //functions
 //- (void)getRestaurantListWithCompletion:(void (^)(BOOL success, NSError *error))block;
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
-- (void)getRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
+- (void)searchRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
 
 //select restaurant

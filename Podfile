@@ -15,6 +15,6 @@ pod 'BlocksKit', '~> 2.2'
 pod 'Masonry', '~> 0.6'
 pod 'KVOController', '~> 1.0'
 pod 'SparkInspector', '~> 1.3'
-pod 'MTDates', '~> 1.0'
-pod 'AMRatingControl', '~> 1.3'
+pod 'MTDates', '~> 1.0'=
 pod 'AnimatedGIFImageSerialization', '~> 0.2'
+pod 'apptentive-ios', '~> 1.7'

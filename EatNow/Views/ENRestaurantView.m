@@ -84,6 +84,7 @@
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];//TODO: add waking time api
     self.openTime.text = restaurant.openInfo;
+    if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
 	
 	//go button
 	[self updateGoButton];
@@ -169,6 +170,8 @@
 		}else{
 			DDLogInfo(@"Selected %@", _restaurant.name);
             [self showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:4];
+            [self prepareData];
+            [self.tableView reloadData];
 		}
 	}];
 	

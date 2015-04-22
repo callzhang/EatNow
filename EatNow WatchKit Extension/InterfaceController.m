@@ -35,7 +35,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         @strongify(self);
         NSLog(@"got location:%@", location);
-        [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+        [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
             NSLog(@"got restaurant:%@", response);
             NSMutableArray *restaurants = [NSMutableArray array];
             NSMutableArray *objests = [NSMutableArray array];

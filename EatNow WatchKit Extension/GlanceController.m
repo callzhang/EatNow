@@ -41,7 +41,7 @@
     @weakify(self);
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         NSLog(@"got location:%@", location);
-        [self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+        [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
             @strongify(self);
             for (NSUInteger i = 0; i < 3 && i < response.count; i++) {
                 ENRestaurant *restaurant = response[i];

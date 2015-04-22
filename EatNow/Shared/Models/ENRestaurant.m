@@ -39,6 +39,8 @@
     restaurant.ID = json[@"_id"]?:json[@"id"];
 	restaurant.url = json[@"url"];
 	restaurant.rating = (NSNumber *)json[@"rating"];
+    NSString *colorStr = json[@"ratingColor"];
+    restaurant.ratingColor = [ENRestaurant colorFromHexString:colorStr];
 	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];
 	NSArray *list = json[@"categories"];
     restaurant.cuisines = [list valueForKey:@"shortName"];
@@ -67,6 +69,15 @@
 	}
 	return restaurant;
 }
+
++ (UIColor *)colorFromHexString:(NSString *)hexString {
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    //[scanner setScanLocation:1]; // bypass '#' character
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
+
 
 //update images
 - (void)setImageUrls:(NSArray *)imageUrls{
@@ -100,7 +111,7 @@
 }
 
 - (NSString *)description{
-    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1f, reviews: %ld, cuisine: %@, price： %@, distance: %.1fkm \n", _name, self.rating.floatValue, (long)_reviews.integerValue, [self cuisineStr], [self pricesStr], [self.distance floatValue]/1000];
+    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1ld, tips: %ld, cuisine: %@, price： %@, distance: %.1fkm \n", _name, (long)self.tips.integerValue, (long)_reviews.integerValue, [self cuisineStr], [self pricesStr], [self.distance floatValue]/1000];
 	
 }
 

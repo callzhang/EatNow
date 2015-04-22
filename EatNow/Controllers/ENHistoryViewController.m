@@ -32,7 +32,7 @@
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
 	}
 	
-    self.tableView.contentInset = UIEdgeInsetsMake(90, 0, 0, 0);
+    //self.tableView.contentInset = UIEdgeInsetsMake(90, 0, 0, 0);
 }
 
 - (void)loadData{

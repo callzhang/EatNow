@@ -47,7 +47,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 #pragma mark - Main method
 //TODO: need to cancel previous operation
-- (void)getRestaurantsAtLocation:(CLLocation *)currenLocation WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
+- (void)searchRestaurantsAtLocation:(CLLocation *)currenLocation WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
     //add to completion block
     [self.completionGroup addObject:block];
     
@@ -126,54 +126,41 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 		self.me = user;
         
         //return
-        block(user, nil);
+        if (block) {
+            block(user, nil);
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error];
         DDLogError(s);
-        block(nil, error);
+        if (block) {
+            block(nil, error);
+        }
     }];
 }
 
 - (void)selectRestaurant:(ENRestaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block{
 	NSParameterAssert(!self.selectedRestaurant);
-	if (value > 0) {
-		self.selectedRestaurant = restaurant;
-		self.selectedTime = [NSDate date];
-	}
+    NSParameterAssert(value > 0);
+    self.selectedRestaurant = restaurant;
+    self.selectedTime = [NSDate date];
 	
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    NSString *myID = [[self class] myUUID];
-    NSDictionary *dic = @{@"username": myID,
+    NSDictionary *dic = @{@"username": self.myID,
 						  @"restaurantId": restaurant.ID,
 						  @"like": @(value),
 						  @"date": [NSDate date].ISO8601,
-						  @"latitude": @([ENLocationManager cachedCurrentLocation].coordinate.latitude),
-						  @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude),
-						  @"distance": restaurant.distance};
+                          @"location": @{@"latitude": @([ENLocationManager cachedCurrentLocation].coordinate.latitude),
+                                         @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude),
+                                         @"distance": restaurant.distance}
+                          };
+						  
     DDLogVerbose(@"Select restaurant: %@", dic);
     NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"select"];
-    [manager POST:path parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *user = responseObject;
-        NSString *ID;
-        for (NSDictionary *historyData in [user valueForKeyPath:@"history"]) {
-            NSString *restaurantID = [historyData valueForKeyPath:@"restaurant"];
-            NSTimeInterval interval = NSIntegerMax;
-            if ([restaurantID isEqualToString:restaurant.ID]) {
-                //compare datas
-                NSString *dateStr = [historyData valueForKeyPath:@"date"];
-                NSDate *time = [NSDate dateFromISO1861:dateStr];
-                NSTimeInterval diff = fabs([time timeIntervalSinceNow]);
-                if (diff < interval) {
-                    interval = diff;
-                    ID = [historyData valueForKeyPath:@"_id"];
-                }
-            }
-        }
-        _selectionHistoryID = ID;
-        
+    [manager POST:path parameters:dic success:^(AFHTTPRequestOperation *operation, NSDictionary *history) {
+        self.selectionHistoryID = history[@"_id"];
+        self.selectedTime = [NSDate date];
+        self.selectedRestaurant = restaurant;
         
         block(nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -185,7 +172,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 - (void)cancelSelectedRestaurant:(NSString *)historyID completion:(ErrorBlock)block{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *path = [NSString stringWithFormat:@"%@/user/%@/restaurant/%@", kServerUrl, [ENServerManager myUUID], historyID];//TODO
+    NSString *path = [NSString stringWithFormat:@"%@/user/%@/history/%@", kServerUrl, [ENServerManager myUUID], historyID];//TODO
     [manager DELETE:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self getUserWithCompletion:nil];
         if (block) {
@@ -236,8 +223,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 #pragma mark - Data processing
 - (void)setMe:(NSDictionary *)me{
     _me = me;
-    [self setHistoryWithData:[me valueForKeyPath:@"user.history"]];
-    [self setUserRatingWithData:[me valueForKey:@"user.histroy"]];
+    [self setHistoryWithData:[me valueForKeyPath:@"user.all_history"]];
+    [self setUserRatingWithData:[me valueForKeyPath:@"user.all_history"]];
     self.preference = [me valueForKey:@"preference"];
 }
 
@@ -258,7 +245,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": json[@"like"], @"_id": json[@"_id"]}];
         self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
     }
-    DDLogVerbose(@"Updated history: %@", _history);
+    //DDLogVerbose(@"Updated history: %@", _history);
 }
 
 - (void)setUserRatingWithData:(NSArray *)history{
@@ -274,7 +261,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         NSNumber *rate = data[@"like"];
         NSDictionary *restaurant = data[@"restaurant"];
         NSString *ID = restaurant[@"_id"];
-        NSDictionary *ratingDic = self.userRating[ID] ?: [NSDictionary new];
+        //keep unique rating for each restaurant
+        NSDictionary *ratingDic = self.userRating[ID];
         if (ratingDic.allKeys.count == 0) {
             _userRating[ID] = @{@"rating": rate, @"time":date};
         }else{
@@ -288,6 +276,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 #pragma mark - Tools
+- (NSString *)myID{
+    return [ENServerManager myUUID];
+}
 
 + (NSString *)myUUID{
     NSString *myID = [[NSUserDefaults standardUserDefaults] objectForKey:kUUID];
@@ -317,3 +308,4 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 @end
+

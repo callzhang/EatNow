@@ -37,6 +37,7 @@
 #import "ENHistoryViewController.h"
 #import "ENUtil.h"
 #import "UIView+Extend.h"
+#import "ATConnect.h"
 //#import "AnimatedGIFImageSerialization.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
@@ -115,13 +116,16 @@
             ENLocationStatus locationStatus = manager.locationStatus;
             switch (locationStatus) {
                 case ENLocationStatusGettingLocation:
-                    self.loadingInfo.text = @"Determining location";
+                    //self.loadingInfo.text = @"Determining location";
+                    self.loading.alpha = 1;
                     break;
                 case ENLocationStatusGotLocation:
-                    self.loadingInfo.text = @"Got location";
+                    //self.loadingInfo.text = @"Got location";
+                    self.loading.alpha = 1;
                     break;
 				case ENLocationStatusError:
 					self.loadingInfo.text = @"Failed to get location";
+                    self.loading.alpha = 0;
                 default:
                     break;
             }
@@ -135,16 +139,15 @@
             ENResturantDataStatus dataStatus = manager.fetchStatus;
             switch (dataStatus) {
                 case ENResturantDataStatusFetchingRestaurant:
-                    self.loadingInfo.text = @"Finding the best restaurant";
+                    //self.loadingInfo.text = @"Finding the best restaurant";
+                    self.loading.alpha = 1;
                     break;
                 case ENResturantDataStatusFetchedRestaurant:
-                    self.loadingInfo.text = @"Preparing data";
-                    //[self showAllRestaurantCards];
+                    self.loading.alpha = 1;
                     break;
                 case ENResturantDataStatusError:
 					self.loadingInfo.text = @"Failed to get restaurant list";
 					self.loading.alpha = 0;
-					[self.loading stopAnimating];
 					ENLogError(@"Server error");
                     break;
                 default:
@@ -157,17 +160,17 @@
 	[[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
 		switch (status) {
 			case AFNetworkReachabilityStatusUnknown:
-				self.loadingInfo.text = @"Determining connecting";
+				//self.loadingInfo.text = @"Determining connecting";
+                self.loading.alpha = 1;
 				break;
 			case AFNetworkReachabilityStatusNotReachable:
 				self.loadingInfo.text = @"No internet connection";
 				ENLogError(@"No internet connection");
 				self.loading.alpha = 0;
-				[self.loading stopAnimating];
 				break;
 			case AFNetworkReachabilityStatusReachableViaWWAN:
 			case AFNetworkReachabilityStatusReachableViaWiFi:
-				self.loadingInfo.text = @"Connected";
+				//self.loadingInfo.text = @"Connected";
 				break;
 				
 			default://
@@ -195,7 +198,7 @@
 						[UIImage imageNamed:@"eat-now-loading-indicator-6"]];
 	self.loading.animationImages = images;
 	self.loading.animationDuration = 1.2;
-	[self.loading startAnimating];
+    [self.loading startAnimating];
 	
 	//background
 	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
@@ -207,6 +210,10 @@
 			[self setBackgroundImage:note.userInfo[@"image"]];
 		}
 	}];
+    
+    [self.KVOController observe:_loading keyPath:@"alpha" options:NSKeyValueObservingOptionNew block:^(id observer, UIView *object, NSDictionary *change) {
+        DDLogVerbose(@"Loading alpha changed %f", object.alpha);
+    }];
 }
 
 #pragma mark - Main methods
@@ -215,7 +222,7 @@
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         @strongify(self);
 		if (location) {
-			[self.serverManager getRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+			[self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
 				if (success) {
 					self.restaurants = response.mutableCopy;
 					[self showAllRestaurantCards];
@@ -234,7 +241,6 @@
     self.loadingInfo.text = @"";
     //stop loading
     self.loading.alpha = 0;
-	[self.loading stopAnimating];
 	
     if (self.restaurantCards.count > 0) {
         DDLogWarn(@"=== Already have cards, skip showing restaurant");
@@ -335,7 +341,6 @@
         //if last card, show refreshing button
 		if (!self.frontCardView) {
 			self.loading.alpha = 1;
-			[self.loading startAnimating];
 		}
     }
 }
@@ -385,7 +390,7 @@
 	[self toggleCardDetails];
 }
 
-- (IBAction)gestureHandler:(UIPanGestureRecognizer *)gesture {
+- (IBAction)panHandler:(UIPanGestureRecognizer *)gesture {
     CGPoint locInView = [gesture locationInView:self.detailFrame];
     CGPoint locInCard = [gesture locationInView:self.frontCardView];
     ENRestaurantView *card = self.frontCardView;
@@ -447,6 +452,8 @@
     [self.restaurantCards addObject:card];
     //set background iamge
     [card.imageView applyGredient2];
+    //shadow: very slow, avoid!
+    //[card applyShadow];
     
 	return card;
 }
@@ -553,7 +560,6 @@
         
     //show loading info
 	self.loading.alpha = 1;
-	[self.loading startAnimating];
     self.loadingInfo.text = @"You have dismissed all cards.";
 }
 
@@ -581,12 +587,7 @@
 }
 
 - (IBAction)test:(id)sender {
-//	UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
-//	[self presentViewController:container animated:YES completion:^{
-//		UIButton *close = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 40, 40)];
-//		[close addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
-//		[container.view addSubview:close];
-//	}];
+    [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID}];
 }
 
 - (IBAction)close:(id)sender{
