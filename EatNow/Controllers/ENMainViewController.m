@@ -239,6 +239,13 @@
 - (void)showAllRestaurantCards{
     
     self.loadingInfo.text = @"";
+<<<<<<< HEAD
+=======
+    //stop loading
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.loading.alpha = 0;
+    });
+>>>>>>> origin/master
 	
     if (self.restaurantCards.count > 0) {
         DDLogWarn(@"=== Already have cards, skip showing restaurant");
@@ -256,6 +263,7 @@
 		DDLogWarn(@"Showing cards in progress, skip showing again");
 		return;
 	}
+    
 	_isShowingCards = YES;
     // Display cards animated
 	NSUInteger restaurantCount = _restaurants.count;
@@ -340,6 +348,7 @@
 		
         //if last card, show refreshing button
 		if (!self.frontCardView) {
+            [self.view bringSubviewToFront:self.loading];
 			self.loading.alpha = 1;
 		}
     }
