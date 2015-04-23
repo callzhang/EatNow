@@ -20,7 +20,7 @@
 		09432CBD1ACCC5E700B989FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CBC1ACCC5E700B989FF /* Images.xcassets */; };
 		09432CC11ACCC5E700B989FF /* EatNow WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */; };
 		09432CC91ACCC5E700B989FF /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC71ACCC5E700B989FF /* Interface.storyboard */; };
-		09432CCB1ACCC5E700B989FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CCA1ACCC5E700B989FF /* Images.xcassets */; };
+		09432CCB1ACCC5E700B989FF /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CCA1ACCC5E700B989FF /* WatchImages.xcassets */; };
 		09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */; };
 		0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745618F239B700BB5F8E /* ENMainViewController.m */; };
@@ -128,7 +128,7 @@
 		09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EatNow WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09432CC61ACCC5E700B989FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09432CC81ACCC5E700B989FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		09432CCA1ACCC5E700B989FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		09432CCA1ACCC5E700B989FF /* WatchImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchImages.xcassets; sourceTree = "<group>"; };
 		09432CD61ACCCACB00B989FF /* ENWMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWMapInterfaceController.h; sourceTree = "<group>"; };
 		09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWMapInterfaceController.m; sourceTree = "<group>"; };
 		09757F8A1ADC97EE002B1515 /* NiceChoiceInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceChoiceInterfaceController.h; sourceTree = "<group>"; };
@@ -289,7 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				09432CC71ACCC5E700B989FF /* Interface.storyboard */,
-				09432CCA1ACCC5E700B989FF /* Images.xcassets */,
+				09432CCA1ACCC5E700B989FF /* WatchImages.xcassets */,
 				09432CC51ACCC5E700B989FF /* Supporting Files */,
 			);
 			path = "EatNow WatchKit App";
@@ -611,7 +611,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09432CC91ACCC5E700B989FF /* Interface.storyboard in Resources */,
-				09432CCB1ACCC5E700B989FF /* Images.xcassets in Resources */,
+				09432CCB1ACCC5E700B989FF /* WatchImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,7 +814,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7e6165a7-6431-4c6b-bedd-eb3cca615b31";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -860,6 +860,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "95259bc4-35cb-4059-8b8d-a49227169b54";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
