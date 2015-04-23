@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ENRestaurantView;
 
 @interface ENHistoryViewController : UITableViewController
+@property (nonatomic, strong) ENRestaurantView *restaurantView;
 - (void)loadData;
 @end

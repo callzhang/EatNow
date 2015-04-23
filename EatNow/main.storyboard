@@ -78,8 +78,8 @@
                                     <constraint firstAttribute="bottom" secondItem="2kN-sq-rqs" secondAttribute="bottom" constant="24" id="tf2-kG-iK2"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-QR-9Zu">
-                                <rect key="frame" x="71" y="492" width="57" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-QR-9Zu">
+                                <rect key="frame" x="74" y="492" width="57" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="yDM-ir-tem"/>
                                 </constraints>
@@ -93,8 +93,8 @@
                                     <action selector="refresh:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="4EV-LS-0LH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl">
-                                <rect key="frame" x="246" y="497" width="55" height="55"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl">
+                                <rect key="frame" x="246" y="492" width="58" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="8xL-xY-67X"/>
@@ -118,8 +118,8 @@
                                     <action selector="test:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="NOP-XB-EKV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86">
-                                <rect key="frame" x="16" y="492" width="55" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86">
+                                <rect key="frame" x="16" y="492" width="58" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Oy4-wp-pBF"/>
                                     <constraint firstAttribute="height" constant="60" id="kGT-7p-b6o"/>
@@ -157,8 +157,8 @@
                                     </mask>
                                 </variation>
                             </button>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-rF-ccT">
-                                <rect key="frame" x="131" y="492" width="55" height="60"/>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-rF-ccT">
+                                <rect key="frame" x="131" y="492" width="58" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="I4I-y8-QBk"/>

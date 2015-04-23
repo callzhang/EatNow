@@ -1,6 +1,18 @@
 {
   "images" : [
     {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "80x80-2.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "40x40",
+      "idiom" : "ipad",
+      "filename" : "80x80.png",
+      "scale" : "2x"
+    },
+    {
       "size" : "24x24",
       "idiom" : "watch",
       "scale" : "2x",

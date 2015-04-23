@@ -12,6 +12,8 @@
 #import "NSDate+MTDates.h"
 #import "NSDate+Extension.h"
 #import "UIView+Extend.h"
+#import "ENRestaurantView.h"
+#import "ENMainViewController.h"
 
 @interface ENHistoryViewController ()
 @property (nonatomic, strong) NSDictionary *user;
@@ -112,4 +114,20 @@
     return 60;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.restaurantView) {
+        return;
+    }
+    ENHistoryViewCell *cell = (ENHistoryViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    NSDate *date = self.orderedDates[indexPath.section];
+    NSArray *restaurantsData = self.history[date.mt_endOfCurrentDay];
+    NSDictionary *dataPoint = restaurantsData[indexPath.row];
+    ENRestaurant *restaurant = dataPoint[@"restaurant"];
+    self.restaurantView = [ENRestaurantView loadView];
+    _restaurantView.restaurant = restaurant;
+    CGRect frame = [self.view convertRect:cell.background.frame fromView:self.tableView];
+    [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO];
+    [self.view addSubview:_restaurantView];
+    [_restaurantView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.view.frame animated:YES];
+}
 @end
