@@ -239,8 +239,6 @@
 - (void)showAllRestaurantCards{
     
     self.loadingInfo.text = @"";
-    //stop loading
-    self.loading.alpha = 0;
 	
     if (self.restaurantCards.count > 0) {
         DDLogWarn(@"=== Already have cards, skip showing restaurant");
@@ -297,7 +295,9 @@
     }
 	
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((restaurantCount * 0.2 +2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		_isShowingCards = NO;
+        _isShowingCards = NO;
+        //stop loading
+        self.loading.alpha = 0;
 	});
 }
 
