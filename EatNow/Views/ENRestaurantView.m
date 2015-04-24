@@ -96,7 +96,7 @@
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block{
     float duration = animate ? 0.5 : 0;
     float damping = status == ENRestaurantViewStatusMinimum ? 1 : 0.7;
-    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveLinear animations:^{
         self.frame = frame;
         self.status = status;
         [self updateLayout];
@@ -218,6 +218,16 @@
         }];
         [self.mapManager addAnnotationForRestaurant:_restaurant];
         [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidShow object:nil];
+        
+        //route if select
+        if ([ENServerManager shared].selectedRestaurant == _restaurant){
+            @weakify(self);
+            [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
+                @strongify(self);
+                self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
+            }];
+        }
+        
     }else{
         //hide
         //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
@@ -235,7 +245,7 @@
 
 - (void)updateLayout{
     //radio
-    float multiplier = self.status == ENRestaurantViewStatusDetail ? 0.4 : 1.0;
+    float multiplier = (self.status == ENRestaurantViewStatusDetail || self.status == ENRestaurantViewStatusHistoryDetail) ? 0.4 : 1.0;
     NSLayoutConstraint *newRatio = [NSLayoutConstraint constraintWithItem:_infoHightRatio.firstItem attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_infoHightRatio.secondItem attribute:NSLayoutAttributeHeight multiplier:multiplier constant:0];
     self.infoHightRatio.active = NO;
     self.infoHightRatio = newRatio;
@@ -253,29 +263,39 @@
         self.goButton.alpha = 0;
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
+        self.price.alpha = 1;
     }else if (self.status == ENRestaurantViewStatusDetail){
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
         self.goButton.alpha = 1;
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
+        self.price.alpha = 1;
     }else if (self.status == ENRestaurantViewStatusMinimum){
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
         self.goButton.alpha = 0;
         self.rating.alpha = 0;
+        self.price.alpha = 0;
         NSDictionary *history = [ENServerManager shared].userRating;
         NSDictionary *rating = history[self.restaurant.ID];
         NSNumber *rate = rating[@"rating"];
         if (rating) {
             self.userRatingView.alpha = 1;
-            [self setRatingOnView:self.userRatingView withRating:rate.integerValue];
+            [self addRatingOnView:self.userRatingView withRating:rate.integerValue];
         }
+    }else if (self.status == ENRestaurantViewStatusHistoryDetail){
+        self.distanceInfo.alpha = 0;
+        self.openInfo.alpha = 0;
+        self.goButton.alpha = 0;
+        self.rating.alpha = 0;
+        self.userRatingView.alpha = 0;
+        self.price.alpha = 0;
     }
 }
 
 - (void)updateGoButton{
-	
+
 	if ([ENServerManager shared].selectedRestaurant == _restaurant) {
 		[self.goButton setImage:[UIImage imageNamed:@"eat-now-card-details-view-cancel-button"] forState:UIControlStateNormal];
 	}
@@ -284,7 +304,7 @@
 	}
 }
 
-- (void)setRatingOnView:(UIView *)view withRating:(NSInteger)rating{
+- (void)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
     
     UIImage *emptyImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-grey"];
     UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-yellow"];
@@ -504,7 +524,7 @@
 
                                 //Set rating from history
                                 UIView *ratingView = [cell viewWithTag:99];
-                                [self setRatingOnView:ratingView withRating:ratingValue];
+                                [self addRatingOnView:ratingView withRating:ratingValue];
             
                                 //set time
                                 NSDate *time = rating[@"time"];
@@ -517,11 +537,13 @@
     }
 	
     //score
-    [info addObject:@{@"type": @"score",
-                      @"cellID":@"subtitle",
-                      @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
-                      @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsString]
-                      }];
+    if (weakSelf.restaurant.score) {
+        [info addObject:@{@"type": @"score",
+                          @"cellID":@"subtitle",
+                          @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
+                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsString]
+                          }];
+    }
     
     //footer
     [info addObject:@{

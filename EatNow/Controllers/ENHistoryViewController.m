@@ -148,7 +148,7 @@ static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show"
     CGRect frame = [self.view.superview convertRect:cell.background.frame fromView:cell.contentView];
     [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
     [self.view.superview addSubview:_restaurantView];
-    [_restaurantView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.view.frame animated:YES completion:nil];
+    [_restaurantView switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:self.view.frame animated:YES completion:nil];
     ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
     mainVC.isHistoryDetailShown = YES;
 }

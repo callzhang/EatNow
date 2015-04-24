@@ -14,12 +14,12 @@
 #define kMapViewDidShow                             @"map_view_did_show"
 #define kMapViewDidDismiss                          @"map_view_did_dismiss"
 
-//typedef void (^VoidBlock)();
 
 typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
     ENRestaurantViewStatusCard,
     ENRestaurantViewStatusDetail,
-    ENRestaurantViewStatusMinimum
+    ENRestaurantViewStatusMinimum,
+    ENRestaurantViewStatusHistoryDetail,
 };
 
 @interface ENRestaurantView : UIView

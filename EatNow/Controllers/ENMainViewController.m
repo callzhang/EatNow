@@ -587,6 +587,10 @@
             self.closeButton.alpha = 1;
         }
     } completion:^(BOOL finished) {
+        if (self.historyViewController.restaurantView) {
+            //close
+            [self.historyViewController closeRestaurantView];
+        }
     }];
 }
 
