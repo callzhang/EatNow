@@ -93,15 +93,19 @@
 
 
 #pragma mark - State change
-- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate{
+- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block{
     float duration = animate ? 0.5 : 0;
-    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    float damping = status == ENRestaurantViewStatusMinimum ? 1 : 0.7;
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.frame = frame;
         self.status = status;
         [self updateLayout];
     } completion:^(BOOL finished) {
         if (status == ENRestaurantViewStatusDetail) {
             [self loadNextImage];
+        }
+        if (block) {
+            block();
         }
     }];
     
@@ -171,7 +175,7 @@
 			[ENUtil showFailureHUBWithString:@"failed"];
 		}else{
 			DDLogInfo(@"Selected %@", _restaurant.name);
-            [self showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:4];
+            [self showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:3];
             [self prepareData];
             [self.tableView reloadData];
 		}

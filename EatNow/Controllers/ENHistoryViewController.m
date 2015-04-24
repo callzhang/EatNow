@@ -15,10 +15,14 @@
 #import "ENRestaurantView.h"
 #import "ENMainViewController.h"
 
+static const NSString *kHistoryDetailCardDidShow = @"history_detail_view_did_show";
+static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show";
+
 @interface ENHistoryViewController ()
 @property (nonatomic, strong) NSDictionary *user;
 @property (nonatomic, strong) NSMutableDictionary *history;
 @property (nonatomic, strong) NSArray *orderedDates;
+@property (nonatomic, strong) NSIndexPath *selectedPath;
 @end
 
 @implementation ENHistoryViewController
@@ -59,7 +63,7 @@
     //appearance
     self.view.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView applyAlphaGradientWithEndPoints:@[@.1, @.95]];
+    [self.tableView applyAlphaGradientWithEndPoints:@[@.05, @.95]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,10 +71,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Actions
 - (IBAction)close:(id)sender{
 	if (self.presentingViewController) {
 		[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 	}
+}
+
+- (void)closeRestaurantView{
+    if (self.restaurantView){
+        ENHistoryViewCell *cell = (ENHistoryViewCell *)[self.tableView cellForRowAtIndexPath:self.selectedPath];
+        CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.view.superview];
+        [self.restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:YES completion:^{
+            [self.restaurantView removeFromSuperview];
+            self.restaurantView = nil;
+        }];
+        
+        ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
+        mainVC.isHistoryDetailShown = NO;
+    }
 }
 
 #pragma mark - Table view data source
@@ -118,6 +137,7 @@
     if (self.restaurantView) {
         return;
     }
+    self.selectedPath = indexPath;
     ENHistoryViewCell *cell = (ENHistoryViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     NSDate *date = self.orderedDates[indexPath.section];
     NSArray *restaurantsData = self.history[date.mt_endOfCurrentDay];
@@ -125,9 +145,11 @@
     ENRestaurant *restaurant = dataPoint[@"restaurant"];
     self.restaurantView = [ENRestaurantView loadView];
     _restaurantView.restaurant = restaurant;
-    CGRect frame = [self.view convertRect:cell.background.frame fromView:self.tableView];
-    [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO];
-    [self.view addSubview:_restaurantView];
-    [_restaurantView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.view.frame animated:YES];
+    CGRect frame = [self.view.superview convertRect:cell.background.frame fromView:cell.contentView];
+    [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
+    [self.view.superview addSubview:_restaurantView];
+    [_restaurantView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.view.frame animated:YES completion:nil];
+    ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
+    mainVC.isHistoryDetailShown = YES;
 }
 @end

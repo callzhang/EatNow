@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 + (instancetype)loadView;
-- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate;
+- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block;
 - (void)didChangedToFrontCard;
 - (void)didDismiss;
 @end

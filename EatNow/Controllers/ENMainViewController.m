@@ -64,7 +64,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerLeadingConstraint;
-@property (nonatomic, assign) BOOL isHistoryShown;
 @end
 
 @implementation ENMainViewController
@@ -120,11 +119,11 @@
             ENLocationStatus locationStatus = manager.locationStatus;
             switch (locationStatus) {
                 case ENLocationStatusGettingLocation:
-                    //self.loadingInfo.text = @"Determining location";
+                    self.loadingInfo.text = @"";
                     self.loading.alpha = 1;
                     break;
                 case ENLocationStatusGotLocation:
-                    //self.loadingInfo.text = @"Got location";
+                    self.loadingInfo.text = @"";
                     self.loading.alpha = 1;
                     break;
 				case ENLocationStatusError:
@@ -143,10 +142,11 @@
             ENResturantDataStatus dataStatus = manager.fetchStatus;
             switch (dataStatus) {
                 case ENResturantDataStatusFetchingRestaurant:
-                    //self.loadingInfo.text = @"Finding the best restaurant";
+                    self.loadingInfo.text = @"";
                     self.loading.alpha = 1;
                     break;
                 case ENResturantDataStatusFetchedRestaurant:
+                    self.loadingInfo.text = @"";
                     self.loading.alpha = 1;
                     break;
                 case ENResturantDataStatusError:
@@ -164,7 +164,7 @@
 	[[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
 		switch (status) {
 			case AFNetworkReachabilityStatusUnknown:
-				//self.loadingInfo.text = @"Determining connecting";
+				self.loadingInfo.text = @"";
                 self.loading.alpha = 1;
 				break;
 			case AFNetworkReachabilityStatusNotReachable:
@@ -174,7 +174,7 @@
 				break;
 			case AFNetworkReachabilityStatusReachableViaWWAN:
 			case AFNetworkReachabilityStatusReachableViaWiFi:
-				//self.loadingInfo.text = @"Connected";
+				self.loadingInfo.text = @"";
 				break;
 				
 			default://
@@ -182,7 +182,6 @@
 		}
 	}];
 	[[AFNetworkReachabilityManager sharedManager] startMonitoring];
-	
     
     //load restaurants from server
     [self searchNewRestaurantsForced:NO];
@@ -215,8 +214,11 @@
 		}
 	}];
     
-    [self.KVOController observe:_loading keyPath:@"alpha" options:NSKeyValueObservingOptionNew block:^(id observer, UIView *object, NSDictionary *change) {
-        DDLogVerbose(@"Loading alpha changed %f", object.alpha);
+    [self.KVOController observe:self keyPath:@keypath(self, isHistoryDetailShown) options:NSKeyValueObservingOptionNew block:^(id observer, ENMainViewController *object, NSDictionary *change) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.closeButton.alpha = self.isHistoryDetailShown ? 1 : 0;
+        }];
+        
     }];
 }
 
@@ -354,14 +356,14 @@
 - (void)toggleCardDetails{
 	[_animator removeBehavior:self.frontCardView.snap];
     if (self.frontCardView.status == ENRestaurantViewStatusCard) {
-        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailFrame.bounds animated:YES];
+        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailFrame.bounds animated:YES completion:nil];
         [self.frontCardView removeGestureRecognizer:self.panGesture];
         //[self.frontCardView removeGestureRecognizer:self.tapGesture];
         [UIView animateWithDuration:0.3 animations:^{
             self.closeButton.alpha = 1;
         }];
     } else {
-        [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES];
+        [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES completion:nil];
         [self.frontCardView addGestureRecognizer:self.panGesture];
         //[self.frontCardView addGestureRecognizer:self.tapGesture];
         [UIView animateWithDuration:0.3 animations:^{
@@ -565,7 +567,7 @@
     [self searchNewRestaurantsForced:YES];
         
     //show loading info
-	self.loading.alpha = 1;
+	//self.loading.alpha = 1;
     self.loadingInfo.text = @"You have dismissed all cards.";
 }
 
@@ -589,7 +591,11 @@
 }
 
 - (IBAction)clapse:(id)sender {
-    [self toggleCardDetails];
+    if (_isHistoryDetailShown){
+        [self.historyViewController closeRestaurantView];
+    }else {
+        [self toggleCardDetails];
+    }
 }
 
 - (IBAction)test:(id)sender {

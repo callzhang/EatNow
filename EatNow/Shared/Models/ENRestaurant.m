@@ -94,8 +94,9 @@
         NSString *url = imageUrls[i];
         NSUInteger j = [_imageUrls indexOfObject:url];
         if (j == NSNotFound) continue;
-        //[_images exchangeObjectAtIndex:i withObjectAtIndex:j];
-        newImages[i] = _images[j];
+        if (_images.count > j && _images[j]) {
+            newImages[i] = _images[j];
+        }
     }
     _imageUrls = imageUrls;
     _images = newImages;
