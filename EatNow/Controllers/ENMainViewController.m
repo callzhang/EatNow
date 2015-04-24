@@ -70,6 +70,10 @@
 @implementation ENMainViewController
 
 #pragma mark - Object Lifecycle
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 
 #pragma mark - Accsessor
 - (ENRestaurantView *)frontCardView{
@@ -240,10 +244,6 @@
 - (void)showAllRestaurantCards{
     
     self.loadingInfo.text = @"";
-    //stop loading
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.loading.alpha = 0;
-    });
 	
     if (self.restaurantCards.count > 0) {
         DDLogWarn(@"=== Already have cards, skip showing restaurant");
@@ -286,7 +286,7 @@
 		if (i <= kMaxCardsToAnimate){
 			//animate
             float delay = (kMaxCardsToAnimate - i) * 0.2;
-            DDLogVerbose(@"Delay %f sec for %ldth card", delay, i);
+            DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 				card.hidden = NO;
 				[self snapCardToCenter:card];
@@ -301,7 +301,9 @@
     }
 	
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((restaurantCount * 0.2 +2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		_isShowingCards = NO;
+        _isShowingCards = NO;
+        //stop loading
+        self.loading.alpha = 0;
 	});
 }
 

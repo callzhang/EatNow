@@ -39,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIView *card;
 @property (weak, nonatomic) IBOutlet UIButton *goButton;
 @property (strong, nonatomic) MKMapView *map;
+@property (weak, nonatomic) IBOutlet UIView *userRatingView;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -70,7 +71,7 @@
 	
 	//update view
     self.status = ENRestaurantViewStatusCard;
-    [self updateLayoutConstraintValue];
+    [self updateLayout];
     
     //image
     _currentImageIndex = -1;
@@ -93,10 +94,11 @@
 
 #pragma mark - State change
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate{
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    float duration = animate ? 0.5 : 0;
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.frame = frame;
         self.status = status;
-        [self updateLayoutConstraintValue];
+        [self updateLayout];
     } completion:^(BOOL finished) {
         if (status == ENRestaurantViewStatusDetail) {
             [self loadNextImage];
@@ -227,9 +229,9 @@
     }
 }
 
-- (void)updateLayoutConstraintValue{
+- (void)updateLayout{
     //radio
-    float multiplier = self.status == ENRestaurantViewStatusCard ? 1:0.4;
+    float multiplier = self.status == ENRestaurantViewStatusDetail ? 0.4 : 1.0;
     NSLayoutConstraint *newRatio = [NSLayoutConstraint constraintWithItem:_infoHightRatio.firstItem attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_infoHightRatio.secondItem attribute:NSLayoutAttributeHeight multiplier:multiplier constant:0];
     self.infoHightRatio.active = NO;
     self.infoHightRatio = newRatio;
@@ -245,10 +247,26 @@
             self.openInfo.alpha = 1;
         }
         self.goButton.alpha = 0;
-    }else{
+        self.rating.alpha = 1;
+        self.userRatingView.alpha = 0;
+    }else if (self.status == ENRestaurantViewStatusDetail){
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
         self.goButton.alpha = 1;
+        self.rating.alpha = 1;
+        self.userRatingView.alpha = 0;
+    }else if (self.status == ENRestaurantViewStatusMinimum){
+        self.distanceInfo.alpha = 0;
+        self.openInfo.alpha = 0;
+        self.goButton.alpha = 0;
+        self.rating.alpha = 0;
+        NSDictionary *history = [ENServerManager shared].userRating;
+        NSDictionary *rating = history[self.restaurant.ID];
+        NSNumber *rate = rating[@"rating"];
+        if (rating) {
+            self.userRatingView.alpha = 1;
+            [self setRatingOnView:self.userRatingView withRating:rate.integerValue];
+        }
     }
 }
 
@@ -260,6 +278,19 @@
 	else{
 		[self.goButton setImage:[UIImage imageNamed:@"eatnew-card-details-view-go-button"] forState:UIControlStateNormal];
 	}
+}
+
+- (void)setRatingOnView:(UIView *)view withRating:(NSInteger)rating{
+    
+    UIImage *emptyImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-grey"];
+    UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-yellow"];
+    AMRatingControl *imagesRatingControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
+                                                                          emptyImage:emptyImageOrNil
+                                                                          solidImage:solidImageOrNil
+                                                                        andMaxRating:5];
+    [imagesRatingControl setStarSpacing:3];
+    imagesRatingControl.rating = rating + 3;
+    [view addSubview:imagesRatingControl];
 }
 
 #pragma mark - Private
@@ -459,24 +490,18 @@
 	//rating
     NSDictionary *history = [ENServerManager shared].userRating;
     NSDictionary *rating = history[weakSelf.restaurant.ID];
+    NSNumber *rate = rating[@"rating"];
+    NSInteger ratingValue = rate.integerValue;
+    
     if (rating) {
         [info addObject:@{@"type": @"score",
                           @"cellID": @"rating",
                           @"layout": ^(UITableViewCell *cell){
-            
-                                NSNumber *rate = rating[@"rating"];
-                                UIImage *emptyImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-grey"];
-                                UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-yellow"];
-                                AMRatingControl *imagesRatingControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
-                                                                                                      emptyImage:emptyImageOrNil
-                                                                                                      solidImage:solidImageOrNil
-                                                                                                    andMaxRating:5];
-                                [imagesRatingControl setStarSpacing:3];
-                                imagesRatingControl.rating = rate.integerValue + 3;
+
                                 //Set rating from history
                                 UIView *ratingView = [cell viewWithTag:99];
-                                [ratingView addSubview:imagesRatingControl];
-                                
+                                [self setRatingOnView:ratingView withRating:ratingValue];
+            
                                 //set time
                                 NSDate *time = rating[@"time"];
                                 UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];

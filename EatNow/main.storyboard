@@ -78,8 +78,8 @@
                                     <constraint firstAttribute="bottom" secondItem="2kN-sq-rqs" secondAttribute="bottom" constant="24" id="tf2-kG-iK2"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-QR-9Zu">
-                                <rect key="frame" x="71" y="492" width="57" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-QR-9Zu">
+                                <rect key="frame" x="74" y="492" width="57" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="yDM-ir-tem"/>
                                 </constraints>
@@ -93,8 +93,8 @@
                                     <action selector="refresh:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="4EV-LS-0LH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl">
-                                <rect key="frame" x="246" y="497" width="55" height="55"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl">
+                                <rect key="frame" x="246" y="492" width="58" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="8xL-xY-67X"/>
@@ -118,8 +118,8 @@
                                     <action selector="test:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="NOP-XB-EKV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86">
-                                <rect key="frame" x="16" y="492" width="55" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86">
+                                <rect key="frame" x="16" y="492" width="58" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Oy4-wp-pBF"/>
                                     <constraint firstAttribute="height" constant="60" id="kGT-7p-b6o"/>
@@ -157,8 +157,8 @@
                                     </mask>
                                 </variation>
                             </button>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-rF-ccT">
-                                <rect key="frame" x="131" y="492" width="55" height="60"/>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GCg-rF-ccT">
+                                <rect key="frame" x="131" y="492" width="58" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="I4I-y8-QBk"/>
@@ -423,6 +423,21 @@
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                             </imageView>
+                                            <view tag="99" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LW0-dx-NVL" userLabel="rating">
+                                                <rect key="frame" x="190" y="114" width="120" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="120" id="5Re-Zp-TIA"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="76T-od-Ok3"/>
+                                                    <constraint firstAttribute="height" constant="20" id="JwD-U0-z1n"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="tAN-LX-U3X"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="76T-od-Ok3"/>
+                                                        <exclude reference="tAN-LX-U3X"/>
+                                                    </mask>
+                                                </variation>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New American, Burger" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="45L-e4-Y8S" userLabel="venueType">
                                                 <rect key="frame" x="8" y="43" width="236" height="21"/>
                                                 <constraints>
@@ -577,13 +592,21 @@
                                             <constraint firstAttribute="centerX" secondItem="3xH-uo-hHt" secondAttribute="centerX" id="VuC-mp-h8B"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="8" id="ajX-NE-huo"/>
                                             <constraint firstAttribute="trailing" secondItem="uVW-6x-hlL" secondAttribute="trailing" constant="8" id="eFQ-2t-Edj"/>
+                                            <constraint firstAttribute="centerY" secondItem="LW0-dx-NVL" secondAttribute="centerY" id="fF6-rb-UP8"/>
                                             <constraint firstItem="uVW-6x-hlL" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="isy-Ep-wMl"/>
                                             <constraint firstItem="cy3-AH-BuV" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="jhw-3v-zwX"/>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="top" secondItem="45L-e4-Y8S" secondAttribute="bottom" id="mSB-Dy-jqW"/>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="top" secondItem="uVW-6x-hlL" secondAttribute="bottom" id="oVy-Yd-48E"/>
+                                            <constraint firstItem="0Rc-cj-kSW" firstAttribute="leading" secondItem="LW0-dx-NVL" secondAttribute="trailing" constant="10" id="t7W-m4-SNG"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="top" secondItem="Wt9-vs-bTu" secondAttribute="bottom" constant="-2" id="uyj-EB-nfZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="LW0-dx-NVL" secondAttribute="trailing" constant="10" id="vRf-S6-Nuq"/>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="zhW-hf-ci6"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="t7W-m4-SNG"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="53" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ElG-By-adf">
                                         <rect key="frame" x="0.0" y="248" width="320" height="302"/>
@@ -804,6 +827,7 @@
                             <outlet property="price" destination="9rp-Qh-TDe" id="kdY-21-sqs"/>
                             <outlet property="rating" destination="0Rc-cj-kSW" id="dx3-sb-fyy"/>
                             <outlet property="tableView" destination="ElG-By-adf" id="qjx-Ik-aPr"/>
+                            <outlet property="userRatingView" destination="LW0-dx-NVL" id="uyC-t9-u6e"/>
                             <outlet property="walkingDistance" destination="2zY-ds-bCm" id="5bc-HB-rT8"/>
                         </connections>
                     </view>
