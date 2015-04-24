@@ -290,7 +290,7 @@
         self.goButton.alpha = 0;
         self.rating.alpha = 0;
         self.userRatingView.alpha = 0;
-        self.price.alpha = 0;
+        self.price.alpha = 1;
     }
 }
 

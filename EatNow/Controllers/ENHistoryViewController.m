@@ -63,7 +63,7 @@ static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show"
     //appearance
     self.view.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView applyAlphaGradientWithEndPoints:@[@.05, @.95]];
+    //[self.tableView applyAlphaGradientWithEndPoints:@[@.05, @.95]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,6 +76,17 @@ static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show"
 	if (self.presentingViewController) {
 		[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 	}
+}
+
+- (void)showRestaurantCard:(ENRestaurant *)restaurant fromFrame:(CGRect)frame {
+    self.restaurantView = [ENRestaurantView loadView];
+    _restaurantView.restaurant = restaurant;
+    [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
+    [self.view.superview addSubview:_restaurantView];
+    [_restaurantView switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:self.view.frame animated:YES completion:nil];
+    [_restaurantView.imageView applyGredient];
+    ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
+    mainVC.isHistoryDetailShown = YES;
 }
 
 - (void)closeRestaurantView{
@@ -143,13 +154,7 @@ static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show"
     NSArray *restaurantsData = self.history[date.mt_endOfCurrentDay];
     NSDictionary *dataPoint = restaurantsData[indexPath.row];
     ENRestaurant *restaurant = dataPoint[@"restaurant"];
-    self.restaurantView = [ENRestaurantView loadView];
-    _restaurantView.restaurant = restaurant;
     CGRect frame = [self.view.superview convertRect:cell.background.frame fromView:cell.contentView];
-    [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
-    [self.view.superview addSubview:_restaurantView];
-    [_restaurantView switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:self.view.frame animated:YES completion:nil];
-    ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
-    mainVC.isHistoryDetailShown = YES;
+    [self showRestaurantCard:restaurant fromFrame:frame];
 }
 @end
