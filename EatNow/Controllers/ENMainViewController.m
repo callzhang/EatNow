@@ -223,6 +223,7 @@
         @strongify(self);
 		if (location) {
 			[self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+                @strongify(self);
 				if (success) {
 					self.restaurants = response.mutableCopy;
 					[self showAllRestaurantCards];
