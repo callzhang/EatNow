@@ -58,29 +58,29 @@
 //        });
 //    });
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            WatchKitAction *action = [WatchKitAction new];
-            action.type = ENWatchKitActionTypeImageDownload;
-            action.url = self.restaurant.imageUrls.firstObject;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        WatchKitAction *action = [WatchKitAction new];
+        action.type = ENWatchKitActionTypeImageDownload;
+        action.url = self.restaurant.imageUrls.firstObject;
         
-            [[self class] openParentApplication:action.toDictionary reply:^(NSDictionary *replyInfo, NSError *error) {
-                if (error) {
-                    NSLog(@"open parentapplication error:%@", error);
-                    return ;
-                }
-        
-                NSLog(@"got reply, error: %@, %@", replyInfo, error);
-                NSError *jsonError;
-                WatchKitResponse *response = [[WatchKitResponse alloc] initWithDictionary:replyInfo error:&jsonError];
-                if (jsonError) {
-                    NSLog(@"encode error:%@", jsonError);
-                    return ;
-                }
-        
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.self.actionButtonGroup setBackgroundImage:response.image];
-                });
-            }];
+        [[self class] openParentApplication:action.toDictionary reply:^(NSDictionary *replyInfo, NSError *error) {
+            if (error) {
+                NSLog(@"open parentapplication error:%@", error);
+                return ;
+            }
+            
+            NSLog(@"got reply, error: %@, %@", replyInfo, error);
+            NSError *jsonError;
+            WatchKitResponse *response = [[WatchKitResponse alloc] initWithDictionary:replyInfo error:&jsonError];
+            if (jsonError) {
+                NSLog(@"encode error:%@", jsonError);
+                return ;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.self.actionButtonGroup setBackgroundImage:response.image];
+            });
+        }];
     });
     
 }
@@ -112,6 +112,7 @@
     return [string substringToIndex:string.length-2];
 }
 
+//not used
 - (void)downloadImageWithURL:(NSString *)url completionHanlder:(void (^)(UIImage *iamge))handler{
     NSURL *URL = [NSURL URLWithString:url];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];

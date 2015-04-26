@@ -71,8 +71,7 @@
         identifier = UIBackgroundTaskInvalid;
     }];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        NSLog(@"background start");
 //        NSURL *URL = [NSURL URLWithString:@"http://placehold.it/350x150"];
 //        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
@@ -101,10 +100,9 @@
 //        // Step 5: begin asynchronous download
 //        [downloadRequest start];
         
-        
-        
         [action performActionForApplication:application withCompletionHandler:^(WatchKitResponse *response) {
             reply(response.toDictionary);
+            //wait 2 secs to make sure reply to compelete
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [application endBackgroundTask:identifier];
                 identifier = UIBackgroundTaskInvalid;
@@ -112,7 +110,5 @@
 
         }];
     });
-    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-    //    });
 }
 @end

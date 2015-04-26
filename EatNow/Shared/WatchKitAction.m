@@ -8,6 +8,7 @@
 
 #import "WatchKitAction.h"
 #import "AFNetworking.h"
+#import "UIImage+Resizing.h"
 
 @implementation WatchKitAction
 - (void)performActionForApplication:(UIApplication *)application withCompletionHandler:(void (^)(WatchKitResponse *))handler {
@@ -24,6 +25,7 @@
             // here we must create NSData object with received data...
             NSData *data = [[NSData alloc] initWithData:responseObject];
             UIImage *image = [[UIImage alloc] initWithData:data];
+            image = [image scaleToCoverSize:CGSizeMake(200, 200)];
             WatchKitResponse *response = [[WatchKitResponse alloc] init];
             response.image = image;
             if (handler) {
