@@ -16,6 +16,11 @@
 #import "NSDate+Extension.h"
 #import "NSDate+MTDates.h"
 
+NSString * const kHistroyUpdated = @"history_updated";
+NSString * const kRatingUpdated = @"rating_updated";
+NSString * const kPreferenceUpdated = @"preference_updated";
+NSString * const kUserUpdated = @"user_updated";
+
 @import CoreLocation;
 
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>
@@ -121,7 +126,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSString *myID = [self.class myUUID];
     NSString *url = [NSString stringWithFormat:@"%@/user/%@",kServerUrl, myID];
     DDLogInfo(@"Requesting user: %@", url);
-    [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, id user) {
+    [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, NSDictionary *user) {
 		NSParameterAssert([user isKindOfClass:[NSDictionary class]]);
 		self.me = user;
         
@@ -222,45 +227,75 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 #pragma mark - Data processing
 - (void)setMe:(NSDictionary *)me{
-    _me = me;
-    [self setHistoryWithData:[me valueForKeyPath:@"user.all_history"]];
-    [self setUserRatingWithData:[me valueForKeyPath:@"user.all_history"]];
-    self.preference = [me valueForKey:@"preference"];
+    if (me[@"user"]) {
+        //old API
+        _me = me[@"user"];
+        self.preference = [me valueForKey:@"preference"];
+    }else{
+        _me = me;
+        self.preference = [_me valueForKey:@"preference"];
+    }
+    
+    [self setHistoryWithData:[_me valueForKeyPath:@"all_history"]];
+    [self setUserRatingWithData:[_me valueForKeyPath:@"all_history"]];
 }
 
 - (void)setHistoryWithData:(NSArray *)data{
     //generate restaurant
     self.history = [NSMutableDictionary new];
-    for (NSDictionary *json in data) {
+    
+    //update selected
+    NSDate *latestSelected = [NSDate dateWithTimeIntervalSince1970:0];
+    ENRestaurant *latestRestaurant;
+    NSString *latestHistoryID;
+    
+    for (NSDictionary *historyData in data) {
         //json: {restaurant, like, _id, date}
-        NSString *dateStr = json[@"date"];
+        NSString *dateStr = historyData[@"date"];
         NSDate *date = [NSDate dateFromISO1861:dateStr];
         NSMutableArray *restaurantsDataForThatDay = self.history[[date mt_endOfCurrentDay]];
         if (!restaurantsDataForThatDay) {
             restaurantsDataForThatDay = [NSMutableArray array];
         }
-        NSDictionary *data = json[@"restaurant"];
+        NSDictionary *data = historyData[@"restaurant"];
         ENRestaurant *restaurant = [ENRestaurant restaurantWithData:data];
         if (!restaurant) continue;
-        [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": json[@"like"], @"_id": json[@"_id"]}];
+        [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": historyData[@"like"], @"_id": historyData[@"_id"]}];
         self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
+        
+        //update selected
+        if ([latestSelected compare:date] == NSOrderedAscending) {
+            latestSelected = date;
+            latestRestaurant = restaurant;
+            latestHistoryID = historyData[@"_id"];
+        }
     }
-    //DDLogVerbose(@"Updated history: %@", _history);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHistroyUpdated object:nil];
+    
+    //resume selected item if none
+    if (!_selectedRestaurant) {
+        self.selectedTime = latestSelected;
+        self.selectedRestaurant = latestRestaurant;
+        self.selectionHistoryID = latestHistoryID;
+        //TODO: post notification
+    }
 }
 
 - (void)setUserRatingWithData:(NSArray *)history{
     //parse history rating
     self.userRating = [NSMutableDictionary new];
-    for (NSDictionary *data in history) {
-        NSString *dateStr = data[@"date"];
+    for (NSDictionary *historyData in history) {
+        NSString *dateStr = historyData[@"date"];
         NSDate *date = [NSDate dateFromISO1861:dateStr];
         if (!date) {
             DDLogWarn(@"Date string not expected %@", dateStr);
             continue;
         }
-        NSNumber *rate = data[@"like"];
-        NSDictionary *restaurant = data[@"restaurant"];
-        NSString *ID = restaurant[@"_id"];
+        NSNumber *rate = historyData[@"like"];
+        NSDictionary *restaurantData = historyData[@"restaurant"];
+        ENRestaurant *restaurant = [ENRestaurant restaurantWithData:restaurantData];
+        NSString *ID = restaurant.ID;
         //keep unique rating for each restaurant
         NSDictionary *ratingDic = self.userRating[ID];
         if (ratingDic.allKeys.count == 0) {
@@ -273,6 +308,14 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
             }
         }
     }
+    
+    //post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRatingUpdated object:nil];
+}
+
+- (void)setPreference:(NSDictionary *)preference{
+    _preference = preference;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPreferenceUpdated object:preference];
 }
 
 #pragma mark - Tools

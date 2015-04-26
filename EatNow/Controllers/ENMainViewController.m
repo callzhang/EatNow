@@ -183,6 +183,11 @@
 	}];
 	[[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
+    //review if needed
+    [[NSNotificationCenter defaultCenter] addObserverForName:kHistroyUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+        //
+    }];
+    
     //load restaurants from server
     [self searchNewRestaurantsForced:NO];
 }
