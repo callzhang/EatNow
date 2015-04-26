@@ -55,6 +55,11 @@
 @property (nonatomic, strong) NSString *facebook;
 @property (nonatomic, strong) NSString *scoreComponentsString;
 
+/**
+ *  apple watch image is set after resize to smaller size in ResturantInterfaceController
+ */
+@property (nonatomic, strong) UIImage *appleWatchImage;
+
 + (instancetype)restaurantWithData:(NSDictionary *)json;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;

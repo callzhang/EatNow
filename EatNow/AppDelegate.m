@@ -56,7 +56,7 @@
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
-    NSLog(@"got watchkit request: %@", userInfo);
+//    NSLog(@"got watchkit request: %@", userInfo);
     NSError *error;
     WatchKitAction *action = [[WatchKitAction alloc] initWithDictionary:userInfo error:&error];
     if (error) {

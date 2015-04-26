@@ -69,7 +69,7 @@
                 return ;
             }
             
-            NSLog(@"got reply, error: %@, %@", replyInfo, error);
+//            NSLog(@"got reply, error: %@, %@", replyInfo, error);
             NSError *jsonError;
             WatchKitResponse *response = [[WatchKitResponse alloc] initWithDictionary:replyInfo error:&jsonError];
             if (jsonError) {
@@ -77,6 +77,7 @@
                 return ;
             }
             
+            self.restaurant.appleWatchImage = response.image;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.self.actionButtonGroup setBackgroundImage:response.image];
             });

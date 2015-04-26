@@ -86,25 +86,32 @@
     action.type = ENWatchKitActionTypeImageDownload;
     action.url = self.restaurant.imageUrls.firstObject;
     
-//    [[self class] openParentApplication:action.toDictionary reply:^(NSDictionary *replyInfo, NSError *error) {
-//        NSLog(@"got reply, error: %@, %@", replyInfo, error);
-//        NSError *jsonError;
-//        WatchKitResponse *response = [[WatchKitResponse alloc] initWithDictionary:replyInfo error:&jsonError];
-//        if (jsonError) {
-//            NSLog(@"encode error:%@", jsonError);
-//            return ;
-//        }
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.restaurantNameGroup setBackgroundImage:response.image];
-//        });
-//    }];
-    
-    NSMutableArray *items = [self loadDetailRows];
-//    if ([self needLoadMore]) {
-//        [items addObject:@"More Info"];
-//    }
 
+    if (self.restaurant.appleWatchImage) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.restaurantNameGroup setBackgroundImage:self.restaurant.appleWatchImage];
+        });
+    }
+    else {
+        [[self class] openParentApplication:action.toDictionary reply:^(NSDictionary *replyInfo, NSError *error) {
+//            NSLog(@"got reply, error: %@, %@", replyInfo, error);
+            NSError *jsonError;
+            WatchKitResponse *response = [[WatchKitResponse alloc] initWithDictionary:replyInfo error:&jsonError];
+            if (jsonError) {
+                NSLog(@"encode error:%@", jsonError);
+                return ;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.restaurantNameGroup setBackgroundImage:response.image];
+            });
+        }];
+    }
+    NSMutableArray *items = [self loadDetailRows];
+    //    if ([self needLoadMore]) {
+    //        [items addObject:@"More Info"];
+    //    }
+    
     [self loadTableWithArray:items];
 }
 
@@ -140,10 +147,10 @@
     if (self.restaurant.phone) {
         [mutableArray addObject:self.restaurant.phone];
     }
-//    
-//    if (self.restaurant.url) {
-//        [mutableArray addObject:self.restaurant.url];
-//    }
+    //    
+    //    if (self.restaurant.url) {
+    //        [mutableArray addObject:self.restaurant.url];
+    //    }
     
     return mutableArray;
 }
