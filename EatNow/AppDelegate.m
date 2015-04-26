@@ -30,44 +30,89 @@
 #import "ENLocationManager.h"
 #import "UIAlertView+BlocksKit.h"
 #import "ATConnect.h"
+#import "UIImageView+AFNetworking.h"
+#import "WatchKitAction.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [ATConnect sharedConnection].apiKey = @"43aadd17c4e966f98753bcb1250e78d00c68731398a9b60dc7c456d2682415fc";
     [Crashlytics startWithAPIKey:@"6ec9eab6ca26fcd18d51d0322752b861c63bc348"];
-	[ENUtil initLogging];
+    [ENUtil initLogging];
     [ENLocationManager registerLocationDeniedHandler:^{
-		[UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-			if (buttonIndex == 1) {
-				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-			}
-		}];
+        [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+            }
+        }];
     }];
-	
-	[ENLocationManager registerLocationDeniedHandler:^{
-		[UIAlertView bk_showAlertViewWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." cancelButtonTitle:nil otherButtonTitles:@[@"Setting"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-		}];
-	}];
+    
+    [ENLocationManager registerLocationDeniedHandler:^{
+        [UIAlertView bk_showAlertViewWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." cancelButtonTitle:nil otherButtonTitles:@[@"Setting"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }];
+    }];
     return YES;
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
-    UIBackgroundTaskIdentifier identifier = [application beginBackgroundTaskWithName:@"watchkit-location-request" expirationHandler:^{
+    NSLog(@"got watchkit request: %@", userInfo);
+    NSError *error;
+    WatchKitAction *action = [[WatchKitAction alloc] initWithDictionary:userInfo error:&error];
+    if (error) {
+        NSLog(@"parse action error:%@", error);
+    }
+    
+    __block UIBackgroundTaskIdentifier identifier;
+    identifier = [application beginBackgroundTaskWithName:[NSString stringWithFormat:@"watchkit-location-request-%@",action.url] expirationHandler:^{
         NSLog(@"expired");
         reply(nil);
         [application endBackgroundTask:identifier];
+        identifier = UIBackgroundTaskInvalid;
     }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        reply(@{@"xxxx":@"xxfdsf"});
-//        [application endBackgroundTask:identifier];
-		ENLocationManager *locationManager = [[ENLocationManager alloc] init];
-		[locationManager getLocationWithCompletion:^(CLLocation *location) {
-			reply(@{@"location": location});
-			[application endBackgroundTask:identifier];
-		} forece:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+//        NSLog(@"background start");
+//        NSURL *URL = [NSURL URLWithString:@"http://placehold.it/350x150"];
+//        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+//        
+//        // Step 3: create AFHTTPRequestOperation object with our request
+//        AFHTTPRequestOperation *downloadRequest = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+//        
+//        // Step 4: set handling for answer from server and errors with request
+//        [downloadRequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//            // here we must create NSData object with received data...
+//            NSData *data = [[NSData alloc] initWithData:responseObject];
+//            UIImage *image = [[UIImage alloc] initWithData:data];
+//            WatchKitResponse *response = [[WatchKitResponse alloc] init];
+//            response.image = image;
+//            NSLog(@"sending response:%@", response);
+//            reply(response.toDictionary);
+//            [application endBackgroundTask:identifier];
+//            identifier = UIBackgroundTaskInvalid;
+//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//            NSLog(@"file downloading error : %@", [error localizedDescription]);
+//            reply(nil);
+//            [application endBackgroundTask:identifier];
+//            identifier = UIBackgroundTaskInvalid;
+//        }];
+//        
+//        // Step 5: begin asynchronous download
+//        [downloadRequest start];
+        
+        
+        
+        [action performActionForApplication:application withCompletionHandler:^(WatchKitResponse *response) {
+            reply(response.toDictionary);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [application endBackgroundTask:identifier];
+                identifier = UIBackgroundTaskInvalid;
+            });
+
+        }];
     });
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+    //    });
 }
 @end

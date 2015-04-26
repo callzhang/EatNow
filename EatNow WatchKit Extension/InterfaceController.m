@@ -11,6 +11,7 @@
 #import "ENServerManager.h"
 #import "NSError+TMError.h"
 #import "extobjc.h"
+#import "WatchKitAction.h"
 
 DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
@@ -25,6 +26,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 @implementation InterfaceController
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
+    NSLog(@"load main interface");
     [self.loadingImageView setImageNamed:@"eat-now-apple-watch-loading-indicator-"];
     [self.loadingImageView startAnimatingWithImagesInRange:NSMakeRange(1, 6) duration:2 repeatCount:NSIntegerMax];
 
@@ -46,6 +48,23 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
             [WKInterfaceController reloadRootControllersWithNames:restaurants contexts:objests];
         }];
     } forece:YES];
+    
+//    [[self class] openParentApplication:@{@"type":@0} reply:^(NSDictionary *replyInfo, NSError *error) {
+//        if (error) {
+//            NSLog(@"open parentapplication error:%@", error);
+//            return ;
+//        }
+//        
+//        NSLog(@"got reply, error: %@, %@", replyInfo, error);
+//        NSError *jsonError;
+//        WatchKitResponse *response = [[WatchKitResponse alloc] initWithDictionary:replyInfo error:&jsonError];
+//        if (jsonError) {
+//            NSLog(@"encode error:%@", jsonError);
+//            return ;
+//        }
+//        
+//        NSLog(@"success:%@", response);
+//    }];
 }
 @end
 

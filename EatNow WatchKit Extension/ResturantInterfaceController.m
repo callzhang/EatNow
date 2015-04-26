@@ -10,6 +10,7 @@
 #import "ENRestaurant.h"
 #import "AFNetworking.h"
 #import "ENMapManager.h"
+#import "WatchKitAction.h"
 
 
 @interface ResturantInterfaceController()
@@ -45,17 +46,43 @@
     self.restaurantPrice.text = [context.price valueForKey:@"currency"];
     self.openTil.text = context.openInfo;
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", context.rating.floatValue];
-//    self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance.floatValue/1000)];
+    self.restaurantDistance.text = [NSString stringWithFormat:@"%@", @(context.distance.floatValue/1000)];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls.firstObject];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *placeholder = [UIImage imageWithData:data];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls.firstObject];
+//        NSData *data = [NSData dataWithContentsOfURL:url];
+//        UIImage *placeholder = [UIImage imageWithData:data];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.actionButtonGroup setBackgroundImage:placeholder];
+//        });
+//    });
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            WatchKitAction *action = [WatchKitAction new];
+            action.type = ENWatchKitActionTypeImageDownload;
+            action.url = self.restaurant.imageUrls.firstObject;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.actionButtonGroup setBackgroundImage:placeholder];
-        });
+            [[self class] openParentApplication:action.toDictionary reply:^(NSDictionary *replyInfo, NSError *error) {
+                if (error) {
+                    NSLog(@"open parentapplication error:%@", error);
+                    return ;
+                }
+        
+                NSLog(@"got reply, error: %@, %@", replyInfo, error);
+                NSError *jsonError;
+                WatchKitResponse *response = [[WatchKitResponse alloc] initWithDictionary:replyInfo error:&jsonError];
+                if (jsonError) {
+                    NSLog(@"encode error:%@", jsonError);
+                    return ;
+                }
+        
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.self.actionButtonGroup setBackgroundImage:response.image];
+                });
+            }];
     });
+    
 }
 
 - (void)willActivate {
@@ -83,6 +110,30 @@
         [string appendFormat:@"%@, ", key];
     }
     return [string substringToIndex:string.length-2];
+}
+
+- (void)downloadImageWithURL:(NSString *)url completionHanlder:(void (^)(UIImage *iamge))handler{
+    NSURL *URL = [NSURL URLWithString:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    AFHTTPRequestOperation *downloadRequest = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    // Step 4: set handling for answer from server and errors with request
+    [downloadRequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // here we must create NSData object with received data...
+        NSData *data = [[NSData alloc] initWithData:responseObject];
+        UIImage *image = [[UIImage alloc] initWithData:data];
+        if (handler) {
+            handler(image);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"file downloading error : %@", [error localizedDescription]);
+        if (handler) {
+            handler(nil);
+        }
+    }];
+    
+    // Step 5: begin asynchronous download
+    [downloadRequest start];
 }
 @end
 
