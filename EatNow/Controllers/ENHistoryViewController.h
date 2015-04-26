@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+
+static const NSString *kHistoryDetailCardDidShow;
+static const NSString *kHistoryTableViewDidShow;
+
 @class ENRestaurantView;
 
 @interface ENHistoryViewController : UITableViewController
 @property (nonatomic, strong) ENRestaurantView *restaurantView;
 - (void)loadData;
+- (void)closeRestaurantView;
 @end

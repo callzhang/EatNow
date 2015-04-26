@@ -40,7 +40,8 @@
 	restaurant.url = json[@"url"];
 	restaurant.rating = (NSNumber *)json[@"rating"];
     NSString *colorStr = json[@"ratingColor"];
-    restaurant.ratingColor = [ENRestaurant colorFromHexString:colorStr];
+    UIColor *ratingColor = [ENRestaurant colorFromHexString:colorStr];
+    if (ratingColor) restaurant.ratingColor = ratingColor;
 	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];
 	NSArray *list = json[@"categories"];
     restaurant.cuisines = [list valueForKey:@"shortName"];
@@ -71,6 +72,9 @@
 }
 
 + (UIColor *)colorFromHexString:(NSString *)hexString {
+    if (!hexString) {
+        return nil;
+    }
     unsigned rgbValue = 0;
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
     //[scanner setScanLocation:1]; // bypass '#' character
@@ -94,8 +98,9 @@
         NSString *url = imageUrls[i];
         NSUInteger j = [_imageUrls indexOfObject:url];
         if (j == NSNotFound) continue;
-        //[_images exchangeObjectAtIndex:i withObjectAtIndex:j];
-        newImages[i] = _images[j];
+        if (_images.count > j && _images[j]) {
+            newImages[i] = _images[j];
+        }
     }
     _imageUrls = imageUrls;
     _images = newImages;
