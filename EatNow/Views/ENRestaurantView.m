@@ -157,10 +157,18 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 	}
     
 	if (![ENServerManager shared].canSelectNewRestaurant) {
-		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes, I changed my mind."] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+		NSArray *titles;
+#ifdef DEBUG
+		titles = @[@"Yes, I changed my mind.", @"Force select [debug]"];
+#else
+		titles = @[@"Yes, I changed my mind."];
+#endif
+		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:titles handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
+				[ENUtil showWatingHUB];
                 @weakify(self);
                 [[ENServerManager shared] cancelSelectedRestaurant:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
+					[ENUtil dismissHUD];
                     @strongify(self);
                     if (error) {
                         ENLogError(error.localizedDescription);
@@ -171,6 +179,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                         [self selectRestaurant:nil];
                     }
                 }];
+			}else if (buttonIndex == 2){
+				[[ENServerManager shared] clearSelectedRestaurant];
+				[self selectRestaurant:nil];
 			}
 		}];
 		return;
@@ -310,7 +321,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)updateGoButton{
-	if ([ENServerManager shared].selectedRestaurant == self.restaurant) {
+	if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:self.restaurant.ID]) {
 		[self.goButton setImage:[UIImage imageNamed:@"eat-now-card-details-view-cancel-button"] forState:UIControlStateNormal];
 	}
 	else{

@@ -31,16 +31,24 @@
             [ENUtil dismissHUD];
             @strongify(self);
             if (user) {
-                self.user = user;
-                self.preference = self.serverManager.preference;
-                [self.tableView reloadData];
+				[self loadData];
             }
         }];
     }
-    else {
-        self.user = self.serverManager.me;
-        self.preference = self.serverManager.preference;
+	else {
+		[self loadData];
     }
+	
+	[[NSNotificationCenter defaultCenter] addObserverForName:kHistroyUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+		DDLogVerbose(@"Profile view observed history update and updated it's view");
+		[self loadData];
+	}];
+}
+
+- (void)loadData{
+	self.user = self.serverManager.me;
+	self.preference = self.serverManager.preference;
+	[self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

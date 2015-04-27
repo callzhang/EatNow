@@ -589,6 +589,9 @@
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = SDR7T9YB58;
 					};
+					DA5B73E418F233EF00BB5F8E = {
+						DevelopmentTeam = SDR7T9YB58;
+					};
 					DA5B73FF18F233EF00BB5F8E = {
 						TestTargetID = DA5B73E418F233EF00BB5F8E;
 					};
@@ -960,7 +963,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7dc50660-49c5-45a8-b4c8-4ee6110acca8";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -987,6 +990,7 @@
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1010,6 +1014,7 @@
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
