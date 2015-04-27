@@ -56,6 +56,7 @@
 //convienence method
 - (NSString *)foursquareID;
 - (MKPlacemark *)placemark;
+//ZITAO: change to scoreCompentsText, priceText, and cuisineText
 - (NSString *)scoreComponentsString;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;

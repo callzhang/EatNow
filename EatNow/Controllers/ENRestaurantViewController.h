@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+//ZITAO: delete this class?
 @interface ENRestaurantViewController : UIViewController
 
 @end

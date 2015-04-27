@@ -31,6 +31,7 @@
 @import AddressBook;
 
 @implementation ENRestaurant
+//ZITAO: change to initRestaurantWithDictionary, the param is not s NSData
 - (instancetype)initRestaurantWithData:(NSDictionary *)json{
 	self = [super init];
     if (!self) return nil;
@@ -222,22 +223,4 @@
     
     return good;
 }
-
-//- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block {
-//    if (self.walkDuration != NSTimeIntervalSince1970) {
-//        block(self.walkDuration, nil);
-//        return;
-//    }
-//	
-//	[[ENMapManager new] estimatedWalkingTimeToLocation:self.location completion:^(NSTimeInterval length, NSError *error) {
-//		if (error) {
-//			DDLogError(@"error:%@", error);
-//			if (block) block(NSTimeIntervalSince1970, error);
-//		}
-//		else {
-//			self.walkDuration = length;
-//			if (block) block(length, nil);
-//		}
-//	}];
-//}
 @end

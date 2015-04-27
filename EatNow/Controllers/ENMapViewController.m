@@ -10,69 +10,70 @@
 #import "ENUtil.h"
 #import "ENMapManager.h"
 #import "ENLocationManager.h"
+#import "extobjc.h"
 
 @import AddressBook;
 
 @interface ENMapViewController ()<MKMapViewDelegate>
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView; //this is not connected? can we delete it
 @property (nonatomic, strong) MKPlacemark *destination;
 @property (nonatomic, strong) ENMapManager *mapManager;
 @end
 
 @implementation ENMapViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	self.destination = self.restaurant.placemark;
 	self.title = self.restaurant.name;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:nil];
 
     CLLocationCoordinate2D centerCoordinate = [ENLocationManager cachedCurrentLocation].coordinate;
+    
     self.mapView.region = MKCoordinateRegionMakeWithDistance(centerCoordinate, 1000, 1000);
     self.mapView.showsUserLocation = YES;
-    _mapManager = [[ENMapManager alloc] initWithMap:self.mapView];
-    self.mapView.delegate = _mapManager;
+    
+    self.mapManager = [[ENMapManager alloc] initWithMap:self.mapView];
+    self.mapView.delegate = self.mapManager;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    
     [super viewDidAppear:animated];
 	
 	//add annotation
 	MKPointAnnotation *destinationAnnotation = [[MKPointAnnotation alloc] init];
-	destinationAnnotation.coordinate = _destination.coordinate;
-	destinationAnnotation.title = _restaurant.name;
-	destinationAnnotation.subtitle = _restaurant.placemark.addressDictionary[(__bridge NSString *) kABPersonAddressStreetKey];
+	destinationAnnotation.coordinate = self.destination.coordinate;
+	destinationAnnotation.title = self.restaurant.name;
+	destinationAnnotation.subtitle = self.restaurant.placemark.addressDictionary[(__bridge NSString *) kABPersonAddressStreetKey];
 	[self.mapView addAnnotation:destinationAnnotation];
 	[self.mapView selectAnnotation:destinationAnnotation animated:YES];
-	
     // ---- Start searching ----
-	//[ENUtil showWatingHUB];
     
-    //request location
     [self startRoute];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
 	[super viewDidDisappear:animated];
-	[_mapManager cancelRouting];
+	[self.mapManager cancelRouting];
 }
 
 - (void)startRoute{
-	[self.mapManager routeToRestaurant:_restaurant repeat:15 completion:^(NSTimeInterval length, NSError *error) {
+    @weakify(self);
+	[self.mapManager routeToRestaurant:self.restaurant repeat:15 completion:^(NSTimeInterval length, NSError *error) {
+        @strongify(self);
         if (error) {
-            ENLogError(@"Failed to route to restaurant %@", _restaurant.name);
+            ENLogError(@"Failed to route to restaurant %@", self.restaurant.name);
         }
     }];
 }
 
+//ZITAO: is this method being using?
 - (IBAction)cancel:(id)sender {
 	[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+//ZITAO: didiUnload is deprecated, should be moved into didDisapplear?
 - (void)viewDidUnload{
     [self.mapManager cancelRouting];
 }
-
 @end

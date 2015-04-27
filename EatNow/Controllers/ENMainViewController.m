@@ -39,10 +39,6 @@
 #import "UIView+Extend.h"
 #import "ATConnect.h"
 #import "ENRatingView.h"
-//#import "AnimatedGIFImageSerialization.h"
-
-//static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
-//static const CGFloat ChoosePersonButtonVerticalPadding = 20.f;
 
 @interface ENMainViewController ()
 //data
@@ -68,8 +64,6 @@
 @end
 
 @implementation ENMainViewController
-
-
 
 #pragma mark - Accsessor
 - (ENRestaurantView *)frontCardView{
@@ -212,6 +206,7 @@
 	UIVisualEffectView *bluredEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 	[bluredEffectView setFrame:self.view.frame];
 	[self.view insertSubview:bluredEffectView aboveSubview:self.background];
+    
 	[[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
 		if (note.object == self.frontCardView) {
 			[self setBackgroundImage:note.userInfo[@"image"]];
@@ -240,10 +235,6 @@
 				}
 			}];
 		}
-		else{
-			
-		}
-		
     } forece:force];
 }
 
@@ -313,18 +304,16 @@
 	});
 }
 
-
-
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity{
     if (self.frontCardView) {
         ENRestaurantView *frontCard = self.frontCardView;
 		//DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
         //add dynamics
-		[_animator removeBehavior:frontCard.snap];
-		[_gravity addItem:frontCard];
-		[_dynamicItem addItem:frontCard];
+		[self.animator removeBehavior:frontCard.snap];
+		[self.gravity addItem:frontCard];
+		[self.dynamicItem addItem:frontCard];
 		if (velocity.x) {
-			[_dynamicItem addLinearVelocity:velocity forItem:frontCard];
+			[self.dynamicItem addLinearVelocity:velocity forItem:frontCard];
 		}
 		
         //remove front card from cards
@@ -377,7 +366,6 @@
     }
 }
 
-
 - (void)toggleHistoryView {
     if (self.isHistoryShown) {
         //show
@@ -413,8 +401,6 @@
         UIOffset offset = UIOffsetMake(locInCard.x - card.bounds.size.width/2, locInCard.y - card.bounds.size.height/2);
         _attachment = [[UIAttachmentBehavior alloc] initWithItem:card offsetFromCenter:offset attachedToAnchor:locInView];
         [_animator addBehavior:_attachment];
-        //attachment.frequency = 0;
-        
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         _attachment.anchorPoint = locInView;
@@ -437,15 +423,15 @@
 - (void)snapCardToCenter:(ENRestaurantView *)card {
     NSParameterAssert(card);
 	if (card.snap) {
-		[_animator removeBehavior:card.snap];
+		[self.animator removeBehavior:card.snap];
 	}
 	UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardView.center];
 	
     snap.damping = 0.98;
-    [_animator addBehavior:snap];
+    [self.animator addBehavior:snap];
     card.snap = snap;
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		[_animator removeBehavior:card.snap];
+		[self.animator removeBehavior:card.snap];
 	});
 }
 
@@ -463,10 +449,7 @@
     card.restaurant = self.restaurants.firstObject;
 	[self.restaurants removeObjectAtIndex:0];
     [self.restaurantCards addObject:card];
-    //set background iamge
     [card.imageView applyGredient2];
-    //shadow: very slow, avoid!
-    //[card applyShadow];
     
 	return card;
 }
@@ -487,7 +470,6 @@
 	} repeats:NO];
 }
 
-
 #pragma mark - Card frame
 - (CGRect)initialCardFrame{
     CGRect frame = self.cardView.frame;
@@ -506,10 +488,7 @@
     return frame;
 }
 
-
-
 #pragma mark Control Events
-
 // Programmatically "nopes" the front card view.
 - (IBAction)nope:(id)sender {
     if (self.frontCardView.restaurant) {
@@ -518,7 +497,7 @@
             if ([title isEqualToString:@"Confirm"]) {
                 ENRestaurant *restaurant = self.frontCardView.restaurant;
                 [ENUtil showWatingHUB];
-                [[self serverManager] selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
+                [self.serverManager selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
                     if (!error) {
                         [ENUtil showSuccessHUBWithString:@"Disliked"];
                         DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
@@ -531,7 +510,6 @@
         }];
     }
 }
-
 
 - (IBAction)refresh:(id)sender {
     if (_isDismissingCard) {
@@ -572,12 +550,11 @@
     [self searchNewRestaurantsForced:YES];
         
     //show loading info
-	//self.loading.alpha = 1;
     self.loadingInfo.text = @"You have dismissed all cards.";
 }
 
 - (IBAction)showHistory:(id)sender{
-    self.isHistoryShown = !_isHistoryShown;
+    self.isHistoryShown = !self.isHistoryShown;
     [self toggleHistoryView];
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.view layoutIfNeeded];
@@ -599,6 +576,7 @@
     }];
 }
 
+//ZITAO: rename to collapse?
 - (IBAction)clapse:(id)sender {
     if (_isHistoryDetailShown){
         [self.historyViewController closeRestaurantView];
@@ -607,6 +585,7 @@
     }
 }
 
+//ZITAO: can we delete this method, or rename?
 - (IBAction)test:(id)sender {
     [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID}];
 }
@@ -628,6 +607,7 @@
     }
 }
 
+//ZITAO: can we delete this method?
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
     if ([identifier isEqualToString:@"embedHistorySegue"]) {
         return YES;

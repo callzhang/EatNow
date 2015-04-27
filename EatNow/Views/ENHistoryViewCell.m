@@ -13,15 +13,8 @@
 @implementation ENHistoryViewCell
 
 - (void)awakeFromNib {
-    // Initialization code
     self.contentView.backgroundColor = [UIColor clearColor];
     self.backgroundColor = [UIColor clearColor];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)setRestaurant:(ENRestaurant *)restaurant{
@@ -32,8 +25,6 @@
 }
 
 - (void)setRate:(NSInteger)rate{
-    
-    
     //rating
     UIImage *emptyImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-grey"];
     UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-yellow"];

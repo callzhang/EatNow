@@ -72,33 +72,6 @@
     }];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        NSLog(@"background start");
-//        NSURL *URL = [NSURL URLWithString:@"http://placehold.it/350x150"];
-//        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-//        
-//        // Step 3: create AFHTTPRequestOperation object with our request
-//        AFHTTPRequestOperation *downloadRequest = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-//        
-//        // Step 4: set handling for answer from server and errors with request
-//        [downloadRequest setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//            // here we must create NSData object with received data...
-//            NSData *data = [[NSData alloc] initWithData:responseObject];
-//            UIImage *image = [[UIImage alloc] initWithData:data];
-//            WatchKitResponse *response = [[WatchKitResponse alloc] init];
-//            response.image = image;
-//            NSLog(@"sending response:%@", response);
-//            reply(response.toDictionary);
-//            [application endBackgroundTask:identifier];
-//            identifier = UIBackgroundTaskInvalid;
-//        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//            NSLog(@"file downloading error : %@", [error localizedDescription]);
-//            reply(nil);
-//            [application endBackgroundTask:identifier];
-//            identifier = UIBackgroundTaskInvalid;
-//        }];
-//        
-//        // Step 5: begin asynchronous download
-//        [downloadRequest start];
         
         [action performActionForApplication:application withCompletionHandler:^(WatchKitResponse *response) {
             reply(response.toDictionary);

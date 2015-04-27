@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+//ZITAO: remove thid class?
 @interface ENWebViewController : UIViewController
 @property (strong, nonatomic) NSURL *url;
 @end

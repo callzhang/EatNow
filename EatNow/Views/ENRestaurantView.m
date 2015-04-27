@@ -84,7 +84,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.cuisine.text = restaurant.cuisineStr;
     self.price.text = restaurant.pricesStr;
     self.rating.text = [NSString stringWithFormat:@"%.0f", round(restaurant.rating.integerValue)];
-    //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
@@ -123,13 +122,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.restaurant.images.firstObject}];
     }
     //load image from webpage
-    if (_restaurant.imageUrls.count <= 1) {
+    if (self.restaurant.imageUrls.count <= 1) {
         @weakify(self);
         NSString *tempUrl = self.restaurant.url ?: [NSString stringWithFormat:@"http://foursquare.com/v/%@", self.restaurant.foursquareID];
         [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
             @strongify(self);
             if (!imageUrls) {
-                ENLogError(@"Failed to parse foursquare image %@", _restaurant.url);
+                ENLogError(@"Failed to parse foursquare image %@", self.restaurant.url);
                 return;
             }
             
@@ -139,10 +138,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 #pragma mark - UI
+//ZITAO: rename to better name
 - (IBAction)go:(id)sender {
 	if ([ENServerManager shared].selectedRestaurant == _restaurant) {
 		//cancel
-		//ENAlert(@"Need cancel API! Using dislike API for now.");
 		[[ENServerManager shared] clearSelectedRestaurant];
         @weakify(self);
         [[ENServerManager shared] cancelSelectedRestaurant:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
@@ -155,11 +154,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 				[self updateGoButton];
 			}
 		}];
+        
 		return;
 	}
     
 	if (![ENServerManager shared].canSelectNewRestaurant) {
-		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", _restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes, I changed my mind."] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes, I changed my mind."] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
 			if (buttonIndex == 1) {
 				[[ENServerManager shared] clearSelectedRestaurant];
 				[self go:nil];
@@ -173,7 +173,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 		if (error) {
 			ENLogError(error.localizedDescription);
 			[ENUtil showFailureHUBWithString:@"failed"];
-		}else{
+		}
+        else{
 			DDLogInfo(@"Selected %@", _restaurant.name);
             [self showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:3];
             [self prepareData];
@@ -201,13 +202,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (!_map) {
         //map
         
-        //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         self.map = [[MKMapView alloc] initWithFrame:self.bounds];
         self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
-        self.map.region = MKCoordinateRegionMakeWithDistance(_restaurant.location.coordinate, 1000, 1000);
+        self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
         self.map.showsUserLocation = YES;
-        self.map.delegate = _mapManager;
+        self.map.delegate = self.mapManager;
         [self insertSubview:self.map belowSubview:self.goButton];
+        
         closeMap = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
         [closeMap setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [closeMap addTarget:self action:@selector(toggleMap:) forControlEvents:UIControlEventTouchUpInside];
@@ -216,6 +217,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [UIView expand:self.mapIcon view:self.map completion:^{
             [self addSubview:closeMap];
         }];
+        
         [self.mapManager addAnnotationForRestaurant:_restaurant];
         [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidShow object:nil];
         
@@ -228,9 +230,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }];
         }
         
-    }else{
+    }
+    else{
         //hide
-        //[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
         [closeMap removeFromSuperview];
         closeMap = nil;
         [UIView collapse:self.mapIcon view:self.map animated:YES completion:^{
@@ -264,14 +266,16 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
-    }else if (self.status == ENRestaurantViewStatusDetail){
+    }
+    else if (self.status == ENRestaurantViewStatusDetail) {
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
         self.goButton.alpha = 1;
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
-    }else if (self.status == ENRestaurantViewStatusMinimum){
+    }
+    else if (self.status == ENRestaurantViewStatusMinimum) {
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
         self.goButton.alpha = 0;
@@ -284,7 +288,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             self.userRatingView.alpha = 1;
             [self addRatingOnView:self.userRatingView withRating:rate.integerValue];
         }
-    }else if (self.status == ENRestaurantViewStatusHistoryDetail){
+    }
+    else if (self.status == ENRestaurantViewStatusHistoryDetail) {
         self.distanceInfo.alpha = 0;
         self.openInfo.alpha = 0;
         self.goButton.alpha = 0;
@@ -295,8 +300,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)updateGoButton{
-
-	if ([ENServerManager shared].selectedRestaurant == _restaurant) {
+	if ([ENServerManager shared].selectedRestaurant == self.restaurant) {
 		[self.goButton setImage:[UIImage imageNamed:@"eat-now-card-details-view-cancel-button"] forState:UIControlStateNormal];
 	}
 	else{
@@ -305,7 +309,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
-    
     UIImage *emptyImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-grey"];
     UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-yellow"];
     AMRatingControl *imagesRatingControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
@@ -328,6 +331,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         @strongify(self);
         NSData *data = responseObject;
         TFHpple * doc       = [[TFHpple alloc] initWithHTMLData:data];
+        //ZITAO: should the parser strign returned by server? fetched when app starts? we can pending to later version if this is too much coding involved.
         NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='photosSection']/ul/li/img"];
         NSMutableArray *images = [NSMutableArray array];
         for (TFHppleElement *element in elements) {
@@ -343,7 +347,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
         }
 		
-        //DDLogVerbose(@"Parsed img urls: %@", images);
         block(images, nil);
 		
 		//update to server
@@ -356,10 +359,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     [op start];
 }
 
-
 - (void)loadNextImage{
     if (self.status == ENRestaurantViewStatusCard && _currentImageIndex != -1) {
-		//DDLogVerbose(@"Skip loading next image in card mode");
         return;
     }
     if (_isLoadingImage) {
@@ -377,7 +378,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (self.restaurant.images.count > nextIdx) {
         if (self.restaurant.images[nextIdx] != [NSNull null]) {
             _currentImageIndex = nextIdx;
-            //self.pageControl.currentPage = nextIdx;
             [self showImage:self.restaurant.images[nextIdx]];
             return;
         }
@@ -413,10 +413,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (self.loading.isAnimating) {
         [self.loading stopAnimating];
     }
-    self.imageView.image = image;
+    
     if (self.map) {
         return;
     }
+    
+    self.imageView.image = image;
+    
     //duplicate view
     if (self.superview) {
         UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
@@ -604,5 +607,4 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 - (void)dealloc{
     DDLogVerbose(@"Card dismissed: %@", _restaurant.name);
 }
-
 @end

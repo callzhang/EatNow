@@ -30,22 +30,17 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO; //ZITAO: is this intentional?
     
-    // button in the navigation bar for this view controller.
 	if (self.navigationController) {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
 	}
-	
-    //self.tableView.contentInset = UIEdgeInsetsMake(90, 0, 0, 0);
 }
 
 - (void)loadData{
-    
     //data
     self.history = [ENServerManager shared].history;
-    //self.user = [ENServerManager shared].me;
+    
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         self.history = [ENServerManager shared].history;
         [self.tableView reloadData];
@@ -55,20 +50,13 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 - (void)setHistory:(NSMutableDictionary *)history{
     _history = history;
     self.orderedDates = [_history.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSDate *obj1, NSDate *obj2) {
-        return -[obj1 compare:obj2];
+        return -[obj1 compare:obj2];//ZITAO: don't think this is good style, should using explict NSOrder asending, desceding, etc.
     }];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    //appearance
     self.view.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor clearColor];
-    //[self.tableView applyAlphaGradientWithEndPoints:@[@.05, @.95]];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Actions
@@ -82,7 +70,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     self.restaurantView = [ENRestaurantView loadView];
     _restaurantView.restaurant = restaurant;
     [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
-    [self.view.superview addSubview:_restaurantView];
+    [self.view.superview addSubview:_restaurantView]; //ZITAO: call super view and add subview is ugly. can we use MainVC reference's view? like mainVC.view.
     [_restaurantView switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:self.view.frame animated:YES completion:nil];
     [_restaurantView.imageView applyGredient];
     ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
@@ -109,7 +97,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.history.allKeys.count;
+    return self.history.allKeys.count; //ZITAO: should it be self.orderedDates.count?
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
