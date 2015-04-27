@@ -79,7 +79,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
               //process data
               NSMutableArray *mutableResturants = [NSMutableArray array];
               for (NSDictionary *restaurant_json in responseObject) {
-				  ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithData:restaurant_json];
+				  ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurant_json];
                   if (restaurant) {
                       [mutableResturants addObject:restaurant];
                   }
@@ -130,7 +130,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error];
+        NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error.localizedDescription];
         DDLogError(s);
         if (block) {
             block(nil, error);
@@ -138,7 +138,25 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
 }
 
-- (void)selectRestaurant:(ENRestaurant *)restaurant like:(NSInteger)value completion:(void (^)(NSError *error))block{
+- (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *))block{
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSParameterAssert([dic.allKeys containsObject:@"img_url"]);
+    NSParameterAssert([dic[@"img_url"] isKindOfClass:[NSArray class]]);
+    
+    NSString *url = [NSString stringWithFormat:@"%@/restaurant/%@",kServerUrl, restaurant.ID];
+    [manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(block) block(nil);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(block) block(error);
+        DDLogError(error.localizedDescription);
+    }];
+}
+
+#pragma mark - User actions
+- (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(void (^)(NSError *error))block{
 	NSParameterAssert(!self.selectedRestaurant);
     NSParameterAssert(value > 0);
     self.selectedRestaurant = restaurant;
@@ -201,22 +219,19 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 	self.selectedTime = nil;
 }
 
-- (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *))block{
+- (void)updateHistory:(NSString *)historyID withRating:(float)rate completion:(ErrorBlock)block {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-	AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-	manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSParameterAssert(rate>= -2 && rate <= 2);
     
-	NSParameterAssert([dic.allKeys containsObject:@"img_url"]);
-	NSParameterAssert([dic[@"img_url"] isKindOfClass:[NSArray class]]);
-    
-	NSString *url = [NSString stringWithFormat:@"%@%@/%@",kServerUrl, @"restaurant", restaurant.ID];
-	[manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-		if(block) block(nil);
-		
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		if(block) block(error);
-		DDLogError(error.localizedDescription);
-	}];
+    NSString *url = [NSString stringWithFormat:@"%@/user/%@/history/%@",kServerUrl, self.myID, historyID];
+    [manager PUT:url parameters:@{@"like": @(rate)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if(block) block(nil);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if(block) block(error);
+        DDLogError(error.localizedDescription);
+    }];
 }
 
 #pragma mark - Data processing
@@ -249,7 +264,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
             restaurantsDataForThatDay = [NSMutableArray array];
         }
         NSDictionary *data = historyData[@"restaurant"];
-        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithData:data];
+        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:data];
         if (!restaurant) continue;
         [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": historyData[@"like"], @"_id": historyData[@"_id"]}];
         self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
@@ -285,7 +300,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         }
         NSNumber *rate = historyData[@"like"];
         NSDictionary *restaurantData = historyData[@"restaurant"];
-        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithData:restaurantData];
+        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurantData];
         NSString *ID = restaurant.ID;
         
         //keep unique rating for each restaurant

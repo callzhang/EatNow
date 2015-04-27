@@ -114,7 +114,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="test:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="NOP-XB-EKV"/>
+                                    <action selector="feedback:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="dx2-eo-Qir"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86">
@@ -178,7 +178,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="clapse:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="hAH-cc-bmW"/>
+                                    <action selector="collapseCard:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="wKt-DE-qMO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -941,7 +941,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="go:" destination="Rlz-6w-TNj" eventType="touchUpInside" id="XMn-MF-9Ks"/>
+                                            <action selector="selectRestaurant:" destination="Rlz-6w-TNj" eventType="touchUpInside" id="PlB-1G-qFV"/>
                                         </connections>
                                     </button>
                                 </subviews>

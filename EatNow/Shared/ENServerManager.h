@@ -49,11 +49,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 - (void)searchRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
 
-//select restaurant
+#pragma mark - User actions
 //ZITAO:// suggest create following method for like or dislike
 //- (void)selectRestaurant:(ENRestaurant *)restaurant liked:(BOOL)liked completion:(ErrorBlock)block;
-- (void)selectRestaurant:(ENRestaurant *)restaurant like:(NSInteger)value completion:(ErrorBlock)block;
+//Lei: change from integer to bool is less desireable. Because the underlying data is integer, and in ther future we might want to use different value for better algorithm. For example, every time user swipe we impose -0.1 like value.
+- (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(ErrorBlock)block;
 - (void)cancelSelectedRestaurant:(NSString *)historyID completion:(ErrorBlock)block;
 - (BOOL)canSelectNewRestaurant;
 - (void)clearSelectedRestaurant;
+- (void)updateHistory:(NSString *)historyID withRating:(float)rate completion:(ErrorBlock)block;
 @end

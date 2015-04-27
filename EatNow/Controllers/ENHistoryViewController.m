@@ -30,8 +30,6 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.clearsSelectionOnViewWillAppear = NO; //ZITAO: is this intentional?
-    
 	if (self.navigationController) {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
 	}
@@ -50,7 +48,14 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 - (void)setHistory:(NSMutableDictionary *)history{
     _history = history;
     self.orderedDates = [_history.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSDate *obj1, NSDate *obj2) {
-        return -[obj1 compare:obj2];//ZITAO: don't think this is good style, should using explict NSOrder asending, desceding, etc.
+        switch ([obj1 compare:obj2]) {
+            case NSOrderedAscending:
+                return NSOrderedDescending;
+            case NSOrderedDescending:
+                return NSOrderedAscending;
+            case NSOrderedSame:
+                return NSOrderedSame;
+        }
     }];
 }
 
@@ -70,7 +75,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     self.restaurantView = [ENRestaurantView loadView];
     _restaurantView.restaurant = restaurant;
     [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
-    [self.view.superview addSubview:_restaurantView]; //ZITAO: call super view and add subview is ugly. can we use MainVC reference's view? like mainVC.view.
+    [self.mainView addSubview:_restaurantView];
     [_restaurantView switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:self.view.frame animated:YES completion:nil];
     [_restaurantView.imageView applyGredient];
     ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
@@ -97,7 +102,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.history.allKeys.count; //ZITAO: should it be self.orderedDates.count?
+    return self.orderedDates.count;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

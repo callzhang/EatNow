@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 //ZITAO: delete this class?
+//Lei: you added this class LOL. Maybe you want to refactor the View-based card to ViewController-based card?
 @interface ENRestaurantViewController : UIViewController
 
 @end

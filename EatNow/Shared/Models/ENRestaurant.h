@@ -56,12 +56,11 @@
 //convienence method
 - (NSString *)foursquareID;
 - (MKPlacemark *)placemark;
-//ZITAO: change to scoreCompentsText, priceText, and cuisineText
-- (NSString *)scoreComponentsString;
-- (NSString *)pricesStr;
-- (NSString *)cuisineStr;
+- (NSString *)scoreComponentsText;
+- (NSString *)pricesText;
+- (NSString *)cuisineText;
 
-- (instancetype)initRestaurantWithData:(NSDictionary *)json __attribute__((objc_designated_initializer));
+- (instancetype)initRestaurantWithDictionary:(NSDictionary *)json __attribute__((objc_designated_initializer));
 - (instancetype)init __attribute__((unavailable("Invoke the designated initializer")));
 
 //Tools

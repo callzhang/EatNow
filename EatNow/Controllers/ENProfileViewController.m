@@ -39,7 +39,7 @@
 
 //ZITAO: not setting _user?
 - (void)setUser:(NSDictionary *)user{
-    self.history = [user valueForKeyPath:@"user.history"];
+    self.history = [user valueForKeyPath:@"all_history"];
     [self updatePreference:[user valueForKey:@"preference"]];
 }
 

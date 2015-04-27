@@ -25,10 +25,8 @@
 #import "ENMainViewController.h"
 #import "ENRestaurant.h"
 #import "ENServerManager.h"
-#import "ENWebViewController.h"
 #import "FBKVOController.h"
 #import "ENProfileViewController.h"
-#import "ENMapViewController.h"
 #import "ENLocationManager.h"
 #import "UIAlertView+BlocksKit.h"
 #import "UIActionSheet+BlocksKit.h"
@@ -374,6 +372,7 @@
         self.detailCardLeadingConstraint.constant = self.view.frame.size.width;
         self.detailCardTrailingConstraint.constant = -self.view.frame.size.width;
         [self.historyViewController loadData];
+        self.historyViewController.mainView = self.view;
     }
     else {
         //close
@@ -381,6 +380,7 @@
         self.historyChildViewControllerTrailingConstraint.constant = self.view.frame.size.width;
         self.detailCardLeadingConstraint.constant = 0;
         self.detailCardTrailingConstraint.constant = 0;
+        self.historyViewController.mainView = nil;
     }
     
     [super updateViewConstraints];
@@ -490,26 +490,26 @@
 
 #pragma mark Control Events
 // Programmatically "nopes" the front card view.
-- (IBAction)nope:(id)sender {
-    if (self.frontCardView.restaurant) {
-        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Confirm"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-            if ([title isEqualToString:@"Confirm"]) {
-                ENRestaurant *restaurant = self.frontCardView.restaurant;
-                [ENUtil showWatingHUB];
-                [self.serverManager selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
-                    if (!error) {
-                        [ENUtil showSuccessHUBWithString:@"Disliked"];
-                        DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
-                    }
-                    else {
-                        [ENUtil showFailureHUBWithString:@"Server error, try again later."];
-                    }
-                }];
-            }
-        }];
-    }
-}
+//- (IBAction)nope:(id)sender {
+//    if (self.frontCardView.restaurant) {
+//        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Confirm"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//            NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+//            if ([title isEqualToString:@"Confirm"]) {
+//                ENRestaurant *restaurant = self.frontCardView.restaurant;
+//                [ENUtil showWatingHUB];
+//                [self.serverManager selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
+//                    if (!error) {
+//                        [ENUtil showSuccessHUBWithString:@"Disliked"];
+//                        DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
+//                    }
+//                    else {
+//                        [ENUtil showFailureHUBWithString:@"Server error, try again later."];
+//                    }
+//                }];
+//            }
+//        }];
+//    }
+//}
 
 - (IBAction)refresh:(id)sender {
     if (_isDismissingCard) {
@@ -576,8 +576,7 @@
     }];
 }
 
-//ZITAO: rename to collapse?
-- (IBAction)clapse:(id)sender {
+- (IBAction)collapseCard:(id)sender {
     if (_isHistoryDetailShown){
         [self.historyViewController closeRestaurantView];
     }else {
@@ -585,8 +584,7 @@
     }
 }
 
-//ZITAO: can we delete this method, or rename?
-- (IBAction)test:(id)sender {
+- (IBAction)feedback:(id)sender {
     [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID}];
 }
 
@@ -599,22 +597,5 @@
     if ([segue.identifier isEqualToString:@"embedHistorySegue"]) {
         self.historyViewController = segue.destinationViewController;
     }
-    else {
-        if ([segue.destinationViewController isKindOfClass:[ENMapViewController class]]) {
-            ENMapViewController *mapVC = (ENMapViewController *)segue.destinationViewController;
-            mapVC.restaurant = self.frontCardView.restaurant;
-        }
-    }
-}
-
-//ZITAO: can we delete this method?
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
-    if ([identifier isEqualToString:@"embedHistorySegue"]) {
-        return YES;
-    }
-    if (!self.frontCardView.restaurant) {
-        return NO;
-    }
-    return YES;
 }
 @end

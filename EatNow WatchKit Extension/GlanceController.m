@@ -12,7 +12,6 @@
 #import "NSError+TMError.h"
 #import "ENRestaurant.h"
 #import "ENMapManager.h"
-#import "ENMapViewController.h"
 #import "extobjc.h"
 
 @interface GlanceController()

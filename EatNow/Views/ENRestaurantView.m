@@ -12,7 +12,6 @@
 #import "ENServerManager.h"
 #import "FBKVOController.h"
 #import "NSTimer+BlocksKit.h"
-#import "ENMapViewController.h"
 #import "ENMapManager.h"
 #import "UIAlertView+BlocksKit.h"
 #import "ENUtil.h"
@@ -138,8 +137,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 #pragma mark - UI
-//ZITAO: rename to better name
-- (IBAction)go:(id)sender {
+- (IBAction)selectRestaurant:(id)sender {
 	if ([ENServerManager shared].selectedRestaurant == _restaurant) {
 		//cancel
 		[[ENServerManager shared] clearSelectedRestaurant];
@@ -162,7 +160,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes, I changed my mind."] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
 			if (buttonIndex == 1) {
 				[[ENServerManager shared] clearSelectedRestaurant];
-				[self go:nil];
+				[self selectRestaurant:nil];
 			}
 		}];
 		return;
@@ -332,6 +330,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         NSData *data = responseObject;
         TFHpple * doc       = [[TFHpple alloc] initWithHTMLData:data];
         //ZITAO: should the parser strign returned by server? fetched when app starts? we can pending to later version if this is too much coding involved.
+        //LEI: This is local parse to lower the burdun of calling Foursquare venue API. If server call the API to get the image, we need 12 calls. Also it counts towards the foursquare rate limit.
         NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='photosSection']/ul/li/img"];
         NSMutableArray *images = [NSMutableArray array];
         for (TFHppleElement *element in elements) {

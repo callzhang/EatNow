@@ -15,6 +15,7 @@ extern NSString *const kHistoryTableViewDidShow;
 
 @interface ENHistoryViewController : UITableViewController
 @property (nonatomic, strong) ENRestaurantView *restaurantView;
+@property (nonatomic, strong) UIView *mainView;
 - (void)loadData;
 - (void)closeRestaurantView;
 @end

@@ -32,7 +32,7 @@
 
 @implementation ENRestaurant
 //ZITAO: change to initRestaurantWithDictionary, the param is not s NSData
-- (instancetype)initRestaurantWithData:(NSDictionary *)json{
+- (instancetype)initRestaurantWithDictionary:(NSDictionary *)json{
 	self = [super init];
     if (!self) return nil;
     
@@ -112,12 +112,12 @@
 }
 
 - (NSString *)description{
-    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1ld, tips: %ld, cuisine: %@, price： %@, distance: %.1fkm \n", _name, (long)self.tips.integerValue, (long)_reviews.integerValue, [self cuisineStr], [self pricesStr], [self.distance floatValue]/1000];
+    return [NSString stringWithFormat:@"Restaurant: %@, rating: %.1ld, tips: %ld, cuisine: %@, price： %@, distance: %.1fkm \n", _name, (long)self.tips.integerValue, (long)_reviews.integerValue, [self cuisineText], [self pricesText], [self.distance floatValue]/1000];
 	
 }
 
 #pragma mark - Convienence method
-- (NSString *)pricesStr{
+- (NSString *)pricesText{
     NSMutableString *priceString = [NSMutableString string];
 	NSString *currencySign = self.price[@"currency"];
 	NSNumber *tier = self.price[@"tier"];
@@ -127,7 +127,7 @@
     return priceString.copy;
 }
 
-- (NSString *)cuisineStr{
+- (NSString *)cuisineText{
     NSMutableString *string = [NSMutableString stringWithString:@""];
     for (NSString *key in self.cuisines) {
         [string appendFormat:@"%@, ", key];
@@ -139,7 +139,7 @@
     return [_json valueForKey:@"id"];
 }
 
-- (NSString *)scoreComponentsString{
+- (NSString *)scoreComponentsText{
 	NSMutableString *scores = [NSMutableString new];
 	[scores appendFormat:@"Rate:%ld ", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.rating_score"] integerValue]];
 	[scores appendFormat:@"Food:%ld ", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.cuisine_score"] integerValue]];

@@ -57,11 +57,9 @@
 		9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9424071AE0450300411D1F /* ENHistoryViewController.m */; };
 		9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */; };
 		9B97952A1AD8B40D00136764 /* ENRestaurantView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9795291AD8B40D00136764 /* ENRestaurantView.m */; };
-		9BA07B5E1A9C3672008A3D67 /* ENMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA07B5D1A9C3672008A3D67 /* ENMapViewController.m */; };
 		9BB789A41AD384BC00998D8F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB789A31AD384BC00998D8F /* libPods.a */; };
 		9BC51BFD1AE6DACD00E3B0FE /* animatedLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
-		9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF9CC701A72301600B76D92 /* ENWebViewController.m */; };
 		9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */; };
 		DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B73EB18F233EF00BB5F8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */; };
@@ -188,14 +186,10 @@
 		9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryViewCell.m; sourceTree = "<group>"; };
 		9B9795281AD8B40C00136764 /* ENRestaurantView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantView.h; sourceTree = "<group>"; };
 		9B9795291AD8B40D00136764 /* ENRestaurantView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantView.m; sourceTree = "<group>"; };
-		9BA07B5C1A9C3672008A3D67 /* ENMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMapViewController.h; sourceTree = "<group>"; };
-		9BA07B5D1A9C3672008A3D67 /* ENMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMapViewController.m; sourceTree = "<group>"; };
 		9BB789A31AD384BC00998D8F /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWBlockTypes.h; sourceTree = "<group>"; };
 		9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animatedLoading.gif; sourceTree = "<group>"; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = main.storyboard; path = EatNow/main.storyboard; sourceTree = SOURCE_ROOT; };
-		9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWebViewController.h; sourceTree = "<group>"; };
-		9BF9CC701A72301600B76D92 /* ENWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWebViewController.m; sourceTree = "<group>"; };
 		DA5B73E518F233EF00BB5F8E /* EatNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B73E818F233EF00BB5F8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -467,12 +461,8 @@
 			children = (
 				9B9424061AE0450300411D1F /* ENHistoryViewController.h */,
 				9B9424071AE0450300411D1F /* ENHistoryViewController.m */,
-				9BA07B5C1A9C3672008A3D67 /* ENMapViewController.h */,
-				9BA07B5D1A9C3672008A3D67 /* ENMapViewController.m */,
 				9B141DD81A901F5700EB2CC8 /* ENProfileViewController.h */,
 				9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */,
-				9BF9CC6F1A72301600B76D92 /* ENWebViewController.h */,
-				9BF9CC701A72301600B76D92 /* ENWebViewController.m */,
 				DA5B745518F239B700BB5F8E /* ENMainViewController.h */,
 				DA5B745618F239B700BB5F8E /* ENMainViewController.m */,
 				09777C7F1AD4933C007147B2 /* ENRestaurantViewController.h */,
@@ -729,7 +719,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BA07B5E1A9C3672008A3D67 /* ENMapViewController.m in Sources */,
 				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
 				092974691AD0C28D00DDC35C /* ENServerManager.m in Sources */,
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
@@ -746,7 +735,6 @@
 				0982B4591AD9A30500982740 /* NSError+TMError.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
-				9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */,
 				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
 				09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */,
