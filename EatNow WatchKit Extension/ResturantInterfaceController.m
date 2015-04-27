@@ -42,7 +42,7 @@
     
     
     self.restaurantName.text = context.name;
-    self.restaurantCategory.text = context.cuisineStr;
+    self.restaurantCategory.text = context.cuisineText;
     self.restaurantPrice.text = [context.price valueForKey:@"currency"];
     self.openTil.text = context.openInfo;
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", context.rating.floatValue];

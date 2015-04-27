@@ -80,8 +80,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
     //UI
     self.name.text = restaurant.name;
-    self.cuisine.text = restaurant.cuisineStr;
-    self.price.text = restaurant.pricesStr;
+    self.cuisine.text = restaurant.cuisineText;
+    self.price.text = restaurant.pricesText;
     self.rating.text = [NSString stringWithFormat:@"%.0f", round(restaurant.rating.integerValue)];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];
     self.openTime.text = restaurant.openInfo;
@@ -531,7 +531,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                                 timeLabel.text = [NSString stringWithFormat:@"(%@)", time.string];
                             },
                           @"image": @"eat-now-card-details-view-feedback-icon",
-                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsString]
+                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
                           }];
     }
 	
@@ -540,7 +540,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [info addObject:@{@"type": @"score",
                           @"cellID":@"subtitle",
                           @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
-                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsString]
+                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
                           }];
     }
     

@@ -49,7 +49,7 @@
     }
     self.restaurant = context;
     self.resturantName.text = self.restaurant.name;
-    self.restaurantCategory.text = context.cuisineStr;
+    self.restaurantCategory.text = context.cuisineText;
     self.restaurantPrice.text = [context.price valueForKey:@"currency"];
     self.ratingLabel.text = [NSString stringWithFormat:@"%.1f", [context.rating floatValue]];
     NSString *address = ABCreateStringWithAddressDictionary(context.placemark.addressDictionary, NO);

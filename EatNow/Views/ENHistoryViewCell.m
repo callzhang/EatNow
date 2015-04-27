@@ -21,7 +21,7 @@
     _restaurant = restaurant;
     [self.background setImageWithURL:[NSURL URLWithString:self.restaurant.imageUrls.firstObject]];
     self.title.text = _restaurant.name;
-    self.subTitile.text = _restaurant.cuisineStr;
+    self.subTitile.text = _restaurant.cuisineText;
 }
 
 - (void)setRate:(NSInteger)rate{
