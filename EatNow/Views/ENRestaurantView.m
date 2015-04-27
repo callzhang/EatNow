@@ -22,6 +22,11 @@
 #import "extobjc.h"
 @import AddressBook;
 
+NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
+NSString *const kSelectedRestaurantNotification = @"selected_restaurant";
+NSString *const kMapViewDidShow = @"map_view_did_show";
+NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
+
 @interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *restautantInfo;
 
@@ -43,8 +48,6 @@
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mapHeight;
-
 
 //internal
 @property (nonatomic, assign) NSInteger currentImageIndex;
@@ -59,7 +62,6 @@
     UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
     ENRestaurantView *view = (ENRestaurantView *)container.view;
     NSParameterAssert([view isKindOfClass:[ENRestaurantView class]]);
-    //view.tableView.contentInset = UIEdgeInsetsMake(90, 0, 0, 0);
     return view;
 }
 
@@ -83,14 +85,13 @@
     self.price.text = restaurant.pricesStr;
     self.rating.text = [NSString stringWithFormat:@"%.0f", round(restaurant.rating.integerValue)];
     //self.reviews.text = [NSString stringWithFormat:@"%lu", (long)restaurant.reviews.integerValue];
-    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];//TODO: add waking time api
+    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
 	
 	//go button
 	[self updateGoButton];
 }
-
 
 #pragma mark - State change
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block{
@@ -109,8 +110,11 @@
         }
     }];
     
-    if (status == ENRestaurantViewStatusCard && self.map.frame.size.height > 0) {
-        [self toggleMap:nil];
+    //close map if colapse
+    if (self.map.frame.size.height > 0) {
+        if (status == ENRestaurantViewStatusCard || status == ENRestaurantViewStatusMinimum) {
+            [self toggleMap:nil];
+        }
     }
 }
 
@@ -121,7 +125,7 @@
     //load image from webpage
     if (_restaurant.imageUrls.count <= 1) {
         @weakify(self);
-        NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", _restaurant.foursquareID];
+        NSString *tempUrl = self.restaurant.url ?: [NSString stringWithFormat:@"http://foursquare.com/v/%@", self.restaurant.foursquareID];
         [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
             @strongify(self);
             if (!imageUrls) {
@@ -132,10 +136,6 @@
             self.restaurant.imageUrls = imageUrls;
         }];
     }
-}
-
-- (void)didDismiss{
-    //
 }
 
 #pragma mark - UI
@@ -440,7 +440,6 @@
 }
 
 #pragma mark - Table view
-
 - (void)prepareData{
 	NSParameterAssert(_restaurant.json);
 	NSMutableArray *info = [NSMutableArray new];
@@ -605,49 +604,5 @@
 - (void)dealloc{
     DDLogVerbose(@"Card dismissed: %@", _restaurant.name);
 }
-
-//#pragma mark - Image pager
-//- (NSArray *) arrayWithImages:(KIImagePager*)pager {
-//    return _restaurant.imageUrls;
-//}
-//
-//- (UIViewContentMode) contentModeForImage:(NSUInteger)image inPager:(KIImagePager*)pager {
-//    return UIViewContentModeScaleAspectFill;
-//}
-//
-//
-//- (void) imageWithUrl:(NSURL*)url completion:(KIImagePagerImageRequestBlock)completion{
-//    NSUInteger index = [_restaurant.imageUrls indexOfObject:url.absoluteString];
-//    if (index == NSNotFound) {
-//        DDLogWarn(@"image url not found %@", url.absoluteString);
-//        return;
-//    }
-//    UIImage *img = self.restaurant.images[index];
-//    if (img && img != (id)[NSNull null]) {
-//        completion(img, nil);
-//        return;
-//    }
-//    DDLogVerbose(@"Start downloading image: %@", url);
-//    [self.loading startAnimating];
-//    AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:url]];
-//    requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-//    [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, UIImage *responseObject) {
-//        NSParameterAssert([responseObject isKindOfClass:[UIImage class]]);
-//        [self.loading stopAnimating];
-//        _restaurant.images[index] = responseObject;
-//        completion(responseObject, nil);
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        ENLogError(@"Image download error: %@", error);
-//        completion(nil, error);
-//    }];
-//    [requestOperation start];
-//}
-//
-//
-//- (void) imagePager:(KIImagePager *)imagePager didScrollToIndex:(NSUInteger)index{
-//    UIImage *img = self.restaurant.images[index];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":img}];
-//}
 
 @end

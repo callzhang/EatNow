@@ -27,7 +27,6 @@
 @import MapKit;
 
 @interface ENRestaurant : NSObject
-
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, strong) NSMutableArray *images;
@@ -46,18 +45,20 @@
 @property (nonatomic, strong) NSDictionary *json;
 @property (nonatomic, strong) NSString *openInfo;
 @property (nonatomic, strong) NSNumber* distance;
-
-//convienence method
-@property (nonatomic, strong) NSString *foursquareID;
-@property (nonatomic, strong) MKPlacemark *placemark;
 @property (nonatomic, assign) NSTimeInterval walkDuration;
 @property (nonatomic, strong) NSString *twitter;
 @property (nonatomic, strong) NSString *facebook;
-@property (nonatomic, strong) NSString *scoreComponentsString;
-
-+ (instancetype)restaurantWithData:(NSDictionary *)json;
+//convienence method
+- (NSString *)foursquareID;
+- (MKPlacemark *)placemark;
+- (NSString *)scoreComponentsString;
 - (NSString *)pricesStr;
 - (NSString *)cuisineStr;
+
+- (instancetype)initRestaurantWithData:(NSDictionary *)json __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((unavailable("Invoke the designated initializer")));
+
+//Tools
 - (BOOL)validate;
-- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block __deprecated;
+//- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block __deprecated;
 @end

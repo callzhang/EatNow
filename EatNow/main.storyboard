@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N2Z-hj-BcO">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -238,11 +237,11 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="background" destination="q0J-Z4-Pim" id="VCv-RK-3rj"/>
-                        <outlet property="cardFrame" destination="2kN-sq-rqs" id="e31-We-SPW"/>
+                        <outlet property="cardView" destination="2kN-sq-rqs" id="y0t-fm-SM8"/>
                         <outlet property="closeButton" destination="GCg-rF-ccT" id="lhI-Ew-aUd"/>
+                        <outlet property="detailCardContainer" destination="pNF-QT-1bI" id="jLQ-Ds-44b"/>
                         <outlet property="detailCardLeadingConstraint" destination="JA9-KX-A7U" id="MCf-hd-q45"/>
                         <outlet property="detailCardTrailingConstraint" destination="9mN-6s-KNE" id="fNR-rl-cGy"/>
-                        <outlet property="detailFrame" destination="pNF-QT-1bI" id="Wmd-qp-WeT"/>
                         <outlet property="historyButton" destination="TEb-SL-p86" id="cU3-9Y-J13"/>
                         <outlet property="historyChildViewControllerLeadingConstraint" destination="pjo-mg-XiM" id="030-zo-wcg"/>
                         <outlet property="historyChildViewControllerTrailingConstraint" destination="wVd-oh-Khx" id="abd-1b-jI4"/>

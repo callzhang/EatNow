@@ -38,6 +38,7 @@
 #import "ENUtil.h"
 #import "UIView+Extend.h"
 #import "ATConnect.h"
+#import "ENRatingView.h"
 //#import "AnimatedGIFImageSerialization.h"
 
 //static const CGFloat ChoosePersonButtonHorizontalPadding = 80.f;
@@ -59,7 +60,7 @@
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (nonatomic, strong) ENHistoryViewController *historyViewController;
-
+//autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerTrailingConstraint;
@@ -68,10 +69,6 @@
 
 @implementation ENMainViewController
 
-#pragma mark - Object Lifecycle
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
 
 
 #pragma mark - Accsessor
@@ -88,8 +85,8 @@
     _restaurants = restaurants;
 }
 
-#pragma mark - UIViewController Overrides
 
+#pragma mark - UIViewController Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.locationManager = [ENLocationManager shared];
@@ -100,12 +97,13 @@
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         if (user) {
             NSParameterAssert([ENServerManager shared].userRating);
+            NSParameterAssert([ENServerManager shared].history);
             DDLogVerbose(@"Got user history and rating data");
         }
     }];
     
     //Dynamics
-    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.detailFrame];
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.detailCardContainer];
     self.gravity = [[UIGravityBehavior alloc] init];
     self.gravity.gravityDirection = CGVectorMake(0, 10);
     [self.animator addBehavior:_gravity];
@@ -185,7 +183,8 @@
     
     //review if needed
     [[NSNotificationCenter defaultCenter] addObserverForName:kHistroyUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
-        //
+        DDLogVerbose(@"History did update");
+        //TODO: start displaying review card
     }];
     
     //load restaurants from server
@@ -194,8 +193,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.cardFrame.backgroundColor = [UIColor clearColor];
-    self.detailFrame.backgroundColor = [UIColor clearColor];
+    self.cardView.backgroundColor = [UIColor clearColor];
+    self.detailCardContainer.backgroundColor = [UIColor clearColor];
 	
 	//loading gif
 	NSArray *images = @[[UIImage imageNamed:@"eat-now-loading-indicator-1"],
@@ -278,7 +277,7 @@
 		card.hidden = YES;
 		if (i==1) {
 			DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
-			[self.detailFrame addSubview:card];
+			[self.detailCardContainer addSubview:card];
 			[card addGestureRecognizer:self.panGesture];
 			[card.info addGestureRecognizer:self.tapGesture];
 			[card didChangedToFrontCard];
@@ -287,7 +286,7 @@
 			//insert behind previous card
 			UIView *previousCard = self.restaurantCards[i-2];
 			NSParameterAssert(previousCard.superview);
-			[self.detailFrame insertSubview:card belowSubview:previousCard];
+			[self.detailCardContainer insertSubview:card belowSubview:previousCard];
 		}
 		//animate
 		if (i <= kMaxCardsToAnimate){
@@ -362,7 +361,7 @@
 - (void)toggleCardDetails{
 	[_animator removeBehavior:self.frontCardView.snap];
     if (self.frontCardView.status == ENRestaurantViewStatusCard) {
-        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailFrame.bounds animated:YES completion:nil];
+        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailCardContainer.bounds animated:YES completion:nil];
         [self.frontCardView removeGestureRecognizer:self.panGesture];
         //[self.frontCardView removeGestureRecognizer:self.tapGesture];
         [UIView animateWithDuration:0.3 animations:^{
@@ -405,7 +404,7 @@
 }
 
 - (IBAction)panHandler:(UIPanGestureRecognizer *)gesture {
-    CGPoint locInView = [gesture locationInView:self.detailFrame];
+    CGPoint locInView = [gesture locationInView:self.detailCardContainer];
     CGPoint locInCard = [gesture locationInView:self.frontCardView];
     ENRestaurantView *card = self.frontCardView;
     if (gesture.state == UIGestureRecognizerStateBegan) {
@@ -440,7 +439,7 @@
 	if (card.snap) {
 		[_animator removeBehavior:card.snap];
 	}
-	UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardFrame.center];
+	UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardView.center];
 	
     snap.damping = 0.98;
     [_animator addBehavior:snap];
@@ -491,19 +490,19 @@
 
 #pragma mark - Card frame
 - (CGRect)initialCardFrame{
-    CGRect frame = self.cardFrame.frame;
+    CGRect frame = self.cardView.frame;
     frame.origin.x = arc4random_uniform(400) - 200.0f;
     frame.origin.y -= [UIScreen mainScreen].bounds.size.height/2 + frame.size.height;
     return frame;
 }
 
 - (CGRect)cardViewFrame {
-    CGRect frame = self.cardFrame.frame;
+    CGRect frame = self.cardView.frame;
     return frame;
 }
 
 - (CGRect)detailViewFrame{
-    CGRect frame = self.detailFrame.frame;
+    CGRect frame = self.detailCardContainer.frame;
     return frame;
 }
 

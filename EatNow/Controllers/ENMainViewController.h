@@ -29,8 +29,8 @@
 #define kMaxCardsToAnimate  4
 
 @interface ENMainViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIView *cardFrame;
-@property (weak, nonatomic) IBOutlet UIView *detailFrame;
+@property (weak, nonatomic) IBOutlet UIView *cardView;
+@property (weak, nonatomic) IBOutlet UIView *detailCardContainer;
 @property (weak, nonatomic) IBOutlet UIImageView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
 @property (weak, nonatomic) IBOutlet UIButton *historyButton;
@@ -44,6 +44,4 @@
 @property (nonatomic, assign) BOOL isShowingCards;
 @property (nonatomic, assign) BOOL isHistoryShown;
 @property (nonatomic, assign) BOOL isHistoryDetailShown;
-//data
-@property (nonatomic, strong) NSMutableDictionary *userRating;
 @end

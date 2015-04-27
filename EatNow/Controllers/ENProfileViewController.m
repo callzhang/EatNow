@@ -43,25 +43,18 @@
     [self updatePreference:[user valueForKey:@"preference"]];
 }
 
-- (void)updatePreference:(id)data{
-    if ([data isKindOfClass:[NSArray class]]) {
-        NSMutableArray *scoreDic = [NSMutableArray new];
-        NSArray *scoreArray = (NSArray *)data;
-        for (NSInteger i = 0; i<scoreArray.count; i++) {
-            NSString *name = self.serverManager.cuisines[i];
-            NSNumber *score = scoreArray[i];
-			scoreDic[i] = @{@"name":name, @"score": score};
-        }
-		NSSortDescriptor *sortByScore = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
-		self.preference = [scoreDic sortedArrayUsingDescriptors:@[sortByScore]];
-		//sort
-        return;
-    }
-    DDLogError(@"Unexpected preference data %@", [data class]);
+- (void)updatePreference:(NSDictionary *)data{
+    NSParameterAssert([data isKindOfClass:[NSDictionary class]]);
+    NSMutableArray *scoreArray = [NSMutableArray new];
+    [data enumerateKeysAndObjectsUsingBlock:^(NSString *cuisine, NSNumber *score, BOOL *stop) {
+        [scoreArray addObject:@{@"cuisine":cuisine, @"score":score}];
+    }];
+		
+    NSSortDescriptor *sortByScore = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
+    self.preference = [scoreArray sortedArrayUsingDescriptors:@[sortByScore]];
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -81,9 +74,11 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return @"Histroy";
+            return @"Statistics";
+            break;
         case 1:
-            return @"Preference (Internal testing)";
+            return @"Preference";
+            break;
         default:
             break;
     }
@@ -94,7 +89,7 @@
     if (indexPath.section == 1) {
         return 22;
     }
-    return 60;
+    return tableView.rowHeight;
 }
 
 

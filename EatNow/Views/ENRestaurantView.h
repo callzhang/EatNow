@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ENRestaurant.h"
 
-#define kRestaurantViewImageChangedNotification     @"restaurant_view_image_changed"
-#define kSelectedRestaurantNotification				@"selected_restaurant"
-#define kMapViewDidShow                             @"map_view_did_show"
-#define kMapViewDidDismiss                          @"map_view_did_dismiss"
 
+extern NSString * const kRestaurantViewImageChangedNotification;
+extern NSString * const kSelectedRestaurantNotification;
+extern NSString * const kMapViewDidShow;
+extern NSString * const kMapViewDidDismiss;
 
 typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
     ENRestaurantViewStatusCard,
@@ -32,5 +32,4 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 + (instancetype)loadView;
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block;
 - (void)didChangedToFrontCard;
-- (void)didDismiss;
 @end

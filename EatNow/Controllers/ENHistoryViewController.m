@@ -15,8 +15,8 @@
 #import "ENRestaurantView.h"
 #import "ENMainViewController.h"
 
-static const NSString *kHistoryDetailCardDidShow = @"history_detail_view_did_show";
-static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show";
+NSString * const kHistoryDetailCardDidShow = @"history_detail_view_did_show";
+NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 
 @interface ENHistoryViewController ()
 @property (nonatomic, strong) NSDictionary *user;
@@ -104,7 +104,7 @@ static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show"
 }
 
 #pragma mark - Table view data source
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100;
 }
 
@@ -140,7 +140,7 @@ static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show"
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 60;
 }
 
@@ -157,4 +157,5 @@ static const NSString *kHistoryTableViewDidShow = @"history_table_view_did_show"
     CGRect frame = [self.view.superview convertRect:cell.background.frame fromView:cell.contentView];
     [self showRestaurantCard:restaurant fromFrame:frame];
 }
+
 @end

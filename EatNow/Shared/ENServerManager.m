@@ -26,8 +26,7 @@ NSString * const kUserUpdated = @"user_updated";
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) AFNetworkReachabilityManager *reachability;
-@property (nonatomic, strong) NSMutableArray *completionGroup;
-@property (nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
+@property (nonatomic, strong) NSMutableArray *searchCompletionBlocks;
 @end
 
 
@@ -39,31 +38,29 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     if (self) {
         
         //_restaurants = [NSMutableArray new];
-        _completionGroup = [NSMutableArray new];
+        _searchCompletionBlocks = [NSMutableArray new];
         
         //indicator
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 		
 		//manager
-		self.requestManager = [AFHTTPRequestOperationManager manager];
+		//_requestManager = [AFHTTPRequestOperationManager manager];
     }
     return self;
 }
 
 #pragma mark - Main method
-//TODO: need to cancel previous operation
+//TODO: need to cancel previous operation when multiple requests happens
 - (void)searchRestaurantsAtLocation:(CLLocation *)currenLocation WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
     //add to completion block
-    [self.completionGroup addObject:block];
+    [self.searchCompletionBlocks addObject:block];
     
     if (self.fetchStatus == ENResturantDataStatusFetchingRestaurant) {
         DDLogInfo(@"Already requesting restaurant.");
         return;
     }
-    
     self.fetchStatus = ENResturantDataStatusFetchingRestaurant;
     
-    DDLogVerbose(@"Start requesting restaurants");
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSString *myID = [[self class] myUUID];
@@ -82,39 +79,35 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
               //process data
               NSMutableArray *mutableResturants = [NSMutableArray array];
               for (NSDictionary *restaurant_json in responseObject) {
-				  ENRestaurant *restaurant = [ENRestaurant restaurantWithData:restaurant_json];
-				  
+				  ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithData:restaurant_json];
                   if (restaurant) {
                       [mutableResturants addObject:restaurant];
                   }
               }
               
-              DDLogInfo(@"Processed %ld restaurant", (unsigned long)mutableResturants.count);
-              
               //server returned sorted from high to low
               [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
               
-              
-              //change status
-              self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
-              
-              for (id completion in self.completionGroup) {
+              //completion
+              for (id completion in self.searchCompletionBlocks) {
                   void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
                   cachedCompletion(YES, nil, mutableResturants.copy);
               }
+              [self.searchCompletionBlocks removeAllObjects];
               
-              [self.completionGroup removeAllObjects];
+              //change status
+              self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
               
           }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
               NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
               DDLogError(@"%@", str);
               
-              for (id completion in self.completionGroup) {
+              for (id completion in self.searchCompletionBlocks) {
                   void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
                   cachedCompletion(NO, error, nil);
               }
               
-              [self.completionGroup removeAllObjects];
+              [self.searchCompletionBlocks removeAllObjects];
               
               self.fetchStatus = ENResturantDataStatusError;
           }];
@@ -123,11 +116,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSString *myID = [self.class myUUID];
-    NSString *url = [NSString stringWithFormat:@"%@/user/%@",kServerUrl, myID];
+    NSString *url = [NSString stringWithFormat:@"%@/user/%@",kServerUrl, self.myID];
     DDLogInfo(@"Requesting user: %@", url);
-    [manager GET:url parameters:@{} success:^(AFHTTPRequestOperation *operation, NSDictionary *user) {
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *user) {
 		NSParameterAssert([user isKindOfClass:[NSDictionary class]]);
+        
+        //more data logics are embedded in user setter
 		self.me = user;
         
         //return
@@ -208,12 +202,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *))block{
+    
 	AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
 	manager.requestSerializer = [AFJSONRequestSerializer serializer];
-	
-	//DDLogVerbose(@"update restaurant(%@): %@", restaurant.ID, dic);
+    
 	NSParameterAssert([dic.allKeys containsObject:@"img_url"]);
 	NSParameterAssert([dic[@"img_url"] isKindOfClass:[NSArray class]]);
+    
 	NSString *url = [NSString stringWithFormat:@"%@%@/%@",kServerUrl, @"restaurant", restaurant.ID];
 	[manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		if(block) block(nil);
@@ -222,20 +217,16 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 		if(block) block(error);
 		DDLogError(error.localizedDescription);
 	}];
-
 }
 
 #pragma mark - Data processing
 - (void)setMe:(NSDictionary *)me{
-    if (me[@"user"]) {
-        //old API
-        _me = me[@"user"];
-        self.preference = [me valueForKey:@"preference"];
-    }else{
-        _me = me;
-        self.preference = [_me valueForKey:@"preference"];
-    }
+    NSParameterAssert([me valueForKey:@"all_history"]);
+    NSParameterAssert([me valueForKey:@"preference"]);
+    NSParameterAssert([me valueForKey:@"username"]);
     
+    _me = me;
+    self.preference = [_me valueForKey:@"preference"];
     [self setHistoryWithData:[_me valueForKeyPath:@"all_history"]];
     [self setUserRatingWithData:[_me valueForKeyPath:@"all_history"]];
 }
@@ -258,13 +249,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
             restaurantsDataForThatDay = [NSMutableArray array];
         }
         NSDictionary *data = historyData[@"restaurant"];
-        ENRestaurant *restaurant = [ENRestaurant restaurantWithData:data];
+        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithData:data];
         if (!restaurant) continue;
         [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": historyData[@"like"], @"_id": historyData[@"_id"]}];
         self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
         
-        //update selected
-        if ([latestSelected compare:date] == NSOrderedAscending) {
+        //update selected restaurant
+        if ([latestSelected compare:date] == NSOrderedAscending && [[NSDate date] timeIntervalSinceDate:date] < kMaxSelectedRestaurantRetainTime) {
             latestSelected = date;
             latestRestaurant = restaurant;
             latestHistoryID = historyData[@"_id"];
@@ -274,7 +265,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     [[NSNotificationCenter defaultCenter] postNotificationName:kHistroyUpdated object:nil];
     
     //resume selected item if none
-    if (!_selectedRestaurant) {
+    if (!_selectedRestaurant && latestHistoryID) {
         self.selectedTime = latestSelected;
         self.selectedRestaurant = latestRestaurant;
         self.selectionHistoryID = latestHistoryID;
@@ -294,8 +285,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         }
         NSNumber *rate = historyData[@"like"];
         NSDictionary *restaurantData = historyData[@"restaurant"];
-        ENRestaurant *restaurant = [ENRestaurant restaurantWithData:restaurantData];
+        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithData:restaurantData];
         NSString *ID = restaurant.ID;
+        
         //keep unique rating for each restaurant
         NSDictionary *ratingDic = self.userRating[ID];
         if (ratingDic.allKeys.count == 0) {
@@ -314,6 +306,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 - (void)setPreference:(NSDictionary *)preference{
+    NSParameterAssert([preference isKindOfClass:[NSDictionary class]]);
+    NSParameterAssert(preference.allKeys.count == kCuisineNames.count);
     _preference = preference;
     [[NSNotificationCenter defaultCenter] postNotificationName:kPreferenceUpdated object:preference];
 }
@@ -340,15 +334,5 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     
     return (__bridge NSString *)string;
 }
-
-#pragma mark - Tools
-- (NSArray *)cuisines{
-    if (!_cuisines) {
-        _cuisines = [kCuisineNames componentsSeparatedByString:@","];
-    }
-    
-    return _cuisines;
-}
-
 @end
 

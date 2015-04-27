@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-static const NSString *kHistoryDetailCardDidShow;
-static const NSString *kHistoryTableViewDidShow;
+extern NSString *const kHistoryDetailCardDidShow;
+extern NSString *const kHistoryTableViewDidShow;
 
 @class ENRestaurantView;
 

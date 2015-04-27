@@ -31,55 +31,47 @@
 @import AddressBook;
 
 @implementation ENRestaurant
-+ (instancetype)restaurantWithData:(NSDictionary *)json{
-	ENRestaurant *restaurant = [ENRestaurant new];
+- (instancetype)initRestaurantWithData:(NSDictionary *)json{
+	self = [super init];
+    if (!self) return nil;
+    
 	NSParameterAssert([json isKindOfClass:[NSDictionary class]]);
-	restaurant.json = json;
-	
-    restaurant.ID = json[@"_id"]?:json[@"id"];
-	restaurant.url = json[@"url"];
-	restaurant.rating = (NSNumber *)json[@"rating"];
+    //data
+	self.json = json;
+    self.ID = json[@"_id"];
+	self.url = json[@"url"];
+	self.rating = (NSNumber *)json[@"rating"];
     NSString *colorStr = json[@"ratingColor"];
     UIColor *ratingColor = [ENRestaurant colorFromHexString:colorStr];
-    if (ratingColor) restaurant.ratingColor = ratingColor;
-	restaurant.reviews = (NSNumber *)json[@"ratingSignals"];
+    if (ratingColor) self.ratingColor = ratingColor;
+	self.reviews = (NSNumber *)json[@"ratingSignals"];
 	NSArray *list = json[@"categories"];
-    restaurant.cuisines = [list valueForKey:@"shortName"];
-	if (restaurant.cuisines.firstObject == [NSNull null]) restaurant.cuisines = [list valueForKey:@"global"];
-    restaurant.images = [NSMutableArray array];
-	restaurant.imageUrls = json[@"food_image_url"];
-	restaurant.phone = [json valueForKeyPath:@"contact.formattedPhone"];
-	restaurant.name = json[@"name"];
-	restaurant.price = json[@"price"];
-	restaurant.openInfo = [json valueForKeyPath:@"hours.status"];
-	restaurant.tips	= [json valueForKeyPath:@"stats.tipCount"];
+    self.cuisines = [list valueForKey:@"shortName"];
+	if (self.cuisines.firstObject == [NSNull null]) self.cuisines = [list valueForKey:@"global"];
+    self.images = [NSMutableArray array];
+	self.imageUrls = json[@"food_image_url"];
+	self.phone = [json valueForKeyPath:@"contact.formattedPhone"];
+	self.name = json[@"name"];
+	self.price = json[@"price"];
+	self.openInfo = [json valueForKeyPath:@"hours.status"];
+	self.tips	= [json valueForKeyPath:@"stats.tipCount"];
 	//location
 	NSDictionary *address = json[@"location"];
 	CLLocationDegrees lat = [(NSNumber *)address[@"lat"] doubleValue];
 	CLLocationDegrees lon = [(NSNumber *)address[@"lng"] doubleValue];
 	CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
-	restaurant.location = loc;
-	restaurant.distance = (NSNumber *)address[@"distance"];
+	self.location = loc;
+    self.distance = (NSNumber *)address[@"distance"];
+    self.walkDuration = NSTimeIntervalSince1970;
 	//score
 	NSDictionary *scores = json[@"score"];
 	NSNumber *totalScore = scores[@"total_score"];
 	NSParameterAssert(![totalScore isEqual:[NSNull null]]);
-	restaurant.score = totalScore;
-	if (![restaurant validate]) {
+	self.score = totalScore;
+	if (![self validate]) {
 		return nil;
 	}
-	return restaurant;
-}
-
-+ (UIColor *)colorFromHexString:(NSString *)hexString {
-    if (!hexString) {
-        return nil;
-    }
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    //[scanner setScanLocation:1]; // bypass '#' character
-    [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+	return self;
 }
 
 
@@ -106,13 +98,16 @@
     _images = newImages;
 }
 
+- (NSString *)twitter{
+    return [_json valueForKeyPath:@"twitter.twitter"];
+}
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.walkDuration = NSTimeIntervalSince1970;
-    }
-    return self;
+- (NSString *)facebook{
+    return [_json valueForKeyPath:@"twitter.facebook"];
+}
+
+- (NSString *)phoneNumber{
+    return [_json valueForKeyPath:@"contact.phone"];
 }
 
 - (NSString *)description{
@@ -120,7 +115,7 @@
 	
 }
 
-
+#pragma mark - Convienence method
 - (NSString *)pricesStr{
     NSMutableString *priceString = [NSMutableString string];
 	NSString *currencySign = self.price[@"currency"];
@@ -139,18 +134,6 @@
     return [string substringToIndex:string.length-2];
 }
 
-- (NSString *)twitter{
-    return [_json valueForKeyPath:@"twitter.twitter"];
-}
-
-- (NSString *)facebook{
-    return [_json valueForKeyPath:@"twitter.facebook"];
-}
-
-- (NSString *)phoneNumber{
-	return [_json valueForKeyPath:@"contact.phone"];
-}
-
 - (NSString *)foursquareID{
     return [_json valueForKey:@"id"];
 }
@@ -165,6 +148,35 @@
 	[scores appendFormat:@"Time:%ld", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.time_score"] integerValue]];
 	
 	return scores.copy;
+}
+
+- (MKPlacemark *)placemark{
+    NSDictionary *address = self.json[@"location"];
+    if (address && self.location) {
+        NSDictionary *addressDict = @{
+                                      (__bridge NSString *) kABPersonAddressStreetKey : address[@"address"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCityKey : address[@"city"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressStateKey : address[@"state"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressZIPKey : address[@"postalCode"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCountryKey : address[@"country"]?:@"",
+                                      (__bridge NSString *) kABPersonAddressCountryCodeKey : address[@"cc"]?:@""
+                                      };
+        CLLocation *loc = self.location;
+        return [[MKPlacemark alloc] initWithCoordinate:loc.coordinate addressDictionary:addressDict];
+    }
+    return nil;
+}
+
+#pragma mark - Tools
++ (UIColor *)colorFromHexString:(NSString *)hexString {
+    if (!hexString) {
+        return nil;
+    }
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    //[scanner setScanLocation:1]; // bypass '#' character
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
 - (BOOL)validate{
@@ -204,10 +216,6 @@
     if (!_location) {
         DDLogWarn(@"Restaurant missing location %@", self);
     }
-//    if (!_score) {
-//        DDLogError(@"Restaurant missing score %@", self);
-//        good = NO;
-//    }
 	if (!self.openInfo) {
 		DDLogWarn(@"Resaurant missing open info %@", self);
 	}
@@ -215,29 +223,12 @@
     return good;
 }
 
-- (MKPlacemark *)placemark{
-	NSDictionary *address = self.json[@"location"];
-    if (!_placemark && address && self.location) {
-        NSDictionary *addressDict = @{
-                                      (__bridge NSString *) kABPersonAddressStreetKey : address[@"address"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressCityKey : address[@"city"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressStateKey : address[@"state"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressZIPKey : address[@"postalCode"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressCountryKey : address[@"country"]?:@"",
-                                      (__bridge NSString *) kABPersonAddressCountryCodeKey : address[@"cc"]?:@""
-                                      };
-        CLLocation *loc = self.location;
-        _placemark = [[MKPlacemark alloc] initWithCoordinate:loc.coordinate addressDictionary:addressDict];
-    }
-    return _placemark;
-}
-
-- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block {
-    if (self.walkDuration != NSTimeIntervalSince1970) {
-        block(self.walkDuration, nil);
-        return;
-    }
-	
+//- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block {
+//    if (self.walkDuration != NSTimeIntervalSince1970) {
+//        block(self.walkDuration, nil);
+//        return;
+//    }
+//	
 //	[[ENMapManager new] estimatedWalkingTimeToLocation:self.location completion:^(NSTimeInterval length, NSError *error) {
 //		if (error) {
 //			DDLogError(@"error:%@", error);
@@ -248,5 +239,5 @@
 //			if (block) block(length, nil);
 //		}
 //	}];
-}
+//}
 @end

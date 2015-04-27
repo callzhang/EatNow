@@ -8,8 +8,7 @@
 
 #define kMaxSelectedRestaurantRetainTime			3600
 #define kServerUrl                  @"http://api.eatnow.cc"
-#define kCuisineNames        @"Afghan,African,American,Argentine,Asian,Australian,Bakery,Bangladeshi,Bars,Belgian,Brasseries,Brazilian,Breakfast,British,Buffets,Cafes,Cambodian,Caribbean,Chinese,Coffee,Creperie,Cuban,Czech,Delis,Dessert,Eastern_European,Ethiopian,Fast_Food,Fast_Truck,Filipino,Food_Truck,French,German,Greek,Halal,Hawaiian,Healthy,Himalayan,Indian,Indonesian,Italian,Japanese,Korean,Kosher,Latin_American,Malaysian,Mediterranean,Mexican,Middle_Eastern,Modern,Mongolian,Moroccan,Night_Life,Northern_European,Pakistani,Persian,Peruvian,Polish,Russian,Seafood,Southern,Spanish,Steakhouses,Tea_Rooms,Thai,Turkish,Ukrainian,Vegetarian,Vietnamese"
-
+#define kCuisineNames               @[@"Afghan", @"African", @"American", @"Asian", @"Australian", @"Bakery", @"Bars", @"Belgian", @"Brasseries", @"Brazilian", @"Breakfast", @"British", @"Buffets", @"Cafes", @"Cambodian", @"Caribbean", @"Central_European", @"Chinese", @"Coffee", @"Creperie", @"Cuban", @"Delis", @"Dessert", @"Eastern_European", @"Ethiopian", @"Fast_Food", @"Filipino", @"Food_Truck", @"French", @"German", @"Greek", @"Halal", @"Hawaiian", @"Healthy", @"Himalayan", @"Indian", @"Indonesian", @"Italian", @"Japanese", @"Korean", @"Kosher", @"Latin_American", @"Malaysian", @"Mediterranean", @"Mexican", @"Middle_Eastern", @"Modern", @"Mongolian", @"Moroccan", @"Night_Life", @"Northern_European", @"Pakistani", @"Persian", @"Polish", @"Russian", @"Seafood", @"South_American", @"Southern", @"Spanish", @"Steakhouses", @"Tea_Rooms", @"Thai", @"Turkish", @"Vegetarian", @"Vietnamese"]
 
 
 extern NSString * const kHistroyUpdated;
@@ -28,7 +27,6 @@ extern NSString * const kUserUpdated;
 @class CLLocation;
 @interface ENServerManager : NSObject
 //@property (nonatomic, strong) NSMutableArray *restaurants;
-@property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, assign) ENResturantDataStatus fetchStatus;
 @property (nonatomic, strong) ENRestaurant *selectedRestaurant;
 @property (nonatomic, strong) NSDate *selectedTime;
