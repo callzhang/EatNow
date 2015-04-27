@@ -23,36 +23,35 @@
     [super viewDidLoad];
     
     @weakify(self);
-    self.serverManager = [[ENServerManager alloc] init];
+    self.serverManager = [ENServerManager shared];
     
-	[ENUtil showWatingHUB];
-    [self.serverManager getUserWithCompletion:^(NSDictionary *user, NSError *error) {
-        [ENUtil dismissHUD];
-        @strongify(self);
-        if (user) {
-            self.user = user;
-            [self.tableView reloadData];
-        }
-    }];
-    
+    if (![ENServerManager shared].me) {
+        [ENUtil showWatingHUB];
+        [self.serverManager getUserWithCompletion:^(NSDictionary *user, NSError *error) {
+            [ENUtil dismissHUD];
+            @strongify(self);
+            if (user) {
+                self.user = user;
+                self.preference = self.serverManager.preference;
+                [self.tableView reloadData];
+            }
+        }];
+    }
+    else {
+        self.user = self.serverManager.me;
+        self.preference = self.serverManager.preference;
+    }
 }
 
-//ZITAO: not setting _user??
-- (void)setUser:(NSDictionary *)user{
-    self.history = [user valueForKeyPath:@"all_history"];
-    [self updatePreference:[user valueForKey:@"preference"]];
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (self.presentingViewController) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(close:)];
+    }
 }
 
-//ZITAO: renmae to setPreference??
-- (void)updatePreference:(NSDictionary *)data{
-    NSParameterAssert([data isKindOfClass:[NSDictionary class]]);
-    NSMutableArray *scoreArray = [NSMutableArray new];
-    [data enumerateKeysAndObjectsUsingBlock:^(NSString *cuisine, NSNumber *score, BOOL *stop) {
-        [scoreArray addObject:@{@"cuisine":cuisine, @"score":score}];
-    }];
-		
-    NSSortDescriptor *sortByScore = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
-    self.preference = [scoreArray sortedArrayUsingDescriptors:@[sortByScore]];
+- (IBAction)close:(id)sender {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -63,7 +62,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return self.history.count;
+            return 4;
         case 1:
             return self.preference.count;
         default:
@@ -75,7 +74,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
         case 0:
-            return @"Statistics";
+            return @"Profile";
             break;
         case 1:
             return @"Preference";
@@ -102,29 +101,26 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"subtitle"];
         }
-        //history
-        NSDictionary *info = _history[indexPath.row];
-        NSDictionary *restaurant = info[@"restaurant"];
-        cell.textLabel.text = [restaurant valueForKey:@"name"];
-        cell.detailTextLabel.text = [(NSArray *)[restaurant valueForKey:@"categories"] string];
-        
-        //date
-        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-        NSDate *date = [ENUtil string2date:[info valueForKey:@"date"]];
-        dateLabel.text = date.string;
-        dateLabel.font = [UIFont systemFontOfSize:12];
-        dateLabel.textColor = [UIColor colorWithWhite:0 alpha:0.8];
-        cell.accessoryView = dateLabel;
-        
-        //image
-        NSArray *imageUrls = [restaurant valueForKey:@"food_image_url"];
-        NSString *imageUrlString = imageUrls.firstObject;
-        if (!imageUrlString) {
-            imageUrlString = [restaurant valueForKey:@"image_url"];
-            imageUrlString = [imageUrlString stringByReplacingOccurrencesOfString:@"ms.jpg" withString:@"l.jpg"];
+        //username
+        switch (indexPath.row) {
+            case 0:{
+                cell.textLabel.text = @"Username";
+                cell.detailTextLabel.text = self.user[@"username"];
+                break;
+            }
+            case 1:{
+                cell.textLabel.text = @"Average Price";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.user[@"avgUserPrice"]];
+                break;
+            }
+            case 2:{
+                cell.textLabel.text = @"Average Rating";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.user[@"avgUserRating"]];
+                break;
+            }
+            default:
+                break;
         }
-        UIImage *img = [UIImage imageNamed:@"restaurant_default"];
-        [cell.imageView setImageWithURL:[NSURL URLWithString:imageUrlString] placeholderImage:img];
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"preference"];
@@ -132,10 +128,8 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"preference"];
         }
         //preference
-		NSDictionary *info = self.preference[indexPath.row];
-        NSString *name = info[@"name"];
-        NSNumber *score = info[@"score"];
-        if ((id)score == [NSNull null]) score = @0;
+		NSString *name = self.preference.allKeys[indexPath.row];
+        NSNumber *score = self.preference[name];
         cell.textLabel.text = name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f%%", score.floatValue*100];
     }

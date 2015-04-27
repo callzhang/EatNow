@@ -148,7 +148,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 				ENLogError(error.localizedDescription);
 				[ENUtil showFailureHUBWithString:@"failed"];
 			}else{
-				DDLogInfo(@"Disliked %@", _restaurant.name);
+                DDLogInfo(@"Cancelled %@", _restaurant.name);
 				[self updateGoButton];
 			}
 		}];
@@ -158,9 +158,19 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
 	if (![ENServerManager shared].canSelectNewRestaurant) {
 		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Yes, I changed my mind."] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-			if (buttonIndex == 1) {
-				[[ENServerManager shared] clearSelectedRestaurant];
-				[self selectRestaurant:nil];
+            if (buttonIndex == 1) {
+                @weakify(self);
+                [[ENServerManager shared] cancelSelectedRestaurant:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
+                    @strongify(self);
+                    if (error) {
+                        ENLogError(error.localizedDescription);
+                        [ENUtil showFailureHUBWithString:@"Failed to Cancel"];
+                    }else{
+                        DDLogInfo(@"Cancelled %@", _restaurant.name);
+                        [self updateGoButton];
+                        [self selectRestaurant:nil];
+                    }
+                }];
 			}
 		}];
 		return;
@@ -170,13 +180,15 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 	[[ENServerManager shared] selectRestaurant:_restaurant like:1 completion:^(NSError *error) {
 		if (error) {
 			ENLogError(error.localizedDescription);
-			[ENUtil showFailureHUBWithString:@"failed"];
+            [ENUtil showFailureHUBWithString:@"failed"];
+            [self updateGoButton];
 		}
         else{
 			DDLogInfo(@"Selected %@", _restaurant.name);
             [self showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:3];
             [self prepareData];
             [self.tableView reloadData];
+            [self updateGoButton];
 		}
 	}];
 	
@@ -366,6 +378,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
     if (_restaurant.imageUrls.count == 1 && self.imageView.image && _currentImageIndex != -1) {
         DDLogVerbose(@"Only one image, skip");
+        return;
+    }
+    if (self.restaurant.imageUrls.count == 0) {
+        DDLogVerbose(@"No image urls");
         return;
     }
     

@@ -37,6 +37,7 @@
 #import "UIView+Extend.h"
 #import "ATConnect.h"
 #import "ENRatingView.h"
+#import "ENProfileViewController.h"
 
 @interface ENMainViewController ()
 //data
@@ -585,7 +586,13 @@
 }
 
 - (IBAction)feedback:(id)sender {
+#ifdef DEBUG
+    ENProfileViewController *profileVC = [[ENProfileViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:profileVC];
+    [self presentViewController:navVC animated:YES completion:nil];
+#else
     [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID}];
+#endif
 }
 
 - (IBAction)close:(id)sender{

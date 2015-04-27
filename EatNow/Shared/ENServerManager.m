@@ -130,6 +130,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //
         NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error.localizedDescription];
         DDLogError(s);
         if (block) {
@@ -179,7 +180,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         self.selectedTime = [NSDate date];
         self.selectedRestaurant = restaurant;
         
-        block(nil);
+        if (block) block(nil);
+        
+        //reload
+        [self getUserWithCompletion:nil];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         block(error);
         NSString *s = [NSString stringWithFormat:@"%@", error];
@@ -189,9 +194,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 - (void)cancelSelectedRestaurant:(NSString *)historyID completion:(ErrorBlock)block{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *path = [NSString stringWithFormat:@"%@/user/%@/history/%@", kServerUrl, [ENServerManager myUUID], historyID];//TODO
+    NSString *path = [NSString stringWithFormat:@"%@/user/%@/history/%@", kServerUrl, [ENServerManager myUUID], historyID];
     [manager DELETE:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self getUserWithCompletion:nil];
+        [self clearSelectedRestaurant];
         if (block) {
             block(nil);
         }

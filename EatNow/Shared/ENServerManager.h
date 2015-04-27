@@ -37,6 +37,9 @@ extern NSString * const kUserUpdated;
  */
 @property (nonatomic, strong) NSMutableDictionary *userRating;
 @property (nonatomic, strong) NSMutableDictionary *history;
+/**
+ *
+ */
 @property (nonatomic, strong) NSDictionary *preference;
 @property (nonatomic, strong) NSDictionary *me;
 @property (nonatomic, strong) NSString *myID;
