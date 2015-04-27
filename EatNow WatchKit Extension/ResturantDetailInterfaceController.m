@@ -10,6 +10,7 @@
 #import "ENRestaurant.h"
 #import "ENLocationManager.h"
 #import <AddressBookUI/AddressBookUI.h>
+#import "WatchKitAction.h"
 
 @interface RestaurantRowController : NSObject
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* textLabel;
@@ -71,21 +72,46 @@
     
     [self.resturantMap addAnnotation:_destination.coordinate withPinColor:WKInterfaceMapPinColorRed];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls.firstObject];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *placeholder = [UIImage imageWithData:data];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.restaurantNameGroup setBackgroundImage:placeholder];
-        });
-    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls.firstObject];
+//        NSData *data = [NSData dataWithContentsOfURL:url];
+//        UIImage *placeholder = [UIImage imageWithData:data];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.restaurantNameGroup setBackgroundImage:placeholder];
+//        });
+//    });
     
-    NSMutableArray *items = [self loadDetailRows];
-//    if ([self needLoadMore]) {
-//        [items addObject:@"More Info"];
-//    }
+    WatchKitAction *action = [WatchKitAction new];
+    action.type = ENWatchKitActionTypeImageDownload;
+    action.url = self.restaurant.imageUrls.firstObject;
+    
 
+    if (self.restaurant.appleWatchImage) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.restaurantNameGroup setBackgroundImage:self.restaurant.appleWatchImage];
+        });
+    }
+    else {
+        [[self class] openParentApplication:action.toDictionary reply:^(NSDictionary *replyInfo, NSError *error) {
+//            NSLog(@"got reply, error: %@, %@", replyInfo, error);
+            NSError *jsonError;
+            WatchKitResponse *response = [[WatchKitResponse alloc] initWithDictionary:replyInfo error:&jsonError];
+            if (jsonError) {
+                NSLog(@"encode error:%@", jsonError);
+                return ;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.restaurantNameGroup setBackgroundImage:response.image];
+            });
+        }];
+    }
+    NSMutableArray *items = [self loadDetailRows];
+    //    if ([self needLoadMore]) {
+    //        [items addObject:@"More Info"];
+    //    }
+    
     [self loadTableWithArray:items];
 }
 
@@ -121,10 +147,10 @@
     if (self.restaurant.phone) {
         [mutableArray addObject:self.restaurant.phone];
     }
-//    
-//    if (self.restaurant.url) {
-//        [mutableArray addObject:self.restaurant.url];
-//    }
+    //    
+    //    if (self.restaurant.url) {
+    //        [mutableArray addObject:self.restaurant.url];
+    //    }
     
     return mutableArray;
 }

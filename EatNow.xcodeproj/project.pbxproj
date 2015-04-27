@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		090B2E0B1AED876B00ABAA99 /* WatchKitAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 091F49D31AED799D0064A4C8 /* WatchKitAction.m */; };
+		090B2E0E1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 090B2E0D1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m */; };
+		090B2E0F1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 090B2E0D1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m */; };
+		091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 091F49D31AED799D0064A4C8 /* WatchKitAction.m */; };
+		092944C81AED94F600018391 /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 092944C71AED94F600018391 /* UIImage+Resizing.m */; };
+		092944C91AED94F600018391 /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 092944C71AED94F600018391 /* UIImage+Resizing.m */; };
+		092944CC1AED951900018391 /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 092944CB1AED951900018391 /* NYXImagesHelper.m */; };
+		092944CD1AED951900018391 /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 092944CB1AED951900018391 /* NYXImagesHelper.m */; };
 		092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
 		092974691AD0C28D00DDC35C /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974681AD0C28D00DDC35C /* ENServerManager.m */; };
 		0929746A1AD0C29200DDC35C /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974681AD0C28D00DDC35C /* ENServerManager.m */; };
@@ -107,6 +115,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		090B2E0C1AED89C400ABAA99 /* JSONValueTransformer+UIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONValueTransformer+UIImage.h"; sourceTree = "<group>"; };
+		090B2E0D1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONValueTransformer+UIImage.m"; sourceTree = "<group>"; };
+		091F49D21AED799D0064A4C8 /* WatchKitAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchKitAction.h; sourceTree = "<group>"; };
+		091F49D31AED799D0064A4C8 /* WatchKitAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchKitAction.m; sourceTree = "<group>"; };
+		092944C61AED94F600018391 /* UIImage+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resizing.h"; sourceTree = "<group>"; };
+		092944C71AED94F600018391 /* UIImage+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resizing.m"; sourceTree = "<group>"; };
+		092944CA1AED951900018391 /* NYXImagesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYXImagesHelper.h; sourceTree = "<group>"; };
+		092944CB1AED951900018391 /* NYXImagesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYXImagesHelper.m; sourceTree = "<group>"; };
 		092974601AD09D4300DDC35C /* ENLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENLocationManager.h; path = Server/ENLocationManager.h; sourceTree = "<group>"; };
 		092974611AD09D4300DDC35C /* ENLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENLocationManager.m; path = Server/ENLocationManager.m; sourceTree = "<group>"; };
 		092974661AD0C28D00DDC35C /* ENServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENServer.h; sourceTree = "<group>"; };
@@ -241,8 +257,16 @@
 				092974661AD0C28D00DDC35C /* ENServer.h */,
 				0982B4571AD9A30500982740 /* NSError+TMError.h */,
 				0982B4581AD9A30500982740 /* NSError+TMError.m */,
+				092944C61AED94F600018391 /* UIImage+Resizing.h */,
+				092944C71AED94F600018391 /* UIImage+Resizing.m */,
+				092944CA1AED951900018391 /* NYXImagesHelper.h */,
+				092944CB1AED951900018391 /* NYXImagesHelper.m */,
 				092974671AD0C28D00DDC35C /* ENServerManager.h */,
 				092974681AD0C28D00DDC35C /* ENServerManager.m */,
+				090B2E0C1AED89C400ABAA99 /* JSONValueTransformer+UIImage.h */,
+				090B2E0D1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m */,
+				091F49D21AED799D0064A4C8 /* WatchKitAction.h */,
+				091F49D31AED799D0064A4C8 /* WatchKitAction.m */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -685,8 +709,11 @@
 				0982B45E1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
 				092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */,
 				09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */,
+				092944C91AED94F600018391 /* UIImage+Resizing.m in Sources */,
 				0929746A1AD0C29200DDC35C /* ENServerManager.m in Sources */,
+				092944CD1AED951900018391 /* NYXImagesHelper.m in Sources */,
 				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
+				090B2E0B1AED876B00ABAA99 /* WatchKitAction.m in Sources */,
 				09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */,
 				092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */,
 				09DC93291AE2CBE20054D665 /* NSDate+Extension.m in Sources */,
@@ -694,6 +721,7 @@
 				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
 				09757F8C1ADC97EE002B1515 /* NiceChoiceInterfaceController.m in Sources */,
 				09DC932A1AE2D8F60054D665 /* ENMapManager.m in Sources */,
+				090B2E0F1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,14 +735,17 @@
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
 				09777C811AD4933C007147B2 /* ENRestaurantViewController.m in Sources */,
 				092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */,
+				092944C81AED94F600018391 /* UIImage+Resizing.m in Sources */,
 				9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */,
 				9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */,
 				0929746E1AD0C2B200DDC35C /* ENRestaurant.m in Sources */,
 				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
+				092944CC1AED951900018391 /* NYXImagesHelper.m in Sources */,
 				0982B4591AD9A30500982740 /* NSError+TMError.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
+				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
 				9BF9CC711A72301600B76D92 /* ENWebViewController.m in Sources */,
 				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
@@ -723,6 +754,7 @@
 				9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */,
 				9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */,
 				9B97952A1AD8B40D00136764 /* ENRestaurantView.m in Sources */,
+				090B2E0E1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m in Sources */,
 				9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */,
 				9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */,
 			);

@@ -251,6 +251,16 @@ typedef NS_ENUM(NSUInteger, JGProgressHUDInteractionType) {
 - (void)setProgress:(float)progress animated:(BOOL)animated;
 
 
+/**
+ Specifies a minimum time that the HUD will be on-screen. Useful to prevent the HUD from flashing quickly on the screen when indeterminate tasks complete more quickly than expected.
+ 
+ @b Default: 0.0.
+ */
+@property (nonatomic, assign) NSTimeInterval minimumDisplayTime;
+
+
+
+
 /////////////
 // Showing //
 /////////////
@@ -290,7 +300,6 @@ typedef NS_ENUM(NSUInteger, JGProgressHUDInteractionType) {
 ////////////////
 // Dismissing //
 ////////////////
-
 
 
 /**
@@ -339,21 +348,6 @@ typedef NS_ENUM(NSUInteger, JGProgressHUDInteractionType) {
 
 @end
 
-
-
-@interface JGProgressHUD (Deprecated)
-
-/**
- @warning Deprecated. Use @c indicatorView.
- */
-@property (nonatomic, strong) JGProgressHUDIndicatorView *progressIndicatorView DEPRECATED_ATTRIBUTE;
-/**
- @warning Deprecated this no longer has any effect. To show no indicator view set @c indicatorView to @c nil, otherwise assign an indicator view to @c indicatorView (By default @c indicatorView is @c JGProgressHUDIndeterminateIndicatorView).
- @sa indicatorView.
- */
-@property (nonatomic, assign) BOOL useProgressIndicatorView DEPRECATED_ATTRIBUTE;
-
-@end
 
 
 /**

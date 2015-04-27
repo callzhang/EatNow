@@ -11,6 +11,7 @@
 #import "ENServerManager.h"
 #import "NSError+TMError.h"
 #import "extobjc.h"
+#import "WatchKitAction.h"
 
 DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
@@ -25,6 +26,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 @implementation InterfaceController
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
+    NSLog(@"load main interface");
     [self.loadingImageView setImageNamed:@"eat-now-apple-watch-loading-indicator-"];
     [self.loadingImageView startAnimatingWithImagesInRange:NSMakeRange(1, 6) duration:2 repeatCount:NSIntegerMax];
 

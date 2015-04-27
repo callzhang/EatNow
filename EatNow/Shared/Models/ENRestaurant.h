@@ -48,6 +48,11 @@
 @property (nonatomic, assign) NSTimeInterval walkDuration;
 @property (nonatomic, strong) NSString *twitter;
 @property (nonatomic, strong) NSString *facebook;
+/**
+ *  apple watch image is set after resize to smaller size in ResturantInterfaceController
+ */
+@property (nonatomic, strong) UIImage *appleWatchImage;
+
 //convienence method
 - (NSString *)foursquareID;
 - (MKPlacemark *)placemark;
