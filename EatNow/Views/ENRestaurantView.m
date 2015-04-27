@@ -329,8 +329,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         @strongify(self);
         NSData *data = responseObject;
         TFHpple * doc       = [[TFHpple alloc] initWithHTMLData:data];
-        //ZITAO: should the parser strign returned by server? fetched when app starts? we can pending to later version if this is too much coding involved.
-        //LEI: This is local parse to lower the burdun of calling Foursquare venue API. If server call the API to get the image, we need 12 calls. Also it counts towards the foursquare rate limit.
         NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='photosSection']/ul/li/img"];
         NSMutableArray *images = [NSMutableArray array];
         for (TFHppleElement *element in elements) {
