@@ -31,7 +31,7 @@
 @import AddressBook;
 
 @implementation ENRestaurant
-//ZITAO: change to initRestaurantWithDictionary, the param is not s NSData
+//ZITAO: change to initRestaurantWithDictionary, the param is not s NSData?
 - (instancetype)initRestaurantWithDictionary:(NSDictionary *)json{
 	self = [super init];
     if (!self) return nil;

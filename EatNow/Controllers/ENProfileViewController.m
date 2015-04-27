@@ -37,13 +37,13 @@
     
 }
 
-//ZITAO: not setting _user?
+//ZITAO: not setting _user??
 - (void)setUser:(NSDictionary *)user{
     self.history = [user valueForKeyPath:@"all_history"];
     [self updatePreference:[user valueForKey:@"preference"]];
 }
 
-//ZITAO: renmae to setPreference?
+//ZITAO: renmae to setPreference??
 - (void)updatePreference:(NSDictionary *)data{
     NSParameterAssert([data isKindOfClass:[NSDictionary class]]);
     NSMutableArray *scoreArray = [NSMutableArray new];
