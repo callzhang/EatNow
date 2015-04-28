@@ -23,7 +23,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ENRestaurantView.h"
+#import "ENRestaurantViewController.h"
 
 #define kMaxRestaurants     12
 #define kMaxCardsToAnimate  4
@@ -37,7 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 //frame
-@property (nonatomic, readonly) ENRestaurantView *frontCardView;
+//@property (nonatomic, readonly) ENRestaurantViewController *frontCardView;
 @property (nonatomic, strong) NSMutableArray *restaurantCards;
 //states
 @property (nonatomic, assign) BOOL isDismissingCard;

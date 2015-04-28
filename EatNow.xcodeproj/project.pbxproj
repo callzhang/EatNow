@@ -33,7 +33,7 @@
 		09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */; };
 		0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B745618F239B700BB5F8E /* ENMainViewController.m */; };
 		09757F8C1ADC97EE002B1515 /* NiceChoiceInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09757F8B1ADC97EE002B1515 /* NiceChoiceInterfaceController.m */; };
-		09777C811AD4933C007147B2 /* ENRestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09777C801AD4933C007147B2 /* ENRestaurantViewController.m */; };
+		09777C811AD4933C007147B2 /* ENRestaurantViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 09777C801AD4933C007147B2 /* ENRestaurantViewController1.m */; };
 		09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C831AD497F8007147B2 /* TextfieldWithInset.swift */; };
 		09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C841AD497F8007147B2 /* WJCustomizeView.swift */; };
 		09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C851AD497F8007147B2 /* ApplicationButton.swift */; };
@@ -56,7 +56,7 @@
 		9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B85D0321A8EB6BB0014DBED /* ENUtil.m */; };
 		9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9424071AE0450300411D1F /* ENHistoryViewController.m */; };
 		9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */; };
-		9B97952A1AD8B40D00136764 /* ENRestaurantView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9795291AD8B40D00136764 /* ENRestaurantView.m */; };
+		9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */; };
 		9BB789A41AD384BC00998D8F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB789A31AD384BC00998D8F /* libPods.a */; };
 		9BC51BFD1AE6DACD00E3B0FE /* animatedLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
@@ -148,8 +148,8 @@
 		09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWMapInterfaceController.m; sourceTree = "<group>"; };
 		09757F8A1ADC97EE002B1515 /* NiceChoiceInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceChoiceInterfaceController.h; sourceTree = "<group>"; };
 		09757F8B1ADC97EE002B1515 /* NiceChoiceInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiceChoiceInterfaceController.m; sourceTree = "<group>"; };
-		09777C7F1AD4933C007147B2 /* ENRestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantViewController.h; sourceTree = "<group>"; };
-		09777C801AD4933C007147B2 /* ENRestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantViewController.m; sourceTree = "<group>"; };
+		09777C7F1AD4933C007147B2 /* ENRestaurantViewController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantViewController1.h; sourceTree = "<group>"; };
+		09777C801AD4933C007147B2 /* ENRestaurantViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantViewController1.m; sourceTree = "<group>"; };
 		09777C821AD497F7007147B2 /* EatNow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EatNow-Bridging-Header.h"; sourceTree = "<group>"; };
 		09777C831AD497F8007147B2 /* TextfieldWithInset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldWithInset.swift; sourceTree = "<group>"; };
 		09777C841AD497F8007147B2 /* WJCustomizeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WJCustomizeView.swift; sourceTree = "<group>"; };
@@ -184,8 +184,8 @@
 		9B9424071AE0450300411D1F /* ENHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryViewController.m; sourceTree = "<group>"; };
 		9B9424091AE053F200411D1F /* ENHistoryViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryViewCell.h; sourceTree = "<group>"; };
 		9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryViewCell.m; sourceTree = "<group>"; };
-		9B9795281AD8B40C00136764 /* ENRestaurantView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantView.h; sourceTree = "<group>"; };
-		9B9795291AD8B40D00136764 /* ENRestaurantView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantView.m; sourceTree = "<group>"; };
+		9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantViewController.h; sourceTree = "<group>"; };
+		9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantViewController.m; sourceTree = "<group>"; };
 		9BB789A31AD384BC00998D8F /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWBlockTypes.h; sourceTree = "<group>"; };
 		9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animatedLoading.gif; sourceTree = "<group>"; };
@@ -465,8 +465,8 @@
 				9B141DD91A901F5700EB2CC8 /* ENProfileViewController.m */,
 				DA5B745518F239B700BB5F8E /* ENMainViewController.h */,
 				DA5B745618F239B700BB5F8E /* ENMainViewController.m */,
-				09777C7F1AD4933C007147B2 /* ENRestaurantViewController.h */,
-				09777C801AD4933C007147B2 /* ENRestaurantViewController.m */,
+				09777C7F1AD4933C007147B2 /* ENRestaurantViewController1.h */,
+				09777C801AD4933C007147B2 /* ENRestaurantViewController1.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -487,8 +487,8 @@
 				9B1658C21AECA8AF0035572C /* ENRatingView.m */,
 				9B9424091AE053F200411D1F /* ENHistoryViewCell.h */,
 				9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */,
-				9B9795281AD8B40C00136764 /* ENRestaurantView.h */,
-				9B9795291AD8B40D00136764 /* ENRestaurantView.m */,
+				9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */,
+				9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */,
 				09777C831AD497F8007147B2 /* TextfieldWithInset.swift */,
 				09777C841AD497F8007147B2 /* WJCustomizeView.swift */,
 				09777C851AD497F8007147B2 /* ApplicationButton.swift */,
@@ -725,7 +725,7 @@
 				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
 				092974691AD0C28D00DDC35C /* ENServerManager.m in Sources */,
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
-				09777C811AD4933C007147B2 /* ENRestaurantViewController.m in Sources */,
+				09777C811AD4933C007147B2 /* ENRestaurantViewController1.m in Sources */,
 				092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */,
 				092944C81AED94F600018391 /* UIImage+Resizing.m in Sources */,
 				9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */,
@@ -744,7 +744,7 @@
 				0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */,
 				9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */,
 				9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */,
-				9B97952A1AD8B40D00136764 /* ENRestaurantView.m in Sources */,
+				9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */,
 				090B2E0E1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m in Sources */,
 				9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */,
 				9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */,

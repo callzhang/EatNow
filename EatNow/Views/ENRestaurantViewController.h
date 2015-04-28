@@ -22,14 +22,14 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
     ENRestaurantViewStatusHistoryDetail,
 };
 
-@interface ENRestaurantView : UIView
+@interface ENRestaurantViewController : UIViewController
 @property (nonatomic, strong) ENRestaurant *restaurant;
 @property (nonatomic, assign) ENRestaurantViewStatus status;
 @property (nonatomic, weak) UISnapBehavior *snap;
 @property (weak, nonatomic) IBOutlet UIView *info;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
-+ (instancetype)loadView;
++ (instancetype)viewController;
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block;
 - (void)didChangedToFrontCard;
 @end

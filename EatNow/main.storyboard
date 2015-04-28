@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N2Z-hj-BcO">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -572,15 +573,15 @@
             </objects>
             <point key="canvasLocation" x="-190" y="1288"/>
         </scene>
-        <!--View Controller-->
+        <!--Restaurant View Controller-->
         <scene sceneID="dfb-Ms-0bQ">
             <objects>
-                <viewController storyboardIdentifier="ENCardContainer" id="eqI-RV-x4E" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ENCardContainer" id="eqI-RV-x4E" customClass="ENRestaurantViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5TA-Hr-QgP"/>
                         <viewControllerLayoutGuide type="bottom" id="dhx-kU-wTy"/>
                     </layoutGuides>
-                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Rlz-6w-TNj" customClass="ENRestaurantView">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Rlz-6w-TNj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -927,8 +928,8 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <outlet property="dataSource" destination="Rlz-6w-TNj" id="Xc2-N7-dIb"/>
-                                            <outlet property="delegate" destination="Rlz-6w-TNj" id="bwe-hx-dXs"/>
+                                            <outlet property="dataSource" destination="eqI-RV-x4E" id="eO7-Hs-3lR"/>
+                                            <outlet property="delegate" destination="eqI-RV-x4E" id="0rI-7s-uhF"/>
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcM-Kx-ZZ9" userLabel="going">
@@ -941,33 +942,23 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="selectRestaurant:" destination="Rlz-6w-TNj" eventType="touchUpInside" id="PlB-1G-qFV"/>
+                                            <action selector="selectRestaurant:" destination="eqI-RV-x4E" eventType="touchUpInside" id="bjL-4L-JyD"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="1te-XH-USY"/>
-                                    <constraint firstItem="GcM-Kx-ZZ9" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" constant="85" id="6f6-Od-BBi"/>
                                     <constraint firstAttribute="bottom" secondItem="ElG-By-adf" secondAttribute="bottom" id="7YF-Zh-c5a"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="Bb2-PM-N74"/>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="top" secondItem="H4b-9y-85a" secondAttribute="top" id="Bjb-ul-iib"/>
                                     <constraint firstAttribute="bottom" secondItem="GcM-Kx-ZZ9" secondAttribute="bottom" constant="16" id="MU9-oB-AeI"/>
                                     <constraint firstAttribute="trailing" secondItem="ElG-By-adf" secondAttribute="trailing" id="PJi-6A-tSw"/>
                                     <constraint firstItem="ElG-By-adf" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="bottom" id="SPK-sJ-D5P"/>
-                                    <constraint firstItem="ElG-By-adf" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="ZCU-XY-LPQ"/>
                                     <constraint firstAttribute="trailing" secondItem="fsH-Ee-d2j" secondAttribute="trailing" id="isH-e0-e62"/>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="height" secondItem="H4b-9y-85a" secondAttribute="height" multiplier="0.45" priority="900" id="jGo-xL-n5F"/>
-                                    <constraint firstAttribute="trailing" secondItem="GcM-Kx-ZZ9" secondAttribute="trailing" constant="85" id="kdP-5b-8rn"/>
                                     <constraint firstAttribute="centerX" secondItem="GcM-Kx-ZZ9" secondAttribute="centerX" id="qxI-LY-PC2"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="ZCU-XY-LPQ"/>
-                                        <exclude reference="6f6-Od-BBi"/>
-                                        <exclude reference="kdP-5b-8rn"/>
-                                    </mask>
-                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -982,27 +973,26 @@
                                 <integer key="value" value="16"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
-                        <connections>
-                            <outlet property="card" destination="H4b-9y-85a" id="HMP-bc-fK4"/>
-                            <outlet property="cuisine" destination="45L-e4-Y8S" id="kcN-p1-TJx"/>
-                            <outlet property="distanceInfo" destination="DBA-UH-kFT" id="aqw-nG-7gN"/>
-                            <outlet property="goButton" destination="GcM-Kx-ZZ9" id="m1b-mO-dwI"/>
-                            <outlet property="imageView" destination="cy3-AH-BuV" id="eAp-nq-xjT"/>
-                            <outlet property="info" destination="fsH-Ee-d2j" id="3bO-cv-Ksm"/>
-                            <outlet property="infoHightRatio" destination="jGo-xL-n5F" id="xL4-Vh-E1N"/>
-                            <outlet property="loading" destination="3xH-uo-hHt" id="0Pp-G7-Vub"/>
-                            <outlet property="name" destination="Wt9-vs-bTu" id="xvc-cN-Jo4"/>
-                            <outlet property="openInfo" destination="uVW-6x-hlL" id="ywR-f8-LOW"/>
-                            <outlet property="openTime" destination="xKx-ie-3fb" id="P0k-hx-UAA"/>
-                            <outlet property="price" destination="9rp-Qh-TDe" id="kdY-21-sqs"/>
-                            <outlet property="rating" destination="0Rc-cj-kSW" id="dx3-sb-fyy"/>
-                            <outlet property="tableView" destination="ElG-By-adf" id="qjx-Ik-aPr"/>
-                            <outlet property="userRatingView" destination="LW0-dx-NVL" id="uyC-t9-u6e"/>
-                            <outlet property="walkingDistance" destination="2zY-ds-bCm" id="5bc-HB-rT8"/>
-                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="550"/>
+                    <connections>
+                        <outlet property="card" destination="H4b-9y-85a" id="iTa-Bb-ThL"/>
+                        <outlet property="cuisine" destination="45L-e4-Y8S" id="wvr-RD-G6j"/>
+                        <outlet property="distanceInfo" destination="DBA-UH-kFT" id="dC3-YA-xT5"/>
+                        <outlet property="goButton" destination="GcM-Kx-ZZ9" id="6ma-xt-BSG"/>
+                        <outlet property="imageView" destination="cy3-AH-BuV" id="ZCd-TK-YYv"/>
+                        <outlet property="info" destination="fsH-Ee-d2j" id="mPr-S0-Bqp"/>
+                        <outlet property="infoHightRatio" destination="jGo-xL-n5F" id="W8b-8N-hOM"/>
+                        <outlet property="loading" destination="3xH-uo-hHt" id="cND-St-IhO"/>
+                        <outlet property="name" destination="Wt9-vs-bTu" id="PgI-ly-Nl5"/>
+                        <outlet property="openInfo" destination="uVW-6x-hlL" id="SYU-d8-eYs"/>
+                        <outlet property="openTime" destination="xKx-ie-3fb" id="QYc-1i-dRg"/>
+                        <outlet property="price" destination="9rp-Qh-TDe" id="GEu-fR-ipG"/>
+                        <outlet property="rating" destination="0Rc-cj-kSW" id="X5h-qS-1bg"/>
+                        <outlet property="tableView" destination="ElG-By-adf" id="e66-2g-eoE"/>
+                        <outlet property="walkingDistance" destination="2zY-ds-bCm" id="54E-xz-XAd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaU-vb-oKz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

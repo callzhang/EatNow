@@ -65,7 +65,7 @@
 @implementation ENMainViewController
 
 #pragma mark - Accsessor
-- (ENRestaurantView *)frontCardView{
+- (ENRestaurantViewController *)firstRestaurantViewController{
     return self.restaurantCards.firstObject;
 }
 
@@ -207,7 +207,7 @@
 	[self.view insertSubview:bluredEffectView aboveSubview:self.background];
     
 	[[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-		if (note.object == self.frontCardView) {
+		if (note.object == self.firstRestaurantViewController) {
 			[self setBackgroundImage:note.userInfo[@"image"]];
 		}
 	}];
@@ -263,20 +263,21 @@
 	NSUInteger restaurantCount = _restaurants.count;
     for (NSInteger i = 1; i <= restaurantCount; i++) {
 		//insert card
-		ENRestaurantView *card = [self popResuturantViewWithFrame:[self initialCardFrame]];
-		card.hidden = YES;
+		ENRestaurantViewController *restaurantViewController = [self popResuturantViewWithFrame:[self initialCardFrame]];
+		restaurantViewController.view.hidden = YES;
 		if (i==1) {
-			DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
-			[self.detailCardContainer addSubview:card];
-			[card addGestureRecognizer:self.panGesture];
-			[card.info addGestureRecognizer:self.tapGesture];
-			[card didChangedToFrontCard];
+			DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
+            [self addChildViewController:restaurantViewController];
+			[self.detailCardContainer addSubview:restaurantViewController.view];
+			[restaurantViewController.view addGestureRecognizer:self.panGesture];
+			[restaurantViewController.info addGestureRecognizer:self.tapGesture];
+			[restaurantViewController didChangedToFrontCard];
         } else{
-            DDLogVerbose(@"Poping %@th card: %@", @(i), card.restaurant.name);
+            DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
 			//insert behind previous card
-			UIView *previousCard = self.restaurantCards[i-2];
-			NSParameterAssert(previousCard.superview);
-			[self.detailCardContainer insertSubview:card belowSubview:previousCard];
+			ENRestaurantViewController *previousCard = self.restaurantCards[i-2];
+			NSParameterAssert(previousCard.view.superview);
+			[self.detailCardContainer insertSubview:restaurantViewController.view belowSubview:previousCard.view];
 		}
 		//animate
 		if (i <= kMaxCardsToAnimate){
@@ -284,14 +285,14 @@
             float delay = (kMaxCardsToAnimate - i) * 0.2;
             DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				card.hidden = NO;
-				[self snapCardToCenter:card];
+				restaurantViewController.view.hidden = NO;
+				[self snapCardToCenter:restaurantViewController];
 			});
 		}else {
 			float delay = i * 0.2 + 2;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				card.frame = [self cardViewFrame];
-				card.hidden = NO;
+				restaurantViewController.view.frame = [self cardViewFrame];
+				restaurantViewController.view.hidden = NO;
 			});
 		}
     }
@@ -304,42 +305,42 @@
 }
 
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity{
-    if (self.frontCardView) {
-        ENRestaurantView *frontCard = self.frontCardView;
+    if (self.firstRestaurantViewController) {
+        ENRestaurantViewController *firstRestaurantViewController = self.firstRestaurantViewController;
 		//DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
         //add dynamics
-		[self.animator removeBehavior:frontCard.snap];
-		[self.gravity addItem:frontCard];
-		[self.dynamicItem addItem:frontCard];
+		[self.animator removeBehavior:firstRestaurantViewController.snap];
+		[self.gravity addItem:firstRestaurantViewController.view];
+		[self.dynamicItem addItem:firstRestaurantViewController.view];
 		if (velocity.x) {
-			[self.dynamicItem addLinearVelocity:velocity forItem:frontCard];
+			[self.dynamicItem addLinearVelocity:velocity forItem:firstRestaurantViewController.view];
 		}
 		
         //remove front card from cards
         [self.restaurantCards removeObjectAtIndex:0];
         
         //add pan gesture to next
-        [frontCard removeGestureRecognizer:self.panGesture];
-		[frontCard.info removeGestureRecognizer:self.tapGesture];
-        [self.frontCardView addGestureRecognizer:self.panGesture];
-		[self.frontCardView.info addGestureRecognizer:self.tapGesture];
+        [firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
+		[firstRestaurantViewController.info removeGestureRecognizer:self.tapGesture];
+        [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
+		[self.firstRestaurantViewController.info addGestureRecognizer:self.tapGesture];
         
         //notify next card
-        [self.frontCardView didChangedToFrontCard];
+        [self.firstRestaurantViewController didChangedToFrontCard];
         
         //delay
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			[UIView animateWithDuration:0.5 animations:^{
-				frontCard.alpha = 0;
+				firstRestaurantViewController.view.alpha = 0;
 			} completion:^(BOOL finished) {
-				[_gravity removeItem:frontCard];
-				[_dynamicItem removeItem:frontCard];
-				[frontCard removeFromSuperview];
+				[_gravity removeItem:firstRestaurantViewController.view];
+				[_dynamicItem removeItem:firstRestaurantViewController.view];
+				[firstRestaurantViewController.view removeFromSuperview];
 			}];
 		});
 		
         //if last card, show refreshing button
-		if (!self.frontCardView) {
+		if (!self.firstRestaurantViewController) {
             [self.view bringSubviewToFront:self.loading];
 			self.loading.alpha = 1;
 		}
@@ -347,18 +348,18 @@
 }
 
 - (void)toggleCardDetails{
-	[_animator removeBehavior:self.frontCardView.snap];
-    if (self.frontCardView.status == ENRestaurantViewStatusCard) {
-        [self.frontCardView switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailCardContainer.bounds animated:YES completion:nil];
-        [self.frontCardView removeGestureRecognizer:self.panGesture];
-        //[self.frontCardView removeGestureRecognizer:self.tapGesture];
+	[_animator removeBehavior:self.firstRestaurantViewController.snap];
+    if (self.firstRestaurantViewController.status == ENRestaurantViewStatusCard) {
+        [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailCardContainer.bounds animated:YES completion:nil];
+        [self.firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
+        //[self.firstRestaurantViewController removeGestureRecognizer:self.tapGesture];
         [UIView animateWithDuration:0.3 animations:^{
             self.closeButton.alpha = 1;
         }];
     } else {
-        [self.frontCardView switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES completion:nil];
-        [self.frontCardView addGestureRecognizer:self.panGesture];
-        //[self.frontCardView addGestureRecognizer:self.tapGesture];
+        [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES completion:nil];
+        [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
+        //[self.firstRestaurantViewController addGestureRecognizer:self.tapGesture];
         [UIView animateWithDuration:0.3 animations:^{
             self.closeButton.alpha = 0;
         }];
@@ -394,13 +395,13 @@
 
 - (IBAction)panHandler:(UIPanGestureRecognizer *)gesture {
     CGPoint locInView = [gesture locationInView:self.detailCardContainer];
-    CGPoint locInCard = [gesture locationInView:self.frontCardView];
-    ENRestaurantView *card = self.frontCardView;
+    CGPoint locInCard = [gesture locationInView:self.firstRestaurantViewController.view];
+    ENRestaurantViewController *firstRestauantViewController= self.firstRestaurantViewController;
     if (gesture.state == UIGestureRecognizerStateBegan) {
         //attachment behavior
         [_animator removeBehavior:_attachment];
-        UIOffset offset = UIOffsetMake(locInCard.x - card.bounds.size.width/2, locInCard.y - card.bounds.size.height/2);
-        _attachment = [[UIAttachmentBehavior alloc] initWithItem:card offsetFromCenter:offset attachedToAnchor:locInView];
+        UIOffset offset = UIOffsetMake(locInCard.x - firstRestauantViewController.view.bounds.size.width/2, locInCard.y - firstRestauantViewController.view.bounds.size.height/2);
+        _attachment = [[UIAttachmentBehavior alloc] initWithItem:firstRestauantViewController.view offsetFromCenter:offset attachedToAnchor:locInView];
         [_animator addBehavior:_attachment];
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
@@ -415,18 +416,18 @@
             [self dismissFrontCardWithVelocity:velocity];
         }
         else {
-            [self snapCardToCenter:card];
+            [self snapCardToCenter:firstRestauantViewController];
         }
     }
 }
 
 // This is called when a user didn't fully swipe left or right.
-- (void)snapCardToCenter:(ENRestaurantView *)card {
+- (void)snapCardToCenter:(ENRestaurantViewController *)card {
     NSParameterAssert(card);
 	if (card.snap) {
 		[self.animator removeBehavior:card.snap];
 	}
-	UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card snapToPoint:self.cardView.center];
+	UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card.view snapToPoint:self.cardView.center];
 	
     snap.damping = 0.98;
     [self.animator addBehavior:snap];
@@ -439,14 +440,14 @@
 #pragma mark - Internal Methods
 //data methods, should not add view related codes
 //Pop start from the first one
-- (ENRestaurantView *)popResuturantViewWithFrame:(CGRect)frame {
+- (ENRestaurantViewController *)popResuturantViewWithFrame:(CGRect)frame {
     if (self.restaurants.count == 0) {
         DDLogWarn(@"No restaurant to pop");
         return nil;
     }
-    ENRestaurantView* card = [ENRestaurantView loadView];
+    ENRestaurantViewController* card = [ENRestaurantViewController viewController];
     NSParameterAssert(card);
-    card.frame = frame;
+    card.view.frame = frame;
     card.restaurant = self.restaurants.firstObject;
 	[self.restaurants removeObjectAtIndex:0];
     [self.restaurantCards addObject:card];
@@ -490,51 +491,33 @@
 }
 
 #pragma mark Control Events
-// Programmatically "nopes" the front card view.
-//- (IBAction)nope:(id)sender {
-//    if (self.frontCardView.restaurant) {
-//        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:@"Don't like this restaurant? We will never show similar ones again." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"Confirm"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-//            NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-//            if ([title isEqualToString:@"Confirm"]) {
-//                ENRestaurant *restaurant = self.frontCardView.restaurant;
-//                [ENUtil showWatingHUB];
-//                [self.serverManager selectRestaurant:restaurant like:-1 completion:^(NSError *error) {
-//                    if (!error) {
-//                        [ENUtil showSuccessHUBWithString:@"Disliked"];
-//                        DDLogInfo(@"Sucessfully liked restaurant: %@", restaurant.name);
-//                    }
-//                    else {
-//                        [ENUtil showFailureHUBWithString:@"Server error, try again later."];
-//                    }
-//                }];
-//            }
-//        }];
-//    }
-//}
-
 - (IBAction)refresh:(id)sender {
-    if (_isDismissingCard) {
+    if (self.isDismissingCard) {
         DDLogWarn(@"Already dismissing card!");
         return;
     }
-	if (_isShowingCards) {
+	if (self.isShowingCards) {
 		DDLogWarn(@"Showing cards, skip refresh");
 		return;
 	}
-    _isDismissingCard = YES;
+    
+    self.isDismissingCard = YES;
     self.restaurants = nil;
 	//dismiss cards
     for (NSUInteger i=self.restaurantCards.count; i > 0; i--) {
-        if (i>kMaxCardsToAnimate) {
-            ENRestaurantView *card = self.restaurantCards[i-1];
+        if (i > kMaxCardsToAnimate) {
+            ENRestaurantViewController *card = self.restaurantCards[i-1];
             DDLogInfo(@"Dismissing card %@", card.restaurant.name);
             [self.restaurantCards removeObjectAtIndex:i-1];
-            [card removeFromSuperview];
-        }else {
+            [card.view removeFromSuperview];
+        }
+        else {
             float delay = i * 0.1;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 				CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
+                
                 [self dismissFrontCardWithVelocity:v];
+                
                 if (i == kMaxCardsToAnimate) {
                     [self showAllRestaurantCards];
                 }
@@ -570,7 +553,7 @@
             self.closeButton.alpha = 1;
         }
     } completion:^(BOOL finished) {
-        if (self.historyViewController.restaurantView) {
+        if (self.historyViewController.restaurantViewController) {
             //close
             [self.historyViewController closeRestaurantView];
         }

@@ -12,7 +12,7 @@
 #import "NSDate+MTDates.h"
 #import "NSDate+Extension.h"
 #import "UIView+Extend.h"
-#import "ENRestaurantView.h"
+#import "ENRestaurantViewController.h"
 #import "ENMainViewController.h"
 
 NSString * const kHistoryDetailCardDidShow = @"history_detail_view_did_show";
@@ -72,23 +72,26 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 }
 
 - (void)showRestaurantCard:(ENRestaurant *)restaurant fromFrame:(CGRect)frame {
-    self.restaurantView = [ENRestaurantView loadView];
-    _restaurantView.restaurant = restaurant;
-    [_restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
-    [self.mainView addSubview:_restaurantView];
-    [_restaurantView switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:self.view.frame animated:YES completion:nil];
-    [_restaurantView.imageView applyGredient];
+    self.restaurantViewController = [ENRestaurantViewController viewController];
+    self.restaurantViewController.restaurant = restaurant;
+    [self.restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
+    [self addChildViewController:self.restaurantViewController];
+    
+    [self.mainView addSubview:self.restaurantViewController.view];
+    [self.restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:self.view.frame animated:YES completion:nil];
+    
     ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
     mainVC.isHistoryDetailShown = YES;
 }
 
 - (void)closeRestaurantView{
-    if (self.restaurantView){
+    if (self.restaurantViewController){
         ENHistoryViewCell *cell = (ENHistoryViewCell *)[self.tableView cellForRowAtIndexPath:self.selectedPath];
         CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.view.superview];
-        [self.restaurantView switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:YES completion:^{
-            [self.restaurantView removeFromSuperview];
-            self.restaurantView = nil;
+        [self.restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:YES completion:^{
+            [self.restaurantViewController removeFromParentViewController];
+            [self.restaurantViewController.view removeFromSuperview];
+            self.restaurantViewController = nil;
         }];
         
         ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
@@ -138,7 +141,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.restaurantView) {
+    if (self.restaurantViewController) {
         return;
     }
     self.selectedPath = indexPath;

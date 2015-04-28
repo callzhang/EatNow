@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 modocache. All rights reserved.
 //
 
-#import "ENRestaurantView.h"
+#import "ENRestaurantViewController.h"
 #import "TFHpple.h"
 #import "UIImageView+AFNetworking.h"
 #import "ENServerManager.h"
@@ -19,6 +19,7 @@
 #import "NSDate+Extension.h"
 #import "UIView+Material.h"
 #import "extobjc.h"
+#import "UIView+Extend.h"
 @import AddressBook;
 
 NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
@@ -26,7 +27,7 @@ NSString *const kSelectedRestaurantNotification = @"selected_restaurant";
 NSString *const kMapViewDidShow = @"map_view_did_show";
 NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
-@interface ENRestaurantView()<UITableViewDelegate, UITableViewDataSource>
+@interface ENRestaurantViewController()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSArray *restautantInfo;
 
 //IB
@@ -56,12 +57,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @end
 
 
-@implementation ENRestaurantView
-+ (instancetype)loadView{
-    UIViewController *container = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
-    ENRestaurantView *view = (ENRestaurantView *)container.view;
-    NSParameterAssert([view isKindOfClass:[ENRestaurantView class]]);
-    return view;
+@implementation ENRestaurantViewController
++ (instancetype)viewController {
+    ENRestaurantViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
+    return vc;
 }
 
 //initialization method
@@ -96,7 +95,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     float duration = animate ? 0.5 : 0;
     float damping = status == ENRestaurantViewStatusMinimum ? 1 : 0.7;
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.frame = frame;
+        self.view.frame = frame;
         self.status = status;
         [self updateLayout];
     } completion:^(BOOL finished) {
@@ -196,7 +195,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 		}
         else{
 			DDLogInfo(@"Selected %@", _restaurant.name);
-            [self showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:3];
+            [self.view showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:3];
             [self prepareData];
             [self.tableView reloadData];
             [self updateGoButton];
@@ -223,12 +222,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (!_map) {
         //map
         
-        self.map = [[MKMapView alloc] initWithFrame:self.bounds];
+        self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
         self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
         self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
         self.map.showsUserLocation = YES;
         self.map.delegate = self.mapManager;
-        [self insertSubview:self.map belowSubview:self.goButton];
+        [self.view insertSubview:self.map belowSubview:self.goButton];
         
         closeMap = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
         [closeMap setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
@@ -236,7 +235,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         closeMap.tintColor = [UIColor blueColor];
         [UIView collapse:self.mapIcon view:self.map animated:NO completion:nil];
         [UIView expand:self.mapIcon view:self.map completion:^{
-            [self addSubview:closeMap];
+            [self.view addSubview:closeMap];
         }];
         
         [self.mapManager addAnnotationForRestaurant:_restaurant];
@@ -273,7 +272,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.infoHightRatio.active = NO;
     self.infoHightRatio = newRatio;
     self.infoHightRatio.active = YES;
-    [self layoutIfNeeded];
+    [self.view layoutIfNeeded];
     
     //show information only for card view
     if (self.status == ENRestaurantViewStatusCard) {
@@ -445,9 +444,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.imageView.image = image;
     
     //duplicate view
-    if (self.superview) {
+    if (self.view.superview) {
         UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
-        [self insertSubview:imageViewCopy aboveSubview:self.imageView];
+        [self.view insertSubview:imageViewCopy aboveSubview:self.imageView];
         [UIView animateWithDuration:0.5 animations:^{
             imageViewCopy.alpha = 0;
         } completion:^(BOOL finished) {
@@ -630,5 +629,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)dealloc{
     DDLogVerbose(@"Card dismissed: %@", _restaurant.name);
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.imageView applyGredient];
 }
 @end

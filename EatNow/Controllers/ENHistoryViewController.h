@@ -11,10 +11,10 @@
 extern NSString *const kHistoryDetailCardDidShow;
 extern NSString *const kHistoryTableViewDidShow;
 
-@class ENRestaurantView;
+@class ENRestaurantViewController;
 
 @interface ENHistoryViewController : UITableViewController
-@property (nonatomic, strong) ENRestaurantView *restaurantView;
+@property (nonatomic, strong) ENRestaurantViewController *restaurantViewController;
 @property (nonatomic, strong) UIView *mainView;
 - (void)loadData;
 - (void)closeRestaurantView;

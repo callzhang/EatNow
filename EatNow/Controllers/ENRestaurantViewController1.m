@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 modocache. All rights reserved.
 //
 
-#import "ENRestaurantViewController.h"
+#import "ENRestaurantViewController1.h"
 
-@interface ENRestaurantViewController ()
+@interface ENRestaurantViewController1 ()
 /** normalCardInsideContainerTopLayoutConstraint and normalCardInsideContainerHeightConstraints
  *  decide view's height and top margin, animate those properites with param for each devices for fine control
  **/
@@ -29,7 +29,7 @@
  * I did not add bottom buttons, since we are missing assets and they are fairly easy to add.
  */
 
-@implementation ENRestaurantViewController
+@implementation ENRestaurantViewController1
 
 - (void)viewDidLoad {
     [super viewDidLoad];
