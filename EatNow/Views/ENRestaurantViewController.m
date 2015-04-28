@@ -308,7 +308,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
-        self.shadowGradient.image = [UIImage imageNamed:@"gradient"];
+        self.shadowGradient.image = [UIImage imageNamed:@"gradient 2"];
     }
     else if (self.status == ENRestaurantViewStatusDetail) {
         self.distanceInfo.alpha = 0;
