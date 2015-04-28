@@ -1,15 +1,13 @@
 {
   "images" : [
     {
-      "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "40x40.png",
+      "size" : "40x40",
       "scale" : "1x"
     },
     {
-      "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "80x80.png",
+      "size" : "40x40",
       "scale" : "2x"
     },
     {
