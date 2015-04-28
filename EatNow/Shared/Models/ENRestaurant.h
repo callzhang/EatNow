@@ -48,6 +48,7 @@
 @property (nonatomic, assign) NSTimeInterval walkDuration;
 @property (nonatomic, strong) NSString *twitter;
 @property (nonatomic, strong) NSString *facebook;
+@property (nonatomic, strong) NSString *venderUrl;
 /**
  *  apple watch image is set after resize to smaller size in ResturantInterfaceController
  */
@@ -62,6 +63,7 @@
 
 - (instancetype)initRestaurantWithDictionary:(NSDictionary *)json __attribute__((objc_designated_initializer));
 - (instancetype)init __attribute__((unavailable("Invoke the designated initializer")));
+- (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block;
 
 //Tools
 - (BOOL)validate;

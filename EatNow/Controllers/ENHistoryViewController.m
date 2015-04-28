@@ -73,13 +73,12 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 
 - (void)showRestaurantCard:(ENRestaurant *)restaurant fromFrame:(CGRect)frame {
     self.restaurantViewController = [ENRestaurantViewController viewController];
-    self.restaurantViewController.restaurant = restaurant;
-    [self.restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
-    [self addChildViewController:self.restaurantViewController];
-    
-    [self.mainView addSubview:self.restaurantViewController.view];
-    [self.restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:self.view.frame animated:YES completion:nil];
-    
+    //[_restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
+    _restaurantViewController.view.frame = frame;
+    _restaurantViewController.restaurant = restaurant;
+    [self.mainView addSubview:_restaurantViewController.view];
+    CGRect toFrame = [self.mainView convertRect:self.view.frame fromView:self.view];
+    [_restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:toFrame animated:YES completion:nil];
     ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
     mainVC.isHistoryDetailShown = YES;
 }
@@ -87,9 +86,8 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 - (void)closeRestaurantView{
     if (self.restaurantViewController){
         ENHistoryViewCell *cell = (ENHistoryViewCell *)[self.tableView cellForRowAtIndexPath:self.selectedPath];
-        CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.view.superview];
+        CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.mainView];
         [self.restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:YES completion:^{
-            [self.restaurantViewController removeFromParentViewController];
             [self.restaurantViewController.view removeFromSuperview];
             self.restaurantViewController = nil;
         }];
@@ -150,7 +148,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     NSArray *restaurantsData = self.history[date.mt_endOfCurrentDay];
     NSDictionary *dataPoint = restaurantsData[indexPath.row];
     ENRestaurant *restaurant = dataPoint[@"restaurant"];
-    CGRect frame = [self.view.superview convertRect:cell.background.frame fromView:cell.contentView];
+    CGRect frame = [self.mainView convertRect:cell.background.frame fromView:cell.contentView];
     [self showRestaurantCard:restaurant fromFrame:frame];
 }
 

@@ -446,12 +446,12 @@
         return nil;
     }
     ENRestaurantViewController* card = [ENRestaurantViewController viewController];
-    NSParameterAssert(card);
+    card.status = ENRestaurantViewStatusCard;
     card.view.frame = frame;
     card.restaurant = self.restaurants.firstObject;
+    [card updateLayout];
 	[self.restaurants removeObjectAtIndex:0];
     [self.restaurantCards addObject:card];
-    [card.imageView applyGredient2];
     
 	return card;
 }

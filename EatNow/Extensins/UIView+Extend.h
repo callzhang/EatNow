@@ -11,6 +11,6 @@
 @interface UIView (Extend)
 - (void)applyShadow;
 - (void)applyAlphaGradientWithEndPoints:(NSArray *)locations;
-- (void)applyGredient;
-- (void)applyGredient2;
+//- (void)applyGredient;
+//- (void)applyGredient2;
 @end

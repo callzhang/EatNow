@@ -7,7 +7,6 @@
 //
 
 #import "ENRestaurantViewController.h"
-#import "TFHpple.h"
 #import "UIImageView+AFNetworking.h"
 #import "ENServerManager.h"
 #import "FBKVOController.h"
@@ -45,6 +44,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UIButton *goButton;
 @property (strong, nonatomic) MKMapView *map;
 @property (weak, nonatomic) IBOutlet UIView *userRatingView;
+@property (weak, nonatomic) IBOutlet UIImageView *shadowGradient;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -54,12 +54,15 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (nonatomic, assign) BOOL isLoadingImage;
 @property (nonatomic, strong) ENMapManager *mapManager;
 @property (nonatomic, weak) UIView *mapIcon;
+@property (nonatomic, strong) NSMutableArray *viewDidLayoutBlocks;
+@property (nonatomic, assign) BOOL viewDidLayout;
 @end
 
 
 @implementation ENRestaurantViewController
 + (instancetype)viewController {
     ENRestaurantViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
+    vc.viewDidLayoutBlocks = [NSMutableArray new];
     return vc;
 }
 
@@ -70,8 +73,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 	[self prepareData];
 	
 	//update view
-    self.status = ENRestaurantViewStatusCard;
-    [self updateLayout];
+//    self.status = ENRestaurantViewStatusCard;
+//    [self updateLayout];
     
     //image
     _currentImageIndex = -1;
@@ -88,6 +91,22 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 	
 	//go button
 	[self updateGoButton];
+}
+
+- (void)addViewDidLayoutBlock:(VoidBlock)block {
+    if (self.viewDidLayout) {
+        block();
+    } else {
+        [self.viewDidLayoutBlocks addObject:[block copy]];
+    }
+}
+
+- (void)viewDidLayoutSubviews {
+    self.viewDidLayout = YES;
+    for (VoidBlock block in self.viewDidLayoutBlocks) {
+        block();
+    }
+    [self.viewDidLayoutBlocks removeAllObjects];
 }
 
 #pragma mark - State change
@@ -122,8 +141,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //load image from webpage
     if (self.restaurant.imageUrls.count <= 1) {
         @weakify(self);
-        NSString *tempUrl = self.restaurant.url ?: [NSString stringWithFormat:@"http://foursquare.com/v/%@", self.restaurant.foursquareID];
-        [self parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
+        NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", self.restaurant.foursquareID];//TODO: update
+        [self.restaurant parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
             @strongify(self);
             if (!imageUrls) {
                 ENLogError(@"Failed to parse foursquare image %@", self.restaurant.url);
@@ -286,6 +305,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
+        self.shadowGradient.image = [UIImage imageNamed:@"gradient"];
     }
     else if (self.status == ENRestaurantViewStatusDetail) {
         self.distanceInfo.alpha = 0;
@@ -308,6 +328,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             self.userRatingView.alpha = 1;
             [self addRatingOnView:self.userRatingView withRating:rate.integerValue];
         }
+        
+        self.shadowGradient.image = [UIImage imageNamed:@"gradient"];
     }
     else if (self.status == ENRestaurantViewStatusHistoryDetail) {
         self.distanceInfo.alpha = 0;
@@ -341,42 +363,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 #pragma mark - Private
-
-- (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    @weakify(self);
-    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        @strongify(self);
-        NSData *data = responseObject;
-        TFHpple * doc       = [[TFHpple alloc] initWithHTMLData:data];
-        NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='photosSection']/ul/li/img"];
-        NSMutableArray *images = [NSMutableArray array];
-        for (TFHppleElement *element in elements) {
-            NSString *imgUrl = [element objectForKey:@"data-retina-url"];
-            if (imgUrl) {
-                NSMutableArray *urlComponents = [imgUrl componentsSeparatedByString:@"/"].mutableCopy;
-                NSString *sizeStr = urlComponents[urlComponents.count-2];
-                if (sizeStr.length == 7 && [sizeStr characterAtIndex:3] == 'x') {
-                    urlComponents[urlComponents.count-2] = @"original";
-                    imgUrl = [urlComponents componentsJoinedByString:@"/"];
-                }
-                [images addObject:imgUrl];
-            }
-        }
-		
-        block(images, nil);
-		
-		//update to server
-		[[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":images} completion:nil];
-		
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ENLogError(@"Failed to download website %@", urlString);
-        block(nil, error);
-    }];;
-    [op start];
-}
 
 - (void)loadNextImage{
     if (self.status == ENRestaurantViewStatusCard && _currentImageIndex != -1) {
@@ -625,14 +611,5 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
     //deselect
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (void)dealloc{
-    DDLogVerbose(@"Card dismissed: %@", _restaurant.name);
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.imageView applyGredient];
 }
 @end

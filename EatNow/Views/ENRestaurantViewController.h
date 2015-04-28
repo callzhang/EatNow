@@ -32,4 +32,6 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 + (instancetype)viewController;
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block;
 - (void)didChangedToFrontCard;
+- (void)addViewDidLayoutBlock:(VoidBlock)block;
+- (void)updateLayout;
 @end

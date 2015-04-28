@@ -594,6 +594,9 @@
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                             </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="5im-Zl-NK2">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                                            </imageView>
                                             <view tag="99" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LW0-dx-NVL" userLabel="rating">
                                                 <rect key="frame" x="200" y="114" width="120" height="20"/>
                                                 <constraints>
@@ -749,6 +752,8 @@
                                         <constraints>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="leading" secondItem="Wt9-vs-bTu" secondAttribute="trailing" constant="8" id="4lQ-E5-lN3"/>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="5Kx-Jx-9cx"/>
+                                            <constraint firstAttribute="trailing" secondItem="5im-Zl-NK2" secondAttribute="trailing" id="7aa-0n-nQ3"/>
+                                            <constraint firstItem="5im-Zl-NK2" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="Ayr-OB-lVi"/>
                                             <constraint firstAttribute="trailing" secondItem="cy3-AH-BuV" secondAttribute="trailing" id="Bau-Z1-YWY"/>
                                             <constraint firstAttribute="trailing" secondItem="0Rc-cj-kSW" secondAttribute="trailing" constant="8" id="Er7-ET-ejN"/>
                                             <constraint firstAttribute="bottom" secondItem="DBA-UH-kFT" secondAttribute="bottom" constant="8" id="Ftq-jj-Z4f"/>
@@ -758,12 +763,14 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="NZd-l1-DE9"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="OCd-oj-NLg"/>
                                             <constraint firstAttribute="trailing" secondItem="DBA-UH-kFT" secondAttribute="trailing" constant="8" id="Obw-dH-bbu"/>
+                                            <constraint firstAttribute="bottom" secondItem="5im-Zl-NK2" secondAttribute="bottom" id="Soy-v2-xCm"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="8" id="U23-yC-IEX"/>
                                             <constraint firstAttribute="bottom" secondItem="cy3-AH-BuV" secondAttribute="bottom" id="UKJ-yg-PPM"/>
                                             <constraint firstAttribute="centerX" secondItem="3xH-uo-hHt" secondAttribute="centerX" id="VuC-mp-h8B"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="8" id="ajX-NE-huo"/>
                                             <constraint firstAttribute="trailing" secondItem="uVW-6x-hlL" secondAttribute="trailing" constant="8" id="eFQ-2t-Edj"/>
                                             <constraint firstAttribute="centerY" secondItem="LW0-dx-NVL" secondAttribute="centerY" id="fF6-rb-UP8"/>
+                                            <constraint firstItem="5im-Zl-NK2" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="hXB-sd-9Mv"/>
                                             <constraint firstItem="uVW-6x-hlL" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="isy-Ep-wMl"/>
                                             <constraint firstItem="cy3-AH-BuV" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="jhw-3v-zwX"/>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="top" secondItem="45L-e4-Y8S" secondAttribute="bottom" id="mSB-Dy-jqW"/>
@@ -775,6 +782,7 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
+                                                <exclude reference="NZd-l1-DE9"/>
                                                 <exclude reference="t7W-m4-SNG"/>
                                             </mask>
                                         </variation>
@@ -990,7 +998,9 @@
                         <outlet property="openTime" destination="xKx-ie-3fb" id="QYc-1i-dRg"/>
                         <outlet property="price" destination="9rp-Qh-TDe" id="GEu-fR-ipG"/>
                         <outlet property="rating" destination="0Rc-cj-kSW" id="X5h-qS-1bg"/>
+                        <outlet property="shadowGradient" destination="5im-Zl-NK2" id="6CZ-vF-kaw"/>
                         <outlet property="tableView" destination="ElG-By-adf" id="e66-2g-eoE"/>
+                        <outlet property="userRatingView" destination="LW0-dx-NVL" id="26A-lb-MZs"/>
                         <outlet property="walkingDistance" destination="2zY-ds-bCm" id="54E-xz-XAd"/>
                     </connections>
                 </viewController>

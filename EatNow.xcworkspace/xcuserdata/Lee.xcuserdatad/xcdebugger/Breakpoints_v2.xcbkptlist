@@ -19,13 +19,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EatNow/Controllers/ENMapViewController.m"
-            timestampString = "450746768.856411"
+            filePath = "EatNow/Extensins/UIView+Extend.m"
+            timestampString = "451588482.949109"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "-viewDidUnload"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "-applyAlphaGradientWithEndPoints:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EatNow/Shared/Models/ENRestaurant.m"
+            timestampString = "451875791.496918"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "-parseFoursquareWebsiteForImagesWithUrl:completion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

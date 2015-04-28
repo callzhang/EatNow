@@ -28,6 +28,8 @@
 #import "ENUtil.h"
 #import "ENLocationManager.h"
 #import "ENMapManager.h"
+#import "TFHppleElement.h"
+#import "extobjc.h"
 @import AddressBook;
 
 @implementation ENRestaurant
@@ -169,6 +171,42 @@
 }
 
 #pragma mark - Tools
+- (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    @weakify(self);
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @strongify(self);
+        NSData *data = responseObject;
+        TFHpple * doc       = [[TFHpple alloc] initWithHTMLData:data];
+        NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='photosSection']/ul/li/img"];
+        NSMutableArray *images = [NSMutableArray array];
+        for (TFHppleElement *element in elements) {
+            NSString *imgUrl = [element objectForKey:@"data-retina-url"];
+            if (imgUrl) {
+                NSMutableArray *urlComponents = [imgUrl componentsSeparatedByString:@"/"].mutableCopy;
+                NSString *sizeStr = urlComponents[urlComponents.count-2];
+                if (sizeStr.length == 7 && [sizeStr characterAtIndex:3] == 'x') {
+                    urlComponents[urlComponents.count-2] = @"original";
+                    imgUrl = [urlComponents componentsJoinedByString:@"/"];
+                }
+                [images addObject:imgUrl];
+            }
+        }
+        
+        block(images, nil);
+        
+        //update to server
+        [[ENServerManager shared] updateRestaurant:self withInfo:@{@"img_url":images} completion:nil];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DDLogError(@"Failed to download website %@", urlString);
+        block(nil, error);
+    }];;
+    [op start];
+}
+
 + (UIColor *)colorFromHexString:(NSString *)hexString {
     if (!hexString) {
         return nil;
