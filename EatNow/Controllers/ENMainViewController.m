@@ -523,6 +523,9 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
         self.detailCardLeadingConstraint.constant = 0;
         self.detailCardTrailingConstraint.constant = 0;
         self.historyViewController.mainView = nil;
+        if (self.historyViewController.restaurantViewController) {
+            [self.historyViewController closeRestaurantView];
+        }
     }
     
     [super updateViewConstraints];

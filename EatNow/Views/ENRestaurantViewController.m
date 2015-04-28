@@ -112,7 +112,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 #pragma mark - State change
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block{
     float duration = animate ? 0.5 : 0;
-    float damping = status == ENRestaurantViewStatusMinimum ? 1 : 0.7;
+    float damping = 0.7;
+    if (status == ENRestaurantViewStatusMinimum || status == ENRestaurantViewStatusCard) {
+        damping = 1;
+    }
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveLinear animations:^{
         self.view.frame = frame;
         self.status = status;
