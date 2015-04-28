@@ -31,17 +31,15 @@
 @interface ENMainViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *cardView;
 @property (weak, nonatomic) IBOutlet UIView *detailCardContainer;
-@property (weak, nonatomic) IBOutlet UIImageView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
-@property (weak, nonatomic) IBOutlet UIButton *historyButton;
-@property (weak, nonatomic) IBOutlet UIButton *reloadButton;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 //frame
 //@property (nonatomic, readonly) ENRestaurantViewController *frontCardView;
 @property (nonatomic, strong) NSMutableArray *restaurantCards;
 //states
-@property (nonatomic, assign) BOOL isDismissingCard;
+@property (nonatomic, assign) BOOL isReloading;
 @property (nonatomic, assign) BOOL isShowingCards;
-@property (nonatomic, assign) BOOL isHistoryShown;
 @property (nonatomic, assign) BOOL isHistoryDetailShown;
+
+@property (nonatomic, assign) BOOL isDismissingCard;
+@property (nonatomic, assign) BOOL needShowRestaurant;
 @end
