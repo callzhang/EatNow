@@ -273,12 +273,6 @@
 		}
 	}];
     
-    [self.KVOController observe:self keyPath:@keypath(self, isHistoryDetailShown) options:NSKeyValueObservingOptionNew block:^(id observer, ENMainViewController *object, NSDictionary *change) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.closeButton.alpha = self.isHistoryDetailShown ? 1 : 0;
-        }];
-        
-    }];
 }
 
 #pragma mark - IBActioning
