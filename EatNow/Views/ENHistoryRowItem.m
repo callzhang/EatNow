@@ -26,7 +26,7 @@
 - (UITableViewCell *)cellForRow {
     ENHistoryViewCell *cell = (id) [super cellForRow];
     cell.restaurant = self.restaurant;
-    cell.rate = [self.rate integerValue];
+//    cell.rate = [self.rate integerValue];
     return cell;
 }
 @end

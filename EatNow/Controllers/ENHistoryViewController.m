@@ -140,6 +140,10 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
         ENHistoryViewCell *cell = (ENHistoryViewCell *)[self.tableView cellForRowAtIndexPath:self.selectedPath];
         CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.mainView];
         [self.restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:YES completion:^{
+        }];
+        [UIView animateWithDuration:0.2 delay:0.2 options:0 animations:^{
+            self.restaurantViewController.view.alpha = 0;
+        } completion:^(BOOL finished) {
             [self.restaurantViewController.view removeFromSuperview];
             self.restaurantViewController = nil;
         }];

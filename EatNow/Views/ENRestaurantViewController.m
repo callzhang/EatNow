@@ -117,6 +117,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         damping = 1;
     }
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveLinear animations:^{
+//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.view.frame = frame;
         self.status = status;
         [self updateLayout];
