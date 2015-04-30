@@ -28,6 +28,13 @@
 #define kMaxRestaurants     12
 #define kMaxCardsToAnimate  4
 
+typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
+    ENMainViewControllerModeMain,
+    ENMainViewControllerModeDetail,
+    ENMainViewControllerModeHistory,
+    ENMainViewControllerModeHistoryDetail,
+};
+
 @interface ENMainViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *cardView;
 @property (weak, nonatomic) IBOutlet UIView *detailCardContainer;
@@ -42,4 +49,5 @@
 
 @property (nonatomic, assign) BOOL isDismissingCard;
 @property (nonatomic, assign) BOOL needShowRestaurant;
+@property (nonatomic, assign) ENMainViewControllerMode currentMode;
 @end

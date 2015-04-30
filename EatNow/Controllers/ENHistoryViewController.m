@@ -71,6 +71,11 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 	}
 }
 
+- (void)onInfoTapGesture:(UITapGestureRecognizer *)sender {
+    [self.restaurantViewController.info removeGestureRecognizer:sender];
+    [self closeRestaurantView];
+}
+
 - (void)showRestaurantCard:(ENRestaurant *)restaurant fromFrame:(CGRect)frame {
     self.restaurantViewController = [ENRestaurantViewController viewController];
     //[_restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
@@ -81,9 +86,13 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     [_restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:toFrame animated:YES completion:nil];
     ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
     mainVC.isHistoryDetailShown = YES;
+    self.mainViewController.currentMode = ENMainViewControllerModeHistoryDetail;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onInfoTapGesture:)];
+    [self.restaurantViewController.info addGestureRecognizer:tap];
 }
 
 - (void)closeRestaurantView{
+    self.mainViewController.currentMode = ENMainViewControllerModeHistory;
     if (self.restaurantViewController){
         ENHistoryViewCell *cell = (ENHistoryViewCell *)[self.tableView cellForRowAtIndexPath:self.selectedPath];
         CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.mainView];

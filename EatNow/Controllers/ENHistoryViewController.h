@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ENMainViewController.h"
 
 extern NSString *const kHistoryDetailCardDidShow;
 extern NSString *const kHistoryTableViewDidShow;
@@ -15,6 +16,7 @@ extern NSString *const kHistoryTableViewDidShow;
 
 @interface ENHistoryViewController : UITableViewController
 @property (nonatomic, strong) ENRestaurantViewController *restaurantViewController;
+@property (nonatomic, weak) ENMainViewController *mainViewController;
 @property (nonatomic, strong) UIView *mainView;
 - (void)loadData;
 - (void)closeRestaurantView;

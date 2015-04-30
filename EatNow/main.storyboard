@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N2Z-hj-BcO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="N2Z-hj-BcO">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Entypo.ttf">
+            <string>Entypo</string>
             <string>Entypo</string>
             <string>Entypo</string>
             <string>Entypo</string>
@@ -152,7 +152,7 @@
                                     <action selector="onCloseButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="vT2-RJ-vfa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOj-3L-UkI" userLabel="history-close-detailView-button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOj-3L-UkI" userLabel="history-detail-to-main">
                                 <rect key="frame" x="16" y="492" width="58" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Mvw-9B-bDc"/>
@@ -169,6 +169,25 @@
                                 </variation>
                                 <connections>
                                     <action selector="onHistoryToMainViewButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="0tW-R4-c6D"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5B-e7-fo8" userLabel="history-close-detailView-button-histo">
+                                <rect key="frame" x="16" y="492" width="58" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Ihq-F3-6RQ"/>
+                                    <constraint firstAttribute="width" constant="58" id="loM-97-xiN"/>
+                                    <constraint firstAttribute="height" constant="60" id="y4h-eG-osO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
+                                <size key="titleShadowOffset" width="0.0" height="1"/>
+                                <state key="normal" image="eat-now-close-button"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="y4h-eG-osO"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="onHistoryDetailToHistoryButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="yeg-R8-264"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -194,11 +213,13 @@
                             <constraint firstAttribute="centerY" secondItem="Wl0-KL-zNt" secondAttribute="centerY" constant="-40" id="aNw-Y3-TxA"/>
                             <constraint firstAttribute="trailing" secondItem="D4e-Sg-nPl" secondAttribute="trailing" constant="16" id="i4a-Wo-CkX"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="50" id="ier-hE-C5x"/>
+                            <constraint firstItem="w5B-e7-fo8" firstAttribute="centerX" secondItem="YOj-3L-UkI" secondAttribute="centerX" id="kVR-xZ-SmE"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" id="mC5-ah-Hn8"/>
                             <constraint firstAttribute="centerX" secondItem="Wl0-KL-zNt" secondAttribute="centerX" id="nQV-bP-Fn1"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="pjo-mg-XiM"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="D4e-Sg-nPl" secondAttribute="bottom" constant="16" id="rzs-Qq-BuW"/>
                             <constraint firstItem="YOj-3L-UkI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="v6N-2z-Ucd"/>
+                            <constraint firstItem="w5B-e7-fo8" firstAttribute="centerY" secondItem="YOj-3L-UkI" secondAttribute="centerY" id="wIk-MS-kFT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tT5-uY-qhM" secondAttribute="trailing" id="wVd-oh-Khx"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="leading" secondItem="TEb-SL-p86" secondAttribute="trailing" id="xuy-Sl-O0u"/>
                         </constraints>
@@ -227,6 +248,7 @@
                         <outlet property="detailCardContainer" destination="pNF-QT-1bI" id="jLQ-Ds-44b"/>
                         <outlet property="detailCardLeadingConstraint" destination="JA9-KX-A7U" id="MCf-hd-q45"/>
                         <outlet property="detailCardTrailingConstraint" destination="9mN-6s-KNE" id="fNR-rl-cGy"/>
+                        <outlet property="histodyDetailToHistoryButton" destination="w5B-e7-fo8" id="X2O-9g-L0V"/>
                         <outlet property="historyButton" destination="TEb-SL-p86" id="cU3-9Y-J13"/>
                         <outlet property="historyChildViewControllerLeadingConstraint" destination="pjo-mg-XiM" id="030-zo-wcg"/>
                         <outlet property="historyChildViewControllerTrailingConstraint" destination="wVd-oh-Khx" id="abd-1b-jI4"/>
@@ -283,8 +305,8 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-uL-f3t" userLabel="title">
-                                            <rect key="frame" x="12" y="18" width="244" height="37"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-uL-f3t" userLabel="title">
+                                            <rect key="frame" x="12" y="18" width="179" height="37"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="131" id="gTk-mp-UM5"/>
                                                 <constraint firstAttribute="height" constant="30" id="mHY-Dt-MeS"/>
@@ -331,31 +353,19 @@
                                         <constraint firstAttribute="trailing" secondItem="OHl-62-t0d" secondAttribute="trailing" constant="4" id="1bP-Ia-tv5"/>
                                         <constraint firstItem="OHl-62-t0d" firstAttribute="top" secondItem="10f-yZ-HBL" secondAttribute="top" constant="10" id="2Tt-Ap-XyQ"/>
                                         <constraint firstItem="SzB-Ax-Nkp" firstAttribute="leading" secondItem="10f-yZ-HBL" secondAttribute="leadingMargin" constant="4" id="4UP-j6-87d"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Muc-uL-f3t" secondAttribute="trailing" constant="50" id="5hI-1k-u2e"/>
-                                        <constraint firstAttribute="centerY" secondItem="Muc-uL-f3t" secondAttribute="centerY" id="Bm1-1t-lKx"/>
                                         <constraint firstItem="Muc-uL-f3t" firstAttribute="leading" secondItem="10f-yZ-HBL" secondAttribute="leadingMargin" constant="4" id="Jh9-2O-Oxj"/>
                                         <constraint firstAttribute="centerY" secondItem="FsB-i5-4hA" secondAttribute="centerY" id="PaQ-OZ-EYj"/>
-                                        <constraint firstItem="Muc-uL-f3t" firstAttribute="top" secondItem="10f-yZ-HBL" secondAttribute="top" constant="16" id="UqY-to-oIX"/>
-                                        <constraint firstItem="OHl-62-t0d" firstAttribute="trailing" secondItem="Muc-uL-f3t" secondAttribute="trailing" constant="60" id="VZZ-D0-c5o"/>
                                         <constraint firstItem="OHl-62-t0d" firstAttribute="trailing" secondItem="igK-j5-Axp" secondAttribute="trailing" id="WUy-pf-HUn"/>
-                                        <constraint firstItem="FsB-i5-4hA" firstAttribute="leading" secondItem="Muc-uL-f3t" secondAttribute="trailing" constant="1" id="a1g-if-fNj"/>
                                         <constraint firstItem="OHl-62-t0d" firstAttribute="bottom" secondItem="igK-j5-Axp" secondAttribute="bottom" id="bTa-Up-lDI"/>
                                         <constraint firstItem="Muc-uL-f3t" firstAttribute="top" secondItem="OHl-62-t0d" secondAttribute="top" constant="8" id="fkL-rQ-U6w"/>
                                         <constraint firstAttribute="trailing" secondItem="FsB-i5-4hA" secondAttribute="trailing" constant="4" id="geB-Xp-VRN"/>
                                         <constraint firstItem="OHl-62-t0d" firstAttribute="leading" secondItem="igK-j5-Axp" secondAttribute="leading" id="iUW-R7-h0Z"/>
+                                        <constraint firstItem="FsB-i5-4hA" firstAttribute="leading" secondItem="Muc-uL-f3t" secondAttribute="trailing" constant="5" id="kBk-E9-i7p"/>
                                         <constraint firstAttribute="bottom" secondItem="OHl-62-t0d" secondAttribute="bottom" constant="10" id="lgQ-2X-mYQ"/>
                                         <constraint firstItem="OHl-62-t0d" firstAttribute="leading" secondItem="10f-yZ-HBL" secondAttribute="leading" constant="4" id="t5W-7o-d0f"/>
                                         <constraint firstItem="OHl-62-t0d" firstAttribute="top" secondItem="igK-j5-Axp" secondAttribute="top" id="vv8-4l-Ce1"/>
                                         <constraint firstItem="SzB-Ax-Nkp" firstAttribute="top" secondItem="Muc-uL-f3t" secondAttribute="bottom" id="x96-hr-bHf"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="5hI-1k-u2e"/>
-                                            <exclude reference="Bm1-1t-lKx"/>
-                                            <exclude reference="UqY-to-oIX"/>
-                                            <exclude reference="a1g-if-fNj"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="background" destination="OHl-62-t0d" id="UdQ-5l-ToY"/>

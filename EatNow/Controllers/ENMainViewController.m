@@ -39,11 +39,6 @@
 #import "ENRatingView.h"
 #import "ENProfileViewController.h"
 
-typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
-    ENMainViewControllerModeMain,
-    ENMainViewControllerModeDetail,
-    ENMainViewControllerModeHistory,
-};
 
 @interface ENMainViewController ()
 //data
@@ -72,7 +67,7 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIButton *mainViewButton;
-@property (nonatomic, assign) ENMainViewControllerMode currentMode;
+@property (weak, nonatomic) IBOutlet UIButton *histodyDetailToHistoryButton;
 @property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @end
 
@@ -101,6 +96,7 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
             self.reloadButton.hidden = NO;
             self.closeButton.hidden = YES;
             self.mainViewButton.hidden = YES;
+            self.histodyDetailToHistoryButton.hidden = YES;
             break;
         }
         case ENMainViewControllerModeDetail: {
@@ -108,6 +104,7 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
             self.reloadButton.hidden = YES;
             self.closeButton.hidden = NO;
             self.mainViewButton.hidden = YES;
+            self.histodyDetailToHistoryButton.hidden = YES;
             break;
         }
         case ENMainViewControllerModeHistory: {
@@ -115,6 +112,15 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
             self.reloadButton.hidden = YES;
             self.closeButton.hidden = YES;
             self.mainViewButton.hidden = NO;
+            self.histodyDetailToHistoryButton.hidden = YES;
+            break;
+        }
+        case ENMainViewControllerModeHistoryDetail :{
+            self.historyButton.hidden = YES;
+            self.reloadButton.hidden = YES;
+            self.closeButton.hidden = YES;
+            self.mainViewButton.hidden = YES;
+            self.histodyDetailToHistoryButton.hidden = NO;
             break;
         }
         default: {
@@ -356,6 +362,12 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
     } completion:^(BOOL finished) {
 
     }];
+}
+
+- (IBAction)onHistoryDetailToHistoryButton:(id)sender {
+    self.currentMode = ENMainViewControllerModeHistoryDetail;
+    
+    [self.historyViewController closeRestaurantView];
 }
 #pragma mark - Main methods
 
@@ -644,6 +656,7 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"embedHistorySegue"]) {
         self.historyViewController = segue.destinationViewController;
+        self.historyViewController.mainViewController = self;
     }
 }
 @end
