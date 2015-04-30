@@ -395,6 +395,7 @@
                                         <constraint firstItem="sjD-TW-yuE" firstAttribute="top" secondItem="bCr-vV-NeV" secondAttribute="top" constant="13" id="pb6-qM-ic2"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>

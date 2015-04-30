@@ -14,6 +14,10 @@
 #import "UIView+Extend.h"
 #import "ENRestaurantViewController.h"
 #import "ENMainViewController.h"
+#import "TMTableViewBuilder.h"
+#import "extobjc.h"
+#import "ENHistoryHeaderRowItem.h"
+#import "ENHistoryRowItem.h"
 
 NSString * const kHistoryDetailCardDidShow = @"history_detail_view_did_show";
 NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
@@ -23,6 +27,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 @property (nonatomic, strong) NSMutableDictionary *history;
 @property (nonatomic, strong) NSArray *orderedDates;
 @property (nonatomic, strong) NSIndexPath *selectedPath;
+@property (nonatomic, strong) TMTableViewBuilder *builder;
 @end
 
 @implementation ENHistoryViewController
@@ -33,15 +38,50 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 	if (self.navigationController) {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close:)];
 	}
+    
+    self.builder = [[TMTableViewBuilder alloc] initWithTableView:self.tableView];
+    @weakify(self);
+    self.builder.reloadBlock = ^(TMTableViewBuilder *builder) {
+        @strongify(self);
+        self.history = [ENServerManager shared].history;
+        [builder removeAllSectionItems];
+        TMSectionItem *sectionItem = [TMSectionItem new];
+        [builder addSectionItem:sectionItem];
+        for (NSDate *date  in self.orderedDates) {
+            ENHistoryHeaderRowItem *rowItem = [ENHistoryHeaderRowItem new];
+            rowItem.date = date;
+            [sectionItem addRowItem:rowItem];
+            
+            NSArray *restaurants = self.history[date.mt_endOfCurrentDay];
+            for (NSDictionary *dict in restaurants) {
+                ENRestaurant *restaurant = dict[@"restaurant"];
+                NSNumber *like = dict[@"like"];
+                ENHistoryRowItem *hRow = [ENHistoryRowItem new];
+                hRow.restaurant = restaurant;
+                hRow.rate = like;
+                [sectionItem addRowItem:hRow];
+                [hRow setDidSelectRowHandler:^(ENHistoryRowItem *rowItem) {
+                    self.selectedPath = rowItem.indexPath;
+                    ENHistoryViewCell *cell = (ENHistoryViewCell *)rowItem.cell;
+                    CGRect frame = [self.mainView convertRect:cell.background.frame fromView:cell.contentView];
+                    [self showRestaurantCard:restaurant fromFrame:frame];
+                }];
+            }
+        }
+        [self.tableView reloadData];
+    };
+    
+    [self.builder configure];
 }
 
 - (void)loadData{
     //data
     self.history = [ENServerManager shared].history;
+    [self.builder reloadData];
     
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         self.history = [ENServerManager shared].history;
-        [self.tableView reloadData];
+        [self.builder reloadData];
     }];
 }
 
@@ -62,13 +102,14 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 - (void)viewDidAppear:(BOOL)animated{
     self.view.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor clearColor];
+    [self.tableView applyAlphaGradientWithEndPoints:@[@.05, @.95]];
 }
 
 #pragma mark - Actions
 - (IBAction)close:(id)sender{
-	if (self.presentingViewController) {
-		[self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-	}
+    if (self.presentingViewController) {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (void)onInfoTapGesture:(UITapGestureRecognizer *)sender {
@@ -105,60 +146,4 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
         mainVC.isHistoryDetailShown = NO;
     }
 }
-
-#pragma mark - Table view data source
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.orderedDates.count;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UITableViewCell *secionHeader = [tableView dequeueReusableCellWithIdentifier:@"sectionHeader"];
-    UILabel *title = (UILabel *)[secionHeader viewWithTag:89];
-    NSDate *date = self.orderedDates[section];
-    title.text = date.string;
-    return secionHeader;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    NSDate *date = self.orderedDates[section];
-    NSArray *restaurants = self.history[date.mt_endOfCurrentDay];
-    return restaurants.count;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ENHistoryViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell"];
-    NSDate *date = self.orderedDates[indexPath.section];
-    NSArray *restaurantsData = self.history[date.mt_endOfCurrentDay];
-    NSDictionary *dataPoint = restaurantsData[indexPath.row];
-    ENRestaurant *restaurant = dataPoint[@"restaurant"];
-    cell.restaurant = restaurant;
-    cell.rate = [(NSNumber *)dataPoint[@"like"] integerValue];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.restaurantViewController) {
-        return;
-    }
-    self.selectedPath = indexPath;
-    ENHistoryViewCell *cell = (ENHistoryViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    NSDate *date = self.orderedDates[indexPath.section];
-    NSArray *restaurantsData = self.history[date.mt_endOfCurrentDay];
-    NSDictionary *dataPoint = restaurantsData[indexPath.row];
-    ENRestaurant *restaurant = dataPoint[@"restaurant"];
-    CGRect frame = [self.mainView convertRect:cell.background.frame fromView:cell.contentView];
-    [self showRestaurantCard:restaurant fromFrame:frame];
-}
-
 @end

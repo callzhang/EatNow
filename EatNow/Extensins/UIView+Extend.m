@@ -28,10 +28,10 @@
     UIView *mask = [[UIView alloc] initWithFrame:self.frame];
     [self.superview insertSubview:mask aboveSubview:self];
     [mask addSubview:self];
-    mask.backgroundColor = [UIColor whiteColor];
+    self.frame = mask.bounds;
+    mask.backgroundColor = [UIColor clearColor];
     
     CAGradientLayer *alphaMask = [CAGradientLayer layer];
-    alphaMask.bounds = self.bounds;
     alphaMask.anchorPoint = CGPointZero;
     alphaMask.startPoint = CGPointZero;
     alphaMask.endPoint = CGPointMake(0.0f, 1.0f);
@@ -49,9 +49,10 @@
     }
     alphaMask.colors = colors;
     alphaMask.locations =endPoints;
+    alphaMask.bounds = CGRectMake(0, 0, mask.frame.size.width, mask.frame.size.height);
     
     mask.layer.mask = alphaMask;
-    //self.maskView = mask;
+
 }
 
 - (void)applyGredient{
