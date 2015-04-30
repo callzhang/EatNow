@@ -243,12 +243,12 @@
         self.needShowRestaurant = YES;
     }];
     
+    self.cardView.backgroundColor = [UIColor clearColor];
+    self.detailCardContainer.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.cardView.backgroundColor = [UIColor clearColor];
-    self.detailCardContainer.backgroundColor = [UIColor clearColor];
 	
 	//loading gif
 	NSArray *images = @[[UIImage imageNamed:@"eat-now-loading-indicator-1"],
