@@ -57,7 +57,7 @@
                                 </variation>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT5-uY-qhM" userLabel="history">
-                                <rect key="frame" x="16" y="70" width="288" height="426"/>
+                                <rect key="frame" x="16" y="70" width="288" height="406"/>
                                 <connections>
                                     <segue destination="0oE-vH-Giu" kind="embed" identifier="embedHistorySegue" id="PSw-pV-ble"/>
                                 </connections>
@@ -194,7 +194,7 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.4030108821448618" green="0.7724708017676768" blue="0.74289356001606066" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="tT5-uY-qhM" secondAttribute="bottom" constant="72" id="06t-Gd-8Kp"/>
+                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="tT5-uY-qhM" secondAttribute="bottom" constant="92" id="06t-Gd-8Kp"/>
                             <constraint firstItem="q0J-Z4-Pim" firstAttribute="top" secondItem="Z8L-6K-Fh8" secondAttribute="top" id="8xR-Qg-93z"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pNF-QT-1bI" secondAttribute="trailing" id="9mN-6s-KNE"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="TEb-SL-p86" secondAttribute="bottom" constant="16" id="B2h-jg-TiK"/>
