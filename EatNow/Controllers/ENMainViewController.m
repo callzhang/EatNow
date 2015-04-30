@@ -303,6 +303,10 @@
 }
 
 - (IBAction)onReloadButton:(id)sender {
+    if (self.isShowingCards) {
+        DDLogInfo(@"showing cards, ignore reload button");
+        return;
+    }
     NSLog(@"reload button clicked");
     NSParameterAssert(!self.isReloading);
     NSParameterAssert(!self.isShowingCards);
@@ -310,6 +314,7 @@
     self.isReloading = YES;
     self.isDismissingCard = YES;
     self.needShowRestaurant = YES;
+    
     self.restaurants = nil;
     
     if (self.restaurantCards.count == 0) {
