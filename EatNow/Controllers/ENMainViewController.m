@@ -229,7 +229,8 @@
             DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isReloading), @(self.isShowingCards), @(self.isDismissingCard));
         }
     }];
-    
+	
+	//LEI: I think this implementation could be neater
     self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
     
     //review if needed
@@ -375,6 +376,7 @@
     [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
         @strongify(self);
         if (location) {
+			@weakify(self);
             [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
                 @strongify(self);
                 if (success) {
@@ -420,7 +422,7 @@
         ENRestaurantViewController *restaurantViewController = [self popResuturantViewWithFrame:[self initialCardFrame]];
         restaurantViewController.view.hidden = YES;
         if (i==1) {
-            DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
+			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
             [self addChildViewController:restaurantViewController];
             [self.detailCardContainer addSubview:restaurantViewController.view];
             [restaurantViewController.view addGestureRecognizer:self.panGesture];
@@ -428,7 +430,7 @@
             [restaurantViewController didChangedToFrontCard];
         }
         else{
-            DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
+			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
             //insert behind previous card
             ENRestaurantViewController *previousCard = self.restaurantCards[i-2];
             NSParameterAssert(previousCard.view.superview);

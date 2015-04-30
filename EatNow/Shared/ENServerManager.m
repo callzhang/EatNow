@@ -82,7 +82,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 				  ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurant_json];
                   if (restaurant) {
                       [mutableResturants addObject:restaurant];
-                  }
+				  }else{
+					  DDLogError(@"Invalid restaurant data: %@", restaurant_json);
+				  }
               }
               
               //server returned sorted from high to low
