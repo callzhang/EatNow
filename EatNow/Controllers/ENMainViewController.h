@@ -47,6 +47,7 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 @property (nonatomic, assign) BOOL isShowingCards;
 @property (nonatomic, assign) BOOL isHistoryDetailShown;
 
+@property (weak, nonatomic) IBOutlet UIView *historyContainerView;
 @property (nonatomic, assign) BOOL isDismissingCard;
 @property (nonatomic, assign) BOOL needShowRestaurant;
 @property (nonatomic, assign) ENMainViewControllerMode currentMode;

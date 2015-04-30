@@ -61,6 +61,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
                 hRow.rate = like;
                 [sectionItem addRowItem:hRow];
                 [hRow setDidSelectRowHandler:^(ENHistoryRowItem *rowItem) {
+                    @strongify(self);
                     self.selectedPath = rowItem.indexPath;
                     ENHistoryViewCell *cell = (ENHistoryViewCell *)rowItem.cell;
                     CGRect frame = [self.mainView convertRect:cell.background.frame fromView:cell.contentView];
@@ -71,6 +72,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
         [self.tableView reloadData];
     };
     
+    self.tableView.showsVerticalScrollIndicator = NO;
     [self.builder configure];
 }
 
@@ -119,11 +121,11 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 
 - (void)showRestaurantCard:(ENRestaurant *)restaurant fromFrame:(CGRect)frame {
     self.restaurantViewController = [ENRestaurantViewController viewController];
-    //[_restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
     _restaurantViewController.view.frame = frame;
     _restaurantViewController.restaurant = restaurant;
     [self.mainView addSubview:_restaurantViewController.view];
-    CGRect toFrame = [self.mainView convertRect:self.view.frame fromView:self.view];
+    
+    CGRect toFrame = self.mainViewController.historyContainerView.frame;
     [_restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:toFrame animated:YES completion:nil];
     ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
     mainVC.isHistoryDetailShown = YES;

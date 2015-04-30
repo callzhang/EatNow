@@ -252,6 +252,7 @@
                         <outlet property="historyButton" destination="TEb-SL-p86" id="cU3-9Y-J13"/>
                         <outlet property="historyChildViewControllerLeadingConstraint" destination="pjo-mg-XiM" id="030-zo-wcg"/>
                         <outlet property="historyChildViewControllerTrailingConstraint" destination="wVd-oh-Khx" id="abd-1b-jI4"/>
+                        <outlet property="historyContainerView" destination="tT5-uY-qhM" id="uIj-HW-KFG"/>
                         <outlet property="loadingIndicator" destination="mNE-gW-krQ" id="aJK-q7-yYB"/>
                         <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
                         <outlet property="mainViewButton" destination="YOj-3L-UkI" id="MJ0-Vv-Cu7"/>

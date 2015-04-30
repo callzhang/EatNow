@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         self.heightForRow = 100;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
