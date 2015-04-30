@@ -214,11 +214,13 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
     [self.KVOController observe:self keyPaths:@[@keypath(self.isReloading), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isReloading && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
-            self.loadingIndicator.alpha = 1;
+            self.loadingIndicator.alpha = 0;
+            DDLogInfo(@"show loding indicator :%@ %@ %@", @(self.isReloading), @(self.isShowingCards), @(self.isDismissingCard));
         }
         else {
             self.reloadButton.enabled = NO;
-            self.loadingIndicator.alpha = 0;
+            self.loadingIndicator.alpha = 1;
+            DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isReloading), @(self.isShowingCards), @(self.isDismissingCard));
         }
     }];
     
@@ -432,7 +434,7 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
                 [self snapCardToCenter:restaurantViewController];
                 if (i == kMaxCardsToAnimate || i == restaurantCount) {
                     //stop loading
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kMaxCardsToAnimate) * 0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         self.isShowingCards = NO;
                         [self setNeedShowRestaurant:NO];
                     });
