@@ -607,7 +607,9 @@
     else if (gesture.state == UIGestureRecognizerStateEnded){
         [_animator removeBehavior:_attachment];
         CGPoint translation = [gesture translationInView:self.view];
-        if (sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > 50) {
+        BOOL canSwipe = firstRestauantViewController.canSwipe;
+        BOOL panDistanceLargeEnough = sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > 50;
+        if (canSwipe && panDistanceLargeEnough) {
             //add dynamic item behavior
             CGPoint velocity = [gesture velocityInView:self.view];
             [self dismissFrontCardWithVelocity:velocity completion:^(NSArray *leftcards) {

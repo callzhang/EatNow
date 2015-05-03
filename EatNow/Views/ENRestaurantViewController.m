@@ -66,6 +66,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     return vc;
 }
 
+- (BOOL)canSwipe {
+    return YES;
+}
+
 //initialization method
 - (void)setRestaurant:(ENRestaurant *)restaurant{
 	_restaurant = restaurant;

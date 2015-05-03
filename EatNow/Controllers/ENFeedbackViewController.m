@@ -28,6 +28,10 @@
     return vc;
 }
 
+- (BOOL)canSwipe {
+    return NO;
+}
+
 - (void)didChangedToFrontCard{
     if (self.backgroundImageView.image) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image": self.backgroundImageView.image}];
@@ -36,19 +40,19 @@
 
 - (void)setHistory:(NSDictionary *)history{
     _history = history;
-    _restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:history[@"restaurant"]];
-
-    self.titleLabel.text = _restaurant.name;
-    self.addressLabel.text = _restaurant.streetText;
+    self.restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:self.history[@"restaurant"]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (_history) {
-        [self.backgroundImageView setImageWithURL:[NSURL URLWithString:_restaurant.imageUrls.firstObject] placeholderImage:nil];
-        NSNumber *like = _history[@"like"];
-        [self addRatingOnView:self.ratingView withRating:like.floatValue+3];
-    }
+    NSParameterAssert(self.history);
+    NSParameterAssert(self.restaurant);
+    [self.backgroundImageView setImageWithURL:[NSURL URLWithString:self.restaurant.imageUrls.firstObject] placeholderImage:nil];
+    NSNumber *like = _history[@"like"];
+    [self addRatingOnView:self.ratingView withRating:like.floatValue+3];
+
+    self.titleLabel.text = _restaurant.name;
+    self.addressLabel.text = _restaurant.streetText;
 }
 
 - (void)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{

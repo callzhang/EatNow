@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 
 @protocol ENCardViewControllerProtocol <NSObject>
 @property (nonatomic, weak) UISnapBehavior *snap;
+@property (nonatomic, readonly) BOOL canSwipe;
 - (void)didChangedToFrontCard;
 
 @end
