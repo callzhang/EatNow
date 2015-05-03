@@ -10,11 +10,13 @@
 #import "ENRestaurant.h"
 #import "ENRestaurantViewController.h"
 
+@class ENMainViewController;
 @interface ENFeedbackViewController : UIViewController<ENCardViewControllerProtocol>
 /**
  *  @{_id: id, restaurant: restaurant, like: float, date: NSDate}
  */
 @property (nonatomic, strong) NSDictionary *history;
+@property (nonatomic, weak) ENMainViewController *mainViewController;
 
 + (instancetype)viewController;
 

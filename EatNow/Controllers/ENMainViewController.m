@@ -668,6 +668,7 @@
     NSDictionary *historyData = self.historyToReview.firstObject;
     ENFeedbackViewController *card = [ENFeedbackViewController viewController];
     card.history = historyData;
+    card.mainViewController = self;
     card.view.frame = frame;
     [self.historyToReview removeObjectAtIndex:0];
     [self.cardViews addObject:card];

@@ -9,6 +9,9 @@
 #import "ENFeedbackViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "AMRatingControl.h"
+#import "ENServerManager.h"
+#import "ENMainViewController.h"
+#import "extobjc.h"
 
 @interface ENFeedbackViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -18,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *rateButton;
 @property (weak, nonatomic) IBOutlet UIView *ratingView;
 @property (nonatomic, strong) ENRestaurant *restaurant;
+@property (nonatomic, assign) AMRatingControl *ratingControl;
+@property (nonatomic, assign) NSUInteger rating;
 
 @end
 
@@ -62,12 +67,28 @@
     [imagesRatingControl setStarSpacing:3];
     imagesRatingControl.rating = rating;
     [view addSubview:imagesRatingControl];
+    @weakify(self);
+    [imagesRatingControl setEditingChangedBlock:^(NSUInteger rating) {
+        @strongify(self);
+        self.rating = rating;
+    }];
+    self.ratingControl = imagesRatingControl;
 }
 
 - (IBAction)onDidnotGoButton:(id)sender {
+    [[ENServerManager shared] cancelSelectedRestaurant:self.history[@"_id"] completion:^(NSError *error) {
+       [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
+           
+       }];
+    }];
 }
 
 - (IBAction)onRateButton:(id)sender {
+    [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:self.rating completion:^(NSError *error) {
+        [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
+            
+        }];
+    }];
 }
 
 @end
