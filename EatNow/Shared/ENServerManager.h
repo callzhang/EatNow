@@ -36,7 +36,7 @@ extern NSString * const kUserUpdated;
  *  Example: {restaurant_id: {rating: 9, date: Mar 15, 2015}}
  */
 @property (nonatomic, strong) NSMutableDictionary *userRating;
-@property (nonatomic, strong) NSMutableDictionary *history;
+@property (nonatomic, strong) NSArray *history;
 /**
  *
  */

@@ -1,3 +1,4 @@
+
 //
 //  ENServerManager.m
 //  EatNow
@@ -250,35 +251,28 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     
     _me = me;
     self.preference = [_me valueForKey:@"preference"];
-    [self setHistoryWithData:[_me valueForKeyPath:@"all_history"]];
+    self.history = [_me valueForKeyPath:@"all_history"];
     [self setUserRatingWithData:[_me valueForKeyPath:@"all_history"]];
 }
 
-- (void)setHistoryWithData:(NSArray *)data{
+- (void)setHistory:(NSArray *)history{
     //generate restaurant
-    self.history = [NSMutableDictionary new];
+    _history = history;
     
     //update selected
     NSDate *latestSelected = [NSDate dateWithTimeIntervalSince1970:0];
     ENRestaurant *latestRestaurant;
     NSString *latestHistoryID;
     
-    for (NSDictionary *historyData in data) {
-        //json: {restaurant, like, _id, date}
+    for (NSDictionary *historyData in history) {
         NSString *dateStr = historyData[@"date"];
         NSDate *date = [NSDate dateFromISO1861:dateStr];
-        NSMutableArray *restaurantsDataForThatDay = self.history[[date mt_endOfCurrentDay]];
-        if (!restaurantsDataForThatDay) {
-            restaurantsDataForThatDay = [NSMutableArray array];
-        }
-        NSDictionary *data = historyData[@"restaurant"];
-        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:data];
-        if (!restaurant) continue;
-        [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": historyData[@"like"], @"_id": historyData[@"_id"]}];
-        self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
         
         //update selected restaurant
         if ([latestSelected compare:date] == NSOrderedAscending && [[NSDate date] timeIntervalSinceDate:date] < kMaxSelectedRestaurantRetainTime) {
+            NSDictionary *data = historyData[@"restaurant"];
+            ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:data];
+            if (!restaurant) continue;
             latestSelected = date;
             latestRestaurant = restaurant;
             latestHistoryID = historyData[@"_id"];

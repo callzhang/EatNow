@@ -38,11 +38,14 @@
 #import "ATConnect.h"
 #import "ENRatingView.h"
 #import "ENProfileViewController.h"
+#import "ENFeedbackViewController.h"
+#import "NSDate+Extension.h"
 
 
 @interface ENMainViewController ()
 //data
 @property (nonatomic, strong) NSMutableArray *restaurants;
+@property (nonatomic, strong) NSMutableArray *historyToReview;
 @property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENServerManager *serverManager;
 //UIDynamics
@@ -75,7 +78,7 @@
 
 #pragma mark - Accsessor
 - (ENRestaurantViewController *)firstRestaurantViewController{
-    return self.restaurantCards.firstObject;
+    return self.cardViews.firstObject;
 }
 
 - (void)setRestaurants:(NSMutableArray *)restaurants{
@@ -134,7 +137,7 @@
     [super viewDidLoad];
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
-    self.restaurantCards = [NSMutableArray array];
+    self.cardViews = [NSMutableArray array];
     self.currentMode = ENMainViewControllerModeMain;
     
     //fetch user first
@@ -156,7 +159,7 @@
     [self.animator addBehavior:_dynamicItem];
     
     [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
-        if (self.restaurantCards.count)  return;
+        if (self.cardViews.count)  return;
         if (manager != NULL) {
             ENLocationStatus locationStatus = manager.locationStatus;
             switch (locationStatus) {
@@ -176,7 +179,7 @@
     
     //server status
     [self.KVOController observe:self.serverManager keyPath:@keypath(self.serverManager, fetchStatus) options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
-        if (self.restaurantCards.count)  return;
+        if (self.cardViews.count)  return;
         if (manager != NULL) {
             ENResturantDataStatus dataStatus = manager.fetchStatus;
             switch (dataStatus) {
@@ -227,6 +230,24 @@
             self.reloadButton.enabled = NO;
             self.loadingIndicator.alpha = 1;
             DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isReloading), @(self.isShowingCards), @(self.isDismissingCard));
+        }
+    }];
+
+    //history to review
+    [[NSNotificationCenter defaultCenter] addObserverForName:kHistroyUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+
+        self.historyToReview = [NSMutableArray array];
+
+        for (NSDictionary *historyData in [ENServerManager shared].history) {
+
+            NSString *dateStr = historyData[@"date"];
+            NSDate *date = [NSDate dateFromISO1861:dateStr];
+            BOOL reviewTimePassed = YES;// [[NSDate date] timeIntervalSinceDate:date] > kMaxSelectedRestaurantRetainTime;
+            BOOL needReview = [historyData[@"reviewed"] boolValue] == NO;
+
+            if (reviewTimePassed && needReview) {
+                [self.historyToReview addObject:historyData];
+            }
         }
     }];
 	
@@ -318,27 +339,27 @@
     
     self.restaurants = nil;
     
-    if (self.restaurantCards.count == 0) {
+    if (self.cardViews.count == 0) {
         self.isDismissingCard = NO;
     }
     
     //dismissing with animation
-    for (int i = 0; i < self.restaurantCards.count && i <= kMaxCardsToAnimate; i++) {
+    for (int i = 0; i < self.cardViews.count && i <= kMaxCardsToAnimate; i++) {
         float delay = i * 0.1;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
             [self dismissFrontCardWithVelocity:v completion:^(NSArray *leftcards) {
             }];
             
-            if (i == kMaxCardsToAnimate || self.restaurantCards.count - 1) {
+            if (i == kMaxCardsToAnimate || self.cardViews.count - 1) {
                 self.isDismissingCard = NO;
                 
                 //dismiss the rest of the cards,
                 // note that dismissFrontCardWithVelocity mutated self.restaurantCards
-                for (int i = 0; i < self.restaurantCards.count; i++) {
-                    ENRestaurantViewController *card = self.restaurantCards[i];
+                for (int i = 0; i < self.cardViews.count; i++) {
+                    ENRestaurantViewController *card = self.cardViews[i];
                     DDLogInfo(@"Dismissing card %@", card.restaurant.name);
-                    [self.restaurantCards removeObjectAtIndex:i];
+                    [self.cardViews removeObjectAtIndex:i];
                     [card.view removeFromSuperview];
                     [card removeFromParentViewController];
                 }
@@ -395,7 +416,7 @@
      *  and reloading finished
      *  and cards are all dismissed.
      */
-    if (self.needShowRestaurant && !self.isReloading && !self.isDismissingCard && !self.isShowingCards) {
+    if (self.needShowRestaurant && !self.isReloading && !self.isDismissingCard && !self.isShowingCards && self.historyToReview) {
         self.needShowRestaurant = NO;
         [self showAllRestaurantCards];
     }
@@ -405,7 +426,7 @@
     NSParameterAssert(!self.isReloading);
     self.loadingInfo.text = @"";
     
-    if (self.restaurantCards.count > 0) {
+    if (self.cardViews.count > 0) {
         DDLogWarn(@"=== Already have cards, skip showing restaurant");
         return;
     }
@@ -417,24 +438,38 @@
     self.isShowingCards = YES;
     // Display cards animated
     NSUInteger restaurantCount = _restaurants.count;
-    for (NSInteger i = 1; i <= restaurantCount; i++) {
+    NSUInteger feedbackCount = self.historyToReview.count;
+    NSUInteger totalCardCount = restaurantCount + feedbackCount;
+    for (NSInteger i = 1; i <= totalCardCount; i++) {
         //insert card
-        ENRestaurantViewController *restaurantViewController = [self popResuturantViewWithFrame:[self initialCardFrame]];
-        restaurantViewController.view.hidden = YES;
+        UIViewController<ENCardViewControllerProtocol> *card;
+        BOOL isRestaurantCard;
+        if (self.historyToReview.count > 0) {
+            ENFeedbackViewController *feedbackViewController = [self popFeedbackViewWithFrame:[self initialCardFrame]];
+            card = feedbackViewController;
+            isRestaurantCard = NO;
+        }else{
+            ENRestaurantViewController *restaurantViewController = [self popResuturantViewWithFrame:[self initialCardFrame]];
+            card = restaurantViewController;
+            isRestaurantCard = YES;
+        }
+        card.view.hidden = YES;
+
+
         if (i==1) {
 			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
-            [self addChildViewController:restaurantViewController];
-            [self.detailCardContainer addSubview:restaurantViewController.view];
-            [restaurantViewController.view addGestureRecognizer:self.panGesture];
-            [restaurantViewController.info addGestureRecognizer:self.tapGesture];
-            [restaurantViewController didChangedToFrontCard];
+            [self addChildViewController:card];
+            [self.detailCardContainer addSubview:card.view];
+            [card.view addGestureRecognizer:self.panGesture];
+            if (isRestaurantCard) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
+            [card didChangedToFrontCard];
         }
         else{
 			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
             //insert behind previous card
-            ENRestaurantViewController *previousCard = self.restaurantCards[i-2];
+            ENRestaurantViewController *previousCard = self.cardViews[i-2];
             NSParameterAssert(previousCard.view.superview);
-            [self.detailCardContainer insertSubview:restaurantViewController.view belowSubview:previousCard.view];
+            [self.detailCardContainer insertSubview:card.view belowSubview:previousCard.view];
         }
         
         //animate
@@ -443,8 +478,8 @@
             float delay = (kMaxCardsToAnimate - i) * 0.3;
             DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                restaurantViewController.view.hidden = NO;
-                [self snapCardToCenter:restaurantViewController];
+                card.view.hidden = NO;
+                [self snapCardToCenter:card];
                 if (i == kMaxCardsToAnimate || i == restaurantCount) {
                     //stop loading
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kMaxCardsToAnimate) * 0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -457,8 +492,8 @@
         else {
             float delay = kMaxCardsToAnimate * 0.2;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                restaurantViewController.view.frame = [self cardViewFrame];
-                restaurantViewController.view.hidden = NO;
+                card.view.frame = [self cardViewFrame];
+                card.view.hidden = NO;
             });
         }
     }
@@ -477,13 +512,17 @@
         }
         
         //remove front card from cards
-        [self.restaurantCards removeObjectAtIndex:0];
+        [self.cardViews removeObjectAtIndex:0];
         
         //add pan gesture to next
         [firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
-        [firstRestaurantViewController.info removeGestureRecognizer:self.tapGesture];
+        if ([firstRestaurantViewController isKindOfClass:[ENRestaurantViewController class]]) {
+            [firstRestaurantViewController.info removeGestureRecognizer:self.tapGesture];
+        }
         [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
-        [self.firstRestaurantViewController.info addGestureRecognizer:self.tapGesture];
+        if ([firstRestaurantViewController isKindOfClass:[ENRestaurantViewController class]]) {
+            [self.firstRestaurantViewController.info addGestureRecognizer:self.tapGesture];
+        }
         
         //notify next card
         [self.firstRestaurantViewController didChangedToFrontCard];
@@ -496,7 +535,7 @@
                 [_gravity removeItem:firstRestaurantViewController.view];
                 [_dynamicItem removeItem:firstRestaurantViewController.view];
                 [firstRestaurantViewController.view removeFromSuperview];
-                completion(self.restaurantCards);
+                completion(self.cardViews);
             }];
         });
     }
@@ -585,7 +624,7 @@
 }
 
 // This is called when a user didn't fully swipe left or right.
-- (void)snapCardToCenter:(ENRestaurantViewController *)card {
+- (void)snapCardToCenter:(UIViewController<ENCardViewControllerProtocol> *)card {
     NSParameterAssert(card);
     if (card.snap) {
         [self.animator removeBehavior:card.snap];
@@ -614,8 +653,23 @@
     card.restaurant = self.restaurants.firstObject;
     [card updateLayout];
 	[self.restaurants removeObjectAtIndex:0];
-    [self.restaurantCards addObject:card];
+    [self.cardViews addObject:card];
     
+    return card;
+}
+
+- (ENFeedbackViewController *)popFeedbackViewWithFrame:(CGRect)frame {
+    if (self.historyToReview.count == 0) {
+        DDLogWarn(@"No feedback to pop");
+        return nil;
+    }
+    NSDictionary *historyData = self.historyToReview.firstObject;
+    ENFeedbackViewController *card = [ENFeedbackViewController viewController];
+    card.history = historyData;
+    card.view.frame = frame;
+    [self.historyToReview removeObjectAtIndex:0];
+    [self.cardViews addObject:card];
+
     return card;
 }
 

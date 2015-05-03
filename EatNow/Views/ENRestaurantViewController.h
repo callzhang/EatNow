@@ -22,7 +22,13 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
     ENRestaurantViewStatusHistoryDetail,
 };
 
-@interface ENRestaurantViewController : UIViewController
+@protocol ENCardViewControllerProtocol <NSObject>
+@property (nonatomic, weak) UISnapBehavior *snap;
+- (void)didChangedToFrontCard;
+
+@end
+
+@interface ENRestaurantViewController : UIViewController<ENCardViewControllerProtocol>
 @property (nonatomic, strong) ENRestaurant *restaurant;
 @property (nonatomic, assign) ENRestaurantViewStatus status;
 @property (nonatomic, weak) UISnapBehavior *snap;

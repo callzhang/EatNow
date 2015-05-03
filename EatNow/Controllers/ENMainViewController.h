@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
 //frame
 //@property (nonatomic, readonly) ENRestaurantViewController *frontCardView;
-@property (nonatomic, strong) NSMutableArray *restaurantCards;
+@property (nonatomic, strong) NSMutableArray *cardViews;
 //states
 @property (nonatomic, assign) BOOL isReloading;
 @property (nonatomic, assign) BOOL isShowingCards;

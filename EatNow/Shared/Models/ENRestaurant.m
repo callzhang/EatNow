@@ -170,6 +170,11 @@
     return nil;
 }
 
+- (NSString *)streetText{
+    NSDictionary *address = self.json[@"location"];
+    return address[@"address"]?:@"";
+}
+
 #pragma mark - Tools
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
     NSURL *url = [NSURL URLWithString:urlString];
