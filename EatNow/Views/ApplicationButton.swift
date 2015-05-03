@@ -16,4 +16,14 @@ class ApplicationButton: UIButton {
             layer.cornerRadius = cornerRadius
         }
     }
+    @IBInspectable var layerBorderWidth: CGFloat = 0 {
+        didSet {
+            layer.borderWidth = layerBorderWidth
+        }
+    }
+    @IBInspectable var layerBorderColor: UIColor = UIColor.clearColor(){
+        didSet {
+            layer.borderColor = layerBorderColor.CGColor
+        }
+    }
 }
