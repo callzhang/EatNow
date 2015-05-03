@@ -93,7 +93,7 @@
 }
 
 - (IBAction)onRateButton:(id)sender {
-    [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:[self.rating floatValue] completion:^(NSError *error) {
+    [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:[self.rating floatValue] - 3 completion:^(NSError *error) {
         [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
             
         }];
