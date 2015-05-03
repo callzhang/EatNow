@@ -12,6 +12,7 @@
 #import "ENServerManager.h"
 #import "ENMainViewController.h"
 #import "extobjc.h"
+#import "ReactiveCocoa.h"
 
 @interface ENFeedbackViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -22,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIView *ratingView;
 @property (nonatomic, strong) ENRestaurant *restaurant;
 @property (nonatomic, assign) AMRatingControl *ratingControl;
-@property (nonatomic, assign) NSUInteger rating;
+@property (nonatomic, strong) NSNumber *rating;
 
 @end
 
@@ -58,6 +59,14 @@
 
     self.titleLabel.text = _restaurant.name;
     self.addressLabel.text = _restaurant.streetText;
+    
+    RAC(self.rateButton, enabled) = [RACSignal combineLatest:@[RACObserve(self, rating)] reduce:^id(NSNumber *rating){
+        if (rating) {
+            return @(YES);
+        }
+        
+        return @(NO);
+    }];
 }
 
 - (void)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
@@ -70,7 +79,7 @@
     @weakify(self);
     [imagesRatingControl setEditingChangedBlock:^(NSUInteger rating) {
         @strongify(self);
-        self.rating = rating;
+        self.rating = @(rating);
     }];
     self.ratingControl = imagesRatingControl;
 }
@@ -84,7 +93,7 @@
 }
 
 - (IBAction)onRateButton:(id)sender {
-    [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:self.rating completion:^(NSError *error) {
+    [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:[self.rating floatValue] completion:^(NSError *error) {
         [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
             
         }];
