@@ -267,7 +267,6 @@
     
     self.cardView.backgroundColor = [UIColor clearColor];
     self.detailCardContainer.backgroundColor = [UIColor clearColor];
-    [self toggleHistoryView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
