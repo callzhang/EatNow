@@ -54,7 +54,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 
 #pragma mark - User actions
 - (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(ErrorBlock)block;
-- (void)cancelSelectedRestaurant:(NSString *)historyID completion:(ErrorBlock)block;
+- (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block;
 - (BOOL)canSelectNewRestaurant;
 - (void)clearSelectedRestaurant;
 - (void)updateHistory:(NSString *)historyID withRating:(float)rate completion:(ErrorBlock)block;

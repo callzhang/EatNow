@@ -200,10 +200,10 @@
             }
         }
         
-        block(images, nil);
         
-        //update to server
-        [[ENServerManager shared] updateRestaurant:self withInfo:@{@"img_url":images} completion:nil];
+        self.imageUrls = images;
+        
+        block(images, nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DDLogError(@"Failed to download website %@", urlString);

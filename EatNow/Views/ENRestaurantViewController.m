@@ -149,29 +149,36 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //load image from webpage
     if (self.restaurant.imageUrls.count <= 1) {
         @weakify(self);
-        NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", self.restaurant.foursquareID];//TODO: update
-        [self.restaurant parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
-            @strongify(self);
-            if (!imageUrls) {
-                ENLogError(@"Failed to parse foursquare image %@", self.restaurant.url);
-                return;
-            }
-            
-            self.restaurant.imageUrls = imageUrls;
-        }];
+        NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", self.restaurant.foursquareID];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.restaurant parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
+                if (!self) {
+                    DDLogVerbose(@"Restaurant view dismissed before updating images");
+                    return;
+                }
+                @strongify(self);
+                if (!imageUrls) {
+                    ENLogError(@"Failed to parse foursquare image %@", self.restaurant.url);
+                    return;
+                }
+                
+                //update to server
+                [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
+            }];
+        });
+        
     }
 }
 
 #pragma mark - UI
 - (IBAction)selectRestaurant:(id)sender {
-	if ([ENServerManager shared].selectedRestaurant == _restaurant) {
+	if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:_restaurant.ID]) {
 		//cancel
 		[[ENServerManager shared] clearSelectedRestaurant];
         @weakify(self);
-        [[ENServerManager shared] cancelSelectedRestaurant:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
+        [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
             @strongify(self);
 			if (error) {
-				ENLogError(error.localizedDescription);
 				[ENUtil showFailureHUBWithString:@"failed"];
 			}else{
                 DDLogInfo(@"Cancelled %@", _restaurant.name);
@@ -193,7 +200,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             if (buttonIndex == 1) {
 				[ENUtil showWatingHUB];
                 @weakify(self);
-                [[ENServerManager shared] cancelSelectedRestaurant:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
+                [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
 					[ENUtil dismissHUD];
                     @strongify(self);
                     if (error) {

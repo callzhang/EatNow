@@ -143,19 +143,23 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *))block{
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+    NSParameterAssert(restaurant);
     NSParameterAssert([dic.allKeys containsObject:@"img_url"]);
     NSParameterAssert([dic[@"img_url"] isKindOfClass:[NSArray class]]);
     
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
     NSString *url = [NSString stringWithFormat:@"%@/restaurant/%@",kServerUrl, restaurant.ID];
     [manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
         if(block) block(nil);
+        DDLogVerbose(@"Updated restaurant images %@", @(dic.count));
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
         if(block) block(error);
-        DDLogError(error.localizedDescription);
+        DDLogError(@"Failed to update restaurant: %@", error.localizedDescription);
     }];
 }
 
@@ -195,19 +199,19 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
 }
 
-- (void)cancelSelectedRestaurant:(NSString *)historyID completion:(ErrorBlock)block{
+- (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *path = [NSString stringWithFormat:@"%@/user/%@/history/%@", kServerUrl, [ENServerManager myUUID], historyID];
     [manager DELETE:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         [self getUserWithCompletion:nil];
         [self clearSelectedRestaurant];
-        if (block) {
-            block(nil);
-        }
+        if (block) block(nil);
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block) {
-            block(error);
-        }
+        
+        if (block) block(error);
+        DDLogError(@"Failed to cancel history(%@): %@", historyID, error.localizedDescription);
     }];
 }
 
@@ -239,7 +243,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if(block) block(error);
-        DDLogError(error.localizedDescription);
+        DDLogError(@"Failed to update history: %@", error.localizedDescription);
     }];
 }
 

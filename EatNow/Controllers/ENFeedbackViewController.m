@@ -55,18 +55,10 @@
     NSParameterAssert(self.restaurant);
     [self.backgroundImageView setImageWithURL:[NSURL URLWithString:self.restaurant.imageUrls.firstObject] placeholderImage:nil];
     NSNumber *like = _history[@"like"];
-    [self addRatingOnView:self.ratingView withRating:like.floatValue+3];
-
+    [self addRatingOnView:self.ratingView withRating:0];
+    
     self.titleLabel.text = _restaurant.name;
     self.addressLabel.text = _restaurant.streetText;
-    
-    RAC(self.rateButton, enabled) = [RACSignal combineLatest:@[RACObserve(self, rating)] reduce:^id(NSNumber *rating){
-        if (rating) {
-            return @(YES);
-        }
-        
-        return @(NO);
-    }];
 }
 
 - (void)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
@@ -86,7 +78,11 @@
 }
 
 - (IBAction)onDidnotGoButton:(id)sender {
-    [[ENServerManager shared] cancelSelectedRestaurant:self.history[@"_id"] completion:^(NSError *error) {
+    [[ENServerManager shared] cancelHistory:self.history[@"_id"] completion:^(NSError *error) {
+        if (error) {
+            [ENUtil showFailureHUBWithString:@"System error"];
+            DDLogError(@"Failed to delete history: %@", error.localizedDescription);
+        }
        [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
            DDLogVerbose(@"History %@ cancelled", _restaurant.name);
            [ENUtil showText:@"History removed"];
@@ -95,7 +91,14 @@
 }
 
 - (IBAction)onRateButton:(id)sender {
+    if (!self.rating) {
+        [ENUtil showText:@"Please tell us how you liked it"];
+        return;
+    }
     [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:[self.rating floatValue] completion:^(NSError *error) {
+        if (error) {
+            [ENUtil showFailureHUBWithString:@"System error"];
+        }
         [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
             DDLogVerbose(@"Rated %@ for %@", self.rating, self.restaurant.name);
             [ENUtil showSuccessHUBWithString:@"Preference updated"];

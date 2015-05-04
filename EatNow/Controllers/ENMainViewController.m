@@ -295,6 +295,8 @@
 		}
 	}];
     
+    //hide history view
+    [self toggleHistoryView];
 }
 
 #pragma mark - IBActioning
@@ -520,7 +522,7 @@
             [firstRestaurantViewController.info removeGestureRecognizer:self.tapGesture];
         }
         [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
-        if ([firstRestaurantViewController isKindOfClass:[ENRestaurantViewController class]]) {
+        if ([self.firstRestaurantViewController isKindOfClass:[ENRestaurantViewController class]]) {
             [self.firstRestaurantViewController.info addGestureRecognizer:self.tapGesture];
         }
         
