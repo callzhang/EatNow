@@ -231,10 +231,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 - (void)updateHistory:(NSString *)historyID withRating:(float)rate completion:(ErrorBlock)block {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSParameterAssert(rate>= -2 && rate <= 2);
+    NSParameterAssert(rate>= 1 && rate <= 5);
     
     NSString *url = [NSString stringWithFormat:@"%@/user/%@/history/%@",kServerUrl, self.myID, historyID];
-    [manager PUT:url parameters:@{@"like": @(rate)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:url parameters:@{@"like": @(rate - 3)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(block) block(nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
