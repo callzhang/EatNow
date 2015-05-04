@@ -89,6 +89,7 @@
     [[ENServerManager shared] cancelSelectedRestaurant:self.history[@"_id"] completion:^(NSError *error) {
        [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
            DDLogVerbose(@"History %@ cancelled", _restaurant.name);
+           [ENUtil showText:@"History removed"];
        }];
     }];
 }
