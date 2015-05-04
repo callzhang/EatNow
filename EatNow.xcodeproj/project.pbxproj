@@ -1196,7 +1196,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = EatNow;
-				PROVISIONING_PROFILE = "7908bef9-d722-4dd3-8bdd-2240e9d0014f";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
