@@ -118,7 +118,7 @@
     <object type="LMREQUEST" id="z111">
         <attribute name="body" type="string"></attribute>
         <attribute name="uuid" type="string">909F20D3-4C32-4E62-BE9C-FAF334DD9C14</attribute>
-        <attribute name="url" type="string">http://api.eatnow.cc/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638\u2600time=2015-04-22T03%3A47%3A16%2B0000</attribute>
+        <attribute name="url" type="string">http://api.eatnow.cc/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638\u2600time=2015-04-22T12%3A47%3A16%2B4000</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -307,7 +307,7 @@
     </object>
     <object type="LMREQUEST" id="z135">
         <attribute name="uuid" type="string">4EE5CAAF-3FB5-4718-BBE2-982B9EDAD3B3</attribute>
-        <attribute name="url" type="string">http://api.eatnow.cc/user/lei/history/55371a27144a8e2300ab2e94</attribute>
+        <attribute name="url" type="string">http://api.eatnow.cc/user/lei/history/5544089ada5f4a23008a4ec8</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>

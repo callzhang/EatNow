@@ -30,6 +30,7 @@
 #import "ENMapManager.h"
 #import "TFHppleElement.h"
 #import "extobjc.h"
+#import "NSDate+MTDates.h"
 @import AddressBook;
 
 @implementation ENRestaurant
@@ -68,9 +69,12 @@
     self.walkDuration = NSTimeIntervalSince1970;
 	//score
 	NSDictionary *scores = json[@"score"];
-	NSNumber *totalScore = scores[@"total_score"];
-	NSParameterAssert(![totalScore isEqual:[NSNull null]]);
-	self.score = totalScore;
+	if (scores) {
+		NSNumber *totalScore = scores[@"total_score"];
+		NSParameterAssert(![totalScore isEqual:[NSNull null]]);
+		self.score = totalScore;
+	}
+	
 	if (![self validate]) {
 		return nil;
 	}
