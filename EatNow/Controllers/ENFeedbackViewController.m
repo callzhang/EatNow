@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rateButton;
 @property (weak, nonatomic) IBOutlet UIView *ratingView;
 @property (nonatomic, strong) ENRestaurant *restaurant;
-@property (nonatomic, assign) AMRatingControl *ratingControl;
+@property (nonatomic, assign) UIView *ratingControl;
 @property (nonatomic, strong) NSNumber *rating;
 
 @end
@@ -74,6 +74,7 @@
     UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-feedback-star-yellow"];
     AMRatingControl *imagesRatingControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0) emptyImage:emptyImageOrNil solidImage:solidImageOrNil andMaxRating:5];
     [imagesRatingControl setStarSpacing:3];
+    [imagesRatingControl setStarWidthAndHeight:50];
     imagesRatingControl.rating = rating;
     [view addSubview:imagesRatingControl];
     @weakify(self);
@@ -87,7 +88,8 @@
 - (IBAction)onDidnotGoButton:(id)sender {
     [[ENServerManager shared] cancelSelectedRestaurant:self.history[@"_id"] completion:^(NSError *error) {
        [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
-           
+           DDLogVerbose(@"History %@ cancelled", _restaurant.name);
+           [ENUtil showText:@"History removed"];
        }];
     }];
 }
@@ -95,7 +97,8 @@
 - (IBAction)onRateButton:(id)sender {
     [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:[self.rating floatValue] - 3 completion:^(NSError *error) {
         [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
-            
+            DDLogVerbose(@"Rated %@ for %@", self.rating, self.restaurant.name);
+            [ENUtil showSuccessHUBWithString:@"Preference updated"];
         }];
     }];
 }

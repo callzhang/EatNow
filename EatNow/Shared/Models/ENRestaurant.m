@@ -256,9 +256,6 @@
     if (!_location) {
         DDLogWarn(@"Restaurant missing location %@", self);
     }
-	if (!_openInfo) {
-		DDLogWarn(@"Resaurant missing open info %@", self);
-	}
     
     return good;
 }
