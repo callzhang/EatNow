@@ -43,7 +43,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     @weakify(self);
     self.builder.reloadBlock = ^(TMTableViewBuilder *builder) {
         @strongify(self);
-        self.history = [ENServerManager shared].history;
+        [self setDataWithHistory:[ENServerManager shared].history];
         [builder removeAllSectionItems];
         TMSectionItem *sectionItem = [TMSectionItem new];
         [builder addSectionItem:sectionItem];
@@ -74,21 +74,43 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.builder configure];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHistoryUpdated) name:kHistroyUpdated object:nil];
+}
+
+- (void)onHistoryUpdated {
+    [self.builder reloadData];
 }
 
 - (void)loadData{
     //data
-    self.history = [ENServerManager shared].history;
+    self.history = [[ENServerManager shared].history mutableCopy];
     [self.builder reloadData];
     
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
-        self.history = [ENServerManager shared].history;
+        self.history = [[ENServerManager shared].history mutableCopy];
         [self.builder reloadData];
     }];
 }
 
-- (void)setHistory:(NSMutableDictionary *)history{
-    _history = history;
+- (void)setDataWithHistory:(NSArray *)history{
+    //generate restaurant
+    self.history = [NSMutableDictionary new];
+
+    for (NSDictionary *historyData in history) {
+        //json: {restaurant, like, _id, date}
+        NSString *dateStr = historyData[@"date"];
+        NSDate *date = [NSDate dateFromISO1861:dateStr];
+        NSMutableArray *restaurantsDataForThatDay = self.history[[date mt_endOfCurrentDay]];
+        if (!restaurantsDataForThatDay) {
+            restaurantsDataForThatDay = [NSMutableArray array];
+        }
+        NSDictionary *data = historyData[@"restaurant"];
+        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:data];
+        if (!restaurant) continue;
+        [restaurantsDataForThatDay addObject:@{@"restaurant": restaurant, @"like": historyData[@"like"], @"_id": historyData[@"_id" ], @"date": historyData[@"date"]}];
+        self.history[[date mt_endOfCurrentDay]] = restaurantsDataForThatDay;
+    }
+
     self.orderedDates = [_history.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSDate *obj1, NSDate *obj2) {
         switch ([obj1 compare:obj2]) {
             case NSOrderedAscending:
@@ -105,6 +127,11 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     self.view.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView applyAlphaGradientWithEndPoints:@[@.05, @.95]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.builder reloadData];
 }
 
 #pragma mark - Actions

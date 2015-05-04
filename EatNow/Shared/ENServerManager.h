@@ -36,7 +36,7 @@ extern NSString * const kUserUpdated;
  *  Example: {restaurant_id: {rating: 9, date: Mar 15, 2015}}
  */
 @property (nonatomic, strong) NSMutableDictionary *userRating;
-@property (nonatomic, strong) NSMutableDictionary *history;
+@property (nonatomic, strong) NSArray *history;
 /**
  *
  */
@@ -54,7 +54,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 
 #pragma mark - User actions
 - (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(ErrorBlock)block;
-- (void)cancelSelectedRestaurant:(NSString *)historyID completion:(ErrorBlock)block;
+- (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block;
 - (BOOL)canSelectNewRestaurant;
 - (void)clearSelectedRestaurant;
 - (void)updateHistory:(NSString *)historyID withRating:(float)rate completion:(ErrorBlock)block;

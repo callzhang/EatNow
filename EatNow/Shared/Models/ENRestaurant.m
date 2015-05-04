@@ -170,6 +170,11 @@
     return nil;
 }
 
+- (NSString *)streetText{
+    NSDictionary *address = self.json[@"location"];
+    return address[@"address"]?:@"";
+}
+
 #pragma mark - Tools
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
     NSURL *url = [NSURL URLWithString:urlString];
@@ -195,10 +200,10 @@
             }
         }
         
-        block(images, nil);
         
-        //update to server
-        [[ENServerManager shared] updateRestaurant:self withInfo:@{@"img_url":images} completion:nil];
+        self.imageUrls = images;
+        
+        block(images, nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DDLogError(@"Failed to download website %@", urlString);
@@ -251,9 +256,6 @@
     if (!_location) {
         DDLogWarn(@"Restaurant missing location %@", self);
     }
-	if (!_openInfo) {
-		DDLogWarn(@"Resaurant missing open info %@", self);
-	}
     
     return good;
 }
