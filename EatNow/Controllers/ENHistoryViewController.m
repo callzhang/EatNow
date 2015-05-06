@@ -18,6 +18,7 @@
 #import "extobjc.h"
 #import "ENHistoryHeaderRowItem.h"
 #import "ENHistoryRowItem.h"
+#import <UITableView-NXEmptyView/UITableView+NXEmptyView.h>
 
 NSString * const kHistoryDetailCardDidShow = @"history_detail_view_did_show";
 NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
@@ -75,6 +76,17 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     self.tableView.showsVerticalScrollIndicator = NO;
     [self.builder configure];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onHistoryUpdated) name:kHistroyUpdated object:nil];
+    
+}
+
+- (void)viewDidLayoutSubviews {
+    if (!self.tableView.nxEV_emptyView) {
+        UIView *emptyUIView = [[UIView alloc] initWithFrame:self.view.bounds];
+        UIImageView *emptyImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-history-text-view"]];
+        emptyImageView.center = CGPointMake(emptyUIView.frame.size.width / 2, 100);
+        [emptyUIView addSubview:emptyImageView];
+        self.tableView.nxEV_emptyView = emptyUIView;
+    }
 }
 
 - (void)onHistoryUpdated {

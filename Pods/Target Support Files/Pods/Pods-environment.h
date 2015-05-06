@@ -160,7 +160,7 @@
 #define COCOAPODS_POD_AVAILABLE_JGProgressHUD
 #define COCOAPODS_VERSION_MAJOR_JGProgressHUD 1
 #define COCOAPODS_VERSION_MINOR_JGProgressHUD 2
-#define COCOAPODS_VERSION_PATCH_JGProgressHUD 4
+#define COCOAPODS_VERSION_PATCH_JGProgressHUD 5
 
 // JSONModel
 #define COCOAPODS_POD_AVAILABLE_JSONModel
@@ -216,17 +216,23 @@
 #define COCOAPODS_VERSION_MINOR_SparkInspector 3
 #define COCOAPODS_VERSION_PATCH_SparkInspector 4
 
+// UITableView-NXEmptyView
+#define COCOAPODS_POD_AVAILABLE_UITableView_NXEmptyView
+#define COCOAPODS_VERSION_MAJOR_UITableView_NXEmptyView 0
+#define COCOAPODS_VERSION_MINOR_UITableView_NXEmptyView 1
+#define COCOAPODS_VERSION_PATCH_UITableView_NXEmptyView 7
+
 // apptentive-ios
 #define COCOAPODS_POD_AVAILABLE_apptentive_ios
 #define COCOAPODS_VERSION_MAJOR_apptentive_ios 1
 #define COCOAPODS_VERSION_MINOR_apptentive_ios 7
-#define COCOAPODS_VERSION_PATCH_apptentive_ios 2
+#define COCOAPODS_VERSION_PATCH_apptentive_ios 3
 
 // apptentive-ios/arc-files
 #define COCOAPODS_POD_AVAILABLE_apptentive_ios_arc_files
 #define COCOAPODS_VERSION_MAJOR_apptentive_ios_arc_files 1
 #define COCOAPODS_VERSION_MINOR_apptentive_ios_arc_files 7
-#define COCOAPODS_VERSION_PATCH_apptentive_ios_arc_files 2
+#define COCOAPODS_VERSION_PATCH_apptentive_ios_arc_files 3
 
 // hpple
 #define COCOAPODS_POD_AVAILABLE_hpple
