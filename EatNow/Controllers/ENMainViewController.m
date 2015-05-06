@@ -75,6 +75,9 @@
 @end
 
 @implementation ENMainViewController
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - Accsessor
 - (ENRestaurantViewController *)firstRestaurantViewController{
@@ -253,13 +256,7 @@
 	
 	//LEI: I think this implementation could be neater
     self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
-    
-    //review if needed
-    [[NSNotificationCenter defaultCenter] addObserverForName:kHistroyUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
-        DDLogVerbose(@"History did update");
-        //TODO: start displaying review card
-    }];
-    
+
     //load restaurants from server
     [self searchNewRestaurantsForced:NO completion:^(NSArray *response, NSError *error) {
         self.needShowRestaurant = YES;
@@ -267,6 +264,10 @@
     
     self.cardView.backgroundColor = [UIColor clearColor];
     self.detailCardContainer.backgroundColor = [UIColor clearColor];
+    
+    if (self.restaurants.count == 0) {
+        [self onReloadButton:nil];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -289,14 +290,17 @@
 	[bluredEffectView setFrame:self.view.frame];
 	[self.view insertSubview:bluredEffectView aboveSubview:self.background];
     
-	[[NSNotificationCenter defaultCenter] addObserverForName:kRestaurantViewImageChangedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-		if (note.object == self.firstRestaurantViewController) {
-			[self setBackgroundImage:note.userInfo[@"image"]];
-		}
-	}];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRestauranntViewImageDidChangeNotification:) name:kRestaurantViewImageChangedNotification object:nil];
     
     //hide history view
     [self toggleHistoryView];
+
+}
+
+- (void)onRestauranntViewImageDidChangeNotification:(NSNotification *)notification {
+    if (notification.object == self.firstRestaurantViewController) {
+        [self setBackgroundImage:notification.userInfo[@"image"]];
+    }
 }
 
 #pragma mark - IBActioning
@@ -396,7 +400,7 @@
 
 - (void)searchNewRestaurantsForced:(BOOL)force completion:(void (^)(NSArray *response, NSError *error))block {
     @weakify(self);
-    [self.locationManager getLocationWithCompletion:^(CLLocation *location) {
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         if (location) {
 			@weakify(self);

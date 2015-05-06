@@ -26,4 +26,16 @@ class ApplicationButton: UIButton {
             layer.borderColor = layerBorderColor.CGColor
         }
     }
+    @IBInspectable var layerBorderRespectingPixelOverPoint: Bool = false {
+        didSet {
+            if (layerBorderRespectingPixelOverPoint) {
+               layer.borderWidth = layerBorderWidth * self.onePixel()
+            }
+        }
+    }
+    
+    func onePixel() -> CGFloat {
+        let onePixel = 1.0 / UIScreen.mainScreen().scale;
+        return onePixel
+    }
 }

@@ -32,13 +32,19 @@
 #import "ATConnect.h"
 #import "UIImageView+AFNetworking.h"
 #import "WatchKitAction.h"
+#import <CrashlyticsLogger.h>
+#import "DDLog.h"
+#import "DDASLLogger.h"
+#import "DDTTYLogger.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [self initilizeLogging];
+    
     [ATConnect sharedConnection].apiKey = @"43aadd17c4e966f98753bcb1250e78d00c68731398a9b60dc7c456d2682415fc";
     [Crashlytics startWithAPIKey:@"6ec9eab6ca26fcd18d51d0322752b861c63bc348"];
-    [ENUtil initLogging];
+    
     [ENLocationManager registerLocationDeniedHandler:^{
         [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
@@ -52,7 +58,20 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         }];
     }];
+    
+    if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
+        ENMainViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
+        [UIWindow mainWindow].rootViewController = vc;
+    }
+    
     return YES;
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    if ([ENLocationManager locationServicesState] != INTULocationServicesStateAvailable) {
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENGetLocationViewController"];
+        [UIWindow mainWindow].rootViewController = vc;
+    }
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
@@ -83,5 +102,30 @@
 
         }];
     });
+}
+
+- (void)initilizeLogging {
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    DDTTYLogger *log = [DDTTYLogger sharedInstance];
+    [DDLog addLogger:log];
+    
+    // we also enable colors in Xcode debug console
+    // because this require some setup for Xcode, commented out here.
+    // https://github.com/CocoaLumberjack/CocoaLumberjack/wiki/XcodeColors
+    [log setColorsEnabled:YES];
+    [log setForegroundColor:[UIColor redColor] backgroundColor:nil forFlag:LOG_FLAG_ERROR];
+    [log setForegroundColor:[UIColor colorWithRed:(255/255.0) green:(58/255.0) blue:(159/255.0) alpha:1.0] backgroundColor:nil forFlag:LOG_FLAG_WARN];
+    [log setForegroundColor:[UIColor orangeColor] backgroundColor:nil forFlag:LOG_FLAG_INFO];
+    //white for debug
+    [log setForegroundColor:[UIColor darkGrayColor] backgroundColor:nil forFlag:LOG_FLAG_VERBOSE];
+    
+    //file logger
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+    fileLogger.rollingFrequency = 60 * 60 * 24; // 24 hour rolling
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;//keep a week's log
+    [DDLog addLogger:fileLogger];
+    
+    //crashlytics logger
+    [DDLog addLogger:[CrashlyticsLogger sharedInstance]];
 }
 @end

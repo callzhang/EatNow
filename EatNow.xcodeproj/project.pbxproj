@@ -10,6 +10,18 @@
 		090B2E0B1AED876B00ABAA99 /* WatchKitAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 091F49D31AED799D0064A4C8 /* WatchKitAction.m */; };
 		090B2E0E1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 090B2E0D1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m */; };
 		090B2E0F1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 090B2E0D1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m */; };
+		0914F8611AF9D950004562DA /* UIWindow+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0914F8601AF9D950004562DA /* UIWindow+Extensions.m */; };
+		091C0B371AF9616200838096 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B2D1AF9616200838096 /* OpenSans-Bold.ttf */; };
+		091C0B381AF9616200838096 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B2E1AF9616200838096 /* OpenSans-BoldItalic.ttf */; };
+		091C0B391AF9616200838096 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B2F1AF9616200838096 /* OpenSans-ExtraBold.ttf */; };
+		091C0B3A1AF9616200838096 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B301AF9616200838096 /* OpenSans-ExtraBoldItalic.ttf */; };
+		091C0B3B1AF9616200838096 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B311AF9616200838096 /* OpenSans-Italic.ttf */; };
+		091C0B3C1AF9616200838096 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B321AF9616200838096 /* OpenSans-Light.ttf */; };
+		091C0B3D1AF9616200838096 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B331AF9616200838096 /* OpenSans-LightItalic.ttf */; };
+		091C0B3E1AF9616200838096 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B341AF9616200838096 /* OpenSans-Regular.ttf */; };
+		091C0B3F1AF9616200838096 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B351AF9616200838096 /* OpenSans-Semibold.ttf */; };
+		091C0B401AF9616200838096 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 091C0B361AF9616200838096 /* OpenSans-SemiboldItalic.ttf */; };
+		091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 091C0B421AF966CA00838096 /* ENGetLocationViewController.m */; };
 		091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 091F49D31AED799D0064A4C8 /* WatchKitAction.m */; };
 		092944C81AED94F600018391 /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 092944C71AED94F600018391 /* UIImage+Resizing.m */; };
 		092944C91AED94F600018391 /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = 092944C71AED94F600018391 /* UIImage+Resizing.m */; };
@@ -152,6 +164,20 @@
 /* Begin PBXFileReference section */
 		090B2E0C1AED89C400ABAA99 /* JSONValueTransformer+UIImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONValueTransformer+UIImage.h"; sourceTree = "<group>"; };
 		090B2E0D1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONValueTransformer+UIImage.m"; sourceTree = "<group>"; };
+		0914F85F1AF9D950004562DA /* UIWindow+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWindow+Extensions.h"; path = "../Shared/UIWindow+Extensions.h"; sourceTree = "<group>"; };
+		0914F8601AF9D950004562DA /* UIWindow+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWindow+Extensions.m"; path = "../Shared/UIWindow+Extensions.m"; sourceTree = "<group>"; };
+		091C0B2D1AF9616200838096 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		091C0B2E1AF9616200838096 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		091C0B2F1AF9616200838096 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		091C0B301AF9616200838096 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		091C0B311AF9616200838096 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		091C0B321AF9616200838096 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		091C0B331AF9616200838096 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		091C0B341AF9616200838096 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		091C0B351AF9616200838096 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		091C0B361AF9616200838096 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		091C0B411AF966CA00838096 /* ENGetLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENGetLocationViewController.h; sourceTree = "<group>"; };
+		091C0B421AF966CA00838096 /* ENGetLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENGetLocationViewController.m; sourceTree = "<group>"; };
 		091F49D21AED799D0064A4C8 /* WatchKitAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchKitAction.h; sourceTree = "<group>"; };
 		091F49D31AED799D0064A4C8 /* WatchKitAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchKitAction.m; sourceTree = "<group>"; };
 		092944C61AED94F600018391 /* UIImage+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resizing.h"; sourceTree = "<group>"; };
@@ -320,6 +346,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		091C0B2C1AF9615B00838096 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				091C0B2D1AF9616200838096 /* OpenSans-Bold.ttf */,
+				091C0B2E1AF9616200838096 /* OpenSans-BoldItalic.ttf */,
+				091C0B2F1AF9616200838096 /* OpenSans-ExtraBold.ttf */,
+				091C0B301AF9616200838096 /* OpenSans-ExtraBoldItalic.ttf */,
+				091C0B311AF9616200838096 /* OpenSans-Italic.ttf */,
+				091C0B321AF9616200838096 /* OpenSans-Light.ttf */,
+				091C0B331AF9616200838096 /* OpenSans-LightItalic.ttf */,
+				091C0B341AF9616200838096 /* OpenSans-Regular.ttf */,
+				091C0B351AF9616200838096 /* OpenSans-Semibold.ttf */,
+				091C0B361AF9616200838096 /* OpenSans-SemiboldItalic.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		092974651AD0C28D00DDC35C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +522,7 @@
 		9B1180F91A8E971300756E8F /* Recources */ = {
 			isa = PBXGroup;
 			children = (
+				091C0B2C1AF9615B00838096 /* Fonts */,
 				9B1180F71A8E970700756E8F /* Entypo.ttf */,
 				9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */,
 				9B63A8401AE61B1300705364 /* Images.xcassets */,
@@ -499,6 +543,8 @@
 		9BEE36B91A8D3DCF0052332C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				0914F85F1AF9D950004562DA /* UIWindow+Extensions.h */,
+				0914F8601AF9D950004562DA /* UIWindow+Extensions.m */,
 				9B1658BE1AE4B5330035572C /* UIView+Material.h */,
 				9B1658BF1AE4B5330035572C /* UIView+Material.m */,
 				9B1658BB1AE4613D0035572C /* UIView+Extend.h */,
@@ -612,6 +658,8 @@
 				09777C801AD4933C007147B2 /* ENRestaurantViewController1.m */,
 				09502FBD1AF5680D00922908 /* ENFeedbackViewController.h */,
 				09502FBE1AF5680D00922908 /* ENFeedbackViewController.m */,
+				091C0B411AF966CA00838096 /* ENGetLocationViewController.h */,
+				091C0B421AF966CA00838096 /* ENGetLocationViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -793,13 +841,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */,
+				091C0B391AF9616200838096 /* OpenSans-ExtraBold.ttf in Resources */,
+				091C0B3C1AF9616200838096 /* OpenSans-Light.ttf in Resources */,
 				09B9F8F21AF1B4F700DE92C6 /* TMRightDetailTableViewCell.xib in Resources */,
 				9B63A8411AE61B1300705364 /* Images.xcassets in Resources */,
+				091C0B3B1AF9616200838096 /* OpenSans-Italic.ttf in Resources */,
+				091C0B3E1AF9616200838096 /* OpenSans-Regular.ttf in Resources */,
 				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,
+				091C0B381AF9616200838096 /* OpenSans-BoldItalic.ttf in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
+				091C0B401AF9616200838096 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				091C0B3A1AF9616200838096 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				091C0B371AF9616200838096 /* OpenSans-Bold.ttf in Resources */,
 				9BC51BFD1AE6DACD00E3B0FE /* animatedLoading.gif in Resources */,
 				09B9F8F61AF1B4F700DE92C6 /* TMTextLabelTableViewCell.xib in Resources */,
 				9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */,
+				091C0B3D1AF9616200838096 /* OpenSans-LightItalic.ttf in Resources */,
+				091C0B3F1AF9616200838096 /* OpenSans-Semibold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,6 +949,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0914F8611AF9D950004562DA /* UIWindow+Extensions.m in Sources */,
 				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
 				09B9F8E81AF1B4F700DE92C6 /* TMTableViewBuilder.m in Sources */,
 				09B9F8D81AF1B4F700DE92C6 /* FBKVOController+Binding.m in Sources */,
@@ -910,6 +969,7 @@
 				0929746E1AD0C2B200DDC35C /* ENRestaurant.m in Sources */,
 				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
+				091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */,
 				09B9F8E21AF1B4F700DE92C6 /* TMRowItem.m in Sources */,
 				09B9F8F01AF1B4F700DE92C6 /* TMRightDetailTableViewCell.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,

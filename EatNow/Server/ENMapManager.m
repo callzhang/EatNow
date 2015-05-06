@@ -124,7 +124,7 @@
             
             if (updateInterval > 0) {
                 _repeatTimer = [NSTimer bk_scheduledTimerWithTimeInterval:updateInterval block:^(NSTimer *timer) {
-                    [[ENLocationManager shared] getLocationWithCompletion:^(CLLocation *loc) {
+                    [[ENLocationManager shared] getLocationWithCompletion:^(CLLocation *loc, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                         [self routeToRestaurant:restaurant repeat:updateInterval completion:block];
                     } forece:YES];
                 } repeats:NO];

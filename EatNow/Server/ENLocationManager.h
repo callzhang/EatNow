@@ -14,8 +14,8 @@
 @interface ENLocationManager : NSObject
 @property (nonatomic, assign) ENLocationStatus locationStatus;
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENLocationManager)
-- (void)getLocationWithCompletion:(void (^)(CLLocation *location))completion;
-- (void)getLocationWithCompletion:(void (^)(CLLocation *location))completion forece:(BOOL)forceUpdate;
+- (void)getLocationWithCompletion:(void (^)(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status))completion;
+- (void)getLocationWithCompletion:(void (^)(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status))completion forece:(BOOL)forceUpdate;
 
 /**
  *  return last fetched current location, if any.
@@ -24,4 +24,6 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENLocationManager)
 
 + (void)registerLocationDeniedHandler:(void(^)(void))handler;
 + (void)registerLocationDisabledHanlder:(void (^)(void))handler;
+
++ (INTULocationServicesState)locationServicesState;
 @end

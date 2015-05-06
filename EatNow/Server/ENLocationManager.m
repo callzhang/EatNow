@@ -16,39 +16,35 @@ static void (^_locationDisabledHanlder)(void) = nil;
 static void (^_locationDeniedHanlder)(void) = nil;
 
 @interface ENLocationManager()<CLLocationManagerDelegate>
-@property (nonatomic, strong) INTULocationManager *locationManager;
+@property (nonatomic, readonly) INTULocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) NSDate *lastUpdatedLocationDate;
 @end
 
 @implementation ENLocationManager
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self setup];
-    }
-    return self;
+- (INTULocationManager *)locationManager {
+    return [INTULocationManager sharedInstance];
 }
 
-- (void)setup {
-    _locationManager = [INTULocationManager sharedInstance];
++ (INTULocationServicesState)locationServicesState {
+    return [INTULocationManager locationServicesState];
 }
 
-- (void)getLocationWithCompletion:(void (^)(CLLocation *location))completion {
+- (void)getLocationWithCompletion:(void (^)(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status))completion {
     [self getLocationWithCompletion:completion forece:NO];
 }
 
-- (void)getLocationWithCompletion:(void (^)(CLLocation *location))completion forece:(BOOL)forceUpdate {
+- (void)getLocationWithCompletion:(void (^)(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status))completion forece:(BOOL)forceUpdate {
     if (!forceUpdate) {
         if (self.currentLocation) {
             if (self.lastUpdatedLocationDate.timeIntervalSinceNow < 60) {
-                completion(self.currentLocation);
+                completion(self.currentLocation, INTULocationAccuracyHouse, INTULocationStatusSuccess);
             }
             else {
                 self.currentLocation = nil;
-                [self getLocationWithCompletion:^(CLLocation *location) {
-                    completion(location);
+                [self getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+                    completion(location, achievedAccuracy, status);
                 }];
             }
             return;
@@ -103,7 +99,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 		}
 		
 		if (completion) {
-			completion(currentLocation);
+			completion(currentLocation, achievedAccuracy, status);
 		}
 	}];
 }
