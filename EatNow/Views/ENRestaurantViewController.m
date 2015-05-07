@@ -33,7 +33,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 //IB
 @property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UILabel *cuisine;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -43,7 +42,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 @property (weak, nonatomic) IBOutlet UIView *card;
-@property (weak, nonatomic) IBOutlet UIButton *goButton;
 @property (strong, nonatomic) MKMapView *map;
 @property (weak, nonatomic) IBOutlet UIView *userRatingView;
 

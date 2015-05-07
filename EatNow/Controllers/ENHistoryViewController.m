@@ -160,9 +160,12 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 
 - (void)showRestaurantCard:(ENRestaurant *)restaurant fromFrame:(CGRect)frame {
     self.restaurantViewController = [ENRestaurantViewController viewController];
-    _restaurantViewController.view.frame = frame;
-    _restaurantViewController.restaurant = restaurant;
+    self.restaurantViewController.view.frame = frame;
+    self.restaurantViewController.restaurant = restaurant;
+    self.restaurantViewController.rating.hidden = YES;
+    self.restaurantViewController.goButton.hidden = YES;
     [self.mainView addSubview:_restaurantViewController.view];
+    
     
     CGRect toFrame = self.mainViewController.historyContainerView.frame;
     [_restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:toFrame animated:YES completion:nil];
