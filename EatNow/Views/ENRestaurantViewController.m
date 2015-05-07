@@ -286,7 +286,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
         self.map.showsUserLocation = YES;
         self.map.delegate = self.mapManager;
-        [self.view insertSubview:self.map belowSubview:self.goButton];
+        [self.card insertSubview:self.map belowSubview:self.goButton];
         
         closeMap = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
         [closeMap setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
