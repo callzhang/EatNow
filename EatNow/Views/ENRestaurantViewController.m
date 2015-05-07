@@ -71,6 +71,17 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     return YES;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.shadowView.layer.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1].CGColor;
+    self.shadowView.layer.masksToBounds = NO;
+    self.shadowView.layer.shadowRadius = 10;
+    self.shadowView.layer.shadowOpacity = 0.5;
+    self.shadowView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.shadowView.hidden = YES;
+}
+
 //initialization method
 - (void)setRestaurant:(ENRestaurant *)restaurant{
 	_restaurant = restaurant;
@@ -112,6 +123,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         block();
     }
     [self.viewDidLayoutBlocks removeAllObjects];
+    
+    self.shadowView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.shadowView.bounds cornerRadius:16].CGPath;
 }
 
 #pragma mark - State change
@@ -141,6 +154,15 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [self toggleMap:nil];
         }
     }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (status == ENRestaurantViewStatusDetail) {
+            self.shadowView.hidden = NO;
+        }
+        else {
+            self.shadowView.hidden = YES;
+        }
+    });
 }
 
 - (void)didChangedToFrontCard{
@@ -159,7 +181,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                 }
                 @strongify(self);
                 if (!imageUrls) {
-                    ENLogError(@"Failed to parse foursquare image %@", self.restaurant.url);
+#ifdef DEBUG
+                    ENLogError(@"Failed to parse foursquare image %@, error %@", self.restaurant.url, error);
+#endif
                     return;
                 }
                 
@@ -173,36 +197,36 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 #pragma mark - UI
 - (IBAction)selectRestaurant:(id)sender {
-	if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:_restaurant.ID]) {
-		//cancel
-		[[ENServerManager shared] clearSelectedRestaurant];
+    if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:_restaurant.ID]) {
+        //cancel
+        [[ENServerManager shared] clearSelectedRestaurant];
         @weakify(self);
         [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
             @strongify(self);
-			if (error) {
-				[ENUtil showFailureHUBWithString:@"failed"];
-			}else{
+            if (error) {
+                [ENUtil showFailureHUBWithString:@"failed"];
+            }else{
                 DDLogInfo(@"Cancelled %@", _restaurant.name);
-				[self updateGoButton];
-			}
-		}];
+                [self updateGoButton];
+            }
+        }];
         
-		return;
-	}
+        return;
+    }
     
-	if (![ENServerManager shared].canSelectNewRestaurant) {
-		NSArray *titles;
+    if (![ENServerManager shared].canSelectNewRestaurant) {
+        NSArray *titles;
 #ifdef DEBUG
-		titles = @[@"Yes, I changed my mind.", @"Force select [debug]"];
+        titles = @[@"Yes, I changed my mind.", @"Force select [debug]"];
 #else
-		titles = @[@"Yes, I changed my mind."];
+        titles = @[@"Yes, I changed my mind."];
 #endif
-		[UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:titles handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:titles handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-				[ENUtil showWatingHUB];
+                [ENUtil showWatingHUB];
                 @weakify(self);
                 [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
-					[ENUtil dismissHUD];
+                    [ENUtil dismissHUD];
                     @strongify(self);
                     if (error) {
                         ENLogError(error.localizedDescription);
@@ -213,31 +237,31 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                         [self selectRestaurant:nil];
                     }
                 }];
-			}else if (buttonIndex == 2){
-				[[ENServerManager shared] clearSelectedRestaurant];
-				[self selectRestaurant:nil];
-			}
-		}];
-		return;
-	}
-	
-	//select
-	[[ENServerManager shared] selectRestaurant:_restaurant like:1 completion:^(NSError *error) {
-		if (error) {
-			ENLogError(error.localizedDescription);
+            }else if (buttonIndex == 2){
+                [[ENServerManager shared] clearSelectedRestaurant];
+                [self selectRestaurant:nil];
+            }
+        }];
+        return;
+    }
+    
+    //select
+    [[ENServerManager shared] selectRestaurant:_restaurant like:1 completion:^(NSError *error) {
+        if (error) {
+            ENLogError(error.localizedDescription);
             [ENUtil showFailureHUBWithString:@"failed"];
             [self updateGoButton];
-		}
+        }
         else{
-			DDLogInfo(@"Selected %@", _restaurant.name);
+            DDLogInfo(@"Selected %@", _restaurant.name);
             [self.view showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:3];
             [self prepareData];
             [self.tableView reloadData];
             [self updateGoButton];
-		}
-	}];
-	
-	//map
+        }
+    }];
+    
+    //map
     if (!self.map) {
         [self toggleMap:nil];
     }
@@ -247,9 +271,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         @strongify(self);
         self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
     }];
-	
-	//button
-	[self updateGoButton];
+    
+    //button
+    [self updateGoButton];
 }
 
 - (IBAction)toggleMap:(id)sender{
@@ -356,12 +380,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)updateGoButton{
-	if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:self.restaurant.ID]) {
-		[self.goButton setImage:[UIImage imageNamed:@"eat-now-card-details-view-cancel-button"] forState:UIControlStateNormal];
-	}
-	else{
-		[self.goButton setImage:[UIImage imageNamed:@"eatnew-card-details-view-go-button"] forState:UIControlStateNormal];
-	}
+    if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:self.restaurant.ID]) {
+        [self.goButton setImage:[UIImage imageNamed:@"eat-now-card-details-view-cancel-button"] forState:UIControlStateNormal];
+    }
+    else{
+        [self.goButton setImage:[UIImage imageNamed:@"eatnew-card-details-view-go-button"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
@@ -414,22 +438,22 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     @weakify(self);
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         @strongify(self);
-		_currentImageIndex = nextIdx;
-		_isLoadingImage = NO;
-		[self.loading stopAnimating];
-		NSMutableArray *images = _restaurant.images;
-		while (images.count <= _currentImageIndex) {
-			[images addObject:[NSNull null]];
-		}
-		images[_currentImageIndex] = image;
-		_restaurant.images = images;
-		
-		[self showImage:image];
-		
-		//self.pageControl.currentPage = nextIdx;
-	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-		ENLogError(@"*** Failed to download image with error: %@", error);
-	}];
+        _currentImageIndex = nextIdx;
+        _isLoadingImage = NO;
+        [self.loading stopAnimating];
+        NSMutableArray *images = _restaurant.images;
+        while (images.count <= _currentImageIndex) {
+            [images addObject:[NSNull null]];
+        }
+        images[_currentImageIndex] = image;
+        _restaurant.images = images;
+        
+        [self showImage:image];
+        
+        //self.pageControl.currentPage = nextIdx;
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        ENLogError(@"*** Failed to download image with error: %@", error);
+    }];
 }
 
 - (void)showImage:(UIImage *)image{
@@ -446,14 +470,14 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //duplicate view
     if (self.view.superview) {
         UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
-        [self.view insertSubview:imageViewCopy aboveSubview:self.imageView];
+        [self.imageView.superview insertSubview:imageViewCopy aboveSubview:self.imageView];
         [UIView animateWithDuration:0.5 animations:^{
             imageViewCopy.alpha = 0;
         } completion:^(BOOL finished) {
             [imageViewCopy removeFromSuperview];
         }];
     }
-        
+    
     //send image change notification
     [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
     
@@ -467,16 +491,16 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 #pragma mark - Table view
 - (void)prepareData{
-	NSParameterAssert(_restaurant.json);
-	NSMutableArray *info = [NSMutableArray new];
+    NSParameterAssert(_restaurant.json);
+    NSMutableArray *info = [NSMutableArray new];
     __weak __typeof(self)weakSelf = self;
-	if (weakSelf.restaurant.placemark) {
-		[info addObject:@{@"type": @"address",
-						  @"cellID": @"mapCell",
+    if (weakSelf.restaurant.placemark) {
+        [info addObject:@{@"type": @"address",
+                          @"cellID": @"mapCell",
                           @"height": @80,
-						  @"image": @"eat-now-card-details-view-map-icon",
-						  //@"title": _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey],
-						  //@"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000],
+                          @"image": @"eat-now-card-details-view-map-icon",
+                          //@"title": _restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStreetKey],
+                          //@"detail":[NSString stringWithFormat:@"%.1fkm away", _restaurant.distance.floatValue/1000],
                           @"layout": ^(UITableViewCell *cell){
             UILabel *address = (UILabel *)[cell viewWithTag:111];
             UILabel *distance = (UILabel *)[cell viewWithTag:222];
@@ -493,54 +517,54 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             //action to open map
             [weakSelf toggleMap:nil];
         }}];
-	}
-	if (weakSelf.restaurant.openInfo) {
-		[info addObject:@{@"type": @"address",
-						  @"cellID": @"cell",
-						  @"image": @"eat-now-card-details-view-time-icon",
-						  @"title": weakSelf.restaurant.openInfo}];
-	}
-	if (weakSelf.restaurant.phone) {
-		[info addObject:@{@"type": @"phone",
-						  @"cellID": @"cell",
-						  @"image": @"eat-now-card-details-view-phone-icon",
-						  @"title": weakSelf.restaurant.phone,
-						  @"action": ^{
-			NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",weakSelf.restaurant.phoneNumber];
-			NSURL *phoneUrl = [NSURL URLWithString:phoneStr];
-			if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
-				[[UIApplication sharedApplication] openURL:phoneUrl];
-			}
-		}}];
-	}
-	if (weakSelf.restaurant.url) {
-		[info addObject:@{@"type": @"url",
-						  @"cellID": @"cell",
-						  @"image": @"eat-now-card-details-view-web-icon",
-						  @"title": weakSelf.restaurant.url,
-						  @"action": ^{
-			NSURL *url = [NSURL URLWithString:weakSelf.restaurant.url];
-			if ([[UIApplication sharedApplication] canOpenURL:url]) {
-				[[UIApplication sharedApplication] openURL:url];
-			}
-		}}];
-	}
+    }
+    if (weakSelf.restaurant.openInfo) {
+        [info addObject:@{@"type": @"address",
+                          @"cellID": @"cell",
+                          @"image": @"eat-now-card-details-view-time-icon",
+                          @"title": weakSelf.restaurant.openInfo}];
+    }
+    if (weakSelf.restaurant.phone) {
+        [info addObject:@{@"type": @"phone",
+                          @"cellID": @"cell",
+                          @"image": @"eat-now-card-details-view-phone-icon",
+                          @"title": weakSelf.restaurant.phone,
+                          @"action": ^{
+            NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",weakSelf.restaurant.phoneNumber];
+            NSURL *phoneUrl = [NSURL URLWithString:phoneStr];
+            if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
+                [[UIApplication sharedApplication] openURL:phoneUrl];
+            }
+        }}];
+    }
+    if (weakSelf.restaurant.url) {
+        [info addObject:@{@"type": @"url",
+                          @"cellID": @"cell",
+                          @"image": @"eat-now-card-details-view-web-icon",
+                          @"title": weakSelf.restaurant.url,
+                          @"action": ^{
+            NSURL *url = [NSURL URLWithString:weakSelf.restaurant.url];
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }}];
+    }
     
-//#define DEBUG_ALGORITHM
+    //#define DEBUG_ALGORITHM
 #ifdef DEBUG_ALGORITHM
-	if (weakSelf.restaurant.reviews) {
-		[info addObject:@{@"type": @"reviews",
-						  @"cellID": @"cell",
-						  @"image": @"eat-now-card-details-view-twitter-icon",
-						  @"title": [NSString stringWithFormat:@"%@ tips", weakSelf.restaurant.reviews],
+    if (weakSelf.restaurant.reviews) {
+        [info addObject:@{@"type": @"reviews",
+                          @"cellID": @"cell",
+                          @"image": @"eat-now-card-details-view-twitter-icon",
+                          @"title": [NSString stringWithFormat:@"%@ tips", weakSelf.restaurant.reviews],
                           @"accessory": @"disclosure",
-						  @"action": ^{
-			[ENUtil showText:@"Coming soon"];
-		}}];
-	}
+                          @"action": ^{
+            [ENUtil showText:@"Coming soon"];
+        }}];
+    }
 #endif
     
-	//rating
+    //rating
     NSDictionary *history = [ENServerManager shared].userRating;
     NSDictionary *rating = history[weakSelf.restaurant.ID];
     NSNumber *rate = rating[@"rating"];
@@ -550,16 +574,16 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [info addObject:@{@"type": @"score",
                           @"cellID": @"rating",
                           @"layout": ^(UITableViewCell *cell){
-
-                                //Set rating from history
-                                UIView *ratingView = [cell viewWithTag:99];
-                                [self addRatingOnView:ratingView withRating:ratingValue];
             
-                                //set time
-                                NSDate *time = rating[@"time"];
-                                UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];
-                                timeLabel.text = [NSString stringWithFormat:@"(%@)", time.string];
-                            },
+            //Set rating from history
+            UIView *ratingView = [cell viewWithTag:99];
+            [self addRatingOnView:ratingView withRating:ratingValue];
+            
+            //set time
+            NSDate *time = rating[@"time"];
+            UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];
+            timeLabel.text = [NSString stringWithFormat:@"(%@)", time.string];
+        },
                           @"image": @"eat-now-card-details-view-feedback-icon",
                           @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
                           }];
@@ -582,11 +606,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                       @"height": @114,
                       @"layout": ^(UITableViewCell *cell){
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(weakSelf.tableView.bounds));
-                        }
+    }
                       }];
-
-	
-	self.restautantInfo = info.copy;
+    
+    
+    self.restautantInfo = info.copy;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -604,8 +628,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell;
-	NSDictionary *info = self.restautantInfo[indexPath.row];
-	cell = [tableView dequeueReusableCellWithIdentifier:info[@"cellID"]];
+    NSDictionary *info = self.restautantInfo[indexPath.row];
+    cell = [tableView dequeueReusableCellWithIdentifier:info[@"cellID"]];
     if (info[@"layout"]) {
         tableViewCellLayoutBlock block = info[@"layout"];
         block(cell);
@@ -624,7 +648,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         restrantCell.cellTitleLabel.text = info[@"title"];
         restrantCell.iconImageView.image = [UIImage imageNamed:info[@"image"]];
     }
-
+    
     if (info[@"accessory"]) {
         if ([info[@"accessory"] isEqualToString:@"disclosure"]) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

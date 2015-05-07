@@ -599,6 +599,11 @@
 - (IBAction)panHandler:(UIPanGestureRecognizer *)gesture {
     CGPoint locInView = [gesture locationInView:self.detailCardContainer];
     CGPoint locInCard = [gesture locationInView:self.firstRestaurantViewController.view];
+    
+    void (^clearShadowBlock)(ENRestaurantViewController *viewController) = ^(ENRestaurantViewController *viewController) {
+        viewController.shadowView.hidden = YES;
+    };
+    
     ENRestaurantViewController *firstRestauantViewController= self.firstRestaurantViewController;
     if (gesture.state == UIGestureRecognizerStateBegan) {
         //attachment behavior
@@ -606,11 +611,13 @@
         UIOffset offset = UIOffsetMake(locInCard.x - firstRestauantViewController.view.bounds.size.width/2, locInCard.y - firstRestauantViewController.view.bounds.size.height/2);
         _attachment = [[UIAttachmentBehavior alloc] initWithItem:firstRestauantViewController.view offsetFromCenter:offset attachedToAnchor:locInView];
         [_animator addBehavior:_attachment];
+        firstRestauantViewController.shadowView.hidden = NO;
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         _attachment.anchorPoint = locInView;
     }
     else if (gesture.state == UIGestureRecognizerStateEnded){
+        clearShadowBlock(firstRestauantViewController);
         [_animator removeBehavior:_attachment];
         CGPoint translation = [gesture translationInView:self.view];
         BOOL canSwipe = firstRestauantViewController.canSwipe;
@@ -628,6 +635,9 @@
         else {
             [self snapCardToCenter:firstRestauantViewController];
         }
+    }
+    else {
+        clearShadowBlock(firstRestauantViewController);
     }
 }
 

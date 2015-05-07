@@ -741,10 +741,14 @@
                         <viewControllerLayoutGuide type="top" id="5TA-Hr-QgP"/>
                         <viewControllerLayoutGuide type="bottom" id="dhx-kU-wTy"/>
                     </layoutGuides>
-                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Rlz-6w-TNj">
+                    <view key="view" contentMode="scaleToFill" id="Rlz-6w-TNj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPc-EE-oxi" userLabel="shadow-view">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4b-9y-85a" userLabel="restaurant card">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="550"/>
                                 <subviews>
@@ -1122,7 +1126,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="leading" secondItem="H4b-9y-85a" secondAttribute="leading" id="1te-XH-USY"/>
                                     <constraint firstAttribute="bottom" secondItem="ElG-By-adf" secondAttribute="bottom" id="7YF-Zh-c5a"/>
@@ -1135,20 +1139,24 @@
                                     <constraint firstItem="fsH-Ee-d2j" firstAttribute="height" secondItem="H4b-9y-85a" secondAttribute="height" multiplier="0.45" priority="900" id="jGo-xL-n5F"/>
                                     <constraint firstAttribute="centerX" secondItem="GcM-Kx-ZZ9" secondAttribute="centerX" id="qxI-LY-PC2"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="H4b-9y-85a" firstAttribute="top" secondItem="Rlz-6w-TNj" secondAttribute="top" id="1Rk-CD-Ebf"/>
                             <constraint firstItem="H4b-9y-85a" firstAttribute="leading" secondItem="Rlz-6w-TNj" secondAttribute="leading" id="CBS-Hk-Je7"/>
+                            <constraint firstItem="H4b-9y-85a" firstAttribute="top" secondItem="DPc-EE-oxi" secondAttribute="top" id="DWx-Xg-TdE"/>
+                            <constraint firstItem="H4b-9y-85a" firstAttribute="leading" secondItem="DPc-EE-oxi" secondAttribute="leading" id="Iin-NY-7pg"/>
+                            <constraint firstItem="H4b-9y-85a" firstAttribute="bottom" secondItem="DPc-EE-oxi" secondAttribute="bottom" id="Jn6-47-BYF"/>
                             <constraint firstAttribute="trailing" secondItem="H4b-9y-85a" secondAttribute="trailing" id="Xuk-lT-hos"/>
                             <constraint firstAttribute="bottom" secondItem="H4b-9y-85a" secondAttribute="bottom" id="hme-Tv-jfb"/>
+                            <constraint firstItem="H4b-9y-85a" firstAttribute="trailing" secondItem="DPc-EE-oxi" secondAttribute="trailing" id="wG2-mk-sQS"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="16"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="550"/>
@@ -1166,6 +1174,7 @@
                         <outlet property="openTime" destination="xKx-ie-3fb" id="QYc-1i-dRg"/>
                         <outlet property="price" destination="9rp-Qh-TDe" id="GEu-fR-ipG"/>
                         <outlet property="rating" destination="0Rc-cj-kSW" id="X5h-qS-1bg"/>
+                        <outlet property="shadowView" destination="DPc-EE-oxi" id="4gZ-eZ-mL7"/>
                         <outlet property="tableView" destination="ElG-By-adf" id="e66-2g-eoE"/>
                         <outlet property="walkingDistance" destination="2zY-ds-bCm" id="54E-xz-XAd"/>
                     </connections>
