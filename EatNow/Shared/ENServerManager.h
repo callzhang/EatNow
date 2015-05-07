@@ -17,7 +17,6 @@ extern NSString * const kPreferenceUpdated;
 extern NSString * const kUserUpdated;
 
 #import <Foundation/Foundation.h>
-//@import CoreLocation;
 #import "AFNetworking.h"
 #import "ENDefines.h"
 #import "ENRestaurant.h"
