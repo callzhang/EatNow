@@ -19,6 +19,8 @@
 #import "UIView+Material.h"
 #import "extobjc.h"
 #import "UIView+Extend.h"
+#import "ENHistoryViewCell.h"
+#import "ENRestaurantTableViewCell.h"
 @import AddressBook;
 
 NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
@@ -88,7 +90,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineText;
     self.price.text = restaurant.pricesText;
-    self.rating.text = [NSString stringWithFormat:@"%.0f", round(restaurant.rating.integerValue)];
+    self.rating.text = [NSString stringWithFormat:@"%.1f", [restaurant.rating floatValue]];
     self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
@@ -526,6 +528,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 			}
 		}}];
 	}
+    
+//#define DEBUG_ALGORITHM
+#ifdef DEBUG_ALGORITHM
 	if (weakSelf.restaurant.reviews) {
 		[info addObject:@{@"type": @"reviews",
 						  @"cellID": @"cell",
@@ -536,6 +541,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 			[ENUtil showText:@"Coming soon"];
 		}}];
 	}
+#endif
     
 	//rating
     NSDictionary *history = [ENServerManager shared].userRating;
@@ -561,7 +567,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                           @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
                           }];
     }
-	
+#ifdef DEBUG_ALGORITHM
     //score
     if (weakSelf.restaurant.score) {
         [info addObject:@{@"type": @"score",
@@ -570,12 +576,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                           @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
                           }];
     }
+#endif
     
     //footer
     [info addObject:@{
                       @"type": @"footer",
                       @"cellID": @"foursquare",
-                      @"height": @100,
+                      @"height": @114,
                       @"layout": ^(UITableViewCell *cell){
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(weakSelf.tableView.bounds));
                         }
@@ -606,13 +613,38 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         tableViewCellLayoutBlock block = info[@"layout"];
         block(cell);
     }
-	if (info[@"title"]) cell.textLabel.text = info[@"title"];
-	if (info[@"detail"]) cell.detailTextLabel.text = info[@"detail"];
-	if (info[@"image"]) cell.imageView.image = [UIImage imageNamed:info[@"image"]];
+    
+    if (![cell isKindOfClass:[ENRestaurantTableViewCell class]]) {
+        if (info[@"title"]) cell.textLabel.text = info[@"title"];
+        if (info[@"detail"]) cell.detailTextLabel.text = info[@"detail"];
+        if (info[@"image"]) {
+            UIImageView *iconImageView = (UIImageView *) [cell viewWithTag:1985];
+            iconImageView.image = [UIImage imageNamed:info[@"image"]];
+        }
+    }
+    else {
+        ENRestaurantTableViewCell *restrantCell = (ENRestaurantTableViewCell *)cell;
+        restrantCell.cellTitleLabel.text = info[@"title"];
+        restrantCell.iconImageView.image = [UIImage imageNamed:info[@"image"]];
+    }
+
     if (info[@"accessory"]) {
         if ([info[@"accessory"] isEqualToString:@"disclosure"]) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
+    }
+    
+    if ([cell respondsToSelector:@selector(setRestaurant:)]) {
+        [cell setValue:self.restaurant forKeyPath:@keypath(self.restaurant)];
+    }
+    
+    cell.layoutMargins = UIEdgeInsetsZero;
+    cell.separatorInset = UIEdgeInsetsZero;
+    cell.preservesSuperviewLayoutMargins = NO;
+    
+    //hide bottom seperator for foursquare cell
+    if ([info[@"cellID"] isEqualToString:@"foursquare"]) {
+        cell.separatorInset = UIEdgeInsetsMake(0, 2000, 0, 0);
     }
     return cell;
 }

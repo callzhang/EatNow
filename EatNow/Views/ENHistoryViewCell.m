@@ -38,3 +38,13 @@
 }
 
 @end
+
+@implementation ENFoursquareViewCell
+
+
+- (IBAction)onFoursqureButton:(id)sender {
+    if (self.restaurant.venderUrl) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.restaurant.venderUrl]];
+    }
+}
+@end

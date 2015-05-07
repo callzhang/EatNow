@@ -17,3 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *rating;
 @property (nonatomic, assign) NSInteger rate;
 @end
+
+@interface ENFoursquareViewCell : UITableViewCell
+@property (nonatomic, strong) ENRestaurant *restaurant;
+@end

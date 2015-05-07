@@ -93,6 +93,8 @@
 		09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
 		09DC93291AE2CBE20054D665 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
 		09DC932A1AE2D8F60054D665 /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
+		09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */; };
+		09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
 		9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B1180F71A8E970700756E8F /* Entypo.ttf */; };
@@ -263,6 +265,10 @@
 		09B9F8FD1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryHeaderRowItem.m; sourceTree = "<group>"; };
 		09DC93261AE2C94F0054D665 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		09DC93271AE2C94F0054D665 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
+		09E463F01AFB0AC200389E0B /* ENRestaurantTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantTableViewCell.h; sourceTree = "<group>"; };
+		09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantTableViewCell.m; sourceTree = "<group>"; };
+		09E463F31AFB0CE400389E0B /* UITableViewCell+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Extension.h"; sourceTree = "<group>"; };
+		09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Extension.m"; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -686,6 +692,10 @@
 				9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */,
 				9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */,
 				9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */,
+				09E463F01AFB0AC200389E0B /* ENRestaurantTableViewCell.h */,
+				09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */,
+				09E463F31AFB0CE400389E0B /* UITableViewCell+Extension.h */,
+				09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */,
 				09777C831AD497F8007147B2 /* TextfieldWithInset.swift */,
 				09777C841AD497F8007147B2 /* WJCustomizeView.swift */,
 				09777C851AD497F8007147B2 /* ApplicationButton.swift */,
@@ -962,8 +972,10 @@
 				09B9F8EA1AF1B4F700DE92C6 /* TMTableViewDataSource.m in Sources */,
 				09B9F8FE1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
 				092944C81AED94F600018391 /* UIImage+Resizing.m in Sources */,
+				09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */,
 				09B9F8DA1AF1B4F700DE92C6 /* TMLabelRowItem.m in Sources */,
 				09B9F8EE1AF1B4F700DE92C6 /* UITableView+RegisterRowItem.m in Sources */,
+				09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */,
 				9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */,
 				9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */,
 				0929746E1AD0C2B200DDC35C /* ENRestaurant.m in Sources */,

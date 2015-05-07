@@ -54,10 +54,13 @@
     NSParameterAssert(self.history);
     NSParameterAssert(self.restaurant);
     [self.backgroundImageView setImageWithURL:[NSURL URLWithString:self.restaurant.imageUrls.firstObject] placeholderImage:nil];
-    NSNumber *like = _history[@"like"];
+//    NSNumber *like = _history[@"like"];
     [self addRatingOnView:self.ratingView withRating:0];
     
-    self.titleLabel.text = _restaurant.name;
+    NSMutableAttributedString *titleAttributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"How was %@", self.restaurant.name]];
+    [titleAttributedString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"OpenSans-Light" size:28]} range:NSMakeRange(0, 8)];
+    [titleAttributedString addAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"OpenSans" size:28]} range:NSMakeRange(8, titleAttributedString.length - 8)];
+    self.titleLabel.attributedText = titleAttributedString;
     self.addressLabel.text = _restaurant.streetText;
 }
 
@@ -85,7 +88,7 @@
         }
        [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
            DDLogVerbose(@"History %@ cancelled", _restaurant.name);
-           [ENUtil showText:@"History removed"];
+//           [ENUtil showText:@"History removed"];
        }];
     }];
 }
@@ -101,7 +104,7 @@
         }
         [self.mainViewController dismissFrontCardWithVelocity:CGPointMake(0, 0) completion:^(NSArray *leftcards) {
             DDLogVerbose(@"Rated %@ for %@", self.rating, self.restaurant.name);
-            [ENUtil showSuccessHUBWithString:@"Preference updated"];
+//            [ENUtil showSuccessHUBWithString:@"Preference updated"];
         }];
     }];
 }

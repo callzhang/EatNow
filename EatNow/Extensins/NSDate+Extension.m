@@ -14,7 +14,7 @@
 - (NSString *)string{
     NSDateFormatter *parseFormatter = [[NSDateFormatter alloc] init];
     parseFormatter.timeZone = [NSTimeZone defaultTimeZone];
-    parseFormatter.dateFormat = @"MMM dd, yyyy";
+    parseFormatter.dateFormat = @"MMM d, yyyy";
 
     return [parseFormatter stringFromDate:self];
 }
