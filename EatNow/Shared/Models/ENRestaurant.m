@@ -71,7 +71,10 @@
 	NSDictionary *scores = json[@"score"];
 	if (scores) {
 		NSNumber *totalScore = scores[@"total_score"];
-		NSParameterAssert(![totalScore isEqual:[NSNull null]]);
+//		NSParameterAssert(![totalScore isEqual:[NSNull null]]);
+        if ([totalScore isEqual:(id)[NSNull null]]) {
+            totalScore = @0;
+        }
 		self.score = totalScore;
 	}
 	
