@@ -501,8 +501,8 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ahv-cd-afW" id="bCr-vV-NeV">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="89" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Last 30 days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjD-TW-yuE">
-                                            <rect key="frame" x="0.0" y="13" width="320" height="34"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="89" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 30 days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjD-TW-yuE">
+                                            <rect key="frame" x="0.0" y="13" width="288" height="34"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -583,8 +583,8 @@
                                         </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="(53 W 19th)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvV-FA-C7Y">
-                                        <rect key="frame" x="10" y="60" width="300" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(53 W 19th)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mvV-FA-C7Y">
+                                        <rect key="frame" x="10" y="60" width="300" height="28"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -754,8 +754,11 @@
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-deck-view-image-dark-overlay-upper" translatesAutoresizingMaskIntoConstraints="NO" id="5im-Zl-NK2">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-deck-view-image-dark-overlay-upper" translatesAutoresizingMaskIntoConstraints="NO" id="5im-Zl-NK2">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="124"/>
+                                            </imageView>
+                                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-deck-view-image-dark-overlay-lower" translatesAutoresizingMaskIntoConstraints="NO" id="l8B-bX-ZHI">
+                                                <rect key="frame" x="0.0" y="124" width="320" height="124"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New American, Burger" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="45L-e4-Y8S" userLabel="venueType">
                                                 <rect key="frame" x="8" y="53" width="236" height="29"/>
@@ -885,23 +888,26 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.25" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="5im-Zl-NK2" firstAttribute="height" secondItem="fsH-Ee-d2j" secondAttribute="height" multiplier="1:2" id="15N-Dm-d2q"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="leading" secondItem="Wt9-vs-bTu" secondAttribute="trailing" constant="8" id="4lQ-E5-lN3"/>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="5Kx-Jx-9cx"/>
                                             <constraint firstAttribute="trailing" secondItem="5im-Zl-NK2" secondAttribute="trailing" id="7aa-0n-nQ3"/>
                                             <constraint firstItem="5im-Zl-NK2" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="Ayr-OB-lVi"/>
                                             <constraint firstAttribute="trailing" secondItem="cy3-AH-BuV" secondAttribute="trailing" id="Bau-Z1-YWY"/>
+                                            <constraint firstItem="l8B-bX-ZHI" firstAttribute="height" secondItem="fsH-Ee-d2j" secondAttribute="height" multiplier="1:2" id="DG3-Vm-Snn"/>
                                             <constraint firstAttribute="trailing" secondItem="0Rc-cj-kSW" secondAttribute="trailing" constant="8" id="Er7-ET-ejN"/>
                                             <constraint firstAttribute="bottom" secondItem="DBA-UH-kFT" secondAttribute="bottom" constant="8" id="Ftq-jj-Z4f"/>
                                             <constraint firstItem="cy3-AH-BuV" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="GIO-Av-PQn"/>
+                                            <constraint firstAttribute="trailing" secondItem="l8B-bX-ZHI" secondAttribute="trailing" id="JV0-s8-a1U"/>
                                             <constraint firstAttribute="centerY" secondItem="3xH-uo-hHt" secondAttribute="centerY" id="Kea-1f-GlE"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="LdG-9F-uh3"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="OCd-oj-NLg"/>
                                             <constraint firstAttribute="trailing" secondItem="DBA-UH-kFT" secondAttribute="trailing" constant="8" id="Obw-dH-bbu"/>
-                                            <constraint firstAttribute="bottom" secondItem="5im-Zl-NK2" secondAttribute="bottom" id="Soy-v2-xCm"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="8" id="U23-yC-IEX"/>
                                             <constraint firstAttribute="bottom" secondItem="cy3-AH-BuV" secondAttribute="bottom" id="UKJ-yg-PPM"/>
                                             <constraint firstAttribute="centerX" secondItem="3xH-uo-hHt" secondAttribute="centerX" id="VuC-mp-h8B"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="8" id="ajX-NE-huo"/>
+                                            <constraint firstItem="l8B-bX-ZHI" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="ccs-fq-80K"/>
                                             <constraint firstAttribute="trailing" secondItem="uVW-6x-hlL" secondAttribute="trailing" constant="8" id="eFQ-2t-Edj"/>
                                             <constraint firstItem="5im-Zl-NK2" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="hXB-sd-9Mv"/>
                                             <constraint firstItem="uVW-6x-hlL" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="isy-Ep-wMl"/>
@@ -909,6 +915,7 @@
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="top" secondItem="45L-e4-Y8S" secondAttribute="bottom" id="mSB-Dy-jqW"/>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="top" secondItem="uVW-6x-hlL" secondAttribute="bottom" id="oVy-Yd-48E"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="top" secondItem="Wt9-vs-bTu" secondAttribute="bottom" id="uyj-EB-nfZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="l8B-bX-ZHI" secondAttribute="bottom" id="wk9-0t-gbL"/>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="zhW-hf-ci6"/>
                                         </constraints>
                                     </view>
@@ -1071,8 +1078,8 @@
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FHG-s6-G6I" id="V81-DL-DqA">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6W-or-Buo">
-                                                            <rect key="frame" x="85" y="10" width="150" height="24"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6W-or-Buo">
+                                                            <rect key="frame" x="73" y="10" width="174" height="29"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="150" id="Z2Z-r4-yln"/>
                                                             </constraints>
@@ -1159,7 +1166,6 @@
                         <outlet property="openTime" destination="xKx-ie-3fb" id="QYc-1i-dRg"/>
                         <outlet property="price" destination="9rp-Qh-TDe" id="GEu-fR-ipG"/>
                         <outlet property="rating" destination="0Rc-cj-kSW" id="X5h-qS-1bg"/>
-                        <outlet property="shadowGradient" destination="5im-Zl-NK2" id="6CZ-vF-kaw"/>
                         <outlet property="tableView" destination="ElG-By-adf" id="e66-2g-eoE"/>
                         <outlet property="walkingDistance" destination="2zY-ds-bCm" id="54E-xz-XAd"/>
                     </connections>
@@ -1214,6 +1220,7 @@
         <image name="animatedLoading.gif" width="198" height="198"/>
         <image name="eat-now-card-deck-view-debug-button" width="55" height="55"/>
         <image name="eat-now-card-deck-view-history-button" width="110" height="110"/>
+        <image name="eat-now-card-deck-view-image-dark-overlay-lower" width="1" height="206"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-upper" width="1" height="206"/>
         <image name="eat-now-card-deck-view-refresh-button" width="55" height="55"/>
         <image name="eat-now-card-deck-view-time-icon" width="29" height="29"/>

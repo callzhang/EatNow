@@ -46,7 +46,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UIButton *goButton;
 @property (strong, nonatomic) MKMapView *map;
 @property (weak, nonatomic) IBOutlet UIView *userRatingView;
-@property (weak, nonatomic) IBOutlet UIImageView *shadowGradient;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -322,7 +321,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
-        self.shadowGradient.image = [UIImage imageNamed:@"gradient 2"];
     }
     else if (self.status == ENRestaurantViewStatusDetail) {
         self.distanceInfo.alpha = 0;
@@ -346,7 +344,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [self addRatingOnView:self.userRatingView withRating:rate.integerValue];
         }
         
-        self.shadowGradient.image = [UIImage imageNamed:@"gradient"];
     }
     else if (self.status == ENRestaurantViewStatusHistoryDetail) {
         self.distanceInfo.alpha = 0;
