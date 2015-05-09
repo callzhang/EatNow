@@ -26,16 +26,17 @@
 #import "ENMainViewController.h"
 #import "ENServerManager.h"
 #import "ENUtil.h"
-#import "Crashlytics.h"
 #import "ENLocationManager.h"
 #import "UIAlertView+BlocksKit.h"
 #import "ATConnect.h"
 #import "UIImageView+AFNetworking.h"
 #import "WatchKitAction.h"
-#import <CrashlyticsLogger.h>
+#import "CrashlyticsLogger.h"
+#import <Fabric/Fabric.h>
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
+#import <Crashlytics/crashlytics.h>
 
 @implementation AppDelegate
 
@@ -43,7 +44,9 @@
     [self initilizeLogging];
 
     [ATConnect sharedConnection].apiKey = @"43aadd17c4e966f98753bcb1250e78d00c68731398a9b60dc7c456d2682415fc";
-    [Crashlytics startWithAPIKey:@"6ec9eab6ca26fcd18d51d0322752b861c63bc348"];
+    [Fabric with:@[CrashlyticsKit]];
+    [Fabric sharedSDK].debug = YES;
+    //[Crashlytics startWithAPIKey:@"6ec9eab6ca26fcd18d51d0322752b861c63bc348"];
     
     [ENLocationManager registerLocationDeniedHandler:^{
         [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {

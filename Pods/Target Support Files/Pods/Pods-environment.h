@@ -138,18 +138,6 @@
 #define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Extensions 0
 #define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Extensions 0
 
-// CrashlyticsFramework
-#define COCOAPODS_POD_AVAILABLE_CrashlyticsFramework
-#define COCOAPODS_VERSION_MAJOR_CrashlyticsFramework 2
-#define COCOAPODS_VERSION_MINOR_CrashlyticsFramework 2
-#define COCOAPODS_VERSION_PATCH_CrashlyticsFramework 10
-
-// CrashlyticsLumberjack
-#define COCOAPODS_POD_AVAILABLE_CrashlyticsLumberjack
-#define COCOAPODS_VERSION_MAJOR_CrashlyticsLumberjack 2
-#define COCOAPODS_VERSION_MINOR_CrashlyticsLumberjack 0
-#define COCOAPODS_VERSION_PATCH_CrashlyticsLumberjack 0
-
 // INTULocationManager
 #define COCOAPODS_POD_AVAILABLE_INTULocationManager
 #define COCOAPODS_VERSION_MAJOR_INTULocationManager 3

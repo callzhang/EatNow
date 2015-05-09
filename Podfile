@@ -1,9 +1,10 @@
 platform :ios, '8.0'
 
 pod 'AFNetworking'
-pod 'CrashlyticsFramework'
-pod 'CocoaLumberjack', '2.0.0-rc'
-pod 'CrashlyticsLumberjack', '2.0.0-rc2'
+#pod 'CrashlyticsFramework'
+#pod 'Fabric', '~> 1.2'
+pod 'CocoaLumberjack', '~> 2.0'
+#pod 'CrashlyticsLumberjack', '2.0.1-beta'
 pod 'JGProgressHUD'
 pod 'libextobjc'       # Useful macros and some craziness
 pod 'KVOController', '~> 1.0.3'

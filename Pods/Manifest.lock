@@ -46,17 +46,14 @@ PODS:
   - Bolts/AppLinks (1.1.5):
     - Bolts/Tasks
   - Bolts/Tasks (1.1.5)
-  - CocoaLumberjack (2.0.0-rc):
-    - CocoaLumberjack/Default (= 2.0.0-rc)
-    - CocoaLumberjack/Extensions (= 2.0.0-rc)
-  - CocoaLumberjack/Core (2.0.0-rc)
-  - CocoaLumberjack/Default (2.0.0-rc):
+  - CocoaLumberjack (2.0.0):
+    - CocoaLumberjack/Default (= 2.0.0)
+    - CocoaLumberjack/Extensions (= 2.0.0)
+  - CocoaLumberjack/Core (2.0.0)
+  - CocoaLumberjack/Default (2.0.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.0-rc):
+  - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
-  - CrashlyticsFramework (2.2.10)
-  - CrashlyticsLumberjack (2.0.0-rc2):
-    - CocoaLumberjack/Default (>= 2.0.0-rc)
   - hpple (0.2.0)
   - INTULocationManager (3.0.1)
   - JGProgressHUD (1.2.5)
@@ -116,9 +113,7 @@ DEPENDENCIES:
   - apptentive-ios (~> 1.7)
   - BlocksKit (~> 2.2)
   - Bolts (~> 1.1.4)
-  - CocoaLumberjack (= 2.0.0-rc)
-  - CrashlyticsFramework
-  - CrashlyticsLumberjack (= 2.0.0-rc2)
+  - CocoaLumberjack (~> 2.0)
   - hpple (~> 0.2)
   - INTULocationManager (~> 3.0.1)
   - JGProgressHUD
@@ -138,9 +133,7 @@ SPEC CHECKSUMS:
   apptentive-ios: be0b8dbc17b443eb624b3a015017f521b096f003
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
-  CocoaLumberjack: 04c5b9b7479dd4276a09700fcd6644423ea1751c
-  CrashlyticsFramework: 2f7c515a2d74c8636bf47e761621f2f68193747e
-  CrashlyticsLumberjack: 109eba5693487358215a04665a9526190ed73712
+  CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
   JGProgressHUD: 4d709935604cdf671b3039a95bbcb6960b19b885
@@ -153,4 +146,4 @@ SPEC CHECKSUMS:
   SparkInspector: 0c34a98a39bfabb0a45fdf2658d091a7958fc0b0
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
 
-COCOAPODS: 0.37.0
+COCOAPODS: 0.37.1
