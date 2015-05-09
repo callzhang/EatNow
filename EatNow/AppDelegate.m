@@ -36,6 +36,10 @@
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
+#import "ENLostConnectionViewController.h"
+@interface AppDelegate ()
+@property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
+@end
 
 @implementation AppDelegate
 
@@ -63,6 +67,25 @@
         ENMainViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
         [UIWindow mainWindow].rootViewController = vc;
     }
+    
+    //Internet connection
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+            case AFNetworkReachabilityStatusNotReachable: {
+                self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
+                [[UIWindow mainWindow].rootViewController presentViewController:self.lostConnectionViewController animated:YES completion:nil];
+                break;
+            }
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+               [self.lostConnectionViewController.presentingViewController dismissViewControllerAnimated:NO completion:^{
+                   self.lostConnectionViewController = nil;
+               }];
+                break;
+        }
+    }];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     return YES;
 }

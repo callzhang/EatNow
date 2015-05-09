@@ -202,26 +202,7 @@
         }
     }];
     
-	//Internet connection
-	[[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-		switch (status) {
-			case AFNetworkReachabilityStatusUnknown:
-				self.loadingInfo.text = @"";
-				break;
-			case AFNetworkReachabilityStatusNotReachable:
-				self.loadingInfo.text = @"No internet connection";
-				ENLogError(@"No internet connection");
-				break;
-			case AFNetworkReachabilityStatusReachableViaWWAN:
-			case AFNetworkReachabilityStatusReachableViaWiFi:
-				self.loadingInfo.text = @"";
-				break;
-				
-			default://
-				break;
-		}
-	}];
-	[[AFNetworkReachabilityManager sharedManager] startMonitoring];
+
     
     [self.KVOController observe:self keyPaths:@[@keypath(self.isReloading), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isReloading && !self.isShowingCards && !self.isDismissingCard) {
