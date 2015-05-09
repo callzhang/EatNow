@@ -190,8 +190,24 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-QT-1bI" userLabel="detail">
                                 <rect key="frame" x="16" y="20" width="288" height="456"/>
                                 <subviews>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mc6-x8-adw">
+                                        <rect key="frame" x="24" y="110" width="240" height="68"/>
+                                        <attributedString key="attributedText">
+                                            <fragment>
+                                                <string key="content">Oops. It looks like there are no more restaurants nearby. :(</string>
+                                                <attributes>
+                                                    <color key="NSColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="36" name="ProximaNova-Regular"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="animatedLoading.gif" translatesAutoresizingMaskIntoConstraints="NO" id="mNE-gW-krQ" userLabel="loading">
-                                        <rect key="frame" x="114" y="198" width="60" height="60"/>
+                                        <rect key="frame" x="114" y="236" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="IN6-yo-dhb"/>
                                             <constraint firstAttribute="height" constant="60" id="mIA-J3-rhq"/>
@@ -204,12 +220,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="0.16" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Mc6-x8-adw" firstAttribute="top" secondItem="pNF-QT-1bI" secondAttribute="top" constant="110" id="3DB-ru-KWC"/>
                                     <constraint firstItem="2kN-sq-rqs" firstAttribute="top" secondItem="pNF-QT-1bI" secondAttribute="top" constant="100" id="Ev8-Zf-WK5"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mc6-x8-adw" secondAttribute="trailing" constant="24" id="Srl-BV-erF"/>
                                     <constraint firstAttribute="centerX" secondItem="mNE-gW-krQ" secondAttribute="centerX" id="YTx-YG-ElV"/>
-                                    <constraint firstAttribute="centerY" secondItem="mNE-gW-krQ" secondAttribute="centerY" id="duH-QJ-mgr"/>
+                                    <constraint firstAttribute="centerX" secondItem="Mc6-x8-adw" secondAttribute="centerX" id="ad6-sW-KAg"/>
                                     <constraint firstAttribute="trailing" secondItem="2kN-sq-rqs" secondAttribute="trailing" id="ghc-la-5Kn"/>
+                                    <constraint firstItem="Mc6-x8-adw" firstAttribute="leading" secondItem="pNF-QT-1bI" secondAttribute="leading" constant="24" id="m4w-4i-zDQ"/>
                                     <constraint firstItem="2kN-sq-rqs" firstAttribute="leading" secondItem="pNF-QT-1bI" secondAttribute="leading" id="sxW-HO-TQY"/>
                                     <constraint firstAttribute="bottom" secondItem="2kN-sq-rqs" secondAttribute="bottom" constant="24" id="tf2-kG-iK2"/>
+                                    <constraint firstItem="mNE-gW-krQ" firstAttribute="centerY" secondItem="2kN-sq-rqs" secondAttribute="centerY" id="yja-N5-IL5"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcq-QR-9Zu" userLabel="reload-button">
@@ -389,6 +409,7 @@
                         <outlet property="loadingIndicator" destination="mNE-gW-krQ" id="aJK-q7-yYB"/>
                         <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
                         <outlet property="mainViewButton" destination="YOj-3L-UkI" id="MJ0-Vv-Cu7"/>
+                        <outlet property="noRestaurantsLabel" destination="Mc6-x8-adw" id="BDk-wj-JnV"/>
                         <outlet property="panGesture" destination="yUq-Ir-CBt" id="PpJ-sD-gmq"/>
                         <outlet property="reloadButton" destination="Fcq-QR-9Zu" id="Ctu-id-Ctm"/>
                         <outlet property="tapGesture" destination="O3U-Ob-hea" id="2zT-0B-l7C"/>

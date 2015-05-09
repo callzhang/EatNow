@@ -35,6 +35,7 @@
 		092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */; };
 		092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
 		093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */; };
+		093E869E1AFEBFD400CAF489 /* EnShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E869D1AFEBFD400CAF489 /* EnShapeView.m */; };
 		09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB41ACCC5E700B989FF /* InterfaceController.m */; };
 		09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB71ACCC5E700B989FF /* NotificationController.m */; };
 		09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CBA1ACCC5E700B989FF /* GlanceController.m */; };
@@ -198,6 +199,8 @@
 		092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResturantInterfaceController.m; sourceTree = "<group>"; };
 		093E86991AFEA31800CAF489 /* ENLostConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENLostConnectionViewController.h; sourceTree = "<group>"; };
 		093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLostConnectionViewController.m; sourceTree = "<group>"; };
+		093E869C1AFEBFD400CAF489 /* EnShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnShapeView.h; sourceTree = "<group>"; };
+		093E869D1AFEBFD400CAF489 /* EnShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnShapeView.m; sourceTree = "<group>"; };
 		09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "EatNow WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09432CB11ACCC5E700B989FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09432CB21ACCC5E700B989FF /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -391,6 +394,8 @@
 				090B2E0D1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m */,
 				091F49D21AED799D0064A4C8 /* WatchKitAction.h */,
 				091F49D31AED799D0064A4C8 /* WatchKitAction.m */,
+				093E869C1AFEBFD400CAF489 /* EnShapeView.h */,
+				093E869D1AFEBFD400CAF489 /* EnShapeView.m */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1007,6 +1012,7 @@
 				092944CC1AED951900018391 /* NYXImagesHelper.m in Sources */,
 				0982B4591AD9A30500982740 /* NSError+TMError.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
+				093E869E1AFEBFD400CAF489 /* EnShapeView.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
 				093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */,
 				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,

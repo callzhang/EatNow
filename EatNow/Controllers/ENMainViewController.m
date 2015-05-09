@@ -40,6 +40,7 @@
 #import "ENProfileViewController.h"
 #import "ENFeedbackViewController.h"
 #import "NSDate+Extension.h"
+#import "EnShapeView.h"
 
 
 @interface ENMainViewController ()
@@ -64,6 +65,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerLeadingConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *noRestaurantsLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *loadingIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *historyButton;
@@ -73,6 +75,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *histodyDetailToHistoryButton;
 @property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
+@property (nonatomic, strong) EnShapeView *dotFrameView;
 @end
 
 @implementation ENMainViewController
@@ -137,12 +140,22 @@
 }
 
 #pragma mark - UIViewController Lifecycle
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setupDotFrameView];
+}
+
+- (void)viewDidLayoutSubviews {
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
     self.cardViews = [NSMutableArray array];
     self.currentMode = ENMainViewControllerModeMain;
+    [self setupNoRestaurantStatus];
     
     //fetch user first
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
@@ -280,6 +293,7 @@
     //hide history view
     [self toggleHistoryView];
     
+    [self setupDotFrameView];
 }
 
 - (void)onRestauranntViewImageDidChangeNotification:(NSNotification *)notification {
@@ -316,6 +330,8 @@
 }
 
 - (IBAction)onReloadButton:(id)sender {
+    [self hideNoRestaurantStatus];
+    
     if (self.isShowingCards) {
         DDLogInfo(@"showing cards, ignore reload button");
         return;
@@ -393,6 +409,10 @@
                 @strongify(self);
                 if (success) {
                     self.restaurants = response.mutableCopy;
+//                    self.restaurants = [NSMutableArray array];
+                    if (self.restaurants.count == 0) {
+                        [self showNoRestaurantStatus];
+                    }
                 }
                 
                 block(response, error);
@@ -716,6 +736,46 @@
     if ([segue.identifier isEqualToString:@"embedHistorySegue"]) {
         self.historyViewController = segue.destinationViewController;
         self.historyViewController.mainViewController = self;
+    }
+}
+
+#pragma mark -
+- (void)showNoRestaurantStatus {
+    self.noRestaurantsLabel.hidden = NO;
+}
+
+- (void)hideNoRestaurantStatus {
+    self.noRestaurantsLabel.hidden = YES;
+}
+
+- (void)setupNoRestaurantStatus {
+    NSMutableAttributedString *text = [[[NSAttributedString alloc] initWithString:@"Oops.\n\n It looks like there are no more restaurants nearby. :(" attributes:@{}] mutableCopy];
+    [text addAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"OpenSans" size:28]} range:NSMakeRange(0, 6)];
+    [text addAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"OpenSans-Light" size:20]} range:NSMakeRange(6, text.length - 6)];
+    self.noRestaurantsLabel.attributedText = text;
+}
+
+#pragma mark - 
+- (void)setupDotFrameView {
+    CGRect cardFrame = self.cardView.bounds;
+    CGFloat shrink = 2;
+    cardFrame = CGRectMake(cardFrame.origin.x + shrink, cardFrame.origin.y + shrink, cardFrame.size.width - shrink*2, cardFrame.size.height - shrink*2);
+    
+    if (!self.dotFrameView) {
+        CGFloat onePixel = 1.0 / [UIScreen mainScreen].scale;
+        
+        self.dotFrameView = [[EnShapeView alloc] init];
+        
+        self.dotFrameView.shapeLayer.path = [UIBezierPath bezierPathWithRoundedRect:cardFrame cornerRadius:16].CGPath;
+        self.dotFrameView.shapeLayer.lineWidth = 1 * onePixel;
+        self.dotFrameView.shapeLayer.lineCap = kCALineCapButt;
+        self.dotFrameView.shapeLayer.lineDashPattern = @[@(1 * onePixel), @(5 * onePixel)];
+        self.dotFrameView.shapeLayer.fillColor = nil;
+        self.dotFrameView.shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+        [self.cardView insertSubview:self.dotFrameView atIndex:2];
+    }
+    else {
+        self.dotFrameView.shapeLayer.path = [UIBezierPath bezierPathWithRoundedRect:cardFrame cornerRadius:16].CGPath;
     }
 }
 @end
