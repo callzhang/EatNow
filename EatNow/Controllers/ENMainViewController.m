@@ -41,6 +41,7 @@
 #import "ENFeedbackViewController.h"
 #import "NSDate+Extension.h"
 #import "EnShapeView.h"
+#import "NSError+EatNow.h"
 
 
 @interface ENMainViewController ()
@@ -254,7 +255,14 @@
 
     //load restaurants from server
     [self searchNewRestaurantsForced:NO completion:^(NSArray *response, NSError *error) {
-        self.needShowRestaurant = YES;
+        if (!error) {
+            self.needShowRestaurant = YES;
+        }
+        
+        //HACK: should remove error magic number
+        if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == -1) {
+            self.needShowRestaurant = NO;
+        }
     }];
     
     self.cardView.backgroundColor = [UIColor clearColor];
@@ -377,6 +385,11 @@
     //search for new
     [self searchNewRestaurantsForced:YES completion:^(NSArray *response, NSError *error) {
         self.isReloading = NO;
+        
+        //HACK: should remove error magic number
+        if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == -1) {
+            self.needShowRestaurant = NO;
+        }
     }];
 
 }
@@ -404,7 +417,6 @@
     [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         if (location) {
-			@weakify(self);
             [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
                 @strongify(self);
                 if (success) {
@@ -417,6 +429,10 @@
                 
                 block(response, error);
             }];
+        }
+        else {
+            NSError *error = [NSError errorWithDomain:kEatNowErrorDomain code:-1 userInfo:nil];
+            block(nil, error);
         }
     } forece:force];
 }
