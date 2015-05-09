@@ -109,9 +109,10 @@
 		9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9424071AE0450300411D1F /* ENHistoryViewController.m */; };
 		9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */; };
 		9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */; };
-		9BAE96111AFEB25500FF746B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAE960F1AFEB25500FF746B /* Fabric.framework */; };
-		9BAE96121AFEB25500FF746B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAE96101AFEB25500FF746B /* Crashlytics.framework */; };
 		9BAE96151AFEB49300FF746B /* CrashlyticsLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BAE96141AFEB49300FF746B /* CrashlyticsLogger.m */; };
+		9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BAE96181AFEC0C900FF746B /* AppDelegate.m */; };
+		9BAE961B1AFEC1E400FF746B /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAE960F1AFEB25500FF746B /* Fabric.framework */; };
+		9BAE961C1AFEC1EA00FF746B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAE96101AFEB25500FF746B /* Crashlytics.framework */; };
 		9BB789A41AD384BC00998D8F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB789A31AD384BC00998D8F /* libPods.a */; };
 		9BC51BFD1AE6DACD00E3B0FE /* animatedLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
@@ -121,7 +122,6 @@
 		DA5B73ED18F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
 		DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */; };
 		DA5B73F518F233EF00BB5F8E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B73F418F233EF00BB5F8E /* main.m */; };
-		DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B73F818F233EF00BB5F8E /* AppDelegate.m */; };
 		DA5B740218F233EF00BB5F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B740118F233EF00BB5F8E /* XCTest.framework */; };
 		DA5B740318F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B740418F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
@@ -301,10 +301,12 @@
 		9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryViewCell.m; sourceTree = "<group>"; };
 		9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantViewController.h; sourceTree = "<group>"; };
 		9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantViewController.m; sourceTree = "<group>"; };
-		9BAE960F1AFEB25500FF746B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		9BAE96101AFEB25500FF746B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		9BAE960F1AFEB25500FF746B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Framework/Fabric.framework; sourceTree = "<group>"; };
+		9BAE96101AFEB25500FF746B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Framework/Crashlytics.framework; sourceTree = "<group>"; };
 		9BAE96131AFEB49300FF746B /* CrashlyticsLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashlyticsLogger.h; sourceTree = "<group>"; };
 		9BAE96141AFEB49300FF746B /* CrashlyticsLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashlyticsLogger.m; sourceTree = "<group>"; };
+		9BAE96181AFEC0C900FF746B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9BAE96191AFEC0C900FF746B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9BB789A31AD384BC00998D8F /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWBlockTypes.h; sourceTree = "<group>"; };
 		9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animatedLoading.gif; sourceTree = "<group>"; };
@@ -317,8 +319,6 @@
 		DA5B73F218F233EF00BB5F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DA5B73F418F233EF00BB5F8E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EatNow-Prefix.pch"; sourceTree = "<group>"; };
-		DA5B73F718F233EF00BB5F8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		DA5B73F818F233EF00BB5F8E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DA5B740018F233EF00BB5F8E /* EatNowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EatNowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B740118F233EF00BB5F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DA5B740918F233EF00BB5F8E /* EatNowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EatNowTests-Info.plist"; sourceTree = "<group>"; };
@@ -346,8 +346,8 @@
 				DA5B73ED18F233EF00BB5F8E /* UIKit.framework in Frameworks */,
 				DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */,
 				49A483B402C049E28055919D /* libPods.a in Frameworks */,
-				9BAE96111AFEB25500FF746B /* Fabric.framework in Frameworks */,
-				9BAE96121AFEB25500FF746B /* Crashlytics.framework in Frameworks */,
+				9BAE961B1AFEC1E400FF746B /* Fabric.framework in Frameworks */,
+				9BAE961C1AFEC1EA00FF746B /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,9 +630,9 @@
 		DA5B73EE18F233EF00BB5F8E /* EatNow */ = {
 			isa = PBXGroup;
 			children = (
+				9BAE96181AFEC0C900FF746B /* AppDelegate.m */,
+				9BAE96191AFEC0C900FF746B /* AppDelegate.h */,
 				9BAE96081AFEA2EB00FF746B /* Library */,
-				DA5B73F718F233EF00BB5F8E /* AppDelegate.h */,
-				DA5B73F818F233EF00BB5F8E /* AppDelegate.m */,
 				9BEE36B91A8D3DCF0052332C /* Extension */,
 				092974651AD0C28D00DDC35C /* Shared */,
 				9B23A9B91A27AC7E00549871 /* Server */,
@@ -949,7 +949,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 6ec9eab6ca26fcd18d51d0322752b861c63bc348 62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744";
+			shellScript = "./Framework/Fabric.framework/run 6ec9eab6ca26fcd18d51d0322752b861c63bc348 62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744";
 		};
 		A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1033,8 +1033,8 @@
 				09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */,
 				9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */,
 				9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */,
+				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				0929746E1AD0C2B200DDC35C /* ENRestaurant.m in Sources */,
-				DA5B73F918F233EF00BB5F8E /* AppDelegate.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
 				091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */,
 				09B9F8E21AF1B4F700DE92C6 /* TMRowItem.m in Sources */,
@@ -1294,6 +1294,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Framework",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"TTTATTRIBUTEDLABEL_PREFIX=AT",
+					"AT_LOGGING_LEVEL_ERROR=1",
+					"TTTATTRIBUTEDLABEL_PREFIX=AT",
+					"AT_LOGGING_LEVEL_ERROR=1",
+					"MIXPANEL_ERROR=1",
+					"MIXPANEL_DEBUG=1",
 				);
 				INFOPLIST_FILE = "EatNow/EatNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1319,6 +1330,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Framework",
 				);
 				INFOPLIST_FILE = "EatNow/EatNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
