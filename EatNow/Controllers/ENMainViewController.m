@@ -72,6 +72,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *mainViewButton;
 @property (weak, nonatomic) IBOutlet UIButton *histodyDetailToHistoryButton;
 @property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
+@property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @end
 
 @implementation ENMainViewController
@@ -265,17 +266,20 @@
 	self.loadingIndicator.animationDuration = 1.2;
     [self.loadingIndicator startAnimating];
 	
-	//background
-	UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-	UIVisualEffectView *bluredEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-	[bluredEffectView setFrame:self.view.frame];
-	[self.view insertSubview:bluredEffectView aboveSubview:self.background];
+    if (!self.visualEffectView) {
+        //background
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIVisualEffectView *bluredEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        [bluredEffectView setFrame:self.view.frame];
+        [self.view insertSubview:bluredEffectView aboveSubview:self.background];
+        self.visualEffectView = bluredEffectView;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRestauranntViewImageDidChangeNotification:) name:kRestaurantViewImageChangedNotification object:nil];
     
     //hide history view
     [self toggleHistoryView];
-
+    
 }
 
 - (void)onRestauranntViewImageDidChangeNotification:(NSNotification *)notification {

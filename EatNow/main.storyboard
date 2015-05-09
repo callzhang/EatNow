@@ -65,7 +65,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
-                                <blurEffect style="light"/>
+                                <blurEffect style="dark"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I1i-1W-ZAl" userLabel="main-container">
                                 <rect key="frame" x="20" y="128" width="280" height="312"/>
@@ -125,7 +125,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PHl-Iu-QEQ" firstAttribute="top" secondItem="I1i-1W-ZAl" secondAttribute="bottom" constant="128" id="5oF-6N-XUw"/>
                             <constraint firstItem="PHl-Iu-QEQ" firstAttribute="top" secondItem="JeB-hH-4Ut" secondAttribute="bottom" id="Gng-mY-g5Q"/>
