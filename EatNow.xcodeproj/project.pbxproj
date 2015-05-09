@@ -34,6 +34,7 @@
 		0929746F1AD0C2B200DDC35C /* ENRestaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0929746D1AD0C2B200DDC35C /* ENRestaurant.m */; };
 		092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */; };
 		092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
+		093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */; };
 		09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB41ACCC5E700B989FF /* InterfaceController.m */; };
 		09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB71ACCC5E700B989FF /* NotificationController.m */; };
 		09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CBA1ACCC5E700B989FF /* GlanceController.m */; };
@@ -198,6 +199,8 @@
 		0929746D1AD0C2B200DDC35C /* ENRestaurant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurant.m; sourceTree = "<group>"; };
 		092974701AD0C3CE00DDC35C /* ResturantInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResturantInterfaceController.h; sourceTree = "<group>"; };
 		092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResturantInterfaceController.m; sourceTree = "<group>"; };
+		093E86991AFEA31800CAF489 /* ENLostConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENLostConnectionViewController.h; sourceTree = "<group>"; };
+		093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLostConnectionViewController.m; sourceTree = "<group>"; };
 		09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "EatNow WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09432CB11ACCC5E700B989FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09432CB21ACCC5E700B989FF /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -687,6 +690,8 @@
 				09502FBE1AF5680D00922908 /* ENFeedbackViewController.m */,
 				091C0B411AF966CA00838096 /* ENGetLocationViewController.h */,
 				091C0B421AF966CA00838096 /* ENGetLocationViewController.m */,
+				093E86991AFEA31800CAF489 /* ENLostConnectionViewController.h */,
+				093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -770,6 +775,7 @@
 				DA5B73E218F233EF00BB5F8E /* Frameworks */,
 				DA5B73E318F233EF00BB5F8E /* Resources */,
 				A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */,
+				09E463FD1AFB3D2F00389E0B /* ShellScript */,
 				09432CD51ACCC5E700B989FF /* Embed App Extensions */,
 				9BAE960E1AFEB22500FF746B /* ShellScript */,
 			);
@@ -904,6 +910,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		09E463FD1AFB3D2F00389E0B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "CRASHLYTICS_SCRIPT=\"./Pods/CrashlyticsFramework/Crashlytics.framework/run\"\n[ -x \"$CRASHLYTICS_SCRIPT\" ] || exit 0\n\n# Enter your key below:\nCRASHLYTICS_API_KEY=\"6ec9eab6ca26fcd18d51d0322752b861c63bc348\"\nif [ \"${CRASHLYTICS_API_KEY:0:1}\" = \"(\" ]; then\necho \"warning: Set your Crashlytics API key in the Build Phases tab to enable Crashlytics integration\" 1>&2\nexit 0\nfi";
+		};
 		7989DD9D1D4541818B62EB58 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1025,6 +1044,7 @@
 				0982B4591AD9A30500982740 /* NSError+TMError.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
+				093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */,
 				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,
 				09B9F8DE1AF1B4F700DE92C6 /* TMRowItem+AFNetworking.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,

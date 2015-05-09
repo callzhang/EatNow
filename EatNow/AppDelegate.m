@@ -37,6 +37,10 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 #import <Crashlytics/crashlytics.h>
+#import "ENLostConnectionViewController.h"
+@interface AppDelegate ()
+@property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
+@end
 
 @implementation AppDelegate
 
@@ -65,7 +69,37 @@
     if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
         ENMainViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
         [UIWindow mainWindow].rootViewController = vc;
+        [[UIWindow mainWindow] makeKeyAndVisible];
     }
+    self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
+    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    self.lostConnectionViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    
+    //Internet connection
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+            case AFNetworkReachabilityStatusNotReachable: {
+                if (self.lostConnectionViewController.presentingViewController) {
+                    return ;
+                }
+                UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
+//                if ([activeController isKindOfClass:[UINavigationController class]]) {
+//                    activeController = [(UINavigationController*) activeController visibleViewController];
+//                }
+                [activeController presentViewController:self.lostConnectionViewController animated:YES completion:nil];
+                break;
+            }
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi: {
+               [self.lostConnectionViewController.presentingViewController dismissViewControllerAnimated:YES completion:^{
+               }];
+            }
+                break;
+        }
+    }];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
     return YES;
 }
@@ -73,6 +107,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     if ([ENLocationManager locationServicesState] != INTULocationServicesStateAvailable) {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENGetLocationViewController"];
+        vc.modalTransitionStyle = UIModalPresentationOverFullScreen;
         [UIWindow mainWindow].rootViewController = vc;
     }
 }
