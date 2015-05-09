@@ -590,10 +590,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OPK-Wn-YLG" userLabel="star-view">
-                                        <rect key="frame" x="25" y="260" width="270" height="48"/>
+                                        <rect key="frame" x="29" y="260" width="262" height="48"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="Hmq-Fy-6tq"/>
+                                            <constraint firstAttribute="width" constant="262" id="zsK-rh-QmQ"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Qd-Mf-eiJ" customClass="ApplicationButton" customModule="EatNow" customModuleProvider="target">
@@ -678,13 +679,11 @@
                                     <constraint firstAttribute="bottom" secondItem="7Qd-Mf-eiJ" secondAttribute="bottom" constant="20" id="ZYq-GW-1M2"/>
                                     <constraint firstItem="BO3-sK-JZl" firstAttribute="leading" secondItem="AhB-z1-0BR" secondAttribute="leading" id="dvl-sk-sgo"/>
                                     <constraint firstItem="lYa-Va-75k" firstAttribute="leading" secondItem="AhB-z1-0BR" secondAttribute="leading" id="f2q-cx-tdk"/>
+                                    <constraint firstAttribute="centerX" secondItem="OPK-Wn-YLG" secondAttribute="centerX" id="jnV-mA-S3V"/>
                                     <constraint firstItem="7Qd-Mf-eiJ" firstAttribute="leading" secondItem="AhB-z1-0BR" secondAttribute="leading" constant="20" id="l7e-tu-lwe"/>
                                     <constraint firstItem="mvV-FA-C7Y" firstAttribute="leading" secondItem="AhB-z1-0BR" secondAttribute="leading" constant="10" id="luT-gf-7pb"/>
                                     <constraint firstItem="lYa-Va-75k" firstAttribute="top" secondItem="AhB-z1-0BR" secondAttribute="top" id="m5R-v7-Xhp"/>
-                                    <constraint firstItem="4h9-NJ-3OO" firstAttribute="top" secondItem="lYa-Va-75k" secondAttribute="bottom" id="mTB-Yj-aee"/>
                                     <constraint firstAttribute="trailing" secondItem="mvV-FA-C7Y" secondAttribute="trailing" constant="10" id="mhh-H8-DcU"/>
-                                    <constraint firstItem="OPK-Wn-YLG" firstAttribute="leading" secondItem="AhB-z1-0BR" secondAttribute="leading" constant="25" id="mrK-GW-K4F"/>
-                                    <constraint firstAttribute="trailing" secondItem="OPK-Wn-YLG" secondAttribute="trailing" constant="25" id="sea-4Y-WdP"/>
                                     <constraint firstAttribute="trailing" secondItem="4h9-NJ-3OO" secondAttribute="trailing" constant="20" id="xp2-DU-QtF"/>
                                     <constraint firstItem="mvV-FA-C7Y" firstAttribute="top" secondItem="Bsj-CV-JLc" secondAttribute="bottom" constant="11" id="zkK-06-wmm"/>
                                 </constraints>
@@ -696,11 +695,6 @@
                                         <real key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="mTB-Yj-aee"/>
-                                    </mask>
-                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

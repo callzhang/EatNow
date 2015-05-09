@@ -67,6 +67,7 @@
 	self.location = loc;
     self.distance = (NSNumber *)address[@"distance"];
     self.walkDuration = NSTimeIntervalSince1970;
+    self.venderUrl = json[@"vendorUrl"];
 	//score
 	NSDictionary *scores = json[@"score"];
 	if (scores) {
