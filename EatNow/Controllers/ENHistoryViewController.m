@@ -160,17 +160,15 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 
 - (void)showRestaurantCard:(ENRestaurant *)restaurant fromFrame:(CGRect)frame {
     self.restaurantViewController = [ENRestaurantViewController viewController];
-    self.restaurantViewController.view.frame = frame;
+    [self.restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
     self.restaurantViewController.restaurant = restaurant;
-    self.restaurantViewController.rating.hidden = YES;
-    self.restaurantViewController.goButton.hidden = YES;
     [self.mainView addSubview:_restaurantViewController.view];
+    [self.restaurantViewController didChangedToFrontCard];
     
     
     CGRect toFrame = self.mainViewController.historyContainerView.frame;
-    [_restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:toFrame animated:YES completion:nil];
-    ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
-    mainVC.isHistoryDetailShown = YES;
+    [self.restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:toFrame animated:YES completion:nil];
+    self.mainViewController.isHistoryDetailShown = YES;
     self.mainViewController.currentMode = ENMainViewControllerModeHistoryDetail;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onInfoTapGesture:)];
     [self.restaurantViewController.info addGestureRecognizer:tap];

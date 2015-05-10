@@ -149,14 +149,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.status = status;
         [self updateLayout];
     } completion:^(BOOL finished) {
-        if (status == ENRestaurantViewStatusDetail) {
-            [self loadNextImage];
-        }
-        if (block) {
-            block();
-        }
+        
         if (status == ENRestaurantViewStatusDetail || status == ENRestaurantViewStatusHistoryDetail) {
             [self didChangeToDetailView];
+        }
+        
+        if (block) {
+            block();
         }
     }];
     
@@ -399,6 +398,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)loadNextImage{
     if (self.status == ENRestaurantViewStatusCard && _currentImageIndex != -1) {
+        return;
+    }
+    if (!self.imageView) {
         return;
     }
     if (_isLoadingImage) {
