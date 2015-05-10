@@ -307,6 +307,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
             continue;
         }
         NSNumber *rate = historyData[@"like"];
+        NSNumber *reviewed = historyData[@"reviewed"];
         NSDictionary *restaurantData = historyData[@"restaurant"];
         ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurantData];
         NSString *ID = restaurant.ID;
@@ -314,12 +315,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         //keep unique rating for each restaurant
         NSDictionary *ratingDic = self.userRating[ID];
         if (ratingDic.allKeys.count == 0) {
-            _userRating[ID] = @{@"rating": rate, @"time":date};
+            _userRating[ID] = @{@"rating": rate, @"time":date, @"reviewed":reviewed};
         }else{
             NSDate *prevTime = ratingDic[@"time"];
             if ([prevTime compare:date] == NSOrderedAscending) {
                 //date is later
-                _userRating[ID] = @{@"rating": rate, @"time":date};
+                _userRating[ID] = @{@"rating": rate, @"time":date, @"reviewed":reviewed};
             }
         }
     }

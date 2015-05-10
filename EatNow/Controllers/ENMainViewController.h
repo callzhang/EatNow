@@ -27,7 +27,7 @@
 
 #define kMaxRestaurants     12
 #define kMaxCardsToAnimate  4
-#define kCardShowInterval   0.5
+#define kCardShowInterval   0.1
 
 typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
     ENMainViewControllerModeMain,

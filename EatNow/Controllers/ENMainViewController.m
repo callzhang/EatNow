@@ -666,8 +666,14 @@
 // This is called when a user didn't fully swipe left or right.
 - (void)snapCardToCenter:(UIViewController<ENCardViewControllerProtocol> *)card {
     NSParameterAssert(card);
-    if (card.snap) {
-        [self.animator removeBehavior:card.snap];
+    if (card.snap) {\
+        //skip if snap is already in place
+        return;
+        //[self.animator removeBehavior:card.snap];
+    }
+    if (!card.view.superview) {
+        //skip if not in view
+        return;
     }
     UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card.view snapToPoint:self.cardView.center];
     

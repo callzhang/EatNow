@@ -582,43 +582,44 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }}];
     }
     
-    //#define DEBUG_ALGORITHM
-#ifdef DEBUG_ALGORITHM
-    if (weakSelf.restaurant.reviews) {
-        [info addObject:@{@"type": @"reviews",
-                          @"cellID": @"cell",
-                          @"image": @"eat-now-card-details-view-twitter-icon",
-                          @"title": [NSString stringWithFormat:@"%@ tips", weakSelf.restaurant.reviews],
-                          @"accessory": @"disclosure",
-                          @"action": ^{
-            [ENUtil showText:@"Coming soon"];
-        }}];
-    }
-#endif
+//    if (weakSelf.restaurant.reviews) {
+//        [info addObject:@{@"type": @"reviews",
+//                          @"cellID": @"cell",
+//                          @"image": @"eat-now-card-details-view-twitter-icon",
+//                          @"title": [NSString stringWithFormat:@"%@ tips", weakSelf.restaurant.reviews],
+//                          @"accessory": @"disclosure",
+//                          @"action": ^{
+//            [ENUtil showText:@"Coming soon"];
+//        }}];
+//    }
     
     //rating
-    NSDictionary *history = [ENServerManager shared].userRating;
-    NSDictionary *rating = history[weakSelf.restaurant.ID];
-    NSNumber *rate = rating[@"rating"];
+    NSDictionary *histories = [ENServerManager shared].userRating;
+    NSDictionary *history = histories[weakSelf.restaurant.ID];
+    NSNumber *rate = history[@"rating"];
+    NSNumber *reviewed = history[@"reviewed"];
     NSInteger ratingValue = rate.integerValue;
     
-    if (rating) {
-        [info addObject:@{@"type": @"score",
-                          @"cellID": @"rating",
-                          @"layout": ^(UITableViewCell *cell){
-            
-            //Set rating from history
-            UIView *ratingView = [cell viewWithTag:99];
-            [self addRatingOnView:ratingView withRating:ratingValue];
-            
-            //set time
-            NSDate *time = rating[@"time"];
-            UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];
-            timeLabel.text = [NSString stringWithFormat:@"(%@)", time.string];
-        },
-                          @"image": @"eat-now-card-details-view-feedback-icon",
-                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
-                          }];
+    if (history && reviewed.boolValue) {
+        if (reviewed.boolValue) {
+            [info addObject:
+             @{@"type": @"score",
+                @"cellID": @"rating",
+                @"layout": ^(UITableViewCell *cell){
+                    //Set rating from history
+                    UIView *ratingView = [cell viewWithTag:99];
+                    [self addRatingOnView:ratingView withRating:ratingValue];
+                    
+                    //set time
+                    NSDate *time = history[@"time"];
+                    UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];
+                    timeLabel.text = [NSString stringWithFormat:@"(%@)", time.string];
+                },
+                  @"image": @"eat-now-card-details-view-feedback-icon",
+                  @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
+            }];
+        }
+        
     }
 #ifdef DEBUG_ALGORITHM
     //score
