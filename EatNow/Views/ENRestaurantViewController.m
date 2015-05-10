@@ -646,6 +646,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         restrantCell.cellTitleLabel.text = info[@"title"];
         restrantCell.iconImageView.image = [UIImage imageNamed:info[@"image"]];
     }
+    cell.selectedBackgroundView = [[UIView alloc] init];
+    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     
     if (info[@"accessory"]) {
         if ([info[@"accessory"] isEqualToString:@"disclosure"]) {
