@@ -27,7 +27,7 @@
 
 #define kMaxRestaurants     12
 #define kMaxCardsToAnimate  4
-#define kCardShowInterval   0.15
+#define kCardShowInterval   0.5
 
 typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
     ENMainViewControllerModeMain,
@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 //@property (nonatomic, readonly) ENRestaurantViewController *frontCardView;
 @property (nonatomic, strong) NSMutableArray *cardViews;
 //states
-@property (nonatomic, assign) BOOL isReloading;
+@property (nonatomic, assign) BOOL isSearchingFromServer;
 @property (nonatomic, assign) BOOL isShowingCards;
 @property (nonatomic, assign) BOOL isHistoryDetailShown;
 

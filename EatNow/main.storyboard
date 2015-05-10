@@ -193,7 +193,7 @@
  It looks like there are no more restaurants nearby. :(</string>
                                                 <attributes>
                                                     <color key="NSColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="36" name="ProximaNova-Regular"/>
+                                                    <font key="NSFont" metaFont="system" size="36"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                                 </attributes>
                                             </fragment>
@@ -995,10 +995,6 @@ Zm9yIHlvdS4R4oCoEQ1QbGVhc2UgY2hlY2sgeW91ciBjb25uZWN0aW9uIGFuZCB0cnkgYWdhaW4uA
                                                     <constraint firstItem="xKx-ie-3fb" firstAttribute="leading" secondItem="gcz-Rl-rmq" secondAttribute="trailing" constant="8" id="dOe-4r-GMr"/>
                                                 </constraints>
                                             </view>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3xH-uo-hHt">
-                                                <rect key="frame" x="142" y="106" width="37" height="37"/>
-                                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            </activityIndicatorView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9.9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rc-cj-kSW">
                                                 <rect key="frame" x="268" y="8" width="44" height="44"/>
                                                 <color key="backgroundColor" red="0.45098039215686275" green="0.81176470588235294" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1029,13 +1025,11 @@ Zm9yIHlvdS4R4oCoEQ1QbGVhc2UgY2hlY2sgeW91ciBjb25uZWN0aW9uIGFuZCB0cnkgYWdhaW4uA
                                             <constraint firstAttribute="bottom" secondItem="DBA-UH-kFT" secondAttribute="bottom" constant="8" id="Ftq-jj-Z4f"/>
                                             <constraint firstItem="cy3-AH-BuV" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="GIO-Av-PQn"/>
                                             <constraint firstAttribute="trailing" secondItem="l8B-bX-ZHI" secondAttribute="trailing" id="JV0-s8-a1U"/>
-                                            <constraint firstAttribute="centerY" secondItem="3xH-uo-hHt" secondAttribute="centerY" id="Kea-1f-GlE"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="LdG-9F-uh3"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="OCd-oj-NLg"/>
                                             <constraint firstAttribute="trailing" secondItem="DBA-UH-kFT" secondAttribute="trailing" constant="8" id="Obw-dH-bbu"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="8" id="U23-yC-IEX"/>
                                             <constraint firstAttribute="bottom" secondItem="cy3-AH-BuV" secondAttribute="bottom" id="UKJ-yg-PPM"/>
-                                            <constraint firstAttribute="centerX" secondItem="3xH-uo-hHt" secondAttribute="centerX" id="VuC-mp-h8B"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="8" id="ajX-NE-huo"/>
                                             <constraint firstItem="l8B-bX-ZHI" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="ccs-fq-80K"/>
                                             <constraint firstAttribute="trailing" secondItem="uVW-6x-hlL" secondAttribute="trailing" constant="8" id="eFQ-2t-Edj"/>
@@ -1296,7 +1290,6 @@ Zm9yIHlvdS4R4oCoEQ1QbGVhc2UgY2hlY2sgeW91ciBjb25uZWN0aW9uIGFuZCB0cnkgYWdhaW4uA
                         <outlet property="imageView" destination="cy3-AH-BuV" id="ZCd-TK-YYv"/>
                         <outlet property="info" destination="fsH-Ee-d2j" id="mPr-S0-Bqp"/>
                         <outlet property="infoHightRatio" destination="jGo-xL-n5F" id="W8b-8N-hOM"/>
-                        <outlet property="loading" destination="3xH-uo-hHt" id="cND-St-IhO"/>
                         <outlet property="name" destination="Wt9-vs-bTu" id="PgI-ly-Nl5"/>
                         <outlet property="openInfo" destination="uVW-6x-hlL" id="SYU-d8-eYs"/>
                         <outlet property="openTime" destination="xKx-ie-3fb" id="QYc-1i-dRg"/>

@@ -145,7 +145,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *))block{
     NSParameterAssert(restaurant);
     NSParameterAssert([dic.allKeys containsObject:@"img_url"]);
-    NSParameterAssert([dic[@"img_url"] isKindOfClass:[NSArray class]]);
+    NSArray *images = dic[@"img_url"];
+    NSParameterAssert([images isKindOfClass:[NSArray class]]);
+    NSParameterAssert(images.count > 1);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -154,7 +156,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     [manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         if(block) block(nil);
-        DDLogVerbose(@"Updated restaurant images %@", @(dic.count));
+        DDLogVerbose(@"Updated restaurant (%@) images of count %@", restaurant.name, @(images.count));
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         

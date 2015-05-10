@@ -219,16 +219,16 @@
     
 
     
-    [self.KVOController observe:self keyPaths:@[@keypath(self.isReloading), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
-        if (!self.isReloading && !self.isShowingCards && !self.isDismissingCard) {
+    [self.KVOController observe:self keyPaths:@[@keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+        if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
             self.loadingIndicator.alpha = 0;
-            DDLogInfo(@"show loding indicator :%@ %@ %@", @(self.isReloading), @(self.isShowingCards), @(self.isDismissingCard));
+            //DDLogInfo(@"show loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
         else {
             self.reloadButton.enabled = NO;
             self.loadingIndicator.alpha = 1;
-            DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isReloading), @(self.isShowingCards), @(self.isDismissingCard));
+            //DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
     }];
 
@@ -241,7 +241,10 @@
 
             NSString *dateStr = historyData[@"date"];
             NSDate *date = [NSDate dateFromISO1861:dateStr];
-            BOOL reviewTimePassed = YES;// [[NSDate date] timeIntervalSinceDate:date] > kMaxSelectedRestaurantRetainTime;
+            BOOL reviewTimePassed = [[NSDate date] timeIntervalSinceDate:date] > kMaxSelectedRestaurantRetainTime;
+#ifdef DEBUG
+            reviewTimePassed = YES;
+#endif
             BOOL needReview = [historyData[@"reviewed"] boolValue] == NO;
 
             if (reviewTimePassed && needReview) {
@@ -250,7 +253,7 @@
         }
     }];
 	
-	//LEI: I think this implementation could be neater
+	//simple state machine
     self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
 
     //load restaurants from server
@@ -345,10 +348,10 @@
         return;
     }
     NSLog(@"reload button clicked");
-    NSParameterAssert(!self.isReloading);
+    NSParameterAssert(!self.isSearchingFromServer);
     NSParameterAssert(!self.isShowingCards);
     NSParameterAssert(!self.isDismissingCard);
-    self.isReloading = YES;
+    self.isSearchingFromServer = YES;
     self.isDismissingCard = YES;
     self.needShowRestaurant = YES;
     
@@ -384,7 +387,7 @@
 
     //search for new
     [self searchNewRestaurantsForced:YES completion:^(NSArray *response, NSError *error) {
-        self.isReloading = NO;
+        self.isSearchingFromServer = NO;
         
         //HACK: should remove error magic number
         if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == -1) {
@@ -443,14 +446,14 @@
      *  and reloading finished
      *  and cards are all dismissed.
      */
-    if (self.needShowRestaurant && !self.isReloading && !self.isDismissingCard && !self.isShowingCards && self.historyToReview) {
+    if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards && self.historyToReview) {
         self.needShowRestaurant = NO;
         [self showAllRestaurantCards];
     }
 }
 
 - (void)showAllRestaurantCards{
-    NSParameterAssert(!self.isReloading);
+    NSParameterAssert(!self.isSearchingFromServer);
     self.loadingInfo.text = @"";
     
     if (self.cardViews.count > 0) {
@@ -470,15 +473,12 @@
     for (NSInteger i = 1; i <= totalCardCount; i++) {
         //insert card
         UIViewController<ENCardViewControllerProtocol> *card;
-        BOOL isRestaurantCard;
         if (self.historyToReview.count > 0) {
             ENFeedbackViewController *feedbackViewController = [self popFeedbackViewWithFrame:[self initialCardFrame]];
             card = feedbackViewController;
-            isRestaurantCard = NO;
         }else{
             ENRestaurantViewController *restaurantViewController = [self popResuturantViewWithFrame:[self initialCardFrame]];
             card = restaurantViewController;
-            isRestaurantCard = YES;
         }
         card.view.hidden = YES;
 
@@ -488,7 +488,7 @@
             [self addChildViewController:card];
             [self.detailCardContainer addSubview:card.view];
             [card.view addGestureRecognizer:self.panGesture];
-            if (isRestaurantCard) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
+            if ([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
             [card didChangedToFrontCard];
         }
         else{
@@ -502,27 +502,28 @@
         //animate
         if (i <= kMaxCardsToAnimate){
             //animate
-            float delay = (kMaxCardsToAnimate - i) * kCardShowInterval;
+            float delay = (kMaxCardsToAnimate - i + 1) * kCardShowInterval;
             DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.hidden = NO;
                 [self snapCardToCenter:card];
-                if (i == kMaxCardsToAnimate || i == restaurantCount) {
-                    //stop loading
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kMaxCardsToAnimate) * 0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        self.isShowingCards = NO;
-                        [self setNeedShowRestaurant:NO];
-                    });
-                }
+                DDLogVerbose(@"Animating %ldth card to center", (long)i);
             });
         }
         else {
-            float delay = kMaxCardsToAnimate * kCardShowInterval;
+            float delay = kMaxCardsToAnimate * kCardShowInterval + 2;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.frame = [self cardViewFrame];
                 card.view.hidden = NO;
+                DDLogVerbose(@"Showing %ldth card", (long)i);
             });
         }
+        
+        //finish
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kMaxRestaurants * kCardShowInterval + 2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.isShowingCards = NO;
+            self.needShowRestaurant = NO;
+        });
     }
 }
 
@@ -670,12 +671,12 @@
     }
     UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card.view snapToPoint:self.cardView.center];
     
-    snap.damping = 0.98;
+    snap.damping = 1;
     [self.animator addBehavior:snap];
     card.snap = snap;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.animator removeBehavior:card.snap];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self.animator removeBehavior:card.snap];
+//    });
 }
 
 #pragma mark - Internal Methods

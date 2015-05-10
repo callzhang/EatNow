@@ -42,8 +42,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 @property (weak, nonatomic) IBOutlet UIView *card;
+
+//view
 @property (strong, nonatomic) MKMapView *map;
 @property (weak, nonatomic) IBOutlet UIView *userRatingView;
+@property (weak, nonatomic) UILabel *mapDistanceLabel;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -55,6 +58,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (nonatomic, weak) UIView *mapIcon;
 @property (nonatomic, strong) NSMutableArray *viewDidLayoutBlocks;
 @property (nonatomic, assign) BOOL viewDidLayout;
+@property (nonatomic, assign) BOOL hasParsedImage;
+@property (nonatomic, assign) float walkingSeconds;
 @end
 
 
@@ -80,6 +85,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.shadowView.hidden = YES;
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    self.mapManager = nil;
+}
+
 //initialization method
 - (void)setRestaurant:(ENRestaurant *)restaurant{
 	_restaurant = restaurant;
@@ -99,7 +110,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.cuisine.text = restaurant.cuisineText;
     self.price.text = restaurant.pricesText;
     self.rating.text = [NSString stringWithFormat:@"%.1f", [restaurant.rating floatValue]];
-    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fkm", restaurant.distance.floatValue/1000];
+    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fmi", restaurant.distance.floatValue/1000/1.609344];
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
 	
@@ -130,7 +141,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     float duration = animate ? 0.5 : 0;
     float damping = 0.7;
     if (status == ENRestaurantViewStatusMinimum || status == ENRestaurantViewStatusCard) {
-        damping = 1;
+        damping = 0.8;
     }
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveLinear animations:^{
 //    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
@@ -143,6 +154,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         if (block) {
             block();
+        }
+        if (status == ENRestaurantViewStatusDetail || status == ENRestaurantViewStatusHistoryDetail) {
+            [self didChangeToDetailView];
         }
     }];
     
@@ -167,30 +181,15 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if ([self.restaurant.images.firstObject isKindOfClass:[UIImage class]]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.restaurant.images.firstObject}];
     }
-    //load image from webpage
-    if (self.restaurant.imageUrls.count <= 1) {
-        @weakify(self);
-        NSString *tempUrl = [NSString stringWithFormat:@"http://foursquare.com/v/%@", self.restaurant.foursquareID];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.restaurant parseFoursquareWebsiteForImagesWithUrl:tempUrl completion:^(NSArray *imageUrls, NSError *error) {
-                if (!self) {
-                    DDLogVerbose(@"Restaurant view dismissed before updating images");
-                    return;
-                }
-                @strongify(self);
-                if (!imageUrls) {
-#ifdef DEBUG
-                    ENLogError(@"Failed to parse foursquare image %@, error %@", self.restaurant.url, error);
-#endif
-                    return;
-                }
-                
-                //update to server
-                [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
-            }];
-        });
-        
-    }
+}
+
+- (void)didChangeToDetailView{
+    //start to calculate
+    float d = self.restaurant.distance.floatValue/1000/1.609344;
+    self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
+    [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
+        self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1fmi away, %.1f min walking", d, length/60];
+    }];
 }
 
 #pragma mark - UI
@@ -280,7 +279,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         //map
         
         self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
-        self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
         self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
         self.map.showsUserLocation = YES;
         self.map.delegate = self.mapManager;
@@ -316,7 +314,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [self.mapManager cancelRouting];
             [self.map removeFromSuperview];
             self.map = nil;
-            self.mapManager = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidDismiss object:nil];
         }];
     }
@@ -410,6 +407,32 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
     if (_restaurant.imageUrls.count == 1 && self.imageView.image && _currentImageIndex != -1) {
         DDLogVerbose(@"Only one image, skip");
+        if (self.hasParsedImage == NO) {
+            DDLogVerbose(@"start to parse image for %@", self.restaurant.name);
+            //load image from webpage
+            @weakify(self);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.restaurant parseFoursquareWebsiteForImagesWithUrl:self.restaurant.venderUrl completion:^(NSArray *imageUrls, NSError *error) {
+                    if (!self) {
+                        DDLogVerbose(@"Restaurant view dismissed before updating images");
+                        return;
+                    }
+                    @strongify(self);
+                    if (!imageUrls) {
+#ifdef DEBUG
+                        ENLogError(@"Failed to parse foursquare image %@, error %@", self.restaurant.url, error);
+#endif
+                        return;
+                    }
+                    if (imageUrls.count > 1) {
+                        //show image
+                        [self loadNextImage];
+                        //update to server
+                        [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
+                    }
+                }];
+            });
+        }
         return;
     }
     if (self.restaurant.imageUrls.count == 0) {
@@ -507,9 +530,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             NSString *state = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStateKey];
             NSString *zip = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressZIPKey];
             address.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", street, city, state, zip];
-            distance.text = [NSString stringWithFormat:@"%.1fkm away", weakSelf.restaurant.distance.floatValue/1000];
-            
+            float d = weakSelf.restaurant.distance.floatValue/1000/1.609344;
+            distance.text = [NSString stringWithFormat:@"%.1fmi away", d];
             weakSelf.mapIcon = [cell viewWithTag:333];
+            self.mapDistanceLabel = distance;
         },
                           @"action": ^{
             //action to open map
