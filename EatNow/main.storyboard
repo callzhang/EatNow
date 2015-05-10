@@ -189,7 +189,8 @@
                                         <rect key="frame" x="24" y="110" width="240" height="68"/>
                                         <attributedString key="attributedText">
                                             <fragment>
-                                                <string key="content">Oops. It looks like there are no more restaurants nearby. :(</string>
+                                                <string key="content">Oops.
+ It looks like there are no more restaurants nearby. :(</string>
                                                 <attributes>
                                                     <color key="NSColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="36" name="ProximaNova-Regular"/>

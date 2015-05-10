@@ -39,9 +39,14 @@
 #import <Crashlytics/crashlytics.h>
 #import "ENLostConnectionViewController.h"
 #import "Mixpanel.h"
+#import "BlocksKit+UIKit.h"
+#import "FBTweakViewController.h"
+#import "FBTweak.h"
+#import "FBTweakStore.h"
+#import "extobjc.h"
 
 
-@interface AppDelegate ()
+@interface AppDelegate ()<FBTweakViewControllerDelegate>
 @property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
 @end
 
@@ -75,6 +80,7 @@
         ENMainViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
         [UIWindow mainWindow].rootViewController = vc;
         [[UIWindow mainWindow] makeKeyAndVisible];
+        [self installTweak];
     }
     self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
     self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
@@ -109,6 +115,34 @@
     [application registerForRemoteNotifications];
     
     return YES;
+}
+
+- (void)installTweak {
+    @weakify(self);
+    UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        @strongify(self);
+        [self showTweakPanel];
+    }];
+    longGesture.numberOfTouchesRequired = 2;
+    longGesture.minimumPressDuration = 1;
+    [[UIWindow mainWindow] addGestureRecognizer:longGesture];
+    
+    //reset stored value
+    [[FBTweakStore sharedInstance] reset];
+    DDLogInfo(@"FBTweak stored value resetted");
+}
+
+- (void)showTweakPanel{
+    FBTweakViewController *viewController = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
+    viewController.tweaksDelegate = self;
+    UIViewController *topController = self.window.rootViewController;
+    if (![topController isKindOfClass:NSClassFromString(@"_FBTweakCategoryViewController")]) {
+        [topController presentViewController:viewController animated:YES completion:nil];
+    }
+}
+
+- (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
+    [tweakViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
