@@ -150,7 +150,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self updateLayout];
     } completion:^(BOOL finished) {
         
-        if (status == ENRestaurantViewStatusDetail || status == ENRestaurantViewStatusHistoryDetail) {
+        if (status == ENRestaurantViewStatusDetail) {
             [self didChangeToDetailView];
         }
         
@@ -189,6 +189,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
         self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1fmi away, %.1f min walking", d, length/60];
     }];
+    
+    //next image
+    [self loadNextImage];
 }
 
 #pragma mark - UI
@@ -472,6 +475,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         _restaurant.images = images;
         
         [self showImage:image];
+        
+        //load next
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadNextImage];
+        });
         
         //self.pageControl.currentPage = nextIdx;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
