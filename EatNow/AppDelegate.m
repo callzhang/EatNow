@@ -26,17 +26,21 @@
 #import "ENMainViewController.h"
 #import "ENServerManager.h"
 #import "ENUtil.h"
-#import "Crashlytics.h"
 #import "ENLocationManager.h"
 #import "UIAlertView+BlocksKit.h"
 #import "ATConnect.h"
 #import "UIImageView+AFNetworking.h"
 #import "WatchKitAction.h"
-#import <CrashlyticsLogger.h>
+#import "CrashlyticsLogger.h"
+#import <Fabric/Fabric.h>
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
+#import <Crashlytics/crashlytics.h>
 #import "ENLostConnectionViewController.h"
+#import "Mixpanel.h"
+
+
 @interface AppDelegate ()
 @property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
 @end
@@ -45,9 +49,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self initilizeLogging];
-
+    
+    //plugin init
     [ATConnect sharedConnection].apiKey = @"43aadd17c4e966f98753bcb1250e78d00c68731398a9b60dc7c456d2682415fc";
-    [Crashlytics startWithAPIKey:@"6ec9eab6ca26fcd18d51d0322752b861c63bc348"];
+    [Fabric with:@[CrashlyticsKit]];
+    [Fabric sharedSDK].debug = YES;
+    [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
+    [[Mixpanel sharedInstance] identify:[ENServerManager shared].myID];
     
     [ENLocationManager registerLocationDeniedHandler:^{
         [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -98,6 +106,8 @@
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     
+    [application registerForRemoteNotifications];
+    
     return YES;
 }
 
@@ -139,6 +149,30 @@
     });
 }
 
+#pragma mark - Push notification
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    DDLogInfo(@"Push token received: %@", deviceToken);
+    //PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    //[currentInstallation setDeviceTokenFromData:deviceToken];
+    //[currentInstallation saveInBackground];
+    
+    // This sends the deviceToken to Mixpanel
+    [[Mixpanel sharedInstance].people addPushDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    DDLogError(@"Failed to register push: %@", error.description);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    DDLogInfo(@"Received push notification: %@", userInfo);
+
+    //handle push
+    
+}
+
+
+#pragma mark - Tools
 - (void)initilizeLogging {
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     DDTTYLogger *log = [DDTTYLogger sharedInstance];
