@@ -222,6 +222,12 @@
 #define COCOAPODS_VERSION_MINOR_SparkInspector 3
 #define COCOAPODS_VERSION_PATCH_SparkInspector 4
 
+// Tweaks
+#define COCOAPODS_POD_AVAILABLE_Tweaks
+#define COCOAPODS_VERSION_MAJOR_Tweaks 2
+#define COCOAPODS_VERSION_MINOR_Tweaks 0
+#define COCOAPODS_VERSION_PATCH_Tweaks 0
+
 // UITableView-NXEmptyView
 #define COCOAPODS_POD_AVAILABLE_UITableView_NXEmptyView
 #define COCOAPODS_VERSION_MAJOR_UITableView_NXEmptyView 0
