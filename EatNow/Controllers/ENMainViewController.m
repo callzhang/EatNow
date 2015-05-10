@@ -360,7 +360,7 @@
     
     //dismissing with animation
     for (int i = 0; i < self.cardViews.count && i <= kMaxCardsToAnimate; i++) {
-        float delay = i * 0.1;
+        float delay = i * kCardShowInterval;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
             [self dismissFrontCardWithVelocity:v completion:^(NSArray *leftcards) {
@@ -502,7 +502,7 @@
         //animate
         if (i <= kMaxCardsToAnimate){
             //animate
-            float delay = (kMaxCardsToAnimate - i) * 0.3;
+            float delay = (kMaxCardsToAnimate - i) * kCardShowInterval;
             DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.hidden = NO;
@@ -517,7 +517,7 @@
             });
         }
         else {
-            float delay = kMaxCardsToAnimate * 0.2;
+            float delay = kMaxCardsToAnimate * kCardShowInterval;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.frame = [self cardViewFrame];
                 card.view.hidden = NO;
