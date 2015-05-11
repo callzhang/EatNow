@@ -446,7 +446,7 @@
      *  and reloading finished
      *  and cards are all dismissed.
      */
-    if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards && self.historyToReview) {
+    if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
         self.needShowRestaurant = NO;
         [self showAllRestaurantCards];
     }
