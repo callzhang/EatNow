@@ -83,7 +83,7 @@
         [self installTweak];
     }
     self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
-    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
+//    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
     self.lostConnectionViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     
     //Internet connection

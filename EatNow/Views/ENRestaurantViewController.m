@@ -21,6 +21,8 @@
 #import "UIView+Extend.h"
 #import "ENHistoryViewCell.h"
 #import "ENRestaurantTableViewCell.h"
+#import "TMAlertController.h"
+#import "TMAlertAction.h"
 @import AddressBook;
 
 NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
@@ -220,27 +222,62 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 #else
         titles = @[@"Yes, I changed my mind."];
 #endif
-        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] cancelButtonTitle:@"Cancel" otherButtonTitles:titles handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                [ENUtil showWatingHUB];
-                @weakify(self);
-                [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
-                    [ENUtil dismissHUD];
-                    @strongify(self);
-                    if (error) {
-                        ENLogError(error.localizedDescription);
-                        [ENUtil showFailureHUBWithString:@"Failed to Cancel"];
-                    }else{
-                        DDLogInfo(@"Cancelled %@", _restaurant.name);
-                        [self updateGoButton];
-                        [self selectRestaurant:nil];
-                    }
-                }];
-            }else if (buttonIndex == 2){
-                [[ENServerManager shared] clearSelectedRestaurant];
-                [self selectRestaurant:nil];
-            }
-        }];
+        @weakify(self);
+        
+        TMAlertController *alertController = [TMAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] preferredStyle:TMAlartControllerStyleAlert];
+        
+        [alertController addAction:[TMAlertAction actionWithTitle:@"Force?" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+            @strongify(self);
+            [[ENServerManager shared] clearSelectedRestaurant];
+            [self selectRestaurant:nil];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }]];
+        
+        [alertController addAction:[TMAlertAction actionWithTitle:@"YES?" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+            @strongify(self);
+            [ENUtil showWatingHUB];
+            [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
+                [ENUtil dismissHUD];
+                [self dismissViewControllerAnimated:YES completion:nil];
+                @strongify(self);
+                if (error) {
+                    ENLogError(error.localizedDescription);
+                    [ENUtil showFailureHUBWithString:@"Failed to Cancel"];
+                }else{
+                    DDLogInfo(@"Cancelled %@", _restaurant.name);
+                    [self updateGoButton];
+                    [self selectRestaurant:nil];
+                }
+            }];
+        }]];
+        
+        [alertController addAction:[TMAlertAction actionWithTitle:@"Cancel" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        //        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat: cancelButtonTitle:@"Cancel" otherButtonTitles:titles handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+        //            if (buttonIndex == 1) {
+        //                [ENUtil showWatingHUB];
+        //                @weakify(self);
+        //                [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
+        //                    [ENUtil dismissHUD];
+        //                    @strongify(self);
+        //                    if (error) {
+        //                        ENLogError(error.localizedDescription);
+        //                        [ENUtil showFailureHUBWithString:@"Failed to Cancel"];
+        //                    }else{
+        //                        DDLogInfo(@"Cancelled %@", _restaurant.name);
+        //                        [self updateGoButton];
+        //                        [self selectRestaurant:nil];
+        //                    }
+        //                }];
+        //            }else if (buttonIndex == 2){
+        //                [[ENServerManager shared] clearSelectedRestaurant];
+        //                [self selectRestaurant:nil];
+        //            }
+        //        }];
         return;
     }
     

@@ -13,6 +13,8 @@
 #import "ENMainViewController.h"
 #import "extobjc.h"
 #import "ReactiveCocoa.h"
+#import "TMAlertController.h"
+#import "TMAlertAction.h"
 
 @interface ENFeedbackViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -95,7 +97,13 @@
 
 - (IBAction)onRateButton:(id)sender {
     if (!self.rating) {
-        [ENUtil showText:@"Please tell us how you liked it"];
+        TMAlertController *alertController = [TMAlertController alertControllerWithTitle:nil message:@"Please Tell US you liked it" preferredStyle:TMAlartControllerStyleAlert];
+        alertController.iconImage = [UIImage imageNamed:@"eat-now-alert-question-mark-icon"];
+        [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
     [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:[self.rating floatValue] completion:^(NSError *error) {
