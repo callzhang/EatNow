@@ -180,6 +180,12 @@
 #define COCOAPODS_VERSION_MINOR_Mixpanel_Mixpanel 8
 #define COCOAPODS_VERSION_PATCH_Mixpanel_Mixpanel 0
 
+// PKAlertController
+#define COCOAPODS_POD_AVAILABLE_PKAlertController
+#define COCOAPODS_VERSION_MAJOR_PKAlertController 0
+#define COCOAPODS_VERSION_MINOR_PKAlertController 4
+#define COCOAPODS_VERSION_PATCH_PKAlertController 1
+
 // ReactiveCocoa
 #define COCOAPODS_POD_AVAILABLE_ReactiveCocoa
 #define COCOAPODS_VERSION_MAJOR_ReactiveCocoa 2

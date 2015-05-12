@@ -19,5 +19,5 @@
 @property (nonatomic, weak) ENMainViewController *mainViewController;
 
 + (instancetype)viewController;
-
+- (UIView *)shadowView;
 @end
