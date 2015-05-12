@@ -52,5 +52,10 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 @property (nonatomic, assign) BOOL isDismissingCard;
 @property (nonatomic, assign) BOOL needShowRestaurant;
 @property (nonatomic, assign) ENMainViewControllerMode currentMode;
+
+//tweak
+@property (nonatomic, assign) BOOL showFeedback;
+@property (nonatomic, assign) BOOL showScore;
+
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity completion:(void (^)(NSArray *leftcards))completion;
 @end

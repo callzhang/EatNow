@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zfP-EV-dBC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zfP-EV-dBC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -402,6 +402,7 @@
                         <outlet property="background" destination="q0J-Z4-Pim" id="VCv-RK-3rj"/>
                         <outlet property="cardView" destination="2kN-sq-rqs" id="y0t-fm-SM8"/>
                         <outlet property="closeButton" destination="McB-7e-y9E" id="dHN-GH-Pq9"/>
+                        <outlet property="consoleButton" destination="D4e-Sg-nPl" id="4gc-Mb-8UO"/>
                         <outlet property="detailCardContainer" destination="pNF-QT-1bI" id="jLQ-Ds-44b"/>
                         <outlet property="detailCardLeadingConstraint" destination="JA9-KX-A7U" id="MCf-hd-q45"/>
                         <outlet property="detailCardTrailingConstraint" destination="9mN-6s-KNE" id="fNR-rl-cGy"/>

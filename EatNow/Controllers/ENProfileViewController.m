@@ -15,6 +15,7 @@
 
 @interface ENProfileViewController ()
 @property (nonatomic, strong) ENServerManager *serverManager;
+@property (nonatomic, strong) NSArray *sortedCuisines;
 @end
 
 @implementation ENProfileViewController
@@ -58,6 +59,17 @@
     }
 }
 
+#pragma mark -
+- (void)setPreference:(NSDictionary *)preference{
+    self.sortedCuisines = [preference.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        NSNumber *score1 = preference[obj1];
+        NSNumber *score2 = preference[obj2];
+        return [score1 compare:score2];
+    }];
+}
+
+
+#pragma mark -
 - (IBAction)close:(id)sender {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -136,7 +148,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"preference"];
         }
         //preference
-		NSString *name = self.preference.allKeys[indexPath.row];
+		NSString *name = self.sortedCuisines[indexPath.row];
         NSNumber *score = self.preference[name];
         cell.textLabel.text = name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%.0f%%", score.floatValue*100];

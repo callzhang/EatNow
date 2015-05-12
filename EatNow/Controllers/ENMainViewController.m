@@ -42,6 +42,9 @@
 #import "NSDate+Extension.h"
 #import "EnShapeView.h"
 #import "NSError+EatNow.h"
+#import "FBTweak.h"
+#import "FBTweakStore.h"
+#import "FBTweakInline.h"
 
 
 @interface ENMainViewController ()
@@ -67,13 +70,14 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyChildViewControllerLeadingConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *noRestaurantsLabel;
-
+//control
 @property (weak, nonatomic) IBOutlet UIImageView *loadingIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *historyButton;
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIButton *mainViewButton;
 @property (weak, nonatomic) IBOutlet UIButton *histodyDetailToHistoryButton;
+@property (weak, nonatomic) IBOutlet UIButton *consoleButton;
 @property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
@@ -144,10 +148,17 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self setupDotFrameView];
-}
-
-- (void)viewDidLayoutSubviews {
-
+    
+    //tweak
+    FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
+    FBTweakBind(self, showFeedback, @"Main", @"Feedback", @"Show feedback", YES);
+    [self.KVOController observe:self keyPath:@keypath(self, showFeedback) options:NSKeyValueObservingOptionNew block:^(id observer, ENMainViewController *mainVC, NSDictionary *change) {
+        if (mainVC.showFeedback) {
+            self.consoleButton.hidden = NO;
+        }else{
+            self.consoleButton.hidden = YES;
+        }
+    }];
 }
 
 - (void)viewDidLoad {
@@ -695,6 +706,7 @@
     }
     ENRestaurantViewController* card = [ENRestaurantViewController viewController];
     card.status = ENRestaurantViewStatusCard;
+    card.mainVC = self;
     card.view.frame = frame;
     card.restaurant = self.restaurants.firstObject;
     [card updateLayout];
