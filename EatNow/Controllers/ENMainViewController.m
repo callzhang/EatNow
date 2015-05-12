@@ -140,6 +140,10 @@
     }
 }
 
+- (void)showViews:(NSArray *)showViews inAllViews:(NSArray *)allViews {
+//    NSArray *hideViews = [allViews filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"]]
+}
+
 #pragma mark - UIViewController Lifecycle
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
