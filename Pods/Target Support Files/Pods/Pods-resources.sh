@@ -77,7 +77,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "Mixpanel/Mixpanel/MPCloseBtn@2x.png"
   install_resource "Mixpanel/Mixpanel/MPNotification.storyboard"
   install_resource "Mixpanel/Mixpanel/MPSurvey.storyboard"
-  install_resource "${BUILT_PRODUCTS_DIR}/PKAlertController.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/ApptentiveResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -100,7 +99,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "Mixpanel/Mixpanel/MPCloseBtn@2x.png"
   install_resource "Mixpanel/Mixpanel/MPNotification.storyboard"
   install_resource "Mixpanel/Mixpanel/MPSurvey.storyboard"
-  install_resource "${BUILT_PRODUCTS_DIR}/PKAlertController.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/ApptentiveResources.bundle"
 fi
 
