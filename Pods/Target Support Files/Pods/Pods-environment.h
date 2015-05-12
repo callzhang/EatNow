@@ -54,12 +54,6 @@
 #define COCOAPODS_VERSION_MINOR_AMRatingControl 3
 #define COCOAPODS_VERSION_PATCH_AMRatingControl 0
 
-// AnimatedGIFImageSerialization
-#define COCOAPODS_POD_AVAILABLE_AnimatedGIFImageSerialization
-#define COCOAPODS_VERSION_MAJOR_AnimatedGIFImageSerialization 0
-#define COCOAPODS_VERSION_MINOR_AnimatedGIFImageSerialization 2
-#define COCOAPODS_VERSION_PATCH_AnimatedGIFImageSerialization 0
-
 // BlocksKit
 #define COCOAPODS_POD_AVAILABLE_BlocksKit
 #define COCOAPODS_VERSION_MAJOR_BlocksKit 2
@@ -167,12 +161,6 @@
 #define COCOAPODS_VERSION_MAJOR_MTDates 1
 #define COCOAPODS_VERSION_MINOR_MTDates 0
 #define COCOAPODS_VERSION_PATCH_MTDates 2
-
-// Masonry
-#define COCOAPODS_POD_AVAILABLE_Masonry
-#define COCOAPODS_VERSION_MAJOR_Masonry 0
-#define COCOAPODS_VERSION_MINOR_Masonry 6
-#define COCOAPODS_VERSION_PATCH_Masonry 1
 
 // Mixpanel
 #define COCOAPODS_POD_AVAILABLE_Mixpanel
