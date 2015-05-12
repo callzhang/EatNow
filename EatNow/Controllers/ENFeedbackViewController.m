@@ -109,4 +109,7 @@
     }];
 }
 
+- (UIView *)shadowView {
+    return nil;
+}
 @end

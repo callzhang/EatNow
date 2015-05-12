@@ -45,6 +45,7 @@
 #import "FBTweak.h"
 #import "FBTweakStore.h"
 #import "FBTweakInline.h"
+#import "BlocksKit.h"
 
 
 @interface ENMainViewController ()
@@ -107,40 +108,59 @@
     
     switch (_currentMode) {
         case ENMainViewControllerModeMain: {
-            self.historyButton.hidden = NO;
-            self.reloadButton.hidden = NO;
-            self.closeButton.hidden = YES;
-            self.mainViewButton.hidden = YES;
-            self.histodyDetailToHistoryButton.hidden = YES;
+            [self showControllers:@[self.historyButton, self.reloadButton]];
             break;
         }
         case ENMainViewControllerModeDetail: {
-            self.historyButton.hidden = YES;
-            self.reloadButton.hidden = YES;
-            self.closeButton.hidden = NO;
-            self.mainViewButton.hidden = YES;
-            self.histodyDetailToHistoryButton.hidden = YES;
+            [self showControllers:@[self.closeButton]];
             break;
         }
         case ENMainViewControllerModeHistory: {
-            self.historyButton.hidden = YES;
-            self.reloadButton.hidden = YES;
-            self.closeButton.hidden = YES;
-            self.mainViewButton.hidden = NO;
-            self.histodyDetailToHistoryButton.hidden = YES;
+            [self showControllers:@[self.mainViewButton]];
             break;
         }
         case ENMainViewControllerModeHistoryDetail :{
-            self.historyButton.hidden = YES;
-            self.reloadButton.hidden = YES;
-            self.closeButton.hidden = YES;
-            self.mainViewButton.hidden = YES;
-            self.histodyDetailToHistoryButton.hidden = NO;
+            [self showControllers:@[self.histodyDetailToHistoryButton]];
             break;
         }
         default: {
             break;
         }
+    }
+}
+
+- (void)showControllers:(NSArray *)controls animated:(BOOL)animated {
+    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton] animated:animated];
+}
+
+- (void)showControllers:(NSArray *)controls {
+    [self showControllers:controls animated:YES];
+}
+
+- (void)showViews:(NSArray *)showViews inAllViews:(NSArray *)allViews animated:(BOOL)animated {
+    NSArray *hideViews = [allViews bk_reject:^BOOL(id obj) {
+        return [showViews containsObject:obj];
+    }];
+    
+    if (animated) {
+        [UIView animateWithDuration:0.2 animations:^{
+            [showViews bk_each:^(UIView *obj) {
+                obj.alpha = 1.0f;
+            }];
+            
+            [hideViews bk_each:^(UIView *obj) {
+                obj.alpha = 0.0f;
+            }];
+        }];
+    }
+    else {
+        [showViews bk_each:^(UIView *obj) {
+            obj.alpha = 1.0f;
+        }];
+        
+        [hideViews bk_each:^(UIView *obj) {
+            obj.alpha = 0.0f;
+        }];
     }
 }
 
@@ -160,13 +180,14 @@
         }
     }];
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
     self.cardViews = [NSMutableArray array];
+    [self showControllers:@[self.historyButton, self.reloadButton] animated:NO]; //disable animation
     self.currentMode = ENMainViewControllerModeMain;
+
     [self setupNoRestaurantStatus];
     
     //fetch user first
@@ -198,8 +219,8 @@
                 case ENLocationStatusGotLocation:
                     self.loadingInfo.text = @"";
                     break;
-				case ENLocationStatusError:
-					self.loadingInfo.text = @"Failed to get location";
+                case ENLocationStatusError:
+                    self.loadingInfo.text = @"Failed to get location";
                 default:
                     break;
             }
@@ -219,8 +240,8 @@
                     self.loadingInfo.text = @"";
                     break;
                 case ENResturantDataStatusError:
-					self.loadingInfo.text = @"Failed to get restaurant list";
-					ENLogError(@"Server error");
+                    self.loadingInfo.text = @"Failed to get restaurant list";
+                    ENLogError(@"Server error");
                     break;
                 default:
                     break;
@@ -228,7 +249,7 @@
         }
     }];
     
-
+    
     
     [self.KVOController observe:self keyPaths:@[@keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
