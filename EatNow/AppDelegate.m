@@ -128,8 +128,8 @@
     [[UIWindow mainWindow] addGestureRecognizer:longGesture];
     
     //reset stored value
-    [[FBTweakStore sharedInstance] reset];
-    DDLogInfo(@"FBTweak stored value resetted");
+    //[[FBTweakStore sharedInstance] reset];
+    //DLogInfo(@"FBTweak stored value resetted");
 }
 
 - (void)showTweakPanel{

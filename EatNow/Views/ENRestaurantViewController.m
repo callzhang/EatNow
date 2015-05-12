@@ -188,7 +188,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     float d = self.restaurant.distance.floatValue/1000/1.609344;
     self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
-        self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1fmi away, %.1f min walking", d, length/60];
+        self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1f mi away, %.1f min walking", d, length/60];
     }];
     
     //next image

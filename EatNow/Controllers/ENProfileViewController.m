@@ -61,10 +61,11 @@
 
 #pragma mark -
 - (void)setPreference:(NSDictionary *)preference{
+    _preference = preference;
     self.sortedCuisines = [preference.allKeys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
         NSNumber *score1 = preference[obj1];
         NSNumber *score2 = preference[obj2];
-        return [score1 compare:score2];
+        return -[score1 compare:score2];
     }];
 }
 
@@ -82,7 +83,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 4;
+            return 5;
         case 1:
             return self.preference.count;
         default:
@@ -130,12 +131,22 @@
             }
             case 1:{
                 cell.textLabel.text = @"Average Price";
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.user[@"avgUserPrice"]];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"$%@", self.user[@"avgUserPrice"]];
                 break;
             }
             case 2:{
                 cell.textLabel.text = @"Average Rating";
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.user[@"avgUserRating"]];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f", [self.user[@"avgUserRating"] floatValue]];
+                break;
+            }
+            case 3:{
+                cell.textLabel.text = @"Average Distance";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f km", [self.user[@"avgUserDistance"] floatValue]/1000];
+                break;
+            }
+            case 4:{
+                cell.textLabel.text = @"Average Like";
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f", [self.user[@"avgUserLike"] floatValue]+2];
                 break;
             }
             default:
