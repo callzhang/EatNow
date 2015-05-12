@@ -198,13 +198,18 @@
         for (TFHppleElement *element in elements) {
             NSString *imgUrl = [element objectForKey:@"data-retina-url"];
             if (imgUrl) {
-                NSMutableArray *urlComponents = [imgUrl componentsSeparatedByString:@"/"].mutableCopy;
-                NSString *sizeStr = urlComponents[urlComponents.count-2];
-                if (sizeStr.length == 7 && [sizeStr characterAtIndex:3] == 'x') {
-                    urlComponents[urlComponents.count-2] = @"original";
-                    imgUrl = [urlComponents componentsJoinedByString:@"/"];
+                if ([imgUrl containsString:@"4sqi"]) {
+                    NSMutableArray *urlComponents = [imgUrl componentsSeparatedByString:@"/"].mutableCopy;
+                    NSString *sizeStr = urlComponents[urlComponents.count-2];
+                    if (sizeStr.length == 7 && [sizeStr characterAtIndex:3] == 'x') {
+                        urlComponents[urlComponents.count-2] = @"original";
+                        imgUrl = [urlComponents componentsJoinedByString:@"/"];
+                    }
+                    [images addObject:imgUrl];
                 }
-                [images addObject:imgUrl];
+                else {
+                    DDLogError(@"Parse failed: %@", imgUrl);
+                }
             }
         }
         
