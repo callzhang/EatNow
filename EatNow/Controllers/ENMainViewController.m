@@ -534,7 +534,7 @@
         //animate
         if (i <= kMaxCardsToAnimate){
             //animate
-            float delay = (kMaxCardsToAnimate - i + 1) * kCardShowInterval;
+            float delay = (kMaxCardsToAnimate - i + 1) * kCardShowInterval - 0.02 * i;
             DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.hidden = NO;
