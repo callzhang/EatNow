@@ -317,6 +317,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
         self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
         self.map.showsUserLocation = YES;
+        //map manager
+        self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
         self.map.delegate = self.mapManager;
         [self.card insertSubview:self.map belowSubview:self.goButton];
         
@@ -333,13 +335,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidShow object:nil];
         
         //route if select
-        if ([ENServerManager shared].selectedRestaurant == _restaurant){
-            @weakify(self);
-            [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
-                @strongify(self);
-                self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
-            }];
-        }
+        @weakify(self);
+        [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
+            @strongify(self);
+            self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
+        }];
         
     }
     else{
