@@ -41,7 +41,7 @@
 
 - (IBAction)onEnableButton:(id)sender {
     self.gettingLocation = YES;
-    [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
         self.gettingLocation = NO;
         if (status == INTULocationStatusSuccess) {
             ENMainViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];

@@ -83,6 +83,7 @@
 @property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
+@property (nonatomic, assign) BOOL showLocationRequestTime;
 @end
 
 @implementation ENMainViewController
@@ -177,6 +178,8 @@
     //tweak
     FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
     FBTweakBind(self, showFeedback, @"Main", @"Feedback", @"Show feedback", YES);
+    FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", YES);
+    
     [self.KVOController observe:self keyPath:@keypath(self, showFeedback) options:NSKeyValueObservingOptionNew block:^(id observer, ENMainViewController *mainVC, NSDictionary *change) {
         if (mainVC.showFeedback) {
             self.consoleButton.hidden = NO;
@@ -458,9 +461,14 @@
 #pragma mark - Main methods
 
 - (void)searchNewRestaurantsForced:(BOOL)force completion:(void (^)(NSArray *response, NSError *error))block {
+    NSDate *start = [NSDate date];
     @weakify(self);
-    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
         @strongify(self);
+        if (self.showLocationRequestTime) {
+            NSString *str = [NSString stringWithFormat:@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:start]];
+            [ENUtil showText:str];
+        }
         if (location) {
             [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
                 @strongify(self);

@@ -38,7 +38,7 @@
     self.mapManager = [[ENMapManager alloc] init];
     
     @weakify(self);
-    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
         NSLog(@"got location:%@", location);
         [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
             @strongify(self);

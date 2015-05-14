@@ -134,7 +134,7 @@ void ENLogError(NSString *fmt,...){
 + (JGProgressHUD *)showWarningHUBWithString:(NSString *)string{
 	[self dismissHUD];
     UIView *rootView = [self topView];
-    JGProgressHUD *hud = [rootView showNotification:string WithStyle:hudStyleWarning audoHide:4];
+    JGProgressHUD *hud = [rootView showNotification:string WithStyle:hudStyleWarning audoHide:3];
     [[ENUtil shared].HUDs addObject:hud];
     return hud;
 }
@@ -150,7 +150,7 @@ void ENLogError(NSString *fmt,...){
 + (JGProgressHUD *)showText:(NSString *)string{
 	[self dismissHUD];
 	UIView *rootView = [self topView];
-	JGProgressHUD *hud = [rootView showNotification:string WithStyle:HUDStyleInfo audoHide:4];
+	JGProgressHUD *hud = [rootView showNotification:string WithStyle:HUDStyleInfo audoHide:3];
 	[[ENUtil shared].HUDs addObject:hud];
 	return hud;
 }
@@ -158,7 +158,7 @@ void ENLogError(NSString *fmt,...){
 + (JGProgressHUD *)showNiceChoice:(NSString *)string{
     [self dismissHUD];
     UIView *rootView = [self topView];
-    JGProgressHUD *hud = [rootView showNotification:string WithStyle:HUDStyleNiceChioce audoHide:4];
+    JGProgressHUD *hud = [rootView showNotification:string WithStyle:HUDStyleNiceChioce audoHide:3];
     [[ENUtil shared].HUDs addObject:hud];
     return hud;
 }

@@ -9,6 +9,7 @@
 #import "ENLocationManager.h"
 #import "FBKVOController.h"
 #import "extobjc.h"
+#import "NSTimer+BlocksKit.h"
 
 
 static CLLocation *_cachedCurrentLocation = nil;
@@ -16,56 +17,75 @@ static void (^_locationDisabledHanlder)(void) = nil;
 static void (^_locationDeniedHanlder)(void) = nil;
 
 @interface ENLocationManager()<CLLocationManagerDelegate>
-@property (nonatomic, readonly) INTULocationManager *locationManager;
+@property (nonatomic, strong) INTULocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *currentLocation;
 @property (nonatomic, strong) NSDate *lastUpdatedLocationDate;
+@property (nonatomic, assign) INTULocationAccuracy achievedAccuracy;
+@property (nonatomic, strong) NSMutableArray *completionBlocks;
+@property (nonatomic, assign) INTULocationRequestID request;
+@property (nonatomic, strong) NSDate *requestTime;
 @end
 
 @implementation ENLocationManager
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
-- (INTULocationManager *)locationManager {
-    return [INTULocationManager sharedInstance];
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        self.completionBlocks = [NSMutableArray array];
+        self.locationManager = [INTULocationManager sharedInstance];
+    }
+    return self;
 }
 
-+ (INTULocationServicesState)locationServicesState {
-    return [INTULocationManager locationServicesState];
-}
-
-- (void)getLocationWithCompletion:(void (^)(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status))completion {
+- (void)getLocationWithCompletion:(ENLocationCompletionBlock)completion {
     [self getLocationWithCompletion:completion forece:NO];
 }
 
-- (void)getLocationWithCompletion:(void (^)(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status))completion forece:(BOOL)forceUpdate {
++ (INTULocationServicesState)locationServicesState{
+    return [INTULocationManager locationServicesState];
+}
+
+- (void)getLocationWithCompletion:(ENLocationCompletionBlock)completion forece:(BOOL)forceUpdate {
     if (!forceUpdate) {
         if (self.currentLocation) {
-            if (self.lastUpdatedLocationDate.timeIntervalSinceNow < 30) {
-                completion(self.currentLocation, INTULocationAccuracyHouse, INTULocationStatusSuccess);
+            if (self.lastUpdatedLocationDate.timeIntervalSinceNow < kENLocationMinimumInterval) {
+                [self.completionBlocks addObject:completion];
+                [self completeLocationRequest];
             }
             else {
                 self.currentLocation = nil;
-                [self getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-                    completion(location, achievedAccuracy, status);
-                }];
+                [self getLocationWithCompletion:completion];
             }
             return;
         }
     }
     
+    if (self.request) {
+        DDLogWarn(@"Already requesting location");
+        [self.completionBlocks addObject:completion];
+        return;
+    }
+    
 	//status
 	self.locationStatus = ENLocationStatusGettingLocation;
     DDLogVerbose(@"Getting location");
-    NSDate *startTime = [NSDate date];
-    NSTimeInterval timeout = 10;
+    self.requestTime = [NSDate date];
+    
 	//request
     @weakify(self);
-    [self.locationManager requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:timeout delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-		
+    
+    self.request = [self.locationManager subscribeToLocationUpdatesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
 		//update location
-		self.currentLocation = currentLocation;
+        if (achievedAccuracy > self.achievedAccuracy) {
+            self.achievedAccuracy = achievedAccuracy;
+            self.currentLocation = currentLocation;
+            [self completeLocationRequest];
+        }
 		if (status == INTULocationStatusSuccess) {
 			DDLogVerbose(@"Location aquired");
-			self.locationStatus = ENLocationStatusGotLocation;
+            self.locationStatus = ENLocationStatusGotLocation;
+            [self completeLocationRequest];
 		}
 		else if (status == INTULocationStatusTimedOut){
 			DDLogInfo(@"Use best location at timeout");
@@ -84,27 +104,34 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 			}
 		}
 		else if (status == INTULocationStatusError){
-			if ([[NSDate date] timeIntervalSinceDate:startTime] < timeout) {
-				DDLogWarn(@"Failed location request but will retry");
-                //[self getLocationWithCompletion:completion forece:forceUpdate];
-                return;
-            }else {
-                self.locationStatus = ENLocationStatusError;
-                DDLogWarn(@"After trying location for 5 times, still get error");
-			}
+            self.locationStatus = ENLocationStatusError;
+            DDLogWarn(@"Failed location request but will retry");
 		}
 		else{
 			self.locationStatus = ENLocationStatusUnknown;
-			DDLogWarn(@"Unexpected location status: %ld", (long)status);
-		}
-		
-		if (completion) {
-            DDLogInfo(@"===> It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:startTime]);
-			completion(currentLocation, achievedAccuracy, status);
+			DDLogError(@"Unexpected location status: %ld", (long)status);
 		}
 	}];
+    
+    [NSTimer bk_scheduledTimerWithTimeInterval:kENLocationRequestTimeout block:^(NSTimer *timer) {
+        [self.locationManager forceCompleteLocationRequest:self.request];
+        [self completeLocationRequest];
+    } repeats:NO];
 }
 
+- (void)completeLocationRequest{
+    for (ENLocationCompletionBlock block in self.completionBlocks) {
+        block(self.currentLocation, self.achievedAccuracy, self.locationStatus);
+    }
+    [self.completionBlocks removeAllObjects];
+    [self.locationManager cancelLocationRequest:self.request];
+    self.request = 0;
+    DDLogInfo(@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:self.requestTime]);
+}
+
+- (void)cancelLocationRequest{
+    [self.locationManager forceCompleteLocationRequest:self.request];
+}
 
 - (void)setCurrentLocation:(CLLocation *)currentLocation {
     _currentLocation = currentLocation;
