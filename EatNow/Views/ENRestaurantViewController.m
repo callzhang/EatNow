@@ -216,16 +216,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
     
     if (![ENServerManager shared].canSelectNewRestaurant) {
-        NSArray *titles;
-#ifdef DEBUG
-        titles = @[@"Yes, I changed my mind.", @"Force select [debug]"];
-#else
-        titles = @[@"Yes, I changed my mind."];
-#endif
         @weakify(self);
         
-        TMAlertController *alertController = [TMAlertController alertControllerWithTitle:nil message:[NSString stringWithFormat:@"Do you want to go to %@ instead? Your previous choice (%@) will be removed.", self.restaurant.name, [ENServerManager shared].selectedRestaurant.name] preferredStyle:TMAlartControllerStyleAlert];
+        TMAlertController *alertController = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Going %@ instead?", self.restaurant.name] message:[NSString stringWithFormat:@"You just said you were going to %@", [ENServerManager shared].selectedRestaurant.name] preferredStyle:TMAlartControllerStyleAlert];
         
+#ifdef DEBUG1
         [alertController addAction:[TMAlertAction actionWithTitle:@"Force?" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
             @strongify(self);
             [[ENServerManager shared] clearSelectedRestaurant];
@@ -233,8 +228,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             
             [self dismissViewControllerAnimated:YES completion:nil];
         }]];
+#endif
         
-        [alertController addAction:[TMAlertAction actionWithTitle:@"YES?" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+        [alertController addAction:[TMAlertAction actionWithTitle:@"NO" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }]];
+        
+        [alertController addAction:[TMAlertAction actionWithTitle:@"YES" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
             @strongify(self);
             [ENUtil showWatingHUB];
             [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
@@ -251,10 +251,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                 }
             }];
         }]];
+
         
-        [alertController addAction:[TMAlertAction actionWithTitle:@"Cancel" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }]];
+        alertController.iconStyle = TMAlertControlerIconStyleQustion;
         
         [self presentViewController:alertController animated:YES completion:nil];
         //        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat: cancelButtonTitle:@"Cancel" otherButtonTitles:titles handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -290,7 +289,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         else{
             DDLogInfo(@"Selected %@", _restaurant.name);
-            [self.view showNotification:@"Nice choice" WithStyle:HUDStyleNiceChioce audoHide:3];
+            TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Choice" message:@"Eat Now Learns more about your taste each time you select a place." preferredStyle:TMAlartControllerStyleAlert];
+            alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
+            [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
             [self prepareData];
             [self.tableView reloadData];
             [self updateGoButton];

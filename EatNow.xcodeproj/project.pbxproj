@@ -98,6 +98,7 @@
 		09B9F8FB1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8F91AF1B6D800DE92C6 /* ENHistoryRowItem.m */; };
 		09B9F8FE1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8FD1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m */; };
 		09B9F8FF1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8FD1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m */; };
+		09CFCBEC1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CFCBEB1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m */; };
 		09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
 		09DC93291AE2CBE20054D665 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
 		09DC932A1AE2D8F60054D665 /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
@@ -289,6 +290,8 @@
 		09B9F8F91AF1B6D800DE92C6 /* ENHistoryRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryRowItem.m; sourceTree = "<group>"; };
 		09B9F8FC1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryHeaderRowItem.h; sourceTree = "<group>"; };
 		09B9F8FD1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryHeaderRowItem.m; sourceTree = "<group>"; };
+		09CFCBEA1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGGeometry+MEDConvenienceAdditions.h"; sourceTree = "<group>"; };
+		09CFCBEB1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGGeometry+MEDConvenienceAdditions.m"; sourceTree = "<group>"; };
 		09DC93261AE2C94F0054D665 /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		09DC93271AE2C94F0054D665 /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		09E463F01AFB0AC200389E0B /* ENRestaurantTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantTableViewCell.h; sourceTree = "<group>"; };
@@ -617,6 +620,8 @@
 				9B1658BF1AE4B5330035572C /* UIView+Material.m */,
 				9B1658BB1AE4613D0035572C /* UIView+Extend.h */,
 				9B1658BC1AE4613D0035572C /* UIView+Extend.m */,
+				09CFCBEA1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.h */,
+				09CFCBEB1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m */,
 				9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */,
 				9B1180F61A8E96FB00756E8F /* ENDefines.h */,
 				9B85D0311A8EB6BB0014DBED /* ENUtil.h */,
@@ -1097,6 +1102,7 @@
 				09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */,
 				0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */,
 				9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */,
+				09CFCBEC1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m in Sources */,
 				9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */,
 				9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */,
 				094958181B019A350022E4B4 /* TMAlertPresentationController.m in Sources */,

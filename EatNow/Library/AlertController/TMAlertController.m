@@ -42,6 +42,7 @@
         self.transitionDelegate = [[TMAlertTransitioningDelegate alloc] init];
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate = self.transitionDelegate;
+        self.iconStyle = TMAlertControlerIconStyleQustion;
 
     }
     
@@ -128,6 +129,36 @@
     
     if (action.handler) {
         action.handler(action);
+    }
+}
+
+- (CGSize)preferredSizeFitsInWidth:(CGFloat)width {
+    CGFloat labelHeight1 = ENExpectedLabelHeight(self.titleTextLabel, width);
+    CGFloat labelHeight2 = ENExpectedLabelHeight(self.messageTextLabel, width);
+    CGFloat titleLabelTop = 68;
+    CGFloat labelSpacing = 10;
+    CGFloat labelBottom = 88;
+    
+    return CGSizeMake(width, labelHeight1 + labelHeight2 + titleLabelTop + labelSpacing + labelBottom);
+}
+
+- (void)setIconStyle:(TMAlertControlerIconStyle)iconStyle {
+    switch (iconStyle) {
+        case TMAlertControlerIconStyleQustion: {
+            self.iconImage = [UIImage imageNamed:@"eat-now-alert-question-mark-icon"];
+            break;
+        }
+        case TMAlertControlerIconStyleThumbsUp: {
+            self.iconImage = [UIImage imageNamed:@"eat-now-alert-thumbsup-icon"];
+            break;
+        }
+        case TMAlertControlerIconStylePhone: {
+            self.iconImage = [UIImage imageNamed:@"eat-now-alert-phone-icon"];
+            break;
+        }
+        default: {
+            break;
+        }
     }
 }
 @end

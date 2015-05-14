@@ -76,3 +76,5 @@ void ENLogError(NSString *fmt, ...);
 @interface UIImage (Blur)
 - (UIImage *)bluredImage;
 @end
+
+CGFloat ENExpectedLabelHeight(UILabel *label, CGFloat width);
