@@ -46,4 +46,6 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 - (void)didChangedToFrontCard;
 - (void)addViewDidLayoutBlock:(VoidBlock)block;
 - (void)updateLayout;
+
+- (void)closeMap;
 @end

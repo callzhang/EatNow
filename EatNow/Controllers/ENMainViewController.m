@@ -79,6 +79,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *mainViewButton;
 @property (weak, nonatomic) IBOutlet UIButton *histodyDetailToHistoryButton;
 @property (weak, nonatomic) IBOutlet UIButton *consoleButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeMapButton;
 @property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
@@ -123,6 +124,10 @@
             [self showControllers:@[self.histodyDetailToHistoryButton]];
             break;
         }
+        case ENMainViewControllerModeMap: {
+            [self showControllers:@[self.closeMapButton]];
+            break;
+        }
         default: {
             break;
         }
@@ -130,7 +135,7 @@
 }
 
 - (void)showControllers:(NSArray *)controls animated:(BOOL)animated {
-    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton] animated:animated];
+    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton] animated:animated];
 }
 
 - (void)showControllers:(NSArray *)controls {
@@ -370,6 +375,11 @@
 
 - (IBAction)onCloseButton:(id)sender {
     [self toggleCardDetails];
+}
+
+- (IBAction)onCloseMapButton:(id)sender {
+    [[self firstRestaurantViewController] closeMap];
+    self.currentMode = ENMainViewControllerModeDetail;
 }
 
 - (IBAction)onReloadButton:(id)sender {

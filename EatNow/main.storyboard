@@ -15,6 +15,7 @@
             <string>Entypo</string>
             <string>Entypo</string>
             <string>Entypo</string>
+            <string>Entypo</string>
         </mutableArray>
         <mutableArray key="OpenSans-Light.ttf">
             <string>OpenSans-Light</string>
@@ -347,6 +348,25 @@
                                     <action selector="onHistoryDetailToHistoryButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="yeg-R8-264"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7D-c3-Fdk" userLabel="close-map-button">
+                                <rect key="frame" x="16" y="492" width="58" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="58" id="9db-Su-0yk"/>
+                                    <constraint firstAttribute="height" constant="60" id="jds-eq-0xQ"/>
+                                    <constraint firstAttribute="height" constant="60" id="pYh-Qc-8gf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
+                                <size key="titleShadowOffset" width="0.0" height="1"/>
+                                <state key="normal" image="eat-now-card-details-view-map-collapse-button"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="pYh-Qc-8gf"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="onCloseMapButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="60e-tp-ehQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.4030108821448618" green="0.7724708017676768" blue="0.74289356001606066" alpha="1" colorSpace="calibratedRGB"/>
@@ -357,6 +377,7 @@
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="TEb-SL-p86" secondAttribute="bottom" constant="16" id="B2h-jg-TiK"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="JA9-KX-A7U"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="McB-7e-y9E" secondAttribute="bottom" constant="16" id="Kfp-7e-OHe"/>
+                            <constraint firstItem="i7D-c3-Fdk" firstAttribute="centerX" secondItem="w5B-e7-fo8" secondAttribute="centerX" id="M6D-2e-f7c"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="q0J-Z4-Pim" secondAttribute="bottom" id="MQs-2s-kn4"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="YOj-3L-UkI" secondAttribute="bottom" constant="16" id="N8Z-7M-feg"/>
                             <constraint firstAttribute="trailing" secondItem="q0J-Z4-Pim" secondAttribute="trailing" id="Nqc-Iy-t4b"/>
@@ -379,6 +400,7 @@
                             <constraint firstItem="w5B-e7-fo8" firstAttribute="centerY" secondItem="YOj-3L-UkI" secondAttribute="centerY" id="wIk-MS-kFT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tT5-uY-qhM" secondAttribute="trailing" id="wVd-oh-Khx"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="leading" secondItem="TEb-SL-p86" secondAttribute="trailing" id="xuy-Sl-O0u"/>
+                            <constraint firstItem="i7D-c3-Fdk" firstAttribute="centerY" secondItem="w5B-e7-fo8" secondAttribute="centerY" id="zpt-JU-V7d"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4">
@@ -403,6 +425,7 @@
                         <outlet property="background" destination="q0J-Z4-Pim" id="VCv-RK-3rj"/>
                         <outlet property="cardView" destination="2kN-sq-rqs" id="y0t-fm-SM8"/>
                         <outlet property="closeButton" destination="McB-7e-y9E" id="dHN-GH-Pq9"/>
+                        <outlet property="closeMapButton" destination="i7D-c3-Fdk" id="y4P-bE-9fd"/>
                         <outlet property="consoleButton" destination="D4e-Sg-nPl" id="4gc-Mb-8UO"/>
                         <outlet property="detailCardContainer" destination="pNF-QT-1bI" id="jLQ-Ds-44b"/>
                         <outlet property="detailCardLeadingConstraint" destination="JA9-KX-A7U" id="MCf-hd-q45"/>
@@ -1352,6 +1375,7 @@ Zm9yIHlvdS4R4oCoEQ1QbGVhc2UgY2hlY2sgeW91ciBjb25uZWN0aW9uIGFuZCB0cnkgYWdhaW4uA
         <image name="eat-now-card-deck-view-walk-icon" width="29" height="29"/>
         <image name="eat-now-card-details-view-foursquare-attribution" width="174" height="29"/>
         <image name="eat-now-card-details-view-foursquare-attribution-pressed" width="174" height="29"/>
+        <image name="eat-now-card-details-view-map-collapse-button" width="55" height="55"/>
         <image name="eat-now-card-details-view-map-indicator" width="60" height="60"/>
         <image name="eat-now-card-details-view-phone-icon" width="25" height="25"/>
         <image name="eat-now-close-button" width="55" height="55"/>
