@@ -654,7 +654,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                     //set time
                     NSDate *time = history[@"time"];
                     UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];
-                    timeLabel.text = [NSString stringWithFormat:@"(%@)", time.string];
+                    timeLabel.text = [NSString stringWithFormat:@"%@", time.string];
                 },
                   @"image": @"eat-now-card-details-view-feedback-icon",
                   @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
