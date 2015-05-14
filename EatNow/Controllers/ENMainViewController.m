@@ -411,7 +411,7 @@
             [self dismissFrontCardWithVelocity:v completion:^(NSArray *leftcards) {
             }];
             
-            if (i == kMaxCardsToAnimate || self.cardViews.count - 1) {
+            if (i == kMaxCardsToAnimate || i == (self.cardViews.count - 1)) {
                 self.isDismissingCard = NO;
                 
                 //dismiss the rest of the cards,
@@ -719,7 +719,7 @@
     }
     UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card.view snapToPoint:self.cardView.center];
     
-    snap.damping = 1;
+    snap.damping = 0.9;
     [self.animator addBehavior:snap];
     card.snap = snap;
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

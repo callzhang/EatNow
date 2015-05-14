@@ -38,7 +38,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 - (void)getLocationWithCompletion:(void (^)(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status))completion forece:(BOOL)forceUpdate {
     if (!forceUpdate) {
         if (self.currentLocation) {
-            if (self.lastUpdatedLocationDate.timeIntervalSinceNow < 60) {
+            if (self.lastUpdatedLocationDate.timeIntervalSinceNow < 30) {
                 completion(self.currentLocation, INTULocationAccuracyHouse, INTULocationStatusSuccess);
             }
             else {
@@ -53,9 +53,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     
 	//status
 	self.locationStatus = ENLocationStatusGettingLocation;
+    DDLogVerbose(@"Getting location");
+    NSDate *startTime = [NSDate date];
+    NSTimeInterval timeout = 10;
 	//request
     @weakify(self);
-    [self.locationManager requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:10 delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    [self.locationManager requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse timeout:timeout delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
 		
         @strongify(self);
 		//update location
@@ -65,7 +68,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 			self.locationStatus = ENLocationStatusGotLocation;
 		}
 		else if (status == INTULocationStatusTimedOut){
-			DDLogVerbose(@"Use best location at timeout");
+			DDLogInfo(@"Use best location at timeout");
 			self.locationStatus = ENLocationStatusGotLocation;
 		}
 		else if (status == INTULocationStatusServicesDisabled){
@@ -81,16 +84,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 			}
 		}
 		else if (status == INTULocationStatusError){
-			self.locationStatus = ENLocationStatusError;
-			if (!currentLocation) {
-				DDLogWarn(@"Failed location request: %ld", (long)status);
-				static NSInteger locationRetryCount;
-				if (locationRetryCount < 5) {
-					locationRetryCount++;
-					DDLogWarn(@"Retrying location for the %@th time", @(locationRetryCount));
-					[self getLocationWithCompletion:completion forece:forceUpdate];
-					return;
-				}
+			if ([[NSDate date] timeIntervalSinceDate:startTime] < timeout) {
+				DDLogWarn(@"Failed location request but will retry");
+                //[self getLocationWithCompletion:completion forece:forceUpdate];
+                return;
+            }else {
+                self.locationStatus = ENLocationStatusError;
+                DDLogWarn(@"After trying location for 5 times, still get error");
 			}
 		}
 		else{
@@ -99,6 +99,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 		}
 		
 		if (completion) {
+            DDLogInfo(@"===> It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:startTime]);
 			completion(currentLocation, achievedAccuracy, status);
 		}
 	}];
