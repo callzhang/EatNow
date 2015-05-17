@@ -60,7 +60,6 @@
     [Fabric with:@[CrashlyticsKit]];
     [Fabric sharedSDK].debug = YES;
     [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
-    [[Mixpanel sharedInstance] identify:[ENServerManager shared].myID];
     
     [ENLocationManager registerLocationDeniedHandler:^{
         [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -146,11 +145,16 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    [[Mixpanel sharedInstance] timeEvent:@"App open"];
     if ([ENLocationManager locationServicesState] != INTULocationServicesStateAvailable) {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENGetLocationViewController"];
         vc.modalTransitionStyle = UIModalPresentationOverFullScreen;
         [UIWindow mainWindow].rootViewController = vc;
     }
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application{
+    [[Mixpanel sharedInstance] track:@"App open"];
 }
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {

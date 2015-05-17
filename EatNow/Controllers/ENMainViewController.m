@@ -46,6 +46,7 @@
 #import "FBTweakStore.h"
 #import "FBTweakInline.h"
 #import "BlocksKit.h"
+#import "Mixpanel.h"
 
 
 @interface ENMainViewController ()
@@ -171,9 +172,13 @@
 }
 
 #pragma mark - UIViewController Lifecycle
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self setupDotFrameView];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setupDotFrameView];
     
     //tweak
     FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
@@ -189,6 +194,7 @@
     }];
 }
 - (void)viewDidLoad {
+    [[Mixpanel sharedInstance] timeEvent:@"Card shown"];
     [super viewDidLoad];
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
@@ -381,11 +387,14 @@
 }
 
 - (IBAction)onCloseMapButton:(id)sender {
+    [[Mixpanel sharedInstance] track:@"Close map"];
     [[self firstRestaurantViewController] closeMap];
     self.currentMode = ENMainViewControllerModeDetail;
 }
 
 - (IBAction)onReloadButton:(id)sender {
+    [[Mixpanel sharedInstance] track:@"reload" properties:@{@"index": @(kMaxRestaurants - _cardViews.count +1),
+                                                           @"session": [ENServerManager shared].session}];
     [self hideNoRestaurantStatus];
     
     if (self.isShowingCards) {
@@ -406,26 +415,31 @@
         self.isDismissingCard = NO;
     }
     
+    NSUInteger cardViewCount = self.cardViews.count;
+    
+    for (int i = kMaxCardsToAnimate; i < cardViewCount ; i++) {
+        ENRestaurantViewController *card = self.cardViews[i];
+        [card.view removeFromSuperview];
+        [card removeFromParentViewController];
+    }
+    
+    if (cardViewCount > kMaxCardsToAnimate) {
+        [self.cardViews removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(kMaxCardsToAnimate, cardViewCount - kMaxCardsToAnimate)]];
+    }
+
+    
+    NSUInteger dismissCardViewCount = self.cardViews.count;
     //dismissing with animation
-    for (int i = 0; i < self.cardViews.count && i <= kMaxCardsToAnimate; i++) {
-        float delay = i * kCardShowInterval;
+    CGFloat cardDismissIntervalSteeper = 0.03;
+    for (int i = 0; i < dismissCardViewCount; i++) {
+        float delay = i * kCardShowInterval - (i * (i + 1)) / 2 * cardDismissIntervalSteeper;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
             [self dismissFrontCardWithVelocity:v completion:^(NSArray *leftcards) {
             }];
             
-            if (i == kMaxCardsToAnimate || i == (self.cardViews.count - 1)) {
+            if (i == dismissCardViewCount - 1) {
                 self.isDismissingCard = NO;
-                
-                //dismiss the rest of the cards,
-                // note that dismissFrontCardWithVelocity mutated self.restaurantCards
-                for (int i = 0; i < self.cardViews.count; i++) {
-                    ENRestaurantViewController *card = self.cardViews[i];
-                    DDLogInfo(@"Dismissing card %@", card.restaurant.name);
-                    [self.cardViews removeObjectAtIndex:i];
-                    [card.view removeFromSuperview];
-                    [card removeFromParentViewController];
-                }
             }
         });
     }
@@ -516,6 +530,7 @@
     }
     
     self.isShowingCards = YES;
+    [[Mixpanel sharedInstance] track:@"Card shown" properties:@{@"session": [ENServerManager shared].session}];
     // Display cards animated
     NSUInteger restaurantCount = _restaurants.count;
     NSUInteger feedbackCount = self.historyToReview.count;
@@ -579,6 +594,11 @@
 
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity completion:(void (^)(NSArray *leftcards))completion {
     if (self.firstRestaurantViewController) {
+        //mixpanel
+        [[Mixpanel sharedInstance].people increment:@"dismiss" by:@1];
+        [[Mixpanel sharedInstance] track:@"Dismiss" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+                                                                 @"session": [ENServerManager shared].session}];
+        
         ENRestaurantViewController *firstRestaurantViewController = self.firstRestaurantViewController;
         //DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
         //add dynamics
@@ -624,6 +644,8 @@
     //open first card
     //TODO? might use current mode for switcing
     if (self.firstRestaurantViewController.status == ENRestaurantViewStatusCard) {
+        [[Mixpanel sharedInstance] track:@"Open card detail" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+                                                                          @"session": [ENServerManager shared].session}];
         [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailCardContainer.bounds animated:YES completion:nil];
         [self.firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
         
@@ -631,6 +653,8 @@
     }
     //close first card
     else {
+        [[Mixpanel sharedInstance] track:@"Close card detail" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+                                                                           @"session": [ENServerManager shared].session}];
         [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES completion:nil];
         [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
         
@@ -705,6 +729,8 @@
             }];
         }
         else {
+            [[Mixpanel sharedInstance] track:@"Undecisive" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+                                                                        @"session": [ENServerManager shared].session}];
             [self snapCardToCenter:firstRestauantViewController];
         }
     }

@@ -42,6 +42,7 @@ extern NSString * const kUserUpdated;
 @property (nonatomic, strong) NSDictionary *preference;
 @property (nonatomic, strong) NSDictionary *me;
 @property (nonatomic, strong) NSString *myID;
+@property (nonatomic, strong) NSNumber *session;
 
 //We still need Singleton as it stores shared information
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
@@ -56,5 +57,5 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 - (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block;
 - (BOOL)canSelectNewRestaurant;
 - (void)clearSelectedRestaurant;
-- (void)updateHistory:(NSString *)historyID withRating:(float)rate completion:(ErrorBlock)block;
+- (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(ErrorBlock)block;
 @end

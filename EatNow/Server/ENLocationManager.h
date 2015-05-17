@@ -12,7 +12,7 @@
 #import "INTULocationManager.h"
 
 typedef void (^ENLocationCompletionBlock)(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, ENLocationStatus status);
-#define kENLocationMinimumInterval  30
+#define kENLocationMinimumInterval  20
 #define kENLocationRequestTimeout   10
 
 @interface ENLocationManager : NSObject

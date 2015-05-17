@@ -128,7 +128,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     [self.completionBlocks removeAllObjects];
     [self.locationManager cancelLocationRequest:self.request];
     self.request = 0;
-    [[Mixpanel sharedInstance] timeEvent:@"get location"];
+    [[Mixpanel sharedInstance] track:@"get location"];
     DDLogInfo(@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:self.requestTime]);
 }
 
