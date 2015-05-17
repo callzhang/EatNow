@@ -199,7 +199,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 #pragma mark - UI
 - (IBAction)selectRestaurant:(id)sender {
-    if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:_restaurant.ID]) {
+    if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:_restaurant.ID] ) {
+        if (![ENServerManager shared].selectionHistoryID) {
+            //need to wait for selection history ID returns
+            return;
+        }
         //cancel
         [[ENServerManager shared] clearSelectedRestaurant];
         @weakify(self);

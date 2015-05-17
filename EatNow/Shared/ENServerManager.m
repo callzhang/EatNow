@@ -232,6 +232,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 - (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block{
+    NSParameterAssert(historyID);
     [[Mixpanel sharedInstance] timeEvent:@"Cancel history"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *path = [NSString stringWithFormat:@"%@/user/%@/history/%@", kServerUrl, [ENServerManager myUUID], historyID];
