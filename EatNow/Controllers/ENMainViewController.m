@@ -171,9 +171,13 @@
 }
 
 #pragma mark - UIViewController Lifecycle
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self setupDotFrameView];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setupDotFrameView];
     
     //tweak
     FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
@@ -406,26 +410,31 @@
         self.isDismissingCard = NO;
     }
     
+    NSUInteger cardViewCount = self.cardViews.count;
+    
+    for (int i = kMaxCardsToAnimate; i < cardViewCount ; i++) {
+        ENRestaurantViewController *card = self.cardViews[i];
+        [card.view removeFromSuperview];
+        [card removeFromParentViewController];
+    }
+    
+    if (cardViewCount > kMaxCardsToAnimate) {
+        [self.cardViews removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(kMaxCardsToAnimate, cardViewCount - kMaxCardsToAnimate)]];
+    }
+
+    
+    NSUInteger dismissCardViewCount = self.cardViews.count;
     //dismissing with animation
-    for (int i = 0; i < self.cardViews.count && i <= kMaxCardsToAnimate; i++) {
-        float delay = i * kCardShowInterval;
+    CGFloat cardDismissIntervalSteeper = 0.03;
+    for (int i = 0; i < dismissCardViewCount; i++) {
+        float delay = i * kCardShowInterval - (i * (i + 1)) / 2 * cardDismissIntervalSteeper;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
             [self dismissFrontCardWithVelocity:v completion:^(NSArray *leftcards) {
             }];
             
-            if (i == kMaxCardsToAnimate || i == (self.cardViews.count - 1)) {
+            if (i == dismissCardViewCount - 1) {
                 self.isDismissingCard = NO;
-                
-                //dismiss the rest of the cards,
-                // note that dismissFrontCardWithVelocity mutated self.restaurantCards
-                for (int i = 0; i < self.cardViews.count; i++) {
-                    ENRestaurantViewController *card = self.cardViews[i];
-                    DDLogInfo(@"Dismissing card %@", card.restaurant.name);
-                    [self.cardViews removeObjectAtIndex:i];
-                    [card.view removeFromSuperview];
-                    [card removeFromParentViewController];
-                }
             }
         });
     }

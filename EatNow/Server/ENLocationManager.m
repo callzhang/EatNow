@@ -60,9 +60,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
         }
     }
     
+    [self.completionBlocks addObject:completion];
+    
     if (self.request) {
         DDLogWarn(@"Already requesting location");
-        [self.completionBlocks addObject:completion];
         return;
     }
     
