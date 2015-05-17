@@ -150,7 +150,7 @@ void ENLogError(NSString *fmt,...){
 + (JGProgressHUD *)showText:(NSString *)string{
 	[self dismissHUD];
 	UIView *rootView = [self topView];
-	JGProgressHUD *hud = [rootView showNotification:string WithStyle:HUDStyleInfo audoHide:3];
+	JGProgressHUD *hud = [rootView showNotification:string WithStyle:HUDStyleInfo audoHide:4];
 	[[ENUtil shared].HUDs addObject:hud];
 	return hud;
 }
