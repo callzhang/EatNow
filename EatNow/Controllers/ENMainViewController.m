@@ -46,6 +46,8 @@
 #import "FBTweakStore.h"
 #import "FBTweakInline.h"
 #import "BlocksKit.h"
+#import "GNMapOpenerItem.h"
+#import "GNMapOpener.h"
 
 
 @interface ENMainViewController ()
@@ -80,6 +82,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *histodyDetailToHistoryButton;
 @property (weak, nonatomic) IBOutlet UIButton *consoleButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeMapButton;
+@property (weak, nonatomic) IBOutlet UIButton *openInMapsButton;
 @property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
@@ -126,7 +129,7 @@
             break;
         }
         case ENMainViewControllerModeMap: {
-            [self showControllers:@[self.closeMapButton]];
+            [self showControllers:@[self.closeMapButton, self.openInMapsButton]];
             break;
         }
         default: {
@@ -136,7 +139,7 @@
 }
 
 - (void)showControllers:(NSArray *)controls animated:(BOOL)animated {
-    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton] animated:animated];
+    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton, self.openInMapsButton] animated:animated];
 }
 
 - (void)showControllers:(NSArray *)controls {
@@ -466,6 +469,14 @@
     self.currentMode = ENMainViewControllerModeHistoryDetail;
     
     [self.historyViewController closeRestaurantView];
+}
+
+- (IBAction)onOpenInMapsButton:(id)sender {
+    CLLocation *location = [self firstRestaurantViewController].restaurant.location;
+    GNMapOpenerItem *item = [[GNMapOpenerItem alloc] initWithLocation:location];
+    item.name = [self firstRestaurantViewController].restaurant.name;
+    item.directionsType = GNMapOpenerDirectionsTypeWalk;
+    [[GNMapOpener sharedInstance] openItem:item presetingViewController:self];
 }
 #pragma mark - Main methods
 

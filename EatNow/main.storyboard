@@ -40,6 +40,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
         <mutableArray key="OpenSans-Semibold.ttf">
             <string>OpenSans-Semibold</string>
@@ -171,7 +172,23 @@
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kp-kc-LaW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQj-FE-IWf">
+                                        <rect key="frame" x="182" y="504" width="118" height="37"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                        <state key="normal" title="Open in Maps">
+                                            <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onOpenInMapsButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="mXl-Pz-Bka"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bQj-FE-IWf" secondAttribute="trailing" constant="20" id="rSw-HH-JAB"/>
+                                </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT5-uY-qhM" userLabel="history">
                                 <rect key="frame" x="16" y="82" width="288" height="394"/>
@@ -182,8 +199,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-QT-1bI" userLabel="detail">
                                 <rect key="frame" x="16" y="20" width="288" height="456"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text=" " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wl0-KL-zNt" userLabel="info">
-                                        <rect key="frame" x="19" y="216" width="250" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wl0-KL-zNt" userLabel="info">
+                                        <rect key="frame" x="19" y="130" width="250" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="zet-HD-tOf"/>
                                         </constraints>
@@ -249,12 +266,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl" userLabel="debug-button">
-                                <rect key="frame" x="249" y="497" width="55" height="55"/>
+                                <rect key="frame" x="135" y="497" width="55" height="55"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="fdQ-VI-W7B"/>
-                                    <constraint firstAttribute="height" constant="30" id="uTZ-oF-paA"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
@@ -262,12 +275,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="fdQ-VI-W7B"/>
-                                        <exclude reference="uTZ-oF-paA"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <action selector="onDebugButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="Qmq-U8-yNG"/>
                                 </connections>
@@ -387,13 +394,14 @@
                             <constraint firstItem="q0J-Z4-Pim" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" id="TIz-2d-3aG"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="centerY" secondItem="TEb-SL-p86" secondAttribute="centerY" id="TyN-vp-ESS"/>
                             <constraint firstItem="McB-7e-y9E" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="W67-VS-ClU"/>
-                            <constraint firstAttribute="trailing" secondItem="D4e-Sg-nPl" secondAttribute="trailing" constant="16" id="i4a-Wo-CkX"/>
+                            <constraint firstAttribute="trailing" secondItem="D4e-Sg-nPl" secondAttribute="trailing" constant="130" id="i4a-Wo-CkX"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="82" id="ier-hE-C5x"/>
                             <constraint firstItem="w5B-e7-fo8" firstAttribute="centerX" secondItem="YOj-3L-UkI" secondAttribute="centerX" id="kVR-xZ-SmE"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="20" id="mC5-ah-Hn8"/>
                             <constraint firstItem="2kp-kc-LaW" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" id="meV-Gs-vzK"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="pjo-mg-XiM"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="D4e-Sg-nPl" secondAttribute="bottom" constant="16" id="rzs-Qq-BuW"/>
+                            <constraint firstItem="Fcq-QR-9Zu" firstAttribute="centerY" secondItem="bQj-FE-IWf" secondAttribute="centerY" id="thm-Gg-E9V"/>
                             <constraint firstAttribute="trailing" secondItem="2kp-kc-LaW" secondAttribute="trailing" id="u1Q-fy-NQC"/>
                             <constraint firstItem="YOj-3L-UkI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="v6N-2z-Ucd"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="2kp-kc-LaW" secondAttribute="bottom" id="vDT-bm-kEZ"/>
@@ -439,6 +447,7 @@
                         <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
                         <outlet property="mainViewButton" destination="YOj-3L-UkI" id="MJ0-Vv-Cu7"/>
                         <outlet property="noRestaurantsLabel" destination="Mc6-x8-adw" id="BDk-wj-JnV"/>
+                        <outlet property="openInMapsButton" destination="bQj-FE-IWf" id="P8x-8l-foJ"/>
                         <outlet property="panGesture" destination="yUq-Ir-CBt" id="PpJ-sD-gmq"/>
                         <outlet property="reloadButton" destination="Fcq-QR-9Zu" id="Ctu-id-Ctm"/>
                         <outlet property="tapGesture" destination="O3U-Ob-hea" id="2zT-0B-l7C"/>

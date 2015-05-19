@@ -65,10 +65,6 @@ void ENLogError(NSString *fmt, ...);
 - (void)dismissHUD;
 @end
 
-@interface UIWindow(Extensions)
-+ (UIWindow *)mainWindow;
-@end
-
 @interface NSArray(Extend)
 - (NSString *)string;
 @end

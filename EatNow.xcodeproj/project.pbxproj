@@ -62,6 +62,12 @@
 		0982B45A1AD9A30500982740 /* NSError+TMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B4581AD9A30500982740 /* NSError+TMError.m */; };
 		0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
 		0982B45E1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
+		09B165CD1B0AB9D900EBE3F9 /* GNAppleMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B165C41B0AB9D900EBE3F9 /* GNAppleMapOpenerService.m */; };
+		09B165CE1B0AB9D900EBE3F9 /* GNGoogleMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B165C61B0AB9D900EBE3F9 /* GNGoogleMapOpenerService.m */; };
+		09B165CF1B0AB9D900EBE3F9 /* GNMapOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B165C81B0AB9D900EBE3F9 /* GNMapOpener.m */; };
+		09B165D01B0AB9D900EBE3F9 /* GNMapOpenerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B165CA1B0AB9D900EBE3F9 /* GNMapOpenerItem.m */; };
+		09B165D11B0AB9D900EBE3F9 /* GNMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B165CC1B0AB9D900EBE3F9 /* GNMapOpenerService.m */; };
+		09B165D41B0ABB7A00EBE3F9 /* OpenInGoogleMapsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B165D31B0ABB7A00EBE3F9 /* OpenInGoogleMapsController.m */; };
 		09B9F8D81AF1B4F700DE92C6 /* FBKVOController+Binding.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8B41AF1B4F700DE92C6 /* FBKVOController+Binding.m */; };
 		09B9F8D91AF1B4F700DE92C6 /* FBKVOController+Binding.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8B41AF1B4F700DE92C6 /* FBKVOController+Binding.m */; };
 		09B9F8DA1AF1B4F700DE92C6 /* TMLabelRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8B71AF1B4F700DE92C6 /* TMLabelRowItem.m */; };
@@ -252,6 +258,18 @@
 		0982B4581AD9A30500982740 /* NSError+TMError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+TMError.m"; sourceTree = "<group>"; };
 		0982B45B1AD9A7D700982740 /* ResturantDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResturantDetailInterfaceController.h; sourceTree = "<group>"; };
 		0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResturantDetailInterfaceController.m; sourceTree = "<group>"; };
+		09B165C31B0AB9D900EBE3F9 /* GNAppleMapOpenerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAppleMapOpenerService.h; sourceTree = "<group>"; };
+		09B165C41B0AB9D900EBE3F9 /* GNAppleMapOpenerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAppleMapOpenerService.m; sourceTree = "<group>"; };
+		09B165C51B0AB9D900EBE3F9 /* GNGoogleMapOpenerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNGoogleMapOpenerService.h; sourceTree = "<group>"; };
+		09B165C61B0AB9D900EBE3F9 /* GNGoogleMapOpenerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNGoogleMapOpenerService.m; sourceTree = "<group>"; };
+		09B165C71B0AB9D900EBE3F9 /* GNMapOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNMapOpener.h; sourceTree = "<group>"; };
+		09B165C81B0AB9D900EBE3F9 /* GNMapOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNMapOpener.m; sourceTree = "<group>"; };
+		09B165C91B0AB9D900EBE3F9 /* GNMapOpenerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNMapOpenerItem.h; sourceTree = "<group>"; };
+		09B165CA1B0AB9D900EBE3F9 /* GNMapOpenerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNMapOpenerItem.m; sourceTree = "<group>"; };
+		09B165CB1B0AB9D900EBE3F9 /* GNMapOpenerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNMapOpenerService.h; sourceTree = "<group>"; };
+		09B165CC1B0AB9D900EBE3F9 /* GNMapOpenerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNMapOpenerService.m; sourceTree = "<group>"; };
+		09B165D21B0ABB7A00EBE3F9 /* OpenInGoogleMapsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInGoogleMapsController.h; sourceTree = "<group>"; };
+		09B165D31B0ABB7A00EBE3F9 /* OpenInGoogleMapsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInGoogleMapsController.m; sourceTree = "<group>"; };
 		09B9F8B31AF1B4F700DE92C6 /* FBKVOController+Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBKVOController+Binding.h"; sourceTree = "<group>"; };
 		09B9F8B41AF1B4F700DE92C6 /* FBKVOController+Binding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBKVOController+Binding.m"; sourceTree = "<group>"; };
 		09B9F8B61AF1B4F700DE92C6 /* TMLabelRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLabelRowItem.h; sourceTree = "<group>"; };
@@ -506,6 +524,25 @@
 			path = AlertController;
 			sourceTree = "<group>";
 		};
+		09B165C21B0AB9D900EBE3F9 /* GNMapOpener */ = {
+			isa = PBXGroup;
+			children = (
+				09B165C31B0AB9D900EBE3F9 /* GNAppleMapOpenerService.h */,
+				09B165C41B0AB9D900EBE3F9 /* GNAppleMapOpenerService.m */,
+				09B165D21B0ABB7A00EBE3F9 /* OpenInGoogleMapsController.h */,
+				09B165D31B0ABB7A00EBE3F9 /* OpenInGoogleMapsController.m */,
+				09B165C51B0AB9D900EBE3F9 /* GNGoogleMapOpenerService.h */,
+				09B165C61B0AB9D900EBE3F9 /* GNGoogleMapOpenerService.m */,
+				09B165C71B0AB9D900EBE3F9 /* GNMapOpener.h */,
+				09B165C81B0AB9D900EBE3F9 /* GNMapOpener.m */,
+				09B165C91B0AB9D900EBE3F9 /* GNMapOpenerItem.h */,
+				09B165CA1B0AB9D900EBE3F9 /* GNMapOpenerItem.m */,
+				09B165CB1B0AB9D900EBE3F9 /* GNMapOpenerService.h */,
+				09B165CC1B0AB9D900EBE3F9 /* GNMapOpenerService.m */,
+			);
+			path = GNMapOpener;
+			sourceTree = "<group>";
+		};
 		09B9F8B21AF1B4F700DE92C6 /* TableViewBuilder */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,6 +716,7 @@
 				9BAE96181AFEC0C900FF746B /* AppDelegate.m */,
 				9BAE96191AFEC0C900FF746B /* AppDelegate.h */,
 				9BAE96081AFEA2EB00FF746B /* Library */,
+				09B165C21B0AB9D900EBE3F9 /* GNMapOpener */,
 				9BEE36B91A8D3DCF0052332C /* Extension */,
 				092974651AD0C28D00DDC35C /* Shared */,
 				9B23A9B91A27AC7E00549871 /* Server */,
@@ -1069,12 +1107,14 @@
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
 				9BAE96151AFEB49300FF746B /* CrashlyticsLogger.m in Sources */,
 				09777C811AD4933C007147B2 /* ENRestaurantViewController1.m in Sources */,
+				09B165CD1B0AB9D900EBE3F9 /* GNAppleMapOpenerService.m in Sources */,
 				092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */,
 				09B9F8E01AF1B4F700DE92C6 /* TMRowItem+Protected.m in Sources */,
 				09B9F8EA1AF1B4F700DE92C6 /* TMTableViewDataSource.m in Sources */,
 				09B9F8FE1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
 				092944C81AED94F600018391 /* UIImage+Resizing.m in Sources */,
 				09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */,
+				09B165CF1B0AB9D900EBE3F9 /* GNMapOpener.m in Sources */,
 				0949581B1B019AC70022E4B4 /* TMAlertTransitioningDelegate.m in Sources */,
 				09B9F8DA1AF1B4F700DE92C6 /* TMLabelRowItem.m in Sources */,
 				09B9F8EE1AF1B4F700DE92C6 /* UITableView+RegisterRowItem.m in Sources */,
@@ -1084,6 +1124,7 @@
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				0929746E1AD0C2B200DDC35C /* ENRestaurant.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
+				09B165D41B0ABB7A00EBE3F9 /* OpenInGoogleMapsController.m in Sources */,
 				091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */,
 				09B9F8E21AF1B4F700DE92C6 /* TMRowItem.m in Sources */,
 				09B9F8F01AF1B4F700DE92C6 /* TMRightDetailTableViewCell.m in Sources */,
@@ -1093,6 +1134,7 @@
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				093E869E1AFEBFD400CAF489 /* EnShapeView.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
+				09B165D01B0AB9D900EBE3F9 /* GNMapOpenerItem.m in Sources */,
 				093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */,
 				094958151B0190E80022E4B4 /* TMAlertAction.m in Sources */,
 				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,
@@ -1112,6 +1154,8 @@
 				9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */,
 				09B9F8DC1AF1B4F700DE92C6 /* TMRightDetailRowItem.m in Sources */,
 				09B9F8EC1AF1B4F700DE92C6 /* TMTableViewDelegate.m in Sources */,
+				09B165CE1B0AB9D900EBE3F9 /* GNGoogleMapOpenerService.m in Sources */,
+				09B165D11B0AB9D900EBE3F9 /* GNMapOpenerService.m in Sources */,
 				09B9F8F41AF1B4F700DE92C6 /* TMTextLabelTableViewCell.m in Sources */,
 				9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */,
 				093E86A11AFED0C400CAF489 /* NSError+EatNow.m in Sources */,

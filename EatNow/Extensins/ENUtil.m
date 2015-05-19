@@ -15,6 +15,7 @@
 #import "JGProgressHUDFadeZoomAnimation.h"
 #import "AppDelegate.h"
 #import "NSDate+Extension.h"
+#import "UIWindow+Extensions.h"
 
 @import UIKit;
 DDLogLevel const ddLogLevel = DDLogLevelVerbose;
@@ -259,13 +260,6 @@ void ENLogError(NSString *fmt,...){
     }
 }
 
-@end
-
-@implementation UIWindow (Extensions)
-+ (UIWindow *)mainWindow {
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    return delegate.window;
-}
 @end
 
 @implementation NSArray(Extend)

@@ -44,6 +44,7 @@
 #import "FBTweak.h"
 #import "FBTweakStore.h"
 #import "extobjc.h"
+#import "UIWindow+Extensions.h"
 
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate>
