@@ -48,6 +48,7 @@
 #import "BlocksKit.h"
 #import "GNMapOpenerItem.h"
 #import "GNMapOpener.h"
+#import "Mixpanel.h"
 
 
 @interface ENMainViewController ()
@@ -196,6 +197,7 @@
     }];
 }
 - (void)viewDidLoad {
+    [[Mixpanel sharedInstance] timeEvent:@"Card shown"];
     [super viewDidLoad];
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
@@ -388,11 +390,14 @@
 }
 
 - (IBAction)onCloseMapButton:(id)sender {
+    [[Mixpanel sharedInstance] track:@"Close map"];
     [[self firstRestaurantViewController] closeMap];
     self.currentMode = ENMainViewControllerModeDetail;
 }
 
 - (IBAction)onReloadButton:(id)sender {
+    [[Mixpanel sharedInstance] track:@"reload" properties:@{@"index": @(kMaxRestaurants - _cardViews.count +1),
+                                                           @"session": [ENServerManager shared].session}];
     [self hideNoRestaurantStatus];
     
     if (self.isShowingCards) {
@@ -536,6 +541,7 @@
     }
     
     self.isShowingCards = YES;
+    [[Mixpanel sharedInstance] track:@"Card shown" properties:@{@"session": [ENServerManager shared].session}];
     // Display cards animated
     NSUInteger restaurantCount = _restaurants.count;
     NSUInteger feedbackCount = self.historyToReview.count;
@@ -599,6 +605,11 @@
 
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity completion:(void (^)(NSArray *leftcards))completion {
     if (self.firstRestaurantViewController) {
+        //mixpanel
+        [[Mixpanel sharedInstance].people increment:@"dismiss" by:@1];
+        [[Mixpanel sharedInstance] track:@"Dismiss" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+                                                                 @"session": [ENServerManager shared].session}];
+        
         ENRestaurantViewController *firstRestaurantViewController = self.firstRestaurantViewController;
         //DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
         //add dynamics
@@ -644,6 +655,8 @@
     //open first card
     //TODO? might use current mode for switcing
     if (self.firstRestaurantViewController.status == ENRestaurantViewStatusCard) {
+        [[Mixpanel sharedInstance] track:@"Open card detail" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+                                                                          @"session": [ENServerManager shared].session}];
         [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailCardContainer.bounds animated:YES completion:nil];
         [self.firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
         
@@ -651,6 +664,8 @@
     }
     //close first card
     else {
+        [[Mixpanel sharedInstance] track:@"Close card detail" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+                                                                           @"session": [ENServerManager shared].session}];
         [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES completion:nil];
         [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
         
@@ -725,6 +740,8 @@
             }];
         }
         else {
+            [[Mixpanel sharedInstance] track:@"Undecisive" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+                                                                        @"session": [ENServerManager shared].session}];
             [self snapCardToCenter:firstRestauantViewController];
         }
     }

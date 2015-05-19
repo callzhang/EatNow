@@ -106,7 +106,7 @@
         [self presentViewController:alertController animated:YES completion:nil];
         return;
     }
-    [[ENServerManager shared] updateHistory:self.history[@"_id"] withRating:[self.rating floatValue] completion:^(NSError *error) {
+    [[ENServerManager shared] updateHistory:self.history withRating:[self.rating floatValue] completion:^(NSError *error) {
         if (error) {
             [ENUtil showFailureHUBWithString:@"System error"];
         }

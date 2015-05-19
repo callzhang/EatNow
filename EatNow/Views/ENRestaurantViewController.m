@@ -113,7 +113,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.cuisine.text = restaurant.cuisineText;
     self.price.text = restaurant.pricesText;
     self.rating.text = [NSString stringWithFormat:@"%.1f", [restaurant.rating floatValue]];
-    self.walkingDistance.text = [NSString stringWithFormat:@"%.1fmi", restaurant.distance.floatValue/1000/1.609344];
+    self.walkingDistance.text = [NSString stringWithFormat:@"%.1f mi", restaurant.distance.floatValue/1000/1.609344];
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
 	
@@ -199,7 +199,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 #pragma mark - UI
 - (IBAction)selectRestaurant:(id)sender {
-    if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:_restaurant.ID]) {
+    if ([[ENServerManager shared].selectedRestaurant.ID isEqualToString:_restaurant.ID] ) {
+        if (![ENServerManager shared].selectionHistoryID) {
+            //need to wait for selection history ID returns
+            return;
+        }
         //cancel
         [[ENServerManager shared] clearSelectedRestaurant];
         @weakify(self);
@@ -572,7 +576,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             NSString *zip = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressZIPKey];
             address.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", street, city, state, zip];
             float d = weakSelf.restaurant.distance.floatValue/1000/1.609344;
-            distance.text = [NSString stringWithFormat:@"%.1fmi away", d];
+            distance.text = [NSString stringWithFormat:@"%.1f mi away", d];
             weakSelf.mapIcon = [cell viewWithTag:333];
             self.mapDistanceLabel = distance;
         },

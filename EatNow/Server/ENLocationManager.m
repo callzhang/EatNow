@@ -10,6 +10,7 @@
 #import "FBKVOController.h"
 #import "extobjc.h"
 #import "NSTimer+BlocksKit.h"
+#import "Mixpanel.h"
 
 
 static CLLocation *_cachedCurrentLocation = nil;
@@ -61,7 +62,6 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     }
     
     [self.completionBlocks addObject:completion];
-    
     if (self.request) {
         DDLogWarn(@"Already requesting location");
         return;
@@ -71,6 +71,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 	self.locationStatus = ENLocationStatusGettingLocation;
     DDLogVerbose(@"Getting location");
     self.requestTime = [NSDate date];
+    [[Mixpanel sharedInstance] timeEvent:@"get location"];
     
 	//request
     @weakify(self);
@@ -127,6 +128,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     [self.completionBlocks removeAllObjects];
     [self.locationManager cancelLocationRequest:self.request];
     self.request = 0;
+    [[Mixpanel sharedInstance] track:@"get location"];
     DDLogInfo(@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:self.requestTime]);
 }
 

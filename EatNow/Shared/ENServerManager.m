@@ -16,6 +16,7 @@
 #import "ENUtil.h"
 #import "NSDate+Extension.h"
 #import "NSDate+MTDates.h"
+#import "Mixpanel.h"
 
 NSString * const kHistroyUpdated = @"history_updated";
 NSString * const kRatingUpdated = @"rating_updated";
@@ -28,6 +29,7 @@ NSString * const kUserUpdated = @"user_updated";
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) AFNetworkReachabilityManager *reachability;
 @property (nonatomic, strong) NSMutableArray *searchCompletionBlocks;
+@property (nonatomic, strong) CLLocation *lastLocation;
 @end
 
 
@@ -54,12 +56,16 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 //TODO: need to cancel previous operation when multiple requests happens
 - (void)searchRestaurantsAtLocation:(CLLocation *)currenLocation WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
     //add to completion block
+    self.session = @(self.session.unsignedIntegerValue +1);
+    [[Mixpanel sharedInstance].people increment:@"session" by:@1];
+    self.lastLocation = currenLocation;
     [self.searchCompletionBlocks addObject:block];
     
     if (self.fetchStatus == ENResturantDataStatusFetchingRestaurant) {
         DDLogInfo(@"Already requesting restaurant.");
         return;
     }
+    [[Mixpanel sharedInstance] timeEvent:@"Search restaurant"];
     self.fetchStatus = ENResturantDataStatusFetchingRestaurant;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -76,6 +82,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     [manager GET:path parameters:dic
           success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
               DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
+              //mix panel
+              [[Mixpanel sharedInstance] track:@"Search restaurant" properties:@{@"location": @{@"latitude": @(currenLocation.coordinate.latitude),
+                                                                                                @"longitude": @(currenLocation.coordinate.longitude)},
+                                                                                 @"latitude": @(currenLocation.coordinate.latitude),
+                                                                                 @"longitude": @(currenLocation.coordinate.longitude),
+                                                                                 @"success": @YES}];
               
               //process data
               NSMutableArray *mutableResturants = [NSMutableArray array];
@@ -102,8 +114,15 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
               self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
               
           }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
+                  [[Mixpanel sharedInstance] track:@"Search restaurant" properties:@{
+                                                                                     @"latitude": @(currenLocation.coordinate.latitude),
+                                                                                     @"longitude": @(currenLocation.coordinate.longitude),
+                                                                                     @"success": @NO}];
+              
               NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
               DDLogError(@"%@", str);
+              //mix panel
+              [[Mixpanel sharedInstance] track:@"Search restaurant"];
               
               for (id completion in self.searchCompletionBlocks) {
                   void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
@@ -118,12 +137,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+    [[Mixpanel sharedInstance] timeEvent:@"Get user"];
     NSString *url = [NSString stringWithFormat:@"%@/user/%@",kServerUrl, self.myID];
     DDLogInfo(@"Requesting user: %@", url);
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *user) {
 		NSParameterAssert([user isKindOfClass:[NSDictionary class]]);
-        
+        [[Mixpanel sharedInstance] track:@"Get user"];
         //more data logics are embedded in user setter
 		self.me = user;
         
@@ -133,7 +152,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //
+        
+        [[Mixpanel sharedInstance] track:@"Get user"];
+
         NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error.localizedDescription];
         DDLogError(s);
         if (block) {
@@ -148,13 +169,14 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSArray *images = dic[@"img_url"];
     NSParameterAssert([images isKindOfClass:[NSArray class]]);
     NSParameterAssert(images.count > 1);
-    
+    [[Mixpanel sharedInstance] timeEvent:@"Update restaurant"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     NSString *url = [NSString stringWithFormat:@"%@/restaurant/%@",kServerUrl, restaurant.ID];
     [manager PUT:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        [[Mixpanel sharedInstance] track:@"Update restaurant"];
+        
         if(block) block(nil);
         DDLogVerbose(@"Updated restaurant (%@) images of count %@", restaurant.name, @(images.count));
         
@@ -171,7 +193,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSParameterAssert(value > 0);
     self.selectedRestaurant = restaurant;
     self.selectedTime = [NSDate date];
-	
+    
+    [[Mixpanel sharedInstance] timeEvent:@"Select restaurant"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *dic = @{@"username": self.myID,
 						  @"restaurantId": restaurant.ID,
@@ -185,6 +208,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     DDLogVerbose(@"Select restaurant: %@", dic);
     NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"select"];
     [manager POST:path parameters:dic success:^(AFHTTPRequestOperation *operation, NSDictionary *history) {
+        [[Mixpanel sharedInstance] track:@"Select restaurant" properties:@{@"restaurant": restaurant.ID,
+                                                                           @"latitude": @([ENLocationManager cachedCurrentLocation].coordinate.latitude),
+                                                                           @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude)}];
         self.selectionHistoryID = history[@"_id"];
         self.selectedTime = [NSDate date];
         self.selectedRestaurant = restaurant;
@@ -195,6 +221,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         [self getUserWithCompletion:nil];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[Mixpanel sharedInstance] track:@"Select restaurant" properties:@{@"restaurant": restaurant.ID,
+                                                                           @"latitude": @([ENLocationManager cachedCurrentLocation].coordinate.latitude),
+                                                                           @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude)}];
         block(error);
         NSString *s = [NSString stringWithFormat:@"%@", error];
         DDLogError(s);
@@ -202,16 +231,20 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 - (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block{
+    NSParameterAssert(historyID);
+    [[Mixpanel sharedInstance] timeEvent:@"Cancel history"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *path = [NSString stringWithFormat:@"%@/user/%@/history/%@", kServerUrl, [ENServerManager myUUID], historyID];
     [manager DELETE:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [[Mixpanel sharedInstance] track:@"Cancel history" properties:@{@"history": historyID, @"success": @YES}];
         
         [self getUserWithCompletion:nil];
         [self clearSelectedRestaurant];
         if (block) block(nil);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        [[Mixpanel sharedInstance] track:@"Cancel history" properties:@{@"history": historyID, @"success": @NO}];
         if (block) block(error);
         DDLogError(@"Failed to cancel history(%@): %@", historyID, error.localizedDescription);
     }];
@@ -234,8 +267,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 	self.selectedTime = nil;
 }
 
-- (void)updateHistory:(NSString *)historyID withRating:(float)rate completion:(ErrorBlock)block {
+- (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(ErrorBlock)block {
+    NSString *historyID = history[@"_id"];
+    ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:history[@"restaurant"]];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [[Mixpanel sharedInstance] timeEvent:@"Update rating"];
     
     NSParameterAssert(rate>= 1 && rate <= 5);
     
@@ -243,7 +281,18 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     [manager PUT:url parameters:@{@"like": @(rate - 3)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(block) block(nil);
         
+        [[Mixpanel sharedInstance] track:@"Update rating"
+                              properties:@{@"history": historyID,
+                                           @"restaurant": restaurant.ID,
+                                           @"rating": @(rate),
+                                           @"success": @YES}];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [[Mixpanel sharedInstance] track:@"Update rating"
+                              properties:@{@"history": historyID,
+                                           @"restaurant": restaurant.ID,
+                                           @"rating": @(rate),
+                                           @"success": @NO}];
         if(block) block(error);
         DDLogError(@"Failed to update history: %@", error.localizedDescription);
     }];
@@ -346,7 +395,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     if (!myID) {
         myID = [self generateUUID];
         [[NSUserDefaults standardUserDefaults] setObject:myID forKey:kUUID];
+        [[Mixpanel sharedInstance] identify:myID];
+        [[Mixpanel sharedInstance].people set:@{@"createdAt": [NSDate date]}];
     }
+    [[Mixpanel sharedInstance] identify:myID];
+    [[Mixpanel sharedInstance].people set:@{@"lastSeen": [NSDate date]}];
     return myID;
 }
 
@@ -357,6 +410,19 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     CFRelease(theUUID);
     
     return (__bridge NSString *)string;
+}
+
+- (NSNumber *)session{
+    NSNumber *mySession = [[NSUserDefaults standardUserDefaults] objectForKey:@"session"];
+    if (!mySession) {
+        mySession = @0;
+        [[NSUserDefaults standardUserDefaults] setValue:mySession forKey:@"session"];
+    }
+    return mySession;
+}
+
+- (void)setSession:(NSNumber *)session{
+    [[NSUserDefaults standardUserDefaults] setValue:session forKey:@"session"];
 }
 @end
 
