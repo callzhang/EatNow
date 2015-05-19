@@ -47,7 +47,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
             }
             [WKInterfaceController reloadRootControllersWithNames:restaurants contexts:objests];
         }];
-    } forece:YES];
+    }];
 }
 @end
 

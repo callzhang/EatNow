@@ -13,14 +13,12 @@
 #import "Mixpanel.h"
 
 
-static CLLocation *_cachedCurrentLocation = nil;
+static CLLocation *_cachedLocation = nil;
 static void (^_locationDisabledHanlder)(void) = nil;
 static void (^_locationDeniedHanlder)(void) = nil;
 
 @interface ENLocationManager()<CLLocationManagerDelegate>
 @property (nonatomic, strong) INTULocationManager *locationManager;
-@property (nonatomic, strong) CLLocation *currentLocation;
-@property (nonatomic, strong) NSDate *lastUpdatedLocationDate;
 @property (nonatomic, assign) INTULocationAccuracy achievedAccuracy;
 @property (nonatomic, strong) NSMutableArray *completionBlocks;
 @property (nonatomic, assign) INTULocationRequestID request;
@@ -38,35 +36,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     return self;
 }
 
-- (void)getLocationWithCompletion:(ENLocationCompletionBlock)completion {
-    [self getLocationWithCompletion:completion forece:NO];
-}
-
 + (INTULocationServicesState)locationServicesState{
     return [INTULocationManager locationServicesState];
 }
 
-- (void)getLocationWithCompletion:(ENLocationCompletionBlock)completion forece:(BOOL)forceUpdate {
-    if (!forceUpdate) {
-        if (self.currentLocation) {
-            if (self.lastUpdatedLocationDate.timeIntervalSinceNow < kENLocationMinimumInterval) {
-                [self.completionBlocks addObject:completion];
-                [self completeLocationRequest];
-            }
-            else {
-                self.currentLocation = nil;
-                [self getLocationWithCompletion:completion];
-            }
-            return;
-        }
-    }
-    
-    [self.completionBlocks addObject:completion];
-    if (self.request) {
-        DDLogWarn(@"Already requesting location");
-        return;
-    }
-    
+- (void)getLocationWithCompletion:(ENLocationCompletionBlock)completion {
 	//status
 	self.locationStatus = ENLocationStatusGettingLocation;
     DDLogVerbose(@"Getting location");
@@ -76,78 +50,48 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 	//request
     @weakify(self);
     
-    self.request = [self.locationManager subscribeToLocationUpdatesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-        @strongify(self);
-		//update location
-        if (achievedAccuracy > self.achievedAccuracy) {
-            self.achievedAccuracy = achievedAccuracy;
-            self.currentLocation = currentLocation;
-            [self completeLocationRequest];
-        }
-		if (status == INTULocationStatusSuccess) {
-			DDLogVerbose(@"Location aquired");
-            self.locationStatus = ENLocationStatusGotLocation;
-            [self completeLocationRequest];
-		}
-		else if (status == INTULocationStatusTimedOut){
-			DDLogInfo(@"Use best location at timeout");
-			self.locationStatus = ENLocationStatusGotLocation;
-		}
-		else if (status == INTULocationStatusServicesDisabled){
-			self.locationStatus = ENLocationStatusError;
-			if (_locationDisabledHanlder) {
-				_locationDisabledHanlder();
-			}
-		}
-		else if (status == INTULocationStatusServicesDenied || status == INTULocationStatusServicesRestricted){
-			self.locationStatus = ENLocationStatusError;
-			if (_locationDeniedHanlder) {
-				_locationDeniedHanlder();
-			}
-		}
-		else if (status == INTULocationStatusError){
-            self.locationStatus = ENLocationStatusError;
-            DDLogWarn(@"Failed location request but will retry");
-		}
-		else{
-			self.locationStatus = ENLocationStatusUnknown;
-			DDLogError(@"Unexpected location status: %ld", (long)status);
-		}
-	}];
+    [[self class] setCachedCurrentLocation:nil];
     
-    [NSTimer bk_scheduledTimerWithTimeInterval:kENLocationRequestTimeout block:^(NSTimer *timer) {
-        [self.locationManager forceCompleteLocationRequest:self.request];
-        [self completeLocationRequest];
-    } repeats:NO];
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyNeighborhood timeout:kENLocationRequestTimeout delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        @strongify(self);
+        [[Mixpanel sharedInstance] track:@"got location"];
+        DDLogInfo(@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:self.requestTime]);
+        
+        [[self class] setCachedCurrentLocation:currentLocation];
+        
+        if (completion) {
+            completion(currentLocation, achievedAccuracy, [self enLocationStatusFromINTULocationStatus:status]);
+        }
+    }];
 }
 
-- (void)completeLocationRequest{
-    for (ENLocationCompletionBlock block in self.completionBlocks) {
-        block(self.currentLocation, self.achievedAccuracy, self.locationStatus);
+- (ENLocationStatus)enLocationStatusFromINTULocationStatus:(INTULocationStatus)status {
+    if (status == INTULocationStatusSuccess) {
+        return ENLocationStatusGotLocation;
     }
-    [self.completionBlocks removeAllObjects];
-    [self.locationManager cancelLocationRequest:self.request];
-    self.request = 0;
-    [[Mixpanel sharedInstance] track:@"get location"];
-    DDLogInfo(@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:self.requestTime]);
-}
-
-- (void)cancelLocationRequest{
-    [self.locationManager forceCompleteLocationRequest:self.request];
-}
-
-- (void)setCurrentLocation:(CLLocation *)currentLocation {
-    _currentLocation = currentLocation;
-    if (_currentLocation) {
-		_cachedCurrentLocation = _currentLocation;
-		self.locationStatus = ENLocationStatusGotLocation;
-		//update time
-		self.lastUpdatedLocationDate = [NSDate date];
+    else if (status == INTULocationStatusTimedOut){
+        return ENLocationStatusGotLocation;
+    }
+    else if (status == INTULocationStatusServicesDisabled){
+        return ENLocationStatusError;
+    }
+    else if (status == INTULocationStatusServicesDenied || status == INTULocationStatusServicesRestricted){
+        return ENLocationStatusError;
+    }
+    else if (status == INTULocationStatusError){
+        return ENLocationStatusError;
+    }
+    else{
+        return ENLocationStatusUnknown;
     }
 }
 
 + (CLLocation *)cachedCurrentLocation {
-    return _cachedCurrentLocation;
+    return _cachedLocation;
+}
+
++ (void)setCachedCurrentLocation:(CLLocation *)location {
+    _cachedLocation = location;
 }
 
 + (void)registerLocationDeniedHandler:(void (^)(void))handler {
