@@ -655,16 +655,17 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         
     }
-#ifdef DEBUG_ALGORITHM
+
     //score
-    if (weakSelf.restaurant.score) {
-        [info addObject:@{@"type": @"score",
-                          @"cellID":@"subtitle",
-                          @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
-                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
-                          }];
+    if (self.mainVC.showScore) {
+        if (weakSelf.restaurant.score) {
+            [info addObject:@{@"type": @"score",
+                              @"cellID":@"subtitle",
+                              @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
+                              @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
+                              }];
+        }
     }
-#endif
     
     //footer
     [info addObject:@{
