@@ -277,12 +277,18 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         else{
             DDLogInfo(@"Selected %@", _restaurant.name);
-            TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Choice" message:@"Eat Now Learns more about your taste each time you select a place." preferredStyle:TMAlartControllerStyleAlert];
-            alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
-            [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }]];
-            [self presentViewController:alertController animated:YES completion:nil];
+            NSString *kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
+            [[NSUserDefaults standardUserDefaults] registerDefaults:@{kShouldShowNiceChoiceKey : @(YES)}];
+            BOOL shouldShowNiceChoice = [[NSUserDefaults standardUserDefaults] boolForKey:kShouldShowNiceChoiceKey];
+            if (shouldShowNiceChoice) {
+                TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Choice" message:@"Eat Now Learns more about your taste each time you select a place." preferredStyle:TMAlartControllerStyleAlert];
+                alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
+                [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [[NSUserDefaults standardUserDefaults] setBool:@(NO) forKey:kShouldShowNiceChoiceKey];
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
             [self prepareData];
             [self.tableView reloadData];
             [self updateGoButton];

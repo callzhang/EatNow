@@ -186,7 +186,7 @@
     //tweak
     FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
     FBTweakBind(self, showFeedback, @"Main", @"Feedback", @"Show feedback", YES);
-    FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", YES);
+    FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", NO);
     
     [self.KVOController observe:self keyPath:@keypath(self, showFeedback) options:NSKeyValueObservingOptionNew block:^(id observer, ENMainViewController *mainVC, NSDictionary *change) {
         if (mainVC.showFeedback) {
