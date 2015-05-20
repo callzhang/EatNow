@@ -52,7 +52,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     
     [[self class] setCachedCurrentLocation:nil];
     
-    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyNeighborhood timeout:kENLocationRequestTimeout delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+    [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyBlock timeout:kENLocationRequestTimeout delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         [[Mixpanel sharedInstance] track:@"got location"];
         DDLogInfo(@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:self.requestTime]);
