@@ -91,6 +91,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
+    [self.map removeFromSuperview];
+    self.map = nil;
     self.mapManager = nil;
 }
 
@@ -165,7 +167,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //close map if colapse
     if (self.map.frame.size.height > 0) {
         if (status == ENRestaurantViewStatusCard || status == ENRestaurantViewStatusMinimum) {
-            [self toggleMap:nil];
+            [self closeMap];
         }
     }
     
@@ -187,10 +189,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)didChangeToDetailView{
     //start to calculate
+    self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
+    self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
     float d = self.restaurant.distance.floatValue/1000/1.609344;
     self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
-        self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1fmi away, %.1f min walking", d, length/60];
+        self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1f mi away, %.1f min walking", d, length/60];
     }];
     
     //next image
@@ -322,36 +326,31 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (IBAction)toggleMap:(id)sender{
-    self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
-    self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
+    self.map.hidden = NO;
     self.map.showsUserLocation = YES;
     self.map.delegate = self.mapManager;
     [self.card insertSubview:self.map belowSubview:self.goButton];
     
     [UIView collapse:self.mapIcon view:self.map animated:NO completion:nil];
-    [UIView expand:self.mapIcon view:self.map completion:^{
-    }];
+    [UIView expand:self.mapIcon view:self.map completion:nil];
     
     [self.mapManager addAnnotationForRestaurant:_restaurant];
     [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidShow object:nil];
     
-    //route if select
-    if ([ENServerManager shared].selectedRestaurant == _restaurant){
-        @weakify(self);
-        [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
-            @strongify(self);
-            self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
-        }];
-    }
+    //route
+    @weakify(self);
+    [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
+        @strongify(self);
+        self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
+    }];
     
     self.mainVC.currentMode = ENMainViewControllerModeMap;
 }
 
 - (void)closeMap {
     [UIView collapse:self.mapIcon view:self.map animated:YES completion:^{
+        self.map.hidden = YES;
         [self.mapManager cancelRouting];
-        [self.map removeFromSuperview];
-        self.map = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:kMapViewDidDismiss object:nil];
     }];
 }

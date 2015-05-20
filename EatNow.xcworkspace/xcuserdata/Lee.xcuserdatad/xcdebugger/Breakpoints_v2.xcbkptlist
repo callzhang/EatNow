@@ -41,7 +41,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "175"
             endingLineNumber = "175"
-            landmarkName = "-parseFoursquareWebsiteForImagesWithUrl:completion:"
+            landmarkName = "-placemark"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
