@@ -59,6 +59,17 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
         
         [[self class] setCachedCurrentLocation:currentLocation];
         
+        if (status == INTULocationServicesStateDenied) {
+            if (_locationDeniedHanlder) {
+                _locationDeniedHanlder();
+            }
+        }
+        else if (status == INTULocationServicesStateDisabled) {
+            if (_locationDisabledHanlder) {
+                _locationDisabledHanlder();
+            }
+        }
+        
         if (completion) {
             completion(currentLocation, achievedAccuracy, [self enLocationStatusFromINTULocationStatus:status]);
         }

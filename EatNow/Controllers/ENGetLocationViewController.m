@@ -52,8 +52,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {
