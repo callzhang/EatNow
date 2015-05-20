@@ -634,8 +634,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         
     }
-#ifdef DEBUG_ALGORITHM
-    //score
+    
     if (weakSelf.restaurant.score) {
         [info addObject:@{@"type": @"score",
                           @"cellID":@"subtitle",
@@ -643,7 +642,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                           @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
                           }];
     }
-#endif
     
     //footer
     [info addObject:@{
