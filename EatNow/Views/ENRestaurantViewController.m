@@ -229,7 +229,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         
         TMAlertController *alertController = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Going %@ instead?", self.restaurant.name] message:[NSString stringWithFormat:@"You just said you were going to %@", [ENServerManager shared].selectedRestaurant.name] preferredStyle:TMAlartControllerStyleAlert];
         
-#ifdef DEBUG1
+#ifdef DEBUG
         [alertController addAction:[TMAlertAction actionWithTitle:@"Force?" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
             @strongify(self);
             [[ENServerManager shared] clearSelectedRestaurant];
@@ -265,27 +265,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         alertController.iconStyle = TMAlertControlerIconStyleQustion;
         
         [self presentViewController:alertController animated:YES completion:nil];
-        //        [UIAlertView bk_showAlertViewWithTitle:@"Confirm" message:[NSString stringWithFormat: cancelButtonTitle:@"Cancel" otherButtonTitles:titles handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-        //            if (buttonIndex == 1) {
-        //                [ENUtil showWatingHUB];
-        //                @weakify(self);
-        //                [[ENServerManager shared] cancelHistory:[ENServerManager shared].selectionHistoryID completion:^(NSError *error) {
-        //                    [ENUtil dismissHUD];
-        //                    @strongify(self);
-        //                    if (error) {
-        //                        ENLogError(error.localizedDescription);
-        //                        [ENUtil showFailureHUBWithString:@"Failed to Cancel"];
-        //                    }else{
-        //                        DDLogInfo(@"Cancelled %@", _restaurant.name);
-        //                        [self updateGoButton];
-        //                        [self selectRestaurant:nil];
-        //                    }
-        //                }];
-        //            }else if (buttonIndex == 2){
-        //                [[ENServerManager shared] clearSelectedRestaurant];
-        //                [self selectRestaurant:nil];
-        //            }
-        //        }];
         return;
     }
     

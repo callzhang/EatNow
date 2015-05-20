@@ -139,8 +139,6 @@
 		DA5B740218F233EF00BB5F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B740118F233EF00BB5F8E /* XCTest.framework */; };
 		DA5B740318F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B740418F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
-		DA5B740C18F233EF00BB5F8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA5B740A18F233EF00BB5F8E /* InfoPlist.strings */; };
-		DA5B740E18F233EF00BB5F8E /* LikedOrNopeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -362,9 +360,6 @@
 		DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EatNow-Prefix.pch"; sourceTree = "<group>"; };
 		DA5B740018F233EF00BB5F8E /* EatNowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EatNowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B740118F233EF00BB5F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DA5B740918F233EF00BB5F8E /* EatNowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EatNowTests-Info.plist"; sourceTree = "<group>"; };
-		DA5B740B18F233EF00BB5F8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LikedOrNopeTests.m; sourceTree = "<group>"; };
 		DA5B745518F239B700BB5F8E /* ENMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainViewController.h; sourceTree = "<group>"; };
 		DA5B745618F239B700BB5F8E /* ENMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -540,7 +535,8 @@
 				09B165CB1B0AB9D900EBE3F9 /* GNMapOpenerService.h */,
 				09B165CC1B0AB9D900EBE3F9 /* GNMapOpenerService.m */,
 			);
-			path = GNMapOpener;
+			name = GNMapOpener;
+			path = ../GNMapOpener;
 			sourceTree = "<group>";
 		};
 		09B9F8B21AF1B4F700DE92C6 /* TableViewBuilder */ = {
@@ -641,6 +637,7 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				09B165C21B0AB9D900EBE3F9 /* GNMapOpener */,
 				0949580D1B018E180022E4B4 /* AlertController */,
 				9BAE96131AFEB49300FF746B /* CrashlyticsLogger.h */,
 				9BAE96141AFEB49300FF746B /* CrashlyticsLogger.m */,
@@ -674,7 +671,6 @@
 			isa = PBXGroup;
 			children = (
 				DA5B73EE18F233EF00BB5F8E /* EatNow */,
-				DA5B740718F233EF00BB5F8E /* LikedOrNopeTests */,
 				09432CAF1ACCC5E700B989FF /* EatNow WatchKit Extension */,
 				09432CC41ACCC5E700B989FF /* EatNow WatchKit App */,
 				DA5B73E718F233EF00BB5F8E /* Frameworks */,
@@ -716,7 +712,6 @@
 				9BAE96181AFEC0C900FF746B /* AppDelegate.m */,
 				9BAE96191AFEC0C900FF746B /* AppDelegate.h */,
 				9BAE96081AFEA2EB00FF746B /* Library */,
-				09B165C21B0AB9D900EBE3F9 /* GNMapOpener */,
 				9BEE36B91A8D3DCF0052332C /* Extension */,
 				092974651AD0C28D00DDC35C /* Shared */,
 				9B23A9B91A27AC7E00549871 /* Server */,
@@ -736,25 +731,6 @@
 				DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */,
 				DA5B73F418F233EF00BB5F8E /* main.m */,
 				DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DA5B740718F233EF00BB5F8E /* LikedOrNopeTests */ = {
-			isa = PBXGroup;
-			children = (
-				DA5B740D18F233EF00BB5F8E /* LikedOrNopeTests.m */,
-				DA5B740818F233EF00BB5F8E /* Supporting Files */,
-			);
-			name = LikedOrNopeTests;
-			path = EatNowTests;
-			sourceTree = "<group>";
-		};
-		DA5B740818F233EF00BB5F8E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DA5B740918F233EF00BB5F8E /* EatNowTests-Info.plist */,
-				DA5B740A18F233EF00BB5F8E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -988,7 +964,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA5B740C18F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1167,7 +1142,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA5B740E18F233EF00BB5F8E /* LikedOrNopeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,14 +1178,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DA5B73F218F233EF00BB5F8E /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DA5B740A18F233EF00BB5F8E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DA5B740B18F233EF00BB5F8E /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
