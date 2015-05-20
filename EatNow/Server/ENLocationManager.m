@@ -25,7 +25,6 @@ static void (^_locationDeniedHanlder)(void) = nil;
 @property (nonatomic, strong) NSMutableArray *completionBlocks;
 @property (nonatomic, assign) INTULocationRequestID request;
 @property (nonatomic, strong) NSDate *requestTime;
-@property (nonatomic, strong) NSTimer *timeoutTimer;
 @end
 
 @implementation ENLocationManager
@@ -76,13 +75,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     
 	//request
     @weakify(self);
-    //required accuracy
-    self.achievedAccuracy = INTULocationAccuracyBlock;
+    
     self.request = [self.locationManager subscribeToLocationUpdatesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
 		//update location
         if (achievedAccuracy > self.achievedAccuracy) {
-            DDLogVerbose(@"Got location with accuracy %ld", (long)achievedAccuracy);
             self.achievedAccuracy = achievedAccuracy;
             self.currentLocation = currentLocation;
             [self completeLocationRequest];
@@ -118,16 +115,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 		}
 	}];
     
-    [self.timeoutTimer invalidate];
-    self.timeoutTimer = [NSTimer bk_scheduledTimerWithTimeInterval:kENLocationRequestTimeout block:^(NSTimer *timer) {
-        DDLogVerbose(@"After %d seconds, we accept location %@", kENLocationRequestTimeout, self.currentLocation);
+    [NSTimer bk_scheduledTimerWithTimeInterval:kENLocationRequestTimeout block:^(NSTimer *timer) {
         [self.locationManager forceCompleteLocationRequest:self.request];
         [self completeLocationRequest];
     } repeats:NO];
 }
 
 - (void)completeLocationRequest{
-    [self.timeoutTimer invalidate];
     for (ENLocationCompletionBlock block in self.completionBlocks) {
         block(self.currentLocation, self.achievedAccuracy, self.locationStatus);
     }
