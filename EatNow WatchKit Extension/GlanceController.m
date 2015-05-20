@@ -67,7 +67,7 @@
                 }
             }
         }];
-    } forece:YES];
+    } ];
 }
 
 - (void)willActivate {

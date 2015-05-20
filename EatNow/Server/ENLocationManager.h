@@ -19,17 +19,12 @@ typedef void (^ENLocationCompletionBlock)(CLLocation *currentLocation, INTULocat
 @property (nonatomic, assign) ENLocationStatus locationStatus;
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENLocationManager)
 - (void)getLocationWithCompletion:(ENLocationCompletionBlock)completion;
-- (void)getLocationWithCompletion:(ENLocationCompletionBlock)completion forece:(BOOL)forceUpdate;
-- (void)cancelLocationRequest;
 
-/**
- *  return last fetched current location, if any.
- */
-+ (CLLocation *)cachedCurrentLocation;
 + (INTULocationServicesState)locationServicesState;
+
++ (CLLocation *)cachedCurrentLocation;
 
 + (void)registerLocationDeniedHandler:(void(^)(void))handler;
 + (void)registerLocationDisabledHanlder:(void (^)(void))handler;
 
-//+ (INTULocationServicesState)locationServicesState;
 @end

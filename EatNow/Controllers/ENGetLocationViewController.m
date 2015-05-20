@@ -47,7 +47,7 @@
             ENMainViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
             [UIWindow mainWindow].rootViewController = vc;
         }
-    } forece:YES];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

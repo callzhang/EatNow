@@ -306,7 +306,7 @@
     self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
 
     //load restaurants from server
-    [self searchNewRestaurantsForced:NO completion:^(NSArray *response, NSError *error) {
+    [self searchNewRestaurantsWithCompletion:^(NSArray *response, NSError *error) {
         if (!error) {
             self.needShowRestaurant = YES;
         }
@@ -448,7 +448,7 @@
     }
 
     //search for new
-    [self searchNewRestaurantsForced:YES completion:^(NSArray *response, NSError *error) {
+    [self searchNewRestaurantsWithCompletion:^(NSArray *response, NSError *error) {
         self.isSearchingFromServer = NO;
         
         //HACK: should remove error magic number
@@ -485,7 +485,7 @@
 }
 #pragma mark - Main methods
 
-- (void)searchNewRestaurantsForced:(BOOL)force completion:(void (^)(NSArray *response, NSError *error))block {
+- (void)searchNewRestaurantsWithCompletion:(void (^)(NSArray *response, NSError *error))block {
     NSDate *start = [NSDate date];
     @weakify(self);
     [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
@@ -512,7 +512,7 @@
             NSError *error = [NSError errorWithDomain:kEatNowErrorDomain code:-1 userInfo:nil];
             block(nil, error);
         }
-    } forece:force];
+    } ];
 }
 
 - (void)onShowRestaurantTimer:(id)sender {
