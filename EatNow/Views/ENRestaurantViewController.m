@@ -280,7 +280,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             NSString *kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
             [[NSUserDefaults standardUserDefaults] registerDefaults:@{kShouldShowNiceChoiceKey : @(YES)}];
             BOOL shouldShowNiceChoice = [[NSUserDefaults standardUserDefaults] boolForKey:kShouldShowNiceChoiceKey];
-            if (shouldShowNiceChoice) {
+            if (shouldShowNiceChoice
+//                || YES
+                ) {
                 TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Choice" message:@"Eat Now Learns more about your taste each time you select a place." preferredStyle:TMAlartControllerStyleAlert];
                 alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
                 [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
@@ -640,13 +642,14 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         
     }
-    
-    if (weakSelf.restaurant.score) {
-        [info addObject:@{@"type": @"score",
-                          @"cellID":@"subtitle",
-                          @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
-                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
-                          }];
+    if (self.mainVC.showScore) {
+        if (weakSelf.restaurant.score) {
+            [info addObject:@{@"type": @"score",
+                              @"cellID":@"subtitle",
+                              @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
+                              @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
+                              }];
+        }
     }
     
     //footer

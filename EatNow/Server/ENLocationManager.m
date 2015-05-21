@@ -11,7 +11,26 @@
 #import "extobjc.h"
 #import "NSTimer+BlocksKit.h"
 #import "Mixpanel.h"
-
+ENLocationStatus enLocationStatusFromINTULocationStatus(INTULocationStatus status) {
+    if (status == INTULocationStatusSuccess) {
+        return ENLocationStatusGotLocation;
+    }
+    else if (status == INTULocationStatusTimedOut){
+        return ENLocationStatusGotLocation;
+    }
+    else if (status == INTULocationStatusServicesDisabled){
+        return ENLocationStatusError;
+    }
+    else if (status == INTULocationStatusServicesDenied || status == INTULocationStatusServicesRestricted){
+        return ENLocationStatusError;
+    }
+    else if (status == INTULocationStatusError){
+        return ENLocationStatusError;
+    }
+    else{
+        return ENLocationStatusUnknown;
+    }
+}
 
 static CLLocation *_cachedLocation = nil;
 static void (^_locationDisabledHanlder)(void) = nil;
@@ -71,30 +90,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
         }
         
         if (completion) {
-            completion(currentLocation, achievedAccuracy, [self enLocationStatusFromINTULocationStatus:status]);
+            completion(currentLocation, achievedAccuracy, status);
         }
     }];
-}
-
-- (ENLocationStatus)enLocationStatusFromINTULocationStatus:(INTULocationStatus)status {
-    if (status == INTULocationStatusSuccess) {
-        return ENLocationStatusGotLocation;
-    }
-    else if (status == INTULocationStatusTimedOut){
-        return ENLocationStatusGotLocation;
-    }
-    else if (status == INTULocationStatusServicesDisabled){
-        return ENLocationStatusError;
-    }
-    else if (status == INTULocationStatusServicesDenied || status == INTULocationStatusServicesRestricted){
-        return ENLocationStatusError;
-    }
-    else if (status == INTULocationStatusError){
-        return ENLocationStatusError;
-    }
-    else{
-        return ENLocationStatusUnknown;
-    }
 }
 
 + (CLLocation *)cachedCurrentLocation {

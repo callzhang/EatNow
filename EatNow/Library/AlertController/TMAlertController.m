@@ -136,7 +136,7 @@
     CGFloat labelHeight1 = ENExpectedLabelHeight(self.titleTextLabel, width);
     CGFloat labelHeight2 = ENExpectedLabelHeight(self.messageTextLabel, width);
     CGFloat titleLabelTop = 68;
-    CGFloat labelSpacing = 10;
+    CGFloat labelSpacing = 30;
     CGFloat labelBottom = 88;
     
     return CGSizeMake(width, labelHeight1 + labelHeight2 + titleLabelTop + labelSpacing + labelBottom);

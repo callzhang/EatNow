@@ -266,7 +266,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl" userLabel="debug-button">
-                                <rect key="frame" x="245" y="20" width="55" height="55"/>
+                                <rect key="frame" x="249" y="495" width="55" height="55"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -378,11 +378,11 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="tT5-uY-qhM" secondAttribute="bottom" constant="92" id="06t-Gd-8Kp"/>
-                            <constraint firstItem="D4e-Sg-nPl" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="20" id="8AN-ox-KrG"/>
                             <constraint firstItem="q0J-Z4-Pim" firstAttribute="top" secondItem="Z8L-6K-Fh8" secondAttribute="top" id="8xR-Qg-93z"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pNF-QT-1bI" secondAttribute="trailing" id="9mN-6s-KNE"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="TEb-SL-p86" secondAttribute="bottom" constant="16" id="B2h-jg-TiK"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="JA9-KX-A7U"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="D4e-Sg-nPl" secondAttribute="trailing" id="JaR-oF-cds"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="McB-7e-y9E" secondAttribute="bottom" constant="16" id="Kfp-7e-OHe"/>
                             <constraint firstItem="i7D-c3-Fdk" firstAttribute="centerX" secondItem="w5B-e7-fo8" secondAttribute="centerX" id="M6D-2e-f7c"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="q0J-Z4-Pim" secondAttribute="bottom" id="MQs-2s-kn4"/>
@@ -394,7 +394,6 @@
                             <constraint firstItem="q0J-Z4-Pim" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" id="TIz-2d-3aG"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="centerY" secondItem="TEb-SL-p86" secondAttribute="centerY" id="TyN-vp-ESS"/>
                             <constraint firstItem="McB-7e-y9E" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="W67-VS-ClU"/>
-                            <constraint firstAttribute="trailing" secondItem="D4e-Sg-nPl" secondAttribute="trailing" constant="20" id="i4a-Wo-CkX"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="82" id="ier-hE-C5x"/>
                             <constraint firstItem="w5B-e7-fo8" firstAttribute="centerX" secondItem="YOj-3L-UkI" secondAttribute="centerX" id="kVR-xZ-SmE"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="20" id="mC5-ah-Hn8"/>
@@ -407,6 +406,7 @@
                             <constraint firstItem="w5B-e7-fo8" firstAttribute="centerY" secondItem="YOj-3L-UkI" secondAttribute="centerY" id="wIk-MS-kFT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tT5-uY-qhM" secondAttribute="trailing" id="wVd-oh-Khx"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="leading" secondItem="TEb-SL-p86" secondAttribute="trailing" id="xuy-Sl-O0u"/>
+                            <constraint firstItem="D4e-Sg-nPl" firstAttribute="centerY" secondItem="Fcq-QR-9Zu" secondAttribute="centerY" id="yvw-as-gOE"/>
                             <constraint firstItem="i7D-c3-Fdk" firstAttribute="centerY" secondItem="w5B-e7-fo8" secondAttribute="centerY" id="zpt-JU-V7d"/>
                         </constraints>
                     </view>

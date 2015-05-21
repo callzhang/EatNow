@@ -29,7 +29,7 @@
 }
 
 - (void)findDirectionsTo:(CLLocation *)location completion:(void (^)(MKDirectionsResponse *response, NSError *error))block{
-    [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
+    [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         if (currentLocation) {
             MKPlacemark *fromPlacemark = [[MKPlacemark alloc] initWithCoordinate:currentLocation.coordinate addressDictionary:nil];
             MKMapItem *fromItem = [[MKMapItem alloc] initWithPlacemark:fromPlacemark];
@@ -95,7 +95,7 @@
     }
     
     [self findDirectionsTo:destination completion:^(MKDirectionsResponse *response, NSError *error) {
-        [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
+        [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
             CLLocation *origin = currentLocation;
             if (!response) {
                 //[ENUtil showFailureHUBWithString:@"Please retry"];
@@ -126,7 +126,7 @@
                 
                 if (updateInterval > 0) {
                     _repeatTimer = [NSTimer bk_scheduledTimerWithTimeInterval:updateInterval block:^(NSTimer *timer) {
-                        [[ENLocationManager shared] getLocationWithCompletion:^(CLLocation *loc, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
+                        [[ENLocationManager shared] getLocationWithCompletion:^(CLLocation *loc, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                             [self routeToRestaurant:restaurant repeat:updateInterval completion:block];
                         }];
                     } repeats:NO];
