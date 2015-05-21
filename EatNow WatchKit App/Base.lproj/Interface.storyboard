@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -105,32 +105,7 @@
                         <map width="1" widthAdjustment="-4" height="90" alignment="center" id="1x4-04-3oB"/>
                         <group width="1" widthAdjustment="-4" alignment="center" id="VyM-RR-BAh">
                             <items>
-                                <table alignment="left" id="T2m-QD-bXh">
-                                    <items>
-                                        <tableRow identifier="RestaurantRowController" id="hNy-Ci-oU6" customClass="RestaurantRowController">
-                                            <group key="rootItem" width="1" alignment="left" id="TjE-5i-a8r">
-                                                <items>
-                                                    <label alignment="center" verticalAlignment="center" text="Label" textAlignment="justified" id="pFl-ta-0gF">
-                                                        <variation key="device=watch42mm" text="212-222-2222"/>
-                                                    </label>
-                                                </items>
-                                                <variation key="default">
-                                                    <mask key="items">
-                                                        <exclude reference="pFl-ta-0gF"/>
-                                                    </mask>
-                                                </variation>
-                                                <variation key="device=watch42mm">
-                                                    <mask key="items">
-                                                        <include reference="pFl-ta-0gF"/>
-                                                    </mask>
-                                                </variation>
-                                            </group>
-                                            <connections>
-                                                <outlet property="textLabel" destination="pFl-ta-0gF" id="C55-SO-IF0"/>
-                                            </connections>
-                                        </tableRow>
-                                    </items>
-                                </table>
+                                <table alignment="left" id="T2m-QD-bXh"/>
                             </items>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <variation key="device=watch42mm">

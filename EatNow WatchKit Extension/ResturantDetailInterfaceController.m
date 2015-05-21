@@ -116,7 +116,8 @@
 }
 
 - (BOOL)needLoadMore {
-    return self.restaurant.url != nil;
+//    return self.restaurant.url != nil;
+    return NO;
 }
 
 - (void)willActivate {
@@ -144,7 +145,7 @@
 - (NSMutableArray *)loadDetailRows {
     NSMutableArray *mutableArray = [NSMutableArray array];
     
-    if (self.restaurant.phone) {
+    if (self.restaurant.phone.length > 0) {
         [mutableArray addObject:self.restaurant.phone];
     }
     //    
