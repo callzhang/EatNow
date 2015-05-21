@@ -825,7 +825,6 @@
 				DA5B73E218F233EF00BB5F8E /* Frameworks */,
 				DA5B73E318F233EF00BB5F8E /* Resources */,
 				A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */,
-				09E463FD1AFB3D2F00389E0B /* ShellScript */,
 				09432CD51ACCC5E700B989FF /* Embed App Extensions */,
 				9BAE960E1AFEB22500FF746B /* ShellScript */,
 			);
@@ -960,19 +959,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09E463FD1AFB3D2F00389E0B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "CRASHLYTICS_SCRIPT=\"./Pods/CrashlyticsFramework/Crashlytics.framework/run\"\n[ -x \"$CRASHLYTICS_SCRIPT\" ] || exit 0\n\n# Enter your key below:\nCRASHLYTICS_API_KEY=\"6ec9eab6ca26fcd18d51d0322752b861c63bc348\"\nif [ \"${CRASHLYTICS_API_KEY:0:1}\" = \"(\" ]; then\necho \"warning: Set your Crashlytics API key in the Build Phases tab to enable Crashlytics integration\" 1>&2\nexit 0\nfi";
-		};
 		7989DD9D1D4541818B62EB58 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

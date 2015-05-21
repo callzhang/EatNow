@@ -50,7 +50,6 @@
 #import "GNMapOpener.h"
 #import "Mixpanel.h"
 
-
 @interface ENMainViewController ()
 //data
 @property (nonatomic, strong) NSMutableArray *restaurants;
