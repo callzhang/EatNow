@@ -203,11 +203,21 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1f mi away, %.1f min walking", d, length/60];
     }];
     
-    //next image
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self loadNextImage];
-    });
-    [self parseVendorImages];
+    //start display image
+    NSTimer *imageLoadingTimer;
+    [imageLoadingTimer invalidate];
+    imageLoadingTimer = [NSTimer bk_scheduledTimerWithTimeInterval:5 block:^(NSTimer *timer) {
+        if (self.status == ENRestaurantViewStatusDetail || self.status == ENRestaurantViewStatusHistoryDetail) {
+            [self loadNextImage];
+        } else {
+            [imageLoadingTimer invalidate];
+        }
+    } repeats:YES];
+    
+    //parse image
+    if (self.status == ENRestaurantViewStatusDetail){
+        [self parseVendorImages];
+    }
 }
 
 #pragma mark - UI
@@ -476,11 +486,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         
         [self showImage:image];
         
-        //load next
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self loadNextImage];
-        });
-        
         //self.pageControl.currentPage = nextIdx;
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         ENLogError(@"*** Failed to download image with error: %@", error);
@@ -488,7 +493,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)parseVendorImages{
-    if (self.restaurant.imageUrls.count > 3) return;
+    if (self.restaurant.imageUrls.count > 10) return;
     if (self.hasParsedImage == YES) return;
     self.hasParsedImage = YES;
     DDLogVerbose(@"start to parse image for %@", self.restaurant.name);
@@ -523,7 +528,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self.loading stopAnimating];
     }
     
-    if (self.map) {
+    if (self.map && !self.map.isHidden) {
         return;
     }
     
@@ -533,7 +538,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (self.view.superview) {
         UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
         [self.imageView.superview insertSubview:imageViewCopy aboveSubview:self.imageView];
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:1 animations:^{
             imageViewCopy.alpha = 0;
         } completion:^(BOOL finished) {
             [imageViewCopy removeFromSuperview];
@@ -542,12 +547,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
     //send image change notification
     [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
-    
-    //start next
-    if (self.status == ENRestaurantViewStatusDetail) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(loadNextImage) object:nil];
-        [self performSelector:@selector(loadNextImage) withObject:nil afterDelay:5];
-    }
     
 }
 
