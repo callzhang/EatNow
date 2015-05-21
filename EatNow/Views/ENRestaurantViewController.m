@@ -287,7 +287,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                 alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
                 [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
                     [self dismissViewControllerAnimated:YES completion:nil];
-                    [[NSUserDefaults standardUserDefaults] setBool:@(NO) forKey:kShouldShowNiceChoiceKey];
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kShouldShowNiceChoiceKey];
                 }]];
                 [self presentViewController:alertController animated:YES completion:nil];
             }
