@@ -34,15 +34,13 @@
 		0929746F1AD0C2B200DDC35C /* ENRestaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 0929746D1AD0C2B200DDC35C /* ENRestaurant.m */; };
 		092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */; };
 		092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
+		0935BB081B0D637B00735CE0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC71ACCC5E700B989FF /* Interface.storyboard */; };
 		093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */; };
 		093E869E1AFEBFD400CAF489 /* EnShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E869D1AFEBFD400CAF489 /* EnShapeView.m */; };
 		093E86A11AFED0C400CAF489 /* NSError+EatNow.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E86A01AFED0C400CAF489 /* NSError+EatNow.m */; };
 		09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB41ACCC5E700B989FF /* InterfaceController.m */; };
-		09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB71ACCC5E700B989FF /* NotificationController.m */; };
-		09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CBA1ACCC5E700B989FF /* GlanceController.m */; };
 		09432CBD1ACCC5E700B989FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CBC1ACCC5E700B989FF /* Images.xcassets */; };
 		09432CC11ACCC5E700B989FF /* EatNow WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */; };
-		09432CC91ACCC5E700B989FF /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC71ACCC5E700B989FF /* Interface.storyboard */; };
 		09432CCB1ACCC5E700B989FF /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CCA1ACCC5E700B989FF /* WatchImages.xcassets */; };
 		09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */; };
@@ -222,10 +220,6 @@
 		09432CB21ACCC5E700B989FF /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		09432CB31ACCC5E700B989FF /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
 		09432CB41ACCC5E700B989FF /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
-		09432CB61ACCC5E700B989FF /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
-		09432CB71ACCC5E700B989FF /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
-		09432CB91ACCC5E700B989FF /* GlanceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlanceController.h; sourceTree = "<group>"; };
-		09432CBA1ACCC5E700B989FF /* GlanceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlanceController.m; sourceTree = "<group>"; };
 		09432CBC1ACCC5E700B989FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EatNow WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09432CC61ACCC5E700B989FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -458,10 +452,6 @@
 			children = (
 				09432CB31ACCC5E700B989FF /* InterfaceController.h */,
 				09432CB41ACCC5E700B989FF /* InterfaceController.m */,
-				09432CB61ACCC5E700B989FF /* NotificationController.h */,
-				09432CB71ACCC5E700B989FF /* NotificationController.m */,
-				09432CB91ACCC5E700B989FF /* GlanceController.h */,
-				09432CBA1ACCC5E700B989FF /* GlanceController.m */,
 				09432CBC1ACCC5E700B989FF /* Images.xcassets */,
 				09432CB01ACCC5E700B989FF /* Supporting Files */,
 				09432CD61ACCCACB00B989FF /* ENWMapInterfaceController.h */,
@@ -835,7 +825,6 @@
 				DA5B73E218F233EF00BB5F8E /* Frameworks */,
 				DA5B73E318F233EF00BB5F8E /* Resources */,
 				A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */,
-				09E463FD1AFB3D2F00389E0B /* ShellScript */,
 				09432CD51ACCC5E700B989FF /* Embed App Extensions */,
 				9BAE960E1AFEB22500FF746B /* ShellScript */,
 			);
@@ -929,7 +918,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09432CC91ACCC5E700B989FF /* Interface.storyboard in Resources */,
+				0935BB081B0D637B00735CE0 /* Interface.storyboard in Resources */,
 				09432CCB1ACCC5E700B989FF /* WatchImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -970,19 +959,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09E463FD1AFB3D2F00389E0B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "CRASHLYTICS_SCRIPT=\"./Pods/CrashlyticsFramework/Crashlytics.framework/run\"\n[ -x \"$CRASHLYTICS_SCRIPT\" ] || exit 0\n\n# Enter your key below:\nCRASHLYTICS_API_KEY=\"6ec9eab6ca26fcd18d51d0322752b861c63bc348\"\nif [ \"${CRASHLYTICS_API_KEY:0:1}\" = \"(\" ]; then\necho \"warning: Set your Crashlytics API key in the Build Phases tab to enable Crashlytics integration\" 1>&2\nexit 0\nfi";
-		};
 		7989DD9D1D4541818B62EB58 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1040,7 +1016,6 @@
 				092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */,
 				09B9F8ED1AF1B4F700DE92C6 /* TMTableViewDelegate.m in Sources */,
 				09B9F8E11AF1B4F700DE92C6 /* TMRowItem+Protected.m in Sources */,
-				09432CB81ACCC5E700B989FF /* NotificationController.m in Sources */,
 				092944C91AED94F600018391 /* UIImage+Resizing.m in Sources */,
 				0929746A1AD0C29200DDC35C /* ENServerManager.m in Sources */,
 				09B9F8FF1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
@@ -1050,7 +1025,6 @@
 				09B9F8E51AF1B4F700DE92C6 /* TMTextFieldRowItem.m in Sources */,
 				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
 				090B2E0B1AED876B00ABAA99 /* WatchKitAction.m in Sources */,
-				09432CBB1ACCC5E700B989FF /* GlanceController.m in Sources */,
 				09B9F8DD1AF1B4F700DE92C6 /* TMRightDetailRowItem.m in Sources */,
 				09B9F8D91AF1B4F700DE92C6 /* FBKVOController+Binding.m in Sources */,
 				092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */,
@@ -1189,7 +1163,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1211,7 +1185,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1289,6 +1263,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 31;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1309,6 +1284,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1330,6 +1306,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 31;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "EatNow/EatNow-Prefix.pch";
@@ -1344,6 +1321,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

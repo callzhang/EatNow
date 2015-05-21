@@ -50,7 +50,6 @@
 #import "GNMapOpener.h"
 #import "Mixpanel.h"
 
-
 @interface ENMainViewController ()
 //data
 @property (nonatomic, strong) NSMutableArray *restaurants;
@@ -114,19 +113,19 @@
     
     switch (_currentMode) {
         case ENMainViewControllerModeMain: {
-            [self showControllers:@[self.historyButton, self.reloadButton]];
+            [self showControllers:@[self.historyButton, self.reloadButton, self.consoleButton]];
             break;
         }
         case ENMainViewControllerModeDetail: {
-            [self showControllers:@[self.closeButton]];
+            [self showControllers:@[self.closeButton, self.consoleButton]];
             break;
         }
         case ENMainViewControllerModeHistory: {
-            [self showControllers:@[self.mainViewButton]];
+            [self showControllers:@[self.mainViewButton, self.consoleButton]];
             break;
         }
         case ENMainViewControllerModeHistoryDetail :{
-            [self showControllers:@[self.histodyDetailToHistoryButton]];
+            [self showControllers:@[self.histodyDetailToHistoryButton, self.consoleButton]];
             break;
         }
         case ENMainViewControllerModeMap: {
@@ -140,7 +139,7 @@
 }
 
 - (void)showControllers:(NSArray *)controls animated:(BOOL)animated {
-    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton, self.openInMapsButton] animated:animated];
+    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton, self.openInMapsButton, self.consoleButton] animated:animated];
 }
 
 - (void)showControllers:(NSArray *)controls {
@@ -185,7 +184,7 @@
     
     //tweak
     FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
-    FBTweakBind(self, showFeedback, @"Main", @"Feedback", @"Show feedback", NO);
+    FBTweakBind(self, showFeedback, @"Main", @"Feedback", @"Show feedback", YES);
     FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", NO);
     
     [self.KVOController observe:self keyPath:@keypath(self, showFeedback) options:NSKeyValueObservingOptionNew block:^(id observer, ENMainViewController *mainVC, NSDictionary *change) {
@@ -488,7 +487,7 @@
 - (void)searchNewRestaurantsWithCompletion:(void (^)(NSArray *response, NSError *error))block {
     NSDate *start = [NSDate date];
     @weakify(self);
-    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         if (self.showLocationRequestTime) {
             NSString *str = [NSString stringWithFormat:@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:start]];

@@ -29,7 +29,7 @@
     [super viewDidLoad];
     [self bindKeypath:@keypath(self.gettingLocation) withChangeBlock:^(NSNumber *change) {
         if (change.boolValue) {
-            self.enableButton.enabled = NO;
+            self.enableButton.enabled = YES;
         }
         else {
             self.enableButton.enabled = YES;
@@ -41,7 +41,7 @@
 
 - (IBAction)onEnableButton:(id)sender {
     self.gettingLocation = YES;
-    [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
+    [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         self.gettingLocation = NO;
         if (status == INTULocationStatusSuccess) {
             ENMainViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
@@ -52,6 +52,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.gettingLocation = NO;
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {

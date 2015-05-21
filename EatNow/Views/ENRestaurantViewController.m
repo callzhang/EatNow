@@ -162,6 +162,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         if (block) {
             block();
         }
+        
+        [self.tableView setContentOffset:CGPointZero animated:NO];
     }];
     
     //close map if colapse
@@ -284,12 +286,20 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         else{
             DDLogInfo(@"Selected %@", _restaurant.name);
-            TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Choice" message:@"Eat Now Learns more about your taste each time you select a place." preferredStyle:TMAlartControllerStyleAlert];
-            alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
-            [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }]];
-            [self presentViewController:alertController animated:YES completion:nil];
+            NSString *kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
+            [[NSUserDefaults standardUserDefaults] registerDefaults:@{kShouldShowNiceChoiceKey : @(YES)}];
+            BOOL shouldShowNiceChoice = [[NSUserDefaults standardUserDefaults] boolForKey:kShouldShowNiceChoiceKey];
+            if (shouldShowNiceChoice
+//                || YES
+                ) {
+                TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Choice" message:@"Eat Now Learns more about your taste each time you select a place." preferredStyle:TMAlartControllerStyleAlert];
+                alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
+                [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kShouldShowNiceChoiceKey];
+                }]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
             [self prepareData];
             [self.tableView reloadData];
             [self updateGoButton];
@@ -642,13 +652,14 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         
     }
-    
-    if (weakSelf.restaurant.score) {
-        [info addObject:@{@"type": @"score",
-                          @"cellID":@"subtitle",
-                          @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
-                          @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
-                          }];
+    if (self.mainVC.showScore) {
+        if (weakSelf.restaurant.score) {
+            [info addObject:@{@"type": @"score",
+                              @"cellID":@"subtitle",
+                              @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
+                              @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
+                              }];
+        }
     }
     
     //footer

@@ -19,7 +19,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 @property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENServerManager *serverManager;
 @property (weak, nonatomic) IBOutlet WKInterfaceImage *loadingImageView;
-
+@property (nonatomic, assign) BOOL reloading;
 @end
 
 
@@ -33,11 +33,28 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     self.locationManager = [[ENLocationManager alloc] init];
     self.serverManager = [[ENServerManager alloc] init];
     
+    [self loadDataIfNecessary];
+}
+
+- (void)willActivate {
+    [super willActivate];
+    [self loadDataIfNecessary];
+}
+
+- (void)loadDataIfNecessary {
+    if (!self.reloading) {
+        [self loadData];
+    }
+}
+
+- (void)loadData {
+    self.reloading = YES;
     @weakify(self);
-    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, ENLocationStatus status) {
+    [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         NSLog(@"got location:%@", location);
         [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+            self.reloading = NO;
             NSLog(@"got restaurant:%@", response);
             NSMutableArray *restaurants = [NSMutableArray array];
             NSMutableArray *objests = [NSMutableArray array];
@@ -50,6 +67,7 @@ DDLogLevel const ddLogLevel = DDLogLevelVerbose;
     }];
 }
 @end
+
 
 
 

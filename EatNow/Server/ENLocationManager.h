@@ -11,7 +11,9 @@
 #import "GCDSingleton.h"
 #import "INTULocationManager.h"
 
-typedef void (^ENLocationCompletionBlock)(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, ENLocationStatus status);
+ENLocationStatus enLocationStatusFromINTULocationStatus(INTULocationStatus status);
+    
+typedef void (^ENLocationCompletionBlock)(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status);
 #define kENLocationMinimumInterval  20
 #define kENLocationRequestTimeout   10
 

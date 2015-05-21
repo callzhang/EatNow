@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -23,20 +23,6 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="80" y="433"/>
-        </scene>
-        <!--Interface Controller-->
-        <scene sceneID="Mlb-Ec-dSQ">
-            <objects>
-                <controller id="Z6k-R8-Hzx">
-                    <items>
-                        <label width="136" height="50" alignment="left" text="wah da2" id="FPJ-hg-mSv"/>
-                    </items>
-                    <connections>
-                        <segue destination="tuy-Ot-t0c" kind="relationship" relationship="nextPage" id="K2p-DM-2xW"/>
-                    </connections>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="428" y="791"/>
         </scene>
         <!--Close-->
         <scene sceneID="HON-0N-6qt">
@@ -105,32 +91,7 @@
                         <map width="1" widthAdjustment="-4" height="90" alignment="center" id="1x4-04-3oB"/>
                         <group width="1" widthAdjustment="-4" alignment="center" id="VyM-RR-BAh">
                             <items>
-                                <table alignment="left" id="T2m-QD-bXh">
-                                    <items>
-                                        <tableRow identifier="RestaurantRowController" id="hNy-Ci-oU6" customClass="RestaurantRowController">
-                                            <group key="rootItem" width="1" alignment="left" id="TjE-5i-a8r">
-                                                <items>
-                                                    <label alignment="center" verticalAlignment="center" text="Label" textAlignment="justified" id="pFl-ta-0gF">
-                                                        <variation key="device=watch42mm" text="212-222-2222"/>
-                                                    </label>
-                                                </items>
-                                                <variation key="default">
-                                                    <mask key="items">
-                                                        <exclude reference="pFl-ta-0gF"/>
-                                                    </mask>
-                                                </variation>
-                                                <variation key="device=watch42mm">
-                                                    <mask key="items">
-                                                        <include reference="pFl-ta-0gF"/>
-                                                    </mask>
-                                                </variation>
-                                            </group>
-                                            <connections>
-                                                <outlet property="textLabel" destination="pFl-ta-0gF" id="C55-SO-IF0"/>
-                                            </connections>
-                                        </tableRow>
-                                    </items>
-                                </table>
+                                <table alignment="left" id="T2m-QD-bXh"/>
                             </items>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <variation key="device=watch42mm">
@@ -210,122 +171,6 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="863" y="187.5"/>
-        </scene>
-        <!--Map Interface Controller-->
-        <scene sceneID="8Kd-wg-fl6">
-            <objects>
-                <controller id="tuy-Ot-t0c" customClass="ENWMapInterfaceController">
-                    <items>
-                        <map height="149" alignment="center" id="aGq-ge-Iz3"/>
-                    </items>
-                    <connections>
-                        <outlet property="interfaceMap" destination="aGq-ge-Iz3" id="Ajm-SW-3nE"/>
-                    </connections>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="642" y="627"/>
-        </scene>
-        <!--Glance Interface Controller-->
-        <scene sceneID="BOz-TT-tkC">
-            <objects>
-                <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController">
-                    <items>
-                        <group alignment="left" layout="vertical" id="t8f-Gd-c4y">
-                            <items>
-                                <imageView width="27" height="27" alignment="left" image="eat-now-apple-watch-glance-app-icon-55x55-round" id="S7r-O4-CNb"/>
-                                <label alignment="left" text="Best Nearby" id="rf3-JC-3Qz">
-                                    <color key="textColor" red="0.60132600000000003" green="0.60132600000000003" blue="0.60132600000000003" alpha="0.5" colorSpace="calibratedRGB"/>
-                                </label>
-                            </items>
-                        </group>
-                        <group alignment="left" layout="vertical" spacing="0.0" id="uCw-4Q-Ouw">
-                            <items>
-                                <label alignment="left" text="The Spotted pig" id="l23-wC-RMV"/>
-                                <group width="1" alignment="left" id="Rg3-N2-Ngw">
-                                    <items>
-                                        <label alignment="left" text="9.6" id="Fe0-GV-Sbc">
-                                            <color key="textColor" red="0.0" green="0.82017356157302856" blue="0.36374658346176147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </label>
-                                        <separator alignment="left" alpha="0.0" id="ywR-WB-u45"/>
-                                        <separator alignment="left" alpha="0.0" id="NMw-T8-IbS"/>
-                                        <separator alignment="left" alpha="0.0" id="TGi-s4-hMf"/>
-                                        <separator alignment="left" alpha="0.0" id="C1U-jd-iOW"/>
-                                        <label alignment="left" text="3 min" id="YIr-fC-MYL">
-                                            <color key="textColor" red="0.60132600000000003" green="0.60132600000000003" blue="0.60132600000000003" alpha="0.5" colorSpace="calibratedRGB"/>
-                                        </label>
-                                    </items>
-                                </group>
-                                <label alignment="left" text="The Hudson River" id="7am-mr-0zt"/>
-                                <group width="1" alignment="left" id="81z-a3-wfV">
-                                    <items>
-                                        <label alignment="left" text="9.6" id="cRd-wE-7Az">
-                                            <color key="textColor" red="0.0" green="0.82017356157302856" blue="0.36374658346176147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </label>
-                                        <separator alignment="left" alpha="0.0" id="Dj8-sf-9zx"/>
-                                        <separator alignment="left" alpha="0.0" id="DZM-Vn-P7W"/>
-                                        <separator alignment="left" alpha="0.0" id="pGf-N7-Cf3"/>
-                                        <separator alignment="left" alpha="0.0" id="lTA-Gi-Ji1"/>
-                                        <label alignment="left" text="3 min" id="FJp-0p-sCN">
-                                            <color key="textColor" red="0.60132600000000003" green="0.60132600000000003" blue="0.60132600000000003" alpha="0.5" colorSpace="calibratedRGB"/>
-                                        </label>
-                                    </items>
-                                </group>
-                                <label alignment="left" text="Takashi" id="ocq-Gj-Ake"/>
-                                <group width="1" alignment="left" id="7gC-rV-EAb">
-                                    <items>
-                                        <label alignment="left" text="9.6" id="xcr-GW-mf2">
-                                            <color key="textColor" red="0.0" green="0.82017356157302856" blue="0.36374658346176147" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </label>
-                                        <separator alignment="left" alpha="0.0" id="HWS-53-eSc"/>
-                                        <separator alignment="left" alpha="0.0" id="kDr-AW-3dh"/>
-                                        <separator alignment="left" alpha="0.0" id="j0k-fQ-fB6"/>
-                                        <separator alignment="left" alpha="0.0" id="71r-FY-e57"/>
-                                        <label alignment="left" text="3 min" id="erD-HP-OfM">
-                                            <color key="textColor" red="0.60132600000000003" green="0.60132600000000003" blue="0.60132600000000003" alpha="0.5" colorSpace="calibratedRGB"/>
-                                        </label>
-                                    </items>
-                                </group>
-                            </items>
-                        </group>
-                    </items>
-                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
-                    <connections>
-                        <outlet property="nameLabel1" destination="l23-wC-RMV" id="gvC-7T-UbR"/>
-                        <outlet property="nameLabel2" destination="7am-mr-0zt" id="xuw-bM-98W"/>
-                        <outlet property="nameLabel3" destination="ocq-Gj-Ake" id="CyM-x5-55p"/>
-                        <outlet property="reviewLabel1" destination="Fe0-GV-Sbc" id="Dar-px-WyK"/>
-                        <outlet property="reviewLabel2" destination="cRd-wE-7Az" id="NUs-r6-HAC"/>
-                        <outlet property="reviewLabel3" destination="xcr-GW-mf2" id="SM4-x4-rsE"/>
-                        <outlet property="walkMIns3" destination="erD-HP-OfM" id="tt0-Gf-vVe"/>
-                        <outlet property="walkMins1" destination="YIr-fC-MYL" id="252-8N-Uo8"/>
-                        <outlet property="walkMins2" destination="FJp-0p-sCN" id="ij6-40-SXN"/>
-                    </connections>
-                </glanceController>
-            </objects>
-            <point key="canvasLocation" x="148" y="791"/>
-        </scene>
-        <!--Static Notification Interface Controller-->
-        <scene sceneID="AEw-b0-oYE">
-            <objects>
-                <notificationController id="YCC-NB-fut">
-                    <items>
-                        <label alignment="left" text="Alert Label" id="XkS-y5-khE"/>
-                    </items>
-                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
-                    <connections>
-                        <outlet property="notificationAlertLabel" destination="XkS-y5-khE" id="49B-RR-99y"/>
-                        <segue destination="gdX-wl-uQE" kind="relationship" relationship="dynamicNotificationInterface" id="fKh-qV-3T2"/>
-                    </connections>
-                </notificationController>
-            </objects>
-            <point key="canvasLocation" x="155" y="1118"/>
-        </scene>
-        <!--Notification Controller-->
-        <scene sceneID="KIl-fV-djm">
-            <objects>
-                <controller id="gdX-wl-uQE" customClass="NotificationController"/>
-            </objects>
-            <point key="canvasLocation" x="591" y="1118"/>
         </scene>
         <!--ResturantInterfaceController-->
         <scene sceneID="GS7-MF-kae">
