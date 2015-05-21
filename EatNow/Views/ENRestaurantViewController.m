@@ -162,6 +162,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         if (block) {
             block();
         }
+        
+        [self.tableView setContentOffset:CGPointZero animated:NO];
     }];
     
     //close map if colapse
