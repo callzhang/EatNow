@@ -114,10 +114,6 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
               self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
               
           }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
-                  [[Mixpanel sharedInstance] track:@"Search restaurant" properties:@{
-                                                                                     @"latitude": @(currenLocation.coordinate.latitude),
-                                                                                     @"longitude": @(currenLocation.coordinate.longitude),
-                                                                                     @"success": @NO}];
               
               NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
               DDLogError(@"%@", str);

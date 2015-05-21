@@ -190,9 +190,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)didChangeToDetailView{
-    //start to calculate
+    //add map to view and hide
     self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
     self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
+    [self.card insertSubview:self.map belowSubview:self.goButton];
+    self.map.hidden = YES;
+    
+    //start to calculate
     float d = self.restaurant.distance.floatValue/1000/1.609344;
     self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
@@ -200,7 +204,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }];
     
     //next image
-    [self loadNextImage];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self loadNextImage];
+    });
+    [self parseVendorImages];
 }
 
 #pragma mark - UI
@@ -300,7 +307,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }];
     
     //map
-    if (!self.map) {
+    if (self.map.hidden == YES) {
         [self toggleMap:nil];
     }
     
@@ -318,7 +325,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.map.hidden = NO;
     self.map.showsUserLocation = YES;
     self.map.delegate = self.mapManager;
-    [self.card insertSubview:self.map belowSubview:self.goButton];
     
     [UIView collapse:self.mapIcon view:self.map animated:NO completion:nil];
     [UIView expand:self.mapIcon view:self.map completion:nil];
@@ -433,36 +439,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         DDLogVerbose(@"Loading image, skip");
         return;
     }
-    if (_restaurant.imageUrls.count == 1 && self.imageView.image && _currentImageIndex != -1) {
-        DDLogVerbose(@"Only one image, skip");
-        if (self.hasParsedImage == NO) {
-            DDLogVerbose(@"start to parse image for %@", self.restaurant.name);
-            //load image from webpage
-            @weakify(self);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.restaurant parseFoursquareWebsiteForImagesWithUrl:self.restaurant.venderUrl completion:^(NSArray *imageUrls, NSError *error) {
-                    if (!self) {
-                        DDLogVerbose(@"Restaurant view dismissed before updating images");
-                        return;
-                    }
-                    @strongify(self);
-                    if (!imageUrls) {
-#ifdef DEBUG
-                        ENLogError(@"Failed to parse foursquare image %@, error %@", self.restaurant.url, error);
-#endif
-                        return;
-                    }
-                    if (imageUrls.count > 1) {
-                        //show image
-                        [self loadNextImage];
-                        //update to server
-                        [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
-                    }
-                }];
-            });
-        }
-        return;
-    }
+
     if (self.restaurant.imageUrls.count == 0) {
         DDLogVerbose(@"No image urls");
         return;
@@ -508,6 +485,37 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         ENLogError(@"*** Failed to download image with error: %@", error);
     }];
+}
+
+- (void)parseVendorImages{
+    if (self.restaurant.imageUrls.count > 3) return;
+    if (self.hasParsedImage == YES) return;
+    self.hasParsedImage = YES;
+    DDLogVerbose(@"start to parse image for %@", self.restaurant.name);
+    //load image from webpage
+    @weakify(self);
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.restaurant parseFoursquareWebsiteForImagesWithUrl:self.restaurant.venderUrl completion:^(NSArray *imageUrls, NSError *error) {
+            if (!self) {
+                DDLogVerbose(@"Restaurant view dismissed before updating images");
+                return;
+            }
+            @strongify(self);
+            if (!imageUrls) {
+#ifdef DEBUG
+                ENLogError(@"Failed to parse foursquare image %@, error %@", self.restaurant.url, error);
+#endif
+                return;
+            }
+            if (imageUrls.count > 1) {
+                //show image
+                //[self loadNextImage];
+                //update to server
+                [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
+            }
+        }];
+    });
 }
 
 - (void)showImage:(UIImage *)image{

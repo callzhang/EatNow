@@ -185,7 +185,7 @@
 
 #pragma mark - Tools
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
-    NSURL *url = [NSURL URLWithString:urlString];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/photos", urlString]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     @weakify(self);
@@ -193,26 +193,28 @@
         @strongify(self);
         NSData *data = responseObject;
         TFHpple * doc       = [[TFHpple alloc] initWithHTMLData:data];
-        NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='photosSection']/ul/li/img"];
+        NSArray * elements  = [doc searchWithXPathQuery:@"//div[@class='wrap photosBlock']/div[@class='photo']/span/img"];
         NSMutableArray *images = [NSMutableArray array];
         for (TFHppleElement *element in elements) {
-            NSString *imgUrl = [element objectForKey:@"data-retina-url"];
+            NSString *imgUrl = [element objectForKey:@"src"];
             if (imgUrl) {
                 if ([imgUrl containsString:@"4sqi"]) {
                     NSMutableArray *urlComponents = [imgUrl componentsSeparatedByString:@"/"].mutableCopy;
                     NSString *sizeStr = urlComponents[urlComponents.count-2];
-                    if (sizeStr.length == 7 && [sizeStr characterAtIndex:3] == 'x') {
+                    NSUInteger l = sizeStr.length;
+                    if ([sizeStr characterAtIndex:(l-1)/2] == 'x') {
                         urlComponents[urlComponents.count-2] = @"original";
                         imgUrl = [urlComponents componentsJoinedByString:@"/"];
+                        //
+                        [images addObject:imgUrl];
                     }
-                    [images addObject:imgUrl];
                 }
                 else {
                     DDLogError(@"Parse failed: %@", imgUrl);
                 }
             }
         }
-        
+        DDLogVerbose(@"Parsed %@ images from vendor", @(images.count));
         
         self.imageUrls = images;
         
