@@ -29,7 +29,7 @@
     [super viewDidLoad];
     [self bindKeypath:@keypath(self.gettingLocation) withChangeBlock:^(NSNumber *change) {
         if (change.boolValue) {
-            self.enableButton.enabled = NO;
+            self.enableButton.enabled = YES;
         }
         else {
             self.enableButton.enabled = YES;
@@ -52,6 +52,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.gettingLocation = NO;
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {

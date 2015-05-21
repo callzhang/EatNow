@@ -38,9 +38,6 @@ static void (^_locationDeniedHanlder)(void) = nil;
 
 @interface ENLocationManager()<CLLocationManagerDelegate>
 @property (nonatomic, strong) INTULocationManager *locationManager;
-@property (nonatomic, assign) INTULocationAccuracy achievedAccuracy;
-@property (nonatomic, strong) NSMutableArray *completionBlocks;
-@property (nonatomic, assign) INTULocationRequestID request;
 @property (nonatomic, strong) NSDate *requestTime;
 @end
 
@@ -49,7 +46,6 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.completionBlocks = [NSMutableArray array];
         self.locationManager = [INTULocationManager sharedInstance];
     }
     return self;
@@ -78,12 +74,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
         
         [[self class] setCachedCurrentLocation:currentLocation];
         
-        if (status == INTULocationServicesStateDenied) {
+        if (status == INTULocationStatusServicesDenied) {
             if (_locationDeniedHanlder) {
                 _locationDeniedHanlder();
             }
         }
-        else if (status == INTULocationServicesStateDisabled) {
+        else if (status == INTULocationStatusServicesDisabled) {
             if (_locationDisabledHanlder) {
                 _locationDisabledHanlder();
             }
