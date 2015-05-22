@@ -15,6 +15,8 @@
 - (void)awakeFromNib {
     self.contentView.backgroundColor = [UIColor clearColor];
     self.backgroundColor = [UIColor clearColor];
+    self.background.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.4].CGColor;
+    self.background.layer.borderWidth = 1;
 }
 
 - (void)setRestaurant:(ENRestaurant *)restaurant{

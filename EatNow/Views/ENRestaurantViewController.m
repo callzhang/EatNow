@@ -86,6 +86,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.shadowView.layer.shadowOpacity = 0.5;
     self.shadowView.layer.shadowOffset = CGSizeMake(0, 1);
     self.shadowView.hidden = YES;
+    self.card.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.2].CGColor;
+    self.card.layer.borderWidth = 1;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
