@@ -204,7 +204,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }];
     
     //start display image
-    NSTimer *imageLoadingTimer;
+    static NSTimer *imageLoadingTimer;
     [imageLoadingTimer invalidate];
     imageLoadingTimer = [NSTimer bk_scheduledTimerWithTimeInterval:5 block:^(NSTimer *timer) {
         if (self.status == ENRestaurantViewStatusDetail || self.status == ENRestaurantViewStatusHistoryDetail) {

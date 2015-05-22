@@ -30,3 +30,5 @@ KZBootstrapUserMacros.h
 *.xcbkptlist
 
 *.xcuserstate
+
+*.xcbkptlist
