@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ENRestaurant.h"
+#import "SGImageView.h"
 @class ENMainViewController;
 
 extern NSString * const kRestaurantViewImageChangedNotification;
@@ -35,7 +36,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (nonatomic, assign) ENRestaurantViewStatus status;
 @property (nonatomic, weak) UISnapBehavior *snap;
 @property (weak, nonatomic) IBOutlet UIView *info;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet SGImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *shadowView;
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UIButton *goButton;

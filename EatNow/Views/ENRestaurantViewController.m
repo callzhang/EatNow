@@ -24,6 +24,7 @@
 #import "TMAlertController.h"
 #import "TMAlertAction.h"
 #import "ENMainViewController.h"
+#import "SGImageCache.h"
 @import AddressBook;
 
 NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
@@ -469,27 +470,26 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //download
     self.isLoadingImage = YES;
     [self.loading startAnimating];
-    NSURL *url = [NSURL URLWithString:self.restaurant.imageUrls[nextIdx]];
+    NSString *url = self.restaurant.imageUrls[nextIdx];
     //download first
     @weakify(self);
-    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:url] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        @strongify(self);
-        _currentImageIndex = nextIdx;
-        _isLoadingImage = NO;
+    [SGImageCache slowGetImageForURL:url].then(^(UIImage *image) {
         [self.loading stopAnimating];
-        NSMutableArray *images = _restaurant.images;
-        while (images.count <= _currentImageIndex) {
-            [images addObject:[NSNull null]];
+        _isLoadingImage = NO;
+        if (!image) return;
+        
+        @strongify(self);
+        
+        _currentImageIndex = nextIdx;
+        while (_restaurant.images.count <= _currentImageIndex) {
+            [_restaurant.images addObject:[NSNull null]];
         }
-        images[_currentImageIndex] = image;
-        _restaurant.images = images;
+        _restaurant.images[_currentImageIndex] = image;
         
         [self showImage:image];
         
         //self.pageControl.currentPage = nextIdx;
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-        ENLogError(@"*** Failed to download image with error: %@", error);
-    }];
+    });
 }
 
 - (void)parseVendorImages{
