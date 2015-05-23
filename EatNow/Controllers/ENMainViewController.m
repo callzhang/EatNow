@@ -50,7 +50,7 @@
 #import "GNMapOpener.h"
 #import "Mixpanel.h"
 
-@interface ENMainViewController ()
+@interface ENMainViewController () <UIGestureRecognizerDelegate>
 //data
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) NSMutableArray *historyToReview;
@@ -64,6 +64,7 @@
 //gesture
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
+@property (strong, nonatomic) UIScreenEdgePanGestureRecognizer *screenEdgePanGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (nonatomic, strong) ENHistoryViewController *historyViewController;
@@ -206,6 +207,10 @@
 - (void)viewDidLoad {
     [[Mixpanel sharedInstance] timeEvent:@"Card shown"];
     [super viewDidLoad];
+    self.screenEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(onEdgePanGesture:)];
+    self.screenEdgePanGesture.delegate = self;
+    self.screenEdgePanGesture.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:self.screenEdgePanGesture];
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
     self.cardViews = [NSMutableArray array];
@@ -757,6 +762,23 @@
     }
 }
 
+- (IBAction)onRightEdgePanGesture:(UIScreenEdgePanGestureRecognizer *)gesture {
+    CGPoint locInView = [gesture locationInView:self.detailCardContainer];
+    CGPoint locInCard = [gesture locationInView:self.firstRestaurantViewController.view];
+    NSLog(@"locInView: %@", NSStringFromCGPoint(locInView));
+    NSLog(@"locInCard: %@", NSStringFromCGPoint(locInCard));
+}
+
+- (IBAction)onLeftEdgePanGesture:(UIScreenEdgePanGestureRecognizer *)gesture {
+    CGPoint locInView = [gesture locationInView:self.detailCardContainer];
+    CGPoint locInCard = [gesture locationInView:self.firstRestaurantViewController.view];
+    NSLog(@"locInView: %@", NSStringFromCGPoint(locInView));
+    NSLog(@"locInCard: %@", NSStringFromCGPoint(locInCard));
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
 // This is called when a user didn't fully swipe left or right.
 - (void)snapCardToCenter:(UIViewController<ENCardViewControllerProtocol> *)card {
     NSParameterAssert(card);
