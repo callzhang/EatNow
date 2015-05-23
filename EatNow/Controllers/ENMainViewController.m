@@ -96,7 +96,7 @@
 
 #pragma mark - Accsessor
 - (ENRestaurantViewController *)firstRestaurantViewController{
-    return self.cardViews.firstObject;
+    return self.cards.firstObject;
 }
 
 - (void)setRestaurants:(NSMutableArray *)restaurants{
@@ -200,7 +200,7 @@
     [super viewDidLoad];
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
-    self.cardViews = [NSMutableArray array];
+    self.cards = [NSMutableArray array];
     [self showControllers:@[self.historyButton, self.reloadButton] animated:NO]; //disable animation
     self.currentMode = ENMainViewControllerModeMain;
 
@@ -216,7 +216,7 @@
     }];
     
     //Dynamics
-    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.detailCardContainer];
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.cardContainer];
     self.gravity = [[UIGravityBehavior alloc] init];
     self.gravity.gravityDirection = CGVectorMake(0, 10);
     [self.animator addBehavior:_gravity];
@@ -225,7 +225,7 @@
     [self.animator addBehavior:_dynamicItem];
     
     [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
-        if (self.cardViews.count)  return;
+        if (self.cards.count)  return;
         if (manager != NULL) {
             ENLocationStatus locationStatus = manager.locationStatus;
             switch (locationStatus) {
@@ -245,7 +245,7 @@
     
     //server status
     [self.KVOController observe:self.serverManager keyPath:@keypath(self.serverManager, fetchStatus) options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
-        if (self.cardViews.count)  return;
+        if (self.cards.count)  return;
         if (manager != NULL) {
             ENResturantDataStatus dataStatus = manager.fetchStatus;
             switch (dataStatus) {
@@ -317,7 +317,7 @@
     }];
     
     self.cardView.backgroundColor = [UIColor clearColor];
-    self.detailCardContainer.backgroundColor = [UIColor clearColor];
+    self.cardContainer.backgroundColor = [UIColor clearColor];
     
     if (self.restaurants.count == 0) {
         [self onReloadButton:nil];
@@ -395,7 +395,7 @@
 }
 
 - (IBAction)onReloadButton:(id)sender {
-    [[Mixpanel sharedInstance] track:@"reload" properties:@{@"index": @(kMaxRestaurants - _cardViews.count +1),
+    [[Mixpanel sharedInstance] track:@"reload" properties:@{@"index": @(kMaxRestaurants - _cards.count +1),
                                                            @"session": [ENServerManager shared].session}];
     [self hideNoRestaurantStatus];
     
@@ -413,24 +413,24 @@
     
     self.restaurants = nil;
     
-    if (self.cardViews.count == 0) {
+    if (self.cards.count == 0) {
         self.isDismissingCard = NO;
     }
     
-    NSUInteger cardViewCount = self.cardViews.count;
+    NSUInteger cardViewCount = self.cards.count;
     
     for (int i = kMaxCardsToAnimate; i < cardViewCount ; i++) {
-        ENRestaurantViewController *card = self.cardViews[i];
+        ENRestaurantViewController *card = self.cards[i];
         [card.view removeFromSuperview];
         [card removeFromParentViewController];
     }
     
     if (cardViewCount > kMaxCardsToAnimate) {
-        [self.cardViews removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(kMaxCardsToAnimate, cardViewCount - kMaxCardsToAnimate)]];
+        [self.cards removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(kMaxCardsToAnimate, cardViewCount - kMaxCardsToAnimate)]];
     }
 
     
-    NSUInteger dismissCardViewCount = self.cardViews.count;
+    NSUInteger dismissCardViewCount = self.cards.count;
     //dismissing with animation
     CGFloat cardDismissIntervalSteeper = 0.03;
     for (int i = 0; i < dismissCardViewCount; i++) {
@@ -530,7 +530,7 @@
     NSParameterAssert(!self.isSearchingFromServer);
     self.loadingInfo.text = @"";
     
-    if (self.cardViews.count > 0) {
+    if (self.cards.count > 0) {
         DDLogWarn(@"=== Already have cards, skip showing restaurant");
         return;
     }
@@ -561,7 +561,7 @@
         if (i==1) {
 			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
             [self addChildViewController:card];
-            [self.detailCardContainer addSubview:card.view];
+            [self.cardContainer addSubview:card.view];
             [card.view addGestureRecognizer:self.panGesture];
             if ([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
             [card didChangedToFrontCard];
@@ -569,9 +569,9 @@
         else{
 			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
             //insert behind previous card
-            ENRestaurantViewController *previousCard = self.cardViews[i-2];
+            ENRestaurantViewController *previousCard = self.cards[i-2];
             NSParameterAssert(previousCard.view.superview);
-            [self.detailCardContainer insertSubview:card.view belowSubview:previousCard.view];
+            [self.cardContainer insertSubview:card.view belowSubview:previousCard.view];
         }
         
         //animate
@@ -606,7 +606,7 @@
     if (self.firstRestaurantViewController) {
         //mixpanel
         [[Mixpanel sharedInstance].people increment:@"dismiss" by:@1];
-        [[Mixpanel sharedInstance] track:@"Dismiss" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+        [[Mixpanel sharedInstance] track:@"Dismiss" properties:@{@"index": @(kMaxRestaurants - _cards.count + 1),
                                                                  @"session": [ENServerManager shared].session}];
         
         ENRestaurantViewController *firstRestaurantViewController = self.firstRestaurantViewController;
@@ -620,7 +620,7 @@
         }
         
         //remove front card from cards
-        [self.cardViews removeObjectAtIndex:0];
+        [self.cards removeObjectAtIndex:0];
         
         //add pan gesture to next
         [firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
@@ -643,7 +643,7 @@
                 [_gravity removeItem:firstRestaurantViewController.view];
                 [_dynamicItem removeItem:firstRestaurantViewController.view];
                 [firstRestaurantViewController.view removeFromSuperview];
-                completion(self.cardViews);
+                completion(self.cards);
             }];
         });
     }
@@ -654,16 +654,16 @@
     //open first card
     //TODO? might use current mode for switcing
     if (self.firstRestaurantViewController.status == ENRestaurantViewStatusCard) {
-        [[Mixpanel sharedInstance] track:@"Open card detail" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+        [[Mixpanel sharedInstance] track:@"Open card detail" properties:@{@"index": @(kMaxRestaurants - _cards.count + 1),
                                                                           @"session": [ENServerManager shared].session}];
-        [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusDetail withFrame:self.detailCardContainer.bounds animated:YES completion:nil];
+        [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusDetail withFrame:self.cardContainer.bounds animated:YES completion:nil];
         [self.firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
         
         self.currentMode = ENMainViewControllerModeDetail;
     }
     //close first card
     else {
-        [[Mixpanel sharedInstance] track:@"Close card detail" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+        [[Mixpanel sharedInstance] track:@"Close card detail" properties:@{@"index": @(kMaxRestaurants - _cards.count + 1),
                                                                            @"session": [ENServerManager shared].session}];
         [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES completion:nil];
         [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
@@ -703,30 +703,32 @@
 }
 
 - (IBAction)panHandler:(UIPanGestureRecognizer *)gesture {
-    CGPoint locInView = [gesture locationInView:self.detailCardContainer];
+    CGPoint locInView = [gesture locationInView:self.animator.referenceView];
     CGPoint locInCard = [gesture locationInView:self.firstRestaurantViewController.view];
     
     void (^clearShadowBlock)(ENRestaurantViewController *viewController) = ^(ENRestaurantViewController *viewController) {
         viewController.shadowView.hidden = YES;
     };
     
-    ENRestaurantViewController *firstRestauantViewController= self.firstRestaurantViewController;
+    ENRestaurantViewController *card= self.firstRestaurantViewController;
     if (gesture.state == UIGestureRecognizerStateBegan) {
+        //remove snap
+        [self.animator removeBehavior:self.firstRestaurantViewController.snap];
         //attachment behavior
         [_animator removeBehavior:_attachment];
-        UIOffset offset = UIOffsetMake(locInCard.x - firstRestauantViewController.view.bounds.size.width/2, locInCard.y - firstRestauantViewController.view.bounds.size.height/2);
-        _attachment = [[UIAttachmentBehavior alloc] initWithItem:firstRestauantViewController.view offsetFromCenter:offset attachedToAnchor:locInView];
+        UIOffset offset = UIOffsetMake(locInCard.x - card.view.bounds.size.width/2, locInCard.y - card.view.bounds.size.height/2);
+        _attachment = [[UIAttachmentBehavior alloc] initWithItem:card.view offsetFromCenter:offset attachedToAnchor:locInView];
         [_animator addBehavior:_attachment];
-        firstRestauantViewController.shadowView.hidden = NO;
+        card.shadowView.hidden = NO;
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         _attachment.anchorPoint = locInView;
     }
     else if (gesture.state == UIGestureRecognizerStateEnded){
-        clearShadowBlock(firstRestauantViewController);
+        clearShadowBlock(card);
         [_animator removeBehavior:_attachment];
         CGPoint translation = [gesture translationInView:self.view];
-        BOOL canSwipe = firstRestauantViewController.canSwipe;
+        BOOL canSwipe = card.canSwipe;
         BOOL panDistanceLargeEnough = sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > 50;
         if (canSwipe && panDistanceLargeEnough) {
             //add dynamic item behavior
@@ -739,20 +741,20 @@
             }];
         }
         else {
-            [[Mixpanel sharedInstance] track:@"Undecisive" properties:@{@"index": @(kMaxRestaurants - _cardViews.count + 1),
+            [[Mixpanel sharedInstance] track:@"Undecisive" properties:@{@"index": @(kMaxRestaurants - _cards.count + 1),
                                                                         @"session": [ENServerManager shared].session}];
-            [self snapCardToCenter:firstRestauantViewController];
+            [self snapCardToCenter:card];
         }
     }
     else {
-        clearShadowBlock(firstRestauantViewController);
+        clearShadowBlock(card);
     }
 }
 
 // This is called when a user didn't fully swipe left or right.
 - (void)snapCardToCenter:(UIViewController<ENCardViewControllerProtocol> *)card {
     NSParameterAssert(card);
-    if (card.snap) {\
+    if (card.snap) {
         //skip if snap is already in place
         return;
         //[self.animator removeBehavior:card.snap];
@@ -766,9 +768,6 @@
     snap.damping = 0.9;
     [self.animator addBehavior:snap];
     card.snap = snap;
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self.animator removeBehavior:card.snap];
-//    });
 }
 
 #pragma mark - Internal Methods
@@ -786,7 +785,7 @@
     card.restaurant = self.restaurants.firstObject;
     [card updateLayout];
 	[self.restaurants removeObjectAtIndex:0];
-    [self.cardViews addObject:card];
+    [self.cards addObject:card];
     
     return card;
 }
@@ -802,7 +801,7 @@
     card.mainViewController = self;
     card.view.frame = frame;
     [self.historyToReview removeObjectAtIndex:0];
-    [self.cardViews addObject:card];
+    [self.cards addObject:card];
 
     return card;
 }
@@ -837,7 +836,7 @@
 }
 
 - (CGRect)detailViewFrame{
-    CGRect frame = self.detailCardContainer.frame;
+    CGRect frame = self.cardContainer.frame;
     return frame;
 }
 

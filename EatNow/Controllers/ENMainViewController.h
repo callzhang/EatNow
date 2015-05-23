@@ -39,11 +39,11 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 
 @interface ENMainViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *cardView;
-@property (weak, nonatomic) IBOutlet UIView *detailCardContainer;
+@property (weak, nonatomic) IBOutlet UIView *cardContainer;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
 //frame
 //@property (nonatomic, readonly) ENRestaurantViewController *frontCardView;
-@property (nonatomic, strong) NSMutableArray *cardViews;
+@property (nonatomic, strong) NSMutableArray *cards;
 //states
 @property (nonatomic, assign) BOOL isSearchingFromServer;
 @property (nonatomic, assign) BOOL isShowingCards;
