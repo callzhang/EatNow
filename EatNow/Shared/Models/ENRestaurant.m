@@ -214,7 +214,7 @@
                 }
             }
         }
-        DDLogVerbose(@"Parsed %@ images from vendor", @(images.count));
+        DDLogInfo(@"Parsed %@ images from vendor", @(images.count));
         
         self.imageUrls = images;
         
