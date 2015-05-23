@@ -83,7 +83,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *consoleButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeMapButton;
 @property (weak, nonatomic) IBOutlet UIButton *openInMapsButton;
-@property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
+//@property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
 @property (nonatomic, assign) BOOL showLocationRequestTime;
@@ -275,7 +275,7 @@
     
     
     
-    [self.KVOController observe:self keyPaths:@[@keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+    [self.KVOController observe:self keyPaths:@[@keypath(self.needShowRestaurant), @keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
             self.loadingIndicator.alpha = 0;
@@ -285,6 +285,11 @@
             self.reloadButton.enabled = NO;
             self.loadingIndicator.alpha = 1;
             //DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
+        }
+        
+        if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
+            _needShowRestaurant = NO;
+            [self showAllRestaurantCards];
         }
     }];
 
@@ -310,7 +315,7 @@
     }];
 	
 	//simple state machine
-    self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
+//    self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
 
     //load restaurants from server
     [self searchNewRestaurantsWithCompletion:^(NSArray *response, NSError *error) {
@@ -522,17 +527,17 @@
     } ];
 }
 
-- (void)onShowRestaurantTimer:(id)sender {
-    /**
-     *  Only show all cards when need show restaurant flag is set
-     *  and reloading finished
-     *  and cards are all dismissed.
-     */
-    if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
-        self.needShowRestaurant = NO;
-        [self showAllRestaurantCards];
-    }
-}
+//- (void)onShowRestaurantTimer:(id)sender {
+//    /**
+//     *  Only show all cards when need show restaurant flag is set
+//     *  and reloading finished
+//     *  and cards are all dismissed.
+//     */
+//    if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
+//        self.needShowRestaurant = NO;
+//        [self showAllRestaurantCards];
+//    }
+//}
 
 - (void)showAllRestaurantCards{
     NSParameterAssert(!self.isSearchingFromServer);
@@ -553,10 +558,14 @@
     NSUInteger restaurantCount = _restaurants.count;
     NSUInteger feedbackCount = self.historyToReview.count;
     NSUInteger totalCardCount = restaurantCount + feedbackCount;
+    NSMutableArray *cards = [NSMutableArray array];
+    NSUInteger historyToReviewCount = self.historyToReview.count;
+    
     for (NSInteger i = 1; i <= totalCardCount; i++) {
         //insert card
         UIViewController<ENCardViewControllerProtocol> *card;
-        if (self.historyToReview.count > 0) {
+        if (historyToReviewCount > 0) {
+            historyToReviewCount--;
             ENFeedbackViewController *feedbackViewController = [self popFeedbackViewWithFrame:[self initialCardFrame]];
             card = feedbackViewController;
         }else{
@@ -564,50 +573,58 @@
             card = restaurantViewController;
         }
         card.view.hidden = YES;
-
-
-        if (i==1) {
-			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
-            [self addChildViewController:card];
-            [self.detailCardContainer addSubview:card.view];
-            [card.view addGestureRecognizer:self.panGesture];
-            if ([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
-            [card didChangedToFrontCard];
-        }
-        else{
-			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
-            //insert behind previous card
-            ENRestaurantViewController *previousCard = self.cardViews[i-2];
-            NSParameterAssert(previousCard.view.superview);
-            [self.detailCardContainer insertSubview:card.view belowSubview:previousCard.view];
-        }
-        
-        //animate
-        if (i <= kMaxCardsToAnimate){
-            //animate
-            float delay = (kMaxCardsToAnimate - i + 1) * kCardShowInterval - 0.02 * i;
-            DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                card.view.hidden = NO;
-                [self snapCardToCenter:card];
-                DDLogVerbose(@"Animating %ldth card to center", (long)i);
-            });
-        }
-        else {
-            float delay = kMaxCardsToAnimate * kCardShowInterval + 2;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                card.view.frame = [self cardViewFrame];
-                card.view.hidden = NO;
-                DDLogVerbose(@"Showing %ldth card", (long)i);
-            });
-        }
-        
-        //finish
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kMaxRestaurants * kCardShowInterval + 2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.isShowingCards = NO;
-            self.needShowRestaurant = NO;
-        });
+        [cards addObject:card];
     }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        for (NSUInteger i = 1; i <= cards.count; i++) {
+            UIViewController<ENCardViewControllerProtocol> *card = cards[i-1];
+            
+            if (i == 1) {
+                //DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
+                [self addChildViewController:card];
+                [self.detailCardContainer addSubview:card.view];
+                [card.view addGestureRecognizer:self.panGesture];
+                if ([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
+                [card didChangedToFrontCard];
+            }
+            else{
+                //DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
+                //insert behind previous card
+                ENRestaurantViewController *previousCard = self.cardViews[i-2];
+                NSParameterAssert(previousCard.view.superview);
+                [self.detailCardContainer insertSubview:card.view belowSubview:previousCard.view];
+            }
+            
+            //animate
+            if (i <= kMaxCardsToAnimate){
+                //animate
+                float delay = (kMaxCardsToAnimate - i + 1) * kCardShowInterval - 0.02 * i;
+                DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    card.view.hidden = NO;
+                    [self snapCardToCenter:card];
+                    DDLogVerbose(@"Animating %ldth card to center", (long)i);
+                });
+            }
+            else {
+                float delay = kMaxCardsToAnimate * kCardShowInterval + 2;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    card.view.frame = [self cardViewFrame];
+                    card.view.hidden = NO;
+                    DDLogVerbose(@"Showing %ldth card", (long)i);
+                });
+            }
+            
+            //finish
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kMaxRestaurants * kCardShowInterval + 2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.isShowingCards = NO;
+                self.needShowRestaurant = NO;
+            });
+        }
+    });
+
+    
 }
 
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity completion:(void (^)(NSArray *leftcards))completion {
