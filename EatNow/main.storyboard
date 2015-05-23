@@ -845,8 +845,8 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtS-5W-asg">
                                         <rect key="frame" x="20" y="60" width="280" height="165"/>
                                         <string key="text" base64-UTF8="YES">
-T29wcywgRWF0IE5vZXcgbmVlZHMgdGhlIGludGVybmV0IHRvIGZpbmQgZ3JlYXQgcmVzdGF1cmFudHMg
-Zm9yIHlvdS4R4oCoEQ1QbGVhc2UgY2hlY2sgeW91ciBjb25uZWN0aW9uIGFuZCB0cnkgYWdhaW4uA
+T29wcywgRWF0IE5vdyBuZWVkcyB0aGUgaW50ZXJuZXQgdG8gZmluZCBncmVhdCByZXN0YXVyYW50cyBm
+b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
 </string>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                                         <color key="textColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
