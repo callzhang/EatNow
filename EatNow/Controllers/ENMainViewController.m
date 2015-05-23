@@ -599,7 +599,7 @@
             //animate
             if (i <= kMaxCardsToAnimate){
                 //animate
-                float delay = (kMaxCardsToAnimate - i + 1) * kCardShowInterval - 0.02 * i;
+                float delay = (kMaxCardsToAnimate - i + 1) * kCardShowInterval - 0.05 * i;
                 DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     card.view.hidden = NO;
@@ -835,7 +835,7 @@
 - (void)setBackgroundImage:(UIImage *)image{
     static NSTimer *BGTimer;
     [BGTimer invalidate];
-    BGTimer = [NSTimer bk_scheduledTimerWithTimeInterval:1 block:^(NSTimer *timer) {
+    BGTimer = [NSTimer bk_scheduledTimerWithTimeInterval:5 block:^(NSTimer *timer) {
         //duplicate view
         UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
         self.background.image = image;
