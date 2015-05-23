@@ -99,6 +99,14 @@
     return self.cardViews.firstObject;
 }
 
+//- (ENRestaurantViewController *)secondRestaurantViewController {
+//    if (self.cardViews.count >1) {
+//        return self.cardViews[1];
+//    }
+//    
+//    return nil;
+//}
+
 - (void)setRestaurants:(NSMutableArray *)restaurants{
     if (restaurants.count > kMaxRestaurants) {
         DDLogInfo(@"Trunked restaurant list from %@ to %d", @(restaurants.count), kMaxRestaurants);
