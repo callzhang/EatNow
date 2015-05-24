@@ -463,7 +463,7 @@
     NSUInteger dismissCardViewCount = self.cards.count;
     //dismissing with animation
     for (int i = 0; i < dismissCardViewCount; i++) {
-        float delay = i * _cardShowInterval - (i * (i + 1)) / 2 * _cardShowIntervalDiminishingDelta;
+        float delay = i * _cardShowInterval - (i*i-i)/2 * _cardShowIntervalDiminishingDelta;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
             [self dismissFrontCardWithVelocity:v completion:^(NSArray *leftcards) {
@@ -610,7 +610,8 @@
         //animate
         if (i <= _maxCardsToAnimate){
             //animate
-            float delay = (_maxCardsToAnimate - i + 1) * _cardShowInterval - 0.02 * i;
+            float j = (_maxCardsToAnimate - i + 1);
+            float delay = j * _cardShowInterval - (j*j-j)/2 * _cardShowIntervalDiminishingDelta;
             DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.hidden = NO;
@@ -619,7 +620,7 @@
             });
         }
         else {
-            float delay = _maxCardsToAnimate * _cardShowInterval + 2;
+            float delay = _maxCardsToAnimate * _cardShowInterval;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.frame = [self cardViewFrame];
                 card.view.hidden = NO;
@@ -628,7 +629,7 @@
         }
         
         //finish
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((_maxCards * _cardShowInterval + 2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((_maxCardsToAnimate * _cardShowInterval + 1) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.isShowingCards = NO;
             self.needShowRestaurant = NO;
         });
