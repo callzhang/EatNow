@@ -87,6 +87,15 @@
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
 @property (nonatomic, assign) BOOL showLocationRequestTime;
+
+//animation
+@property (nonatomic, assign) float cardShowInterval;
+@property (nonatomic, assign) NSUInteger maxCardsToAnimate;
+@property (nonatomic, assign) NSUInteger maxCards;
+@property (nonatomic, assign) float cardShowIntervalDiminishingDelta;
+@property (nonatomic, assign) float snapDamping;
+@property (nonatomic, assign) float backgroundImageDelay;
+@property (nonatomic, assign) float panGustureSnapBackDistance;
 @end
 
 @implementation ENMainViewController
@@ -100,9 +109,9 @@
 }
 
 - (void)setRestaurants:(NSMutableArray *)restaurants{
-    if (restaurants.count > kMaxRestaurants) {
-        DDLogInfo(@"Trunked restaurant list from %@ to %d", @(restaurants.count), kMaxRestaurants);
-        restaurants = [restaurants objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,kMaxRestaurants)]].mutableCopy;
+    if (restaurants.count > _maxCards) {
+        DDLogInfo(@"Trunked restaurant list from %@ to %lu", @(restaurants.count), (unsigned long)_maxCards);
+        restaurants = [restaurants objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0,_maxCards)]].mutableCopy;
 	}
 	DDLogVerbose(@"%@", [restaurants valueForKey:@"name"]);
     _restaurants = restaurants;
@@ -182,11 +191,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    //tweak
-    FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
-    FBTweakBind(self, showFeedback, @"Main", @"Feedback", @"Show feedback", YES);
-    FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", NO);
-    
     [self.KVOController observe:self keyPath:@keypath(self, showFeedback) options:NSKeyValueObservingOptionNew block:^(id observer, ENMainViewController *mainVC, NSDictionary *change) {
         if (mainVC.showFeedback) {
             self.consoleButton.hidden = NO;
@@ -196,6 +200,19 @@
     }];
 }
 - (void)viewDidLoad {
+    
+    //tweak
+    FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
+    FBTweakBind(self, showFeedback, @"Main view", @"Feedback", @"Show feedback", YES);
+    FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", NO);
+    FBTweakBind(self, maxCards, @"Animation", @"Card animation", @"Max cards", 12);
+    FBTweakBind(self, maxCardsToAnimate, @"Animation", @"Card animation", @"Cards to animate", 6);
+    FBTweakBind(self, cardShowInterval, @"Animation", @"Card animation", @"Cards show interval", 0.2);
+    FBTweakBind(self, cardShowIntervalDiminishingDelta, @"Animation", @"Card animation", @"Diminishing delta", 0.03);
+    FBTweakBind(self, backgroundImageDelay, @"Animation", @"Backdound blur", @"Backgound delay", 3.0);
+    FBTweakBind(self, panGustureSnapBackDistance, @"Animation", @"Snap", @"Snap back distance", 50);
+    FBTweakBind(self, snapDamping, @"Animation", @"Snap", @"Snap damping", 0.8);
+    
     [[Mixpanel sharedInstance] timeEvent:@"Card shown"];
     [super viewDidLoad];
     self.locationManager = [ENLocationManager shared];
@@ -395,7 +412,7 @@
 }
 
 - (IBAction)onReloadButton:(id)sender {
-    [[Mixpanel sharedInstance] track:@"reload" properties:@{@"index": @(kMaxRestaurants - _cards.count +1),
+    [[Mixpanel sharedInstance] track:@"reload" properties:@{@"index": @(_maxCards - _cards.count +1),
                                                            @"session": [ENServerManager shared].session}];
     [self hideNoRestaurantStatus];
     
@@ -419,22 +436,21 @@
     
     NSUInteger cardViewCount = self.cards.count;
     
-    for (int i = kMaxCardsToAnimate; i < cardViewCount ; i++) {
+    for (NSUInteger i = _maxCardsToAnimate; i < cardViewCount ; i++) {
         ENRestaurantViewController *card = self.cards[i];
         [card.view removeFromSuperview];
         [card removeFromParentViewController];
     }
     
-    if (cardViewCount > kMaxCardsToAnimate) {
-        [self.cards removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(kMaxCardsToAnimate, cardViewCount - kMaxCardsToAnimate)]];
+    if (cardViewCount > _maxCardsToAnimate) {
+        [self.cards removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(_maxCardsToAnimate, cardViewCount - _maxCardsToAnimate)]];
     }
 
     
     NSUInteger dismissCardViewCount = self.cards.count;
     //dismissing with animation
-    CGFloat cardDismissIntervalSteeper = 0.03;
     for (int i = 0; i < dismissCardViewCount; i++) {
-        float delay = i * kCardShowInterval - (i * (i + 1)) / 2 * cardDismissIntervalSteeper;
+        float delay = i * _cardShowInterval - (i * (i + 1)) / 2 * _cardShowIntervalDiminishingDelta;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
             [self dismissFrontCardWithVelocity:v completion:^(NSArray *leftcards) {
@@ -575,18 +591,18 @@
         }
         
         //animate
-        if (i <= kMaxCardsToAnimate){
+        if (i <= _maxCardsToAnimate){
             //animate
-            float delay = (kMaxCardsToAnimate - i + 1) * kCardShowInterval - 0.02 * i;
+            float delay = (_maxCardsToAnimate - i + 1) * _cardShowInterval - 0.02 * i;
             DDLogVerbose(@"Delay %f sec for %ldth card", delay, (long)i);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.hidden = NO;
-                [self snapCardToCenter:card];
+                [self showCardToCenter:card];
                 DDLogVerbose(@"Animating %ldth card to center", (long)i);
             });
         }
         else {
-            float delay = kMaxCardsToAnimate * kCardShowInterval + 2;
+            float delay = _maxCardsToAnimate * _cardShowInterval + 2;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 card.view.frame = [self cardViewFrame];
                 card.view.hidden = NO;
@@ -595,7 +611,7 @@
         }
         
         //finish
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((kMaxRestaurants * kCardShowInterval + 2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((_maxCards * _cardShowInterval + 2) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.isShowingCards = NO;
             self.needShowRestaurant = NO;
         });
@@ -606,7 +622,7 @@
     if (self.firstRestaurantViewController) {
         //mixpanel
         [[Mixpanel sharedInstance].people increment:@"dismiss" by:@1];
-        [[Mixpanel sharedInstance] track:@"Dismiss" properties:@{@"index": @(kMaxRestaurants - _cards.count + 1),
+        [[Mixpanel sharedInstance] track:@"Dismiss" properties:@{@"index": @(_maxCards - _cards.count + 1),
                                                                  @"session": [ENServerManager shared].session}];
         
         ENRestaurantViewController *firstRestaurantViewController = self.firstRestaurantViewController;
@@ -654,7 +670,7 @@
     //open first card
     //TODO? might use current mode for switcing
     if (self.firstRestaurantViewController.status == ENRestaurantViewStatusCard) {
-        [[Mixpanel sharedInstance] track:@"Open card detail" properties:@{@"index": @(kMaxRestaurants - _cards.count + 1),
+        [[Mixpanel sharedInstance] track:@"Open card detail" properties:@{@"index": @(_maxCards - _cards.count + 1),
                                                                           @"session": [ENServerManager shared].session}];
         [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusDetail withFrame:self.cardContainer.bounds animated:YES completion:nil];
         [self.firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
@@ -663,7 +679,7 @@
     }
     //close first card
     else {
-        [[Mixpanel sharedInstance] track:@"Close card detail" properties:@{@"index": @(kMaxRestaurants - _cards.count + 1),
+        [[Mixpanel sharedInstance] track:@"Close card detail" properties:@{@"index": @(_maxCards - _cards.count + 1),
                                                                            @"session": [ENServerManager shared].session}];
         [self.firstRestaurantViewController switchToStatus:ENRestaurantViewStatusCard withFrame:self.cardViewFrame animated:YES completion:nil];
         [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
@@ -729,7 +745,7 @@
         [_animator removeBehavior:_attachment];
         CGPoint translation = [gesture translationInView:self.view];
         BOOL canSwipe = card.canSwipe;
-        BOOL panDistanceLargeEnough = sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > 50;
+        BOOL panDistanceLargeEnough = sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > _panGustureSnapBackDistance;
         if (canSwipe && panDistanceLargeEnough) {
             //add dynamic item behavior
             CGPoint velocity = [gesture velocityInView:self.view];
@@ -741,7 +757,7 @@
             }];
         }
         else {
-            [[Mixpanel sharedInstance] track:@"Undecisive" properties:@{@"index": @(kMaxRestaurants - _cards.count + 1),
+            [[Mixpanel sharedInstance] track:@"Undecisive" properties:@{@"index": @(_maxCards - _cards.count + 1),
                                                                         @"session": [ENServerManager shared].session}];
             [self snapCardToCenter:card];
         }
@@ -751,7 +767,7 @@
     }
 }
 
-// This is called when a user didn't fully swipe left or right.
+// This is called when a user didn't fully swiped
 - (void)snapCardToCenter:(UIViewController<ENCardViewControllerProtocol> *)card {
     NSParameterAssert(card);
     if (card.snap) {
@@ -765,9 +781,31 @@
     }
     UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:card.view snapToPoint:self.cardView.center];
     
-    snap.damping = 0.9;
+    snap.damping = _snapDamping;
     [self.animator addBehavior:snap];
     card.snap = snap;
+}
+
+//发卡效果
+- (void)showCardToCenter:(UIViewController<ENCardViewControllerProtocol> *)card{
+    NSParameterAssert(card);
+    @weakify(card);
+    [card addViewDidLayoutBlock:^{
+        @strongify(card);
+        //initial ramdom
+        //float initialAngle = (arc4random_uniform(100) - 50.0f)/100.0f * M_PI / 10;
+        //rotate
+        //card.view.transform = CGAffineTransformMakeRotation(initialAngle);
+        //move to center
+        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:_snapDamping initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            CGRect frame = card.view.frame;
+            frame.origin = self.cardView.frame.origin;
+            card.view.frame = frame;
+            card.view.transform = CGAffineTransformMakeRotation(0);
+        } completion:^(BOOL finished) {
+        }];
+    }];
+    
 }
 
 #pragma mark - Internal Methods
@@ -809,7 +847,7 @@
 - (void)setBackgroundImage:(UIImage *)image{
     static NSTimer *BGTimer;
     [BGTimer invalidate];
-    BGTimer = [NSTimer bk_scheduledTimerWithTimeInterval:1 block:^(NSTimer *timer) {
+    BGTimer = [NSTimer bk_scheduledTimerWithTimeInterval:_backgroundImageDelay block:^(NSTimer *timer) {
         //duplicate view
         UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
         self.background.image = image;
@@ -825,7 +863,7 @@
 #pragma mark - Card frame
 - (CGRect)initialCardFrame{
     CGRect frame = self.cardView.frame;
-    frame.origin.x = arc4random_uniform(400) - 200.0f;
+    frame.origin.x = arc4random_uniform(400) - 100.0f;
     frame.origin.y -= [UIScreen mainScreen].bounds.size.height/2 + frame.size.height;
     return frame;
 }

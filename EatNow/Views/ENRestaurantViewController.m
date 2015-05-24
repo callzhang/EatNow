@@ -104,10 +104,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 	_restaurant = restaurant;
     //table view data
 	[self prepareData];
-	
-	//update view
-//    self.status = ENRestaurantViewStatusCard;
-//    [self updateLayout];
     
     //image
     _currentImageIndex = -1;
@@ -152,7 +148,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         damping = 0.8;
     }
     [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveLinear animations:^{
-//    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.view.frame = frame;
         self.status = status;
         [self updateLayout];

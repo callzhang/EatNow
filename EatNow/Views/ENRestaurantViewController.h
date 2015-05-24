@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (nonatomic, weak) UISnapBehavior *snap;
 @property (nonatomic, readonly) BOOL canSwipe;
 - (void)didChangedToFrontCard;
+- (void)addViewDidLayoutBlock:(VoidBlock)block;
 @optional
 - (void)didChangedToDetailView;
 @end
@@ -45,7 +46,6 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 + (instancetype)viewController;
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block;
 - (void)didChangedToFrontCard;
-- (void)addViewDidLayoutBlock:(VoidBlock)block;
 - (void)updateLayout;
 
 - (void)closeMap;
