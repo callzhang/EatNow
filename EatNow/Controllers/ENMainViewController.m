@@ -42,9 +42,6 @@
 #import "NSDate+Extension.h"
 #import "EnShapeView.h"
 #import "NSError+EatNow.h"
-#import "FBTweak.h"
-#import "FBTweakStore.h"
-#import "FBTweakInline.h"
 #import "BlocksKit.h"
 #import "GNMapOpenerItem.h"
 #import "GNMapOpener.h"
@@ -98,6 +95,7 @@
 @property (nonatomic, assign) float panGustureSnapBackDistance;
 @end
 
+
 @implementation ENMainViewController
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -107,14 +105,6 @@
 - (ENRestaurantViewController *)firstRestaurantViewController{
     return self.cards.firstObject;
 }
-
-//- (ENRestaurantViewController *)secondRestaurantViewController {
-//    if (self.cardViews.count >1) {
-//        return self.cardViews[1];
-//    }
-//    
-//    return nil;
-//}
 
 - (void)setRestaurants:(NSMutableArray *)restaurants{
     if (restaurants.count > _maxCards) {
@@ -208,9 +198,8 @@
     }];
 }
 - (void)viewDidLoad {
-    
     //tweak
-    FBTweakBind(self, showScore, @"Card", @"Algorithm", @"Show score", NO);
+    FBTweakBind(self, showScore, @"Algorithm", @"Inspect", @"Show score", NO);
     FBTweakBind(self, showFeedback, @"Main view", @"Feedback", @"Show feedback", YES);
     FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", NO);
     FBTweakBind(self, maxCards, @"Animation", @"Card animation", @"Max cards", 12);
@@ -643,23 +632,27 @@
         [[Mixpanel sharedInstance] track:@"Dismiss" properties:@{@"index": @(_maxCards - _cards.count + 1),
                                                                  @"session": [ENServerManager shared].session}];
         
-        ENRestaurantViewController *firstRestaurantViewController = self.firstRestaurantViewController;
+        ENRestaurantViewController *card = self.firstRestaurantViewController;
         //DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
         //add dynamics
-        [self.animator removeBehavior:firstRestaurantViewController.snap];
-        [self.gravity addItem:firstRestaurantViewController.view];
-        [self.dynamicItem addItem:firstRestaurantViewController.view];
+        [self.animator removeBehavior:card.snap];
+        [self.gravity addItem:card.view];
+        [self.dynamicItem addItem:card.view];
+        //add initial velocity
         if (velocity.x) {
-            [self.dynamicItem addLinearVelocity:velocity forItem:firstRestaurantViewController.view];
+            [self.dynamicItem addLinearVelocity:velocity forItem:card.view];
         }
+        //add rotation
+        float initialAngle = (arc4random_uniform(100) - 50.0f)/100.0f * M_PI / 2;
+        [self.dynamicItem addAngularVelocity:initialAngle forItem:card.view];
         
         //remove front card from cards
         [self.cards removeObjectAtIndex:0];
         
         //add pan gesture to next
-        [firstRestaurantViewController.view removeGestureRecognizer:self.panGesture];
-        if ([firstRestaurantViewController isKindOfClass:[ENRestaurantViewController class]]) {
-            [firstRestaurantViewController.info removeGestureRecognizer:self.tapGesture];
+        [card.view removeGestureRecognizer:self.panGesture];
+        if ([card isKindOfClass:[ENRestaurantViewController class]]) {
+            [card.info removeGestureRecognizer:self.tapGesture];
         }
         [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
         if ([self.firstRestaurantViewController isKindOfClass:[ENRestaurantViewController class]]) {
@@ -672,11 +665,11 @@
         //delay
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [UIView animateWithDuration:0.5 animations:^{
-                firstRestaurantViewController.view.alpha = 0;
+                card.view.alpha = 0;
             } completion:^(BOOL finished) {
-                [_gravity removeItem:firstRestaurantViewController.view];
-                [_dynamicItem removeItem:firstRestaurantViewController.view];
-                [firstRestaurantViewController.view removeFromSuperview];
+                [_gravity removeItem:card.view];
+                [_dynamicItem removeItem:card.view];
+                [card.view removeFromSuperview];
                 completion(self.cards);
             }];
         });
@@ -807,21 +800,17 @@
 //发卡效果
 - (void)showCardToCenter:(UIViewController<ENCardViewControllerProtocol> *)card{
     NSParameterAssert(card);
-    @weakify(card);
-    [card addViewDidLayoutBlock:^{
-        @strongify(card);
-        //initial ramdom
-        //float initialAngle = (arc4random_uniform(100) - 50.0f)/100.0f * M_PI / 10;
-        //rotate
-        //card.view.transform = CGAffineTransformMakeRotation(initialAngle);
-        //move to center
-        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:_snapDamping initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            CGRect frame = card.view.frame;
-            frame.origin = self.cardView.frame.origin;
-            card.view.frame = frame;
-            card.view.transform = CGAffineTransformMakeRotation(0);
-        } completion:^(BOOL finished) {
-        }];
+    //initial ramdom
+    //float initialAngle = (arc4random_uniform(100) - 50.0f)/100.0f * M_PI / 10;
+    //rotate
+    //card.view.transform = CGAffineTransformMakeRotation(initialAngle);
+    //move to center
+    [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:_snapDamping initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        CGRect frame = card.view.frame;
+        frame.origin = self.cardView.frame.origin;
+        card.view.frame = frame;
+        card.view.transform = CGAffineTransformMakeRotation(0);
+    } completion:^(BOOL finished) {
     }];
     
 }

@@ -33,6 +33,14 @@ NSString * const kUserUpdated = @"user_updated";
 @end
 
 
+FBTweakAction(@"Algorithm", @"Clean", @"ID", ^{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUUID];
+    [[ENServerManager shared] getUserWithCompletion:nil];
+    DDLogInfo(@"Removed user ID");
+});
+
+
+
 @implementation ENServerManager
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 

@@ -40,5 +40,8 @@
 #import <CocoaLumberjack/DDLog.h>
 #import "ENUtil.h"
 #import "EWBlockTypes.h"
+#import "FBTweak.h"
+#import "FBTweakStore.h"
+#import "FBTweakInline.h"
 #endif
 
