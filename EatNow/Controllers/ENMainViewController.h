@@ -24,10 +24,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ENRestaurantViewController.h"
-//
-//#define kMaxRestaurants     12
-//#define kMaxCardsToAnimate  6
-//#define kCardShowInterval   0.2
 
 typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
     ENMainViewControllerModeMain,

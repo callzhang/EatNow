@@ -97,7 +97,7 @@
 
 - (IBAction)onRateButton:(id)sender {
     if (!self.rating) {
-        TMAlertController *alertController = [TMAlertController alertControllerWithTitle:nil message:@"Please Tell US you liked it" preferredStyle:TMAlartControllerStyleAlert];
+        TMAlertController *alertController = [TMAlertController alertControllerWithTitle:nil message:@"Please rate the restaurant." preferredStyle:TMAlartControllerStyleAlert];
         alertController.iconImage = [UIImage imageNamed:@"eat-now-alert-question-mark-icon"];
         [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
             [self dismissViewControllerAnimated:YES completion:nil];

@@ -83,7 +83,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *consoleButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeMapButton;
 @property (weak, nonatomic) IBOutlet UIButton *openInMapsButton;
-@property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
+//@property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
 @property (nonatomic, assign) BOOL showLocationRequestTime;
@@ -107,6 +107,14 @@
 - (ENRestaurantViewController *)firstRestaurantViewController{
     return self.cards.firstObject;
 }
+
+//- (ENRestaurantViewController *)secondRestaurantViewController {
+//    if (self.cardViews.count >1) {
+//        return self.cardViews[1];
+//    }
+//    
+//    return nil;
+//}
 
 - (void)setRestaurants:(NSMutableArray *)restaurants{
     if (restaurants.count > _maxCards) {
@@ -284,7 +292,7 @@
     
     
     
-    [self.KVOController observe:self keyPaths:@[@keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
+    [self.KVOController observe:self keyPaths:@[@keypath(self.needShowRestaurant), @keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
             self.loadingIndicator.alpha = 0;
@@ -294,6 +302,11 @@
             self.reloadButton.enabled = NO;
             self.loadingIndicator.alpha = 1;
             //DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
+        }
+        
+        if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
+            _needShowRestaurant = NO;
+            [self showAllRestaurantCards];
         }
     }];
 
@@ -319,7 +332,7 @@
     }];
 	
 	//simple state machine
-    self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
+//    self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
 
     //load restaurants from server
     [self searchNewRestaurantsWithCompletion:^(NSArray *response, NSError *error) {
@@ -530,17 +543,17 @@
     } ];
 }
 
-- (void)onShowRestaurantTimer:(id)sender {
-    /**
-     *  Only show all cards when need show restaurant flag is set
-     *  and reloading finished
-     *  and cards are all dismissed.
-     */
-    if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
-        self.needShowRestaurant = NO;
-        [self showAllRestaurantCards];
-    }
-}
+//- (void)onShowRestaurantTimer:(id)sender {
+//    /**
+//     *  Only show all cards when need show restaurant flag is set
+//     *  and reloading finished
+//     *  and cards are all dismissed.
+//     */
+//    if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
+//        self.needShowRestaurant = NO;
+//        [self showAllRestaurantCards];
+//    }
+//}
 
 - (void)showAllRestaurantCards{
     NSParameterAssert(!self.isSearchingFromServer);
@@ -561,10 +574,14 @@
     NSUInteger restaurantCount = _restaurants.count;
     NSUInteger feedbackCount = self.historyToReview.count;
     NSUInteger totalCardCount = restaurantCount + feedbackCount;
+    NSMutableArray *cards = [NSMutableArray array];
+    NSUInteger historyToReviewCount = self.historyToReview.count;
+    
     for (NSInteger i = 1; i <= totalCardCount; i++) {
         //insert card
         UIViewController<ENCardViewControllerProtocol> *card;
-        if (self.historyToReview.count > 0) {
+        if (historyToReviewCount > 0) {
+            historyToReviewCount--;
             ENFeedbackViewController *feedbackViewController = [self popFeedbackViewWithFrame:[self initialCardFrame]];
             card = feedbackViewController;
         }else{
@@ -572,7 +589,7 @@
             card = restaurantViewController;
         }
         card.view.hidden = YES;
-
+        [cards addObject:card];
 
         if (i==1) {
 			//DDLogVerbose(@"Poping %@th card: %@", @(i), restaurantViewController.restaurant.name);
