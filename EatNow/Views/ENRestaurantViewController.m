@@ -592,9 +592,18 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",weakSelf.restaurant.phoneNumber];
             NSURL *phoneUrl = [NSURL URLWithString:phoneStr];
             if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
-                [[UIApplication sharedApplication] openURL:phoneUrl];
+                TMAlertController *alert = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@", weakSelf.restaurant.phoneNumber] message:nil preferredStyle:TMAlartControllerStyleAlert];
+                alert.iconStyle = TMAlertControlerIconStylePhone;
+                [alert addAction:[TMAlertAction actionWithTitle:@"Cancel" style:TMAlertActionStyleCancel handler:^(TMAlertAction *action) {
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                }]];
+                [alert addAction:[TMAlertAction actionWithTitle:@"Call" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+                    [[UIApplication sharedApplication] openURL:phoneUrl];
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                }]];
+                [weakSelf presentViewController:alert animated:YES completion:nil];
             }
-        }}];
+            }}];
     }
     if (weakSelf.restaurant.url) {
         [info addObject:@{@"type": @"url",
@@ -604,7 +613,16 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                           @"action": ^{
             NSURL *url = [NSURL URLWithString:weakSelf.restaurant.url];
             if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                [[UIApplication sharedApplication] openURL:url];
+                TMAlertController *alert = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Open Web Page?"] message:[NSString stringWithFormat:@"View %@ in the web browser?", weakSelf.restaurant.url] preferredStyle:TMAlartControllerStyleAlert];
+                alert.iconStyle = TMAlertControlerIconStyleQustion;
+                [alert addAction:[TMAlertAction actionWithTitle:@"Cancel" style:TMAlertActionStyleCancel handler:^(TMAlertAction *action) {
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                }]];
+                [alert addAction:[TMAlertAction actionWithTitle:@"Open" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
+                    [[UIApplication sharedApplication] openURL:url];
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                }]];
+                [weakSelf presentViewController:alert animated:YES completion:nil];
             }
         }}];
     }
