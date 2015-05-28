@@ -10,6 +10,7 @@
 
 NSString * const kEatNowErrorDomain = @"com.eatnow.error";
 
+
 @implementation NSError (EatNow)
 
 @end

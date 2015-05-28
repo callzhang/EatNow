@@ -238,46 +238,46 @@
     self.dynamicItem.density = 1.0;
     [self.animator addBehavior:_dynamicItem];
     
-    [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
-        if (self.cards.count)  return;
-        if (manager != NULL) {
-            ENLocationStatus locationStatus = manager.locationStatus;
-            switch (locationStatus) {
-                case ENLocationStatusGettingLocation:
-                    self.loadingInfo.text = @"";
-                    break;
-                case ENLocationStatusGotLocation:
-                    self.loadingInfo.text = @"";
-                    break;
-                case ENLocationStatusError:
-                    self.loadingInfo.text = @"Failed to get location";
-                default:
-                    break;
-            }
-        }
-    }];
+//    [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
+//        if (self.cards.count)  return;
+//        if (manager != NULL) {
+//            ENLocationStatus locationStatus = manager.locationStatus;
+//            switch (locationStatus) {
+//                case ENLocationStatusGettingLocation:
+//                    self.loadingInfo.text = @"";
+//                    break;
+//                case ENLocationStatusGotLocation:
+//                    self.loadingInfo.text = @"";
+//                    break;
+//                case ENLocationStatusError:
+//                    self.loadingInfo.text = @"Failed to get location";
+//                default:
+//                    break;
+//            }
+//        }
+//    }];
     
     //server status
-    [self.KVOController observe:self.serverManager keyPath:@keypath(self.serverManager, fetchStatus) options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
-        if (self.cards.count)  return;
-        if (manager != NULL) {
-            ENResturantDataStatus dataStatus = manager.fetchStatus;
-            switch (dataStatus) {
-                case ENResturantDataStatusFetchingRestaurant:
-                    self.loadingInfo.text = @"";
-                    break;
-                case ENResturantDataStatusFetchedRestaurant:
-                    self.loadingInfo.text = @"";
-                    break;
-                case ENResturantDataStatusError:
-                    self.loadingInfo.text = @"Failed to get restaurant list";
-                    ENLogError(@"Server error");
-                    break;
-                default:
-                    break;
-            }
-        }
-    }];
+//    [self.KVOController observe:self.serverManager keyPath:@keypath(self.serverManager, fetchStatus) options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
+//        if (self.cards.count)  return;
+//        if (manager != NULL) {
+//            ENResturantDataStatus dataStatus = manager.fetchStatus;
+//            switch (dataStatus) {
+//                case ENResturantDataStatusFetchingRestaurant:
+//                    self.loadingInfo.text = @"";
+//                    break;
+//                case ENResturantDataStatusFetchedRestaurant:
+//                    self.loadingInfo.text = @"";
+//                    break;
+//                case ENResturantDataStatusError:
+//                    self.loadingInfo.text = @"Failed to get restaurant list";
+//                    ENLogError(@"Server error");
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    }];
     
     
     
@@ -330,7 +330,7 @@
         }
         
         //HACK: should remove error magic number
-        if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == -1) {
+        if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == EatNowErrorTypeLocaltionNotAvailable) {
             self.needShowRestaurant = NO;
         }
     }];
@@ -469,7 +469,7 @@
         self.isSearchingFromServer = NO;
         
         //HACK: should remove error magic number
-        if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == -1) {
+        if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == EatNowErrorTypeLocaltionNotAvailable) {
             self.needShowRestaurant = NO;
         }
     }];
@@ -505,6 +505,7 @@
 - (void)searchNewRestaurantsWithCompletion:(void (^)(NSArray *response, NSError *error))block {
     NSDate *start = [NSDate date];
     @weakify(self);
+    self.loadingInfo.hidden = YES;
     [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         if (self.showLocationRequestTime) {
@@ -526,7 +527,9 @@
             }];
         }
         else {
-            NSError *error = [NSError errorWithDomain:kEatNowErrorDomain code:-1 userInfo:nil];
+            NSError *error = [NSError errorWithDomain:kEatNowErrorDomain code:EatNowErrorTypeLocaltionNotAvailable userInfo:nil];
+            self.loadingInfo.text = @"Eat Now cannot determine your location. \n\nPlease try again later.";
+            self.loadingInfo.hidden = NO;
             block(nil, error);
         }
     } ];
@@ -546,16 +549,17 @@
 
 - (void)showAllRestaurantCards{
     NSParameterAssert(!self.isSearchingFromServer);
-    self.loadingInfo.text = @"";
-    
     if (self.cards.count > 0) {
         DDLogWarn(@"=== Already have cards, skip showing restaurant");
         return;
     }
+    
     if (self.restaurants.count == 0) {
         DDLogWarn(@"No restaurant to show, skip showing restaurants");
         return;
     }
+    
+    self.loadingInfo.text = @"";
     
     self.isShowingCards = YES;
     [[Mixpanel sharedInstance] track:@"Card shown" properties:@{@"session": [ENServerManager shared].session}];
@@ -764,6 +768,7 @@
                 if (leftcards.count == 0) {
                     //show loading info
                     self.loadingInfo.text = @"You have dismissed all cards.";
+                    self.loadingInfo.hidden = NO;
                 }
             }];
         }

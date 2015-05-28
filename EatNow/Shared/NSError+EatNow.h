@@ -10,6 +10,10 @@
 
 extern NSString * const kEatNowErrorDomain;
 
+typedef NS_ENUM(NSInteger, EatNowErrorType) {
+    EatNowErrorTypeLocaltionNotAvailable = -999,
+};
+
 @interface NSError (EatNow)
 
 @end
