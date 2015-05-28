@@ -66,6 +66,10 @@
 	CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
 	self.location = loc;
     self.distance = (NSNumber *)address[@"distance"];
+    if (!_distance) {
+        float d = [loc distanceFromLocation:[ENLocationManager cachedCurrentLocation]];
+        self.distance = @(d);
+    }
     self.walkDuration = NSTimeIntervalSince1970;
     self.venderUrl = json[@"vendorUrl"];
 	//score

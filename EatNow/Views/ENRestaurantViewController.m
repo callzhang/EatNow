@@ -114,7 +114,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.cuisine.text = restaurant.cuisineText;
     self.price.text = restaurant.pricesText;
     self.rating.text = [NSString stringWithFormat:@"%.1f", [restaurant.rating floatValue]];
-    self.walkingDistance.text = [NSString stringWithFormat:@"%.1f mi", restaurant.distance.floatValue/1000/1.609344];
+    self.walkingDistance.text = [NSString stringWithFormat:@"%.0f mi", restaurant.distance.floatValue/1000/1.609344];
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
 	
@@ -151,10 +151,24 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.view.frame = frame;
         self.status = status;
         [self updateLayout];
+        if (status == ENRestaurantViewStatusDetail) {
+            self.shadowView.hidden = NO;
+        }else {
+            self.shadowView.hidden = YES;
+        }
     } completion:^(BOOL finished) {
         
-        if (status == ENRestaurantViewStatusDetail) {
-            [self didChangeToDetailView];
+        switch (status) {
+            case ENRestaurantViewStatusDetail:
+            case ENRestaurantViewStatusHistoryDetail:{
+                [self didChangeToDetailView];
+                break;
+            }
+            default:{
+                //close map if colapse
+                [self closeMap];
+                break;
+            }
         }
         
         if (block) {
@@ -163,22 +177,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         
         [self.tableView setContentOffset:CGPointZero animated:NO];
     }];
-    
-    //close map if colapse
-    if (self.map.frame.size.height > 0) {
-        if (status == ENRestaurantViewStatusCard || status == ENRestaurantViewStatusMinimum) {
-            [self closeMap];
-        }
-    }
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (status == ENRestaurantViewStatusDetail) {
-            self.shadowView.hidden = NO;
-        }
-        else {
-            self.shadowView.hidden = YES;
-        }
-    });
 }
 
 - (void)didChangedToFrontCard{
@@ -198,7 +196,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     float d = self.restaurant.distance.floatValue/1000/1.609344;
     self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
-        self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1f mi away, %.1f min walking", d, length/60];
+        if (!error) {
+            self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1f mi away, %@ walking", d, [ENUtil getStringFromTimeInterval:length]];
+        }
     }];
     
     //start display image
@@ -316,20 +316,14 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
     //map
     if (self.map.hidden == YES) {
-        [self toggleMap:nil];
+        [self showMap:nil];
     }
-    
-    @weakify(self);
-    [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
-        @strongify(self);
-        self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
-    }];
     
     //button
     [self updateGoButton];
 }
 
-- (IBAction)toggleMap:(id)sender{
+- (IBAction)showMap:(id)sender{
     self.map.hidden = NO;
     self.map.showsUserLocation = YES;
     self.map.delegate = self.mapManager;
@@ -343,8 +337,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //route
     @weakify(self);
     [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
-        @strongify(self);
-        self.walkingDistance.text = [NSString stringWithFormat:@"%.1f Min Walking", length/60];
+        if (!error) {
+            @strongify(self);
+            self.walkingDistance.text = [NSString stringWithFormat:@"%@ walking", [ENUtil getStringFromTimeInterval:length]];
+        }
     }];
     
     self.mainVC.currentMode = ENMainViewControllerModeMap;
@@ -574,7 +570,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         },
                           @"action": ^{
             //action to open map
-            [weakSelf toggleMap:nil];
+            [weakSelf showMap:nil];
         }}];
     }
     if (weakSelf.restaurant.openInfo) {

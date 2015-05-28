@@ -332,8 +332,8 @@
 		9B9424071AE0450300411D1F /* ENHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryViewController.m; sourceTree = "<group>"; };
 		9B9424091AE053F200411D1F /* ENHistoryViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryViewCell.h; sourceTree = "<group>"; };
 		9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryViewCell.m; sourceTree = "<group>"; };
-		9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantViewController.h; sourceTree = "<group>"; };
-		9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantViewController.m; sourceTree = "<group>"; };
+		9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENRestaurantViewController.h; path = ../Views/ENRestaurantViewController.h; sourceTree = "<group>"; };
+		9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENRestaurantViewController.m; path = ../Views/ENRestaurantViewController.m; sourceTree = "<group>"; };
 		9BAE960F1AFEB25500FF746B /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = Framework/Fabric.framework; sourceTree = "<group>"; };
 		9BAE96101AFEB25500FF746B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Framework/Crashlytics.framework; sourceTree = "<group>"; };
 		9BAE96131AFEB49300FF746B /* CrashlyticsLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashlyticsLogger.h; sourceTree = "<group>"; };
@@ -728,6 +728,8 @@
 		DA5B745418F239B700BB5F8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */,
+				9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */,
 				9B9424061AE0450300411D1F /* ENHistoryViewController.h */,
 				9B9424071AE0450300411D1F /* ENHistoryViewController.m */,
 				9B141DD81A901F5700EB2CC8 /* ENProfileViewController.h */,
@@ -766,8 +768,6 @@
 				09B9F8FD1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m */,
 				9B9424091AE053F200411D1F /* ENHistoryViewCell.h */,
 				9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */,
-				9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */,
-				9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */,
 				09E463F01AFB0AC200389E0B /* ENRestaurantTableViewCell.h */,
 				09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */,
 				09E463F31AFB0CE400389E0B /* UITableViewCell+Extension.h */,
