@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EatNow/Shared/Models/ENRestaurant.m"
-            timestampString = "451875791.496918"
+            timestampString = "454477372.914203"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "-placemark"
             landmarkType = "5">
          </BreakpointContent>
