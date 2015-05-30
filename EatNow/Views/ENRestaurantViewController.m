@@ -244,7 +244,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (![ENServerManager shared].canSelectNewRestaurant) {
         @weakify(self);
         
-        TMAlertController *alertController = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Going %@ instead?", self.restaurant.name] message:[NSString stringWithFormat:@"You just said you were going to %@", [ENServerManager shared].selectedRestaurant.name] preferredStyle:TMAlartControllerStyleAlert];
+        TMAlertController *alertController = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Going %@ instead?", self.restaurant.name] message:[NSString stringWithFormat:@"You just said you were going to %@.", [ENServerManager shared].selectedRestaurant.name] preferredStyle:TMAlartControllerStyleAlert];
         
 #ifdef DEBUG
         [alertController addAction:[TMAlertAction actionWithTitle:@"Force?" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
@@ -300,7 +300,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             if (shouldShowNiceChoice
 //                || YES
                 ) {
-                TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Choice" message:@"Eat Now Learns more about your taste each time you select a place." preferredStyle:TMAlartControllerStyleAlert];
+                TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Pick!" message:@"Eat Now learns about your taste each time you tap Go There." preferredStyle:TMAlartControllerStyleAlert];
                 alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
                 [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
                     [self dismissViewControllerAnimated:YES completion:nil];
@@ -588,7 +588,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             NSString *phoneStr = [NSString stringWithFormat:@"tel:%@",weakSelf.restaurant.phoneNumber];
             NSURL *phoneUrl = [NSURL URLWithString:phoneStr];
             if ([[UIApplication sharedApplication] canOpenURL:phoneUrl]) {
-                TMAlertController *alert = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@", weakSelf.restaurant.phoneNumber] message:nil preferredStyle:TMAlartControllerStyleAlert];
+                TMAlertController *alert = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Call %@?", weakSelf.restaurant.phoneNumber] message:nil preferredStyle:TMAlartControllerStyleAlert];
                 alert.iconStyle = TMAlertControlerIconStylePhone;
                 [alert addAction:[TMAlertAction actionWithTitle:@"Cancel" style:TMAlertActionStyleCancel handler:^(TMAlertAction *action) {
                     [weakSelf dismissViewControllerAnimated:YES completion:nil];

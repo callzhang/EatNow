@@ -17,6 +17,8 @@
 @interface ENGetLocationViewController ()<CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet ApplicationButton *enableButton;
 @property (nonatomic, assign) BOOL gettingLocation;
+@property (weak, nonatomic) IBOutlet UILabel *locationTitle;
+@property (weak, nonatomic) IBOutlet UILabel *locationBody;
 @end
 
 @implementation ENGetLocationViewController
@@ -53,6 +55,17 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.gettingLocation = NO;
+    if ([ENLocationManager locationServicesState] == INTULocationServicesStateDenied ||
+        [ENLocationManager locationServicesState] == INTULocationServicesStateDisabled ||
+        [ENLocationManager locationServicesState] == INTULocationServicesStateRestricted) {
+        self.locationTitle.text = @"Location Disabled";
+        self.locationBody.text = @"Please enable location service for Eat Now in your Settings app.";
+    }
+    else if (
+             [ENLocationManager locationServicesState] == INTULocationServicesStateNotDetermined) {
+        self.locationTitle.text = @"Location Unavailable";
+       self.locationBody.text = @"Eat Now cannot determine your location. Please try again later.";
+    }
 }
 
 - (void)applicationWillEnterForeground:(NSNotification *)notification {
