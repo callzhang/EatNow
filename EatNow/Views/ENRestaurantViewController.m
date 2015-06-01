@@ -114,7 +114,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.cuisine.text = restaurant.cuisineText;
     self.price.text = restaurant.pricesText;
     self.rating.text = [NSString stringWithFormat:@"%.1f", [restaurant.rating floatValue]];
-    self.walkingDistance.text = [NSString stringWithFormat:@"%.0f mi", restaurant.distance.floatValue/1000/1.609344];
+    self.walkingDistance.text = _restaurant.distanceStr;
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
 	
@@ -193,11 +193,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.map.hidden = YES;
     
     //start to calculate
-    float d = self.restaurant.distance.floatValue/1000/1.609344;
     self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
         if (!error) {
-            self.mapDistanceLabel.text = [NSString stringWithFormat:@"%.1f mi away, %@ walking", d, [ENUtil getStringFromTimeInterval:length]];
+            [self showWalkingTime:length];
         }
     }];
     
@@ -339,7 +338,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
         if (!error) {
             @strongify(self);
-            self.walkingDistance.text = [NSString stringWithFormat:@"%@ walking", [ENUtil getStringFromTimeInterval:length]];
+            [self showWalkingTime:length];
         }
     }];
     
@@ -543,6 +542,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
 }
 
+- (void)showWalkingTime:(NSTimeInterval)length{
+    NSString *str = [NSString stringWithFormat:@"%@ away, %@ walking", _restaurant.distanceStr, [ENUtil getStringFromTimeInterval:length]];
+    self.walkingDistance.text = str;
+    self.mapDistanceLabel.text = str;
+}
+
+
 #pragma mark - Table view
 - (void)prepareData{
     NSParameterAssert(_restaurant.json);
@@ -563,8 +569,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             NSString *state = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressStateKey];
             NSString *zip = weakSelf.restaurant.placemark.addressDictionary[(__bridge NSString *)kABPersonAddressZIPKey];
             address.text = [NSString stringWithFormat:@"%@\n%@, %@ %@", street, city, state, zip];
-            float d = weakSelf.restaurant.distance.floatValue/1000/1.609344;
-            distance.text = [NSString stringWithFormat:@"%.1f mi away", d];
+            distance.text = _restaurant.distanceStr;
             weakSelf.mapIcon = [cell viewWithTag:333];
             self.mapDistanceLabel = distance;
         },

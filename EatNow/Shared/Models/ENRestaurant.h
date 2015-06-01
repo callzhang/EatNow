@@ -45,6 +45,7 @@
 @property (nonatomic, strong) NSDictionary *json;
 @property (nonatomic, strong) NSString *openInfo;
 @property (nonatomic, strong) NSNumber* distance;
+@property (nonatomic, readonly) NSString *distanceStr;
 @property (nonatomic, assign) NSTimeInterval walkDuration;
 @property (nonatomic, strong) NSString *twitter;
 @property (nonatomic, strong) NSString *facebook;

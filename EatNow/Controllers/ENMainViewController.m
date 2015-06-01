@@ -237,49 +237,7 @@
     self.dynamicItem = [[UIDynamicItemBehavior alloc] init];
     self.dynamicItem.density = 1.0;
     [self.animator addBehavior:_dynamicItem];
-    
-//    [self.KVOController observe:self.locationManager keyPath:@keypath(self.locationManager, locationStatus) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, ENLocationManager *manager, NSDictionary *change) {
-//        if (self.cards.count)  return;
-//        if (manager != NULL) {
-//            ENLocationStatus locationStatus = manager.locationStatus;
-//            switch (locationStatus) {
-//                case ENLocationStatusGettingLocation:
-//                    self.loadingInfo.text = @"";
-//                    break;
-//                case ENLocationStatusGotLocation:
-//                    self.loadingInfo.text = @"";
-//                    break;
-//                case ENLocationStatusError:
-//                    self.loadingInfo.text = @"Failed to get location";
-//                default:
-//                    break;
-//            }
-//        }
-//    }];
-    
-    //server status
-//    [self.KVOController observe:self.serverManager keyPath:@keypath(self.serverManager, fetchStatus) options:NSKeyValueObservingOptionNew block:^(id observer, ENServerManager *manager, NSDictionary *change) {
-//        if (self.cards.count)  return;
-//        if (manager != NULL) {
-//            ENResturantDataStatus dataStatus = manager.fetchStatus;
-//            switch (dataStatus) {
-//                case ENResturantDataStatusFetchingRestaurant:
-//                    self.loadingInfo.text = @"";
-//                    break;
-//                case ENResturantDataStatusFetchedRestaurant:
-//                    self.loadingInfo.text = @"";
-//                    break;
-//                case ENResturantDataStatusError:
-//                    self.loadingInfo.text = @"Failed to get restaurant list";
-//                    ENLogError(@"Server error");
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//    }];
-    
-    
+
     
     [self.KVOController observe:self keyPaths:@[@keypath(self.needShowRestaurant), @keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
@@ -294,7 +252,7 @@
         }
         
         if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
-            _needShowRestaurant = NO;
+            self.needShowRestaurant = NO;
             [self showAllRestaurantCards];
         }
     }];
@@ -310,6 +268,7 @@
             NSDate *date = [NSDate dateFromISO1861:dateStr];
             BOOL reviewTimePassed = [[NSDate date] timeIntervalSinceDate:date] > kMaxSelectedRestaurantRetainTime;
 #ifdef DEBUG
+            //review immediately in debug
             reviewTimePassed = YES;
 #endif
             BOOL needReview = [historyData[@"reviewed"] boolValue] == NO;
@@ -320,27 +279,11 @@
         }
     }];
 	
-	//simple state machine
-//    self.showRestaurantCardTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(onShowRestaurantTimer:) userInfo:nil repeats:YES];
-
     //load restaurants from server
-    [self searchNewRestaurantsWithCompletion:^(NSArray *response, NSError *error) {
-        if (!error) {
-            self.needShowRestaurant = YES;
-        }
-        
-        //HACK: should remove error magic number
-        if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == EatNowErrorTypeLocaltionNotAvailable) {
-            self.needShowRestaurant = NO;
-        }
-    }];
+    [self searchNewRestaurantsWithCompletion:nil];
     
     self.cardView.backgroundColor = [UIColor clearColor];
     self.cardContainer.backgroundColor = [UIColor clearColor];
-    
-    if (self.restaurants.count == 0) {
-        [self onReloadButton:nil];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -387,7 +330,8 @@
     UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:profileVC];
     [self presentViewController:navVC animated:YES completion:nil];
 #else
-    [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID}];
+    CLLocation *loc = [ENLocationManager cachedCurrentLocation];
+    [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID, @"coordinate": @{@"lat": loc.coordinate.latitude, @"lon": loc.coordinate.longitude}}];
 #endif
 }
 
@@ -426,9 +370,7 @@
     NSParameterAssert(!self.isSearchingFromServer);
     NSParameterAssert(!self.isShowingCards);
     NSParameterAssert(!self.isDismissingCard);
-    self.isSearchingFromServer = YES;
     self.isDismissingCard = YES;
-    self.needShowRestaurant = YES;
     
     self.restaurants = nil;
     
@@ -465,14 +407,7 @@
     }
 
     //search for new
-    [self searchNewRestaurantsWithCompletion:^(NSArray *response, NSError *error) {
-        self.isSearchingFromServer = NO;
-        
-        //HACK: should remove error magic number
-        if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == EatNowErrorTypeLocaltionNotAvailable) {
-            self.needShowRestaurant = NO;
-        }
-    }];
+    [self searchNewRestaurantsWithCompletion:nil];
 
 }
 
@@ -503,6 +438,8 @@
 #pragma mark - Main methods
 
 - (void)searchNewRestaurantsWithCompletion:(void (^)(NSArray *response, NSError *error))block {
+    
+    self.isSearchingFromServer = YES;
     NSDate *start = [NSDate date];
     @weakify(self);
     self.loadingInfo.hidden = YES;
@@ -515,37 +452,29 @@
         if (location) {
             [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
                 @strongify(self);
+                self.isSearchingFromServer = NO;
                 if (success) {
                     self.restaurants = response.mutableCopy;
-//                    self.restaurants = [NSMutableArray array];
                     if (self.restaurants.count == 0) {
                         [self showNoRestaurantStatus];
                     }
+                    self.needShowRestaurant = YES;//need to place after the _restaurants is assigned
+                }else {
+                    self.needShowRestaurant = NO;
+                    [self handleError:error];
                 }
                 
-                block(response, error);
+                if(block) block(response, error);
             }];
         }
         else {
+            self.isSearchingFromServer = NO;
             NSError *error = [NSError errorWithDomain:kEatNowErrorDomain code:EatNowErrorTypeLocaltionNotAvailable userInfo:nil];
-            self.loadingInfo.text = @"Eat Now cannot determine your location. \n\nPlease try again later.";
-            self.loadingInfo.hidden = NO;
-            block(nil, error);
+            [self handleError:error];
+            if(block) block(nil, error);
         }
     } ];
 }
-
-//- (void)onShowRestaurantTimer:(id)sender {
-//    /**
-//     *  Only show all cards when need show restaurant flag is set
-//     *  and reloading finished
-//     *  and cards are all dismissed.
-//     */
-//    if (self.needShowRestaurant && !self.isSearchingFromServer && !self.isDismissingCard && !self.isShowingCards) {
-//        self.needShowRestaurant = NO;
-//        [self showAllRestaurantCards];
-//    }
-//}
 
 - (void)showAllRestaurantCards{
     NSParameterAssert(!self.isSearchingFromServer);
@@ -560,8 +489,8 @@
     }
     
     self.loadingInfo.text = @"";
-    
     self.isShowingCards = YES;
+    
     [[Mixpanel sharedInstance] track:@"Card shown" properties:@{@"session": [ENServerManager shared].session}];
     // Display cards animated
     NSUInteger restaurantCount = _restaurants.count;
@@ -624,7 +553,6 @@
         //finish
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((_maxCardsToAnimate * _cardShowInterval + 1) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.isShowingCards = NO;
-            self.needShowRestaurant = NO;
         });
     }
 }
@@ -767,7 +695,7 @@
             [self dismissFrontCardWithVelocity:velocity completion:^(NSArray *leftcards) {
                 if (leftcards.count == 0) {
                     //show loading info
-                    self.loadingInfo.text = @"Seems you didn’t like any of the recommendations. Press Refresh and try your luck again?";
+                    self.loadingInfo.text = @"\n\nSeems you didn’t like any of the recommendations. Press Refresh and try your luck again?";
                     self.loadingInfo.hidden = NO;
                 }
             }];
@@ -870,6 +798,23 @@
             [imageViewCopy removeFromSuperview];
         }];
     } repeats:NO];
+}
+
+- (void)handleError:(NSError *)error {
+    if (!error) {
+        return;
+    }
+    if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == EatNowErrorTypeLocaltionNotAvailable) {
+        //location not available
+        
+        self.loadingInfo.text = @"Sorry, I cannot determine your location. \n\nPlease try again later.";
+        self.loadingInfo.hidden = NO;
+    } else {
+        //handle server error
+        self.loadingInfo.text = @"Sorry, I cannot connect to server. \n\nPlease try again later.";
+        self.loadingInfo.hidden = NO;
+        
+    }
 }
 
 #pragma mark - Card frame

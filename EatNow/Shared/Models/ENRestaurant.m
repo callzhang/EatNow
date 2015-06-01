@@ -187,6 +187,22 @@
     return address[@"address"]?:@"";
 }
 
+/**
+ *  Distance string in "1.2 km/mi" format
+ *
+ *  @return distance string
+ */
+- (NSString *)distanceStr{
+    
+    float distance = self.distance.floatValue/1000;
+    NSNumber *metric = [[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem];
+    if (!metric.boolValue) {
+        distance *= 0.621371;
+    }
+    NSString *unit = metric.boolValue ? @"km" : (distance > 1 ? @"miles" : @"mile");
+    return [NSString stringWithFormat:@"%.1f %@", distance, unit];
+}
+
 #pragma mark - Tools
 - (void)parseFoursquareWebsiteForImagesWithUrl:(NSString *)urlString completion:(void (^)(NSArray *imageUrls, NSError *error))block{
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/photos", urlString]];
