@@ -45,7 +45,7 @@
 #import "FBTweakStore.h"
 #import "extobjc.h"
 #import "UIWindow+Extensions.h"
-
+#import "Parse.h"
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate>
 @property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
@@ -61,6 +61,12 @@
     [Fabric with:@[CrashlyticsKit]];
     [Fabric sharedSDK].debug = YES;
     [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
+    
+    //Parse
+    [Parse enableLocalDatastore];
+    [Parse setApplicationId:@"T3xvBQKPYCh6mtwPDcyuTP1GltTITXmWye7wuYr1"
+                  clientKey:@"ZC3AoPat2ctcQ5iX7r7QvypyiiXmX0vuIlqZ2urs"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];// [Optional] Track statistics around application opens.
     
     [ENLocationManager registerLocationDeniedHandler:^{
         [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
@@ -191,9 +197,9 @@
 #pragma mark - Push notification
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     DDLogInfo(@"Push token received: %@", deviceToken);
-    //PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    //[currentInstallation setDeviceTokenFromData:deviceToken];
-    //[currentInstallation saveInBackground];
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
     
     // This sends the deviceToken to Mixpanel
     [[Mixpanel sharedInstance].people addPushDeviceToken:deviceToken];

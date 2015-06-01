@@ -100,6 +100,8 @@ PODS:
     - Mixpanel/MPCategoryHelpers
   - Mixpanel/MPCategoryHelpers (2.8.1)
   - MTDates (1.0.2)
+  - Parse (1.7.4):
+    - Bolts/Tasks (>= 1.1.5)
   - PromiseKit/base (1.5.3):
     - PromiseKit/Promise
     - PromiseKit/Until
@@ -143,6 +145,7 @@ DEPENDENCIES:
   - libextobjc
   - Mixpanel (~> 2.8)
   - MTDates (~> 1.0)
+  - Parse (~> 1.7)
   - PureLayout (~> 2.0.6)
   - ReactiveCocoa (= 2.5)
   - SGImageCache (~> 2.1)
@@ -165,6 +168,7 @@ SPEC CHECKSUMS:
   MGEvents: 739ea3e582a8df05bd1044500c7fb6d8f7aff5c8
   Mixpanel: 93c4825025e6380ced273ed7178496282e385077
   MTDates: aa8006ac046c3fc4f2bb9df95603e9b5bdac9467
+  Parse: 6ca512c6e860b66739c95151b2f76ac4712b7842
   PromiseKit: 7ecae7c190ab92ae00aae6ba7f88942107532b8f
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a

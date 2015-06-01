@@ -558,6 +558,10 @@ property rights, Mixpanel may seek injunctive or other appropriate relief in
 any state or federal court in the State of California.
 
 
+## Parse
+
+See https://www.parse.com/about/terms
+
 ## PromiseKit
 
 Copyright 2014 Max Howell <mxcl@me.com>

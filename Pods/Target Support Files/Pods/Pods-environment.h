@@ -186,6 +186,12 @@
 #define COCOAPODS_VERSION_MINOR_Mixpanel_Mixpanel 8
 #define COCOAPODS_VERSION_PATCH_Mixpanel_Mixpanel 1
 
+// Parse
+#define COCOAPODS_POD_AVAILABLE_Parse
+#define COCOAPODS_VERSION_MAJOR_Parse 1
+#define COCOAPODS_VERSION_MINOR_Parse 7
+#define COCOAPODS_VERSION_PATCH_Parse 4
+
 // PromiseKit/Promise
 #define COCOAPODS_POD_AVAILABLE_PromiseKit_Promise
 #define COCOAPODS_VERSION_MAJOR_PromiseKit_Promise 1

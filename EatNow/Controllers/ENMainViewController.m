@@ -331,7 +331,7 @@
     [self presentViewController:navVC animated:YES completion:nil];
 #else
     CLLocation *loc = [ENLocationManager cachedCurrentLocation];
-    [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID, @"coordinate": @{@"lat": loc.coordinate.latitude, @"lon": loc.coordinate.longitude}}];
+    [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID, @"coordinate": @{@"lat": @(loc.coordinate.latitude), @"lon": @(loc.coordinate.longitude)}}];
 #endif
 }
 
