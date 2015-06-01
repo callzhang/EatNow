@@ -199,6 +199,7 @@
     DDLogInfo(@"Push token received: %@", deviceToken);
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation setObject:[ENServerManager shared].myID forKey:@"ID"];
     [currentInstallation saveInBackground];
     
     // This sends the deviceToken to Mixpanel
