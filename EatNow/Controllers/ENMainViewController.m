@@ -397,8 +397,7 @@
         float delay = i * _cardShowInterval - (i*i-i)/2 * _cardShowIntervalDiminishingDelta;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             CGPoint v = CGPointMake(50.0f - arc4random_uniform(100), 0);
-            [self dismissFrontCardWithVelocity:v completion:^(NSArray *leftcards) {
-            }];
+            [self dismissFrontCardWithVelocity:v completion:nil];
             
             if (i == dismissCardViewCount - 1) {
                 self.isDismissingCard = NO;
@@ -602,7 +601,7 @@
                 [_gravity removeItem:card.view];
                 [_dynamicItem removeItem:card.view];
                 [card.view removeFromSuperview];
-                completion(self.cards);
+                if(completion) completion(self.cards);
             }];
         });
     }

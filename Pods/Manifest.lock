@@ -93,7 +93,6 @@ PODS:
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
   - libextobjc/UmbrellaHeader (0.4.1)
-  - MGEvents (1.0.3)
   - Mixpanel (2.8.1):
     - Mixpanel/Mixpanel (= 2.8.1)
   - Mixpanel/Mixpanel (2.8.1):
@@ -102,16 +101,6 @@ PODS:
   - MTDates (1.0.2)
   - Parse (1.7.4):
     - Bolts/Tasks (>= 1.1.5)
-  - PromiseKit/base (1.5.3):
-    - PromiseKit/Promise
-    - PromiseKit/Until
-    - PromiseKit/When
-  - PromiseKit/Promise (1.5.3)
-  - PromiseKit/Until (1.5.3):
-    - PromiseKit/Promise
-    - PromiseKit/When
-  - PromiseKit/When (1.5.3):
-    - PromiseKit/Promise
   - PureLayout (2.0.6)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
@@ -120,13 +109,6 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - SGHTTPRequest (1.1.1):
-    - AFNetworking (~> 2.0)
-  - SGImageCache (2.1.1):
-    - AFNetworking (~> 2.0)
-    - MGEvents
-    - PromiseKit/base (~> 1.5)
-    - SGHTTPRequest
   - Tweaks (2.0.0)
   - UITableView-NXEmptyView (0.1.7)
 
@@ -148,7 +130,6 @@ DEPENDENCIES:
   - Parse (~> 1.7)
   - PureLayout (~> 2.0.6)
   - ReactiveCocoa (= 2.5)
-  - SGImageCache (~> 2.1)
   - Tweaks (~> 2.0.0)
   - UITableView-NXEmptyView (~> 0.1.7)
 
@@ -165,16 +146,12 @@ SPEC CHECKSUMS:
   JSONModel: 6ffcb4ffa3659c9e9a2e5d45d6c7705bab187c03
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  MGEvents: 739ea3e582a8df05bd1044500c7fb6d8f7aff5c8
   Mixpanel: 93c4825025e6380ced273ed7178496282e385077
   MTDates: aa8006ac046c3fc4f2bb9df95603e9b5bdac9467
   Parse: 6ca512c6e860b66739c95151b2f76ac4712b7842
-  PromiseKit: 7ecae7c190ab92ae00aae6ba7f88942107532b8f
   PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  SGHTTPRequest: f3544a44833166124059f277014707e684abe13b
-  SGImageCache: d967eb8c2638c17df52fe1e1d8c21888e278f8e5
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
 
-COCOAPODS: 0.36.0
+COCOAPODS: 0.37.1

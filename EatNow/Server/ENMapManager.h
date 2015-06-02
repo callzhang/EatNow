@@ -10,6 +10,7 @@
 #import "ENRestaurant.h"
 @import MapKit;
 @interface ENMapManager : NSObject<MKMapViewDelegate>
+@property (nonatomic, weak) MKMapView *map;
 
 - (instancetype)initWithMap:(MKMapView *)map;
 

@@ -13,7 +13,6 @@
 @import AddressBook;
 
 @interface ENMapManager()
-@property (nonatomic, weak) MKMapView *map;
 @property (nonatomic, strong) NSTimer *repeatTimer;
 @property (nonatomic, assign) BOOL firstTimeRoute;
 @end

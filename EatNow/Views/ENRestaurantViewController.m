@@ -24,7 +24,6 @@
 #import "TMAlertController.h"
 #import "TMAlertAction.h"
 #import "ENMainViewController.h"
-#import "SGImageCache.h"
 @import AddressBook;
 
 NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
@@ -64,6 +63,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (nonatomic, assign) BOOL viewDidLayout;
 @property (nonatomic, assign) BOOL hasParsedImage;
 @property (nonatomic, assign) float walkingSeconds;
+@property (nonatomic, assign) NSTimeInterval lastWalkingEstimate;
 @end
 
 
@@ -183,22 +183,17 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if ([self.restaurant.images.firstObject isKindOfClass:[UIImage class]]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.restaurant.images.firstObject}];
     }
-}
-
-- (void)didChangeToDetailView{
-    //add map to view and hide
-    self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
-    self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
-    [self.card insertSubview:self.map belowSubview:self.goButton];
-    self.map.hidden = YES;
     
     //start to calculate
-    self.mapManager = [[ENMapManager alloc] initWithMap:self.map];
+    self.mapManager = [[ENMapManager alloc] initWithMap:nil];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
         if (!error) {
             [self showWalkingTime:length];
         }
     }];
+}
+
+- (void)didChangeToDetailView{
     
     //start display image
     static NSTimer *imageLoadingTimer;
@@ -215,6 +210,14 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (self.status == ENRestaurantViewStatusDetail){
         [self parseVendorImages];
     }
+    
+    //add map to view and hide
+    self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
+    self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
+    [self.card insertSubview:self.map belowSubview:self.goButton];
+    self.map.hidden = YES;
+    self.mapManager.map = self.map;
+    [self showWalkingTime:self.lastWalkingEstimate];
 }
 
 #pragma mark - UI
@@ -465,7 +468,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     NSString *url = self.restaurant.imageUrls[nextIdx];
     //download first
     @weakify(self);
-    [SGImageCache slowGetImageForURL:url].then(^(UIImage *image) {
+    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         [self.loading stopAnimating];
         _isLoadingImage = NO;
         if (!image) return;
@@ -481,7 +484,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self showImage:image];
         
         //self.pageControl.currentPage = nextIdx;
-    });
+    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        ENLogError(@"*** Failed to download image with error: %@", error);
+    }];
 }
 
 - (void)parseVendorImages{
@@ -543,6 +548,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)showWalkingTime:(NSTimeInterval)length{
+    self.lastWalkingEstimate = length;
     NSString *str = [NSString stringWithFormat:@"%@ away, %@ walking", _restaurant.distanceStr, [ENUtil getStringFromTimeInterval:length]];
     self.walkingDistance.text = str;
     self.mapDistanceLabel.text = str;

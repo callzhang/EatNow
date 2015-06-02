@@ -156,12 +156,6 @@
 #define COCOAPODS_VERSION_MINOR_KVOController 0
 #define COCOAPODS_VERSION_PATCH_KVOController 3
 
-// MGEvents
-#define COCOAPODS_POD_AVAILABLE_MGEvents
-#define COCOAPODS_VERSION_MAJOR_MGEvents 1
-#define COCOAPODS_VERSION_MINOR_MGEvents 0
-#define COCOAPODS_VERSION_PATCH_MGEvents 3
-
 // MTDates
 #define COCOAPODS_POD_AVAILABLE_MTDates
 #define COCOAPODS_VERSION_MAJOR_MTDates 1
@@ -192,30 +186,6 @@
 #define COCOAPODS_VERSION_MINOR_Parse 7
 #define COCOAPODS_VERSION_PATCH_Parse 4
 
-// PromiseKit/Promise
-#define COCOAPODS_POD_AVAILABLE_PromiseKit_Promise
-#define COCOAPODS_VERSION_MAJOR_PromiseKit_Promise 1
-#define COCOAPODS_VERSION_MINOR_PromiseKit_Promise 5
-#define COCOAPODS_VERSION_PATCH_PromiseKit_Promise 3
-
-// PromiseKit/Until
-#define COCOAPODS_POD_AVAILABLE_PromiseKit_Until
-#define COCOAPODS_VERSION_MAJOR_PromiseKit_Until 1
-#define COCOAPODS_VERSION_MINOR_PromiseKit_Until 5
-#define COCOAPODS_VERSION_PATCH_PromiseKit_Until 3
-
-// PromiseKit/When
-#define COCOAPODS_POD_AVAILABLE_PromiseKit_When
-#define COCOAPODS_VERSION_MAJOR_PromiseKit_When 1
-#define COCOAPODS_VERSION_MINOR_PromiseKit_When 5
-#define COCOAPODS_VERSION_PATCH_PromiseKit_When 3
-
-// PromiseKit/base
-#define COCOAPODS_POD_AVAILABLE_PromiseKit_base
-#define COCOAPODS_VERSION_MAJOR_PromiseKit_base 1
-#define COCOAPODS_VERSION_MINOR_PromiseKit_base 5
-#define COCOAPODS_VERSION_PATCH_PromiseKit_base 3
-
 // PureLayout
 #define COCOAPODS_POD_AVAILABLE_PureLayout
 #define COCOAPODS_VERSION_MAJOR_PureLayout 2
@@ -245,18 +215,6 @@
 #define COCOAPODS_VERSION_MAJOR_ReactiveCocoa_no_arc 2
 #define COCOAPODS_VERSION_MINOR_ReactiveCocoa_no_arc 5
 #define COCOAPODS_VERSION_PATCH_ReactiveCocoa_no_arc 0
-
-// SGHTTPRequest
-#define COCOAPODS_POD_AVAILABLE_SGHTTPRequest
-#define COCOAPODS_VERSION_MAJOR_SGHTTPRequest 1
-#define COCOAPODS_VERSION_MINOR_SGHTTPRequest 1
-#define COCOAPODS_VERSION_PATCH_SGHTTPRequest 1
-
-// SGImageCache
-#define COCOAPODS_POD_AVAILABLE_SGImageCache
-#define COCOAPODS_VERSION_MAJOR_SGImageCache 2
-#define COCOAPODS_VERSION_MINOR_SGImageCache 1
-#define COCOAPODS_VERSION_PATCH_SGImageCache 1
 
 // Tweaks
 #define COCOAPODS_POD_AVAILABLE_Tweaks
