@@ -6,7 +6,7 @@
 - No Push Notification Permission.
 - Eat-Now major feature is **Instant Restaurant Search**, from app launch to restaurants search *Cards* available requires less than **5** seconds.
 - Eat-Now’s philosophy is simple, elegant and instantly helpful.
-
+ 
 ### Card Deck View
 ![alt text](https://raw.githubusercontent.com/callzhang/EatNow/wireframes/wireframes/card-deck-view.png)
 - Eat-Now offers **12** *Cards* at a time on the *Card Deck View*.
