@@ -155,12 +155,12 @@
 
 - (NSString *)scoreComponentsText{
 	NSMutableString *scores = [NSMutableString new];
-	[scores appendFormat:@"Rate:%ld ", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.rating_score"] integerValue]];
-	[scores appendFormat:@"Food:%ld ", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.cuisine_score"] integerValue]];
-	[scores appendFormat:@"Dist:%ld ", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.distance_score"] integerValue]];
-	[scores appendFormat:@"Tips:%ld ", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.comment_score"] integerValue]];
-	[scores appendFormat:@"Price:%ld ", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.price_score"] integerValue]];
-	[scores appendFormat:@"Time:%ld", (long)(long)[(NSNumber *)[_json valueForKeyPath:@"score.time_score"] integerValue]];
+	[scores appendFormat:@"Rate:%ld ", (long)[(NSNumber *)[_json valueForKeyPath:@"score.rating_score"] integerValue]];
+	[scores appendFormat:@"Food:%ld ", (long)[(NSNumber *)[_json valueForKeyPath:@"score.cuisine_score"] integerValue]];
+	[scores appendFormat:@"Dist:%ld ", (long)[(NSNumber *)[_json valueForKeyPath:@"score.distance_score"] integerValue]];
+	[scores appendFormat:@"Tips:%ld ", (long)[(NSNumber *)[_json valueForKeyPath:@"score.comment_score"] integerValue]];
+	[scores appendFormat:@"Price:%ld ", (long)[(NSNumber *)[_json valueForKeyPath:@"score.price_score"] integerValue]];
+	[scores appendFormat:@"Time:%ld", (long)[(NSNumber *)[_json valueForKeyPath:@"score.time_score"] integerValue]];
 	
 	return scores.copy;
 }

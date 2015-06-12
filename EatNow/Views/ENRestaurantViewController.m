@@ -675,9 +675,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
     if (self.mainVC.showScore) {
         if (weakSelf.restaurant.score) {
+			float original_score = [(NSNumber *)[weakSelf.restaurant.json valueForKeyPath:@"score.original_score"] floatValue];
+			float total = weakSelf.restaurant.score.floatValue;
+			float perc = total/original_score-1;
             [info addObject:@{@"type": @"score",
                               @"cellID":@"subtitle",
-                              @"title": [NSString stringWithFormat:@"Total score: %.1f", weakSelf.restaurant.score.floatValue],
+                              @"title": [NSString stringWithFormat:@"Total score: %.1f(%.0f%%)", total, perc*100],
                               @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
                               }];
         }

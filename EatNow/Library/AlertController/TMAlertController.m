@@ -18,7 +18,6 @@
 @property (nonatomic, strong) NSMutableArray *mutableActions;
 @property (nonatomic, assign) TMAlartControllerStyle preferredStyle;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageLabelLayoutConstraint;
-
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *visualEffectBackgroundView;
 @property (nonatomic, strong) TMAlertTransitioningDelegate *transitionDelegate;

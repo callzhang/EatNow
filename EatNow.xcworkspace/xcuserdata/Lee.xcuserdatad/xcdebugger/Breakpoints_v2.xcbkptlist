@@ -9,7 +9,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            scope = "0"
+            scope = "1"
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,6 +57,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "135"
             endingLineNumber = "135">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EatNow/Shared/ENServerManager.m"
+            timestampString = "455819499.571322"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "-searchRestaurantsAtLocation:WithCompletion:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
