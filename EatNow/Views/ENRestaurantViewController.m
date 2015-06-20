@@ -39,12 +39,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UILabel *cuisine;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (weak, nonatomic) IBOutlet UILabel *openTime;
 @property (weak, nonatomic) IBOutlet UILabel *walkingDistance;
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 @property (weak, nonatomic) IBOutlet UIView *card;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 //view
 @property (strong, nonatomic) MKMapView *map;
@@ -445,12 +445,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
     //download
     self.isLoadingImage = YES;
-    [self.loading startAnimating];
     NSString *url = self.restaurant.imageUrls[nextIdx];
     //download first
     @weakify(self);
     [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        [self.loading stopAnimating];
         _isLoadingImage = NO;
         if (!image) return;
         
@@ -502,10 +500,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)showImage:(UIImage *)image{
-    if (self.loading.isAnimating) {
-        [self.loading stopAnimating];
-    }
-    
     if (self.map && !self.map.isHidden) {
         return;
     }

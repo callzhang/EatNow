@@ -933,6 +933,9 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage" customClass="SGImageView">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                             </imageView>
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQ4-0F-oZd">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                                            </scrollView>
                                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-deck-view-image-dark-overlay-upper" translatesAutoresizingMaskIntoConstraints="NO" id="5im-Zl-NK2">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="124"/>
                                             </imageView>
@@ -1049,14 +1052,18 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.25" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="5im-Zl-NK2" firstAttribute="height" secondItem="fsH-Ee-d2j" secondAttribute="height" multiplier="1:2" id="15N-Dm-d2q"/>
+                                            <constraint firstAttribute="bottom" secondItem="bQ4-0F-oZd" secondAttribute="bottom" id="2e7-t7-UIM"/>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="10" id="5Kx-Jx-9cx"/>
+                                            <constraint firstItem="bQ4-0F-oZd" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="7Tu-5Y-zuf"/>
                                             <constraint firstAttribute="trailing" secondItem="5im-Zl-NK2" secondAttribute="trailing" id="7aa-0n-nQ3"/>
                                             <constraint firstItem="5im-Zl-NK2" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="Ayr-OB-lVi"/>
                                             <constraint firstAttribute="trailing" secondItem="cy3-AH-BuV" secondAttribute="trailing" id="Bau-Z1-YWY"/>
                                             <constraint firstItem="l8B-bX-ZHI" firstAttribute="height" secondItem="fsH-Ee-d2j" secondAttribute="height" multiplier="1:2" id="DG3-Vm-Snn"/>
+                                            <constraint firstAttribute="trailing" secondItem="bQ4-0F-oZd" secondAttribute="trailing" id="DJ8-HE-CtM"/>
                                             <constraint firstAttribute="trailing" secondItem="0Rc-cj-kSW" secondAttribute="trailing" constant="10" id="Er7-ET-ejN"/>
                                             <constraint firstAttribute="bottom" secondItem="DBA-UH-kFT" secondAttribute="bottom" constant="7" id="Ftq-jj-Z4f"/>
                                             <constraint firstItem="cy3-AH-BuV" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="GIO-Av-PQn"/>
+                                            <constraint firstItem="bQ4-0F-oZd" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="IZn-0t-EtL"/>
                                             <constraint firstAttribute="trailing" secondItem="l8B-bX-ZHI" secondAttribute="trailing" id="JV0-s8-a1U"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="10" id="LdG-9F-uh3"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="10" id="OCd-oj-NLg"/>
@@ -1325,6 +1332,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                         <outlet property="openTime" destination="xKx-ie-3fb" id="QYc-1i-dRg"/>
                         <outlet property="price" destination="9rp-Qh-TDe" id="GEu-fR-ipG"/>
                         <outlet property="rating" destination="0Rc-cj-kSW" id="X5h-qS-1bg"/>
+                        <outlet property="scrollView" destination="bQ4-0F-oZd" id="oBT-65-hKI"/>
                         <outlet property="shadowView" destination="DPc-EE-oxi" id="4gZ-eZ-mL7"/>
                         <outlet property="tableView" destination="ElG-By-adf" id="e66-2g-eoE"/>
                         <outlet property="walkingDistance" destination="2zY-ds-bCm" id="54E-xz-XAd"/>
