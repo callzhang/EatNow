@@ -469,7 +469,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-588" y="603"/>
+            <point key="canvasLocation" x="-676" y="603"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="fEb-E9-N2Z">
@@ -1269,11 +1269,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcM-Kx-ZZ9" userLabel="going">
-                                        <rect key="frame" x="85" y="492" width="150" height="42"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="0bo-7U-3s3"/>
-                                            <constraint firstAttribute="height" constant="42" id="xmF-ib-AAo"/>
-                                        </constraints>
+                                        <rect key="frame" x="83" y="485" width="155" height="49"/>
                                         <state key="normal" image="eatnew-card-details-view-go-button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

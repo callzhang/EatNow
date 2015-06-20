@@ -59,8 +59,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (nonatomic, assign) BOOL isLoadingImage;
 @property (nonatomic, strong) ENMapManager *mapManager;
 @property (nonatomic, weak) UIView *mapIcon;
-@property (nonatomic, strong) NSMutableArray *viewDidLayoutBlocks;
-@property (nonatomic, assign) BOOL viewDidLayout;
 @property (nonatomic, assign) BOOL hasParsedImage;
 @property (nonatomic, assign) float walkingSeconds;
 @property (nonatomic, assign) NSTimeInterval lastWalkingEstimate;
@@ -70,7 +68,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @implementation ENRestaurantViewController
 + (instancetype)viewController {
     ENRestaurantViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENCardContainer"];
-    vc.viewDidLayoutBlocks = [NSMutableArray new];
     return vc;
 }
 
@@ -122,21 +119,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 	[self updateGoButton];
 }
 
-- (void)addViewDidLayoutBlock:(VoidBlock)block {
-    if (self.viewDidLayout) {
-        block();
-    } else {
-        [self.viewDidLayoutBlocks addObject:[block copy]];
-    }
-}
-
 - (void)viewDidLayoutSubviews {
-    self.viewDidLayout = YES;
-    for (VoidBlock block in self.viewDidLayoutBlocks) {
-        block();
-    }
-    [self.viewDidLayoutBlocks removeAllObjects];
-    
     self.shadowView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.shadowView.bounds cornerRadius:16].CGPath;
 }
 
@@ -157,7 +140,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             self.shadowView.hidden = YES;
         }
     } completion:^(BOOL finished) {
-        
         switch (status) {
             case ENRestaurantViewStatusDetail:
             case ENRestaurantViewStatusHistoryDetail:{
@@ -194,7 +176,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)didChangeToDetailView{
-    
     //start display image
     static NSTimer *imageLoadingTimer;
     [imageLoadingTimer invalidate];
@@ -553,7 +534,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.walkingDistance.text = str;
     self.mapDistanceLabel.text = str;
 }
-
 
 #pragma mark - Table view
 - (void)prepareData{
