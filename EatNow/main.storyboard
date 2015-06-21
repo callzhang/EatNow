@@ -930,12 +930,18 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-Ee-d2j" userLabel="Info">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                         <subviews>
-                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage" customClass="SGImageView">
+                                            <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage" customClass="SGImageView">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                             </imageView>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQ4-0F-oZd">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQ4-0F-oZd">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="eqI-RV-x4E" id="hOP-8a-LXc"/>
+                                                </connections>
                                             </scrollView>
+                                            <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="1" translatesAutoresizingMaskIntoConstraints="NO" id="dD2-cL-2WA">
+                                                <rect key="frame" x="140" y="211" width="39" height="37"/>
+                                            </pageControl>
                                             <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-deck-view-image-dark-overlay-upper" translatesAutoresizingMaskIntoConstraints="NO" id="5im-Zl-NK2">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="124"/>
                                             </imageView>
@@ -1058,6 +1064,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <constraint firstAttribute="trailing" secondItem="5im-Zl-NK2" secondAttribute="trailing" id="7aa-0n-nQ3"/>
                                             <constraint firstItem="5im-Zl-NK2" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="Ayr-OB-lVi"/>
                                             <constraint firstAttribute="trailing" secondItem="cy3-AH-BuV" secondAttribute="trailing" id="Bau-Z1-YWY"/>
+                                            <constraint firstItem="dD2-cL-2WA" firstAttribute="centerX" secondItem="bQ4-0F-oZd" secondAttribute="centerX" id="Bbh-zb-WfP"/>
                                             <constraint firstItem="l8B-bX-ZHI" firstAttribute="height" secondItem="fsH-Ee-d2j" secondAttribute="height" multiplier="1:2" id="DG3-Vm-Snn"/>
                                             <constraint firstAttribute="trailing" secondItem="bQ4-0F-oZd" secondAttribute="trailing" id="DJ8-HE-CtM"/>
                                             <constraint firstAttribute="trailing" secondItem="0Rc-cj-kSW" secondAttribute="trailing" constant="10" id="Er7-ET-ejN"/>
@@ -1066,6 +1073,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <constraint firstItem="bQ4-0F-oZd" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="IZn-0t-EtL"/>
                                             <constraint firstAttribute="trailing" secondItem="l8B-bX-ZHI" secondAttribute="trailing" id="JV0-s8-a1U"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="10" id="LdG-9F-uh3"/>
+                                            <constraint firstItem="dD2-cL-2WA" firstAttribute="bottom" secondItem="bQ4-0F-oZd" secondAttribute="bottom" id="N9Z-JT-JJ8"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="10" id="OCd-oj-NLg"/>
                                             <constraint firstAttribute="trailing" secondItem="DBA-UH-kFT" secondAttribute="trailing" constant="8" id="Obw-dH-bbu"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Wt9-vs-bTu" secondAttribute="trailing" constant="10" id="Pb1-hv-hhB"/>
@@ -1324,6 +1332,8 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                         <outlet property="cuisine" destination="45L-e4-Y8S" id="wvr-RD-G6j"/>
                         <outlet property="distanceInfo" destination="DBA-UH-kFT" id="dC3-YA-xT5"/>
                         <outlet property="goButton" destination="GcM-Kx-ZZ9" id="6ma-xt-BSG"/>
+                        <outlet property="imageScrollView" destination="bQ4-0F-oZd" id="tHg-dd-ZWE"/>
+                        <outlet property="imageScrollViewPageControl" destination="dD2-cL-2WA" id="tjC-ZG-jG2"/>
                         <outlet property="imageView" destination="cy3-AH-BuV" id="ZCd-TK-YYv"/>
                         <outlet property="info" destination="fsH-Ee-d2j" id="mPr-S0-Bqp"/>
                         <outlet property="infoHightRatio" destination="jGo-xL-n5F" id="W8b-8N-hOM"/>
@@ -1332,7 +1342,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                         <outlet property="openTime" destination="xKx-ie-3fb" id="QYc-1i-dRg"/>
                         <outlet property="price" destination="9rp-Qh-TDe" id="GEu-fR-ipG"/>
                         <outlet property="rating" destination="0Rc-cj-kSW" id="X5h-qS-1bg"/>
-                        <outlet property="scrollView" destination="bQ4-0F-oZd" id="oBT-65-hKI"/>
                         <outlet property="shadowView" destination="DPc-EE-oxi" id="4gZ-eZ-mL7"/>
                         <outlet property="tableView" destination="ElG-By-adf" id="e66-2g-eoE"/>
                         <outlet property="walkingDistance" destination="2zY-ds-bCm" id="54E-xz-XAd"/>

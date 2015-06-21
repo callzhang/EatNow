@@ -24,6 +24,7 @@
 #import "TMAlertController.h"
 #import "TMAlertAction.h"
 #import "ENMainViewController.h"
+#import "PureLayout.h"
 @import AddressBook;
 
 NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
@@ -31,7 +32,7 @@ NSString *const kSelectedRestaurantNotification = @"selected_restaurant";
 NSString *const kMapViewDidShow = @"map_view_did_show";
 NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
-@interface ENRestaurantViewController()<UITableViewDelegate, UITableViewDataSource>
+@interface ENRestaurantViewController()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (nonatomic, strong) NSArray *restautantInfo;
 
 //IB
@@ -44,7 +45,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 @property (weak, nonatomic) IBOutlet UIView *card;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
+@property (nonatomic, strong) NSMutableArray *imageViewsInImageScrollView;
+@property (weak, nonatomic) IBOutlet UIPageControl *imageScrollViewPageControl;
 
 //view
 @property (strong, nonatomic) MKMapView *map;
@@ -102,10 +106,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //table view data
 	[self prepareData];
     
-    //image
-    _currentImageIndex = -1;
-    [self loadNextImage];
-    
+    [self activateImageScrollViewToIndex:1];
     //UI
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineText;
@@ -159,6 +160,29 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         
         [self.tableView setContentOffset:CGPointZero animated:NO];
     }];
+    
+    
+    switch (status) {
+        case ENRestaurantViewStatusCard: {
+            [self fillImageScrollViewWithCurrentImageView];
+            break;
+        }
+        case ENRestaurantViewStatusDetail: {
+            [self fillImageScrollViewWithAllImageViews];
+            break;
+        }
+        case ENRestaurantViewStatusMinimum: {
+            [self fillImageScrollViewWithFirstImageViews];
+            break;
+        }
+        case ENRestaurantViewStatusHistoryDetail: {
+            [self fillImageScrollViewWithAllImageViews];
+            break;
+        }
+        default: {
+            break;
+        }
+    }
 }
 
 - (void)didChangedToFrontCard{
@@ -176,17 +200,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)didChangeToDetailView{
-    //start display image
-    static NSTimer *imageLoadingTimer;
-    [imageLoadingTimer invalidate];
-    imageLoadingTimer = [NSTimer bk_scheduledTimerWithTimeInterval:5 block:^(NSTimer *timer) {
-        if (self.status == ENRestaurantViewStatusDetail || self.status == ENRestaurantViewStatusHistoryDetail) {
-            [self loadNextImage];
-        } else {
-            [imageLoadingTimer invalidate];
-        }
-    } repeats:YES];
-    
     //parse image
     if (self.status == ENRestaurantViewStatusDetail){
         [self parseVendorImages];
@@ -413,60 +426,97 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     [view addSubview:imagesRatingControl];
 }
 
-#pragma mark - Private
-
-- (void)loadNextImage{
-    if (self.status == ENRestaurantViewStatusCard && _currentImageIndex != -1) {
-        return;
-    }
-    if (!self.imageView) {
-        return;
-    }
-    if (_isLoadingImage) {
-        DDLogVerbose(@"Loading image, skip");
-        return;
-    }
-
-    if (self.restaurant.imageUrls.count == 0) {
-        DDLogVerbose(@"No image urls");
-        return;
-    }
+#pragma mark - ImageScrollView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSInteger page = scrollView.contentOffset.x / scrollView.bounds.size.width;
+    self.imageScrollViewPageControl.currentPage = page;
     
-    NSInteger nextIdx = (_currentImageIndex + 1) % self.restaurant.imageUrls.count;
+    //TODO: add change notification if necessary
+//    //send image change notification
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
+}
+
+- (void)fillImageScrollViewWithAllImageViews {
+    [self activateImageScrollViewToIndex:self.restaurant.imageUrls.count];
+    self.imageScrollView.scrollEnabled = YES;
+}
+
+- (void)fillImageScrollViewWithFirstImageViews {
+    [self activateImageScrollViewToIndex:self.restaurant.imageUrls.count > 0 ? 1: 0];
+    self.imageScrollView.scrollEnabled = NO;
+}
+
+- (void)fillImageScrollViewWithCurrentImageView {
+    [self activateImageScrollViewToIndex:self.imageScrollViewPageControl.currentPage + 1];
+    self.imageScrollView.scrollEnabled = NO;
+}
+
+- (void)setupScrollViewConstraints {
+    self.imageScrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+        [view removeFromSuperview];
+    }];
     
-    //display if downloaded
-    if (self.restaurant.images.count > nextIdx) {
-        if (self.restaurant.images[nextIdx] != [NSNull null]) {
-            _currentImageIndex = nextIdx;
-            [self showImage:self.restaurant.images[nextIdx]];
-            return;
+    [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+        [self.imageScrollView addSubview:view];
+    }];
+    
+    [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        [view autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:view.superview];
+        [view autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:view.superview];
+    }];
+    [self.imageViewsInImageScrollView.firstObject autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    
+    if (self.imageViewsInImageScrollView.count >= 2) {
+        [self.imageViewsInImageScrollView autoDistributeViewsAlongAxis:ALAxisHorizontal alignedTo:ALAttributeHorizontal withFixedSpacing:0 insetSpacing:YES matchedSizes:YES];
+    }
+    else {
+        [self.imageViewsInImageScrollView.firstObject autoAlignAxisToSuperviewAxis:ALAxisVertical];
+    }
+}
+
+- (void)activateImageScrollViewToIndex:(NSInteger)index {
+    NSInteger totalImageCount = self.imageViewsInImageScrollView.count;
+    if (index < totalImageCount) {
+        [self.imageViewsInImageScrollView removeObjectsInRange:NSMakeRange(index, totalImageCount - index)];
+    }
+    else {
+        for (NSInteger i = totalImageCount; i < index; i++) {
+            UIImageView *imageView = [self createdImageViewForIndex:i];
+            if (imageView) {
+                [self.imageViewsInImageScrollView addObject:imageView];
+            }
         }
     }
+    [self setupScrollViewConstraints];
+    self.imageScrollViewPageControl.numberOfPages = self.imageViewsInImageScrollView.count;
+}
+
+- (UIImageView *)createdImageViewForIndex:(NSUInteger)index {
+    if (index >= self.restaurant.imageUrls.count) {
+        return nil;
+    }
     
-    //download
-    self.isLoadingImage = YES;
-    NSString *url = self.restaurant.imageUrls[nextIdx];
-    //download first
-    @weakify(self);
-    [self.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        _isLoadingImage = NO;
-        if (!image) return;
-        
-        @strongify(self);
-        
-        _currentImageIndex = nextIdx;
-        while (_restaurant.images.count <= _currentImageIndex) {
-            [_restaurant.images addObject:[NSNull null]];
-        }
-        _restaurant.images[_currentImageIndex] = image;
-        
-        [self showImage:image];
-        
-        //self.pageControl.currentPage = nextIdx;
-    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+    NSString *url = self.restaurant.imageUrls[index];
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:nil
+                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         ENLogError(@"*** Failed to download image with error: %@", error);
     }];
+    
+    return imageView;
 }
+
+- (NSMutableArray *)imageViewsInImageScrollView {
+    if (!_imageViewsInImageScrollView) {
+        _imageViewsInImageScrollView = [NSMutableArray array];
+    }
+    
+    return _imageViewsInImageScrollView;
+}
+
 
 - (void)parseVendorImages{
     if (self.restaurant.imageUrls.count > 10) return;
@@ -497,29 +547,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
         }];
     });
-}
-
-- (void)showImage:(UIImage *)image{
-    if (self.map && !self.map.isHidden) {
-        return;
-    }
-    
-    self.imageView.image = image;
-    
-    //duplicate view
-    if (self.view.superview) {
-        UIView *imageViewCopy = [self.imageView snapshotViewAfterScreenUpdates:NO];
-        [self.imageView.superview insertSubview:imageViewCopy aboveSubview:self.imageView];
-        [UIView animateWithDuration:1 animations:^{
-            imageViewCopy.alpha = 0;
-        } completion:^(BOOL finished) {
-            [imageViewCopy removeFromSuperview];
-        }];
-    }
-    
-    //send image change notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
-    
 }
 
 - (void)showWalkingTime:(NSTimeInterval)length{

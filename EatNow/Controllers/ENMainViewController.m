@@ -197,6 +197,7 @@
         }
     }];
 }
+
 - (void)viewDidLoad {
     //tweak
     FBTweakBind(self, showScore, @"Algorithm", @"Inspect", @"Show score", NO);
