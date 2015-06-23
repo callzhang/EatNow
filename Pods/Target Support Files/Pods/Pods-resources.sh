@@ -77,6 +77,15 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "Mixpanel/Mixpanel/MPCloseBtn@2x.png"
   install_resource "Mixpanel/Mixpanel/MPNotification.storyboard"
   install_resource "Mixpanel/Mixpanel/MPSurvey.storyboard"
+  install_resource "TOWebViewController/TOWebViewController/de.lproj"
+  install_resource "TOWebViewController/TOWebViewController/en.lproj"
+  install_resource "TOWebViewController/TOWebViewController/es.lproj"
+  install_resource "TOWebViewController/TOWebViewController/fr.lproj"
+  install_resource "TOWebViewController/TOWebViewController/ja.lproj"
+  install_resource "TOWebViewController/TOWebViewController/ko.lproj"
+  install_resource "TOWebViewController/TOWebViewController/pl.lproj"
+  install_resource "TOWebViewController/TOWebViewController/zh-Hans.lproj"
+  install_resource "TOWebViewController/TOWebViewController/zh-Hant.lproj"
   install_resource "${BUILT_PRODUCTS_DIR}/ApptentiveResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -99,6 +108,15 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "Mixpanel/Mixpanel/MPCloseBtn@2x.png"
   install_resource "Mixpanel/Mixpanel/MPNotification.storyboard"
   install_resource "Mixpanel/Mixpanel/MPSurvey.storyboard"
+  install_resource "TOWebViewController/TOWebViewController/de.lproj"
+  install_resource "TOWebViewController/TOWebViewController/en.lproj"
+  install_resource "TOWebViewController/TOWebViewController/es.lproj"
+  install_resource "TOWebViewController/TOWebViewController/fr.lproj"
+  install_resource "TOWebViewController/TOWebViewController/ja.lproj"
+  install_resource "TOWebViewController/TOWebViewController/ko.lproj"
+  install_resource "TOWebViewController/TOWebViewController/pl.lproj"
+  install_resource "TOWebViewController/TOWebViewController/zh-Hans.lproj"
+  install_resource "TOWebViewController/TOWebViewController/zh-Hant.lproj"
   install_resource "${BUILT_PRODUCTS_DIR}/ApptentiveResources.bundle"
 fi
 

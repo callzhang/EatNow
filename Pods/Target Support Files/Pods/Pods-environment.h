@@ -216,6 +216,12 @@
 #define COCOAPODS_VERSION_MINOR_ReactiveCocoa_no_arc 5
 #define COCOAPODS_VERSION_PATCH_ReactiveCocoa_no_arc 0
 
+// TOWebViewController
+#define COCOAPODS_POD_AVAILABLE_TOWebViewController
+#define COCOAPODS_VERSION_MAJOR_TOWebViewController 2
+#define COCOAPODS_VERSION_MINOR_TOWebViewController 0
+#define COCOAPODS_VERSION_PATCH_TOWebViewController 17
+
 // Tweaks
 #define COCOAPODS_POD_AVAILABLE_Tweaks
 #define COCOAPODS_VERSION_MAJOR_Tweaks 2

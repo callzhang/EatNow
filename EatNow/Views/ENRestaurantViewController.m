@@ -25,6 +25,7 @@
 #import "TMAlertAction.h"
 #import "ENMainViewController.h"
 #import "PureLayout.h"
+#import "TOWebViewController.h"
 @import AddressBook;
 
 NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
@@ -634,7 +635,19 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
         }}];
     }
-    
+    if (weakSelf.restaurant.mobileMenuURL) {
+        [info addObject:@{@"type": @"url",
+                          @"cellID": @"cell",
+                          @"image": @"eat-now-card-details-view-web-icon",
+                          @"title": @"View Menu",
+                          @"action": ^{
+            TOWebViewController *vc = [[TOWebViewController alloc] initWithURLString:weakSelf.restaurant.mobileMenuURL];
+            vc.showPageTitles = YES;
+            vc.showUrlWhileLoading = NO;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [weakSelf presentViewController:nav animated:YES completion:nil];
+        }}];
+    }
 //    if (weakSelf.restaurant.reviews) {
 //        [info addObject:@{@"type": @"reviews",
 //                          @"cellID": @"cell",

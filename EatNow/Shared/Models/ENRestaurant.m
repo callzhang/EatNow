@@ -82,6 +82,8 @@
         }
 		self.score = totalScore;
 	}
+    
+    self.mobileMenuURL = json[@"menu"][@"mobileUrl"];
 	
 	if (![self validate]) {
 		return nil;
