@@ -35,7 +35,7 @@ NSString * const kUserUpdated = @"user_updated";
 
 FBTweakAction(@"Algorithm", @"Clean", @"ID", ^{
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUUID];
-    [[ENServerManager shared] getUserWithCompletion:nil];
+    [[ENServerManager shared] searchRestaurantsAtLocation:[[CLLocation alloc] initWithLatitude:40 longitude:-70] WithCompletion:nil];
     DDLogInfo(@"Removed user ID");
 });
 
@@ -67,7 +67,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     self.session = @(self.session.unsignedIntegerValue +1);
     [[Mixpanel sharedInstance].people increment:@"session" by:@1];
     self.lastLocation = currenLocation;
-    [self.searchCompletionBlocks addObject:block];
+    if (block) [self.searchCompletionBlocks addObject:block];
     
     if (self.fetchStatus == ENResturantDataStatusFetchingRestaurant) {
         DDLogInfo(@"Already requesting restaurant.");
@@ -398,6 +398,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSString *myID = [[NSUserDefaults standardUserDefaults] objectForKey:kUUID];
     if (!myID) {
         myID = [self generateUUID];
+        DDLogInfo(@"ID %@ created", myID);
         [[NSUserDefaults standardUserDefaults] setObject:myID forKey:kUUID];
         [[Mixpanel sharedInstance] identify:myID];
         [[Mixpanel sharedInstance].people set:@{@"createdAt": [NSDate date]}];
@@ -412,7 +413,6 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
-    
     return (__bridge NSString *)string;
 }
 
