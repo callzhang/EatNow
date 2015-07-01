@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ENRestaurant.h"
+
+#define ENRestaurantViewImageRatio  0.5
+#define ENRestaurantViewImagesMaxCount  50
+
 @class ENMainViewController;
 
 extern NSString * const kRestaurantViewImageChangedNotification;

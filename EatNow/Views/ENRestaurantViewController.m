@@ -353,7 +353,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)updateLayout{
     //radio
-    float multiplier = (self.status == ENRestaurantViewStatusDetail || self.status == ENRestaurantViewStatusHistoryDetail) ? 0.4 : 1.0;
+    float multiplier = (self.status == ENRestaurantViewStatusDetail || self.status == ENRestaurantViewStatusHistoryDetail) ? ENRestaurantViewImageRatio : 1.0;
     NSLayoutConstraint *newRatio = [NSLayoutConstraint constraintWithItem:_infoHightRatio.firstItem attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_infoHightRatio.secondItem attribute:NSLayoutAttributeHeight multiplier:multiplier constant:0];
     self.infoHightRatio.active = NO;
     self.infoHightRatio = newRatio;
@@ -483,7 +483,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self.imageViewsInImageScrollView removeObjectsInRange:NSMakeRange(index, totalImageCount - index)];
     }
     else {
-        for (NSInteger i = totalImageCount; i < index; i++) {
+        for (NSInteger i = totalImageCount; i < index && i < ENRestaurantViewImagesMaxCount; i++) {
             UIImageView *imageView = [self createdImageViewForIndex:i];
             if (imageView) {
                 [self.imageViewsInImageScrollView addObject:imageView];
@@ -501,10 +501,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
     NSString *url = self.restaurant.imageUrls[index];
     UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
+    DDLogVerbose(@"Loading %luth image for %@", (unsigned long)index, self.restaurant.name);
     [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:nil
                               failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-        ENLogError(@"*** Failed to download image with error: %@", error);
+        ENLogError(@"*** Failed to download image \n %@ \n with error: %@", url, error);
     }];
     
     return imageView;

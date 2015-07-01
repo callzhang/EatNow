@@ -10,6 +10,7 @@
 #import "ENRestaurant.h"
 #import "ENRestaurantViewController.h"
 
+
 @class ENMainViewController;
 @interface ENFeedbackViewController : UIViewController<ENCardViewControllerProtocol>
 /**
