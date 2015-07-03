@@ -153,6 +153,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [[Mixpanel sharedInstance] timeEvent:@"App open"];
+    [[ATConnect sharedConnection] engage:@"App open" fromViewController:[UIWindow mainWindow].rootViewController];
     if ([ENLocationManager locationServicesState] != INTULocationServicesStateAvailable) {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENGetLocationViewController"];
         vc.modalTransitionStyle = UIModalPresentationOverFullScreen;

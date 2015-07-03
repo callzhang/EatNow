@@ -151,6 +151,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             default:{
                 //close map if colapse
                 [self closeMap];
+                [self fillImageScrollViewWithCurrentImageView];
                 break;
             }
         }
@@ -161,29 +162,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         
         [self.tableView setContentOffset:CGPointZero animated:NO];
     }];
-    
-    
-    switch (status) {
-        case ENRestaurantViewStatusCard: {
-            [self fillImageScrollViewWithCurrentImageView];
-            break;
-        }
-        case ENRestaurantViewStatusDetail: {
-            [self fillImageScrollViewWithAllImageViews];
-            break;
-        }
-        case ENRestaurantViewStatusMinimum: {
-            [self fillImageScrollViewWithFirstImageViews];
-            break;
-        }
-        case ENRestaurantViewStatusHistoryDetail: {
-            [self fillImageScrollViewWithAllImageViews];
-            break;
-        }
-        default: {
-            break;
-        }
-    }
 }
 
 - (void)didChangedToFrontCard{
@@ -205,6 +183,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (self.status == ENRestaurantViewStatusDetail){
         [self parseVendorImages];
     }
+    [self fillImageScrollViewWithAllImageViews];
     
     //add map to view and hide
     self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -500,7 +479,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
     
     NSString *url = self.restaurant.imageUrls[index];
-    UIImageView *imageView = [[UIImageView alloc] init];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eat-now-monogram"]];
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     DDLogVerbose(@"Loading %luth image for %@", (unsigned long)index, self.restaurant.name);
@@ -544,7 +523,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
             if (imageUrls.count > 1) {
                 //show image
-                //[self loadNextImage];
+                [self fillImageScrollViewWithAllImageViews];
                 //update to server
                 [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
             }
