@@ -177,23 +177,7 @@
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kp-kc-LaW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQj-FE-IWf">
-                                        <rect key="frame" x="182" y="504" width="118" height="37"/>
-                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
-                                        <state key="normal" title="Open in Maps">
-                                            <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onOpenInMapsButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="mXl-Pz-Bka"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="bQj-FE-IWf" secondAttribute="trailing" constant="20" id="rSw-HH-JAB"/>
-                                </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT5-uY-qhM" userLabel="history">
                                 <rect key="frame" x="16" y="82" width="288" height="394"/>
@@ -270,13 +254,23 @@
                                     <action selector="onReloadButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="iyN-Cm-QX1"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl" userLabel="debug-button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bQj-FE-IWf" userLabel="map-export">
+                                <rect key="frame" x="249" y="495" width="55" height="55"/>
+                                <state key="normal" image="eat-now-card-details-view-map-export-button">
+                                    <color key="titleColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onOpenInMapsButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="mXl-Pz-Bka"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl" userLabel="setting">
                                 <rect key="frame" x="249" y="495" width="55" height="55"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" image="eat-now-card-deck-view-debug-button">
+                                <state key="normal" image="eat-now-card-details-view-setting-button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -386,6 +380,7 @@
                             <constraint firstItem="q0J-Z4-Pim" firstAttribute="top" secondItem="Z8L-6K-Fh8" secondAttribute="top" id="8xR-Qg-93z"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pNF-QT-1bI" secondAttribute="trailing" id="9mN-6s-KNE"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="TEb-SL-p86" secondAttribute="bottom" constant="16" id="B2h-jg-TiK"/>
+                            <constraint firstItem="bQj-FE-IWf" firstAttribute="centerX" secondItem="McB-7e-y9E" secondAttribute="centerX" id="FL4-2h-EQw"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="JA9-KX-A7U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D4e-Sg-nPl" secondAttribute="trailing" id="JaR-oF-cds"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="McB-7e-y9E" secondAttribute="bottom" constant="16" id="Kfp-7e-OHe"/>
@@ -396,15 +391,18 @@
                             <constraint firstItem="TEb-SL-p86" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="PUE-OR-nnX"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="pNF-QT-1bI" secondAttribute="bottom" constant="92" id="PrL-2B-quH"/>
                             <constraint firstItem="2kp-kc-LaW" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" id="RA1-ey-WOh"/>
+                            <constraint firstItem="bQj-FE-IWf" firstAttribute="centerX" secondItem="D4e-Sg-nPl" secondAttribute="centerX" id="S0l-t1-pMu"/>
                             <constraint firstItem="q0J-Z4-Pim" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" id="TIz-2d-3aG"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="centerY" secondItem="TEb-SL-p86" secondAttribute="centerY" id="TyN-vp-ESS"/>
                             <constraint firstItem="McB-7e-y9E" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="W67-VS-ClU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bQj-FE-IWf" secondAttribute="trailing" constant="20" id="aVl-rH-Cas"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="82" id="ier-hE-C5x"/>
                             <constraint firstItem="w5B-e7-fo8" firstAttribute="centerX" secondItem="YOj-3L-UkI" secondAttribute="centerX" id="kVR-xZ-SmE"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="20" id="mC5-ah-Hn8"/>
+                            <constraint firstItem="bQj-FE-IWf" firstAttribute="centerY" secondItem="McB-7e-y9E" secondAttribute="centerY" constant="-238" id="mEF-FP-gjv"/>
                             <constraint firstItem="2kp-kc-LaW" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" id="meV-Gs-vzK"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="pjo-mg-XiM"/>
-                            <constraint firstItem="Fcq-QR-9Zu" firstAttribute="centerY" secondItem="bQj-FE-IWf" secondAttribute="centerY" id="thm-Gg-E9V"/>
+                            <constraint firstItem="bQj-FE-IWf" firstAttribute="centerY" secondItem="McB-7e-y9E" secondAttribute="centerY" id="sNG-GL-Hz9"/>
                             <constraint firstAttribute="trailing" secondItem="2kp-kc-LaW" secondAttribute="trailing" id="u1Q-fy-NQC"/>
                             <constraint firstItem="YOj-3L-UkI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="v6N-2z-Ucd"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="2kp-kc-LaW" secondAttribute="bottom" id="vDT-bm-kEZ"/>
@@ -414,6 +412,13 @@
                             <constraint firstItem="D4e-Sg-nPl" firstAttribute="centerY" secondItem="Fcq-QR-9Zu" secondAttribute="centerY" id="yvw-as-gOE"/>
                             <constraint firstItem="i7D-c3-Fdk" firstAttribute="centerY" secondItem="w5B-e7-fo8" secondAttribute="centerY" id="zpt-JU-V7d"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="FL4-2h-EQw"/>
+                                <exclude reference="aVl-rH-Cas"/>
+                                <exclude reference="mEF-FP-gjv"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4">
                         <barButtonItem key="rightBarButtonItem" style="done" id="LMB-kh-dRc">
@@ -469,7 +474,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-676" y="603"/>
+            <point key="canvasLocation" x="-588" y="612"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="fEb-E9-N2Z">
@@ -930,7 +935,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsH-Ee-d2j" userLabel="Info">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                         <subviews>
-                                            <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage" customClass="SGImageView">
+                                            <imageView hidden="YES" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="cy3-AH-BuV" userLabel="venueImage">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                             </imageView>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQ4-0F-oZd">
@@ -1054,6 +1059,15 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22/50" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dXg-UU-T47">
+                                                <rect key="frame" x="254" y="216" width="58" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="58" id="97Q-IB-pN9"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.25" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1079,6 +1093,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Wt9-vs-bTu" secondAttribute="trailing" constant="10" id="Pb1-hv-hhB"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="10" id="U23-yC-IEX"/>
                                             <constraint firstAttribute="bottom" secondItem="cy3-AH-BuV" secondAttribute="bottom" id="UKJ-yg-PPM"/>
+                                            <constraint firstAttribute="bottom" secondItem="dXg-UU-T47" secondAttribute="bottom" constant="8" id="Wbn-bo-k8x"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="10" id="ajX-NE-huo"/>
                                             <constraint firstItem="l8B-bX-ZHI" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="ccs-fq-80K"/>
                                             <constraint firstAttribute="trailing" secondItem="uVW-6x-hlL" secondAttribute="trailing" constant="8" id="eFQ-2t-Edj"/>
@@ -1088,6 +1103,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="top" secondItem="45L-e4-Y8S" secondAttribute="bottom" constant="6" id="mSB-Dy-jqW"/>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="top" secondItem="uVW-6x-hlL" secondAttribute="bottom" constant="6" id="oVy-Yd-48E"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="top" secondItem="Wt9-vs-bTu" secondAttribute="bottom" constant="4" id="uyj-EB-nfZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="dXg-UU-T47" secondAttribute="trailing" constant="8" id="vxJ-fF-SmK"/>
                                             <constraint firstAttribute="bottom" secondItem="l8B-bX-ZHI" secondAttribute="bottom" id="wk9-0t-gbL"/>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="zhW-hf-ci6"/>
                                         </constraints>
@@ -1332,6 +1348,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                         <outlet property="cuisine" destination="45L-e4-Y8S" id="wvr-RD-G6j"/>
                         <outlet property="distanceInfo" destination="DBA-UH-kFT" id="dC3-YA-xT5"/>
                         <outlet property="goButton" destination="GcM-Kx-ZZ9" id="6ma-xt-BSG"/>
+                        <outlet property="imageCount" destination="dXg-UU-T47" id="Nzf-ke-WAl"/>
                         <outlet property="imageScrollView" destination="bQ4-0F-oZd" id="tHg-dd-ZWE"/>
                         <outlet property="imageScrollViewPageControl" destination="dD2-cL-2WA" id="tjC-ZG-jG2"/>
                         <outlet property="imageView" destination="cy3-AH-BuV" id="ZCd-TK-YYv"/>
@@ -1395,7 +1412,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
     </scenes>
     <resources>
         <image name="animatedLoading.gif" width="198" height="198"/>
-        <image name="eat-now-card-deck-view-debug-button" width="55" height="55"/>
         <image name="eat-now-card-deck-view-history-button" width="110" height="110"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-lower" width="1" height="206"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-upper" width="1" height="206"/>
@@ -1405,8 +1421,10 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
         <image name="eat-now-card-details-view-foursquare-attribution" width="174" height="29"/>
         <image name="eat-now-card-details-view-foursquare-attribution-pressed" width="174" height="29"/>
         <image name="eat-now-card-details-view-map-collapse-button" width="55" height="55"/>
+        <image name="eat-now-card-details-view-map-export-button" width="55" height="55"/>
         <image name="eat-now-card-details-view-map-indicator" width="60" height="60"/>
         <image name="eat-now-card-details-view-phone-icon" width="25" height="25"/>
+        <image name="eat-now-card-details-view-setting-button" width="55" height="55"/>
         <image name="eat-now-close-button" width="55" height="55"/>
         <image name="eat-now-default-background" width="645" height="1147"/>
         <image name="eat-now-history-view-deck-button" width="55" height="55"/>

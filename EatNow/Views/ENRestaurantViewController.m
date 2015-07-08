@@ -55,6 +55,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (strong, nonatomic) MKMapView *map;
 @property (weak, nonatomic) IBOutlet UIView *userRatingView;
 @property (weak, nonatomic) UILabel *mapDistanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *imageCount;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -347,6 +348,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         if (self.openTime.text) {
             self.openInfo.alpha = 1;
         }
+        self.imageCount.alpha = 0;
         self.goButton.alpha = 0;
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
@@ -359,6 +361,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
+        self.imageCount.alpha = 1;
     }
     else if (self.status == ENRestaurantViewStatusMinimum) {
         self.distanceInfo.alpha = 0;
@@ -366,6 +369,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.goButton.alpha = 0;
         self.rating.alpha = 0;
         self.price.alpha = 0;
+        self.imageCount.alpha = 0;
         NSDictionary *history = [ENServerManager shared].userRating;
         NSDictionary *rating = history[self.restaurant.ID];
         NSNumber *rate = rating[@"rating"];
@@ -382,6 +386,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 0;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
+        self.imageCount.alpha = 1;
     }
 }
 
@@ -410,6 +415,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger page = scrollView.contentOffset.x / scrollView.bounds.size.width;
     self.imageScrollViewPageControl.currentPage = page;
+    [self updateImageCount];
     
     //TODO: add change notification if necessary
 //    //send image change notification
@@ -471,6 +477,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
     [self setupScrollViewConstraints];
     self.imageScrollViewPageControl.numberOfPages = self.imageViewsInImageScrollView.count;
+    [self updateImageCount];
 }
 
 - (UIImageView *)createdImageViewForIndex:(NSUInteger)index {
@@ -499,7 +506,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     return _imageViewsInImageScrollView;
 }
 
+- (void)updateImageCount{
+    NSUInteger current = self.imageScrollViewPageControl.currentPage+1;
+    NSUInteger total = self.imageViewsInImageScrollView.count;
+    self.imageCount.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)current, total];
+}
 
+#pragma mark - image parsing
 - (void)parseVendorImages{
     if (self.restaurant.imageUrls.count > 10) return;
     if (self.hasParsedImage == YES) return;
