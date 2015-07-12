@@ -83,8 +83,13 @@
 		self.score = totalScore;
 	}
     
-    self.mobileMenuURL = json[@"menu"][@"mobileUrl"];
-	
+    @try{
+        self.mobileMenuURL = json[@"menu"][@"mobileUrl"];
+    }
+    @catch (NSException *err){
+        DDLogVerbose(@"Failed to parse menu: %@", err);
+    }
+    
 	if (![self validate]) {
 		return nil;
 	}

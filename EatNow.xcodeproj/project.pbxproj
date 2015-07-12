@@ -118,6 +118,7 @@
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
 		9B63A8411AE61B1300705364 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B63A8401AE61B1300705364 /* Images.xcassets */; };
 		9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B85D0321A8EB6BB0014DBED /* ENUtil.m */; };
+		9B8E0D7D1B51B16F000F647C /* EWBlur in Resources */ = {isa = PBXBuildFile; fileRef = 9B8E0D7C1B51B16F000F647C /* EWBlur */; };
 		9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9424071AE0450300411D1F /* ENHistoryViewController.m */; };
 		9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B94240A1AE053F200411D1F /* ENHistoryViewCell.m */; };
 		9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */; };
@@ -328,6 +329,7 @@
 		9B63A8401AE61B1300705364 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9B85D0311A8EB6BB0014DBED /* ENUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUtil.h; sourceTree = "<group>"; };
 		9B85D0321A8EB6BB0014DBED /* ENUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENUtil.m; sourceTree = "<group>"; };
+		9B8E0D7C1B51B16F000F647C /* EWBlur */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EWBlur; sourceTree = "<group>"; };
 		9B9424061AE0450300411D1F /* ENHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryViewController.h; sourceTree = "<group>"; };
 		9B9424071AE0450300411D1F /* ENHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryViewController.m; sourceTree = "<group>"; };
 		9B9424091AE053F200411D1F /* ENHistoryViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryViewCell.h; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				9B8E0D7C1B51B16F000F647C /* EWBlur */,
 				09B165C21B0AB9D900EBE3F9 /* GNMapOpener */,
 				0949580D1B018E180022E4B4 /* AlertController */,
 				9BAE96131AFEB49300FF746B /* CrashlyticsLogger.h */,
@@ -947,6 +950,7 @@
 				091C0B371AF9616200838096 /* OpenSans-Bold.ttf in Resources */,
 				9BC51BFD1AE6DACD00E3B0FE /* animatedLoading.gif in Resources */,
 				094958121B018E300022E4B4 /* TMAlertController.xib in Resources */,
+				9B8E0D7D1B51B16F000F647C /* EWBlur in Resources */,
 				09B9F8F61AF1B4F700DE92C6 /* TMTextLabelTableViewCell.xib in Resources */,
 				9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */,
 				091C0B3D1AF9616200838096 /* OpenSans-LightItalic.ttf in Resources */,
@@ -1199,7 +1203,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7e6165a7-6431-4c6b-bedd-eb3cca615b31";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -1245,7 +1248,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "95259bc4-35cb-4059-8b8d-a49227169b54";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1322,7 +1324,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PROVISIONING_PROFILE = "7dc50660-49c5-45a8-b4c8-4ee6110acca8";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
