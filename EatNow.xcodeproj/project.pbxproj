@@ -116,7 +116,10 @@
 		9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658BF1AE4B5330035572C /* UIView+Material.m */; };
 		9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658C21AECA8AF0035572C /* ENRatingView.m */; };
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
-		9B63A8411AE61B1300705364 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B63A8401AE61B1300705364 /* Images.xcassets */; };
+		9B74EAD81B52441B00A14BC9 /* ENBasePreferenceRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B74EAD71B52441B00A14BC9 /* ENBasePreferenceRowItem.m */; };
+		9B74EADD1B52444F00A14BC9 /* ENBasePreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B74EADA1B52444F00A14BC9 /* ENBasePreferenceViewController.m */; };
+		9B74EADE1B52444F00A14BC9 /* ENBasePreferenceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B74EADC1B52444F00A14BC9 /* ENBasePreferenceViewCell.m */; };
+		9B74EAE01B5258F900A14BC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B74EADF1B5258F900A14BC9 /* Images.xcassets */; };
 		9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B85D0321A8EB6BB0014DBED /* ENUtil.m */; };
 		9B8E0D7D1B51B16F000F647C /* EWBlur in Resources */ = {isa = PBXBuildFile; fileRef = 9B8E0D7C1B51B16F000F647C /* EWBlur */; };
 		9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9424071AE0450300411D1F /* ENHistoryViewController.m */; };
@@ -326,7 +329,13 @@
 		9B1658C11AECA8AF0035572C /* ENRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRatingView.h; sourceTree = "<group>"; };
 		9B1658C21AECA8AF0035572C /* ENRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRatingView.m; sourceTree = "<group>"; };
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		9B63A8401AE61B1300705364 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9B74EAD61B52441B00A14BC9 /* ENBasePreferenceRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENBasePreferenceRowItem.h; path = ../../ENBasePreferenceRowItem.h; sourceTree = "<group>"; };
+		9B74EAD71B52441B00A14BC9 /* ENBasePreferenceRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENBasePreferenceRowItem.m; path = ../../ENBasePreferenceRowItem.m; sourceTree = "<group>"; };
+		9B74EAD91B52444F00A14BC9 /* ENBasePreferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENBasePreferenceViewController.h; sourceTree = "<group>"; };
+		9B74EADA1B52444F00A14BC9 /* ENBasePreferenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENBasePreferenceViewController.m; sourceTree = "<group>"; };
+		9B74EADB1B52444F00A14BC9 /* ENBasePreferenceViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENBasePreferenceViewCell.h; sourceTree = "<group>"; };
+		9B74EADC1B52444F00A14BC9 /* ENBasePreferenceViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENBasePreferenceViewCell.m; sourceTree = "<group>"; };
+		9B74EADF1B5258F900A14BC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9B85D0311A8EB6BB0014DBED /* ENUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUtil.h; sourceTree = "<group>"; };
 		9B85D0321A8EB6BB0014DBED /* ENUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENUtil.m; sourceTree = "<group>"; };
 		9B8E0D7C1B51B16F000F647C /* EWBlur */ = {isa = PBXFileReference; lastKnownFileType = folder; path = EWBlur; sourceTree = "<group>"; };
@@ -399,6 +408,7 @@
 		091C0B2C1AF9615B00838096 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				9B74EADF1B5258F900A14BC9 /* Images.xcassets */,
 				091C0B2D1AF9616200838096 /* OpenSans-Bold.ttf */,
 				091C0B2E1AF9616200838096 /* OpenSans-BoldItalic.ttf */,
 				091C0B2F1AF9616200838096 /* OpenSans-ExtraBold.ttf */,
@@ -416,7 +426,6 @@
 		092974651AD0C28D00DDC35C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				09B9F8B21AF1B4F700DE92C6 /* TableViewBuilder */,
 				9B1658B51ADE1CCE0035572C /* GCDSingleton.h */,
 				0929746B1AD0C2B200DDC35C /* Models */,
 				092974661AD0C28D00DDC35C /* ENServer.h */,
@@ -551,7 +560,8 @@
 				09B9F8D01AF1B4F700DE92C6 /* UITableView+RegisterRowItem.m */,
 				09B9F8D11AF1B4F700DE92C6 /* Views */,
 			);
-			path = TableViewBuilder;
+			name = TableViewBuilder;
+			path = ../Shared/TableViewBuilder;
 			sourceTree = "<group>";
 		};
 		09B9F8B51AF1B4F700DE92C6 /* RowItems */ = {
@@ -611,7 +621,6 @@
 				091C0B2C1AF9615B00838096 /* Fonts */,
 				9B1180F71A8E970700756E8F /* Entypo.ttf */,
 				9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */,
-				9B63A8401AE61B1300705364 /* Images.xcassets */,
 				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
 			);
 			name = Recources;
@@ -629,6 +638,7 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				09B9F8B21AF1B4F700DE92C6 /* TableViewBuilder */,
 				9B8E0D7C1B51B16F000F647C /* EWBlur */,
 				09B165C21B0AB9D900EBE3F9 /* GNMapOpener */,
 				0949580D1B018E180022E4B4 /* AlertController */,
@@ -763,6 +773,12 @@
 		DA5B745A18F239B700BB5F8E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9B74EAD91B52444F00A14BC9 /* ENBasePreferenceViewController.h */,
+				9B74EADA1B52444F00A14BC9 /* ENBasePreferenceViewController.m */,
+				9B74EADB1B52444F00A14BC9 /* ENBasePreferenceViewCell.h */,
+				9B74EADC1B52444F00A14BC9 /* ENBasePreferenceViewCell.m */,
+				9B74EAD61B52441B00A14BC9 /* ENBasePreferenceRowItem.h */,
+				9B74EAD71B52441B00A14BC9 /* ENBasePreferenceRowItem.m */,
 				9B1658C11AECA8AF0035572C /* ENRatingView.h */,
 				9B1658C21AECA8AF0035572C /* ENRatingView.m */,
 				09B9F8F81AF1B6D800DE92C6 /* ENHistoryRowItem.h */,
@@ -936,10 +952,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */,
+				9B74EAE01B5258F900A14BC9 /* Images.xcassets in Resources */,
 				091C0B391AF9616200838096 /* OpenSans-ExtraBold.ttf in Resources */,
 				091C0B3C1AF9616200838096 /* OpenSans-Light.ttf in Resources */,
 				09B9F8F21AF1B4F700DE92C6 /* TMRightDetailTableViewCell.xib in Resources */,
-				9B63A8411AE61B1300705364 /* Images.xcassets in Resources */,
 				091C0B3B1AF9616200838096 /* OpenSans-Italic.ttf in Resources */,
 				091C0B3E1AF9616200838096 /* OpenSans-Regular.ttf in Resources */,
 				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,
@@ -1058,6 +1074,7 @@
 			files = (
 				0914F8611AF9D950004562DA /* UIWindow+Extensions.m in Sources */,
 				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
+				9B74EAD81B52441B00A14BC9 /* ENBasePreferenceRowItem.m in Sources */,
 				09B9F8E81AF1B4F700DE92C6 /* TMTableViewBuilder.m in Sources */,
 				09B9F8D81AF1B4F700DE92C6 /* FBKVOController+Binding.m in Sources */,
 				092974691AD0C28D00DDC35C /* ENServerManager.m in Sources */,
@@ -1069,6 +1086,7 @@
 				092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */,
 				09B9F8E01AF1B4F700DE92C6 /* TMRowItem+Protected.m in Sources */,
 				09B9F8EA1AF1B4F700DE92C6 /* TMTableViewDataSource.m in Sources */,
+				9B74EADD1B52444F00A14BC9 /* ENBasePreferenceViewController.m in Sources */,
 				09B9F8FE1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
 				092944C81AED94F600018391 /* UIImage+Resizing.m in Sources */,
 				09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */,
@@ -1105,6 +1123,7 @@
 				09CFCBEC1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m in Sources */,
 				9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */,
 				9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */,
+				9B74EADE1B52444F00A14BC9 /* ENBasePreferenceViewCell.m in Sources */,
 				094958181B019A350022E4B4 /* TMAlertPresentationController.m in Sources */,
 				09502FBF1AF5680D00922908 /* ENFeedbackViewController.m in Sources */,
 				090B2E0E1AED89C400ABAA99 /* JSONValueTransformer+UIImage.m in Sources */,

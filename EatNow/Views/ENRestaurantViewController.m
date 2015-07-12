@@ -56,6 +56,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UIView *userRatingView;
 @property (weak, nonatomic) UILabel *mapDistanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageCount;
+@property (assign, nonatomic) BOOL autoScroll;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45

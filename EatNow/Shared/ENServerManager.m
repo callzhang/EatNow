@@ -30,6 +30,7 @@ NSString * const kUserUpdated = @"user_updated";
 @property (nonatomic, strong) AFNetworkReachabilityManager *reachability;
 @property (nonatomic, strong) NSMutableArray *searchCompletionBlocks;
 @property (nonatomic, strong) CLLocation *lastLocation;
+@property (nonatomic, readonly) NSDictionary *emptyBasePreference;
 @end
 
 
@@ -307,9 +308,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSParameterAssert([me valueForKey:@"all_history"]);
     NSParameterAssert([me valueForKey:@"preference"]);
     NSParameterAssert([me valueForKey:@"username"]);
+    NSDictionary *basePreference = [me valueForKey:@"basePrefrence"];
     
     _me = me;
     self.preference = [_me valueForKey:@"preference"];
+    self.basePreference = basePreference ?: self.emptyBasePreference;
     self.history = [_me valueForKeyPath:@"all_history"];
     [self setUserRatingWithData:[_me valueForKeyPath:@"all_history"]];
 }
@@ -427,6 +430,14 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 - (void)setSession:(NSNumber *)session{
     [[NSUserDefaults standardUserDefaults] setValue:session forKey:@"session"];
+}
+
+- (NSDictionary *)emptyBasePreference{
+    NSMutableDictionary *base = [NSMutableDictionary new];
+    for (NSString *cuisine in kBasePreferences) {
+        base[cuisine] = @0;
+    }
+    return base.copy;
 }
 @end
 

@@ -46,6 +46,8 @@
 #import "GNMapOpenerItem.h"
 #import "GNMapOpener.h"
 #import "Mixpanel.h"
+#import "ENBasePreferenceRowItem.h"
+#import "ENBasePreferenceViewController.h"
 
 @interface ENMainViewController ()
 //data
@@ -325,15 +327,19 @@
 }
 
 #pragma mark - IBActioning
-- (IBAction)onDebugButton:(id)sender {
-#ifdef DEBUG
-    ENProfileViewController *profileVC = [[ENProfileViewController alloc] initWithNibName:nil bundle:nil];
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:profileVC];
-    [self presentViewController:navVC animated:YES completion:nil];
-#else
-    CLLocation *loc = [ENLocationManager cachedCurrentLocation];
-    [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID, @"coordinate": @{@"lat": @(loc.coordinate.latitude), @"lon": @(loc.coordinate.longitude)}}];
-#endif
+- (IBAction)onSettingButton:(id)sender {
+    
+    ENBasePreferenceViewController *vc = [[ENBasePreferenceViewController alloc] initWithNibName:nil bundle:nil];
+    [self presentViewController:vc animated:YES completion:nil];
+    
+//#ifdef DEBUG
+//    ENProfileViewController *profileVC = [[ENProfileViewController alloc] initWithNibName:nil bundle:nil];
+//    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:profileVC];
+//    [self presentViewController:navVC animated:YES completion:nil];
+//#else
+//    CLLocation *loc = [ENLocationManager cachedCurrentLocation];
+//    [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID, @"coordinate": @{@"lat": @(loc.coordinate.latitude), @"lon": @(loc.coordinate.longitude)}}];
+//#endif
 }
 
 - (IBAction)onHistoryButton:(id)sender {
