@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>A9855ED3-38E5-4946-B5EA-B89A9D215ED6</UUID>
-        <nextObjectID>139</nextObjectID>
+        <nextObjectID>141</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -151,7 +151,7 @@
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[{"data":{"json":"{}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
-        <attribute name="order" type="int64">7</attribute>
+        <attribute name="order" type="int64">8</attribute>
         <attribute name="name" type="string">user</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -167,7 +167,7 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"lei\\",\\"restaurantId\\":\\"5541a5614c671e23003adb4c\\",\\"like\\":\\"1\\",\\"date\\":\\"2015-04-18T21:16:18+0800\\",\\"location\\":{\\"longitude\\":\\"40.759211\\",\\"latitude\\":\\"-73.984638\\",\\"distance\\":\\"300\\"}}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
-        <attribute name="order" type="int64">6</attribute>
+        <attribute name="order" type="int64">7</attribute>
         <attribute name="name" type="string">Select</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -289,7 +289,7 @@
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[" {\\"username\\": \\"qatest\\", \\"rating\\": 5, \\"restaurantId\\": \\"49e8aef4f964a52067651fe3\\", \\"like\\": 1, \\"location\\": {\\"latitude\\": 40.73461, \\"distance\\": 10, \\"longitude\\": -73.87629}, \\"date\\": \\"2014-04-01T13:00:00\\"}"]</attribute>
-        <attribute name="order" type="int64">10</attribute>
+        <attribute name="order" type="int64">11</attribute>
         <attribute name="name" type="string">Select dev</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -315,7 +315,7 @@
         <attribute name="method" type="string">DELETE</attribute>
         <attribute name="followredirects" type="bool">1</attribute>
         <attribute name="body" type="string">[{"data":{"json":"{}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
-        <attribute name="order" type="int64">8</attribute>
+        <attribute name="order" type="int64">9</attribute>
         <attribute name="name" type="string">Delete history</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -341,13 +341,29 @@
         <attribute name="method" type="string">PUT</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
         <attribute name="body" type="string">[{"data":{"json":"{\\/*\\"username\\":\\"lei\\",\\"restaurantId\\":\\"55370c67ec79ae2100e320ba\\",*\\/\\"like\\":\\"2\\"\\/*,\\"date\\":\\"2015-04-18T21:16:18+0800\\",\\"location\\":{\\"longitude\\":\\"40.759211\\",\\"latitude\\":\\"-73.984638\\",\\"distance\\":\\"300\\"}*\\/}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
-        <attribute name="order" type="int64">9</attribute>
+        <attribute name="order" type="int64">10</attribute>
         <attribute name="name" type="string">Update history</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z136"></relationship>
     </object>
-    <object type="LMKEYVALUE" id="z138">
+    <object type="LMREQUEST" id="z140">
+        <attribute name="uuid" type="string">5B41882F-698C-435F-9ACF-E4344E99935C</attribute>
+        <attribute name="url" type="string">http://api.eatnow.cc/user/lei/basePreference</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">PUT</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"preference\\":{\\"Japanese\\":\\"2\\"}}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="order" type="int64">6</attribute>
+        <attribute name="name" type="string">Update base preference</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z141"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z141">
         <attribute name="value" type="string"></attribute>
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string"></attribute>
@@ -355,22 +371,6 @@
         <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
-        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z139"></relationship>
-    </object>
-    <object type="LMREQUEST" id="z139">
-        <attribute name="uuid" type="string">13682FB0-87C2-4AEE-893E-6E3156B9E1D7</attribute>
-        <attribute name="url" type="string">localhost:3000/search?username=lei\u2600latitude=40.759211\u2600longitude=-73.984638\u2600time=2015-04-22T03%3A47%3A16%2B0000</attribute>
-        <attribute name="storecookies" type="bool">1</attribute>
-        <attribute name="sendcookies" type="bool">1</attribute>
-        <attribute name="redirectmethod" type="bool">0</attribute>
-        <attribute name="redirectauthorization" type="bool">0</attribute>
-        <attribute name="method" type="string">GET</attribute>
-        <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string"></attribute>
-        <attribute name="order" type="int64">4</attribute>
-        <attribute name="name" type="string">Search local</attribute>
-        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z138"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z140"></relationship>
     </object>
 </database>

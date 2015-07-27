@@ -132,11 +132,23 @@
 #define COCOAPODS_VERSION_MINOR_CocoaLumberjack_Extensions 0
 #define COCOAPODS_VERSION_PATCH_CocoaLumberjack_Extensions 0
 
+// GPUImage
+#define COCOAPODS_POD_AVAILABLE_GPUImage
+#define COCOAPODS_VERSION_MAJOR_GPUImage 0
+#define COCOAPODS_VERSION_MINOR_GPUImage 1
+#define COCOAPODS_VERSION_PATCH_GPUImage 7
+
 // INTULocationManager
 #define COCOAPODS_POD_AVAILABLE_INTULocationManager
 #define COCOAPODS_VERSION_MAJOR_INTULocationManager 3
 #define COCOAPODS_VERSION_MINOR_INTULocationManager 0
 #define COCOAPODS_VERSION_PATCH_INTULocationManager 1
+
+// JCTagListView
+#define COCOAPODS_POD_AVAILABLE_JCTagListView
+#define COCOAPODS_VERSION_MAJOR_JCTagListView 0
+#define COCOAPODS_VERSION_MINOR_JCTagListView 0
+#define COCOAPODS_VERSION_PATCH_JCTagListView 3
 
 // JGProgressHUD
 #define COCOAPODS_POD_AVAILABLE_JGProgressHUD

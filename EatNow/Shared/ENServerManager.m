@@ -387,9 +387,24 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 - (void)setPreference:(NSDictionary *)preference{
     NSParameterAssert([preference isKindOfClass:[NSDictionary class]]);
-    NSParameterAssert(preference.allKeys.count == kCuisineNames.count);
+    //NSParameterAssert(preference.allKeys.count == kCuisineNames.count);
     _preference = preference;
     [[NSNotificationCenter defaultCenter] postNotificationName:kPreferenceUpdated object:preference];
+}
+
+- (void)updateBasePreference:(NSDictionary *)preference completion:(ErrorBlock)block{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    NSString *url = [NSString stringWithFormat:@"%@/user/%@/basePreference",kServerUrl, self.myID];
+    [manager PUT:url parameters:preference success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *user = (NSDictionary *)responseObject;
+        DDLogVerbose(@"Updaged user base preference: %@", [user objectForKey:@"base_preference"]);
+        if (block) block(nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DDLogError(@"Failed to update base preference: %@", error);
+        if (block) block(error);
+    }];
+    
 }
 
 #pragma mark - Tools

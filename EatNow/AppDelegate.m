@@ -100,6 +100,9 @@
                 if (self.lostConnectionViewController.presentingViewController) {
                     return ;
                 }
+#ifdef DEBUG
+                return;
+#endif
                 UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
 //                if ([activeController isKindOfClass:[UINavigationController class]]) {
 //                    activeController = [(UINavigationController*) activeController visibleViewController];

@@ -60,6 +60,11 @@ install_resource()
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "AMRatingControl/star.png"
   install_resource "AMRatingControl/dot.png"
+  install_resource "GPUImage/framework/Resources/lookup.png"
+  install_resource "GPUImage/framework/Resources/lookup_amatorka.png"
+  install_resource "GPUImage/framework/Resources/lookup_miss_etikate.png"
+  install_resource "GPUImage/framework/Resources/lookup_soft_elegance_1.png"
+  install_resource "GPUImage/framework/Resources/lookup_soft_elegance_2.png"
   install_resource "JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD Resources.bundle"
   install_resource "Mixpanel/Mixpanel/Media.xcassets/MPArrowLeft.imageset/MPArrowLeft.png"
   install_resource "Mixpanel/Mixpanel/Media.xcassets/MPArrowLeft.imageset/MPArrowLeft@2x.png"
@@ -86,11 +91,17 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "TOWebViewController/TOWebViewController/pl.lproj"
   install_resource "TOWebViewController/TOWebViewController/zh-Hans.lproj"
   install_resource "TOWebViewController/TOWebViewController/zh-Hant.lproj"
+  install_resource "${BUILT_PRODUCTS_DIR}/JCTagListView.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/ApptentiveResources.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "AMRatingControl/star.png"
   install_resource "AMRatingControl/dot.png"
+  install_resource "GPUImage/framework/Resources/lookup.png"
+  install_resource "GPUImage/framework/Resources/lookup_amatorka.png"
+  install_resource "GPUImage/framework/Resources/lookup_miss_etikate.png"
+  install_resource "GPUImage/framework/Resources/lookup_soft_elegance_1.png"
+  install_resource "GPUImage/framework/Resources/lookup_soft_elegance_2.png"
   install_resource "JGProgressHUD/JGProgressHUD/JGProgressHUD/JGProgressHUD Resources.bundle"
   install_resource "Mixpanel/Mixpanel/Media.xcassets/MPArrowLeft.imageset/MPArrowLeft.png"
   install_resource "Mixpanel/Mixpanel/Media.xcassets/MPArrowLeft.imageset/MPArrowLeft@2x.png"
@@ -117,6 +128,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "TOWebViewController/TOWebViewController/pl.lproj"
   install_resource "TOWebViewController/TOWebViewController/zh-Hans.lproj"
   install_resource "TOWebViewController/TOWebViewController/zh-Hant.lproj"
+  install_resource "${BUILT_PRODUCTS_DIR}/JCTagListView.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/ApptentiveResources.bundle"
 fi
 

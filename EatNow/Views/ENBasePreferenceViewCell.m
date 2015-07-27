@@ -38,6 +38,7 @@
 
 - (void)setCuisine:(NSString *)cuisine{
     _cuisine = cuisine;
+    self.cuisineLabel.text = cuisine;
     UIImage *bg = [UIImage imageNamed:cuisine];
     if (bg) {
         self.backgroundImage.image = bg;

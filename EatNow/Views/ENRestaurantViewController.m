@@ -761,10 +761,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     cell.separatorInset = UIEdgeInsetsZero;
     cell.preservesSuperviewLayoutMargins = NO;
     
-    //hide bottom seperator for foursquare cell
-    if ([info[@"cellID"] isEqualToString:@"foursquare"]) {
-        cell.separatorInset = UIEdgeInsetsMake(0, 2000, 0, 0);
-    }
+//    //hide bottom seperator for foursquare cell
+//    if ([info[@"cellID"] isEqualToString:@"foursquare"]) {
+//        cell.separatorInset = UIEdgeInsetsMake(0, 2000, 0, 0);
+//    }
     return cell;
 }
 

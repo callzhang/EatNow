@@ -48,6 +48,7 @@
 #import "Mixpanel.h"
 #import "ENBasePreferenceRowItem.h"
 #import "ENBasePreferenceViewController.h"
+#import "UIViewController+blur.h"
 
 @interface ENMainViewController ()
 //data
@@ -329,17 +330,11 @@
 #pragma mark - IBActioning
 - (IBAction)onSettingButton:(id)sender {
     
-    ENBasePreferenceViewController *vc = [[ENBasePreferenceViewController alloc] initWithNibName:nil bundle:nil];
-    [self presentViewController:vc animated:YES completion:nil];
+    ENBasePreferenceViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceViewController"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentWithBlur:nav withCompletion:nil];
+    //[self presentViewController:nav animated:YES completion:nil];
     
-//#ifdef DEBUG
-//    ENProfileViewController *profileVC = [[ENProfileViewController alloc] initWithNibName:nil bundle:nil];
-//    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:profileVC];
-//    [self presentViewController:navVC animated:YES completion:nil];
-//#else
-//    CLLocation *loc = [ENLocationManager cachedCurrentLocation];
-//    [[ATConnect sharedConnection] presentMessageCenterFromViewController:self withCustomData:@{@"ID":[ENServerManager shared].myID, @"coordinate": @{@"lat": @(loc.coordinate.latitude), @"lon": @(loc.coordinate.longitude)}}];
-//#endif
 }
 
 - (IBAction)onHistoryButton:(id)sender {

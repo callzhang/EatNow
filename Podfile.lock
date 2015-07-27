@@ -53,8 +53,10 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
+  - GPUImage (0.1.7)
   - hpple (0.2.0)
   - INTULocationManager (3.0.1)
+  - JCTagListView (0.0.3)
   - JGProgressHUD (1.2.6)
   - JSONModel (1.0.2)
   - KVOController (1.0.3)
@@ -120,8 +122,10 @@ DEPENDENCIES:
   - BlocksKit (~> 2.2)
   - Bolts (~> 1.1.4)
   - CocoaLumberjack (~> 2.0)
+  - GPUImage
   - hpple (~> 0.2)
   - INTULocationManager (~> 3.0.1)
+  - JCTagListView
   - JGProgressHUD
   - JSONModel (~> 1.0.2)
   - KVOController (~> 1.0.3)
@@ -142,8 +146,10 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bolts: aac24961496d504aa56fc267cde95162a71bac39
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
+  JCTagListView: e99ce8bc18e5fcacf5101c5763e6c26d49cb36b4
   JGProgressHUD: 151e8fcfdaa9ee1fb8370837a5ac1222efd3f2d3
   JSONModel: 6ffcb4ffa3659c9e9a2e5d45d6c7705bab187c03
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf

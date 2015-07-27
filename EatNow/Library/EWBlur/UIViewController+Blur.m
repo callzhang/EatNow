@@ -7,10 +7,7 @@
 //
 
 #import "UIViewController+Blur.h"
-#import "EWUIUtil.h"
 #import "EWBlurNavigationControllerDelegate.h"
-#import "EWBaseViewController.h"
-
 
 static EWBlurNavigationControllerDelegate *delegate = nil;
 
@@ -37,9 +34,7 @@ static EWBlurNavigationControllerDelegate *delegate = nil;
 	if ([viewController isKindOfClass:[UINavigationController class]]) {
 		UINavigationController *nav = (UINavigationController *)viewController;
 		[nav setDelegate:delegate];
-	}else if ([viewController isKindOfClass:[EWBaseViewController class]]) {
-		[(EWBaseViewController *)viewController addNavigationBarButtons];
-	}
+    }
 	
 	//hide status bar
 	//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
