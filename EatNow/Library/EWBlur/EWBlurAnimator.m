@@ -151,6 +151,7 @@ static const CGFloat initialDownSampling = 2;
 		//take a new screenshot and render the imageView
 		UIImage *toViewImage = toView.screenshot;
 		self.blurImage = [[GPUImagePicture alloc] initWithImage:toViewImage];
+        [self.blurImage addTarget:self.blurFilter];
 		[self updateFrame:nil];
 		
 		fromView.transform = CGAffineTransformIdentity;
@@ -248,13 +249,13 @@ static const CGFloat initialDownSampling = 2;
 		//used for precalculation
 		progress = 0;
 	}
-	
     
     if (self.type == UINavigationControllerOperationPush || self.type == kModelViewPresent) {
         _progress = progress;
     }else if (self.type == UINavigationControllerOperationPop || self.type == kModelViewDismiss){
         _progress = 1- progress;
     }
+    DDLogVerbose(@"%f, %f, %f", _progress, link.timestamp, self.startTime);
 }
 
 - (void)setProgress:(CGFloat)progress
