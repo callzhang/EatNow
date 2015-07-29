@@ -393,6 +393,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 - (void)updateBasePreference:(NSDictionary *)preference completion:(ErrorBlock)block{
+    self.basePreference = preference;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //manager.responseSerializer = [AFJSONResponseSerializer serializer];
     NSString *url = [NSString stringWithFormat:@"%@/user/%@/basePreference",kServerUrl, self.myID];

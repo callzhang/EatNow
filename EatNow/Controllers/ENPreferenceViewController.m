@@ -84,6 +84,8 @@ static NSString * const reuseIdentifier = @"preferenceCollectionCell";
     UIView *hl = [[UIView alloc] initWithFrame:cell.contentView.frame];
     hl.backgroundColor = [UIColor colorWithWhite:1 alpha:0.3];
     cell.selectedBackgroundView = hl;
+    cell.contentView.layer.borderWidth = 1;
+    cell.contentView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.5].CGColor;
     return cell;
 }
 
@@ -103,7 +105,7 @@ static NSString * const reuseIdentifier = @"preferenceCollectionCell";
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    float cellWidth = (self.view.frame.size.width / 2) - 10;
+    float cellWidth = (self.view.frame.size.width / 2) - 60;
     float cellHeight = cellWidth;
     return CGSizeMake(cellWidth, cellHeight);
 }

@@ -22,11 +22,13 @@
         self.layer.cornerRadius = 10.0f;
         self.layer.masksToBounds = YES;
         self.layer.borderWidth = 1.0f;
-        self.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        self.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.5].CGColor;
+        self.selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
+        self.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:0 green:0.3 blue:.7 alpha:1];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleLabel.textColor = [UIColor darkGrayColor];
+        self.titleLabel.textColor = [UIColor whiteColor];
         self.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [self.contentView addSubview:self.titleLabel];
     }

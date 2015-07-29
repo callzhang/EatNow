@@ -12,7 +12,7 @@
 
 @interface ENPreferenceTagsViewController ()
 @property (weak, nonatomic) IBOutlet JCTagListView *tagView;
-
+@property (assign, nonatomic) BOOL preSelected;
 @end
 
 @implementation ENPreferenceTagsViewController
@@ -23,32 +23,45 @@
     self.tagView.canSeletedTags = YES;
     [self.tagView.tags addObjectsFromArray:kBasePreferences];
     self.tagView.collectionView.backgroundColor = [UIColor clearColor];
-    [self.tagView setCompletionBlockWithSeleted:^(NSInteger index) {
-        DDLogDebug(@"%ld", (long)index);
+    [self.tagView setCompletionBlockWithSeleted:^(BOOL selected, NSInteger index) {
+        DDLogDebug(@"%@%ld", selected?@"Select":@"De-select", (long)index);
     }];
+    self.tagView.backgroundColor = [UIColor clearColor];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (self.preSelected) {
+        DDLogVerbose(@"Already preselected");
+        return;
+    }else {
+        self.preSelected = YES;
+    }
     //add selection
     NSDictionary *base = [ENServerManager shared].basePreference;
     [base enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *score, BOOL *stop) {
         if (score.floatValue == 0) return;
         NSUInteger idx = [kBasePreferences indexOfObject:key];
         if (idx != NSIntegerMax) {
-            DDLogVerbose(@"Pre-select %@(%lu)", key, (unsigned long)idx);
+            DDLogVerbose(@"Pre-select %@: (%lu)", key, (unsigned long)idx);
             [self.tagView.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
         }
     }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
-    DDLogVerbose(@"Selected: %@", self.tagView.seletedTags);
+    NSArray *selection = self.tagView.collectionView.indexPathsForSelectedItems;
+    DDLogVerbose(@"Selected: %@", selection);
     NSMutableDictionary *pref = [NSMutableDictionary dictionary];
-    for (NSString *cuisine in self.tagView.seletedTags) {
+    for (NSIndexPath *idx in selection) {
+        NSString *cuisine = kBasePreferences[idx.row];
         pref[cuisine] = @1;
     }
     [[ENServerManager shared] updateBasePreference:pref completion:^(NSError *error) {
         //DDLogVerbose(@"Base preference updated: %@", pref);
         if (error) {
-            [self.view showFailureNotification:@"Failed to update base preference"];
+            [self.presentingViewController.view showFailureNotification:@"Failed to update base preference"];
         }
     }];
 }
@@ -61,7 +74,13 @@
 
 #pragma mark - UI
 - (IBAction)close:(id)sender{
-    [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    if (self.navigationController) {
+        [self.navigationController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+
+    } else {
+        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+
+    }
 }
 
 /*

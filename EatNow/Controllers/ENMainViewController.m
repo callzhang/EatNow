@@ -330,11 +330,9 @@
 #pragma mark - IBActioning
 - (IBAction)onSettingButton:(id)sender {
     
-    ENBasePreferenceViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceViewController"];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentWithBlur:nav withCompletion:nil];
-    //[self presentViewController:nav animated:YES completion:nil];
-    
+    ENBasePreferenceViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
+    //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentWithBlur:vc withCompletion:nil];    
 }
 
 - (IBAction)onHistoryButton:(id)sender {
