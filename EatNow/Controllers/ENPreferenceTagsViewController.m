@@ -53,10 +53,16 @@
 - (void)viewDidDisappear:(BOOL)animated{
     NSArray *selection = self.tagView.collectionView.indexPathsForSelectedItems;
     DDLogVerbose(@"Selected: %@", selection);
+    
     NSMutableDictionary *pref = [NSMutableDictionary dictionary];
     for (NSIndexPath *idx in selection) {
         NSString *cuisine = kBasePreferences[idx.row];
         pref[cuisine] = @1;
+    }
+    
+    if ([pref isEqualToDictionary:[ENServerManager shared].basePreference]) {
+        DDLogVerbose(@"Skip updating same base pref");
+        return;
     }
     [[ENServerManager shared] updateBasePreference:pref completion:^(NSError *error) {
         //DDLogVerbose(@"Base preference updated: %@", pref);

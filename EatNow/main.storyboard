@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zfP-EV-dBC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zfP-EV-dBC">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -8,6 +8,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Entypo.ttf">
+            <string>Entypo</string>
             <string>Entypo</string>
             <string>Entypo</string>
             <string>Entypo</string>
@@ -936,28 +937,76 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tm6-gb-tix">
-                                <rect key="frame" x="274" y="20" width="46" height="30"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="114"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="4e2-Xh-QFO"/>
-                                    <constraint firstAttribute="width" constant="46" id="elD-1v-oOe"/>
+                                    <constraint firstAttribute="height" constant="112" id="4e2-Xh-QFO"/>
+                                    <constraint firstAttribute="width" constant="320" id="elD-1v-oOe"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="X">
+                                <state key="normal">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="4e2-Xh-QFO"/>
+                                        <exclude reference="elD-1v-oOe"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="close:" destination="77N-Kk-pnE" eventType="touchUpInside" id="0M4-CP-unx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ncY-2m-JnW">
+                                <rect key="frame" x="0.0" y="434" width="320" height="134"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="close:" destination="77N-Kk-pnE" eventType="touchUpInside" id="YR2-Cs-KMY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kJT-56-6U7" userLabel="history-close-detailView-button-histo">
+                                <rect key="frame" x="246" y="492" width="58" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="58" id="0JU-Sp-3cu"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="58" id="3TE-OM-b13"/>
+                                    <constraint firstAttribute="height" constant="60" id="5ld-9G-KiN"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="HM4-3J-0BH"/>
+                                    <constraint firstAttribute="height" constant="60" id="fPG-Hp-Myc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
+                                <size key="titleShadowOffset" width="0.0" height="1"/>
+                                <state key="normal" image="eat-now-close-button"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="5ld-9G-KiN"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="close:" destination="77N-Kk-pnE" eventType="touchUpInside" id="4H6-ZN-A4D"/>
+                                    <action selector="onHistoryDetailToHistoryButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="JmP-Bb-BKJ"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ncY-2m-JnW" secondAttribute="trailing" id="05r-oS-sFt"/>
+                            <constraint firstItem="fTy-cJ-nta" firstAttribute="top" secondItem="kJT-56-6U7" secondAttribute="bottom" constant="16" id="Hjn-xU-TjW"/>
+                            <constraint firstItem="ncY-2m-JnW" firstAttribute="leading" secondItem="6GA-T3-uFM" secondAttribute="leading" id="IM7-Rb-BAn"/>
+                            <constraint firstAttribute="trailing" secondItem="Tm6-gb-tix" secondAttribute="trailing" id="Ir9-7a-Syg"/>
                             <constraint firstItem="mmX-U0-MdH" firstAttribute="leading" secondItem="6GA-T3-uFM" secondAttribute="leading" id="Myf-G1-cv6"/>
                             <constraint firstItem="Tm6-gb-tix" firstAttribute="top" secondItem="N9o-Hq-yXC" secondAttribute="bottom" id="NqT-dj-F59"/>
                             <constraint firstAttribute="trailing" secondItem="mmX-U0-MdH" secondAttribute="trailing" id="TnF-49-gcS"/>
+                            <constraint firstItem="fTy-cJ-nta" firstAttribute="top" secondItem="ncY-2m-JnW" secondAttribute="bottom" id="VrW-Om-90R"/>
+                            <constraint firstItem="mmX-U0-MdH" firstAttribute="top" secondItem="Tm6-gb-tix" secondAttribute="bottom" id="dFj-HQ-xy6"/>
                             <constraint firstAttribute="trailing" secondItem="Tm6-gb-tix" secondAttribute="trailing" id="fDj-8i-Jyy"/>
                             <constraint firstAttribute="centerY" secondItem="mmX-U0-MdH" secondAttribute="centerY" id="mK4-wW-N7a"/>
+                            <constraint firstItem="ncY-2m-JnW" firstAttribute="top" secondItem="mmX-U0-MdH" secondAttribute="bottom" id="oGb-e0-H8K"/>
+                            <constraint firstItem="Tm6-gb-tix" firstAttribute="leading" secondItem="6GA-T3-uFM" secondAttribute="leading" id="vHK-AG-tPl"/>
+                            <constraint firstItem="kJT-56-6U7" firstAttribute="trailing" secondItem="6GA-T3-uFM" secondAttribute="trailingMargin" id="zXB-CF-6QF"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

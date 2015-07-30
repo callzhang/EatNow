@@ -314,6 +314,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     self.preference = [_me valueForKey:@"preference"];
     self.basePreference = basePreference ?: self.emptyBasePreference;
     self.history = [_me valueForKeyPath:@"all_history"];
+    if ([me valueForKey:@"base_preference"]) {
+        NSDictionary *base = [me valueForKey:@"base_preference"];
+        self.basePreference = base;
+    }
     [self setUserRatingWithData:[_me valueForKeyPath:@"all_history"]];
 }
 
