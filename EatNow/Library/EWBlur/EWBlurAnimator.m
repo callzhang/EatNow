@@ -255,7 +255,6 @@ static const CGFloat initialDownSampling = 2;
     }else if (self.type == UINavigationControllerOperationPop || self.type == kModelViewDismiss){
         _progress = 1- progress;
     }
-    DDLogVerbose(@"%f, %f, %f", _progress, link.timestamp, self.startTime);
 }
 
 - (void)setProgress:(CGFloat)progress
