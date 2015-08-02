@@ -47,8 +47,8 @@
 #import "GNMapOpener.h"
 #import "Mixpanel.h"
 #import "ENBasePreferenceRowItem.h"
-#import "ENBasePreferenceViewController.h"
 #import "UIViewController+blur.h"
+#import "ENPreferenceTagsViewController.h"
 
 @interface ENMainViewController ()
 //data
@@ -330,7 +330,7 @@
 #pragma mark - IBActioning
 - (IBAction)onSettingButton:(id)sender {
     
-    ENBasePreferenceViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
+    ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
     //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentWithBlur:vc withCompletion:nil];    
 }
@@ -789,7 +789,14 @@
     BGTimer = [NSTimer bk_scheduledTimerWithTimeInterval:_backgroundImageDelay block:^(NSTimer *timer) {
         //duplicate view
         UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
-        self.background.image = image;
+        //apply filter
+        CIImage *input = [CIImage imageWithCGImage:image.CGImage];
+        CIFilter *gammaFilter = [CIFilter filterWithName:@"CIToneCurve"
+                                     withInputParameters:@{kCIInputImageKey: input,
+                                                           @"inputPoint1": [CIVector vectorWithX:0.25 Y:0.2],
+                                                           @"inputPoint3": [CIVector vectorWithX:0.75 Y:0.4]}];
+        CIImage *output = [gammaFilter valueForKey:kCIOutputImageKey];
+        self.background.image = [UIImage imageWithCIImage:output];
         [self.view insertSubview:imageViewCopy aboveSubview:self.background];
         [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             imageViewCopy.alpha = 0;

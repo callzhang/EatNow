@@ -169,7 +169,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 - (void)didChangedToFrontCard{
     UIImageView *firstImageView = self.imageViewsInImageScrollView.firstObject;
     if ([firstImageView isKindOfClass:[UIImageView class]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":firstImageView.image}];
+        [self postImageChangeNotification:firstImageView.image];
     }
     
     //start to calculate
@@ -422,7 +422,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         
         //send image change notification
         UIImageView *imageView = self.imageViewsInImageScrollView[page];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":imageView.image}];
+        [self postImageChangeNotification:imageView.image];
     }
 }
 
@@ -495,12 +495,21 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     DDLogVerbose(@"Loading %luth image for %@", (unsigned long)index, self.restaurant.name);
-    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:nil
-                              failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+    __weak UIImageView *weekView = imageView;
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"eat-now-monogram"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        weekView.image = image;
+        if (index == self.currentImageIndex) {
+            [self postImageChangeNotification:image];
+        }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         ENLogError(@"*** Failed to download image \n %@ \n with error: %@", url, error);
     }];
     
     return imageView;
+}
+
+- (void)postImageChangeNotification:(UIImage *)image {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
 }
 
 - (NSMutableArray *)imageViewsInImageScrollView {
@@ -618,11 +627,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [info addObject:@{@"type": @"url",
                           @"cellID": @"cell",
                           @"image": @"eat-now-card-details-view-web-icon",
-                          @"title": weakSelf.restaurant.url,
+                          @"title": @"Restaurant website",
                           @"action": ^{
             NSURL *url = [NSURL URLWithString:weakSelf.restaurant.url];
             if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                TMAlertController *alert = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Open Web Page?"] message:[NSString stringWithFormat:@"View %@ in the web browser?", weakSelf.restaurant.url] preferredStyle:TMAlartControllerStyleAlert];
+                TMAlertController *alert = [TMAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Open Web Page?"] message:[NSString stringWithFormat:@"View %@ in extermal web browser?", weakSelf.restaurant.name] preferredStyle:TMAlartControllerStyleAlert];
                 alert.iconStyle = TMAlertControlerIconStyleQustion;
                 [alert addAction:[TMAlertAction actionWithTitle:@"Cancel" style:TMAlertActionStyleCancel handler:^(TMAlertAction *action) {
                     [weakSelf dismissViewControllerAnimated:YES completion:nil];
@@ -707,8 +716,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                       @"height": @114,
                       @"layout": ^(UITableViewCell *cell){
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(weakSelf.tableView.bounds));
-    }
-                      }];
+    }}];
     
     
     self.restautantInfo = info.copy;
@@ -766,10 +774,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     cell.separatorInset = UIEdgeInsetsZero;
     cell.preservesSuperviewLayoutMargins = NO;
     
-//    //hide bottom seperator for foursquare cell
-//    if ([info[@"cellID"] isEqualToString:@"foursquare"]) {
-//        cell.separatorInset = UIEdgeInsetsMake(0, 2000, 0, 0);
-//    }
     return cell;
 }
 

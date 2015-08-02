@@ -69,7 +69,7 @@
     NSMutableDictionary *pref = [NSMutableDictionary dictionary];
     for (NSIndexPath *idx in selection) {
         NSString *cuisine = kBasePreferences[idx.row];
-        pref[cuisine] = @1;
+        pref[cuisine] = @3;
     }
     
     if ([pref isEqualToDictionary:[ENServerManager shared].basePreference]) {
@@ -103,7 +103,7 @@
 
 - (void)setTextForPreference:(NSDictionary *)preference {
     NSMutableArray *cuisines = preference.allKeys.mutableCopy;
-    [cuisines sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+    [cuisines sortUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
         NSNumber *score1 = preference[obj1];
         NSNumber *score2 = preference[obj2];
         return [score2 compare:score1];

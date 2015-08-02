@@ -52,7 +52,7 @@
 	NSArray *list = json[@"categories"];
     self.cuisines = [list valueForKey:@"shortName"];
 	if (self.cuisines.firstObject == [NSNull null]) self.cuisines = [list valueForKey:@"global"];
-    self.images = [NSMutableArray array];
+    //self.images = [NSMutableArray array];
 	self.imageUrls = json[@"food_image_url"];
 	self.phone = [json valueForKeyPath:@"contact.formattedPhone"];
 	self.name = json[@"name"];
@@ -98,27 +98,27 @@
 
 
 //update images
-- (void)setImageUrls:(NSArray *)imageUrls{
-    NSParameterAssert(_images);
-    if (!_imageUrls) {
-        _imageUrls = imageUrls;
-        return;
-    }
-    NSMutableArray *newImages = [NSMutableArray arrayWithCapacity:imageUrls.count];
-    while (newImages.count < imageUrls.count) {
-        [newImages addObject:[NSNull null]];
-    }
-    for (NSUInteger i = 0; i < imageUrls.count; i++) {
-        NSString *url = imageUrls[i];
-        NSUInteger j = [_imageUrls indexOfObject:url];
-        if (j == NSNotFound) continue;
-        if (_images.count > j && _images[j]) {
-            newImages[i] = _images[j];
-        }
-    }
-    _imageUrls = imageUrls;
-    _images = newImages;
-}
+//- (void)setImageUrls:(NSArray *)imageUrls{
+//    NSParameterAssert(_images);
+//    if (!_imageUrls) {
+//        _imageUrls = imageUrls;
+//        return;
+//    }
+//    NSMutableArray *newImages = [NSMutableArray arrayWithCapacity:imageUrls.count];
+//    while (newImages.count < imageUrls.count) {
+//        [newImages addObject:[NSNull null]];
+//    }
+//    for (NSUInteger i = 0; i < imageUrls.count; i++) {
+//        NSString *url = imageUrls[i];
+//        NSUInteger j = [_imageUrls indexOfObject:url];
+//        if (j == NSNotFound) continue;
+//        if (_images.count > j && _images[j]) {
+//            newImages[i] = _images[j];
+//        }
+//    }
+//    _imageUrls = imageUrls;
+//    _images = newImages;
+//}
 
 - (NSString *)twitter{
     return [_json valueForKeyPath:@"twitter.twitter"];
