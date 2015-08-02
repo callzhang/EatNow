@@ -68,7 +68,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (nonatomic, weak) UIView *mapIcon;
 @property (nonatomic, assign) BOOL hasParsedImage;
 @property (nonatomic, assign) float walkingSeconds;
-@property (nonatomic, assign) NSTimeInterval lastWalkingEstimate;
+@property (nonatomic, strong) MKRoute *lastRouting;
 @end
 
 
@@ -174,9 +174,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
     //start to calculate
     self.mapManager = [[ENMapManager alloc] initWithMap:nil];
-    [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(NSTimeInterval length, NSError *error) {
+    [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(MKRoute *route, NSError *error) {
         if (!error) {
-            [self showWalkingTime:length];
+            self.lastRouting = route;
+            self.restaurant.distance = [NSNumber numberWithDouble:route.distance];
+            [self showWalkingTime];
         }
     }];
 }
@@ -194,7 +196,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     [self.card insertSubview:self.map belowSubview:self.goButton];
     self.map.hidden = YES;
     self.mapManager.map = self.map;
-    [self showWalkingTime:self.lastWalkingEstimate];
+    [self showWalkingTime];
 }
 
 #pragma mark - UI
@@ -318,7 +320,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     [self.mapManager routeToRestaurant:_restaurant repeat:10 completion:^(NSTimeInterval length, NSError *error) {
         if (!error) {
             @strongify(self);
-            [self showWalkingTime:length];
+            [self showWalkingTime];
         }
     }];
     
@@ -559,9 +561,20 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     });
 }
 
-- (void)showWalkingTime:(NSTimeInterval)length{
-    self.lastWalkingEstimate = length;
-    NSString *str = [NSString stringWithFormat:@"%@ away, %@ walking", _restaurant.distanceStr, [ENUtil getStringFromTimeInterval:length]];
+- (void)showWalkingTime{
+    MKRoute *route = self.lastRouting;
+    NSString *transportType = @"";
+    switch (route.transportType) {
+        case MKDirectionsTransportTypeAutomobile:
+            transportType = @"driving";
+            break;
+        case MKDirectionsTransportTypeWalking:
+            transportType = @"walking";
+            break;
+        default:
+            break;
+    }
+    NSString *str = [NSString stringWithFormat:@"%@, %@ %@", _restaurant.distanceStr, [ENUtil getStringFromTimeInterval:route.expectedTravelTime], transportType];
     self.walkingDistance.text = str;
     self.mapDistanceLabel.text = str;
 }

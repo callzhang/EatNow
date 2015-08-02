@@ -50,30 +50,33 @@
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     request.source = source;
     request.destination = destination;
-    request.transportType = MKDirectionsTransportTypeWalking;
-    request.requestsAlternateRoutes = NO;
+    CLLocation *loc = destination.placemark.location;
+    CLLocationDistance dist = [loc distanceFromLocation:source.placemark.location];
+    if (dist < 1000) {
+        request.transportType = MKDirectionsTransportTypeWalking;
+    }
+    request.requestsAlternateRoutes = YES;
     
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-        block(response, error);
+        if(block) block(response, error);
     }];
 }
 
-- (void)estimatedWalkingTimeToLocation:(CLLocation *)location completion:(void (^)(NSTimeInterval length, NSError *error))block{
+- (void)estimatedWalkingTimeToLocation:(CLLocation *)location completion:(ENRestaurantDirection)block{
     [self findDirectionsTo:location completion:^(MKDirectionsResponse *response, NSError *error) {
-        
         if (error) {
             DDLogError(@"error:%@", error);
             if (block) {
-                block(NSTimeIntervalSince1970, error);
+                block(nil, error);
             }
         }
         else {
             
             MKRoute *route = response.routes[0];
             if (block) {
-                block(route.expectedTravelTime, error);
+                block(route, error);
             }
         }
     }];

@@ -91,9 +91,9 @@ void ENLogError(NSString *fmt,...){
 	}else if (hours >= 1){
 		timeStr = [NSString stringWithFormat:@"%.1f hours", hours + minutes/60];
 	}else if(minutes >= 1){
-		timeStr = [NSString stringWithFormat:@"%.0f minutes",minutes];
+		timeStr = [NSString stringWithFormat:@"%.0f min",minutes];
 	}else{
-		timeStr = [NSString stringWithFormat:@"%.0f seconds",seconds];
+		timeStr = [NSString stringWithFormat:@"%.0f sec",seconds];
 	}
 	return timeStr;
 }

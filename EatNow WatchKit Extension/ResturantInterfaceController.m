@@ -36,8 +36,19 @@
     self.mapManager = [[ENMapManager alloc] init];
     
     [self.mapManager estimatedWalkingTimeToLocation:self.restaurant.location
-                                         completion:^(NSTimeInterval length, NSError *error) {
-                                             self.restaurantDistance.text = [NSString stringWithFormat:@"%.1f mins walk", length / 60.0];
+                                         completion:^(MKRoute *route, NSError *error) {
+                                             NSString *transportType = @"";
+                                             switch (route.transportType) {
+                                                 case MKDirectionsTransportTypeAutomobile:
+                                                     transportType = @"driving";
+                                                     break;
+                                                 case MKDirectionsTransportTypeWalking:
+                                                     transportType = @"walking";
+                                                     break;
+                                                 default:
+                                                     break;
+                                             }
+                                             self.restaurantDistance.text = [NSString stringWithFormat:@"%.1f mins %@", route.expectedTravelTime / 60.0, transportType];
                                          }];
     
     
