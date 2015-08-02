@@ -82,11 +82,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EatNow/Controllers/ENMainViewController.m"
-            timestampString = "460214976.005522"
+            timestampString = "460234483.640357"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "854"
-            endingLineNumber = "854"
+            startingLineNumber = "857"
+            endingLineNumber = "857"
             landmarkName = "-showNoRestaurantStatus"
             landmarkType = "5">
          </BreakpointContent>

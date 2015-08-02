@@ -791,12 +791,15 @@
         UIView *imageViewCopy = [self.background snapshotViewAfterScreenUpdates:NO];
         //apply filter
         CIImage *input = [CIImage imageWithCGImage:image.CGImage];
-        CIFilter *gammaFilter = [CIFilter filterWithName:@"CIToneCurve"
+        CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"
                                      withInputParameters:@{kCIInputImageKey: input,
-                                                           @"inputPoint1": [CIVector vectorWithX:0.25 Y:0.2],
-                                                           @"inputPoint3": [CIVector vectorWithX:0.75 Y:0.4]}];
-        CIImage *output = [gammaFilter valueForKey:kCIOutputImageKey];
-        self.background.image = [UIImage imageWithCIImage:output];
+                                                           @"inputSaturation": @0.4,
+                                                           @"inputBrightness": @-0.1,
+                                                           @"inputContrast": @1}];
+        CIImage *output = [filter valueForKey:kCIOutputImageKey];
+        UIImage *dampen = [UIImage imageWithCIImage:output];
+        self.background.image = dampen;
+        self.background.contentMode = UIViewContentModeScaleAspectFill;
         [self.view insertSubview:imageViewCopy aboveSubview:self.background];
         [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             imageViewCopy.alpha = 0;
