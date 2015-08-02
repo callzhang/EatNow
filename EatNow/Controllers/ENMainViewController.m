@@ -793,8 +793,8 @@
         CIImage *input = [CIImage imageWithCGImage:image.CGImage];
         CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"
                                      withInputParameters:@{kCIInputImageKey: input,
-                                                           @"inputSaturation": @0.4,
-                                                           @"inputBrightness": @-0.1,
+                                                           @"inputSaturation": @0.3,
+                                                           @"inputBrightness": @0,
                                                            @"inputContrast": @1}];
         CIImage *output = [filter valueForKey:kCIOutputImageKey];
         UIImage *dampen = [UIImage imageWithCIImage:output];
