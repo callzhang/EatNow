@@ -167,8 +167,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)didChangedToFrontCard{
-    if ([self.restaurant.images.firstObject isKindOfClass:[UIImage class]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":self.restaurant.images.firstObject}];
+    UIImageView *firstImageView = self.imageViewsInImageScrollView.firstObject;
+    if ([firstImageView isKindOfClass:[UIImageView class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":firstImageView.image}];
     }
     
     //start to calculate
@@ -415,12 +416,14 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 #pragma mark - ImageScrollView
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger page = scrollView.contentOffset.x / scrollView.bounds.size.width;
-    self.imageScrollViewPageControl.currentPage = page;
-    [self updateImageCount];
-    
-    //TODO: add change notification if necessary
-//    //send image change notification
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
+    if (self.imageScrollViewPageControl.currentPage != page) {
+        self.imageScrollViewPageControl.currentPage = page;
+        [self updateImageCount];
+        
+        //send image change notification
+        UIImageView *imageView = self.imageViewsInImageScrollView[page];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":imageView.image}];
+    }
 }
 
 - (void)fillImageScrollViewWithAllImageViews {
@@ -428,6 +431,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.imageScrollView.scrollEnabled = YES;
 }
 
+//not used
 - (void)fillImageScrollViewWithFirstImageViews {
     [self activateImageScrollViewToIndex:self.restaurant.imageUrls.count > 0 ? 1: 0];
     self.imageScrollView.scrollEnabled = NO;
@@ -510,7 +514,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 - (void)updateImageCount{
     NSUInteger current = self.imageScrollViewPageControl.currentPage+1;
     NSUInteger total = self.imageViewsInImageScrollView.count;
-    self.imageCount.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)current, total];
+    self.imageCount.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)current, (unsigned long)total];
 }
 
 #pragma mark - image parsing
