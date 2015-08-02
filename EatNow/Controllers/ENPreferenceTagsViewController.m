@@ -13,6 +13,7 @@
 @interface ENPreferenceTagsViewController ()
 @property (weak, nonatomic) IBOutlet JCTagListView *tagView;
 @property (assign, nonatomic) BOOL preSelected;
+@property (weak, nonatomic) IBOutlet UILabel *tasteDescription;
 @end
 
 @implementation ENPreferenceTagsViewController
@@ -27,6 +28,17 @@
         DDLogDebug(@"%@%ld", selected?@"Select":@"De-select", (long)index);
     }];
     self.tagView.backgroundColor = [UIColor clearColor];
+    
+    //set text
+    NSDictionary *preference = [ENServerManager shared].preference;
+    if (preference) {
+        [self setTextForPreference:preference];
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserverForName:kPreferenceUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+            NSDictionary *pref = note.object;
+            [self setTextForPreference:pref];
+        }];
+    }
     
 }
 
@@ -86,6 +98,22 @@
     } else {
         [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
+    }
+}
+
+- (void)setTextForPreference:(NSDictionary *)preference {
+    NSMutableArray *cuisines = preference.allKeys.mutableCopy;
+    [cuisines sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+        NSNumber *score1 = preference[obj1];
+        NSNumber *score2 = preference[obj2];
+        return [score2 compare:score1];
+    }];
+    
+    NSNumber *topScore = preference[cuisines[0]];
+    if (topScore.floatValue != 0) {
+        self.tasteDescription.text = [NSString stringWithFormat:@"Your current top choices are: %@, %@ and %@. In addition to that, you can add more taste from below.", cuisines[0], cuisines[1], cuisines[2]];
+    } else {
+        self.tasteDescription.text = @"Your have no history here, and thus we don't know your taste yet. You can add addtional taste from below.";
     }
 }
 

@@ -534,6 +534,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
             @strongify(self);
             if (!imageUrls) {
+                self.hasParsedImage = NO;
 #ifdef DEBUG
                 ENLogError(@"Failed to parse foursquare image %@, error %@", self.restaurant.url, error);
 #endif
