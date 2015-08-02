@@ -69,6 +69,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (nonatomic, assign) BOOL hasParsedImage;
 @property (nonatomic, assign) float walkingSeconds;
 @property (nonatomic, strong) MKRoute *lastRouting;
+@property (nonatomic, strong) NSMutableArray *imageViewsLoaded;
 @end
 
 
@@ -101,6 +102,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     [self.map removeFromSuperview];
     self.map = nil;
     self.mapManager = nil;
+    self.imageViewsInImageScrollView = nil;
 }
 
 //initialization method
@@ -118,6 +120,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.walkingDistance.text = _restaurant.distanceStr;
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
+    self.imageViewsLoaded = [NSMutableArray array];
+    for (NSInteger i = 0; i < ENRestaurantViewImagesMaxCount; i++) {
+        [self.imageViewsLoaded addObject:@NO];
+    }
 	
 	//go button
 	[self updateGoButton];
@@ -420,11 +426,15 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     NSInteger page = scrollView.contentOffset.x / scrollView.bounds.size.width;
     if (self.imageScrollViewPageControl.currentPage != page) {
         self.imageScrollViewPageControl.currentPage = page;
+        self.currentImageIndex = page;
         [self updateImageCount];
         
         //send image change notification
         UIImageView *imageView = self.imageViewsInImageScrollView[page];
         [self postImageChangeNotification:imageView.image];
+        
+        //load image
+        [self loadImageForIndex:page + 3];
     }
 }
 
@@ -446,21 +456,22 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)setupScrollViewConstraints {
     self.imageScrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    //remove all image views
     [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
         [view removeFromSuperview];
     }];
-    
+    //add all image views
     [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
         [self.imageScrollView addSubview:view];
     }];
-    
+    //auto sizing
     [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
         view.translatesAutoresizingMaskIntoConstraints = NO;
         [view autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:view.superview];
         [view autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:view.superview];
     }];
     [self.imageViewsInImageScrollView.firstObject autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
-    
+    //audo distribute
     if (self.imageViewsInImageScrollView.count >= 2) {
         [self.imageViewsInImageScrollView autoDistributeViewsAlongAxis:ALAxisHorizontal alignedTo:ALAttributeHorizontal withFixedSpacing:0 insetSpacing:YES matchedSizes:YES];
     }
@@ -471,14 +482,16 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)activateImageScrollViewToIndex:(NSInteger)index {
     NSInteger totalImageCount = self.imageViewsInImageScrollView.count;
-    if (index < totalImageCount) {
-        [self.imageViewsInImageScrollView removeObjectsInRange:NSMakeRange(index, totalImageCount - index)];
-    }
-    else {
+    if (index >= totalImageCount) {
         for (NSInteger i = totalImageCount; i < index && i < ENRestaurantViewImagesMaxCount; i++) {
             UIImageView *imageView = [self createdImageViewForIndex:i];
             if (imageView) {
                 [self.imageViewsInImageScrollView addObject:imageView];
+            }
+            
+            //load remote image if necessary
+            if (i - self.currentImageIndex <= 3) {
+                [self loadImageForIndex:i];
             }
         }
     }
@@ -491,23 +504,37 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (index >= self.restaurant.imageUrls.count) {
         return nil;
     }
-    
-    NSString *url = self.restaurant.imageUrls[index];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eat-now-monogram"]];
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    return imageView;
+}
+
+- (void)loadImageForIndex:(NSUInteger)index {
+    //index is from 1 to n
+    if (index >= self.imageViewsInImageScrollView.count) return;
+    NSNumber *loaded = self.imageViewsLoaded[index];
+    if (loaded.boolValue) {
+        DDLogVerbose(@"image %lu loaded", (unsigned long)index);
+        return;
+    }
     DDLogVerbose(@"Loading %luth image for %@", (unsigned long)index, self.restaurant.name);
-    __weak UIImageView *weekView = imageView;
+    UIImageView *imageView = self.imageViewsInImageScrollView[index];
+    NSParameterAssert(imageView);
+    NSString *url = self.restaurant.imageUrls[index];
+    @weakify(imageView);
     [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"eat-now-monogram"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        weekView.image = image;
+        @strongify(imageView);
+        //mark image downloaded
+        self.imageViewsLoaded[index] = @YES;
+        imageView.image = image;
         if (index == self.currentImageIndex) {
             [self postImageChangeNotification:image];
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         ENLogError(@"*** Failed to download image \n %@ \n with error: %@", url, error);
     }];
-    
-    return imageView;
 }
 
 - (void)postImageChangeNotification:(UIImage *)image {
@@ -523,7 +550,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)updateImageCount{
-    NSUInteger current = self.imageScrollViewPageControl.currentPage+1;
+    NSUInteger current = self.currentImageIndex + 1;
     NSUInteger total = self.imageViewsInImageScrollView.count;
     self.imageCount.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)current, (unsigned long)total];
 }
