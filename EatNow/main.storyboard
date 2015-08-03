@@ -1295,7 +1295,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                             <color key="textColor" red="0.25094899539999999" green="0.25099846720000002" blue="0.25094586610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eat-now-card-details-view-phone-icon" translatesAutoresizingMaskIntoConstraints="NO" id="1SZ-Kq-bpE">
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="eat-now-card-details-view-menu-button" translatesAutoresizingMaskIntoConstraints="NO" id="1SZ-Kq-bpE">
                                                             <rect key="frame" x="10" y="14" width="25" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="25" id="RNT-W5-SU6"/>
@@ -1540,6 +1540,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
         <image name="eat-now-card-details-view-map-collapse-button" width="55" height="55"/>
         <image name="eat-now-card-details-view-map-export-button" width="55" height="55"/>
         <image name="eat-now-card-details-view-map-indicator" width="60" height="60"/>
+        <image name="eat-now-card-details-view-menu-button" width="60" height="56"/>
         <image name="eat-now-card-details-view-phone-icon" width="25" height="25"/>
         <image name="eat-now-card-details-view-setting-button" width="55" height="55"/>
         <image name="eat-now-close-button" width="55" height="55"/>

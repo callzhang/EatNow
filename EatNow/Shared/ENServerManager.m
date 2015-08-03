@@ -22,6 +22,8 @@ NSString * const kHistroyUpdated = @"history_updated";
 NSString * const kRatingUpdated = @"rating_updated";
 NSString * const kPreferenceUpdated = @"preference_updated";
 NSString * const kUserUpdated = @"user_updated";
+NSString * const kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
+NSString * const kShouldShowTutorial = @"shouldShowTutorial";
 
 @import CoreLocation;
 
@@ -57,6 +59,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 		
 		//manager
 		//_requestManager = [AFHTTPRequestOperationManager manager];
+        
+        //defaults
+        [[NSUserDefaults standardUserDefaults] registerDefaults:@{kShouldShowNiceChoiceKey: @YES,
+                                                                  kShouldShowTutorial: @YES}];
     }
     return self;
 }

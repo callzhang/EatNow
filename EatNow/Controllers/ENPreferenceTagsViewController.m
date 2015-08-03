@@ -102,6 +102,11 @@
 }
 
 - (void)setTextForPreference:(NSDictionary *)preference {
+    if ([ENServerManager shared].history.count == 0) {
+        //no history
+        self.tasteDescription.text = @"Your have no dine history, and thus we don't know your taste yet. You can add addtional tastes from below.";
+        return;
+    }
     NSMutableArray *cuisines = preference.allKeys.mutableCopy;
     [cuisines sortUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
         NSNumber *score1 = preference[obj1];
@@ -111,9 +116,9 @@
     
     NSNumber *topScore = preference[cuisines[0]];
     if (topScore.floatValue != 0) {
-        self.tasteDescription.text = [NSString stringWithFormat:@"Your current top choices are: %@, %@ and %@. On top of that, you can add addtional tastes from below.", cuisines[0], cuisines[1], cuisines[2]];
+        self.tasteDescription.text = [NSString stringWithFormat:@"Your current top choices are: %@, %@ and %@. In addtion to that, you can add more tastes from below.", cuisines[0], cuisines[1], cuisines[2]];
     } else {
-        self.tasteDescription.text = @"Your have no history here, and thus we don't know your taste yet. You can add addtional tastes from below.";
+        self.tasteDescription.text = @"Your have no dine history, and thus we don't know your taste yet. You can add addtional tastes from below.";
     }
 }
 

@@ -16,6 +16,8 @@ extern NSString * const kHistroyUpdated;
 extern NSString * const kRatingUpdated;
 extern NSString * const kPreferenceUpdated;
 extern NSString * const kUserUpdated;
+extern NSString * const kShouldShowNiceChoiceKey;
+extern NSString * const kShouldShowTutorial;
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"

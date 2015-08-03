@@ -281,12 +281,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         else{
             DDLogInfo(@"Selected %@", _restaurant.name);
-            NSString *kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
-            [[NSUserDefaults standardUserDefaults] registerDefaults:@{kShouldShowNiceChoiceKey : @(YES)}];
             BOOL shouldShowNiceChoice = [[NSUserDefaults standardUserDefaults] boolForKey:kShouldShowNiceChoiceKey];
-            if (shouldShowNiceChoice
-//                || YES
-                ) {
+            if (shouldShowNiceChoice) {
                 TMAlertController *alertController = [TMAlertController alertControllerWithTitle:@"Nice Pick!" message:@"Eat Now learns about your taste each time you tap Go There." preferredStyle:TMAlartControllerStyleAlert];
                 alertController.iconStyle = TMAlertControlerIconStyleThumbsUp;
                 [alertController addAction:[TMAlertAction actionWithTitle:@"OK" style:TMAlertActionStyleDefault handler:^(TMAlertAction *action) {
@@ -684,10 +680,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
         }}];
     }
+    //menu
     if (weakSelf.restaurant.mobileMenuURL) {
         [info addObject:@{@"type": @"url",
                           @"cellID": @"cell",
-                          @"image": @"eat-now-card-details-view-web-icon",
+                          @"image": @"eat-now-card-details-view-menu-icon",
                           @"title": @"View Menu",
                           @"action": ^{
             TOWebViewController *vc = [[TOWebViewController alloc] initWithURLString:weakSelf.restaurant.mobileMenuURL];
@@ -714,7 +711,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     NSNumber *rate = history[@"rating"];
     NSNumber *reviewed = history[@"reviewed"];
     NSInteger ratingValue = rate.integerValue;
-    
+    //review
     if (history && reviewed.boolValue) {
         if (reviewed.boolValue) {
             [info addObject:
@@ -736,6 +733,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         }
         
     }
+    //score
     if (self.mainVC.showScore) {
         if (weakSelf.restaurant.score) {
 			float original_score = [(NSNumber *)[weakSelf.restaurant.json valueForKeyPath:@"score.original_score"] floatValue];
