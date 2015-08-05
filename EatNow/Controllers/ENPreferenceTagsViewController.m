@@ -22,7 +22,7 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(close:)];
     self.tagView.canSeletedTags = YES;
-    [self.tagView.tags addObjectsFromArray:kBasePreferences];
+    [self.tagView.tags addObjectsFromArray:kBasePreferencesValue];
     self.tagView.collectionView.backgroundColor = [UIColor clearColor];
     [self.tagView setCompletionBlockWithSeleted:^(BOOL selected, NSInteger index) {
         DDLogDebug(@"%@%ld", selected?@"Select":@"De-select", (long)index);
