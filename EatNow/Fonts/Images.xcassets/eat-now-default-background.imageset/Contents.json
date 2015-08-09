@@ -3,17 +3,15 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "eat-now-default-background.jpg"
+      "filename" : "background.jpg"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "eat-now-default-background@2x.jpg"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "eat-now-default-background@3x.jpg"
+      "scale" : "3x"
     }
   ],
   "info" : {

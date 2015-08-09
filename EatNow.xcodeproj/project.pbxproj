@@ -121,6 +121,7 @@
 		9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658BC1AE4613D0035572C /* UIView+Extend.m */; };
 		9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658BF1AE4B5330035572C /* UIView+Material.m */; };
 		9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B1658C21AECA8AF0035572C /* ENRatingView.m */; };
+		9B2205E71B7705BD0088DC96 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B2205E61B7705BD0088DC96 /* Launch Screen.xib */; };
 		9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B23A9BD1A27E04100549871 /* CoreLocation.framework */; };
 		9B74EAD81B52441B00A14BC9 /* ENBasePreferenceRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B74EAD71B52441B00A14BC9 /* ENBasePreferenceRowItem.m */; };
 		9B74EADE1B52444F00A14BC9 /* ENBasePreferenceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B74EADC1B52444F00A14BC9 /* ENBasePreferenceViewCell.m */; };
@@ -345,6 +346,7 @@
 		9B1658BF1AE4B5330035572C /* UIView+Material.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Material.m"; sourceTree = "<group>"; };
 		9B1658C11AECA8AF0035572C /* ENRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRatingView.h; sourceTree = "<group>"; };
 		9B1658C21AECA8AF0035572C /* ENRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRatingView.m; sourceTree = "<group>"; };
+		9B2205E61B7705BD0088DC96 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		9B23A9BD1A27E04100549871 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9B74EAD61B52441B00A14BC9 /* ENBasePreferenceRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENBasePreferenceRowItem.h; path = ../../ENBasePreferenceRowItem.h; sourceTree = "<group>"; };
 		9B74EAD71B52441B00A14BC9 /* ENBasePreferenceRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENBasePreferenceRowItem.m; path = ../../ENBasePreferenceRowItem.m; sourceTree = "<group>"; };
@@ -655,6 +657,7 @@
 				9B1180F71A8E970700756E8F /* Entypo.ttf */,
 				9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */,
 				9BE6BC651A211F8A00CF57F5 /* main.storyboard */,
+				9B2205E61B7705BD0088DC96 /* Launch Screen.xib */,
 			);
 			name = Recources;
 			sourceTree = "<group>";
@@ -993,6 +996,7 @@
 				091C0B391AF9616200838096 /* OpenSans-ExtraBold.ttf in Resources */,
 				091C0B3C1AF9616200838096 /* OpenSans-Light.ttf in Resources */,
 				09B9F8F21AF1B4F700DE92C6 /* TMRightDetailTableViewCell.xib in Resources */,
+				9B2205E71B7705BD0088DC96 /* Launch Screen.xib in Resources */,
 				091C0B3B1AF9616200838096 /* OpenSans-Italic.ttf in Resources */,
 				091C0B3E1AF9616200838096 /* OpenSans-Regular.ttf in Resources */,
 				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,

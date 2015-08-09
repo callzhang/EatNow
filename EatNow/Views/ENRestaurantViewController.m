@@ -144,11 +144,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.view.frame = frame;
         self.status = status;
         [self updateLayout];
-        if (status == ENRestaurantViewStatusDetail) {
-            self.shadowView.hidden = NO;
-        }else {
-            self.shadowView.hidden = YES;
-        }
     } completion:^(BOOL finished) {
         switch (status) {
             case ENRestaurantViewStatusDetail:
@@ -177,6 +172,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if ([firstImageView isKindOfClass:[UIImageView class]]) {
         [self postImageChangeNotification:firstImageView.image];
     }
+    
+    //shadow
+    self.shadowView.hidden = NO;
     
     //start to calculate
     self.mapManager = [[ENMapManager alloc] initWithMap:nil];

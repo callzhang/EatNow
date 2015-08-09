@@ -664,10 +664,6 @@
     CGPoint locInView = [gesture locationInView:self.animator.referenceView];
     CGPoint locInCard = [gesture locationInView:self.firstRestaurantViewController.view];
     
-    void (^clearShadowBlock)(ENRestaurantViewController *viewController) = ^(ENRestaurantViewController *viewController) {
-        viewController.shadowView.hidden = YES;
-    };
-    
     ENRestaurantViewController *card= self.firstRestaurantViewController;
     if (gesture.state == UIGestureRecognizerStateBegan) {
         //remove snap
@@ -677,13 +673,11 @@
         UIOffset offset = UIOffsetMake(locInCard.x - card.view.bounds.size.width/2, locInCard.y - card.view.bounds.size.height/2);
         _attachment = [[UIAttachmentBehavior alloc] initWithItem:card.view offsetFromCenter:offset attachedToAnchor:locInView];
         [_animator addBehavior:_attachment];
-        card.shadowView.hidden = NO;
     }
     else if (gesture.state == UIGestureRecognizerStateChanged) {
         _attachment.anchorPoint = locInView;
     }
     else if (gesture.state == UIGestureRecognizerStateEnded){
-        clearShadowBlock(card);
         [_animator removeBehavior:_attachment];
         CGPoint translation = [gesture translationInView:self.view];
         BOOL canSwipe = card.canSwipe;
@@ -704,9 +698,6 @@
                                                                         @"session": [ENServerManager shared].session}];
             [self snapCardToCenter:card];
         }
-    }
-    else {
-        clearShadowBlock(card);
     }
 }
 
@@ -880,9 +871,9 @@
         self.dotFrameView = [[EnShapeView alloc] init];
         
         self.dotFrameView.shapeLayer.path = [UIBezierPath bezierPathWithRoundedRect:cardFrame cornerRadius:16].CGPath;
-        self.dotFrameView.shapeLayer.lineWidth = 1 * onePixel;
-        self.dotFrameView.shapeLayer.lineCap = kCALineCapButt;
-        self.dotFrameView.shapeLayer.lineDashPattern = @[@(1 * onePixel), @(5 * onePixel)];
+        self.dotFrameView.shapeLayer.lineWidth = 2 * onePixel;
+        self.dotFrameView.shapeLayer.lineCap = kCALineCapRound; //kCALineCapButt;
+        self.dotFrameView.shapeLayer.lineDashPattern = @[@(1 * onePixel), @(10 * onePixel)];
         self.dotFrameView.shapeLayer.fillColor = nil;
         self.dotFrameView.shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
         [self.cardView insertSubview:self.dotFrameView atIndex:2];
