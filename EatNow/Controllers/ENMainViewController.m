@@ -321,6 +321,10 @@
     [self setupDotFrameView];
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (void)onRestauranntViewImageDidChangeNotification:(NSNotification *)notification {
     if (notification.object == self.firstRestaurantViewController) {
         [self setBackgroundImage:notification.userInfo[@"image"]];
