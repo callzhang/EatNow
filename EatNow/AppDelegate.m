@@ -119,9 +119,10 @@
         }
     }];
     
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring]; 
     
     [application registerForRemoteNotifications];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     return YES;
 }
