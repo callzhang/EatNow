@@ -108,6 +108,19 @@
 		9BE71C591B7FA2F400509457 /* TMRightDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BE71C481B7FA2F400509457 /* TMRightDetailTableViewCell.xib */; };
 		9BE71C5A1B7FA2F400509457 /* TMTextLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C4A1B7FA2F400509457 /* TMTextLabelTableViewCell.m */; };
 		9BE71C5B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BE71C4B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib */; };
+		9BEBE77F1B7FDED7006F844C /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C1C1B7FA20A00509457 /* ENServerManager.m */; };
+		9BEBE7801B7FDED8006F844C /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C1C1B7FA20A00509457 /* ENServerManager.m */; };
+		9BEBE7811B7FDEEB006F844C /* TMRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C331B7FA2F400509457 /* TMRowItem.m */; };
+		9BEBE7821B7FDF31006F844C /* ENRestaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C191B7FA20A00509457 /* ENRestaurant.m */; };
+		9BEBE7831B7FDF33006F844C /* ENRestaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C191B7FA20A00509457 /* ENRestaurant.m */; };
+		9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE7861B7FE09D006F844C /* GNAppleMapOpenerService.m */; };
+		9BEBE7921B7FE09D006F844C /* GNGoogleMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE7881B7FE09D006F844C /* GNGoogleMapOpenerService.m */; };
+		9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE78A1B7FE09D006F844C /* GNMapOpener.m */; };
+		9BEBE7941B7FE09D006F844C /* GNMapOpenerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE78C1B7FE09D006F844C /* GNMapOpenerItem.m */; };
+		9BEBE7951B7FE09D006F844C /* GNMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE78E1B7FE09D006F844C /* GNMapOpenerService.m */; };
+		9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE7901B7FE09D006F844C /* OpenInGoogleMapsController.m */; };
+		9BEBE7971B7FE155006F844C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
+		9BEBE7981B7FE15B006F844C /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
 		9BF9C2851B6680AE00B051B1 /* ENPreferenceCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF9C2841B6680AE00B051B1 /* ENPreferenceCollectionViewCell.m */; };
 		9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */; };
 		DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
@@ -326,6 +339,18 @@
 		9BE71C491B7FA2F400509457 /* TMTextLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTextLabelTableViewCell.h; sourceTree = "<group>"; };
 		9BE71C4A1B7FA2F400509457 /* TMTextLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTextLabelTableViewCell.m; sourceTree = "<group>"; };
 		9BE71C4B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTextLabelTableViewCell.xib; sourceTree = "<group>"; };
+		9BEBE7851B7FE09D006F844C /* GNAppleMapOpenerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAppleMapOpenerService.h; sourceTree = "<group>"; };
+		9BEBE7861B7FE09D006F844C /* GNAppleMapOpenerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAppleMapOpenerService.m; sourceTree = "<group>"; };
+		9BEBE7871B7FE09D006F844C /* GNGoogleMapOpenerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNGoogleMapOpenerService.h; sourceTree = "<group>"; };
+		9BEBE7881B7FE09D006F844C /* GNGoogleMapOpenerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNGoogleMapOpenerService.m; sourceTree = "<group>"; };
+		9BEBE7891B7FE09D006F844C /* GNMapOpener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNMapOpener.h; sourceTree = "<group>"; };
+		9BEBE78A1B7FE09D006F844C /* GNMapOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNMapOpener.m; sourceTree = "<group>"; };
+		9BEBE78B1B7FE09D006F844C /* GNMapOpenerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNMapOpenerItem.h; sourceTree = "<group>"; };
+		9BEBE78C1B7FE09D006F844C /* GNMapOpenerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNMapOpenerItem.m; sourceTree = "<group>"; };
+		9BEBE78D1B7FE09D006F844C /* GNMapOpenerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNMapOpenerService.h; sourceTree = "<group>"; };
+		9BEBE78E1B7FE09D006F844C /* GNMapOpenerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNMapOpenerService.m; sourceTree = "<group>"; };
+		9BEBE78F1B7FE09D006F844C /* OpenInGoogleMapsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInGoogleMapsController.h; sourceTree = "<group>"; };
+		9BEBE7901B7FE09D006F844C /* OpenInGoogleMapsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInGoogleMapsController.m; sourceTree = "<group>"; };
 		9BF9C2831B6680AE00B051B1 /* ENPreferenceCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceCollectionViewCell.h; sourceTree = "<group>"; };
 		9BF9C2841B6680AE00B051B1 /* ENPreferenceCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceCollectionViewCell.m; sourceTree = "<group>"; };
 		DA5B73E518F233EF00BB5F8E /* EatNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -507,6 +532,7 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				9BEBE7841B7FE09D006F844C /* GNMapOpener */,
 				9BE71C261B7FA2F400509457 /* TableViewBuilder */,
 				9BE71C051B7FA08700509457 /* NYXImagesHelper.h */,
 				9BE71C061B7FA08700509457 /* NYXImagesHelper.m */,
@@ -582,6 +608,25 @@
 				9BE71C4B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9BEBE7841B7FE09D006F844C /* GNMapOpener */ = {
+			isa = PBXGroup;
+			children = (
+				9BEBE7851B7FE09D006F844C /* GNAppleMapOpenerService.h */,
+				9BEBE7861B7FE09D006F844C /* GNAppleMapOpenerService.m */,
+				9BEBE7871B7FE09D006F844C /* GNGoogleMapOpenerService.h */,
+				9BEBE7881B7FE09D006F844C /* GNGoogleMapOpenerService.m */,
+				9BEBE7891B7FE09D006F844C /* GNMapOpener.h */,
+				9BEBE78A1B7FE09D006F844C /* GNMapOpener.m */,
+				9BEBE78B1B7FE09D006F844C /* GNMapOpenerItem.h */,
+				9BEBE78C1B7FE09D006F844C /* GNMapOpenerItem.m */,
+				9BEBE78D1B7FE09D006F844C /* GNMapOpenerService.h */,
+				9BEBE78E1B7FE09D006F844C /* GNMapOpenerService.m */,
+				9BEBE78F1B7FE09D006F844C /* OpenInGoogleMapsController.h */,
+				9BEBE7901B7FE09D006F844C /* OpenInGoogleMapsController.m */,
+			);
+			path = GNMapOpener;
 			sourceTree = "<group>";
 		};
 		9BEE36B91A8D3DCF0052332C /* Extension */ = {
@@ -986,11 +1031,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0982B45E1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
+				9BEBE7821B7FDF31006F844C /* ENRestaurant.m in Sources */,
+				9BEBE77F1B7FDED7006F844C /* ENServerManager.m in Sources */,
 				092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */,
 				09B9F8FF1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
 				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
 				090B2E0B1AED876B00ABAA99 /* WatchKitAction.m in Sources */,
 				092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */,
+				9BEBE7811B7FDEEB006F844C /* TMRowItem.m in Sources */,
 				09DC93291AE2CBE20054D665 /* NSDate+Extension.m in Sources */,
 				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
 				09B9F8FB1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */,
@@ -1022,12 +1070,14 @@
 				0949581B1B019AC70022E4B4 /* TMAlertTransitioningDelegate.m in Sources */,
 				09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */,
 				9BE71C581B7FA2F400509457 /* TMRightDetailTableViewCell.m in Sources */,
+				9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */,
 				9BF9C2851B6680AE00B051B1 /* ENPreferenceCollectionViewCell.m in Sources */,
 				9BE71C561B7FA2F400509457 /* TMTableViewDelegate.m in Sources */,
 				9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */,
 				9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */,
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
+				9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */,
 				091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
 				9BE71C551B7FA2F400509457 /* TMTableViewDataSource.m in Sources */,
@@ -1039,6 +1089,7 @@
 				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,
 				9BE71C1D1B7FA20A00509457 /* ENRestaurant.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
+				9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */,
 				9BE71C531B7FA2F400509457 /* TMSectionItem.m in Sources */,
 				9BE71C211B7FA21800509457 /* EnShapeView.m in Sources */,
 				09B9F8FA1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */,
@@ -1063,8 +1114,11 @@
 				9B03363E1B5D40C2001F5A32 /* UIView+screenshot.m in Sources */,
 				9BE71C521B7FA2F400509457 /* TMTextFieldRowItem.m in Sources */,
 				9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */,
+				9BEBE7951B7FE09D006F844C /* GNMapOpenerService.m in Sources */,
 				9BE71C151B7FA1E700509457 /* NSError+TMError.m in Sources */,
 				094958111B018E300022E4B4 /* TMAlertController.m in Sources */,
+				9BEBE7921B7FE09D006F844C /* GNGoogleMapOpenerService.m in Sources */,
+				9BEBE7941B7FE09D006F844C /* GNMapOpenerItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1072,6 +1126,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BEBE7801B7FDED8006F844C /* ENServerManager.m in Sources */,
+				9BEBE7981B7FE15B006F844C /* ENMapManager.m in Sources */,
+				9BEBE7971B7FE155006F844C /* ENLocationManager.m in Sources */,
+				9BEBE7831B7FDF33006F844C /* ENRestaurant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

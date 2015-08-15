@@ -70,6 +70,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (nonatomic, assign) float walkingSeconds;
 @property (nonatomic, strong) MKRoute *lastRouting;
 @property (nonatomic, strong) NSMutableArray *imageViewsLoaded;
+@property (nonatomic, assign) BOOL canSwipeOnCardView;
 @end
 
 
@@ -94,6 +95,17 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.shadowView.hidden = YES;
     self.card.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.2].CGColor;
     self.card.layer.borderWidth = 1;
+    
+    //set up image views
+    _imageViewsInImageScrollView = [NSMutableArray array];
+    //iamge loaded
+    self.imageViewsLoaded = [NSMutableArray array];
+    for (NSInteger i = 0; i < ENRestaurantViewImagesMaxCount; i++) {
+        [self.imageViewsLoaded addObject:@NO];
+    }
+    
+    //tweak
+    FBTweakBind(self, canSwipeOnCardView, @"Restaurant View", @"Image", @"Can swipe on card view", NO);
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -110,8 +122,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 	_restaurant = restaurant;
     //table view data
 	[self prepareData];
+    [self activateImageScrollViewToIndex:0];
     
-    [self activateImageScrollViewToIndex:1];
     //UI
     self.name.text = restaurant.name;
     self.cuisine.text = restaurant.cuisineText;
@@ -120,10 +132,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.walkingDistance.text = _restaurant.distanceStr;
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
-    self.imageViewsLoaded = [NSMutableArray array];
-    for (NSInteger i = 0; i < ENRestaurantViewImagesMaxCount; i++) {
-        [self.imageViewsLoaded addObject:@NO];
-    }
 	
 	//go button
 	[self updateGoButton];
@@ -154,7 +162,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             default:{
                 //close map if colapse
                 [self closeMap];
-                [self fillImageScrollViewWithCurrentImageView];
+                //[self fillImageScrollViewWithCurrentImageView];
+                self.imageScrollView.scrollEnabled = self.canSwipeOnCardView;
                 break;
             }
         }
@@ -176,6 +185,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //shadow
     self.shadowView.hidden = NO;
     
+    //load all image if enabled swipe on card
+    if (self.canSwipeOnCardView) {
+        [self activateImageScrollViewToIndex: MIN(self.restaurant.imageUrls.count-1, 3)];
+    }
+    
     //start to calculate
     self.mapManager = [[ENMapManager alloc] initWithMap:nil];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(MKRoute *route, NSError *error) {
@@ -192,7 +206,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (self.status == ENRestaurantViewStatusDetail){
         [self parseVendorImages];
     }
-    [self fillImageScrollViewWithAllImageViews];
+    
+    //fill images
+    //[self fillImageScrollViewWithAllImageViews];
+    [self activateImageScrollViewToIndex:MIN(self.restaurant.imageUrls.count-1, 3)];
+    self.imageScrollView.scrollEnabled = YES;
     
     //add map to view and hide
     self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -428,35 +446,24 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self postImageChangeNotification:imageView.image];
         
         //load image
-        [self loadImageForIndex:page + 3];
+        [self loadImageForIndexIfNeeded:page + 3];
+        
+        //add more image view
+        if ((page + 3) > self.imageViewsInImageScrollView.count) {
+            [self activateImageScrollViewToIndex:page+3];
+        }
     }
-}
-
-- (void)fillImageScrollViewWithAllImageViews {
-    [self activateImageScrollViewToIndex:self.restaurant.imageUrls.count];
-    self.imageScrollView.scrollEnabled = YES;
-}
-
-//not used
-- (void)fillImageScrollViewWithFirstImageViews {
-    [self activateImageScrollViewToIndex:self.restaurant.imageUrls.count > 0 ? 1: 0];
-    self.imageScrollView.scrollEnabled = NO;
-}
-
-- (void)fillImageScrollViewWithCurrentImageView {
-    [self activateImageScrollViewToIndex:self.imageScrollViewPageControl.currentPage + 1];
-    self.imageScrollView.scrollEnabled = NO;
 }
 
 - (void)setupScrollViewConstraints {
     self.imageScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     //remove all image views
     [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        [view removeFromSuperview];
+        if ([view isKindOfClass:[UIView class]]) [view removeFromSuperview];
     }];
     //add all image views
     [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
-        [self.imageScrollView addSubview:view];
+        if ([view isKindOfClass:[UIView class]]) [self.imageScrollView addSubview:view];
     }];
     //auto sizing
     [self.imageViewsInImageScrollView enumerateObjectsUsingBlock:^(UIView *view, NSUInteger idx, BOOL *stop) {
@@ -475,44 +482,39 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)activateImageScrollViewToIndex:(NSInteger)index {
-    NSInteger totalImageCount = self.imageViewsInImageScrollView.count;
-    if (index >= totalImageCount) {
-        for (NSInteger i = totalImageCount; i < index && i < ENRestaurantViewImagesMaxCount; i++) {
-            UIImageView *imageView = [self createdImageViewForIndex:i];
-            if (imageView) {
-                [self.imageViewsInImageScrollView addObject:imageView];
-            }
-            
-            //load remote image if necessary
-            if (i - self.currentImageIndex <= 3) {
-                [self loadImageForIndex:i];
-            }
+    //index is 0 to n-1
+    //fill image to scroll view
+    for (NSInteger i = self.imageViewsInImageScrollView.count; i <= index && i < ENRestaurantViewImagesMaxCount; i++) {
+        //if image view not set up, set up
+        UIImageView *imageView = [self createdImageView];
+        self.imageViewsInImageScrollView[i] = imageView;
+        DDLogVerbose(@"Created image view for %luth url", (unsigned long)i+1);
+        
+        //load remote image if necessary
+        if (i - self.currentImageIndex <= 3) {
+            [self loadImageForIndexIfNeeded:i];
         }
     }
+
     [self setupScrollViewConstraints];
     self.imageScrollViewPageControl.numberOfPages = self.imageViewsInImageScrollView.count;
     [self updateImageCount];
 }
 
-- (UIImageView *)createdImageViewForIndex:(NSUInteger)index {
-    if (index >= self.restaurant.imageUrls.count) {
-        return nil;
-    }
+- (UIImageView *)createdImageView{
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"eat-now-monogram"]];
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
-    
     return imageView;
 }
 
-- (void)loadImageForIndex:(NSUInteger)index {
-    //index is from 1 to n
+//load image to scroll view
+- (void)loadImageForIndexIfNeeded:(NSUInteger)index {
+    //index is from 0 to n-1
     if (index >= self.imageViewsInImageScrollView.count) return;
     NSNumber *loaded = self.imageViewsLoaded[index];
-    if (loaded.boolValue) {
-        DDLogVerbose(@"image %lu loaded", (unsigned long)index);
-        return;
-    }
+    if (loaded.boolValue) return;
+    
     DDLogVerbose(@"Loading %luth image for %@", (unsigned long)index, self.restaurant.name);
     UIImageView *imageView = self.imageViewsInImageScrollView[index];
     NSParameterAssert(imageView);
@@ -524,6 +526,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.imageViewsLoaded[index] = @YES;
         imageView.image = image;
         if (index == self.currentImageIndex) {
+            
             [self postImageChangeNotification:image];
         }
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
@@ -532,15 +535,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)postImageChangeNotification:(UIImage *)image {
+    if (!image) return;
     [[NSNotificationCenter defaultCenter] postNotificationName:kRestaurantViewImageChangedNotification object:self userInfo:@{@"image":image}];
-}
-
-- (NSMutableArray *)imageViewsInImageScrollView {
-    if (!_imageViewsInImageScrollView) {
-        _imageViewsInImageScrollView = [NSMutableArray array];
-    }
-    
-    return _imageViewsInImageScrollView;
 }
 
 - (void)updateImageCount{
@@ -574,7 +570,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
             if (imageUrls.count > 1) {
                 //show image
-                [self fillImageScrollViewWithAllImageViews];
+                //[self fillImageScrollViewWithAllImageViews];
                 //update to server
                 [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
             }

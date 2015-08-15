@@ -46,7 +46,6 @@
 #import "GNMapOpenerItem.h"
 #import "GNMapOpener.h"
 #import "Mixpanel.h"
-#import "ENBasePreferenceRowItem.h"
 #import "UIViewController+blur.h"
 #import "ENPreferenceTagsViewController.h"
 
