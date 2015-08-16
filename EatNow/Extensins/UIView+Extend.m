@@ -84,4 +84,18 @@
     gradientLayer.frame = self.bounds;
     [self.layer addSublayer:gradientLayer];
 }
+
+- (UIImage *)toImage
+{
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
+
+
 @end

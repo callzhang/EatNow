@@ -76,6 +76,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *loadingIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *historyButton;
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIButton *mainViewButton;
 @property (weak, nonatomic) IBOutlet UIButton *histodyDetailToHistoryButton;
@@ -122,7 +123,7 @@
     
     switch (_currentMode) {
         case ENMainViewControllerModeMain: {
-            [self showControllers:@[self.historyButton, self.reloadButton, self.consoleButton]];
+            [self showControllers:@[self.historyButton, self.reloadButton, self.shareButton, self.consoleButton]];
             break;
         }
         case ENMainViewControllerModeDetail: {
@@ -148,7 +149,7 @@
 }
 
 - (void)showControllers:(NSArray *)controls animated:(BOOL)animated {
-    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton, self.openInMapsButton, self.consoleButton] animated:animated];
+    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.shareButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton, self.openInMapsButton, self.consoleButton] animated:animated];
 }
 
 - (void)showControllers:(NSArray *)controls {
@@ -218,7 +219,7 @@
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
     self.cards = [NSMutableArray array];
-    [self showControllers:@[self.historyButton, self.reloadButton] animated:NO]; //disable animation
+    [self showControllers:@[self.historyButton, self.reloadButton, self.shareButton] animated:NO]; //disable animation
     self.currentMode = ENMainViewControllerModeMain;
 
     [self setupNoRestaurantStatus];
@@ -245,11 +246,13 @@
     [self.KVOController observe:self keyPaths:@[@keypath(self.needShowRestaurant), @keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
+            self.shareButton.enabled = YES;
             self.loadingIndicator.alpha = 0;
             //DDLogInfo(@"show loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
         else {
             self.reloadButton.enabled = NO;
+            self.shareButton.enabled = NO;
             self.loadingIndicator.alpha = 1;
             //DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
@@ -437,6 +440,35 @@
     item.directionsType = GNMapOpenerDirectionsTypeWalk;
     [[GNMapOpener sharedInstance] openItem:item presetingViewController:self];
 }
+
+- (IBAction)onShareButton:(id)sender
+{
+    ENRestaurantViewController *restaurantVC = [self firstRestaurantViewController];
+    
+    if (!restaurantVC) {
+        DDLogWarn(@"No restaurant view controller for sharing");
+        return;
+    }
+    
+    NSString *shareDesc = @"I found a great restaurant...";
+    //TODO: Get sharing image from restaurant view controller which would have a round corner.
+    UIImage *cardImage = [restaurantVC.view toImage];
+    
+    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[shareDesc, cardImage] applicationActivities:nil];
+    
+    shareVC.excludedActivityTypes = @[UIActivityTypeMessage,
+                                      UIActivityTypePrint,
+                                      UIActivityTypeCopyToPasteboard,
+                                      UIActivityTypeAssignToContact,
+                                      UIActivityTypeAddToReadingList,
+                                      UIActivityTypeAirDrop,
+                                      UIActivityTypePrint,
+                                      UIActivityTypeSaveToCameraRoll];
+    
+    [self presentViewController:shareVC animated:YES completion:nil];
+
+}
+
 #pragma mark - Main methods
 
 - (void)searchNewRestaurantsWithCompletion:(void (^)(NSArray *response, NSError *error))block {

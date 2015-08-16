@@ -13,4 +13,12 @@
 - (void)applyAlphaGradientWithEndPoints:(NSArray *)locations;
 //- (void)applyGredient;
 //- (void)applyGredient2;
+
+/**
+ *  Render current view to an UIImage
+ *
+ *  @return An UIImage
+ */
+- (UIImage *)toImage;
+
 @end
