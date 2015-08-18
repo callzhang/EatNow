@@ -48,6 +48,7 @@
 #import "Mixpanel.h"
 #import "UIViewController+blur.h"
 #import "ENPreferenceTagsViewController.h"
+#import "WeixinActivity.h"
 
 @interface ENMainViewController ()
 //data
@@ -454,7 +455,9 @@
     //TODO: Get sharing image from restaurant view controller which would have a round corner.
     UIImage *cardImage = [restaurantVC.view toImage];
     
-    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[shareDesc, cardImage] applicationActivities:nil];
+    NSArray *activities = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
+    
+    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[shareDesc, cardImage] applicationActivities:activities];
     
     shareVC.excludedActivityTypes = @[UIActivityTypeMessage,
                                       UIActivityTypePrint,
