@@ -372,23 +372,29 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
             DDLogWarn(@"Date string not expected %@", dateStr);
             continue;
         }
-        NSNumber *rate = historyData[@"like"];
-        NSNumber *reviewed = historyData[@"reviewed"];
+        NSNumber *rate = historyData[@"like"]?:@0;
+        NSNumber *reviewed = historyData[@"reviewed"]?:@0;
         NSDictionary *restaurantData = historyData[@"restaurant"];
         ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurantData];
         NSString *ID = restaurant.ID;
         
         //keep unique rating for each restaurant
         NSDictionary *ratingDic = self.userRating[ID];
-        if (ratingDic.allKeys.count == 0) {
-            _userRating[ID] = @{@"rating": rate, @"time":date, @"reviewed":reviewed};
-        }else{
-            NSDate *prevTime = ratingDic[@"time"];
-            if ([prevTime compare:date] == NSOrderedAscending) {
-                //date is later
+        @try {
+            if (ratingDic.allKeys.count == 0) {
                 _userRating[ID] = @{@"rating": rate, @"time":date, @"reviewed":reviewed};
+            }else{
+                NSDate *prevTime = ratingDic[@"time"];
+                if ([prevTime compare:date] == NSOrderedAscending) {
+                    //date is later
+                    _userRating[ID] = @{@"rating": rate, @"time":date, @"reviewed":reviewed};
+                }
             }
         }
+        @catch (NSException *exception) {
+            DDLogError(@"Failed to assign history %@ \n%@", historyData, exception);
+        }
+        
     }
     
     //post notification

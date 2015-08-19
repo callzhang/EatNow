@@ -95,16 +95,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EatNow/Controllers/ENMainViewController.m"
-            timestampString = "461366258.738238"
+            filePath = "EatNow/Controllers/ENRestaurantViewController.m"
+            timestampString = "461653570.925495"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "-prefersStatusBarHidden"
+            startingLineNumber = "492"
+            endingLineNumber = "492"
+            landmarkName = "-activateImageScrollViewToIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
