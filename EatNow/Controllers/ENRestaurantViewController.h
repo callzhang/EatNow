@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (weak, nonatomic) IBOutlet UIView *shadowView;
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UIButton *goButton;
+@property (weak, nonatomic) IBOutlet UIView *card;
 @property (nonatomic, weak) ENMainViewController *mainVC;
 
 + (instancetype)viewController;

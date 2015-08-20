@@ -453,10 +453,10 @@
     
     NSString *shareDesc = @"I found a great restaurant...";
     //TODO: Get sharing image from restaurant view controller which would have a round corner.
-    UIImage *cardImage = [restaurantVC.view toImage];
+    UIImage *cardImage = [restaurantVC.card toImage];
     
     NSArray *activities = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-    
+    // UIActivityViewController would convert the image to jpeg format, therefore it would loose transparent background.
     UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[shareDesc, cardImage] applicationActivities:activities];
     
     shareVC.excludedActivityTypes = @[UIActivityTypeMessage,
@@ -465,8 +465,7 @@
                                       UIActivityTypeAssignToContact,
                                       UIActivityTypeAddToReadingList,
                                       UIActivityTypeAirDrop,
-                                      UIActivityTypePrint,
-                                      UIActivityTypeSaveToCameraRoll];
+                                      UIActivityTypePrint];
     
     [self presentViewController:shareVC animated:YES completion:nil];
 
@@ -694,6 +693,13 @@
 }
 
 #pragma mark - Guesture actions
+
+- (IBAction)edgePanHandler:(UIPanGestureRecognizer *)gesture{
+    
+    [self toggleHistoryView];
+    
+}
+
 - (IBAction)tapHandler:(UITapGestureRecognizer *)gesture {
     [self toggleCardDetails];
 }

@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>A9855ED3-38E5-4946-B5EA-B89A9D215ED6</UUID>
-        <nextObjectID>141</nextObjectID>
+        <nextObjectID>145</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -81,14 +81,14 @@
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">Default Environment</attribute>
         <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z105"></relationship>
-        <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE"></relationship>
+        <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z142"></relationship>
     </object>
     <object type="LMENVIRONMENTDOMAIN" id="z105">
         <attribute name="uuid" type="string">D686AF94-0C82-4E70-87D4-ED3948022A1C</attribute>
         <attribute name="order" type="int64">0</attribute>
         <attribute name="name" type="string">Default Domain</attribute>
         <relationship name="environments" type="0/0" destination="LMENVIRONMENT" idrefs="z103"></relationship>
-        <relationship name="variables" type="0/0" destination="LMENVIRONMENTVARIABLE"></relationship>
+        <relationship name="variables" type="0/0" destination="LMENVIRONMENTVARIABLE" idrefs="z143"></relationship>
     </object>
     <object type="LMCOOKIEJAR" id="z106">
         <attribute name="uuid" type="string">EB6EB880-A2FC-4613-812F-EAB76AC535CE</attribute>
@@ -125,7 +125,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">3</attribute>
+        <attribute name="order" type="int64">4</attribute>
         <attribute name="name" type="string">Search</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -227,7 +227,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">GET</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="order" type="int64">2</attribute>
+        <attribute name="order" type="int64">3</attribute>
         <attribute name="name" type="string">Foursquare venue</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
@@ -372,5 +372,17 @@
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z140"></relationship>
+    </object>
+    <object type="LMENVIRONMENTVARIABLEVALUE" id="z142">
+        <attribute name="value" type="string"></attribute>
+        <relationship name="environment" type="1/1" destination="LMENVIRONMENT" idrefs="z103"></relationship>
+        <relationship name="variable" type="1/1" destination="LMENVIRONMENTVARIABLE" idrefs="z143"></relationship>
+    </object>
+    <object type="LMENVIRONMENTVARIABLE" id="z143">
+        <attribute name="uuid" type="string">35B45532-31F5-4A8A-853A-E44AE4F93E7D</attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z105"></relationship>
+        <relationship name="values" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z142"></relationship>
     </object>
 </database>

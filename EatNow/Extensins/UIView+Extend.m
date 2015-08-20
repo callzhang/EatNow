@@ -87,8 +87,12 @@
 
 - (UIImage *)toImage
 {
-    UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, 0.0);
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    CGRect frame = self.bounds;
+    
+    UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    [self.layer renderInContext:context];
     
     UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
     
