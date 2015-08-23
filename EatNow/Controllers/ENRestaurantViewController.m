@@ -97,7 +97,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.card.layer.borderWidth = 1;
     
     //set up image views
-    _imageViewsInImageScrollView = [NSMutableArray array];
+    self.imageViewsInImageScrollView = [NSMutableArray array];
     //iamge loaded
     self.imageViewsLoaded = [NSMutableArray array];
     for (NSInteger i = 0; i < ENRestaurantViewImagesMaxCount; i++) {
@@ -484,7 +484,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 - (void)activateImageScrollViewToIndex:(NSInteger)index {
     //index is 0 to n-1
     //fill image to scroll view
-    for (NSInteger i = self.imageViewsInImageScrollView.count; i <= index && i < ENRestaurantViewImagesMaxCount; i++) {
+    for (NSInteger i = self.imageViewsInImageScrollView.count; i <= index && i <= self.restaurant.imageUrls.count-1 && i <= ENRestaurantViewImagesMaxCount; i++) {
         //if image view not set up, set up
         UIImageView *imageView = [self createdImageView];
         self.imageViewsInImageScrollView[i] = imageView;
@@ -515,7 +515,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     NSNumber *loaded = self.imageViewsLoaded[index];
     if (loaded.boolValue) return;
     
-    DDLogVerbose(@"Loading %luth image for %@", (unsigned long)index, self.restaurant.name);
+    DDLogVerbose(@"Loading %luth image for %@", (unsigned long)index+1, self.restaurant.name);
     UIImageView *imageView = self.imageViewsInImageScrollView[index];
     NSParameterAssert(imageView);
     NSString *url = self.restaurant.imageUrls[index];
