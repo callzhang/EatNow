@@ -144,8 +144,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 #pragma mark - State change
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block{
     
-    DDLogWarn(@"switchToStatus:%d",status);
-    
     float duration = animate ? 0.5 : 0;
     float damping = 0.7;
     if (status == ENRestaurantViewStatusMinimum || status == ENRestaurantViewStatusCard) {

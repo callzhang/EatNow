@@ -138,7 +138,7 @@
             break;
         }
         case ENMainViewControllerModeHistoryDetail :{
-            [self showControllers:@[self.histodyDetailToHistoryButton, self.consoleButton]];
+            [self showControllers:@[self.histodyDetailToHistoryButton, self.shareButton, self.consoleButton]];
             break;
         }
         case ENMainViewControllerModeMap: {
@@ -448,7 +448,14 @@
 
 - (IBAction)onShareButton:(id)sender
 {
-    ENRestaurantViewController *restaurantVC = [self firstRestaurantViewController];
+    ENRestaurantViewController *restaurantVC = nil;//[self firstRestaurantViewController];
+    
+    if (self.currentMode == ENMainViewControllerModeHistory || self.currentMode == ENMainViewControllerModeHistoryDetail) {
+        restaurantVC = self.historyViewController.restaurantViewController;
+    }
+    else{
+        restaurantVC = [self firstRestaurantViewController];
+    }
     
     if (!restaurantVC) {
         DDLogWarn(@"No restaurant view controller for sharing");
