@@ -472,8 +472,7 @@
     
     shareVC.excludedActivityTypes = @[UIActivityTypePrint,
                                       UIActivityTypeAddToReadingList,
-                                      UIActivityTypeAssignToContact,
-                                      UIActivityTypeAirDrop];
+                                      UIActivityTypeAssignToContact];
     
     [self presentViewController:shareVC animated:YES completion:nil];
 
