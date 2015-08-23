@@ -87,14 +87,30 @@
 
 - (UIImage *)toImage
 {
-    CGRect frame = self.bounds;
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
     
-    UIGraphicsBeginImageContextWithOptions(frame.size, NO, 0.0);
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    /* iOS 7 */
+    BOOL visible = !self.hidden && self.superview;
+    CGFloat alpha = self.alpha;
+    BOOL animating = self.layer.animationKeys != nil;
+    BOOL success = NO;
+    if ([self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]){
+        //only works when visible
+        if (!animating && alpha == 1 && visible) {
+            success = [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
+        }else{
+            self.alpha = 1;
+            success = [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+            self.alpha = alpha;
+        }
+    }
+    if(!success){ /* iOS 6 */
+        self.alpha = 1;
+        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        self.alpha = alpha;
+    }
     
-    [self.layer renderInContext:context];
-    
-    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage* img = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
     

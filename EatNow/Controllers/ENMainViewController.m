@@ -97,6 +97,8 @@
 @property (nonatomic, assign) float snapDamping;
 @property (nonatomic, assign) float backgroundImageDelay;
 @property (nonatomic, assign) float panGustureSnapBackDistance;
+//sharing
+@property (nonatomic, strong) UIImage *shareImage;
 @end
 
 
@@ -122,13 +124,21 @@
 - (void)setCurrentMode:(ENMainViewControllerMode)currentMode {
     _currentMode = currentMode;
     
+    DDLogWarn(@"change mode to : %lu", (unsigned long)_currentMode);
+    
     switch (_currentMode) {
         case ENMainViewControllerModeMain: {
             [self showControllers:@[self.historyButton, self.reloadButton, self.shareButton, self.consoleButton]];
+            
+            // Can be shared
+            if (self.shareButton.enabled) {
+                [self reserveShareImage];
+            }
+            
             break;
         }
         case ENMainViewControllerModeDetail: {
-            [self showControllers:@[self.closeButton, self.consoleButton]];
+            [self showControllers:@[self.closeButton,self.shareButton, self.consoleButton]];
             break;
         }
         case ENMainViewControllerModeHistory: {
@@ -329,7 +339,16 @@
 }
 
 - (void)onRestauranntViewImageDidChangeNotification:(NSNotification *)notification {
+    
+    DDLogWarn(@"image changed notification");
     if (notification.object == self.firstRestaurantViewController) {
+        
+        //TODO:firstRestaurantViewController should not be a ENFeedbackViewController, but
+        // the fact is that it may be a ENFeedbackViewController, we should check this situation.
+        if (![self.firstRestaurantViewController isKindOfClass:[ENFeedbackViewController class]]) {
+            self.shareImage = [self.firstRestaurantViewController.card toImage];
+        }
+        
         [self setBackgroundImage:notification.userInfo[@"image"]];
     }
 }
@@ -453,19 +472,16 @@
     
     NSString *shareDesc = @"I found a great restaurant...";
     //TODO: Get sharing image from restaurant view controller which would have a round corner.
-    UIImage *cardImage = [restaurantVC.card toImage];
+    UIImage *cardImage = self.shareImage ? self.shareImage : [restaurantVC.card toImage];
     
     NSArray *activities = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
     // UIActivityViewController would convert the image to jpeg format, therefore it would loose transparent background.
     UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[shareDesc, cardImage] applicationActivities:activities];
     
-    shareVC.excludedActivityTypes = @[UIActivityTypeMessage,
-                                      UIActivityTypePrint,
-                                      UIActivityTypeCopyToPasteboard,
-                                      UIActivityTypeAssignToContact,
+    shareVC.excludedActivityTypes = @[UIActivityTypePrint,
                                       UIActivityTypeAddToReadingList,
-                                      UIActivityTypeAirDrop,
-                                      UIActivityTypePrint];
+                                      UIActivityTypeAssignToContact,
+                                      UIActivityTypeAirDrop];
     
     [self presentViewController:shareVC animated:YES completion:nil];
 
@@ -734,6 +750,7 @@
                     //show loading info
                     self.loadingInfo.text = @"\n\nSeems you didn’t like any of the recommendations. Press Refresh and try your luck again?";
                     self.loadingInfo.hidden = NO;
+                    self.shareButton.enabled = NO;
                 }
             }];
         }
@@ -861,6 +878,21 @@
     }
 }
 
+/**
+ *  Reserve a share image when it is in main mode for sharing on detail mode
+ */
+- (void)reserveShareImage
+{
+    ENRestaurantViewController *restaurantVC = [self firstRestaurantViewController];
+    
+    if (!restaurantVC) {
+        return;
+    }
+    
+    self.shareImage = [restaurantVC.card toImage];
+
+}
+
 #pragma mark - Card frame
 - (CGRect)initialCardFrame{
     CGRect frame = self.cardView.frame;
@@ -890,6 +922,7 @@
 #pragma mark -
 - (void)showNoRestaurantStatus {
     self.noRestaurantsLabel.hidden = NO;
+    self.shareButton.enabled = NO;
 }
 
 - (void)hideNoRestaurantStatus {
