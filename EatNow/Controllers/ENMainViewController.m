@@ -462,13 +462,14 @@
         return;
     }
     
-    NSString *shareDesc = @"I found a great restaurant...";
+    NSString *shareDesc = @"I found a great restaurant.";
+    NSURL *shareUrl = [NSURL URLWithString:@"http://www.eatnow.cc"];
     //TODO: Get sharing image from restaurant view controller which would have a round corner.
     UIImage *cardImage = [restaurantVC.info toImage];
     
     NSArray *activities = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
     // UIActivityViewController would convert the image to jpeg format, therefore it would loose transparent background.
-    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[shareDesc, cardImage] applicationActivities:activities];
+    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[shareDesc, cardImage, shareUrl] applicationActivities:activities];
     
     shareVC.excludedActivityTypes = @[UIActivityTypePrint,
                                       UIActivityTypeAddToReadingList,

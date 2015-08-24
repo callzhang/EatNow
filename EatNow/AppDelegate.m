@@ -46,6 +46,7 @@
 #import "extobjc.h"
 #import "UIWindow+Extensions.h"
 #import "Parse.h"
+#import "WXApi.h"
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate>
 @property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
@@ -61,6 +62,10 @@
     [Fabric with:@[CrashlyticsKit]];
     [Fabric sharedSDK].debug = YES;
     [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
+    
+    //Wechat
+    // Override point for customization after application launch.
+    [WXApi registerApp:@"wxcefa411f34485347"];
     
     //Parse
     [Parse enableLocalDatastore];

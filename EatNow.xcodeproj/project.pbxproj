@@ -55,6 +55,7 @@
 		09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */; };
 		09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
+		781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 781BF0181B8A1E930005B9EA /* libWeChatSDK.a */; };
 		9B03362C1B58C725001F5A32 /* ENBasePreferenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */; };
 		9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */; };
 		9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0336341B5D3F73001F5A32 /* EWBlurAnimator.m */; };
@@ -238,6 +239,9 @@
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		781BF0181B8A1E930005B9EA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		781BF01A1B8A1E930005B9EA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		781BF01B1B8A1E930005B9EA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENBasePreferenceCell.xib; sourceTree = "<group>"; };
 		9B03362D1B5B2F02001F5A32 /* ENPreferenceTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceTagsViewController.h; sourceTree = "<group>"; };
 		9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceTagsViewController.m; sourceTree = "<group>"; };
@@ -382,6 +386,7 @@
 			files = (
 				9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */,
 				DA5B73EB18F233EF00BB5F8E /* CoreGraphics.framework in Frameworks */,
+				781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */,
 				DA5B73ED18F233EF00BB5F8E /* UIKit.framework in Frameworks */,
 				DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */,
 				9B8E0D951B567350000F647C /* SparkInspector.framework in Frameworks */,
@@ -501,6 +506,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		781BF0171B8A1E930005B9EA /* WeChatSDK_1.5 */ = {
+			isa = PBXGroup;
+			children = (
+				781BF0181B8A1E930005B9EA /* libWeChatSDK.a */,
+				781BF01A1B8A1E930005B9EA /* WXApi.h */,
+				781BF01B1B8A1E930005B9EA /* WXApiObject.h */,
+			);
+			path = WeChatSDK_1.5;
+			sourceTree = "<group>";
+		};
 		9B0336321B5D3F4A001F5A32 /* EWBlur */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,6 +547,7 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				781BF0171B8A1E930005B9EA /* WeChatSDK_1.5 */,
 				9BEBE7841B7FE09D006F844C /* GNMapOpener */,
 				9BE71C261B7FA2F400509457 /* TableViewBuilder */,
 				9BE71C051B7FA08700509457 /* NYXImagesHelper.h */,
@@ -883,14 +899,14 @@
 				TargetAttributes = {
 					09432CAD1ACCC5E700B989FF = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = EFTQ6EU26A;
 					};
 					09432CBF1ACCC5E700B989FF = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = EFTQ6EU26A;
 					};
 					DA5B73E418F233EF00BB5F8E = {
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = EFTQ6EU26A;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1179,6 +1195,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1201,6 +1218,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IBSC_MODULE = EatNow_WatchKit_Extension;
@@ -1219,6 +1237,7 @@
 			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1242,6 +1261,7 @@
 			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				INFOPLIST_FILE = "EatNow WatchKit Extension/Info.plist";
@@ -1345,6 +1365,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1363,7 +1385,12 @@
 				INFOPLIST_FILE = "EatNow/EatNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EatNow/Library/WeChatSDK_1.5",
+				);
 				PRODUCT_NAME = EatNow;
+				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
@@ -1381,6 +1408,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1389,7 +1418,12 @@
 				INFOPLIST_FILE = "EatNow/EatNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/EatNow/Library/WeChatSDK_1.5",
+				);
 				PRODUCT_NAME = EatNow;
+				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
