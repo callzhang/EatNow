@@ -64,6 +64,7 @@
 //gesture
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
+@property (strong, nonatomic) IBOutlet UIScreenEdgePanGestureRecognizer *leftEdgePanGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (nonatomic, strong) ENHistoryViewController *historyViewController;
@@ -293,6 +294,11 @@
     
     self.cardView.backgroundColor = [UIColor clearColor];
     self.cardContainer.backgroundColor = [UIColor clearColor];
+    
+    // Gesture
+    self.leftEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(edgePanHandler:)];
+    self.leftEdgePanGesture.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:self.leftEdgePanGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -704,7 +710,10 @@
 
 - (IBAction)edgePanHandler:(UIPanGestureRecognizer *)gesture{
     
-    [self toggleHistoryView];
+    DDLogVerbose(@"edgePanHandler start");
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        [self onHistoryButton:nil];
+    }
     
 }
 
@@ -842,8 +851,9 @@
                                                            @"inputContrast": @1}];
         CIImage *output = [filter valueForKey:kCIOutputImageKey];
         UIImage *dampen = [UIImage imageWithCIImage:output];
-        self.background.image = dampen;
         self.background.contentMode = UIViewContentModeScaleAspectFill;
+        self.background.image = dampen;
+
         [self.view insertSubview:imageViewCopy aboveSubview:self.background];
         [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
             imageViewCopy.alpha = 0;

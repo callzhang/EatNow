@@ -35,7 +35,8 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
     ENMainViewControllerModeMap,
 };
 
-@interface ENMainViewController : UIViewController
+@interface ENMainViewController : UIViewController <UIGestureRecognizerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIView *cardView;
 @property (weak, nonatomic) IBOutlet UIView *cardContainer;
 @property (weak, nonatomic) IBOutlet UILabel *loadingInfo;
