@@ -65,6 +65,7 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (strong, nonatomic) IBOutlet UIScreenEdgePanGestureRecognizer *leftEdgePanGesture;
+@property (strong, nonatomic) IBOutlet UIScreenEdgePanGestureRecognizer *rightEdgePanGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (nonatomic, strong) ENHistoryViewController *historyViewController;
@@ -299,6 +300,10 @@
     self.leftEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(edgePanHandler:)];
     self.leftEdgePanGesture.edges = UIRectEdgeLeft;
     [self.view addGestureRecognizer:self.leftEdgePanGesture];
+    
+    self.rightEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(rightEdgePanHandler:)];
+    self.rightEdgePanGesture.edges = UIRectEdgeRight;
+    [self.view addGestureRecognizer:self.rightEdgePanGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -708,11 +713,19 @@
 
 #pragma mark - Guesture actions
 
-- (IBAction)edgePanHandler:(UIPanGestureRecognizer *)gesture{
+- (void)edgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
     
     DDLogVerbose(@"edgePanHandler start");
     if (gesture.state == UIGestureRecognizerStateEnded) {
         [self onHistoryButton:nil];
+    }
+    
+}
+
+- (void)rightEdgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
+    
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        [self onHistoryToMainViewButton:nil];
     }
     
 }
