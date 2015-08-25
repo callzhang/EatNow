@@ -724,7 +724,9 @@
 
 - (void)rightEdgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
     
-    if (gesture.state == UIGestureRecognizerStateEnded) {
+    if (gesture.state == UIGestureRecognizerStateEnded &&
+        self.currentMode == ENMainViewControllerModeHistory) {
+        
         [self onHistoryToMainViewButton:nil];
     }
     
