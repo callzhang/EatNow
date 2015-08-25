@@ -48,7 +48,7 @@
 #import "Parse.h"
 #import "WXApi.h"
 
-@interface AppDelegate ()<FBTweakViewControllerDelegate>
+@interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 @property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
 @end
 
@@ -225,6 +225,28 @@
 
     //handle push
     
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
+
+#pragma mark - WeChat delegate
+
+- (void)onReq:(BaseReq *)req
+{
+    DDLogWarn(@"Wechat onReq");
+}
+
+- (void)onResp:(BaseResp *)resp
+{
+    DDLogWarn(@"Wechat onResp");
 }
 
 
