@@ -474,7 +474,7 @@
     }
     
     NSString *shareDesc = @"I found a great restaurant.";
-    NSURL *shareUrl = [NSURL URLWithString:@"http://www.eatnow.cc"];
+    NSURL *shareUrl = [NSURL URLWithString:@"https://itunes.apple.com/us/app/eat-now-instant-personalized/id946591471?mt=8"];
     //TODO: Get sharing image from restaurant view controller which would have a round corner.
     UIImage *cardImage = [restaurantVC.info toImage];
     

@@ -65,7 +65,7 @@
     
     //Wechat
     // Override point for customization after application launch.
-    [WXApi registerApp:@"wxcefa411f34485347"];
+    [WXApi registerApp:@"wxe9edec710a521a3f"];
     
     //Parse
     [Parse enableLocalDatastore];
