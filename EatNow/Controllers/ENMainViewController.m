@@ -285,6 +285,11 @@
             }
         }
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kBasePreferenceUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+        //refresh
+        [self onReloadButton:nil];
+    }];
 	
     //load restaurants from server
     [self searchNewRestaurantsWithCompletion:nil];

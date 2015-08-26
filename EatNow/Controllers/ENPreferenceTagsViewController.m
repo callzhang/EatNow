@@ -82,6 +82,8 @@
         if (error) {
             [self.presentingViewController.view showFailureNotification:@"Failed to update base preference"];
         }
+        //broadcast
+        [[NSNotificationCenter defaultCenter] postNotificationName:kBasePreferenceUpdated object:nil];
     }];
 }
 
