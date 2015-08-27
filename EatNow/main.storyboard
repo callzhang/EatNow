@@ -1207,10 +1207,31 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIM-RD-XLL" userLabel="couch view">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-deck-view-couchmark-1" translatesAutoresizingMaskIntoConstraints="NO" id="lcB-7S-wdq">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="lcB-7S-wdq" secondAttribute="bottom" id="AEK-dJ-gXq"/>
+                                                    <constraint firstItem="lcB-7S-wdq" firstAttribute="top" secondItem="iIM-RD-XLL" secondAttribute="top" id="Wn7-nf-lIR"/>
+                                                    <constraint firstItem="lcB-7S-wdq" firstAttribute="leading" secondItem="iIM-RD-XLL" secondAttribute="leading" id="Zdl-dX-HVl"/>
+                                                    <constraint firstAttribute="trailing" secondItem="lcB-7S-wdq" secondAttribute="trailing" id="oGG-Oh-A7R"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.25" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="5im-Zl-NK2" firstAttribute="height" secondItem="fsH-Ee-d2j" secondAttribute="height" multiplier="1:2" id="15N-Dm-d2q"/>
+                                            <constraint firstItem="iIM-RD-XLL" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="1qx-TR-1do"/>
                                             <constraint firstAttribute="bottom" secondItem="bQ4-0F-oZd" secondAttribute="bottom" id="2e7-t7-UIM"/>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="10" id="5Kx-Jx-9cx"/>
                                             <constraint firstItem="bQ4-0F-oZd" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="7Tu-5Y-zuf"/>
@@ -1226,14 +1247,17 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <constraint firstItem="bQ4-0F-oZd" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="IZn-0t-EtL"/>
                                             <constraint firstAttribute="trailing" secondItem="l8B-bX-ZHI" secondAttribute="trailing" id="JV0-s8-a1U"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="10" id="LdG-9F-uh3"/>
+                                            <constraint firstAttribute="bottom" secondItem="iIM-RD-XLL" secondAttribute="bottom" id="Myc-jv-hg5"/>
                                             <constraint firstItem="dD2-cL-2WA" firstAttribute="bottom" secondItem="bQ4-0F-oZd" secondAttribute="bottom" id="N9Z-JT-JJ8"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="10" id="OCd-oj-NLg"/>
                                             <constraint firstAttribute="trailing" secondItem="DBA-UH-kFT" secondAttribute="trailing" constant="8" id="Obw-dH-bbu"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Wt9-vs-bTu" secondAttribute="trailing" constant="10" id="Pb1-hv-hhB"/>
+                                            <constraint firstItem="iIM-RD-XLL" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="Sk4-gH-iF4"/>
                                             <constraint firstItem="Wt9-vs-bTu" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="10" id="U23-yC-IEX"/>
                                             <constraint firstAttribute="bottom" secondItem="cy3-AH-BuV" secondAttribute="bottom" id="UKJ-yg-PPM"/>
                                             <constraint firstAttribute="bottom" secondItem="dXg-UU-T47" secondAttribute="bottom" constant="8" id="Wbn-bo-k8x"/>
                                             <constraint firstItem="0Rc-cj-kSW" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" constant="10" id="ajX-NE-huo"/>
+                                            <constraint firstAttribute="trailing" secondItem="iIM-RD-XLL" secondAttribute="trailing" id="c14-rm-O3g"/>
                                             <constraint firstItem="l8B-bX-ZHI" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="ccs-fq-80K"/>
                                             <constraint firstAttribute="trailing" secondItem="uVW-6x-hlL" secondAttribute="trailing" constant="8" id="eFQ-2t-Edj"/>
                                             <constraint firstItem="5im-Zl-NK2" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="hXB-sd-9Mv"/>
@@ -1484,6 +1508,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                     <size key="freeformSize" width="320" height="550"/>
                     <connections>
                         <outlet property="card" destination="H4b-9y-85a" id="iTa-Bb-ThL"/>
+                        <outlet property="couchImageView" destination="lcB-7S-wdq" id="T7w-4p-7nZ"/>
                         <outlet property="cuisine" destination="45L-e4-Y8S" id="wvr-RD-G6j"/>
                         <outlet property="distanceInfo" destination="DBA-UH-kFT" id="dC3-YA-xT5"/>
                         <outlet property="goButton" destination="GcM-Kx-ZZ9" id="6ma-xt-BSG"/>
@@ -1551,6 +1576,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
     </scenes>
     <resources>
         <image name="animatedLoading.gif" width="198" height="198"/>
+        <image name="eat-now-card-deck-view-couchmark-1" width="206" height="162"/>
         <image name="eat-now-card-deck-view-history-button" width="110" height="110"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-lower" width="1" height="206"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-upper" width="1" height="206"/>

@@ -65,6 +65,7 @@
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
 @property (strong, nonatomic) IBOutlet UIScreenEdgePanGestureRecognizer *leftEdgePanGesture;
+@property (strong, nonatomic) IBOutlet UIScreenEdgePanGestureRecognizer *rightEdgePanGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 @property (nonatomic, strong) ENHistoryViewController *historyViewController;
@@ -304,6 +305,10 @@
     self.leftEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(edgePanHandler:)];
     self.leftEdgePanGesture.edges = UIRectEdgeLeft;
     [self.view addGestureRecognizer:self.leftEdgePanGesture];
+    
+    self.rightEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(rightEdgePanHandler:)];
+    self.rightEdgePanGesture.edges = UIRectEdgeRight;
+    [self.view addGestureRecognizer:self.rightEdgePanGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -474,7 +479,7 @@
     }
     
     NSString *shareDesc = @"I found a great restaurant.";
-    NSURL *shareUrl = [NSURL URLWithString:@"http://www.eatnow.cc"];
+    NSURL *shareUrl = [NSURL URLWithString:@"https://itunes.apple.com/us/app/eat-now-instant-personalized/id946591471?mt=8"];
     //TODO: Get sharing image from restaurant view controller which would have a round corner.
     UIImage *cardImage = [restaurantVC.info toImage];
     
@@ -713,11 +718,21 @@
 
 #pragma mark - Guesture actions
 
-- (IBAction)edgePanHandler:(UIPanGestureRecognizer *)gesture{
+- (void)edgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
     
     DDLogVerbose(@"edgePanHandler start");
     if (gesture.state == UIGestureRecognizerStateEnded) {
         [self onHistoryButton:nil];
+    }
+    
+}
+
+- (void)rightEdgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
+    
+    if (gesture.state == UIGestureRecognizerStateEnded &&
+        self.currentMode == ENMainViewControllerModeHistory) {
+        
+        [self onHistoryToMainViewButton:nil];
     }
     
 }

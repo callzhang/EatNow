@@ -45,6 +45,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UILabel *walkingDistance;
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
+@property (weak, nonatomic) IBOutlet UIImageView *couchImageView;
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;

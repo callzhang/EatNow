@@ -899,14 +899,14 @@
 				TargetAttributes = {
 					09432CAD1ACCC5E700B989FF = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = EFTQ6EU26A;
+						DevelopmentTeam = SDR7T9YB58;
 					};
 					09432CBF1ACCC5E700B989FF = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = EFTQ6EU26A;
+						DevelopmentTeam = SDR7T9YB58;
 					};
 					DA5B73E418F233EF00BB5F8E = {
-						DevelopmentTeam = EFTQ6EU26A;
+						DevelopmentTeam = SDR7T9YB58;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
