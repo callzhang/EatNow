@@ -7,7 +7,9 @@
 //
 
 #define kMaxSelectedRestaurantRetainTime			3600
-#define kServerUrl                  @"http://eat-now.heroku.com"
+#define kServerUrl                  @"http://api.eatnow.cc"
+#define kServerUrl2                  @"http://eat-now.herokuapp.com"
+
 //#define kCuisineNames               @[@"Afghan", @"African", @"American", @"Asian", @"Australian", @"Bakery", @"Bars", @"Belgian", @"Brasseries", @"Brazilian", @"Breakfast", @"British", @"Buffets", @"Cafes", @"Cambodian", @"Caribbean", @"Central_European", @"Chinese", @"Coffee", @"Creperie", @"Cuban", @"Delis", @"Dessert", @"Eastern_European", @"Ethiopian", @"Fast_Food", @"Filipino", @"Food_Truck", @"French", @"German", @"Greek", @"Halal", @"Hawaiian", @"Healthy", @"Himalayan", @"Indian", @"Indonesian", @"Italian", @"Japanese", @"Korean", @"Kosher", @"Latin_American", @"Malaysian", @"Mediterranean", @"Mexican", @"Middle_Eastern", @"Modern", @"Mongolian", @"Moroccan", @"Night_Life", @"Northern_European", @"Pakistani", @"Persian", @"Polish", @"Russian", @"Seafood", @"South_American", @"Southern", @"Spanish", @"Steakhouses", @"Tea_Rooms", @"Thai", @"Turkish", @"Vegetarian", @"Vietnamese"]
 
 #define kBasePreferences             @[@"African", @"American", @"Brazilian", @"Caribbean", @"Chinese", @"Cuban", @"French", @"German", @"Greek", @"Indian", @"Italian", @"Japanese", @"Korean", @"Latin_American", @"Malaysian", @"Mediterranean", @"Mexican", @"Middle_Eastern", @"Russian", @"Spanish", @"Thai", @"Turkish", @"Vietnamese"]
@@ -19,6 +21,7 @@ extern NSString * const kPreferenceUpdated;
 extern NSString * const kUserUpdated;
 extern NSString * const kShouldShowNiceChoiceKey;
 extern NSString * const kShouldShowTutorial;
+extern NSString * const kBasePreferenceUpdated;
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"

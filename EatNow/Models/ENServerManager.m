@@ -24,6 +24,7 @@ NSString * const kPreferenceUpdated = @"preference_updated";
 NSString * const kUserUpdated = @"user_updated";
 NSString * const kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
 NSString * const kShouldShowTutorial = @"shouldShowTutorial";
+NSString * const kBasePreferenceUpdated = @"basePreferenceUpdated";
 
 @import CoreLocation;
 

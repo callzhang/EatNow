@@ -371,7 +371,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         if (self.openTime.text) {
             self.openInfo.alpha = 1;
         }
-        self.imageCount.alpha = 0;
+        //self.imageCount.alpha = 0;
         self.goButton.alpha = 0;
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
@@ -384,7 +384,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
-        self.imageCount.alpha = 1;
+        //self.imageCount.alpha = 1;
     }
     else if (self.status == ENRestaurantViewStatusMinimum) {
         self.distanceInfo.alpha = 0;
@@ -392,7 +392,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.goButton.alpha = 0;
         self.rating.alpha = 0;
         self.price.alpha = 0;
-        self.imageCount.alpha = 0;
+        //self.imageCount.alpha = 0;
         NSDictionary *history = [ENServerManager shared].userRating;
         NSDictionary *rating = history[self.restaurant.ID];
         NSNumber *rate = rating[@"rating"];
@@ -409,7 +409,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 0;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
-        self.imageCount.alpha = 1;
+        //self.imageCount.alpha = 1;
     }
 }
 
@@ -542,8 +542,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)updateImageCount{
     NSUInteger current = self.currentImageIndex + 1;
-    NSUInteger total = self.imageViewsInImageScrollView.count;
-    self.imageCount.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)current, (unsigned long)total];
+    NSUInteger imageCount = self.imageViewsInImageScrollView.count;
+    NSUInteger total = self.restaurant.imageUrls.count;
+    if (imageCount <= 1) {
+        self.imageCount.text = @"";
+    }else {
+        self.imageCount.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)current, (unsigned long)total];
+    }
 }
 
 #pragma mark - image parsing
