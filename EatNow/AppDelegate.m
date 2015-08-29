@@ -47,6 +47,7 @@
 #import "UIWindow+Extensions.h"
 #import "Parse.h"
 #import "WXApi.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 @property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
@@ -66,6 +67,14 @@
     //Wechat
     // Override point for customization after application launch.
     [WXApi registerApp:@"wxe9edec710a521a3f"];
+    
+    //Facebook
+    BOOL fbLaunched = [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    if (!fbLaunched) {
+        DDLogError(@"Facebook sdk initialization error");
+    }
+
     
     //Parse
     [Parse enableLocalDatastore];
@@ -130,6 +139,11 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    [FBSDKAppEvents activateApp];
 }
 
 - (void)installTweak {
@@ -234,8 +248,21 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [WXApi handleOpenURL:url delegate:self];
+    DDLogWarn(@"source app:%@",sourceApplication);
+    
+    if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    else{
+        return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                              openURL:url
+                                                    sourceApplication:sourceApplication
+                                                           annotation:annotation];
+    }
+    
 }
+
+
 
 #pragma mark - WeChat delegate
 
