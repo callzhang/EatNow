@@ -227,13 +227,40 @@ setJSONStringForObject:(id)object
 
 + (BOOL)isOSRunTimeVersionAtLeast:(NSOperatingSystemVersion)version
 {
-  return ([self _compareOperatingSystemVersion:[self operatingSystemVersion] toVersion:version] != NSOrderedAscending);
+  static NSOperatingSystemVersion operatingSystemVersion = {
+    .majorVersion = 0,
+    .minorVersion = 0,
+    .patchVersion = 0,
+  };
+  static dispatch_once_t getVersionOnce;
+  dispatch_once(&getVersionOnce, ^{
+    if ([NSProcessInfo instancesRespondToSelector:@selector(operatingSystemVersion)]) {
+      operatingSystemVersion = [NSProcessInfo processInfo].operatingSystemVersion;
+    } else {
+      NSArray *components = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+      switch (components.count) {
+        default:
+        case 3:
+          operatingSystemVersion.patchVersion = [components[2] integerValue];
+          // fall through
+        case 2:
+          operatingSystemVersion.minorVersion = [components[1] integerValue];
+          // fall through
+        case 1:
+          operatingSystemVersion.majorVersion = [components[0] integerValue];
+          break;
+        case 0:
+          operatingSystemVersion.majorVersion = ([self isUIKitLinkTimeVersionAtLeast:FBSDKUIKitVersion_7_0] ? 7 : 6);
+          break;
+      }
+    }
+  });
+  return ([self _compareOperatingSystemVersion:operatingSystemVersion toVersion:version] != NSOrderedAscending);
 }
 
 + (BOOL)isSafariBundleIdentifier:(NSString *)bundleIdentifier
 {
-  return ([bundleIdentifier isEqualToString:@"com.apple.mobilesafari"] ||
-          [bundleIdentifier isEqualToString:@"com.apple.SafariViewService"]);
+  return [bundleIdentifier isEqualToString:@"com.apple.mobilesafari"];
 }
 
 + (BOOL)isUIKitLinkTimeVersionAtLeast:(FBSDKUIKitVersion)version
@@ -301,39 +328,6 @@ setJSONStringForObject:(id)object
     return nil;
   }
   return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:errorRef];
-}
-
-+ (NSOperatingSystemVersion)operatingSystemVersion
-{
-  static NSOperatingSystemVersion operatingSystemVersion = {
-    .majorVersion = 0,
-    .minorVersion = 0,
-    .patchVersion = 0,
-  };
-  static dispatch_once_t getVersionOnce;
-  dispatch_once(&getVersionOnce, ^{
-    if ([NSProcessInfo instancesRespondToSelector:@selector(operatingSystemVersion)]) {
-      operatingSystemVersion = [NSProcessInfo processInfo].operatingSystemVersion;
-    } else {
-      NSArray *components = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-      switch (components.count) {
-        default:
-        case 3:
-          operatingSystemVersion.patchVersion = [components[2] integerValue];
-          // fall through
-        case 2:
-          operatingSystemVersion.minorVersion = [components[1] integerValue];
-          // fall through
-        case 1:
-          operatingSystemVersion.majorVersion = [components[0] integerValue];
-          break;
-        case 0:
-          operatingSystemVersion.majorVersion = ([self isUIKitLinkTimeVersionAtLeast:FBSDKUIKitVersion_7_0] ? 7 : 6);
-          break;
-      }
-    }
-  });
-  return operatingSystemVersion;
 }
 
 + (NSString *)queryStringWithDictionary:(NSDictionary *)dictionary
@@ -577,16 +571,6 @@ static NSMapTable *_transientObjects;
 }
 
 
-+ (UIViewController *)topMostViewController
-{
-  UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-  while (topController.presentedViewController) {
-    topController = topController.presentedViewController;
-  }
-  return topController;
-}
-
-
 + (BOOL)isRegisteredURLScheme:(NSString *)urlScheme {
   static dispatch_once_t fetchBundleOnce;
   static NSArray *urlTypes = nil;
@@ -605,10 +589,12 @@ static NSMapTable *_transientObjects;
 
 + (void)checkRegisteredCanOpenURLScheme:(NSString *)urlScheme
 {
-  static dispatch_once_t initCheckedSchemesOnce;
+  static dispatch_once_t fetchBundleOnce;
+  static NSArray *schemes = nil;
   static NSMutableSet *checkedSchemes = nil;
 
-  dispatch_once(&initCheckedSchemesOnce, ^{
+  dispatch_once(&fetchBundleOnce, ^{
+    schemes = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"LSApplicationQueriesSchemes"];
     checkedSchemes = [NSMutableSet set];
   });
 
@@ -619,8 +605,7 @@ static NSMapTable *_transientObjects;
       [checkedSchemes addObject:urlScheme];
     }
   }
-
-  if (![self isRegisteredCanOpenURLScheme:urlScheme]){
+  if (![schemes containsObject:urlScheme]){
     NSString *reason = [NSString stringWithFormat:@"%@ is missing from your Info.plist under LSApplicationQueriesSchemes and is required for iOS 9.0", urlScheme];
 #ifdef __IPHONE_9_0
     @throw [NSException exceptionWithName:@"InvalidOperationException" reason:reason userInfo:nil];
@@ -628,18 +613,6 @@ static NSMapTable *_transientObjects;
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors logEntry:reason];
 #endif
   }
-}
-
-+ (BOOL)isRegisteredCanOpenURLScheme:(NSString *)urlScheme
-{
-  static dispatch_once_t fetchBundleOnce;
-  static NSArray *schemes = nil;
-
-  dispatch_once(&fetchBundleOnce, ^{
-    schemes = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"LSApplicationQueriesSchemes"];
-  });
-
-  return [schemes containsObject:urlScheme];
 }
 
 @end

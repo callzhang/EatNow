@@ -248,7 +248,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    DDLogWarn(@"source app:%@",sourceApplication);
+    DDLogDebug(@"source app:%@",sourceApplication);
     
     if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
         return [WXApi handleOpenURL:url delegate:self];
@@ -268,12 +268,12 @@
 
 - (void)onReq:(BaseReq *)req
 {
-    DDLogWarn(@"Wechat onReq");
+    DDLogDebug(@"Wechat onReq");
 }
 
 - (void)onResp:(BaseResp *)resp
 {
-    DDLogWarn(@"Wechat onResp");
+    DDLogDebug(@"Wechat onResp");
 }
 
 

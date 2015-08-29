@@ -19,19 +19,14 @@
 #import "FBSDKApplicationDelegate.h"
 #import "FBSDKApplicationDelegate+Internal.h"
 
-#import <objc/runtime.h>
-
 #import "FBSDKAppEvents+Internal.h"
 #import "FBSDKBoltsMeasurementEventListener.h"
 #import "FBSDKBridgeAPIRequest.h"
 #import "FBSDKBridgeAPIResponse.h"
 #import "FBSDKConstants.h"
-#import "FBSDKDynamicFrameworkLoader.h"
 #import "FBSDKError.h"
 #import "FBSDKInternalUtility.h"
 #import "FBSDKProfile+Internal.h"
-#import "FBSDKServerConfiguration.h"
-#import "FBSDKServerConfigurationManager.h"
 #import "FBSDKSettings+Internal.h"
 #import "FBSDKTimeSpentData.h"
 #import "FBSDKUtility.h"
@@ -45,8 +40,7 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
   FBSDKBridgeAPIRequest *_pendingRequest;
   FBSDKBridgeAPICallbackBlock _pendingRequestCompletionBlock;
   id<FBSDKURLOpening> _pendingURLOpen;
-  BOOL _expectingBackground;
-  UIViewController *_safariViewController;
+  BOOL _expectingResign;
 }
 
 #pragma mark - Class Methods
@@ -94,7 +88,7 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
 {
   if ((self = [super init]) != nil) {
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [defaultCenter addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [defaultCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
   }
   return self;
@@ -117,19 +111,9 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-  if (sourceApplication != nil && ![sourceApplication isKindOfClass:[NSString class]]) {
-    @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                   reason:@"Expected 'sourceApplication' to be NSString. Please verify you are passing in 'sourceApplication' from your app delegate (not the UIApplication* parameter). If your app delegate implements iOS 9's application:openURL:options:, you should pass in options[UIApplicationOpenURLOptionsSourceApplicationKey]. "
-                                 userInfo:nil];
-  }
   [FBSDKTimeSpentData setSourceApplication:sourceApplication openURL:url];
-  // if they completed a SFVC flow, dimiss it.
-  [_safariViewController.presentingViewController dismissViewControllerAnimated:YES completion: nil];
-  _safariViewController = nil;
-
   if (_pendingURLOpen) {
     id<FBSDKURLOpening> pendingURLOpen = _pendingURLOpen;
-
     _pendingURLOpen = nil;
 
     if ([pendingURLOpen application:application
@@ -174,51 +158,35 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
   return NO;
 }
 
-- (void)applicationDidEnterBackground:(NSNotification *)notification
+- (void)applicationWillResignActive:(NSNotification *)notification
 {
   _active = NO;
-  _expectingBackground = NO;
+  _expectingResign = NO;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-  //  _expectingBackground can be YES if the caller started doing work (like login)
+  //  _expectingResign can be YES if the caller started doing work (like login)
   // within the app delegate's lifecycle like openURL, in which case there
   // might have been a "didBecomeActive" event pending that we want to ignore.
-  if (!_expectingBackground && !_safariViewController) {
+  if (!_expectingResign) {
     _active = YES;
     [_pendingURLOpen applicationDidBecomeActive:[notification object]];
+    _pendingURLOpen = nil;
 
-    [self _cancelBridgeRequest];
+    if (_pendingRequest && _pendingRequestCompletionBlock) {
+      _pendingRequestCompletionBlock([FBSDKBridgeAPIResponse bridgeAPIResponseCancelledWithRequest:_pendingRequest]);
+    }
+    _pendingRequest = nil;
+    _pendingRequestCompletionBlock = NULL;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:FBSDKApplicationDidBecomeActiveNotification object:self];
   }
 }
 
-#pragma mark - SFSafariViewControllerDelegate
-
-
-// This means the user tapped "Done" which we should treat as a cancellation.
-- (void)safariViewControllerDidFinish:(UIViewController *)safariViewController
-{
-  if (_pendingURLOpen) {
-    id<FBSDKURLOpening> pendingURLOpen = _pendingURLOpen;
-
-    _pendingURLOpen = nil;
-
-    [pendingURLOpen application:nil
-                            openURL:nil
-                  sourceApplication:nil
-                     annotation:nil];
-
-  }
-  [self _cancelBridgeRequest];
-}
-
 #pragma mark - Internal Methods
 
 - (void)openBridgeAPIRequest:(FBSDKBridgeAPIRequest *)request
-     useSafariViewController:(BOOL)useSafariViewController
              completionBlock:(FBSDKBridgeAPICallbackBlock)completionBlock
 {
   if (!request) {
@@ -233,7 +201,7 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
   }
   _pendingRequest = request;
   _pendingRequestCompletionBlock = [completionBlock copy];
-  void (^handler)(BOOL) = ^(BOOL openedURL) {
+  [self openURL:requestURL sender:nil handler:^(BOOL openedURL) {
     if (!openedURL) {
       _pendingRequest = nil;
       _pendingRequestCompletionBlock = nil;
@@ -250,74 +218,30 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
       completionBlock(response);
       return;
     }
-  };
-  if (useSafariViewController) {
-    [self openURLWithSafariViewController:requestURL sender:nil handler:handler];
-  } else {
-    [self openURL:requestURL sender:nil handler:handler];
-  }
-}
-
-- (void)openURLWithSafariViewController:(NSURL *)url sender:(id<FBSDKURLOpening>)sender handler:(void(^)(BOOL))handler
-{
-  if (![url.scheme hasPrefix:@"http"]) {
-    [self openURL:url sender:sender handler:handler];
-    return;
-  }
-
-  _expectingBackground = NO;
-  _pendingURLOpen = sender;
-
-  // trying to dynamically load SFSafariViewController class
-  // so for the cases when it is available we can send users through Safari View Controller flow
-  // in cases it is not available regular flow will be selected
-  Class SFSafariViewControllerClass = fbsdkdfl_SFSafariViewControllerClass();
-
-  if (SFSafariViewControllerClass) {
-    UIViewController *parent = [FBSDKInternalUtility topMostViewController];
-    if (parent.transitionCoordinator != nil) {
-      // Wait until the transition is finished before presenting SafariVC to avoid a blank screen.
-      [parent.transitionCoordinator animateAlongsideTransition:NULL completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        // Note SFVC init must occur inside block to avoid blank screen.
-        _safariViewController = [[SFSafariViewControllerClass alloc] initWithURL:url];
-        [_safariViewController performSelector:@selector(setDelegate:) withObject:self];
-        [[FBSDKInternalUtility topMostViewController] presentViewController:_safariViewController animated:YES completion:nil];
-      }];
-    } else {
-      _safariViewController = [[SFSafariViewControllerClass alloc] initWithURL:url];
-      [_safariViewController performSelector:@selector(setDelegate:) withObject:self];
-      [parent presentViewController:_safariViewController animated:YES completion:nil];
-    }
-
-    // Assuming Safari View Controller always opens
-    if (handler) {
-      handler(YES);
-    }
-  } else {
-    [self openURL:url sender:sender handler:handler];
-  }
+  }];
 }
 
 - (void)openURL:(NSURL *)url sender:(id<FBSDKURLOpening>)sender handler:(void(^)(BOOL))handler
 {
-  _expectingBackground = YES;
-  _pendingURLOpen = sender;
-  dispatch_async(dispatch_get_main_queue(), ^{
-    // Dispatch openURL calls to prevent hangs if we're inside the current app delegate's openURL flow already
-    BOOL opened = [[UIApplication sharedApplication] openURL:url];
+    _expectingResign = YES;
+    _pendingURLOpen = sender;
 
-    if ([url.scheme hasPrefix:@"http"] && !opened) {
-      NSOperatingSystemVersion iOS8Version = { .majorVersion = 8, .minorVersion = 0, .patchVersion = 0 };
-      if (![FBSDKInternalUtility isOSRunTimeVersionAtLeast:iOS8Version]) {
-        // Safari openURL calls can wrongly return NO on iOS 7 so manually overwrite that case to YES.
-        // Otherwise we would rather trust in the actual result of openURL
-        opened = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+      // Dispatch openURL calls to prevent hangs if we're inside the current app delegate's openURL flow already
+      BOOL opened = [[UIApplication sharedApplication] openURL:url];
+
+      if ([url.scheme hasPrefix:@"http"] && !opened) {
+        NSOperatingSystemVersion iOS8Version = { .majorVersion = 8, .minorVersion = 0, .patchVersion = 0 };
+        if (![FBSDKInternalUtility isOSRunTimeVersionAtLeast:iOS8Version]) {
+          // Safari openURL calls can wrongly return NO on iOS 7 so manually overwrite that case to YES.
+          // Otherwise we would rather trust in the actual result of openURL
+          opened = YES;
+        }
       }
-    }
-    if (handler) {
-      handler(opened);
-    }
-  });
+      if (handler) {
+        handler(opened);
+      }
+    });
 }
 
 #pragma mark - Helper Methods
@@ -392,12 +316,4 @@ static NSString *const FBSDKAppLinkInboundEvent = @"fb_al_inbound";
                        accessToken:nil];
 }
 
-- (void)_cancelBridgeRequest
-{
-  if (_pendingRequest && _pendingRequestCompletionBlock) {
-    _pendingRequestCompletionBlock([FBSDKBridgeAPIResponse bridgeAPIResponseCancelledWithRequest:_pendingRequest]);
-  }
-  _pendingRequest = nil;
-  _pendingRequestCompletionBlock = NULL;
-}
 @end

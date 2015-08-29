@@ -199,7 +199,6 @@
 
 - (void)_handleTap:(FBSDKLikeButton *)likeButton
 {
-  [self logTapEventWithEventName:FBSDKAppEventNameFBSDKLikeButtonDidTap parameters:[self analyticsParameters]];
   [self _ensureLikeActionController:YES];
   [_likeActionController toggleLikeWithSoundEnabled:self.soundEnabled analyticsParameters:[self analyticsParameters]];
 }

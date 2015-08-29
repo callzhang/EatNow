@@ -124,7 +124,7 @@ static int const FBSDKTokenRefreshRetrySeconds = 60 * 60;           // hour
 
 + (void)addServerConfigurationPiggyback:(FBSDKGraphRequestConnection *)connection
 {
-  if (![[FBSDKServerConfigurationManager cachedServerConfiguration] isDefaults]) {
+  if ([FBSDKServerConfigurationManager cachedServerConfiguration]) {
     return;
   }
   NSString *appID = [FBSDKSettings appID];

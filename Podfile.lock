@@ -53,19 +53,19 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
-  - FBSDKCoreKit (4.6.0-beta1):
+  - FBSDKCoreKit (4.5.1):
     - Bolts (~> 1.1)
-    - FBSDKCoreKit/arc (= 4.6.0-beta1)
-    - FBSDKCoreKit/no-arc (= 4.6.0-beta1)
-  - FBSDKCoreKit/arc (4.6.0-beta1):
+    - FBSDKCoreKit/arc (= 4.5.1)
+    - FBSDKCoreKit/no-arc (= 4.5.1)
+  - FBSDKCoreKit/arc (4.5.1):
     - Bolts (~> 1.1)
-  - FBSDKCoreKit/no-arc (4.6.0-beta1):
+  - FBSDKCoreKit/no-arc (4.5.1):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc
-  - FBSDKLoginKit (4.6.0-beta1):
-    - FBSDKCoreKit (= 4.6.0-beta1)
-  - FBSDKShareKit (4.6.0-beta1):
-    - FBSDKCoreKit (= 4.6.0-beta1)
+  - FBSDKLoginKit (4.5.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.5.1):
+    - FBSDKCoreKit
   - GPUImage (0.1.7)
   - hpple (0.2.0)
   - INTULocationManager (3.0.1)
@@ -138,9 +138,9 @@ DEPENDENCIES:
   - BlocksKit (~> 2.2)
   - Bolts (~> 1.2.0)
   - CocoaLumberjack (~> 2.0)
-  - FBSDKCoreKit (~> 4.6.0-beta1)
-  - FBSDKLoginKit (~> 4.6.0-beta1)
-  - FBSDKShareKit (~> 4.6.0-beta1)
+  - FBSDKCoreKit (~> 4.5.1)
+  - FBSDKLoginKit (~> 4.5.1)
+  - FBSDKShareKit (~> 4.5.1)
   - GPUImage
   - hpple (~> 0.2)
   - INTULocationManager (~> 3.0.1)
@@ -166,9 +166,9 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
-  FBSDKCoreKit: abce8d2d6f556110c8ef5fcf4edc44e9be83da2f
-  FBSDKLoginKit: 3dab7e800b8ec7e0a2af580c22462e9d1d5bcad0
-  FBSDKShareKit: 2cc21a343c30eefcbe207db5fc2e2f6e2ef2880e
+  FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
+  FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
+  FBSDKShareKit: 642034ac9f30793dfd897851b724bb4281750266
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   INTULocationManager: c27483113e1bbc5952ead6417f9b39824a240ebb
