@@ -30,3 +30,7 @@ pod 'GPUImage'
 pod 'JCTagListView'
 pod 'WeixinActivity', '~>1.2.0'
 #pod 'GNMapOpener', '~> 0.0'
+# Facebook
+pod 'FBSDKCoreKit', '~> 4.5.1'
+pod 'FBSDKLoginKit', '~> 4.5.1'
+pod 'FBSDKShareKit', '~> 4.5.1'

@@ -1207,7 +1207,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIM-RD-XLL" userLabel="couch view">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIM-RD-XLL" userLabel="couch view">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="248"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-deck-view-couchmark-1" translatesAutoresizingMaskIntoConstraints="NO" id="lcB-7S-wdq">
@@ -1509,6 +1509,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                     <connections>
                         <outlet property="card" destination="H4b-9y-85a" id="iTa-Bb-ThL"/>
                         <outlet property="couchImageView" destination="lcB-7S-wdq" id="T7w-4p-7nZ"/>
+                        <outlet property="couchView" destination="iIM-RD-XLL" id="0d8-AI-AZV"/>
                         <outlet property="cuisine" destination="45L-e4-Y8S" id="wvr-RD-G6j"/>
                         <outlet property="distanceInfo" destination="DBA-UH-kFT" id="dC3-YA-xT5"/>
                         <outlet property="goButton" destination="GcM-Kx-ZZ9" id="6ma-xt-BSG"/>

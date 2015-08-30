@@ -58,4 +58,12 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 @property (nonatomic, assign) BOOL showScore;
 
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity completion:(void (^)(NSArray *leftcards))completion;
+
+/**
+ *  Show the specified restaurant as a front card
+ *
+ *  @param restaurant The restaurant to show
+ */
+- (void)showRestaurantAsFrontCard:(ENRestaurant *)restaurant;
+
 @end

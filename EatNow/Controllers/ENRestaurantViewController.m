@@ -26,6 +26,8 @@
 #import "ENMainViewController.h"
 #import "PureLayout.h"
 #import "TOWebViewController.h"
+#import "ENAppSettings.h"
+
 @import AddressBook;
 
 NSString *const kRestaurantViewImageChangedNotification = @"restaurant_view_image_changed";
@@ -46,6 +48,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) IBOutlet UIView *openInfo;
 @property (weak, nonatomic) IBOutlet UIView *distanceInfo;
 @property (weak, nonatomic) IBOutlet UIImageView *couchImageView;
+@property (weak, nonatomic) IBOutlet UIView *couchView;
 
 
 @property (weak, nonatomic) IBOutlet UIScrollView *imageScrollView;
@@ -156,6 +159,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self updateLayout];
     } completion:^(BOOL finished) {
         switch (status) {
+            case ENRestaurantViewStatusCard:{
+                [self didChangeToCardView];
+                //break; //DO not call break to execute default
+            }
             case ENRestaurantViewStatusDetail:
             case ENRestaurantViewStatusHistoryDetail:{
                 [self didChangeToDetailView];
@@ -179,6 +186,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)didChangedToFrontCard{
+    
+    DDLogWarn(@"didChangedToFrontCard");
+    
     UIImageView *firstImageView = self.imageViewsInImageScrollView.firstObject;
     if ([firstImageView isKindOfClass:[UIImageView class]]) {
         [self postImageChangeNotification:firstImageView.image];
@@ -201,6 +211,19 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [self showWalkingTime];
         }
     }];
+}
+
+- (void)didChangeToCardView
+{
+    ENCouchStatus status = ENAppSetting.couchStatus;
+    if (status == ENCouchStatusDone) {
+        self.couchView.hidden = YES;
+        return;
+    }
+    
+    if (!(status & ENCouchStatusSwipeCard)) {
+        self.couchView.hidden = NO;
+    }
 }
 
 - (void)didChangeToDetailView{
@@ -433,6 +456,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     [imagesRatingControl setStarSpacing:3];
     imagesRatingControl.rating = rating + 3;
     [view addSubview:imagesRatingControl];
+}
+
+#pragma mark - Couch View
+
+- (void)showCouchView
+{
+    
 }
 
 #pragma mark - ImageScrollView

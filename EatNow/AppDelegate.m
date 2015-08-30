@@ -47,9 +47,14 @@
 #import "UIWindow+Extensions.h"
 #import "Parse.h"
 #import "WXApi.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "NSString+Extend.h"
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
+
 @property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
+@property (nonatomic, strong) ENMainViewController *mainViewController;
+
 @end
 
 @implementation AppDelegate
@@ -66,6 +71,14 @@
     //Wechat
     // Override point for customization after application launch.
     [WXApi registerApp:@"wxe9edec710a521a3f"];
+    
+    //Facebook
+    BOOL fbLaunched = [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    if (!fbLaunched) {
+        DDLogError(@"Facebook sdk initialization error");
+    }
+
     
     //Parse
     [Parse enableLocalDatastore];
@@ -88,8 +101,8 @@
     }];
     
     if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
-        ENMainViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
-        [UIWindow mainWindow].rootViewController = vc;
+        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
+        [UIWindow mainWindow].rootViewController = self.mainViewController;
         [[UIWindow mainWindow] makeKeyAndVisible];
         [self installTweak];
     }
@@ -130,6 +143,11 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     return YES;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    [FBSDKAppEvents activateApp];
 }
 
 - (void)installTweak {
@@ -234,19 +252,79 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    return [WXApi handleOpenURL:url delegate:self];
+ 
+    DDLogDebug(@"open url:%@",url);
+    DDLogDebug(@"source app:%@",sourceApplication);
+    
+    return [self handleDeepLinkUrl:url];
+    
+//    if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
+//        return [WXApi handleOpenURL:url delegate:self];
+//    }
+//    else{
+//        return [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                                              openURL:url
+//                                                    sourceApplication:sourceApplication
+//                                                           annotation:annotation];
+//    }
+    
 }
+
+
 
 #pragma mark - WeChat delegate
 
 - (void)onReq:(BaseReq *)req
 {
-    DDLogWarn(@"Wechat onReq");
+    DDLogDebug(@"Wechat onReq");
 }
 
 - (void)onResp:(BaseResp *)resp
 {
-    DDLogWarn(@"Wechat onResp");
+    DDLogDebug(@"Wechat onResp");
+}
+
+#pragma mark - URL handling
+
+- (BOOL)handleDeepLinkUrl:(NSURL *)url
+{
+    if (![url.scheme isEqualToString:@"eatnow"]) {
+        
+        return NO;
+    }
+    
+    ENRestaurant *restaurant = [self parseRestaurantFromUrl:url];
+    if (!restaurant) {
+        return NO;
+    }
+    
+    [self.mainViewController showRestaurantAsFrontCard:restaurant];
+    
+    return YES;
+    
+}
+
+- (ENRestaurant *)parseRestaurantFromUrl:(NSURL *)url
+{
+    NSAssert(url.query, @"Invalid deep link url");
+    
+    // Get url data
+    NSArray *params = [url.query componentsSeparatedByString:@"="];
+    if (params.count != 2) {
+        DDLogError(@"Invalid deep link parameter string");
+        return nil;
+    }
+    
+    NSString *dataString = params[1];
+    dataString = [dataString URLDecodedString];
+    
+    NSDictionary *json = [dataString toJson];
+    if (!json) {
+        return nil;
+    }
+    
+    return [[ENRestaurant alloc] initRestaurantWithDictionary:json];
+    
 }
 
 
