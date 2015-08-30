@@ -166,7 +166,7 @@
         <attribute name="redirectauthorization" type="bool">0</attribute>
         <attribute name="method" type="string">POST</attribute>
         <attribute name="followredirects" type="bool">0</attribute>
-        <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"lei\\",\\"restaurantId\\":\\"5541a5614c671e23003adb4c\\",\\"like\\":\\"1\\",\\"date\\":\\"2015-04-18T21:16:18+0800\\",\\"location\\":{\\"longitude\\":\\"40.759211\\",\\"latitude\\":\\"-73.984638\\",\\"distance\\":\\"300\\"}}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"username\\":\\"lei\\",\\"restaurantId\\":\\"4d8263a73e916dcb8edd80d2\\",\\"like\\":\\"1\\",\\"date\\":\\"2015-04-18T21:16:18+0800\\",\\"location\\":{\\"longitude\\":\\"40.759211\\",\\"latitude\\":\\"-73.984638\\",\\"distance\\":\\"300\\"}}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="order" type="int64">7</attribute>
         <attribute name="name" type="string">Select</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
@@ -220,7 +220,7 @@
     </object>
     <object type="LMREQUEST" id="z119">
         <attribute name="uuid" type="string">D3C5080C-5DA0-4588-8974-AC1BCF5F6B9B</attribute>
-        <attribute name="url" type="string">https://api.foursquare.com/v2/venues/51756063e4b01233bea283bb?client_id=34ODCLKTFMWOIQ5G5F0GK254CIXM0CS2T0MN0A0HPMV44LUN\u2600client_secret=Q2IFOXLTCWJZ0UZDK45QRJ5M4MVIDKB4JUSXGDQB5PRV0T2T\u2600v=20150310</attribute>
+        <attribute name="url" type="string">https://api.foursquare.com/v2/venues/49bbd6c0f964a520f4531fe3?client_id=34ODCLKTFMWOIQ5G5F0GK254CIXM0CS2T0MN0A0HPMV44LUN\u2600client_secret=Q2IFOXLTCWJZ0UZDK45QRJ5M4MVIDKB4JUSXGDQB5PRV0T2T\u2600v=20150310</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
