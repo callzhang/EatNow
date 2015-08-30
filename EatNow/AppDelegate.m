@@ -248,6 +248,8 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+ 
+    DDLogDebug(@"open url:%@",url);
     DDLogDebug(@"source app:%@",sourceApplication);
     
     if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {

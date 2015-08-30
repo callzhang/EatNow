@@ -49,6 +49,8 @@
 #import "UIViewController+blur.h"
 #import "ENPreferenceTagsViewController.h"
 #import "WeixinActivity.h"
+#import "NSDictionary+Extend.h"
+#import "NSString+Extend.h"
 
 @interface ENMainViewController ()
 //data
@@ -473,9 +475,15 @@
         return;
     }
     
-    NSString *shareDesc = @"I found a great restaurant.";
-    NSURL *shareUrl = [NSURL URLWithString:@"https://itunes.apple.com/us/app/eat-now-instant-personalized/id946591471?mt=8"];
-    //TODO: Get sharing image from restaurant view controller which would have a round corner.
+    ENRestaurant *restaurant = restaurantVC.restaurant;
+    
+    NSString *shareDesc = restaurant.shareDescription;
+    //NSURL *shareUrl = [NSURL URLWithString:@"https://itunes.apple.com/us/app/eat-now-instant-personalized/id946591471?mt=8"];
+    NSString *restaurantString = [restaurant.json toJsonString];
+    NSString *urlString = [NSString stringWithFormat:@"eatnow://restaurant/?data=%@",[restaurantString toUrlEncodedString]];
+    DDLogDebug(@"Share url :%@",urlString);
+    NSURL *shareUrl = [NSURL URLWithString:urlString];
+    
     UIImage *cardImage = [restaurantVC.info toImage];
     
     NSArray *activities = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];

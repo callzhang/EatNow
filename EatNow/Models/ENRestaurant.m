@@ -301,4 +301,38 @@
     
     return good;
 }
+
+- (NSString *)shareDescription
+{
+    NSMutableString *description = [NSMutableString new];
+    // name
+    [description appendString:self.name];
+    [description appendString:@"\n"];
+    // cuisine
+    [description appendString:self.cuisineText];
+    [description appendString:@","];
+    // score stars
+    float ratingValue = [self.rating floatValue];
+    ratingValue /= 2;
+    NSInteger intRating =  (NSInteger)ratingValue;
+    if (ratingValue - intRating >= 0.5) {
+        intRating += 1;
+    }
+    for (int i = 0; i < intRating; i++) {
+        [description appendString:@"⭐️"];
+    }
+    [description appendString:@","];
+    //Price
+    [description appendString:self.pricesText];
+    [description appendString:@"\n"];
+    // Location
+    [description appendString:self.streetText];
+    [description appendString:@"\n"];
+    //Phone
+    [description appendString:self.phone];
+    
+    
+    return description;
+}
+
 @end

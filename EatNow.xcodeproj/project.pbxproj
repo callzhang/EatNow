@@ -57,6 +57,8 @@
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 781BF0181B8A1E930005B9EA /* libWeChatSDK.a */; };
 		7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACC11B8F63820036BCA8 /* ENAppSettings.m */; };
+		7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */; };
+		7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */; };
 		9B03362C1B58C725001F5A32 /* ENBasePreferenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */; };
 		9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */; };
 		9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0336341B5D3F73001F5A32 /* EWBlurAnimator.m */; };
@@ -245,6 +247,10 @@
 		781BF01B1B8A1E930005B9EA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		7854ACC01B8F63820036BCA8 /* ENAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENAppSettings.h; sourceTree = "<group>"; };
 		7854ACC11B8F63820036BCA8 /* ENAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENAppSettings.m; sourceTree = "<group>"; };
+		7854ACCF1B929B4E0036BCA8 /* NSDictionary+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extend.h"; sourceTree = "<group>"; };
+		7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extend.m"; sourceTree = "<group>"; };
+		7854ACD21B92A1D70036BCA8 /* NSString+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extend.h"; sourceTree = "<group>"; };
+		7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extend.m"; sourceTree = "<group>"; };
 		9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENBasePreferenceCell.xib; sourceTree = "<group>"; };
 		9B03362D1B5B2F02001F5A32 /* ENPreferenceTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceTagsViewController.h; sourceTree = "<group>"; };
 		9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceTagsViewController.m; sourceTree = "<group>"; };
@@ -675,6 +681,10 @@
 				09DC93271AE2C94F0054D665 /* NSDate+Extension.m */,
 				7854ACC01B8F63820036BCA8 /* ENAppSettings.h */,
 				7854ACC11B8F63820036BCA8 /* ENAppSettings.m */,
+				7854ACCF1B929B4E0036BCA8 /* NSDictionary+Extend.h */,
+				7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */,
+				7854ACD21B92A1D70036BCA8 /* NSString+Extend.h */,
+				7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */,
 			);
 			name = Extension;
 			path = Extensins;
@@ -1076,6 +1086,7 @@
 				9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */,
 				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
 				9B03363A1B5D3F73001F5A32 /* EWBlurNavigationControllerDelegate.m in Sources */,
+				7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */,
 				9BE71C1E1B7FA20A00509457 /* ENServerManager.m in Sources */,
 				9BE71C571B7FA2F400509457 /* UITableView+RegisterRowItem.m in Sources */,
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
@@ -1103,6 +1114,7 @@
 				7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
 				9BE71C551B7FA2F400509457 /* TMTableViewDataSource.m in Sources */,
+				7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
 				093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */,

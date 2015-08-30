@@ -71,4 +71,12 @@
 //Tools
 - (BOOL)validate;
 //- (void)getWalkDurationWithCompletion:(void (^)(NSTimeInterval time, NSError *error))block __deprecated;
+
+/**
+ *  Return a description for sharing
+ *
+ *  @return A string for sharing
+ */
+- (NSString *)shareDescription;
+
 @end

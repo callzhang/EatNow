@@ -31,14 +31,24 @@
 			</array>
 		</dict>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wxe9edec710a521a3f</string>
 			</array>
+		</dict>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>eatnow</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>eatnow</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
