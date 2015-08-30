@@ -480,7 +480,7 @@
     NSString *shareDesc = restaurant.shareDescription;
     //NSURL *shareUrl = [NSURL URLWithString:@"https://itunes.apple.com/us/app/eat-now-instant-personalized/id946591471?mt=8"];
     NSString *restaurantString = [restaurant.json toJsonString];
-    NSString *urlString = [NSString stringWithFormat:@"eatnow://restaurant/?data=%@",[restaurantString toUrlEncodedString]];
+    NSString *urlString = [NSString stringWithFormat:@"eatnow://restaurant/?data=%@",[restaurantString URLEncodedString]];
     DDLogDebug(@"Share url :%@",urlString);
     NSURL *shareUrl = [NSURL URLWithString:urlString];
     
@@ -719,6 +719,38 @@
     [super updateViewConstraints];
 }
 
+- (void)showRestaurantAsFrontCard:(ENRestaurant *)restaurant
+{
+    if (self.cards.count == 0) {
+        [self.restaurants insertObject:restaurant atIndex:0];
+        [self showAllRestaurantCards];
+        return;
+    }
+    
+    // Remove old card gestures
+    ENRestaurantViewController *topCard = [self firstRestaurantViewController];
+    [topCard.view removeGestureRecognizer:self.panGesture];
+    if ([topCard isKindOfClass:[ENRestaurantViewController class]]) {
+        [topCard.info removeGestureRecognizer:self.tapGesture];
+    }
+    
+    // Create a new card
+    [self.restaurants insertObject:restaurant atIndex:0];
+    ENRestaurantViewController *card = [self popResuturantViewWithFrame:[self cardViewFrame]];
+    // Make the card as top card
+    [self.cards removeObject:card];
+    [self.cards insertObject:card atIndex:0];
+
+    [self addChildViewController:card];
+    [self.cardContainer insertSubview:card.view aboveSubview:topCard.view];
+    
+    [card.view addGestureRecognizer:self.panGesture];
+    if ([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
+    
+    [card didChangedToFrontCard];
+    
+}
+
 #pragma mark - Guesture actions
 
 - (void)edgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
@@ -837,6 +869,7 @@
     card.view.frame = frame;
     card.restaurant = self.restaurants.firstObject;
     [card updateLayout];
+    
 	[self.restaurants removeObjectAtIndex:0];
     [self.cards addObject:card];
     

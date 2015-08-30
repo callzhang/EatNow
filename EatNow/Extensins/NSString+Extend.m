@@ -10,7 +10,7 @@
 
 @implementation NSString (Extend)
 
-- (NSString *)toUrlEncodedString
+- (NSString *)URLEncodedString
 {
     NSMutableString *output = [NSMutableString string];
     const unsigned char *source = (const unsigned char *)[self UTF8String];
@@ -30,6 +30,29 @@
     }
     return output;
 
+}
+
+- (NSString *)URLDecodedString
+{
+    NSString *result = [(NSString *)self stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+    result = [result stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return result;
+}
+
+#pragma mark - JSON
+
+- (NSDictionary *)toJson
+{
+    NSError *error = nil;
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+    
+    if (error) {
+        DDLogError(@"Convert to json error:%@",error);
+        return nil;
+    }
+    
+    return json;
+    
 }
 
 @end

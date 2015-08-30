@@ -10,11 +10,26 @@
 
 @interface NSString (Extend)
 
+
 /**
  *  Convert current string to a url encoded string
  *
  *  @return A url encoded string
  */
-- (NSString *)toUrlEncodedString;
+- (NSString *)URLEncodedString;
+
+/**
+ *  Decode a url encoded string
+ *
+ *  @return A decoded string
+ */
+- (NSString *)URLDecodedString;
+
+/**
+ *  Convert current string to a json object
+ *
+ *  @return A json object, nil if error.
+ */
+- (NSDictionary *)toJson;
 
 @end
