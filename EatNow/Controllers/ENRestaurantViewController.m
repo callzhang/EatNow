@@ -159,10 +159,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self updateLayout];
     } completion:^(BOOL finished) {
         switch (status) {
-            case ENRestaurantViewStatusCard:{
-                [self didChangeToCardView];
-                //break; //DO not call break to execute default
-            }
+//            case ENRestaurantViewStatusCard:{
+//                //[self didChangeToCardView];
+//                //break; //DO not call break to execute default
+//            }
             case ENRestaurantViewStatusDetail:
             case ENRestaurantViewStatusHistoryDetail:{
                 [self didChangeToDetailView];
