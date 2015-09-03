@@ -205,6 +205,11 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
         ENHistoryRowItem *rowItem = (ENHistoryRowItem *)[self.builder rowItemAtIndexPath:self.selectedPath];
         [[ENServerManager shared] cancelHistory:rowItem.historyId completion:^(NSError *error) {
             
+            if (error) {
+                [ENUtil showFailureHUBWithString:@"delete history failed."];
+                return;
+            }
+            
             if (reloadData) {
                 [self loadData];
             }
