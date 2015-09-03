@@ -20,4 +20,8 @@ extern NSString *const kHistoryTableViewDidShow;
 @property (nonatomic, strong) UIView *mainView;
 - (void)loadData;
 - (void)closeRestaurantView;
+/**
+ *  Delete the current history.
+ */
+- (void)deleteHistory;
 @end

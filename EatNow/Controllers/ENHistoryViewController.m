@@ -60,6 +60,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
                 ENHistoryRowItem *hRow = [ENHistoryRowItem new];
                 hRow.restaurant = restaurant;
                 hRow.rate = like;
+                hRow.historyId = dict[@"_id"];
                 [sectionItem addRowItem:hRow];
                 [hRow setDidSelectRowHandler:^(ENHistoryRowItem *rowItem) {
                     @strongify(self);
@@ -192,4 +193,48 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
         mainVC.isHistoryDetailShown = NO;
     }
 }
+
+- (void)deleteHistory
+{
+    self.mainViewController.currentMode = ENMainViewControllerModeHistory;
+    if (self.restaurantViewController){
+        
+        // lock to sync delete and animation
+        __block BOOL reloadData = false;
+        
+        ENHistoryRowItem *rowItem = (ENHistoryRowItem *)[self.builder rowItemAtIndexPath:self.selectedPath];
+        [[ENServerManager shared] cancelHistory:rowItem.historyId completion:^(NSError *error) {
+            
+            if (reloadData) {
+                [self loadData];
+            }
+            reloadData = !reloadData;
+            
+        }];
+
+        ENHistoryViewCell *cell = (ENHistoryViewCell *)[self.tableView cellForRowAtIndexPath:self.selectedPath];
+        CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.mainView];
+        [self.restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:YES completion:^{
+        }];
+        
+        [UIView animateWithDuration:0.2 delay:0.1 options:0 animations:^{
+            self.restaurantViewController.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            
+            [self.restaurantViewController.view removeFromSuperview];
+            self.restaurantViewController = nil;
+            
+            if (reloadData) {
+                [self loadData];
+            }
+            reloadData = !reloadData;
+            
+        }];
+        
+        ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
+        mainVC.isHistoryDetailShown = NO;
+    }
+
+}
+
 @end

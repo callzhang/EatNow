@@ -88,6 +88,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *consoleButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeMapButton;
 @property (weak, nonatomic) IBOutlet UIButton *openInMapsButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteHistoryButton;
 //@property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
@@ -142,7 +143,7 @@
             break;
         }
         case ENMainViewControllerModeHistoryDetail :{
-            [self showControllers:@[self.histodyDetailToHistoryButton, self.shareButton, self.consoleButton]];
+            [self showControllers:@[self.histodyDetailToHistoryButton, self.deleteHistoryButton, self.shareButton, self.consoleButton]];
             break;
         }
         case ENMainViewControllerModeMap: {
@@ -156,7 +157,7 @@
 }
 
 - (void)showControllers:(NSArray *)controls animated:(BOOL)animated {
-    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.shareButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton, self.openInMapsButton, self.consoleButton] animated:animated];
+    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.shareButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton, self.openInMapsButton, self.consoleButton,self.deleteHistoryButton] animated:animated];
 }
 
 - (void)showControllers:(NSArray *)controls {
@@ -501,6 +502,11 @@
     
     [self presentViewController:shareVC animated:YES completion:nil];
 
+}
+
+- (IBAction)onDeleteHistory:(id)sender
+{
+    [self.historyViewController deleteHistory];
 }
 
 #pragma mark - Main methods

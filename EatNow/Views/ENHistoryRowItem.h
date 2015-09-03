@@ -12,4 +12,5 @@
 @interface ENHistoryRowItem : TMRowItem
 @property (nonatomic, strong) ENRestaurant *restaurant;
 @property (nonatomic, strong) NSNumber *rate;
+@property (nonatomic, strong) NSString *historyId;
 @end
