@@ -257,7 +257,8 @@
     DDLogDebug(@"source app:%@",sourceApplication);
     
     if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
-        return [WXApi handleOpenURL:url delegate:self];
+        //return [WXApi handleOpenURL:url delegate:self];
+        return [self handleDeepLinkUrl:url];
     }
     else if( [sourceApplication isEqualToString:@"com.facebook.messenger"]){
         return [[FBSDKApplicationDelegate sharedInstance] application:application
