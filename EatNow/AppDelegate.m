@@ -69,8 +69,8 @@
     [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
     
     //Wechat
-    // Override point for customization after application launch.
     [WXApi registerApp:@"wxe9edec710a521a3f"];
+    // Secret : 6f3735c124d9e664b71eab538285e777
     
     //Facebook
     BOOL fbLaunched = [[FBSDKApplicationDelegate sharedInstance] application:application
@@ -256,17 +256,18 @@
     DDLogDebug(@"open url:%@",url);
     DDLogDebug(@"source app:%@",sourceApplication);
     
-    return [self handleDeepLinkUrl:url];
-    
-//    if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
-//        return [WXApi handleOpenURL:url delegate:self];
-//    }
-//    else{
-//        return [[FBSDKApplicationDelegate sharedInstance] application:application
-//                                                              openURL:url
-//                                                    sourceApplication:sourceApplication
-//                                                           annotation:annotation];
-//    }
+    if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    else if( [sourceApplication isEqualToString:@"com.facebook.messenger"]){
+        return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                              openURL:url
+                                                    sourceApplication:sourceApplication
+                                                           annotation:annotation];
+    }
+    else{
+        return [self handleDeepLinkUrl:url];
+    }
     
 }
 

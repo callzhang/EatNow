@@ -59,6 +59,9 @@
 		7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACC11B8F63820036BCA8 /* ENAppSettings.m */; };
 		7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */; };
 		7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */; };
+		7854ACD91B981C530036BCA8 /* ENLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD71B981C530036BCA8 /* ENLoginViewController.m */; };
+		7854ACDE1B9929C60036BCA8 /* ENSocialLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACDD1B9929C60036BCA8 /* ENSocialLoginManager.m */; };
+		7854ACE11B992AC10036BCA8 /* ENUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE01B992AC10036BCA8 /* ENUser.m */; };
 		9B03362C1B58C725001F5A32 /* ENBasePreferenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */; };
 		9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */; };
 		9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0336341B5D3F73001F5A32 /* EWBlurAnimator.m */; };
@@ -251,6 +254,13 @@
 		7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extend.m"; sourceTree = "<group>"; };
 		7854ACD21B92A1D70036BCA8 /* NSString+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extend.h"; sourceTree = "<group>"; };
 		7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extend.m"; sourceTree = "<group>"; };
+		7854ACD61B981C530036BCA8 /* ENLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENLoginViewController.h; path = Login/ENLoginViewController.h; sourceTree = "<group>"; };
+		7854ACD71B981C530036BCA8 /* ENLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENLoginViewController.m; path = Login/ENLoginViewController.m; sourceTree = "<group>"; };
+		7854ACDC1B9929C60036BCA8 /* ENSocialLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENSocialLoginManager.h; sourceTree = "<group>"; };
+		7854ACDD1B9929C60036BCA8 /* ENSocialLoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENSocialLoginManager.m; sourceTree = "<group>"; };
+		7854ACDF1B992AC10036BCA8 /* ENUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUser.h; sourceTree = "<group>"; };
+		7854ACE01B992AC10036BCA8 /* ENUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENUser.m; sourceTree = "<group>"; };
+		7854ACE21B992D800036BCA8 /* ENSocialLoginProviderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ENSocialLoginProviderProtocol.h; sourceTree = "<group>"; };
 		9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENBasePreferenceCell.xib; sourceTree = "<group>"; };
 		9B03362D1B5B2F02001F5A32 /* ENPreferenceTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceTagsViewController.h; sourceTree = "<group>"; };
 		9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceTagsViewController.m; sourceTree = "<group>"; };
@@ -525,6 +535,27 @@
 			path = WeChatSDK_1.5;
 			sourceTree = "<group>";
 		};
+		7854ACD51B981C1C0036BCA8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7854ACD61B981C530036BCA8 /* ENLoginViewController.h */,
+				7854ACD71B981C530036BCA8 /* ENLoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		7854ACDB1B99296B0036BCA8 /* Social Login */ = {
+			isa = PBXGroup;
+			children = (
+				7854ACDC1B9929C60036BCA8 /* ENSocialLoginManager.h */,
+				7854ACDD1B9929C60036BCA8 /* ENSocialLoginManager.m */,
+				7854ACDF1B992AC10036BCA8 /* ENUser.h */,
+				7854ACE01B992AC10036BCA8 /* ENUser.m */,
+				7854ACE21B992D800036BCA8 /* ENSocialLoginProviderProtocol.h */,
+			);
+			name = "Social Login";
+			sourceTree = "<group>";
+		};
 		9B0336321B5D3F4A001F5A32 /* EWBlur */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +792,7 @@
 		DA5B745418F239B700BB5F8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7854ACD51B981C1C0036BCA8 /* Login */,
 				9B03362D1B5B2F02001F5A32 /* ENPreferenceTagsViewController.h */,
 				9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */,
 				9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */,
@@ -784,6 +816,7 @@
 		DA5B745718F239B700BB5F8E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7854ACDB1B99296B0036BCA8 /* Social Login */,
 				9BE71C181B7FA20A00509457 /* ENRestaurant.h */,
 				9BE71C191B7FA20A00509457 /* ENRestaurant.m */,
 				9BE71C1A1B7FA20A00509457 /* ENServer.h */,
@@ -1087,6 +1120,7 @@
 				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
 				9B03363A1B5D3F73001F5A32 /* EWBlurNavigationControllerDelegate.m in Sources */,
 				7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */,
+				7854ACD91B981C530036BCA8 /* ENLoginViewController.m in Sources */,
 				9BE71C1E1B7FA20A00509457 /* ENServerManager.m in Sources */,
 				9BE71C571B7FA2F400509457 /* UITableView+RegisterRowItem.m in Sources */,
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
@@ -1124,9 +1158,11 @@
 				9BE71C1D1B7FA20A00509457 /* ENRestaurant.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
 				9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */,
+				7854ACDE1B9929C60036BCA8 /* ENSocialLoginManager.m in Sources */,
 				9BE71C531B7FA2F400509457 /* TMSectionItem.m in Sources */,
 				9BE71C211B7FA21800509457 /* EnShapeView.m in Sources */,
 				09B9F8FA1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */,
+				7854ACE11B992AC10036BCA8 /* ENUser.m in Sources */,
 				09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */,
 				9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */,
 				0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */,

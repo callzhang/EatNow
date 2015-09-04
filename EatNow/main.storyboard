@@ -1064,6 +1064,57 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
             </objects>
             <point key="canvasLocation" x="635" y="603"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="JTt-Oj-trf">
+            <objects>
+                <viewController id="DiQ-7F-6PZ" customClass="ENLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cxb-zX-ygR"/>
+                        <viewControllerLayoutGuide type="bottom" id="rP0-MM-OXV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="a5g-su-PfI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="10I-F9-aL3">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Fy6-oK-SoL">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QZc-9f-Za5">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gm1-ZP-OTU">
+                                        <rect key="frame" x="101" y="423" width="118" height="24"/>
+                                        <state key="normal" image="weixin-login-button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="QZc-9f-Za5" secondAttribute="trailing" id="7St-1G-nog"/>
+                            <constraint firstItem="10I-F9-aL3" firstAttribute="leading" secondItem="a5g-su-PfI" secondAttribute="leading" id="DIZ-hj-R4v"/>
+                            <constraint firstItem="rP0-MM-OXV" firstAttribute="top" secondItem="10I-F9-aL3" secondAttribute="bottom" id="R7D-VE-K1X"/>
+                            <constraint firstItem="10I-F9-aL3" firstAttribute="top" secondItem="a5g-su-PfI" secondAttribute="top" id="ea9-zn-kK4"/>
+                            <constraint firstItem="QZc-9f-Za5" firstAttribute="leading" secondItem="a5g-su-PfI" secondAttribute="leading" id="gW1-kT-mrn"/>
+                            <constraint firstItem="QZc-9f-Za5" firstAttribute="top" secondItem="a5g-su-PfI" secondAttribute="top" id="ikd-ul-hcg"/>
+                            <constraint firstItem="rP0-MM-OXV" firstAttribute="top" secondItem="QZc-9f-Za5" secondAttribute="bottom" id="jMY-8R-PtK"/>
+                            <constraint firstAttribute="trailing" secondItem="10I-F9-aL3" secondAttribute="trailing" id="jaA-dv-o3X"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BPH-Wg-0Z5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="896" y="1325"/>
+        </scene>
         <!--Restaurant View Controller-->
         <scene sceneID="dfb-Ms-0bQ">
             <objects>
@@ -1612,5 +1663,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
         <image name="eat-now-monogram" width="335" height="412"/>
         <image name="eatnew-card-details-view-go-button" width="155" height="49"/>
         <image name="gradient 2" width="10" height="314"/>
+        <image name="weixin-login-button" width="118" height="24"/>
     </resources>
 </document>
