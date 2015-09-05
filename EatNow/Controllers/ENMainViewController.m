@@ -51,6 +51,7 @@
 #import "WeixinActivity.h"
 #import "NSDictionary+Extend.h"
 #import "NSString+Extend.h"
+#import "ENMyProfileViewController.h"
 
 @interface ENMainViewController ()
 //data
@@ -360,9 +361,13 @@
 #pragma mark - IBActioning
 - (IBAction)onSettingButton:(id)sender {
     
-    ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
-    //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentWithBlur:vc withCompletion:nil];    
+//    ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
+//    //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//    [self presentWithBlur:vc withCompletion:nil];
+    
+    ENMyProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMyProfileViewController"];
+    [self presentWithBlur:vc withCompletion:nil];
+    
 }
 
 - (IBAction)onHistoryButton:(id)sender {

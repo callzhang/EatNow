@@ -97,12 +97,12 @@
         }];
     }];
     
-//    if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
-//        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
-//        [UIWindow mainWindow].rootViewController = self.mainViewController;
-//        [[UIWindow mainWindow] makeKeyAndVisible];
-//        [self installTweak];
-//    }
+    if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
+        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
+        [UIWindow mainWindow].rootViewController = self.mainViewController;
+        [[UIWindow mainWindow] makeKeyAndVisible];
+        [self installTweak];
+    }
     
     self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
 //    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;

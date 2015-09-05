@@ -64,6 +64,7 @@
 		7854ACE11B992AC10036BCA8 /* ENUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE01B992AC10036BCA8 /* ENUser.m */; };
 		7854ACE51B9946690036BCA8 /* ENWechatLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE41B9946690036BCA8 /* ENWechatLoginProvider.m */; };
 		7854ACE81B9982B50036BCA8 /* ENFacebookLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE71B9982B50036BCA8 /* ENFacebookLoginProvider.m */; };
+		7854ACEB1B9ABB370036BCA8 /* ENMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */; };
 		9B03362C1B58C725001F5A32 /* ENBasePreferenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */; };
 		9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */; };
 		9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0336341B5D3F73001F5A32 /* EWBlurAnimator.m */; };
@@ -267,6 +268,8 @@
 		7854ACE41B9946690036BCA8 /* ENWechatLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWechatLoginProvider.m; sourceTree = "<group>"; };
 		7854ACE61B9982B50036BCA8 /* ENFacebookLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENFacebookLoginProvider.h; sourceTree = "<group>"; };
 		7854ACE71B9982B50036BCA8 /* ENFacebookLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENFacebookLoginProvider.m; sourceTree = "<group>"; };
+		7854ACE91B9ABB370036BCA8 /* ENMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMyProfileViewController.h; sourceTree = "<group>"; };
+		7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMyProfileViewController.m; sourceTree = "<group>"; };
 		9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENBasePreferenceCell.xib; sourceTree = "<group>"; };
 		9B03362D1B5B2F02001F5A32 /* ENPreferenceTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceTagsViewController.h; sourceTree = "<group>"; };
 		9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceTagsViewController.m; sourceTree = "<group>"; };
@@ -819,6 +822,8 @@
 				091C0B421AF966CA00838096 /* ENGetLocationViewController.m */,
 				093E86991AFEA31800CAF489 /* ENLostConnectionViewController.h */,
 				093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */,
+				7854ACE91B9ABB370036BCA8 /* ENMyProfileViewController.h */,
+				7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1172,6 +1177,7 @@
 				7854ACDE1B9929C60036BCA8 /* ENSocialLoginManager.m in Sources */,
 				9BE71C531B7FA2F400509457 /* TMSectionItem.m in Sources */,
 				9BE71C211B7FA21800509457 /* EnShapeView.m in Sources */,
+				7854ACEB1B9ABB370036BCA8 /* ENMyProfileViewController.m in Sources */,
 				09B9F8FA1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */,
 				7854ACE11B992AC10036BCA8 /* ENUser.m in Sources */,
 				09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */,
