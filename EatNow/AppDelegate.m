@@ -73,12 +73,9 @@
     // Secret : 6f3735c124d9e664b71eab538285e777
     
     //Facebook
-    BOOL fbLaunched = [[FBSDKApplicationDelegate sharedInstance] application:application
+    [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
-    if (!fbLaunched) {
-        DDLogError(@"Facebook sdk initialization error");
-    }
-
+    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     
     //Parse
     [Parse enableLocalDatastore];
@@ -100,12 +97,13 @@
         }];
     }];
     
-    if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
-        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
-        [UIWindow mainWindow].rootViewController = self.mainViewController;
-        [[UIWindow mainWindow] makeKeyAndVisible];
-        [self installTweak];
-    }
+//    if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
+//        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
+//        [UIWindow mainWindow].rootViewController = self.mainViewController;
+//        [[UIWindow mainWindow] makeKeyAndVisible];
+//        [self installTweak];
+//    }
+    
     self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
 //    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
     self.lostConnectionViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -260,7 +258,7 @@
         //return [WXApi handleOpenURL:url delegate:self];
         return [self handleDeepLinkUrl:url];
     }
-    else if( [sourceApplication isEqualToString:@"com.facebook.messenger"]){
+    else if( [sourceApplication isEqualToString:@"com.facebook.Facebook"]){
         return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                               openURL:url
                                                     sourceApplication:sourceApplication

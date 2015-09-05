@@ -10,10 +10,14 @@
 
 @interface ENUser : NSObject
 
-@property (nonatomic, strong) NSString *userId;
+@property (nonatomic, copy) NSString *userId;
 
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, copy) NSString *name;
 
-@property (nonatomic, strong) NSString *avatarUrl;
+@property (nonatomic, copy) NSString *avatarUrl;
+
+@property (nonatomic, copy) NSString *address;
+
+@property (nonatomic, strong) NSDate *dayOfBirth;
 
 @end

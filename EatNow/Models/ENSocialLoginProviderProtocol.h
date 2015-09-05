@@ -6,20 +6,25 @@
 //  Copyright (c) 2015 modocache. All rights reserved.
 //
 
-#ifndef EatNow_ENSocialLoginProtocol_h
-#define EatNow_ENSocialLoginProtocol_h
-
 #import <Foundation/Foundation.h>
+
+typedef void(^ENSocialLoginHandler)(id resp, NSError *error);
 
 @protocol ENSocialLoginProviderProtocol <NSObject>
 
 /**
- *  Request 3rd app for login.
+ *  Provider name
  */
-- (void)loginWithHandler:(void (^)(id resp, NSError *error))handler;
+@property (nonatomic, readonly, strong) NSString *name;
 
+/**
+ *  Request 3rd app for login. Return the access token.
+ */
+- (void)loginWithHandler:(ENSocialLoginHandler)handler;
+
+/**
+ *  Logout
+ */
 - (void)logout;
 
 @end
-
-#endif

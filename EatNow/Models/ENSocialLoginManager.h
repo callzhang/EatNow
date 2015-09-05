@@ -7,13 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "ENUser.h"
+#import "ENSocialLoginProviderProtocol.h"
 
 @interface ENSocialLoginManager : NSObject
 
-+ (BOOL)isLogin;
+/**
+ *  Current login user, nil if not logined.
+ *
+ *  @return Current login user
+ */
++ (ENUser *)currentUser;
 
-+ (ENUser *)loginUser;
++ (void)loginWithType:(NSString *)typeName
+           completion:(ENSocialLoginHandler)completion;
+
++ (void)logout;
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation;
+
 
 @end

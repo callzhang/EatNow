@@ -1092,6 +1092,9 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                         <state key="normal" image="weixin-login-button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onWechatLogin:" destination="DiQ-7F-6PZ" eventType="touchUpInside" id="49w-mm-gOE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1636,6 +1639,49 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J66-H8-lvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="220" y="603"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="DYG-2w-T3a">
+            <objects>
+                <viewController id="jgg-sN-bUN" customClass="ENLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hwz-RJ-WD6"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Bb-as-sMZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pEu-cL-jQ2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uMr-lH-iFA">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Ha1-YH-sDL">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cLD-K5-1Hk">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cLD-K5-1Hk" firstAttribute="top" secondItem="pEu-cL-jQ2" secondAttribute="top" id="2f9-X6-OU8"/>
+                            <constraint firstItem="4Bb-as-sMZ" firstAttribute="top" secondItem="uMr-lH-iFA" secondAttribute="bottom" id="7KZ-KM-DO6"/>
+                            <constraint firstItem="uMr-lH-iFA" firstAttribute="leading" secondItem="pEu-cL-jQ2" secondAttribute="leading" id="LI9-ZG-q3w"/>
+                            <constraint firstAttribute="trailing" secondItem="uMr-lH-iFA" secondAttribute="trailing" id="Wwn-zc-ZgL"/>
+                            <constraint firstItem="cLD-K5-1Hk" firstAttribute="leading" secondItem="pEu-cL-jQ2" secondAttribute="leading" id="bp2-iG-N8B"/>
+                            <constraint firstItem="uMr-lH-iFA" firstAttribute="top" secondItem="pEu-cL-jQ2" secondAttribute="top" id="coh-p4-aBa"/>
+                            <constraint firstItem="4Bb-as-sMZ" firstAttribute="top" secondItem="cLD-K5-1Hk" secondAttribute="bottom" id="mjf-CT-ebZ"/>
+                            <constraint firstAttribute="trailing" secondItem="cLD-K5-1Hk" secondAttribute="trailing" id="or1-CF-wRa"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GrI-lN-gEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="846" y="1739"/>
         </scene>
     </scenes>
     <resources>

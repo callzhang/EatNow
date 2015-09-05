@@ -10,4 +10,17 @@
 
 @implementation ENSocialLoginManager
 
++ (ENUser *)currentUser
+{
+    return nil;
+}
+
++ (void)loginWithType:(NSString *)typeName completion:(ENSocialLoginHandler)completion
+{
+}
+
++ (void)logout
+{
+}
+
 @end

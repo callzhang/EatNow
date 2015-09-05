@@ -7,6 +7,9 @@
 //
 
 #import "ENLoginViewController.h"
+#import "ENWechatLoginProvider.h"
+#import "ENFacebookLoginProvider.h"
+#import "FBSDKCoreKit.h"
 
 @interface ENLoginViewController ()
 
@@ -24,14 +27,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Actions
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)onWechatLogin:(id)sender
+{    
+    ENFacebookLoginProvider *provider = [ENFacebookLoginProvider new];
+    [provider loginWithHandler:^(id resp, NSError *error) {
+        
+        FBSDKProfile *profile = [FBSDKProfile currentProfile];
+        
+        DDLogDebug(@"FB Access token: %@",[FBSDKAccessToken currentAccessToken]);
+        
+    }];
 }
-*/
 
 @end
