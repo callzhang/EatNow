@@ -361,12 +361,12 @@
 #pragma mark - IBActioning
 - (IBAction)onSettingButton:(id)sender {
     
-//    ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
-//    //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-//    [self presentWithBlur:vc withCompletion:nil];
-    
-    ENMyProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMyProfileViewController"];
+    ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
+    //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentWithBlur:vc withCompletion:nil];
+    
+//    ENMyProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMyProfileViewController"];
+//    [self presentWithBlur:vc withCompletion:nil];
     
 }
 
@@ -489,9 +489,7 @@
     ENRestaurant *restaurant = restaurantVC.restaurant;
     
     NSString *shareDesc = restaurant.shareDescription;
-    //NSURL *shareUrl = [NSURL URLWithString:@"https://itunes.apple.com/us/app/eat-now-instant-personalized/id946591471?mt=8"];
-    NSString *restaurantString = [restaurant.json toJsonString];
-    NSString *urlString = [NSString stringWithFormat:@"eatnow://restaurant/?data=%@",[restaurantString URLEncodedString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://eat-now.herokuapp.com/home/restaurant/#/%@",restaurant.ID];
     DDLogDebug(@"Share url :%@",urlString);
     NSURL *shareUrl = [NSURL URLWithString:urlString];
     
