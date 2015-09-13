@@ -12,17 +12,17 @@
 #import "ENPickPopoverViewController.h"
 #import <WYPopoverController.h>
 
-@interface ENPreferenceTagsViewController ()
+@interface ENPreferenceTagsViewController () <WYPopoverControllerDelegate>
 @property (weak, nonatomic) IBOutlet JCTagListView *tagView;
 @property (assign, nonatomic) BOOL preSelected;
 @property (weak, nonatomic) IBOutlet UILabel *tasteDescription;
 @property (weak, nonatomic) IBOutlet UIButton *moodDropDownButton;
+
+@property (strong, nonatomic) WYPopoverController *popover;
+@property (strong, nonatomic) ENPickPopoverViewController *pickerController;
 @end
 
 @implementation ENPreferenceTagsViewController
-{
-    WYPopoverController *popover;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -103,23 +103,46 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Actions
+#pragma mark - Popover
 
 - (IBAction)onMoodAction:(id)sender
 {
     UIButton *btn = sender;
     
-    ENPickPopoverViewController *pickerVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ENPickPopoverViewController"];
-    pickerVC.dataSource = @[@"Happy", @"Romantic", @"Sad", @"Lonely"];
+    if (!self.popover) {
+        
+        self.pickerController = [self.storyboard instantiateViewControllerWithIdentifier:@"ENPickPopoverViewController"];
+        self.pickerController.dataSource = @[@"Happy", @"Romantic", @"Sad", @"Lonely"];
+        
+        self.popover = [[WYPopoverController alloc] initWithContentViewController:self.pickerController];
+        self.popover.delegate = self;
+        
+        [self.popover setPopoverContentSize:CGSizeMake(300, 216)];
+        self.popover.theme.borderWidth = 1;
+        self.popover.theme.viewContentInsets = UIEdgeInsetsMake(3, 3, 1, 1);
+        self.popover.theme.fillTopColor = self.pickerController.view.backgroundColor;
+        self.popover.theme.outerStrokeColor = [UIColor colorWithWhite:1 alpha:0.9];
+        
+    }
     
-    popover = [[WYPopoverController alloc] initWithContentViewController:pickerVC];
-    [popover setPopoverContentSize:CGSizeMake(300, 216)];
-    //popover.theme.preferredAlpha = 0.7;
-    [popover presentPopoverFromRect:btn.bounds
-                             inView:btn
-           permittedArrowDirections:WYPopoverArrowDirectionAny
-                           animated:YES
-                            options:WYPopoverAnimationOptionFadeWithScale];
+    [self.popover presentPopoverFromRect:btn.bounds
+                                  inView:btn
+                permittedArrowDirections:WYPopoverArrowDirectionAny
+                                animated:YES
+                                 options:WYPopoverAnimationOptionFadeWithScale];
+
+    
+}
+
+- (BOOL)popoverControllerShouldDismissPopover:(WYPopoverController *)controller
+{
+    return YES;
+}
+
+- (void)popoverControllerDidDismissPopover:(WYPopoverController *)controller
+{
+    NSString *mood = self.pickerController.selectedItem;
+    self.moodDropDownButton.titleLabel.text = mood;
 }
 
 
@@ -154,6 +177,8 @@
         self.tasteDescription.text = @"YOu haven't told us where you've been to, and thus we don't know your taste yet. You can add addtional tastes from below.";
     }
 }
+
+
 
 /*
 #pragma mark - Navigation
