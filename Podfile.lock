@@ -53,7 +53,6 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
-  - DropdownMenu (1.0.0)
   - FBSDKCoreKit (4.5.1):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.5.1)
@@ -131,6 +130,7 @@ PODS:
   - WeixinActivity (1.2.0):
     - WeixinActivity/Weixin (= 1.2.0)
   - WeixinActivity/Weixin (1.2.0)
+  - WYPopoverController (0.3.8)
 
 DEPENDENCIES:
   - AFNetworking
@@ -139,7 +139,6 @@ DEPENDENCIES:
   - BlocksKit (~> 2.2)
   - Bolts (~> 1.2.0)
   - CocoaLumberjack (~> 2.0)
-  - DropdownMenu (~> 1.0.0)
   - FBSDKCoreKit (~> 4.5.1)
   - FBSDKLoginKit (~> 4.5.1)
   - FBSDKShareKit (~> 4.5.1)
@@ -160,6 +159,7 @@ DEPENDENCIES:
   - Tweaks (~> 2.0.0)
   - UITableView-NXEmptyView (~> 0.1.7)
   - WeixinActivity (~> 1.2.0)
+  - WYPopoverController (~> 0.3.8)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -168,7 +168,6 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
-  DropdownMenu: 5777e17ac6ddbc69b151719b83a838da81440786
   FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
   FBSDKShareKit: 642034ac9f30793dfd897851b724bb4281750266
@@ -189,5 +188,6 @@ SPEC CHECKSUMS:
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   WeixinActivity: 4c5d4be4dff83d90376f3d5ba2fa6ba410e88b9e
+  WYPopoverController: dda54780e1bef186464ae5a10ab9b4998c279e89
 
 COCOAPODS: 0.38.2

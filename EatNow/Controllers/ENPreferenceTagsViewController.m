@@ -9,6 +9,8 @@
 #import "ENPreferenceTagsViewController.h"
 #import "JCTagListView.h"
 #import "ENServerManager.h"
+#import "ENPickPopoverViewController.h"
+#import <WYPopoverController.h>
 
 @interface ENPreferenceTagsViewController ()
 @property (weak, nonatomic) IBOutlet JCTagListView *tagView;
@@ -18,6 +20,9 @@
 @end
 
 @implementation ENPreferenceTagsViewController
+{
+    WYPopoverController *popover;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -102,7 +107,19 @@
 
 - (IBAction)onMoodAction:(id)sender
 {
-    DDLogDebug(@"Mood action");
+    UIButton *btn = sender;
+    
+    ENPickPopoverViewController *pickerVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ENPickPopoverViewController"];
+    pickerVC.dataSource = @[@"Happy", @"Romantic", @"Sad", @"Lonely"];
+    
+    popover = [[WYPopoverController alloc] initWithContentViewController:pickerVC];
+    [popover setPopoverContentSize:CGSizeMake(300, 216)];
+    //popover.theme.preferredAlpha = 0.7;
+    [popover presentPopoverFromRect:btn.bounds
+                             inView:btn
+           permittedArrowDirections:WYPopoverArrowDirectionAny
+                           animated:YES
+                            options:WYPopoverAnimationOptionFadeWithScale];
 }
 
 
