@@ -952,7 +952,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mmX-U0-MdH" customClass="JCTagListView">
-                                <rect key="frame" x="0.0" y="300.5" width="375" height="366"/>
+                                <rect key="frame" x="0.0" y="301" width="375" height="366"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="WMa-Rw-FhM"/>
@@ -1028,27 +1028,30 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Automatic" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wQU-fm-Tng">
-                                <rect key="frame" x="107" y="100" width="160" height="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDW-6P-Vfi">
+                                <rect key="frame" x="108" y="100" width="160" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="SmY-7r-VEO"/>
+                                    <constraint firstAttribute="width" constant="160" id="UfJ-mL-Nv8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                <state key="normal" title="Automatic">
+                                    <color key="titleColor" red="0.72156862749999995" green="0.91372549020000005" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-preference-tags-dropdown-triangle" translatesAutoresizingMaskIntoConstraints="NO" id="WVx-KE-BBc">
+                                <rect key="frame" x="243" y="109.5" width="10" height="6"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="Bh7-mG-mFq"/>
-                                    <constraint firstAttribute="height" constant="25" id="cLH-AS-hOm"/>
+                                    <constraint firstAttribute="height" constant="6" id="SbM-zu-ZvC"/>
+                                    <constraint firstAttribute="width" constant="10" id="s4j-1R-4kc"/>
                                 </constraints>
-                                <color key="textColor" red="0.72156862745098038" green="0.9137254901960784" blue="0.52549019607843139" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ncY-2m-JnW" secondAttribute="trailing" id="05r-oS-sFt"/>
-                            <constraint firstAttribute="centerX" secondItem="wQU-fm-Tng" secondAttribute="centerX" id="0L1-hq-Y6F"/>
                             <constraint firstItem="FGi-Kw-y9S" firstAttribute="top" secondItem="N9o-Hq-yXC" secondAttribute="bottom" constant="37" id="74d-Y9-huO"/>
                             <constraint firstItem="gbh-Ci-IRu" firstAttribute="top" secondItem="oCH-c9-QxF" secondAttribute="bottom" constant="8" id="8L2-m6-A8Q"/>
                             <constraint firstItem="oCH-c9-QxF" firstAttribute="trailing" secondItem="6GA-T3-uFM" secondAttribute="trailingMargin" id="A58-gJ-ZwA"/>
@@ -1065,12 +1068,15 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                             <constraint firstItem="oCH-c9-QxF" firstAttribute="leading" secondItem="6GA-T3-uFM" secondAttribute="leadingMargin" constant="2" id="R1s-fB-m9m"/>
                             <constraint firstAttribute="trailing" secondItem="mmX-U0-MdH" secondAttribute="trailing" id="TnF-49-gcS"/>
                             <constraint firstItem="fTy-cJ-nta" firstAttribute="top" secondItem="ncY-2m-JnW" secondAttribute="bottom" id="VrW-Om-90R"/>
+                            <constraint firstAttribute="centerX" secondItem="pDW-6P-Vfi" secondAttribute="centerX" id="W8O-L3-mon"/>
+                            <constraint firstItem="pDW-6P-Vfi" firstAttribute="top" secondItem="FGi-Kw-y9S" secondAttribute="bottom" constant="10" id="cr9-ag-BjG"/>
                             <constraint firstItem="mmX-U0-MdH" firstAttribute="top" secondItem="Tm6-gb-tix" secondAttribute="bottom" id="dFj-HQ-xy6"/>
+                            <constraint firstAttribute="centerX" secondItem="WVx-KE-BBc" secondAttribute="centerX" constant="-60.5" id="dOo-Y8-Zeq"/>
                             <constraint firstItem="oCH-c9-QxF" firstAttribute="top" secondItem="N9o-Hq-yXC" secondAttribute="bottom" constant="137" id="dzq-UH-Ukf"/>
-                            <constraint firstItem="wQU-fm-Tng" firstAttribute="top" secondItem="FGi-Kw-y9S" secondAttribute="bottom" constant="10" id="eP0-zD-fz5"/>
                             <constraint firstAttribute="trailing" secondItem="Tm6-gb-tix" secondAttribute="trailing" id="fDj-8i-Jyy"/>
                             <constraint firstItem="kJT-56-6U7" firstAttribute="top" secondItem="N9o-Hq-yXC" secondAttribute="bottom" constant="1" id="kzq-yR-slC"/>
                             <constraint firstItem="ncY-2m-JnW" firstAttribute="top" secondItem="mmX-U0-MdH" secondAttribute="bottom" constant="-65.5" id="oGb-e0-H8K"/>
+                            <constraint firstItem="WVx-KE-BBc" firstAttribute="centerY" secondItem="pDW-6P-Vfi" secondAttribute="centerY" id="pHS-H6-5JW"/>
                             <constraint firstItem="Tm6-gb-tix" firstAttribute="leading" secondItem="6GA-T3-uFM" secondAttribute="leading" id="vHK-AG-tPl"/>
                             <constraint firstItem="gbh-Ci-IRu" firstAttribute="leading" secondItem="6GA-T3-uFM" secondAttribute="leadingMargin" constant="2" id="xfm-ym-Szb"/>
                             <constraint firstItem="kJT-56-6U7" firstAttribute="trailing" secondItem="6GA-T3-uFM" secondAttribute="trailingMargin" id="zXB-CF-6QF"/>
@@ -1078,6 +1084,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="moodDropDownButton" destination="pDW-6P-Vfi" id="5NH-81-gz8"/>
                         <outlet property="tagView" destination="mmX-U0-MdH" id="gUS-nf-6wi"/>
                         <outlet property="tasteDescription" destination="gbh-Ci-IRu" id="dDL-Sl-kvo"/>
                     </connections>
@@ -1822,6 +1829,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
         <image name="eat-now-history-view-deck-button" width="55" height="55"/>
         <image name="eat-now-history-view-image-dark-overlay" width="1" height="85"/>
         <image name="eat-now-monogram" width="335" height="412"/>
+        <image name="eat-now-preference-tags-dropdown-triangle" width="21" height="11"/>
         <image name="eatnew-card-details-view-go-button" width="155" height="49"/>
         <image name="gradient 2" width="10" height="314"/>
         <image name="weixin-login-button" width="118" height="24"/>

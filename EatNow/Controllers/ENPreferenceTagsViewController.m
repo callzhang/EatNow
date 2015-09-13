@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet JCTagListView *tagView;
 @property (assign, nonatomic) BOOL preSelected;
 @property (weak, nonatomic) IBOutlet UILabel *tasteDescription;
+@property (weak, nonatomic) IBOutlet UIButton *moodDropDownButton;
 @end
 
 @implementation ENPreferenceTagsViewController
@@ -40,6 +41,14 @@
             [self setTextForPreference:pref];
         }];
     }
+    
+    //moon dropdown style.
+    self.moodDropDownButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.moodDropDownButton.layer.borderWidth = 1;
+    self.moodDropDownButton.layer.cornerRadius = 10;
+
+    
+    
     
 }
 
