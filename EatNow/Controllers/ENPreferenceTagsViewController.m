@@ -46,9 +46,6 @@
     self.moodDropDownButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.moodDropDownButton.layer.borderWidth = 1;
     self.moodDropDownButton.layer.cornerRadius = 10;
-
-    
-    
     
 }
 
@@ -99,6 +96,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Actions
+
+- (IBAction)onMoodAction:(id)sender
+{
+    DDLogDebug(@"Mood action");
 }
 
 

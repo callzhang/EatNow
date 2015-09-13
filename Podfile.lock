@@ -53,6 +53,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
+  - DropdownMenu (1.0.0)
   - FBSDKCoreKit (4.5.1):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.5.1)
@@ -138,6 +139,7 @@ DEPENDENCIES:
   - BlocksKit (~> 2.2)
   - Bolts (~> 1.2.0)
   - CocoaLumberjack (~> 2.0)
+  - DropdownMenu (~> 1.0.0)
   - FBSDKCoreKit (~> 4.5.1)
   - FBSDKLoginKit (~> 4.5.1)
   - FBSDKShareKit (~> 4.5.1)
@@ -166,6 +168,7 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bolts: d176cb1e0012175589e389a9db49b85e27787576
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
+  DropdownMenu: 5777e17ac6ddbc69b151719b83a838da81440786
   FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
   FBSDKShareKit: 642034ac9f30793dfd897851b724bb4281750266
