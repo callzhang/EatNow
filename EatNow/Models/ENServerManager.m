@@ -313,12 +313,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 #pragma mark - Data processing
 - (void)setMe:(NSDictionary *)me{
     NSParameterAssert([me valueForKey:@"all_history"]);
-    NSParameterAssert([me valueForKey:@"preference"]);
+    //NSParameterAssert([me valueForKey:@"preference"]);
     NSParameterAssert([me valueForKey:@"username"]);
     NSDictionary *basePreference = [me valueForKey:@"basePrefrence"];
     
     _me = me;
-    self.preference = [_me valueForKey:@"preference"];
+    self.preference = [_me valueForKey:@"preference"]?: @{};
     self.basePreference = basePreference ?: self.emptyBasePreference;
     self.history = [_me valueForKeyPath:@"all_history"];
     if ([me valueForKey:@"base_preference"]) {
