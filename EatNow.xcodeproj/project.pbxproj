@@ -962,6 +962,7 @@
 		DA5B73DD18F233EF00BB5F8E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = modocache;
 				TargetAttributes = {
