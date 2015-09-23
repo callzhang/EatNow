@@ -34,5 +34,4 @@ pod 'WeixinActivity', '~>1.2.0'
 pod 'FBSDKCoreKit', '~> 4.5.1'
 pod 'FBSDKLoginKit', '~> 4.5.1'
 pod 'FBSDKShareKit', '~> 4.5.1'
-#popover
-pod 'WYPopoverController', '~> 0.3.8'
+pod 'AKPickerView', '~> 0.2.6'

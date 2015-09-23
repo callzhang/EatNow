@@ -9,17 +9,16 @@
 #import "ENPreferenceTagsViewController.h"
 #import "JCTagListView.h"
 #import "ENServerManager.h"
-#import "ENPickPopoverViewController.h"
-#import <WYPopoverController.h>
+#import <AKPickerView.h>
+#import "ENPreferenceMoodPickerDataSource.h"
 
-@interface ENPreferenceTagsViewController () <WYPopoverControllerDelegate>
+@interface ENPreferenceTagsViewController () <AKPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet JCTagListView *tagView;
 @property (assign, nonatomic) BOOL preSelected;
 @property (weak, nonatomic) IBOutlet UILabel *tasteDescription;
-@property (weak, nonatomic) IBOutlet UIButton *moodDropDownButton;
-
-@property (strong, nonatomic) WYPopoverController *popover;
-@property (strong, nonatomic) ENPickPopoverViewController *pickerController;
+@property (weak, nonatomic) IBOutlet UIView *pickerContainer;
+@property (strong, nonatomic) AKPickerView *pickerView;
+@property (strong, nonatomic) ENPreferenceMoodPickerDataSource *pickerViewDataSource;
 @end
 
 @implementation ENPreferenceTagsViewController
@@ -47,10 +46,7 @@
         }];
     }
     
-    //moon dropdown style.
-    self.moodDropDownButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.moodDropDownButton.layer.borderWidth = 1;
-    self.moodDropDownButton.layer.cornerRadius = 10;
+    [self setupMoodPickerView];
     
 }
 
@@ -66,6 +62,7 @@
     NSDictionary *base = [ENServerManager shared].basePreference;
     [base enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSNumber *score, BOOL *stop) {
         if (score.floatValue == 0) return;
+        
         NSUInteger idx = [kBasePreferences indexOfObject:key];
         if (idx != NSIntegerMax) {
             DDLogVerbose(@"Pre-select %@: (%lu)", key, (unsigned long)idx);
@@ -103,48 +100,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Popover
-
-- (IBAction)onMoodAction:(id)sender
-{
-    UIButton *btn = sender;
-    
-    if (!self.popover) {
-        
-        self.pickerController = [self.storyboard instantiateViewControllerWithIdentifier:@"ENPickPopoverViewController"];
-        self.pickerController.dataSource = @[@"Happy", @"Romantic", @"Sad", @"Lonely"];
-        
-        self.popover = [[WYPopoverController alloc] initWithContentViewController:self.pickerController];
-        self.popover.delegate = self;
-        
-        [self.popover setPopoverContentSize:CGSizeMake(300, 216)];
-        self.popover.theme.borderWidth = 1;
-        self.popover.theme.viewContentInsets = UIEdgeInsetsMake(3, 3, 1, 1);
-        self.popover.theme.fillTopColor = self.pickerController.view.backgroundColor;
-        self.popover.theme.outerStrokeColor = [UIColor colorWithWhite:1 alpha:0.9];
-        
-    }
-    
-    [self.popover presentPopoverFromRect:btn.bounds
-                                  inView:btn
-                permittedArrowDirections:WYPopoverArrowDirectionAny
-                                animated:YES
-                                 options:WYPopoverAnimationOptionFadeWithScale];
-
-    
-}
-
-- (BOOL)popoverControllerShouldDismissPopover:(WYPopoverController *)controller
-{
-    return YES;
-}
-
-- (void)popoverControllerDidDismissPopover:(WYPopoverController *)controller
-{
-    NSString *mood = self.pickerController.selectedItem;
-    self.moodDropDownButton.titleLabel.text = mood;
-}
-
 
 #pragma mark - UI
 - (IBAction)close:(id)sender{
@@ -178,16 +133,17 @@
     }
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setupMoodPickerView
+{
+    self.pickerView = [[AKPickerView alloc] initWithFrame:CGRectMake(0, 0, self.pickerContainer.frame.size.width, self.pickerContainer.frame.size.height)];
+    self.pickerViewDataSource = [ENPreferenceMoodPickerDataSource new];
+    self.pickerView.dataSource = self.pickerViewDataSource;
+    self.pickerView.textColor = [UIColor colorWithRed:184/255.0 green:233/255.0 blue:134/255.0 alpha:120/255.0];
+    self.pickerView.highlightedTextColor = [UIColor colorWithRed:184/255.0 green:233/255.0 blue:134/255.0 alpha:1];
+    
+    [self.pickerContainer addSubview:self.pickerView];
+    
+    [self.pickerView reloadData];
 }
-*/
 
 @end

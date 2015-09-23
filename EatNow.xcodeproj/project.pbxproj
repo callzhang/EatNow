@@ -65,7 +65,7 @@
 		7854ACE51B9946690036BCA8 /* ENWechatLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE41B9946690036BCA8 /* ENWechatLoginProvider.m */; };
 		7854ACE81B9982B50036BCA8 /* ENFacebookLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE71B9982B50036BCA8 /* ENFacebookLoginProvider.m */; };
 		7854ACEB1B9ABB370036BCA8 /* ENMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */; };
-		7854ACF11BA56C0D0036BCA8 /* ENPickPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACF01BA56C0D0036BCA8 /* ENPickPopoverViewController.m */; };
+		788734C01BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */; };
 		9B03362C1B58C725001F5A32 /* ENBasePreferenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */; };
 		9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */; };
 		9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0336341B5D3F73001F5A32 /* EWBlurAnimator.m */; };
@@ -271,8 +271,8 @@
 		7854ACE71B9982B50036BCA8 /* ENFacebookLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENFacebookLoginProvider.m; sourceTree = "<group>"; };
 		7854ACE91B9ABB370036BCA8 /* ENMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMyProfileViewController.h; sourceTree = "<group>"; };
 		7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMyProfileViewController.m; sourceTree = "<group>"; };
-		7854ACEF1BA56C0D0036BCA8 /* ENPickPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPickPopoverViewController.h; sourceTree = "<group>"; };
-		7854ACF01BA56C0D0036BCA8 /* ENPickPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPickPopoverViewController.m; sourceTree = "<group>"; };
+		788734BE1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceMoodPickerDataSource.h; sourceTree = "<group>"; };
+		788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceMoodPickerDataSource.m; sourceTree = "<group>"; };
 		9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENBasePreferenceCell.xib; sourceTree = "<group>"; };
 		9B03362D1B5B2F02001F5A32 /* ENPreferenceTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceTagsViewController.h; sourceTree = "<group>"; };
 		9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceTagsViewController.m; sourceTree = "<group>"; };
@@ -811,6 +811,8 @@
 				7854ACD51B981C1C0036BCA8 /* Login */,
 				9B03362D1B5B2F02001F5A32 /* ENPreferenceTagsViewController.h */,
 				9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */,
+				788734BE1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.h */,
+				788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */,
 				9B9795281AD8B40C00136764 /* ENRestaurantViewController.h */,
 				9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */,
 				9B9424061AE0450300411D1F /* ENHistoryViewController.h */,
@@ -827,8 +829,6 @@
 				093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */,
 				7854ACE91B9ABB370036BCA8 /* ENMyProfileViewController.h */,
 				7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */,
-				7854ACEF1BA56C0D0036BCA8 /* ENPickPopoverViewController.h */,
-				7854ACF01BA56C0D0036BCA8 /* ENPickPopoverViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1146,6 +1146,7 @@
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
 				9BE71C501B7FA2F400509457 /* TMRowItem+Protected.m in Sources */,
 				9BE71C4E1B7FA2F400509457 /* TMRightDetailRowItem.m in Sources */,
+				788734C01BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m in Sources */,
 				9BAE96151AFEB49300FF746B /* CrashlyticsLogger.m in Sources */,
 				092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */,
 				9BE71C161B7FA1E700509457 /* UIImage+Resizing.m in Sources */,
@@ -1165,7 +1166,6 @@
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
 				9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */,
-				7854ACF11BA56C0D0036BCA8 /* ENPickPopoverViewController.m in Sources */,
 				091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */,
 				7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
