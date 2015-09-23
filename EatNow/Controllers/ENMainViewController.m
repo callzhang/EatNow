@@ -32,7 +32,6 @@
 #import "UIActionSheet+BlocksKit.h"
 #import "extobjc.h"
 #import "NSTimer+BlocksKit.h"
-#import "ENHistoryViewController.h"
 #import "ENUtil.h"
 #import "UIView+Extend.h"
 #import "ATConnect.h"
@@ -71,7 +70,6 @@
 @property (strong, nonatomic) IBOutlet UIScreenEdgePanGestureRecognizer *rightEdgePanGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
-@property (nonatomic, strong) ENHistoryViewController *historyViewController;
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailCardLeadingConstraint;
@@ -80,16 +78,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *noRestaurantsLabel;
 //control
 @property (weak, nonatomic) IBOutlet UIImageView *loadingIndicator;
-@property (weak, nonatomic) IBOutlet UIButton *historyButton;
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
-@property (weak, nonatomic) IBOutlet UIButton *mainViewButton;
-@property (weak, nonatomic) IBOutlet UIButton *histodyDetailToHistoryButton;
-@property (weak, nonatomic) IBOutlet UIButton *consoleButton;
 @property (weak, nonatomic) IBOutlet UIButton *closeMapButton;
 @property (weak, nonatomic) IBOutlet UIButton *openInMapsButton;
-@property (weak, nonatomic) IBOutlet UIButton *deleteHistoryButton;
+@property (weak, nonatomic) IBOutlet UIButton *profileButton;
+@property (weak, nonatomic) IBOutlet UIButton *preferenceButton;
 //@property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
@@ -131,20 +126,16 @@
     _currentMode = currentMode;
     
     switch (_currentMode) {
+        case ENMainViewControllerModeStart:{
+            [self showControllers:@[self.preferenceButton,self.profileButton]];
+            break;
+        }
         case ENMainViewControllerModeMain: {
-            [self showControllers:@[self.historyButton, self.reloadButton, self.shareButton, self.consoleButton]];
+            [self showControllers:@[self.preferenceButton, self.reloadButton, self.shareButton, self.profileButton]];
             break;
         }
         case ENMainViewControllerModeDetail: {
-            [self showControllers:@[self.closeButton,self.shareButton, self.consoleButton]];
-            break;
-        }
-        case ENMainViewControllerModeHistory: {
-            [self showControllers:@[self.mainViewButton, self.consoleButton]];
-            break;
-        }
-        case ENMainViewControllerModeHistoryDetail :{
-            [self showControllers:@[self.histodyDetailToHistoryButton, self.deleteHistoryButton, self.shareButton, self.consoleButton]];
+            [self showControllers:@[self.closeButton,self.shareButton, self.profileButton]];
             break;
         }
         case ENMainViewControllerModeMap: {
@@ -158,7 +149,7 @@
 }
 
 - (void)showControllers:(NSArray *)controls animated:(BOOL)animated {
-    [self showViews:controls inAllViews:@[self.historyButton, self.reloadButton, self.shareButton, self.closeButton, self.mainViewButton, self.histodyDetailToHistoryButton, self.closeMapButton, self.openInMapsButton, self.consoleButton,self.deleteHistoryButton] animated:animated];
+    [self showViews:controls inAllViews:@[self.preferenceButton, self.reloadButton, self.shareButton, self.closeButton, self.profileButton, self.closeMapButton, self.openInMapsButton] animated:animated];
 }
 
 - (void)showControllers:(NSArray *)controls {
@@ -203,9 +194,9 @@
     
     [self.KVOController observe:self keyPath:@keypath(self, showFeedback) options:NSKeyValueObservingOptionNew block:^(id observer, ENMainViewController *mainVC, NSDictionary *change) {
         if (mainVC.showFeedback) {
-            self.consoleButton.hidden = NO;
+            self.preferenceButton.hidden = NO;
         }else{
-            self.consoleButton.hidden = YES;
+            self.preferenceButton.hidden = YES;
         }
     }];
 }
@@ -228,8 +219,8 @@
     self.locationManager = [ENLocationManager shared];
     self.serverManager = [ENServerManager shared];
     self.cards = [NSMutableArray array];
-    [self showControllers:@[self.historyButton, self.reloadButton, self.shareButton] animated:NO]; //disable animation
-    self.currentMode = ENMainViewControllerModeMain;
+    [self showControllers:@[self.preferenceButton,self.profileButton] animated:NO]; //disable animation
+    self.currentMode = ENMainViewControllerModeStart;
 
     [self setupNoRestaurantStatus];
     
@@ -340,9 +331,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRestauranntViewImageDidChangeNotification:) name:kRestaurantViewImageChangedNotification object:nil];
     
-    //hide history view
-    [self toggleHistoryView];
-    
     [self setupDotFrameView];
 }
 
@@ -370,17 +358,18 @@
     
 }
 
-- (IBAction)onHistoryButton:(id)sender {
-    self.currentMode = ENMainViewControllerModeHistory;
-    
-    [self toggleHistoryView];
-    
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-
-    }];
-}
+//- (IBAction)onHistoryButton:(id)sender {
+//    //FIXME
+//    //self.currentMode = ENMainViewControllerModeHistory;
+//    
+//    [self toggleHistoryView];
+//    
+//    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        [self.view layoutIfNeeded];
+//    } completion:^(BOOL finished) {
+//
+//    }];
+//}
 
 - (IBAction)onCloseButton:(id)sender {
     [self toggleCardDetails];
@@ -445,22 +434,22 @@
 
 }
 
-- (IBAction)onHistoryToMainViewButton:(id)sender {
-    self.currentMode = ENMainViewControllerModeMain;
-    [self toggleHistoryView];
-    
-    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
+//- (IBAction)onHistoryToMainViewButton:(id)sender {
+//    self.currentMode = ENMainViewControllerModeMain;
+//    [self toggleHistoryView];
+//    
+//    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0.7 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        [self.view layoutIfNeeded];
+//    } completion:^(BOOL finished) {
+//
+//    }];
+//}
 
-    }];
-}
-
-- (IBAction)onHistoryDetailToHistoryButton:(id)sender {
-    self.currentMode = ENMainViewControllerModeHistoryDetail;
-    
-    [self.historyViewController closeRestaurantView];
-}
+//- (IBAction)onHistoryDetailToHistoryButton:(id)sender {
+//    self.currentMode = ENMainViewControllerModeHistoryDetail;
+//    
+//    [self.historyViewController closeRestaurantView];
+//}
 
 - (IBAction)onOpenInMapsButton:(id)sender {
     CLLocation *location = [self firstRestaurantViewController].restaurant.location;
@@ -472,14 +461,7 @@
 
 - (IBAction)onShareButton:(id)sender
 {
-    ENRestaurantViewController *restaurantVC = nil;//[self firstRestaurantViewController];
-    
-    if (self.currentMode == ENMainViewControllerModeHistory || self.currentMode == ENMainViewControllerModeHistoryDetail) {
-        restaurantVC = self.historyViewController.restaurantViewController;
-    }
-    else{
-        restaurantVC = [self firstRestaurantViewController];
-    }
+    ENRestaurantViewController *restaurantVC = [self firstRestaurantViewController];
     
     if (!restaurantVC) {
         DDLogWarn(@"No restaurant view controller for sharing");
@@ -505,11 +487,6 @@
     
     [self presentViewController:shareVC animated:YES completion:nil];
 
-}
-
-- (IBAction)onDeleteHistory:(id)sender
-{
-    [self.historyViewController deleteHistory];
 }
 
 #pragma mark - Main methods
@@ -708,30 +685,30 @@
     }
 }
 
-- (void)toggleHistoryView {
-    if (self.currentMode == ENMainViewControllerModeHistory) {
-        //show
-        self.historyChildViewControllerLeadingConstraint.constant = 0;
-        self.historyChildViewControllerTrailingConstraint.constant = 0;
-        self.detailCardLeadingConstraint.constant = self.view.frame.size.width;
-        self.detailCardTrailingConstraint.constant = -self.view.frame.size.width;
-        [self.historyViewController loadData];
-        self.historyViewController.mainView = self.view;
-    }
-    else {
-        //close
-        self.historyChildViewControllerLeadingConstraint.constant = -self.view.frame.size.width;
-        self.historyChildViewControllerTrailingConstraint.constant = self.view.frame.size.width;
-        self.detailCardLeadingConstraint.constant = 0;
-        self.detailCardTrailingConstraint.constant = 0;
-        self.historyViewController.mainView = nil;
-        if (self.historyViewController.restaurantViewController) {
-            [self.historyViewController closeRestaurantView];
-        }
-    }
-    
-    [super updateViewConstraints];
-}
+//- (void)toggleHistoryView {
+//    if (self.currentMode == ENMainViewControllerModeHistory) {
+//        //show
+//        self.historyChildViewControllerLeadingConstraint.constant = 0;
+//        self.historyChildViewControllerTrailingConstraint.constant = 0;
+//        self.detailCardLeadingConstraint.constant = self.view.frame.size.width;
+//        self.detailCardTrailingConstraint.constant = -self.view.frame.size.width;
+//        [self.historyViewController loadData];
+//        self.historyViewController.mainView = self.view;
+//    }
+//    else {
+//        //close
+//        self.historyChildViewControllerLeadingConstraint.constant = -self.view.frame.size.width;
+//        self.historyChildViewControllerTrailingConstraint.constant = self.view.frame.size.width;
+//        self.detailCardLeadingConstraint.constant = 0;
+//        self.detailCardTrailingConstraint.constant = 0;
+//        self.historyViewController.mainView = nil;
+//        if (self.historyViewController.restaurantViewController) {
+//            [self.historyViewController closeRestaurantView];
+//        }
+//    }
+//    
+//    [super updateViewConstraints];
+//}
 
 - (void)showRestaurantAsFrontCard:(ENRestaurant *)restaurant
 {
@@ -769,20 +746,20 @@
 
 - (void)edgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
     
-    DDLogVerbose(@"edgePanHandler start");
-    if (gesture.state == UIGestureRecognizerStateEnded) {
-        [self onHistoryButton:nil];
-    }
+//    DDLogVerbose(@"edgePanHandler start");
+//    if (gesture.state == UIGestureRecognizerStateEnded) {
+//        [self onHistoryButton:nil];
+//    }
     
 }
 
 - (void)rightEdgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
     
-    if (gesture.state == UIGestureRecognizerStateEnded &&
-        self.currentMode == ENMainViewControllerModeHistory) {
-        
-        [self onHistoryToMainViewButton:nil];
-    }
+//    if (gesture.state == UIGestureRecognizerStateEnded &&
+//        self.currentMode == ENMainViewControllerModeHistory) {
+//        
+//        [self onHistoryToMainViewButton:nil];
+//    }
     
 }
 
@@ -966,14 +943,6 @@
 - (CGRect)detailViewFrame{
     CGRect frame = self.cardContainer.frame;
     return frame;
-}
-
-#pragma mark - Storyboard
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"embedHistorySegue"]) {
-        self.historyViewController = segue.destinationViewController;
-        self.historyViewController.mainViewController = self;
-    }
 }
 
 #pragma mark -

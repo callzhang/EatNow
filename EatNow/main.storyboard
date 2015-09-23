@@ -17,9 +17,6 @@
             <string>Entypo</string>
             <string>Entypo</string>
             <string>Entypo</string>
-            <string>Entypo</string>
-            <string>Entypo</string>
-            <string>Entypo</string>
         </mutableArray>
         <mutableArray key="OpenSans-Light.ttf">
             <string>OpenSans-Light</string>
@@ -184,9 +181,6 @@
                             </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT5-uY-qhM" userLabel="history">
                                 <rect key="frame" x="16" y="82" width="288" height="394"/>
-                                <connections>
-                                    <segue destination="0oE-vH-Giu" kind="embed" identifier="embedHistorySegue" id="PSw-pV-ble"/>
-                                </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-QT-1bI" userLabel="detail">
                                 <rect key="frame" x="16" y="20" width="288" height="456"/>
@@ -277,7 +271,7 @@
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" image="eat-now-card-details-view-feedback-button">
+                                <state key="normal" image="eat-now-card-deck-view-share-button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -285,21 +279,22 @@
                                     <action selector="onShareButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="Mkf-Vk-WRg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl" userLabel="setting">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4e-Sg-nPl" userLabel="profile-button">
                                 <rect key="frame" x="249" y="495" width="55" height="55"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="2vk-zG-5hD"/>
+                                    <constraint firstAttribute="width" constant="55" id="iah-IX-iDv"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" image="eat-now-card-details-view-setting-button">
+                                <state key="normal" image="eat-now-card-deck-view-profile-button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="onSettingButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="QUY-uY-uXq"/>
-                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86" userLabel="history-button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEb-SL-p86" userLabel="preference-button">
                                 <rect key="frame" x="16" y="492" width="58" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="jcj-4e-iEx"/>
@@ -308,14 +303,14 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" image="eat-now-card-deck-view-history-button"/>
+                                <state key="normal" image="eat-now-card-details-view-setting-button"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="kGT-7p-b6o"/>
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="onHistoryButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="NRW-Tq-Tcg"/>
+                                    <action selector="onSettingButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="KeU-AZ-Pfx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="McB-7e-y9E" userLabel="close-button">
@@ -337,96 +332,30 @@
                                     <action selector="onCloseButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="vT2-RJ-vfa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOj-3L-UkI" userLabel="history-detail-to-main">
-                                <rect key="frame" x="16" y="492" width="58" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Mvw-9B-bDc"/>
-                                    <constraint firstAttribute="height" constant="60" id="byN-eI-5Yw"/>
-                                    <constraint firstAttribute="width" constant="58" id="jYv-q1-lLk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
-                                <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" image="eat-now-history-view-deck-button"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Mvw-9B-bDc"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="onHistoryToMainViewButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="0tW-R4-c6D"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5B-e7-fo8" userLabel="history-close-detailView-button-histo">
-                                <rect key="frame" x="16" y="492" width="58" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Ihq-F3-6RQ"/>
-                                    <constraint firstAttribute="width" constant="58" id="loM-97-xiN"/>
-                                    <constraint firstAttribute="height" constant="60" id="y4h-eG-osO"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
-                                <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" image="eat-now-close-button"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="y4h-eG-osO"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="onHistoryDetailToHistoryButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="yeg-R8-264"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7D-c3-Fdk" userLabel="close-map-button">
                                 <rect key="frame" x="16" y="492" width="58" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="58" id="9db-Su-0yk"/>
                                     <constraint firstAttribute="height" constant="60" id="jds-eq-0xQ"/>
-                                    <constraint firstAttribute="height" constant="60" id="pYh-Qc-8gf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
                                 <state key="normal" image="eat-now-card-details-view-map-collapse-button"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="pYh-Qc-8gf"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <action selector="onCloseMapButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="60e-tp-ehQ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NrA-oC-Lk5" userLabel="history-delete">
-                                <rect key="frame" x="139" y="495" width="55" height="55"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="55" id="NAu-Nz-CoZ"/>
-                                    <constraint firstAttribute="height" constant="55" id="auu-C5-l0s"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
-                                <color key="tintColor" red="1" green="0.71258819579999999" blue="0.71005307709999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" image="eat-now-close-button">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onDeleteHistory:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="cAh-w1-siV"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="tT5-uY-qhM" secondAttribute="bottom" constant="92" id="06t-Gd-8Kp"/>
-                            <constraint firstItem="SD6-BI-BgV" firstAttribute="leading" secondItem="NrA-oC-Lk5" secondAttribute="trailing" id="6mS-eW-nm7"/>
                             <constraint firstItem="q0J-Z4-Pim" firstAttribute="top" secondItem="Z8L-6K-Fh8" secondAttribute="top" id="8xR-Qg-93z"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pNF-QT-1bI" secondAttribute="trailing" id="9mN-6s-KNE"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="TEb-SL-p86" secondAttribute="bottom" constant="16" id="B2h-jg-TiK"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="JA9-KX-A7U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="D4e-Sg-nPl" secondAttribute="trailing" id="JaR-oF-cds"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="McB-7e-y9E" secondAttribute="bottom" constant="16" id="Kfp-7e-OHe"/>
-                            <constraint firstItem="i7D-c3-Fdk" firstAttribute="centerX" secondItem="w5B-e7-fo8" secondAttribute="centerX" id="M6D-2e-f7c"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="q0J-Z4-Pim" secondAttribute="bottom" id="MQs-2s-kn4"/>
-                            <constraint firstItem="NrA-oC-Lk5" firstAttribute="centerY" secondItem="D4e-Sg-nPl" secondAttribute="centerY" id="MWn-ZJ-QHz"/>
-                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="YOj-3L-UkI" secondAttribute="bottom" constant="16" id="N8Z-7M-feg"/>
                             <constraint firstAttribute="trailing" secondItem="q0J-Z4-Pim" secondAttribute="trailing" id="Nqc-Iy-t4b"/>
                             <constraint firstItem="D4e-Sg-nPl" firstAttribute="leading" secondItem="SD6-BI-BgV" secondAttribute="trailing" id="PHL-K0-tEM"/>
                             <constraint firstItem="TEb-SL-p86" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="PUE-OR-nnX"/>
@@ -437,16 +366,14 @@
                             <constraint firstItem="McB-7e-y9E" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="W67-VS-ClU"/>
                             <constraint firstItem="SD6-BI-BgV" firstAttribute="centerY" secondItem="D4e-Sg-nPl" secondAttribute="centerY" id="fch-SH-QPd"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="82" id="ier-hE-C5x"/>
-                            <constraint firstItem="w5B-e7-fo8" firstAttribute="centerX" secondItem="YOj-3L-UkI" secondAttribute="centerX" id="kVR-xZ-SmE"/>
+                            <constraint firstItem="i7D-c3-Fdk" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="j0H-93-ieq"/>
+                            <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="i7D-c3-Fdk" secondAttribute="bottom" constant="16" id="kU7-0B-xD0"/>
                             <constraint firstItem="pNF-QT-1bI" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="20" id="mC5-ah-Hn8"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="pjo-mg-XiM"/>
                             <constraint firstItem="bQj-FE-IWf" firstAttribute="centerY" secondItem="McB-7e-y9E" secondAttribute="centerY" id="sNG-GL-Hz9"/>
-                            <constraint firstItem="YOj-3L-UkI" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="v6N-2z-Ucd"/>
-                            <constraint firstItem="w5B-e7-fo8" firstAttribute="centerY" secondItem="YOj-3L-UkI" secondAttribute="centerY" id="wIk-MS-kFT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tT5-uY-qhM" secondAttribute="trailing" id="wVd-oh-Khx"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="leading" secondItem="TEb-SL-p86" secondAttribute="trailing" id="xuy-Sl-O0u"/>
                             <constraint firstItem="D4e-Sg-nPl" firstAttribute="centerY" secondItem="Fcq-QR-9Zu" secondAttribute="centerY" id="yvw-as-gOE"/>
-                            <constraint firstItem="i7D-c3-Fdk" firstAttribute="centerY" secondItem="w5B-e7-fo8" secondAttribute="centerY" id="zpt-JU-V7d"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Eat Now" id="Xc3-eC-Pz4">
@@ -473,21 +400,18 @@
                         <outlet property="cardView" destination="2kN-sq-rqs" id="y0t-fm-SM8"/>
                         <outlet property="closeButton" destination="McB-7e-y9E" id="dHN-GH-Pq9"/>
                         <outlet property="closeMapButton" destination="i7D-c3-Fdk" id="y4P-bE-9fd"/>
-                        <outlet property="consoleButton" destination="D4e-Sg-nPl" id="4gc-Mb-8UO"/>
-                        <outlet property="deleteHistoryButton" destination="NrA-oC-Lk5" id="QBA-Ze-xik"/>
                         <outlet property="detailCardLeadingConstraint" destination="JA9-KX-A7U" id="MCf-hd-q45"/>
                         <outlet property="detailCardTrailingConstraint" destination="9mN-6s-KNE" id="fNR-rl-cGy"/>
-                        <outlet property="histodyDetailToHistoryButton" destination="w5B-e7-fo8" id="X2O-9g-L0V"/>
-                        <outlet property="historyButton" destination="TEb-SL-p86" id="cU3-9Y-J13"/>
                         <outlet property="historyChildViewControllerLeadingConstraint" destination="pjo-mg-XiM" id="030-zo-wcg"/>
                         <outlet property="historyChildViewControllerTrailingConstraint" destination="wVd-oh-Khx" id="abd-1b-jI4"/>
                         <outlet property="historyContainerView" destination="tT5-uY-qhM" id="uIj-HW-KFG"/>
                         <outlet property="loadingIndicator" destination="mNE-gW-krQ" id="aJK-q7-yYB"/>
                         <outlet property="loadingInfo" destination="Wl0-KL-zNt" id="sXL-cR-jmu"/>
-                        <outlet property="mainViewButton" destination="YOj-3L-UkI" id="MJ0-Vv-Cu7"/>
                         <outlet property="noRestaurantsLabel" destination="Mc6-x8-adw" id="BDk-wj-JnV"/>
                         <outlet property="openInMapsButton" destination="bQj-FE-IWf" id="P8x-8l-foJ"/>
                         <outlet property="panGesture" destination="yUq-Ir-CBt" id="PpJ-sD-gmq"/>
+                        <outlet property="preferenceButton" destination="TEb-SL-p86" id="W5M-go-ab1"/>
+                        <outlet property="profileButton" destination="D4e-Sg-nPl" id="AZf-mA-NwB"/>
                         <outlet property="reloadButton" destination="Fcq-QR-9Zu" id="Ctu-id-Ctm"/>
                         <outlet property="shareButton" destination="SD6-BI-BgV" id="Ia6-RB-61i"/>
                         <outlet property="tapGesture" destination="O3U-Ob-hea" id="2zT-0B-l7C"/>
@@ -512,19 +436,19 @@
             <objects>
                 <tableViewController storyboardIdentifier="ENHistoryViewController" id="0oE-vH-Giu" customClass="ENHistoryViewController" sceneMemberID="viewController">
                     <tableView key="view" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gKA-EL-JRE">
-                        <rect key="frame" x="0.0" y="0.0" width="288" height="394"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" rowHeight="90" id="IwC-Kl-E5t" customClass="ENHistoryViewCell">
-                                <rect key="frame" x="0.0" y="22" width="288" height="90"/>
+                                <rect key="frame" x="0.0" y="22" width="600" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IwC-Kl-E5t" id="10f-yZ-HBL">
-                                    <rect key="frame" x="0.0" y="0.0" width="288" height="90"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="OHl-62-t0d">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="eat-now-monogram" translatesAutoresizingMaskIntoConstraints="NO" id="OHl-62-t0d">
                                             <rect key="frame" x="4" y="10" width="280" height="70"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -532,7 +456,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-history-view-image-dark-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="igK-j5-Axp">
+                                        <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="eat-now-history-view-image-dark-overlay" translatesAutoresizingMaskIntoConstraints="NO" id="igK-j5-Axp">
                                             <rect key="frame" x="4" y="10" width="280" height="70"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -540,7 +464,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-uL-f3t" userLabel="title">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="Muc-uL-f3t" userLabel="title">
                                             <rect key="frame" x="12" y="18" width="264" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="131" id="gTk-mp-UM5"/>
@@ -600,13 +524,13 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="sectionHeader" rowHeight="60" id="ahv-cd-afW">
-                                <rect key="frame" x="0.0" y="112" width="288" height="60"/>
+                                <rect key="frame" x="0.0" y="112" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ahv-cd-afW" id="bCr-vV-NeV">
-                                    <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="89" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 30 days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjD-TW-yuE">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="89" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Last 30 days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjD-TW-yuE">
                                             <rect key="frame" x="0.0" y="13" width="288" height="34"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1809,13 +1733,13 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
     <resources>
         <image name="animatedLoading.gif" width="198" height="198"/>
         <image name="eat-now-card-deck-view-couchmark-1" width="206" height="162"/>
-        <image name="eat-now-card-deck-view-history-button" width="110" height="110"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-lower" width="1" height="206"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-upper" width="1" height="206"/>
+        <image name="eat-now-card-deck-view-profile-button" width="110" height="110"/>
         <image name="eat-now-card-deck-view-refresh-button" width="55" height="55"/>
+        <image name="eat-now-card-deck-view-share-button" width="110" height="110"/>
         <image name="eat-now-card-deck-view-time-icon" width="29" height="29"/>
         <image name="eat-now-card-deck-view-walk-icon" width="29" height="29"/>
-        <image name="eat-now-card-details-view-feedback-button" width="55" height="55"/>
         <image name="eat-now-card-details-view-foursquare-attribution" width="174" height="29"/>
         <image name="eat-now-card-details-view-foursquare-attribution-pressed" width="174" height="29"/>
         <image name="eat-now-card-details-view-map-collapse-button" width="55" height="55"/>
@@ -1826,7 +1750,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
         <image name="eat-now-card-details-view-setting-button" width="55" height="55"/>
         <image name="eat-now-close-button" width="55" height="55"/>
         <image name="eat-now-default-background" width="750" height="1334"/>
-        <image name="eat-now-history-view-deck-button" width="55" height="55"/>
         <image name="eat-now-history-view-image-dark-overlay" width="1" height="85"/>
         <image name="eat-now-monogram" width="335" height="412"/>
         <image name="eatnew-card-details-view-go-button" width="155" height="49"/>

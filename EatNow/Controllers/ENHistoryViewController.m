@@ -170,13 +170,15 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     CGRect toFrame = self.mainViewController.historyContainerView.frame;
     [self.restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:toFrame animated:YES completion:nil];
     self.mainViewController.isHistoryDetailShown = YES;
-    self.mainViewController.currentMode = ENMainViewControllerModeHistoryDetail;
+    //FIXME
+    //self.mainViewController.currentMode = ENMainViewControllerModeHistoryDetail;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onInfoTapGesture:)];
     [self.restaurantViewController.info addGestureRecognizer:tap];
 }
 
 - (void)closeRestaurantView{
-    self.mainViewController.currentMode = ENMainViewControllerModeHistory;
+    //FIXME
+    //self.mainViewController.currentMode = ENMainViewControllerModeHistory;
     if (self.restaurantViewController){
         ENHistoryViewCell *cell = (ENHistoryViewCell *)[self.tableView cellForRowAtIndexPath:self.selectedPath];
         CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.mainView];
@@ -196,7 +198,8 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
 
 - (void)deleteHistory
 {
-    self.mainViewController.currentMode = ENMainViewControllerModeHistory;
+    //FIXME
+    //self.mainViewController.currentMode = ENMainViewControllerModeHistory;
     if (self.restaurantViewController){
         
         // lock to sync delete and animation

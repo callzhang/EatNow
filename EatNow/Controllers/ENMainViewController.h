@@ -31,8 +31,6 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
     ENMainViewControllerModeStart,
     ENMainViewControllerModeMain,
     ENMainViewControllerModeDetail,
-    ENMainViewControllerModeHistory,
-    ENMainViewControllerModeHistoryDetail,
     ENMainViewControllerModeMap,
 };
 
