@@ -131,6 +131,7 @@ PODS:
   - WeixinActivity (1.2.0):
     - WeixinActivity/Weixin (= 1.2.0)
   - WeixinActivity/Weixin (1.2.0)
+  - WYPopoverController (0.3.8)
 
 DEPENDENCIES:
   - AFNetworking
@@ -160,6 +161,7 @@ DEPENDENCIES:
   - Tweaks (~> 2.0.0)
   - UITableView-NXEmptyView (~> 0.1.7)
   - WeixinActivity (~> 1.2.0)
+  - WYPopoverController (~> 0.3.8)
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -189,5 +191,6 @@ SPEC CHECKSUMS:
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   WeixinActivity: 4c5d4be4dff83d90376f3d5ba2fa6ba410e88b9e
+  WYPopoverController: dda54780e1bef186464ae5a10ab9b4998c279e89
 
 COCOAPODS: 0.38.2
