@@ -56,6 +56,7 @@
 		09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 781BF0181B8A1E930005B9EA /* libWeChatSDK.a */; };
+		784D1AAF1BB59CED001147AA /* CALayer+UIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D1AAE1BB59CED001147AA /* CALayer+UIColor.m */; settings = {ASSET_TAGS = (); }; };
 		7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACC11B8F63820036BCA8 /* ENAppSettings.m */; };
 		7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */; };
 		7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */; };
@@ -252,6 +253,8 @@
 		781BF0181B8A1E930005B9EA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		781BF01A1B8A1E930005B9EA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		781BF01B1B8A1E930005B9EA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		784D1AAD1BB59CED001147AA /* CALayer+UIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+UIColor.h"; sourceTree = "<group>"; };
+		784D1AAE1BB59CED001147AA /* CALayer+UIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+UIColor.m"; sourceTree = "<group>"; };
 		7854ACC01B8F63820036BCA8 /* ENAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENAppSettings.h; sourceTree = "<group>"; };
 		7854ACC11B8F63820036BCA8 /* ENAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENAppSettings.m; sourceTree = "<group>"; };
 		7854ACCF1B929B4E0036BCA8 /* NSDictionary+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extend.h"; sourceTree = "<group>"; };
@@ -732,6 +735,8 @@
 				7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */,
 				7854ACD21B92A1D70036BCA8 /* NSString+Extend.h */,
 				7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */,
+				784D1AAD1BB59CED001147AA /* CALayer+UIColor.h */,
+				784D1AAE1BB59CED001147AA /* CALayer+UIColor.m */,
 			);
 			name = Extension;
 			path = Extensins;
@@ -1179,6 +1184,7 @@
 				9BE71C4F1B7FA2F400509457 /* TMRowItem+AFNetworking.m in Sources */,
 				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,
 				9BE71C1D1B7FA20A00509457 /* ENRestaurant.m in Sources */,
+				784D1AAF1BB59CED001147AA /* CALayer+UIColor.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
 				9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */,
 				7854ACDE1B9929C60036BCA8 /* ENSocialLoginManager.m in Sources */,

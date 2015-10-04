@@ -50,6 +50,7 @@
 #import "WeixinActivity.h"
 #import "NSDictionary+Extend.h"
 #import "NSString+Extend.h"
+#import "CALayer+UIColor.h"
 #import "ENMyProfileViewController.h"
 
 @interface ENMainViewController ()
@@ -66,8 +67,6 @@
 //gesture
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGesture;
-@property (strong, nonatomic) IBOutlet UIScreenEdgePanGestureRecognizer *leftEdgePanGesture;
-@property (strong, nonatomic) IBOutlet UIScreenEdgePanGestureRecognizer *rightEdgePanGesture;
 //UI
 @property (weak, nonatomic) IBOutlet UIImageView *background;
 //autolayout
@@ -85,6 +84,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *openInMapsButton;
 @property (weak, nonatomic) IBOutlet UIButton *profileButton;
 @property (weak, nonatomic) IBOutlet UIButton *preferenceButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *moodButton;
+@property (weak, nonatomic) IBOutlet UIView *searchView;
 //@property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
@@ -295,15 +297,7 @@
     
     self.cardView.backgroundColor = [UIColor clearColor];
     self.cardContainer.backgroundColor = [UIColor clearColor];
-    
-    // Gesture
-    self.leftEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(edgePanHandler:)];
-    self.leftEdgePanGesture.edges = UIRectEdgeLeft;
-    [self.view addGestureRecognizer:self.leftEdgePanGesture];
-    
-    self.rightEdgePanGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(rightEdgePanHandler:)];
-    self.rightEdgePanGesture.edges = UIRectEdgeRight;
-    [self.view addGestureRecognizer:self.rightEdgePanGesture];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -356,6 +350,12 @@
 //    ENMyProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMyProfileViewController"];
 //    [self presentWithBlur:vc withCompletion:nil];
     
+}
+
+- (IBAction)onPreferenceButton:(id)sender
+{
+    ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
+    [self presentWithBlur:vc withCompletion:nil];
 }
 
 //- (IBAction)onHistoryButton:(id)sender {
@@ -743,25 +743,6 @@
 }
 
 #pragma mark - Guesture actions
-
-- (void)edgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
-    
-//    DDLogVerbose(@"edgePanHandler start");
-//    if (gesture.state == UIGestureRecognizerStateEnded) {
-//        [self onHistoryButton:nil];
-//    }
-    
-}
-
-- (void)rightEdgePanHandler:(UIScreenEdgePanGestureRecognizer *)gesture{
-    
-//    if (gesture.state == UIGestureRecognizerStateEnded &&
-//        self.currentMode == ENMainViewControllerModeHistory) {
-//        
-//        [self onHistoryToMainViewButton:nil];
-//    }
-    
-}
 
 - (IBAction)tapHandler:(UITapGestureRecognizer *)gesture {
     [self toggleCardDetails];
