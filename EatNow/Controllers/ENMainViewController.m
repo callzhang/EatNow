@@ -265,6 +265,10 @@
             self.needShowRestaurant = NO;
             [self showAllRestaurantCards];
         }
+        
+        if (self.isSearchingFromServer) {
+            self.currentMode = ENMainViewControllerModeMain;
+        }
     }];
 
     //history to review
