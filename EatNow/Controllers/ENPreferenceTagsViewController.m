@@ -72,6 +72,9 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
+    
+    [ENServerManager shared].mood = self.pickerView.selectedItem;
+    
     NSArray *selection = self.tagView.collectionView.indexPathsForSelectedItems;
     DDLogVerbose(@"Selected: %@", selection);
     
@@ -142,8 +145,10 @@
     self.pickerView.highlightedTextColor = [UIColor colorWithRed:184/255.0 green:233/255.0 blue:134/255.0 alpha:1];
     self.pickerView.pickerViewStyle = AKPickerViewStyleFlat;
     self.pickerView.interitemSpacing = 5;
+    //self.pickerView.selectedItem = [ENServerManager shared].mood;
     
     [self.pickerContainer addSubview:self.pickerView];
+    
     
     [self.pickerView reloadData];
 }

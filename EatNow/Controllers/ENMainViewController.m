@@ -249,13 +249,15 @@
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
             self.shareButton.enabled = YES;
-            self.loadingIndicator.alpha = 0;
+            self.loadingIndicator.hidden = YES;
             //DDLogInfo(@"show loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
         else {
             self.reloadButton.enabled = NO;
             self.shareButton.enabled = NO;
-            self.loadingIndicator.alpha = 1;
+            //self.loadingIndicator.alpha = 1;
+            self.searchView.hidden = YES;
+            self.loadingIndicator.hidden = NO;
             //DDLogInfo(@"hide loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
         
@@ -293,7 +295,7 @@
     }];
 	
     //load restaurants from server
-    [self searchNewRestaurantsWithCompletion:nil];
+    //[self searchNewRestaurantsWithCompletion:nil];
     
     self.cardView.backgroundColor = [UIColor clearColor];
     self.cardContainer.backgroundColor = [UIColor clearColor];
@@ -966,4 +968,11 @@
         self.dotFrameView.shapeLayer.path = [UIBezierPath bezierPathWithRoundedRect:cardFrame cornerRadius:16].CGPath;
     }
 }
+
+#pragma mark - Search view
+- (void)hideSearchView
+{
+    self.searchView.hidden = YES;
+}
+
 @end

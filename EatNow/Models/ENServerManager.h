@@ -52,6 +52,7 @@ extern NSString * const kBasePreferenceUpdated;
 @property (nonatomic, strong) NSDictionary *me;
 @property (nonatomic, strong) NSString *myID;
 @property (nonatomic, strong) NSNumber *session;
+@property (nonatomic, assign) NSUInteger mood; //Mood index
 
 //We still need Singleton as it stores shared information
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
