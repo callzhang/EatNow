@@ -55,6 +55,7 @@
 		09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */; };
 		09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
+		7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */; settings = {ASSET_TAGS = (); }; };
 		781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 781BF0181B8A1E930005B9EA /* libWeChatSDK.a */; };
 		784D1AAF1BB59CED001147AA /* CALayer+UIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D1AAE1BB59CED001147AA /* CALayer+UIColor.m */; settings = {ASSET_TAGS = (); }; };
 		7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACC11B8F63820036BCA8 /* ENAppSettings.m */; };
@@ -250,6 +251,8 @@
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		7810AE141BC259DA00625941 /* SUNSlideSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUNSlideSwitchView.h; sourceTree = "<group>"; };
+		7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUNSlideSwitchView.m; sourceTree = "<group>"; };
 		781BF0181B8A1E930005B9EA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		781BF01A1B8A1E930005B9EA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		781BF01B1B8A1E930005B9EA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -540,6 +543,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7810AE131BC2524C00625941 /* SlideSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				7810AE141BC259DA00625941 /* SUNSlideSwitchView.h */,
+				7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */,
+			);
+			name = SlideSwitch;
+			sourceTree = "<group>";
+		};
 		781BF0171B8A1E930005B9EA /* WeChatSDK_1.5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -606,6 +618,7 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				7810AE131BC2524C00625941 /* SlideSwitch */,
 				781BF0171B8A1E930005B9EA /* WeChatSDK_1.5 */,
 				9BEBE7841B7FE09D006F844C /* GNMapOpener */,
 				9BE71C261B7FA2F400509457 /* TableViewBuilder */,
@@ -1176,6 +1189,7 @@
 				7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
 				9BE71C551B7FA2F400509457 /* TMTableViewDataSource.m in Sources */,
+				7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */,
 				7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,

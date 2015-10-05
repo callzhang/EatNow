@@ -364,6 +364,12 @@
     [self presentWithBlur:vc withCompletion:nil];
 }
 
+- (IBAction)onProfileButton:(id)sender
+{
+        ENMyProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMyProfileViewController"];
+        [self presentWithBlur:vc withCompletion:nil];
+}
+
 //- (IBAction)onHistoryButton:(id)sender {
 //    //FIXME
 //    //self.currentMode = ENMainViewControllerModeHistory;
