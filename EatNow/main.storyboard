@@ -1840,7 +1840,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cLD-K5-1Hk">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cLD-K5-1Hk" userLabel="Profile View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FGo-ax-GVS" userLabel="Head View">
@@ -1925,7 +1925,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                     <constraint firstAttribute="bottom" secondItem="gFx-wM-Hze" secondAttribute="bottom" id="woz-xt-Xox"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ALv-NT-pyU" userLabel="Container View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ALv-NT-pyU" userLabel="Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mOQ-e4-i4K" userLabel="detail">
@@ -1959,9 +1959,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                         <state key="normal" image="eat-now-card-deck-view-refresh-button">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <connections>
-                                            <action selector="onReloadButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="ejK-XH-6hq"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDt-6Z-g6V" userLabel="map-export">
                                         <rect key="frame" x="249" y="495" width="55" height="55"/>
@@ -1970,9 +1967,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <connections>
-                                            <action selector="onOpenInMapsButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="oDs-kb-QU7"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYO-a3-twj" userLabel="sharing">
                                         <rect key="frame" x="194" y="495" width="55" height="55"/>
@@ -1989,9 +1983,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <connections>
-                                            <action selector="onShareButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="zsU-lc-2hI"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEs-Fv-tfq" userLabel="close-button">
                                         <rect key="frame" x="16" y="492.5" width="58" height="60"/>
@@ -2009,9 +2000,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                 <exclude reference="rMp-j0-Knc"/>
                                             </mask>
                                         </variation>
-                                        <connections>
-                                            <action selector="onCloseButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="n2B-Ar-gGv"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvr-eF-Wmo" userLabel="close-map-button">
                                         <rect key="frame" x="16" y="492" width="58" height="60"/>
@@ -2023,9 +2011,6 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                         <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
                                         <state key="normal" image="eat-now-card-details-view-map-collapse-button"/>
-                                        <connections>
-                                            <action selector="onCloseMapButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="11b-AI-06B"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <animations/>
@@ -2073,9 +2058,18 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="cardView" destination="YtP-Uv-PdF" id="g7o-qC-PeW"/>
+                        <outlet property="closeButton" destination="cEs-Fv-tfq" id="8sw-CW-cHD"/>
+                        <outlet property="closeMapButton" destination="tvr-eF-Wmo" id="mnt-TS-OfY"/>
+                        <outlet property="containerView" destination="ALv-NT-pyU" id="vc7-xd-ceL"/>
                         <outlet property="detailLabel" destination="XGF-Y0-hgP" id="570-32-lFd"/>
+                        <outlet property="detailView" destination="mOQ-e4-i4K" id="73W-Bk-NXN"/>
                         <outlet property="headerView" destination="6HO-M5-7C7" id="EPK-sc-vWs"/>
                         <outlet property="nameLabel" destination="p5G-3S-Pkk" id="Xmn-bf-Pnu"/>
+                        <outlet property="openInMapsButton" destination="vDt-6Z-g6V" id="ud3-eL-5PN"/>
+                        <outlet property="profileView" destination="cLD-K5-1Hk" id="qdS-mc-M5W"/>
+                        <outlet property="reloadButton" destination="lDk-Nc-tNn" id="irk-1g-kmt"/>
+                        <outlet property="shareButton" destination="PYO-a3-twj" id="ORy-Cl-3qT"/>
                         <outlet property="switchView" destination="gFx-wM-Hze" id="qnu-iI-Zxr"/>
                     </connections>
                 </viewController>

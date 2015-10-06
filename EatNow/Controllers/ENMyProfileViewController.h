@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ENContainerViewControllerProtocol.h"
 
-@interface ENMyProfileViewController : UIViewController
+@interface ENMyProfileViewController : UIViewController <ENContainerViewControllerProtocol>
+
+@property (nonatomic, weak) IBOutlet UIView *detailView;
+@property (nonatomic, weak) IBOutlet UIView *cardView;
+@property (nonatomic, assign) ENMainViewControllerMode currentMode;
 
 @end

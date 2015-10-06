@@ -18,8 +18,8 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 
 @protocol ENContainerViewControllerProtocol <NSObject>
 
-@property (nonatomic,strong) IBOutlet UIView *cardView;
-@property (nonatomic,strong) IBOutlet UIView *detailView;
+@property (nonatomic,weak) UIView *cardView;
+@property (nonatomic,weak) UIView *detailView;
 
 @property (nonatomic, assign) ENMainViewControllerMode currentMode;
 
