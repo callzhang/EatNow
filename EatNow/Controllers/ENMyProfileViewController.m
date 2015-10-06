@@ -63,7 +63,7 @@
         {
             ENHistoryViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ENHistoryViewController"];
             vc.mainViewController = self;
-            vc.mainView = self.detailView;
+            vc.mainView = self.cardContainer;
             
             return vc;
         }

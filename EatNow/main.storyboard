@@ -2058,12 +2058,12 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="cardContainer" destination="mOQ-e4-i4K" id="He2-vk-sET"/>
                         <outlet property="cardView" destination="YtP-Uv-PdF" id="g7o-qC-PeW"/>
                         <outlet property="closeButton" destination="cEs-Fv-tfq" id="8sw-CW-cHD"/>
                         <outlet property="closeMapButton" destination="tvr-eF-Wmo" id="mnt-TS-OfY"/>
                         <outlet property="containerView" destination="ALv-NT-pyU" id="vc7-xd-ceL"/>
                         <outlet property="detailLabel" destination="XGF-Y0-hgP" id="570-32-lFd"/>
-                        <outlet property="detailView" destination="mOQ-e4-i4K" id="73W-Bk-NXN"/>
                         <outlet property="headerView" destination="6HO-M5-7C7" id="EPK-sc-vWs"/>
                         <outlet property="nameLabel" destination="p5G-3S-Pkk" id="Xmn-bf-Pnu"/>
                         <outlet property="openInMapsButton" destination="vDt-6Z-g6V" id="ud3-eL-5PN"/>

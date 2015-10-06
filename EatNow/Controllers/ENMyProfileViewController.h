@@ -11,7 +11,7 @@
 
 @interface ENMyProfileViewController : UIViewController <ENContainerViewControllerProtocol>
 
-@property (nonatomic, weak) IBOutlet UIView *detailView;
+@property (nonatomic, weak) IBOutlet UIView *cardContainer;
 @property (nonatomic, weak) IBOutlet UIView *cardView;
 @property (nonatomic, assign) ENMainViewControllerMode currentMode;
 
