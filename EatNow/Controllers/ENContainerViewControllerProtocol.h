@@ -14,6 +14,8 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
     ENMainViewControllerModeMain,
     ENMainViewControllerModeDetail,
     ENMainViewControllerModeMap,
+    ENMainViewControllerModeHistory,
+    ENMainViewControllerModeHistoryDetail
 };
 
 @protocol ENContainerViewControllerProtocol <NSObject>

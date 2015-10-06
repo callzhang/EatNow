@@ -167,18 +167,18 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     [self.restaurantViewController didChangedToFrontCard];
     
     
-    CGRect toFrame = self.mainViewController.historyContainerView.frame;
+    CGRect toFrame = self.mainViewController.cardView.frame;
     [self.restaurantViewController switchToStatus:ENRestaurantViewStatusHistoryDetail withFrame:toFrame animated:YES completion:nil];
-    self.mainViewController.isHistoryDetailShown = YES;
+    //self.mainViewController.isHistoryDetailShown = YES;
     //FIXME
-    //self.mainViewController.currentMode = ENMainViewControllerModeHistoryDetail;
+    self.mainViewController.currentMode = ENMainViewControllerModeHistoryDetail;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onInfoTapGesture:)];
     [self.restaurantViewController.info addGestureRecognizer:tap];
 }
 
 - (void)closeRestaurantView{
     //FIXME
-    //self.mainViewController.currentMode = ENMainViewControllerModeHistory;
+    self.mainViewController.currentMode = ENMainViewControllerModeHistory;
     if (self.restaurantViewController){
         ENHistoryViewCell *cell = (ENHistoryViewCell *)[self.tableView cellForRowAtIndexPath:self.selectedPath];
         CGRect frame = [cell.contentView convertRect:cell.background.frame toView:self.mainView];

@@ -1938,7 +1938,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             </view>
                                         </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" white="1" alpha="0.16" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="YtP-Uv-PdF" firstAttribute="leading" secondItem="mOQ-e4-i4K" secondAttribute="leading" id="3Yb-dq-PzY"/>
                                             <constraint firstAttribute="trailing" secondItem="YtP-Uv-PdF" secondAttribute="trailing" id="NeU-IO-BlN"/>
@@ -2014,7 +2014,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                     </button>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailingMargin" secondItem="mOQ-e4-i4K" secondAttribute="trailing" constant="8" id="4l3-nG-oOw"/>
                                     <constraint firstItem="mOQ-e4-i4K" firstAttribute="top" secondItem="ALv-NT-pyU" secondAttribute="top" constant="20" id="5D0-pO-9Sl"/>

@@ -10,6 +10,7 @@
 #import "SUNSlideSwitchView.h"
 #import "CALayer+UIColor.h"
 #import <BlocksKit.h>
+#import "ENHistoryViewController.h"
 
 @interface ENMyProfileViewController ()<SUNSlideSwitchViewDelegate>
 
@@ -59,7 +60,13 @@
 {
     switch (number) {
         case 0:
-            return [self.storyboard instantiateViewControllerWithIdentifier:@"ENHistoryViewController"];
+        {
+            ENHistoryViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ENHistoryViewController"];
+            vc.mainViewController = self;
+            vc.mainView = self.detailView;
+            
+            return vc;
+        }
         case 1:
             return [self.storyboard instantiateViewControllerWithIdentifier:@"ENProfileMoreViewController"];
             
@@ -96,6 +103,14 @@
         }
         case ENMainViewControllerModeDetail: {
             [self showControllers:@[self.containerView, self.closeButton,self.shareButton]];
+            break;
+        }
+        case ENMainViewControllerModeHistory: {
+            [self showControllers:@[self.profileView]];
+            break;
+        }
+        case ENMainViewControllerModeHistoryDetail: {
+            [self showControllers:@[self.containerView, self.closeButton]];
             break;
         }
         case ENMainViewControllerModeMap: {
