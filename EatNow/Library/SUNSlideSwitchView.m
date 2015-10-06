@@ -163,9 +163,16 @@ static const NSUInteger kTagOfRightSideButton = 999;
     for (int i = 0; i < [_viewArray count]; i++) {
         UIViewController *vc = _viewArray[i];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGSize textSize = [vc.title sizeWithFont:[UIFont systemFontOfSize:kFontSizeOfTabButton]
-                               constrainedToSize:CGSizeMake(_topScrollView.bounds.size.width, kHeightOfTopScrollView)
-                                   lineBreakMode:NSLineBreakByTruncatingTail];
+//        CGSize textSize = [vc.title sizeWithFont:[UIFont systemFontOfSize:kFontSizeOfTabButton]
+//                               constrainedToSize:CGSizeMake(_topScrollView.bounds.size.width, kHeightOfTopScrollView)
+//                                   lineBreakMode:NSLineBreakByTruncatingTail];
+        
+        
+        //平均分配按钮的宽度
+        NSUInteger buttonCount = _viewArray.count;
+        CGFloat buttonWidth = (_topScrollView.bounds.size.width - (buttonCount + 1) * kWidthOfButtonMargin) / _viewArray.count;
+        CGSize textSize = CGSizeMake(buttonWidth, _topScrollView.bounds.size.height);
+        
         //累计每个tab文字的长度
         topScrollViewContentWidth += kWidthOfButtonMargin+textSize.width;
         //设置按钮尺寸
