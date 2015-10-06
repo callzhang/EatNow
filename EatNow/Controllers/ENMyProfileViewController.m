@@ -11,6 +11,7 @@
 #import "CALayer+UIColor.h"
 #import <BlocksKit.h>
 #import "ENHistoryViewController.h"
+#import <GNMapOpener.h>
 
 @interface ENMyProfileViewController ()<SUNSlideSwitchViewDelegate>
 
@@ -20,13 +21,14 @@
 @property (nonatomic, weak) IBOutlet UILabel *detailLabel;
 @property (nonatomic, weak) IBOutlet SUNSlideSwitchView *switchView;
 
-//
+//History container properties
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIButton *reloadButton;
 @property (nonatomic, weak) IBOutlet UIButton *shareButton;
 @property (nonatomic, weak) IBOutlet UIButton *closeButton;
 @property (nonatomic, weak) IBOutlet UIButton *closeMapButton;
 @property (nonatomic, weak) IBOutlet UIButton *openInMapsButton;
+@property (nonatomic, strong) ENHistoryViewController *historyViewController;
 
 @end
 
@@ -49,6 +51,28 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)onCloseHistoryCard:(id)sender
+{
+    [self.historyViewController closeRestaurantView];
+}
+
+- (IBAction)onCloseMap:(id)sender
+{
+    [self.historyViewController.restaurantViewController closeMap];
+    self.currentMode = ENMainViewControllerModeHistoryDetail;
+}
+
+- (IBAction)onOpenInMap:(id)sender
+{
+    ENRestaurantViewController *restaurantVC = self.historyViewController.restaurantViewController;
+    
+    CLLocation *location = restaurantVC.restaurant.location;
+    GNMapOpenerItem *item = [[GNMapOpenerItem alloc] initWithLocation:location];
+    item.name = restaurantVC.restaurant.name;
+    item.directionsType = GNMapOpenerDirectionsTypeWalk;
+    [[GNMapOpener sharedInstance] openItem:item presetingViewController:self];
+}
+
 #pragma mark - SUNSlideSwitchViewDelegate
 
 - (NSUInteger)numberOfTab:(SUNSlideSwitchView *)view
@@ -61,11 +85,15 @@
     switch (number) {
         case 0:
         {
-            ENHistoryViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ENHistoryViewController"];
-            vc.mainViewController = self;
-            vc.mainView = self.cardContainer;
+            if (self.historyViewController) {
+                return self.historyViewController;
+            }
             
-            return vc;
+            self.historyViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ENHistoryViewController"];
+            self.historyViewController.mainViewController = self;
+            self.historyViewController.mainView = self.cardContainer;
+            
+            return self.historyViewController;
         }
         case 1:
             return [self.storyboard instantiateViewControllerWithIdentifier:@"ENProfileMoreViewController"];

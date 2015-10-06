@@ -15,4 +15,7 @@
 @property (nonatomic, weak) IBOutlet UIView *cardView;
 @property (nonatomic, assign) ENMainViewControllerMode currentMode;
 
+@property (nonatomic, assign) BOOL showScore;
+@property (nonatomic, assign) BOOL isHistoryDetailShown;
+
 @end

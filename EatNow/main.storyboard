@@ -1967,6 +1967,9 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="onOpenInMap:" destination="jgg-sN-bUN" eventType="touchUpInside" id="Ord-aM-Jvc"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYO-a3-twj" userLabel="sharing">
                                         <rect key="frame" x="194" y="495" width="55" height="55"/>
@@ -2000,6 +2003,9 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                 <exclude reference="rMp-j0-Knc"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="onCloseHistoryCard:" destination="jgg-sN-bUN" eventType="touchUpInside" id="Zak-hQ-ae2"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvr-eF-Wmo" userLabel="close-map-button">
                                         <rect key="frame" x="16" y="492" width="58" height="60"/>
@@ -2011,6 +2017,9 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                         <fontDescription key="fontDescription" name="Entypo" family="Entypo" pointSize="30"/>
                                         <size key="titleShadowOffset" width="0.0" height="1"/>
                                         <state key="normal" image="eat-now-card-details-view-map-collapse-button"/>
+                                        <connections>
+                                            <action selector="onCloseMap:" destination="jgg-sN-bUN" eventType="touchUpInside" id="5iB-aX-3iB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <animations/>
