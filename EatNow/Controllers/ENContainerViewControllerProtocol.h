@@ -25,5 +25,8 @@ typedef NS_ENUM(NSUInteger, ENMainViewControllerMode) {
 
 @property (nonatomic, assign) ENMainViewControllerMode currentMode;
 
+@property (nonatomic, assign) BOOL showScore;
+@property (nonatomic, assign) BOOL isHistoryDetailShown;
+
 @end
 

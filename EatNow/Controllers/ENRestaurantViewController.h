@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ENRestaurant.h"
+#import "ENContainerViewControllerProtocol.h"
 
 #define ENRestaurantViewImageRatio  0.5
 #define ENRestaurantViewImagesMaxCount  50
-
-@class ENMainViewController;
 
 extern NSString * const kRestaurantViewImageChangedNotification;
 extern NSString * const kSelectedRestaurantNotification;
@@ -44,7 +43,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (weak, nonatomic) IBOutlet UILabel *rating;
 @property (weak, nonatomic) IBOutlet UIButton *goButton;
 @property (weak, nonatomic) IBOutlet UIView *card;
-@property (nonatomic, weak) ENMainViewController *mainVC;
+@property (nonatomic, weak) id<ENContainerViewControllerProtocol> mainVC;
 
 + (instancetype)viewController;
 - (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block;

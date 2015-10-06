@@ -163,6 +163,7 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
     self.restaurantViewController = [ENRestaurantViewController viewController];
     [self.restaurantViewController switchToStatus:ENRestaurantViewStatusMinimum withFrame:frame animated:NO completion:nil];
     self.restaurantViewController.restaurant = restaurant;
+    self.restaurantViewController.mainVC = self.mainViewController;
     [self.mainView addSubview:_restaurantViewController.view];
     [self.restaurantViewController didChangedToFrontCard];
     
@@ -191,15 +192,14 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
             self.restaurantViewController = nil;
         }];
         
-        ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
-        mainVC.isHistoryDetailShown = NO;
+        self.mainViewController.isHistoryDetailShown = NO;
     }
 }
 
 - (void)deleteHistory
 {
     //FIXME
-    //self.mainViewController.currentMode = ENMainViewControllerModeHistory;
+    self.mainViewController.currentMode = ENMainViewControllerModeHistory;
     if (self.restaurantViewController){
         
         // lock to sync delete and animation
@@ -239,8 +239,8 @@ NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
             
         }];
         
-        ENMainViewController *mainVC = (ENMainViewController *)self.parentViewController;
-        mainVC.isHistoryDetailShown = NO;
+        self.mainViewController.isHistoryDetailShown = NO;
+        
     }
 
 }

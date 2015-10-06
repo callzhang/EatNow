@@ -26,7 +26,7 @@
 #import "ENRestaurantViewController.h"
 #import "ENContainerViewControllerProtocol.h"
 
-@interface ENMainViewController : UIViewController <UIGestureRecognizerDelegate>
+@interface ENMainViewController : UIViewController <UIGestureRecognizerDelegate,ENContainerViewControllerProtocol>
 
 @property (weak, nonatomic) IBOutlet UIView *cardView;
 @property (weak, nonatomic) IBOutlet UIView *cardContainer;
