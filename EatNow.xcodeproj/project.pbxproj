@@ -256,6 +256,7 @@
 		7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUNSlideSwitchView.m; sourceTree = "<group>"; };
 		7810AE171BC350E500625941 /* ENProfileMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENProfileMoreViewController.h; sourceTree = "<group>"; };
 		7810AE181BC350E500625941 /* ENProfileMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENProfileMoreViewController.m; sourceTree = "<group>"; };
+		7810AE1A1BC3D8DF00625941 /* ENContainerViewControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENContainerViewControllerProtocol.h; sourceTree = "<group>"; };
 		781BF0181B8A1E930005B9EA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		781BF01A1B8A1E930005B9EA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		781BF01B1B8A1E930005B9EA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -852,6 +853,7 @@
 				7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */,
 				7810AE171BC350E500625941 /* ENProfileMoreViewController.h */,
 				7810AE181BC350E500625941 /* ENProfileMoreViewController.m */,
+				7810AE1A1BC3D8DF00625941 /* ENContainerViewControllerProtocol.h */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
