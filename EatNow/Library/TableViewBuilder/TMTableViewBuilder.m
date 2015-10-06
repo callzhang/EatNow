@@ -135,17 +135,17 @@ static void (^_globalTableViewConfigurationBlock)(UITableView *tableView);
 }
 
 - (void)registerTableViewCellForTableView:(UITableView *)tableView {
-    NSMutableSet *identifiers = [NSMutableSet set];
-    for (TMSectionItem *sectionItem in self.mutableSectionItems) {
-        for (NSInteger i = 0; i < sectionItem.numberOfRows; i++) {
-            TMRowItem *rowItem = [sectionItem rowItemAtIndex:i];
-            [identifiers addObject:[rowItem reuseIdentifier]];
-        }
-    }
-    
-    for (NSString *reuseIdentifier in identifiers) {
-        [tableView registerNib:[UINib nibWithNibName:reuseIdentifier bundle:nil] forCellReuseIdentifier:reuseIdentifier];
-    }
+//    NSMutableSet *identifiers = [NSMutableSet set];
+//    for (TMSectionItem *sectionItem in self.mutableSectionItems) {
+//        for (NSInteger i = 0; i < sectionItem.numberOfRows; i++) {
+//            TMRowItem *rowItem = [sectionItem rowItemAtIndex:i];
+//            [identifiers addObject:[rowItem reuseIdentifier]];
+//        }
+//    }
+//    
+//    for (NSString *reuseIdentifier in identifiers) {
+//        [tableView registerNib:[UINib nibWithNibName:reuseIdentifier bundle:nil] forCellReuseIdentifier:reuseIdentifier];
+//    }
 }
 
 - (void)configure {

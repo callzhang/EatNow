@@ -49,7 +49,7 @@
 {
     switch (number) {
         case 0:
-            return [self.storyboard instantiateViewControllerWithIdentifier:@"ENProfileMoreViewController"];
+            return [self.storyboard instantiateViewControllerWithIdentifier:@"ENHistoryViewController"];
         case 1:
             return [self.storyboard instantiateViewControllerWithIdentifier:@"ENProfileMoreViewController"];
             
