@@ -32,6 +32,7 @@ static const NSUInteger kTagOfRightSideButton = 999;
     
     //创建主滚动视图
     _rootScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kHeightOfTopScrollView, self.bounds.size.width, self.bounds.size.height - kHeightOfTopScrollView)];
+    _rootScrollView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.35];
     _rootScrollView.delegate = self;
     _rootScrollView.pagingEnabled = YES;
     _rootScrollView.userInteractionEnabled = YES;

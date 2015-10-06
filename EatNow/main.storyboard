@@ -1877,35 +1877,10 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFx-wM-Hze" userLabel="Body View" customClass="SUNSlideSwitchView">
                                         <rect key="frame" x="0.0" y="168" width="375" height="499"/>
-                                        <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ICX-rj-DXj" userLabel="Top Scroll View">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                                <animations/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="44" id="tRY-UP-WPf"/>
-                                                </constraints>
-                                            </scrollView>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHT-rv-MDt" userLabel="Root Scroll View">
-                                                <rect key="frame" x="0.0" y="44" width="375" height="455"/>
-                                                <animations/>
-                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.34999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </scrollView>
-                                        </subviews>
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="ICX-rj-DXj" firstAttribute="top" secondItem="gFx-wM-Hze" secondAttribute="top" id="1Ha-1L-Sqb"/>
-                                            <constraint firstItem="BHT-rv-MDt" firstAttribute="top" secondItem="ICX-rj-DXj" secondAttribute="bottom" id="4Vz-Rw-jNl"/>
-                                            <constraint firstItem="ICX-rj-DXj" firstAttribute="leading" secondItem="gFx-wM-Hze" secondAttribute="leading" id="6gC-yZ-kst"/>
-                                            <constraint firstAttribute="trailing" secondItem="ICX-rj-DXj" secondAttribute="trailing" id="HFs-PN-aEH"/>
-                                            <constraint firstAttribute="bottom" secondItem="BHT-rv-MDt" secondAttribute="bottom" id="fUF-7D-zLj"/>
-                                            <constraint firstAttribute="trailing" secondItem="BHT-rv-MDt" secondAttribute="trailing" id="n98-EX-YHG"/>
-                                            <constraint firstItem="BHT-rv-MDt" firstAttribute="leading" secondItem="gFx-wM-Hze" secondAttribute="leading" id="rHW-Zg-pUZ"/>
-                                        </constraints>
                                         <connections>
-                                            <outlet property="rootScrollView" destination="BHT-rv-MDt" id="7CP-h4-UdU"/>
                                             <outlet property="slideSwitchViewDelegate" destination="jgg-sN-bUN" id="Qpp-El-kUw"/>
-                                            <outlet property="topScrollView" destination="ICX-rj-DXj" id="giP-bY-fcc"/>
                                         </connections>
                                     </view>
                                 </subviews>
