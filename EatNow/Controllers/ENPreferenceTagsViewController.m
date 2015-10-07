@@ -9,6 +9,7 @@
 #import "ENPreferenceTagsViewController.h"
 #import "JCTagListView.h"
 #import "ENServerManager.h"
+#import "ENAppSettings.h"
 #import <AKPickerView.h>
 #import "ENPreferenceMoodPickerDataSource.h"
 
@@ -73,7 +74,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     
-    [ENServerManager shared].mood = self.pickerView.selectedItem;
+    NSInteger previousMood = ENAppSetting.mood;
+    ENAppSetting.mood = self.pickerView.selectedItem;
     
     NSArray *selection = self.tagView.collectionView.indexPathsForSelectedItems;
     DDLogVerbose(@"Selected: %@", selection);
@@ -84,7 +86,8 @@
         pref[cuisine] = @3;
     }
     
-    if ([pref isEqualToDictionary:[ENServerManager shared].basePreference]) {
+    if ([pref isEqualToDictionary:[ENServerManager shared].basePreference] &&
+        previousMood == ENAppSetting.mood) {
         DDLogVerbose(@"Skip updating same base pref");
         return;
     }
@@ -151,6 +154,8 @@
     
     
     [self.pickerView reloadData];
+    
+    [self.pickerView selectItem:ENAppSetting.mood animated:YES];
 }
 
 @end

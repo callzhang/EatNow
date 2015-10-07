@@ -9,6 +9,7 @@
 #import "ENAppSettings.h"
 
 static NSString* const kENSettingCouchStatusKey = @"com.eatnow.setting.couchstatus";
+static NSString* const kENSettingMoodKey = @"com.eatnow.setting.mood";
 
 @implementation ENAppSettings
 
@@ -31,6 +32,16 @@ static NSString* const kENSettingCouchStatusKey = @"com.eatnow.setting.couchstat
 - (void)setCouchStatus:(ENCouchStatus)couchStatus
 {
     [[NSUserDefaults standardUserDefaults] setInteger:couchStatus forKey:kENSettingCouchStatusKey];
+}
+
+- (NSInteger)mood
+{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:kENSettingMoodKey];
+}
+
+- (void)setMood:(NSInteger)mood
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:mood forKey:kENSettingMoodKey];
 }
 
 @end

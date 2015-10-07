@@ -23,5 +23,6 @@ typedef enum : NSUInteger {
 + (instancetype)sharedInstance;
 
 @property (assign, nonatomic) ENCouchStatus couchStatus;
+@property (assign, nonatomic) NSInteger mood;
 
 @end

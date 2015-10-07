@@ -14,7 +14,7 @@
 
 #define kBasePreferences             @[@"African", @"American", @"Brazilian", @"Caribbean", @"Chinese", @"Cuban", @"French", @"German", @"Greek", @"Indian", @"Italian", @"Japanese", @"Korean", @"Latin_American", @"Malaysian", @"Mediterranean", @"Mexican", @"Middle_Eastern", @"Russian", @"Spanish", @"Thai", @"Turkish", @"Vietnamese"]
 #define kBasePreferencesValue        @[@"African", @"American", @"Brazilian", @"Caribbean", @"Chinese", @"Cuban", @"French", @"German", @"Greek", @"Indian", @"Italian", @"Japanese", @"Korean", @"Latin American", @"Malaysian", @"Mediterranean", @"Mexican", @"Middle Eastern", @"Russian", @"Spanish", @"Thai", @"Turkish", @"Vietnamese"]
-#define kMoods @[@"Exciting", @"Happy",@"Romantic",@"Lonely",@"Sad"]
+#define kMoods @[@"Automatic",@"Exciting", @"Happy",@"Romantic",@"Lonely",@"Sad"]
 
 extern NSString * const kHistroyUpdated;
 extern NSString * const kRatingUpdated;
@@ -52,7 +52,6 @@ extern NSString * const kBasePreferenceUpdated;
 @property (nonatomic, strong) NSDictionary *me;
 @property (nonatomic, strong) NSString *myID;
 @property (nonatomic, strong) NSNumber *session;
-@property (nonatomic, assign) NSUInteger mood; //Mood index
 
 //We still need Singleton as it stores shared information
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
