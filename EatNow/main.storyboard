@@ -280,21 +280,25 @@
                                                     <action selector="onPreferenceButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="QkB-ba-s4i"/>
                                                 </connections>
                                             </button>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eat-now-card-deck-view-search-icon" translatesAutoresizingMaskIntoConstraints="NO" id="4Jf-dm-XER">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04B-Yq-Spb" userLabel="Search Button">
                                                 <rect key="frame" x="104" y="180" width="60" height="60"/>
                                                 <animations/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="rVB-Ak-0pb"/>
-                                                    <constraint firstAttribute="width" constant="60" id="wUE-Qq-03J"/>
+                                                    <constraint firstAttribute="height" constant="60" id="Kko-EZ-u80"/>
+                                                    <constraint firstAttribute="width" constant="60" id="bgO-DR-4kB"/>
                                                 </constraints>
-                                            </imageView>
+                                                <state key="normal" image="eat-now-card-deck-view-search-icon"/>
+                                                <connections>
+                                                    <action selector="onSearchButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="JVe-MS-yhZ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <animations/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstItem="4Jf-dm-XER" firstAttribute="centerX" secondItem="JXb-iG-56v" secondAttribute="centerX" id="BqQ-jn-Dnh"/>
+                                            <constraint firstItem="04B-Yq-Spb" firstAttribute="centerX" secondItem="JXb-iG-56v" secondAttribute="centerX" id="IiB-Vx-z3N"/>
                                             <constraint firstItem="ejQ-W0-LUC" firstAttribute="top" secondItem="JXb-iG-56v" secondAttribute="top" constant="35" id="J1k-WN-ffr"/>
-                                            <constraint firstItem="4Jf-dm-XER" firstAttribute="top" secondItem="KN5-Zs-shm" secondAttribute="bottom" constant="82" id="R32-nR-aGb"/>
+                                            <constraint firstItem="04B-Yq-Spb" firstAttribute="top" secondItem="KN5-Zs-shm" secondAttribute="bottom" constant="82" id="NzF-pb-9gp"/>
                                             <constraint firstItem="KN5-Zs-shm" firstAttribute="centerX" secondItem="JXb-iG-56v" secondAttribute="centerX" id="eGD-0U-bgX"/>
                                             <constraint firstItem="ejQ-W0-LUC" firstAttribute="leading" secondItem="JXb-iG-56v" secondAttribute="leading" constant="9" id="iHC-ww-Kja"/>
                                             <constraint firstItem="KN5-Zs-shm" firstAttribute="top" secondItem="ejQ-W0-LUC" secondAttribute="bottom" constant="7" id="iOl-je-6WN"/>
@@ -510,6 +514,7 @@
                         <outlet property="preferenceButton" destination="TEb-SL-p86" id="W5M-go-ab1"/>
                         <outlet property="profileButton" destination="D4e-Sg-nPl" id="AZf-mA-NwB"/>
                         <outlet property="reloadButton" destination="Fcq-QR-9Zu" id="Ctu-id-Ctm"/>
+                        <outlet property="searchButton" destination="04B-Yq-Spb" id="1bo-ub-i3E"/>
                         <outlet property="searchView" destination="JXb-iG-56v" id="xI0-uM-ws7"/>
                         <outlet property="shareButton" destination="SD6-BI-BgV" id="Ia6-RB-61i"/>
                         <outlet property="tapGesture" destination="O3U-Ob-hea" id="2zT-0B-l7C"/>

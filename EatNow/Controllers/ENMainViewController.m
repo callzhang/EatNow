@@ -52,6 +52,7 @@
 #import "NSString+Extend.h"
 #import "CALayer+UIColor.h"
 #import "ENMyProfileViewController.h"
+#import "ENAppSettings.h"
 
 @interface ENMainViewController ()
 //data
@@ -86,6 +87,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *preferenceButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *moodButton;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UIView *searchView;
 //@property (nonatomic, strong) NSTimer *showRestaurantCardTimer;
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
@@ -226,6 +228,9 @@
 
     [self setupNoRestaurantStatus];
     
+    //mood
+    [self.moodButton setTitle:kMoods[ENAppSetting.mood] forState:UIControlStateNormal];
+    
     //fetch user first
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         if (user) {
@@ -350,11 +355,7 @@
 - (IBAction)onSettingButton:(id)sender {
     
     ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
-    //UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentWithBlur:vc withCompletion:nil];
-    
-//    ENMyProfileViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMyProfileViewController"];
-//    [self presentWithBlur:vc withCompletion:nil];
     
 }
 
@@ -393,10 +394,16 @@
     self.currentMode = ENMainViewControllerModeDetail;
 }
 
+- (IBAction)onSearchButton:(id)sender
+{
+    [self onReloadButton:sender];
+}
+
 - (IBAction)onReloadButton:(id)sender {
     [[Mixpanel sharedInstance] track:@"reload" properties:@{@"index": @(_maxCards - _cards.count +1),
                                                            @"session": [ENServerManager shared].session}];
     [self hideNoRestaurantStatus];
+    [self hideSearchView];
     
     if (self.isShowingCards) {
         DDLogInfo(@"showing cards, ignore reload button");
