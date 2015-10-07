@@ -111,6 +111,7 @@
 {
     self.switchView.tabItemNormalColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.35];
     self.switchView.tabItemSelectedColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+    self.switchView.tabViewBorderColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.45];
     [self.switchView buildUI];
     
     self.currentMode = ENMainViewControllerModeStart;

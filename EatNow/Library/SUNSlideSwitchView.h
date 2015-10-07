@@ -40,6 +40,7 @@
 @property (nonatomic, weak) IBOutlet id<SUNSlideSwitchViewDelegate> slideSwitchViewDelegate;
 @property (nonatomic, strong) UIColor *tabItemNormalColor;
 @property (nonatomic, strong) UIColor *tabItemSelectedColor;
+@property (nonatomic, strong) UIColor *tabViewBorderColor;
 @property (nonatomic, strong) UIImage *tabItemNormalBackgroundImage;
 @property (nonatomic, strong) UIImage *tabItemSelectedBackgroundImage;
 @property (nonatomic, strong) UIImage *shadowImage;

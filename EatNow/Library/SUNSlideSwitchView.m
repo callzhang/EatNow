@@ -30,6 +30,7 @@ static const NSUInteger kTagOfRightSideButton = 999;
     [self addSubview:_topScrollView];
     _userSelectedChannelID = 100;
     
+    
     //创建主滚动视图
     _rootScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kHeightOfTopScrollView, self.bounds.size.width, self.bounds.size.height - kHeightOfTopScrollView)];
     _rootScrollView.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.15];
@@ -112,6 +113,7 @@ static const NSUInteger kTagOfRightSideButton = 999;
         //调整顶部滚动视图选中按钮位置
         UIButton *button = (UIButton *)[_topScrollView viewWithTag:_userSelectedChannelID];
         [self adjustScrollViewContentX:button];
+        
     }
 }
 
@@ -171,7 +173,8 @@ static const NSUInteger kTagOfRightSideButton = 999;
         
         //平均分配按钮的宽度
         NSUInteger buttonCount = _viewArray.count;
-        CGFloat buttonWidth = (_topScrollView.bounds.size.width - (buttonCount + 1) * kWidthOfButtonMargin) / _viewArray.count;
+//        CGFloat buttonWidth = (_topScrollView.bounds.size.width - buttonCount * kWidthOfButtonMargin) / _viewArray.count;
+         CGFloat buttonWidth = (_topScrollView.bounds.size.width) / _viewArray.count;
         CGSize textSize = CGSizeMake(buttonWidth, _topScrollView.bounds.size.height);
         
         //累计每个tab文字的长度
@@ -199,6 +202,38 @@ static const NSUInteger kTagOfRightSideButton = 999;
     
     //设置顶部滚动视图的内容总尺寸
     _topScrollView.contentSize = CGSizeMake(topScrollViewContentWidth, kHeightOfTopScrollView);
+}
+
+- (void)createIndicatorLayers
+{
+    //Add border
+    CGSize size = _topScrollView.bounds.size;
+    
+    CGMutablePathRef trianglePath = CGPathCreateMutable();
+    CGPathMoveToPoint(trianglePath,NULL,0.0,size.height);
+    CGPathAddLineToPoint(trianglePath, NULL, 10, size.height - 10);
+    CGPathAddLineToPoint(trianglePath, NULL, 20, size.height);
+    CGPathCloseSubpath(trianglePath);
+    CAShapeLayer *triangleLayer = [CAShapeLayer layer];
+    [triangleLayer setPath:trianglePath];
+    triangleLayer.fillColor = _rootScrollView.backgroundColor.CGColor;
+    triangleLayer.strokeColor = nil;
+    [_topScrollView.layer addSublayer:triangleLayer];
+    CGPathRelease(trianglePath);
+    
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path,NULL,0.0,size.height);
+    CGPathAddLineToPoint(path, NULL, 10, size.height - 10);
+    CGPathAddLineToPoint(path, NULL, 20, size.height);
+    CGPathAddLineToPoint(path, NULL, size.width, size.height);
+    CAShapeLayer *borderLineLayer = [CAShapeLayer layer];
+    [borderLineLayer setPath:path];
+    borderLineLayer.strokeColor = self.tabViewBorderColor.CGColor;
+    borderLineLayer.lineWidth = 1.0f;
+    borderLineLayer.fillColor = nil;
+    [_topScrollView.layer addSublayer:borderLineLayer];
+    CGPathRelease(path);
 }
 
 
