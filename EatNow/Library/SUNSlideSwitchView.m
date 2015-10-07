@@ -14,6 +14,10 @@ static const CGFloat kFontSizeOfTabButton = 17.0f;
 static const NSUInteger kTagOfRightSideButton = 999;
 
 @implementation SUNSlideSwitchView
+{
+    CAShapeLayer *_triangleLayer;
+    CAShapeLayer *_borderLayer;
+}
 
 #pragma mark - 初始化参数
 
@@ -44,6 +48,8 @@ static const NSUInteger kTagOfRightSideButton = 999;
     _userContentOffsetX = 0;
     [_rootScrollView.panGestureRecognizer addTarget:self action:@selector(scrollHandlePan:)];
     [self addSubview:_rootScrollView];
+    
+    [self createIndicatorLayers];
     
     _viewArray = [[NSMutableArray alloc] init];
     
@@ -189,6 +195,8 @@ static const NSUInteger kTagOfRightSideButton = 999;
         if (i == 0) {
             _shadowImageView.frame = CGRectMake(kWidthOfButtonMargin, 0, textSize.width, _shadowImage.size.height);
             button.selected = YES;
+            
+            _triangleLayer.frame = CGRectMake(button.center.x - _triangleLayer.bounds.size.width / 2.0, button.frame.size.height - _triangleLayer.frame.size.height, _triangleLayer.frame.size.width, _triangleLayer.frame.size.height);
         }
         [button setTitle:vc.title forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:kFontSizeOfTabButton];
@@ -206,35 +214,40 @@ static const NSUInteger kTagOfRightSideButton = 999;
 
 - (void)createIndicatorLayers
 {
-    //Add border
-    CGSize size = _topScrollView.bounds.size;
-    
+    CGSize triangleSize = CGSizeMake(16,8);
+
     CGMutablePathRef trianglePath = CGPathCreateMutable();
-    CGPathMoveToPoint(trianglePath,NULL,0.0,size.height);
-    CGPathAddLineToPoint(trianglePath, NULL, 10, size.height - 10);
-    CGPathAddLineToPoint(trianglePath, NULL, 20, size.height);
+    CGPathMoveToPoint(trianglePath,NULL,0.0,triangleSize.height);
+    CGPathAddLineToPoint(trianglePath, NULL, triangleSize.width / 2.0, 0);
+    CGPathAddLineToPoint(trianglePath, NULL, triangleSize.width, triangleSize.height);
     CGPathCloseSubpath(trianglePath);
-    CAShapeLayer *triangleLayer = [CAShapeLayer layer];
-    [triangleLayer setPath:trianglePath];
-    triangleLayer.fillColor = _rootScrollView.backgroundColor.CGColor;
-    triangleLayer.strokeColor = nil;
-    [_topScrollView.layer addSublayer:triangleLayer];
+    _triangleLayer = [CAShapeLayer layer];
+    [_triangleLayer setPath:trianglePath];
+    _triangleLayer.frame = CGRectMake(0, 0, triangleSize.width, triangleSize.height);
+    _triangleLayer.fillColor = _rootScrollView.backgroundColor.CGColor;
+    _triangleLayer.strokeColor = nil;
     CGPathRelease(trianglePath);
+    [_topScrollView.layer addSublayer:_triangleLayer];
     
+    DDLogWarn(@"top size:%@", NSStringFromCGSize(_topScrollView.bounds.size));
     
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path,NULL,0.0,size.height);
-    CGPathAddLineToPoint(path, NULL, 10, size.height - 10);
-    CGPathAddLineToPoint(path, NULL, 20, size.height);
-    CGPathAddLineToPoint(path, NULL, size.width, size.height);
-    CAShapeLayer *borderLineLayer = [CAShapeLayer layer];
-    [borderLineLayer setPath:path];
-    borderLineLayer.strokeColor = self.tabViewBorderColor.CGColor;
-    borderLineLayer.lineWidth = 1.0f;
-    borderLineLayer.fillColor = nil;
-    [_topScrollView.layer addSublayer:borderLineLayer];
-    CGPathRelease(path);
+//    //Add border
+//    CGSize size = _topScrollView.bounds.size;
+//    
+//    CGMutablePathRef path = CGPathCreateMutable();
+//    CGPathMoveToPoint(path,NULL,0.0,size.height);
+//    CGPathAddLineToPoint(path, NULL, 10, size.height - 10);
+//    CGPathAddLineToPoint(path, NULL, 20, size.height);
+//    CGPathAddLineToPoint(path, NULL, size.width, size.height);
+//    CAShapeLayer *borderLineLayer = [CAShapeLayer layer];
+//    [borderLineLayer setPath:path];
+//    borderLineLayer.strokeColor = self.tabViewBorderColor.CGColor;
+//    borderLineLayer.lineWidth = 1.0f;
+//    borderLineLayer.fillColor = nil;
+//    [_topScrollView.layer addSublayer:borderLineLayer];
+//    CGPathRelease(path);
 }
+
 
 
 #pragma mark - 顶部滚动视图逻辑方法
@@ -264,9 +277,12 @@ static const NSUInteger kTagOfRightSideButton = 999;
     if (!sender.selected) {
         sender.selected = YES;
         
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:1 animations:^{
             
             [_shadowImageView setFrame:CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, _shadowImage.size.height)];
+
+            _triangleLayer.frame = CGRectMake(sender.center.x - _triangleLayer.bounds.size.width / 2.0, sender.frame.size.height - _triangleLayer.frame.size.height, _triangleLayer.frame.size.width, _triangleLayer.frame.size.height);
+     
             
         } completion:^(BOOL finished) {
             if (finished) {
