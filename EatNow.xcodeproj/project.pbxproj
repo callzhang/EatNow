@@ -58,6 +58,8 @@
 		7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */; settings = {ASSET_TAGS = (); }; };
 		7810AE191BC350E500625941 /* ENProfileMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE181BC350E500625941 /* ENProfileMoreViewController.m */; settings = {ASSET_TAGS = (); }; };
 		781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 781BF0181B8A1E930005B9EA /* libWeChatSDK.a */; };
+		78470A361BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78470A351BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		78470A391BC49FF8009FD166 /* ENProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 78470A381BC49FF8009FD166 /* ENProfileItem.m */; settings = {ASSET_TAGS = (); }; };
 		784D1AAF1BB59CED001147AA /* CALayer+UIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D1AAE1BB59CED001147AA /* CALayer+UIColor.m */; settings = {ASSET_TAGS = (); }; };
 		7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACC11B8F63820036BCA8 /* ENAppSettings.m */; };
 		7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */; };
@@ -260,6 +262,10 @@
 		781BF0181B8A1E930005B9EA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		781BF01A1B8A1E930005B9EA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		781BF01B1B8A1E930005B9EA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		78470A341BC49C52009FD166 /* ENPreferenceMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceMoreTableViewCell.h; sourceTree = "<group>"; };
+		78470A351BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceMoreTableViewCell.m; sourceTree = "<group>"; };
+		78470A371BC49FF8009FD166 /* ENProfileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENProfileItem.h; sourceTree = "<group>"; };
+		78470A381BC49FF8009FD166 /* ENProfileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENProfileItem.m; sourceTree = "<group>"; };
 		784D1AAD1BB59CED001147AA /* CALayer+UIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+UIColor.h"; sourceTree = "<group>"; };
 		784D1AAE1BB59CED001147AA /* CALayer+UIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+UIColor.m"; sourceTree = "<group>"; };
 		7854ACC01B8F63820036BCA8 /* ENAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENAppSettings.h; sourceTree = "<group>"; };
@@ -871,6 +877,8 @@
 				092974601AD09D4300DDC35C /* ENLocationManager.h */,
 				9B0537831ADD8E120037A38C /* ENMapManager.h */,
 				9B0537841ADD8E120037A38C /* ENMapManager.m */,
+				78470A371BC49FF8009FD166 /* ENProfileItem.h */,
+				78470A381BC49FF8009FD166 /* ENProfileItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -901,6 +909,8 @@
 				09777C841AD497F8007147B2 /* WJCustomizeView.swift */,
 				09777C851AD497F8007147B2 /* ApplicationButton.swift */,
 				09777C821AD497F7007147B2 /* EatNow-Bridging-Header.h */,
+				78470A341BC49C52009FD166 /* ENPreferenceMoreTableViewCell.h */,
+				78470A351BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1163,11 +1173,13 @@
 			files = (
 				9BE71C5A1B7FA2F400509457 /* TMTextLabelTableViewCell.m in Sources */,
 				9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */,
+				78470A361BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m in Sources */,
 				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
 				9B03363A1B5D3F73001F5A32 /* EWBlurNavigationControllerDelegate.m in Sources */,
 				7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */,
 				7854ACD91B981C530036BCA8 /* ENLoginViewController.m in Sources */,
 				9BE71C1E1B7FA20A00509457 /* ENServerManager.m in Sources */,
+				78470A391BC49FF8009FD166 /* ENProfileItem.m in Sources */,
 				9BE71C571B7FA2F400509457 /* UITableView+RegisterRowItem.m in Sources */,
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
 				9BE71C501B7FA2F400509457 /* TMRowItem+Protected.m in Sources */,
