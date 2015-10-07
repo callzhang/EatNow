@@ -11,6 +11,8 @@
 
 @interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate>
 
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation ENProfileMoreViewController
@@ -56,6 +58,9 @@
 
 - (void)setup
 {
+    // This will remove extra separators from tableview
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     _items = [[NSMutableArray alloc] initWithCapacity:6];
     
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Linked Account" andValue:@"Facebook"]];
