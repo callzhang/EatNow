@@ -31,12 +31,12 @@
 #import "ATConnect.h"
 #import "UIImageView+AFNetworking.h"
 #import "WatchKitAction.h"
-#import "CrashlyticsLogger.h"
-#import <Fabric/Fabric.h>
+//#import "CrashlyticsLogger.h"
+//#import <Fabric/Fabric.h>
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
-#import <Crashlytics/crashlytics.h>
+//#import <Crashlytics/crashlytics.h>
 #import "ENLostConnectionViewController.h"
 #import "Mixpanel.h"
 #import "BlocksKit+UIKit.h"
@@ -49,6 +49,7 @@
 #import "WXApi.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "NSString+Extend.h"
+#import "ENSocial.h"
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 
@@ -64,12 +65,12 @@
     
     //plugin init
     [ATConnect sharedConnection].apiKey = @"43aadd17c4e966f98753bcb1250e78d00c68731398a9b60dc7c456d2682415fc";
-    [Fabric with:@[CrashlyticsKit]];
-    [Fabric sharedSDK].debug = YES;
+    //[Fabric with:@[CrashlyticsKit]];
+    //[Fabric sharedSDK].debug = YES;
     [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
     
     //Wechat
-    [WXApi registerApp:@"wxe9edec710a521a3f"];
+    [ENSocial registerWechatApp:@"wxe9edec710a521a3f"];
     // Secret : 6f3735c124d9e664b71eab538285e777
     
     //Facebook
@@ -351,6 +352,6 @@
     [DDLog addLogger:fileLogger];
     
     //crashlytics logger
-    [DDLog addLogger:[CrashlyticsLogger sharedInstance]];
+    //[DDLog addLogger:[CrashlyticsLogger sharedInstance]];
 }
 @end

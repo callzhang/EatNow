@@ -53,6 +53,7 @@
 #import "CALayer+UIColor.h"
 #import "ENMyProfileViewController.h"
 #import "ENAppSettings.h"
+#import "ENShare.h"
 
 @interface ENMainViewController ()
 //data
@@ -496,16 +497,8 @@
     
     UIImage *cardImage = [restaurantVC.info toImage];
     
-    NSArray *activities = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
-    // UIActivityViewController would convert the image to jpeg format, therefore it would loose transparent background.
-    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[shareDesc, cardImage, shareUrl] applicationActivities:activities];
     
-    shareVC.excludedActivityTypes = @[UIActivityTypePrint,
-                                      UIActivityTypeAddToReadingList,
-                                      UIActivityTypeAssignToContact];
-    
-    [self presentViewController:shareVC animated:YES completion:nil];
-
+    [[ENShare sharedInstance] shareText:shareDesc image:cardImage andLink:shareUrl inViewController:self];
 }
 
 #pragma mark - Main methods
