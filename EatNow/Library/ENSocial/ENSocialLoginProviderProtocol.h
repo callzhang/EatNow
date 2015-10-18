@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ENSocialLoginResponse.h"
 
-typedef void(^ENSocialLoginHandler)(id resp, NSError *error);
+typedef void(^ENSocialLoginHandler)(ENSocialLoginResponse *resp, NSError *error);
 
 @protocol ENSocialLoginProviderProtocol <NSObject>
 
 /**
- *  Provider name
+ *  Provider name, should be the same as sourceApplication in AppDelegate's openUrl method.
  */
 @property (nonatomic, readonly, strong) NSString *name;
 
@@ -28,8 +29,10 @@ typedef void(^ENSocialLoginHandler)(id resp, NSError *error);
 - (void)loginWithHandler:(ENSocialLoginHandler)handler;
 
 /**
- *  Logout
+ *  Handle response from url
+ *
+ *  @param resp The response
  */
-- (void)logout;
+- (void)handleResponse:(id)resp;
 
 @end

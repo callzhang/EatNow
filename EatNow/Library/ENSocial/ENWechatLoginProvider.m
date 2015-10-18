@@ -29,7 +29,12 @@ static
 
 - (NSString *)name
 {
-    return @"wechat";
+    return @"com.tecent.xin";
+}
+
+- (NSString *)displayName
+{
+    return NSLocalizedString(@"WechatLogin", nil);
 }
 
 - (void)loginWithHandler:(ENSocialLoginHandler)handler
@@ -37,29 +42,16 @@ static
     [self sendAuthRequest];
 }
 
-- (void)logout
+- (void)handleResponse:(id)resp
 {
-}
-
-#pragma mark - wechat api delegate
-
-- (void)onReq:(BaseReq *)req
-{
-}
-
-- (void)onResp:(BaseResp *)resp
-{
-    if ([resp isKindOfClass:[SendAuthResp class]]) {
-        
-        SendAuthResp *authResp = (SendAuthResp *)resp;
-        if (authResp.errCode == 0) {
-            [self getToekenByCode:authResp.code];
-        }
-        else{
-            DDLogError(@"Get wechat auth code error");
-        }
-        
+    SendAuthResp *authResp = (SendAuthResp *)resp;
+    if (authResp.errCode == 0) {
+        [self getToekenByCode:authResp.code];
     }
+    else{
+        DDLogError(@"Get wechat auth code error");
+    }
+
 }
 
 #pragma mark - Private

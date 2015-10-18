@@ -29,14 +29,19 @@
     return @"facebook";
 }
 
+- (NSString *)displayName
+{
+    return NSLocalizedString(@"FacebookLogin", nil);
+}
+
 - (void)loginWithHandler:(ENSocialLoginHandler)handler
 {
     [_loginManager logInWithReadPermissions: @[@"public_profile"]
      handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
          
-         if (handler) {
-             handler(result,error);
-         }
+//         if (handler) {
+//             handler(result,error);
+//         }
          
      }];
 }

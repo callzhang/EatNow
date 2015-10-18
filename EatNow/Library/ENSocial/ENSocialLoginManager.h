@@ -12,18 +12,14 @@
 
 @interface ENSocialLoginManager : NSObject
 
++ (instancetype)sharedInstance;
+
 /**
- *  Current login user, nil if not logined.
- *
- *  @return Current login user
+ *  Supported social login providers
  */
-+ (ENUser *)currentUser;
+@property (nonatomic, readonly, strong) NSArray *providers;
 
-+ (void)loginWithType:(NSString *)typeName
-           completion:(ENSocialLoginHandler)completion;
 
-+ (void)logout;
-
-- (void)handleResponse:(id)resp;
+- (id<ENSocialLoginProviderProtocol>)findProviderByName:(NSString *)providerName;
 
 @end

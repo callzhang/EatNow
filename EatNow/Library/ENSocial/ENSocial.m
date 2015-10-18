@@ -10,11 +10,14 @@
 #import "ENAppSettings.h"
 #import "WXApi.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "ENSocialLoginManager.h"
+
+static NSString* const kWechatApplication = @"com.tecent.xin";
+static NSString* const kFacebookApplication = @"com.facebook.Facebook";
+static NSString* const kEatnowScheme = @"eatnow";
 
 @interface ENSocial () <WXApiDelegate>
-
 @end
-
 
 @implementation ENSocial
 
@@ -46,16 +49,16 @@
 {
     DDLogDebug(@"open url:%@, source app:%@",url, sourceApplication);
     
-    if ([url.scheme isEqualToString:@"eatnow"]) {
+    if ([url.scheme isEqualToString:kEatnowScheme]) {
         
         return [self handleDeepLinkUrl:url];
     }
     
-    if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
+    if ([sourceApplication isEqualToString:kWechatApplication]) {
         
         return [WXApi handleOpenURL:url delegate:self];
     }
-    else if( [sourceApplication isEqualToString:@"com.facebook.Facebook"]){
+    else if( [sourceApplication isEqualToString:kFacebookApplication]){
         
         return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                               openURL:url
@@ -74,6 +77,11 @@
 
 - (void)onResp:(BaseResp *)resp
 {
+    if ([resp isKindOfClass:[SendAuthResp class]]) {
+        
+        id<ENSocialLoginProviderProtocol> provider = [[ENSocialLoginManager sharedInstance] findProviderByName:kWechatApplication];
+        [provider handleResponse:resp];
+    }
 }
 
 #pragma mark - URL handling

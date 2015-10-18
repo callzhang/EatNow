@@ -74,6 +74,9 @@
 		78E8C77B1BD3D0C900034E9C /* ENSocialLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7741BD3D0C900034E9C /* ENSocialLoginManager.m */; settings = {ASSET_TAGS = (); }; };
 		78E8C77C1BD3D0C900034E9C /* ENUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7771BD3D0C900034E9C /* ENUser.m */; settings = {ASSET_TAGS = (); }; };
 		78E8C77D1BD3D0C900034E9C /* ENWechatLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7791BD3D0C900034E9C /* ENWechatLoginProvider.m */; settings = {ASSET_TAGS = (); }; };
+		78E8C7801BD3D97D00034E9C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 78E8C77F1BD3D97D00034E9C /* Localizable.strings */; settings = {ASSET_TAGS = (); }; };
+		78E8C7831BD3DF0E00034E9C /* ENSocialLoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7821BD3DF0E00034E9C /* ENSocialLoginResponse.m */; settings = {ASSET_TAGS = (); }; };
+		78E8C7861BD3E5A000034E9C /* ENToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7851BD3E5A000034E9C /* ENToken.m */; settings = {ASSET_TAGS = (); }; };
 		78FCE9841BD2A40F008A68F6 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
 		78FCE9871BD2A686008A68F6 /* ENShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9861BD2A686008A68F6 /* ENShare.m */; settings = {ASSET_TAGS = (); }; };
 		9B03362C1B58C725001F5A32 /* ENBasePreferenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */; };
@@ -294,6 +297,11 @@
 		78E8C7771BD3D0C900034E9C /* ENUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENUser.m; path = ENSocial/ENUser.m; sourceTree = "<group>"; };
 		78E8C7781BD3D0C900034E9C /* ENWechatLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENWechatLoginProvider.h; path = ENSocial/ENWechatLoginProvider.h; sourceTree = "<group>"; };
 		78E8C7791BD3D0C900034E9C /* ENWechatLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENWechatLoginProvider.m; path = ENSocial/ENWechatLoginProvider.m; sourceTree = "<group>"; };
+		78E8C77F1BD3D97D00034E9C /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		78E8C7811BD3DF0E00034E9C /* ENSocialLoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENSocialLoginResponse.h; path = ENSocial/ENSocialLoginResponse.h; sourceTree = "<group>"; };
+		78E8C7821BD3DF0E00034E9C /* ENSocialLoginResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENSocialLoginResponse.m; path = ENSocial/ENSocialLoginResponse.m; sourceTree = "<group>"; };
+		78E8C7841BD3E5A000034E9C /* ENToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENToken.h; path = ENSocial/ENToken.h; sourceTree = "<group>"; };
+		78E8C7851BD3E5A000034E9C /* ENToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENToken.m; path = ENSocial/ENToken.m; sourceTree = "<group>"; };
 		78FCE9851BD2A686008A68F6 /* ENShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENShare.h; path = ENSocial/ENShare.h; sourceTree = "<group>"; };
 		78FCE9861BD2A686008A68F6 /* ENShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENShare.m; path = ENSocial/ENShare.m; sourceTree = "<group>"; };
 		9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENBasePreferenceCell.xib; sourceTree = "<group>"; };
@@ -592,6 +600,10 @@
 				78FCE9861BD2A686008A68F6 /* ENShare.m */,
 				784790CD1BCFE0D10058C7D2 /* ENSocial.h */,
 				784790CE1BCFE0D10058C7D2 /* ENSocial.m */,
+				78E8C7811BD3DF0E00034E9C /* ENSocialLoginResponse.h */,
+				78E8C7821BD3DF0E00034E9C /* ENSocialLoginResponse.m */,
+				78E8C7841BD3E5A000034E9C /* ENToken.h */,
+				78E8C7851BD3E5A000034E9C /* ENToken.m */,
 			);
 			name = ENSocial;
 			sourceTree = "<group>";
@@ -603,6 +615,14 @@
 				7854ACD71B981C530036BCA8 /* ENLoginViewController.m */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		78E8C77E1BD3D95B00034E9C /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				78E8C77F1BD3D97D00034E9C /* Localizable.strings */,
+			);
+			name = Strings;
 			sourceTree = "<group>";
 		};
 		9B0336321B5D3F4A001F5A32 /* EWBlur */ = {
@@ -623,6 +643,7 @@
 		9B1180F91A8E971300756E8F /* Recources */ = {
 			isa = PBXGroup;
 			children = (
+				78E8C77E1BD3D95B00034E9C /* Strings */,
 				9B74EADF1B5258F900A14BC9 /* Images.xcassets */,
 				091C0B2C1AF9615B00838096 /* Fonts */,
 				9B1180F71A8E970700756E8F /* Entypo.ttf */,
@@ -1085,6 +1106,7 @@
 				091C0B381AF9616200838096 /* OpenSans-BoldItalic.ttf in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 				091C0B401AF9616200838096 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				78E8C7801BD3D97D00034E9C /* Localizable.strings in Resources */,
 				091C0B3A1AF9616200838096 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				091C0B371AF9616200838096 /* OpenSans-Bold.ttf in Resources */,
 				9BC51BFD1AE6DACD00E3B0FE /* animatedLoading.gif in Resources */,
@@ -1220,6 +1242,7 @@
 				7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
+				78E8C7861BD3E5A000034E9C /* ENToken.m in Sources */,
 				093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */,
 				094958151B0190E80022E4B4 /* TMAlertAction.m in Sources */,
 				9BE71C4F1B7FA2F400509457 /* TMRowItem+AFNetworking.m in Sources */,
@@ -1239,6 +1262,7 @@
 				9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */,
 				09CFCBEC1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m in Sources */,
 				9BE71C131B7FA1E700509457 /* JSONValueTransformer+UIImage.m in Sources */,
+				78E8C7831BD3DF0E00034E9C /* ENSocialLoginResponse.m in Sources */,
 				9BE71C171B7FA1E700509457 /* UIWindow+Extensions.m in Sources */,
 				9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */,
 				9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */,

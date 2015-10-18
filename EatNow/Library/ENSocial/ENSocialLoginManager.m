@@ -7,20 +7,55 @@
 //
 
 #import "ENSocialLoginManager.h"
+#import "ENWechatLoginProvider.h"
+#import "ENFacebookLoginProvider.h"
 
 @implementation ENSocialLoginManager
 
-+ (ENUser *)currentUser
+#pragma - Lifecycle
+
+- (instancetype)init
 {
+    if (self = [super init]) {
+        [self setup];
+    }
+    
+    return self;
+}
+
++ (instancetype)sharedInstance
+{
+    static ENSocialLoginManager *instance;
+    static dispatch_once_t token;
+    
+    dispatch_once(&token, ^{
+        instance = [ENSocialLoginManager new];
+    });
+    
+    return instance;
+}
+
+#pragma mark - Public
+
+- (id<ENSocialLoginProviderProtocol>)findProviderByName:(NSString *)providerName
+{
+    for (id<ENSocialLoginProviderProtocol> provider in self.providers) {
+        if ([provider.name isEqualToString:providerName]) {
+            return provider;
+        }
+    }
+    
     return nil;
 }
 
-+ (void)loginWithType:(NSString *)typeName completion:(ENSocialLoginHandler)completion
-{
-}
+#pragma mark - Private
 
-+ (void)logout
+- (void)setup
 {
+    ENWechatLoginProvider *wechatProvider = [ENWechatLoginProvider new];
+    ENFacebookLoginProvider *fbProvider = [ENFacebookLoginProvider new];
+    
+    _providers = @[wechatProvider,fbProvider];
 }
 
 @end

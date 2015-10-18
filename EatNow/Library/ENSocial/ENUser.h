@@ -16,8 +16,6 @@
 
 @property (nonatomic, copy) NSString *avatarUrl;
 
-@property (nonatomic, copy) NSString *address;
-
-@property (nonatomic, strong) NSDate *dayOfBirth;
+@property (nonatomic, copy) NSString *email;
 
 @end
