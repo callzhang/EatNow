@@ -66,14 +66,14 @@
 		7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */; };
 		7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */; };
 		7854ACD91B981C530036BCA8 /* ENLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD71B981C530036BCA8 /* ENLoginViewController.m */; };
-		7854ACDE1B9929C60036BCA8 /* ENSocialLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACDD1B9929C60036BCA8 /* ENSocialLoginManager.m */; };
-		7854ACE11B992AC10036BCA8 /* ENUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE01B992AC10036BCA8 /* ENUser.m */; };
-		7854ACE51B9946690036BCA8 /* ENWechatLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE41B9946690036BCA8 /* ENWechatLoginProvider.m */; };
-		7854ACE81B9982B50036BCA8 /* ENFacebookLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACE71B9982B50036BCA8 /* ENFacebookLoginProvider.m */; };
 		7854ACEB1B9ABB370036BCA8 /* ENMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */; };
 		788734C01BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */; };
 		789DCA6A1BCFF68900B932DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
 		789DCA6D1BD1B79B00B932DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
+		78E8C77A1BD3D0C900034E9C /* ENFacebookLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7721BD3D0C900034E9C /* ENFacebookLoginProvider.m */; settings = {ASSET_TAGS = (); }; };
+		78E8C77B1BD3D0C900034E9C /* ENSocialLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7741BD3D0C900034E9C /* ENSocialLoginManager.m */; settings = {ASSET_TAGS = (); }; };
+		78E8C77C1BD3D0C900034E9C /* ENUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7771BD3D0C900034E9C /* ENUser.m */; settings = {ASSET_TAGS = (); }; };
+		78E8C77D1BD3D0C900034E9C /* ENWechatLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7791BD3D0C900034E9C /* ENWechatLoginProvider.m */; settings = {ASSET_TAGS = (); }; };
 		78FCE9841BD2A40F008A68F6 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
 		78FCE9871BD2A686008A68F6 /* ENShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9861BD2A686008A68F6 /* ENShare.m */; settings = {ASSET_TAGS = (); }; };
 		9B03362C1B58C725001F5A32 /* ENBasePreferenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */; };
@@ -280,20 +280,20 @@
 		7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extend.m"; sourceTree = "<group>"; };
 		7854ACD61B981C530036BCA8 /* ENLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENLoginViewController.h; path = Login/ENLoginViewController.h; sourceTree = "<group>"; };
 		7854ACD71B981C530036BCA8 /* ENLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENLoginViewController.m; path = Login/ENLoginViewController.m; sourceTree = "<group>"; };
-		7854ACDC1B9929C60036BCA8 /* ENSocialLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENSocialLoginManager.h; sourceTree = "<group>"; };
-		7854ACDD1B9929C60036BCA8 /* ENSocialLoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENSocialLoginManager.m; sourceTree = "<group>"; };
-		7854ACDF1B992AC10036BCA8 /* ENUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENUser.h; sourceTree = "<group>"; };
-		7854ACE01B992AC10036BCA8 /* ENUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENUser.m; sourceTree = "<group>"; };
-		7854ACE21B992D800036BCA8 /* ENSocialLoginProviderProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ENSocialLoginProviderProtocol.h; sourceTree = "<group>"; };
-		7854ACE31B9946690036BCA8 /* ENWechatLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWechatLoginProvider.h; sourceTree = "<group>"; };
-		7854ACE41B9946690036BCA8 /* ENWechatLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWechatLoginProvider.m; sourceTree = "<group>"; };
-		7854ACE61B9982B50036BCA8 /* ENFacebookLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENFacebookLoginProvider.h; sourceTree = "<group>"; };
-		7854ACE71B9982B50036BCA8 /* ENFacebookLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENFacebookLoginProvider.m; sourceTree = "<group>"; };
 		7854ACE91B9ABB370036BCA8 /* ENMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMyProfileViewController.h; sourceTree = "<group>"; };
 		7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMyProfileViewController.m; sourceTree = "<group>"; };
 		788734BE1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceMoodPickerDataSource.h; sourceTree = "<group>"; };
 		788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceMoodPickerDataSource.m; sourceTree = "<group>"; };
 		789DCA691BCFF68900B932DD /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		78E8C7711BD3D0C900034E9C /* ENFacebookLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENFacebookLoginProvider.h; path = ENSocial/ENFacebookLoginProvider.h; sourceTree = "<group>"; };
+		78E8C7721BD3D0C900034E9C /* ENFacebookLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENFacebookLoginProvider.m; path = ENSocial/ENFacebookLoginProvider.m; sourceTree = "<group>"; };
+		78E8C7731BD3D0C900034E9C /* ENSocialLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENSocialLoginManager.h; path = ENSocial/ENSocialLoginManager.h; sourceTree = "<group>"; };
+		78E8C7741BD3D0C900034E9C /* ENSocialLoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENSocialLoginManager.m; path = ENSocial/ENSocialLoginManager.m; sourceTree = "<group>"; };
+		78E8C7751BD3D0C900034E9C /* ENSocialLoginProviderProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENSocialLoginProviderProtocol.h; path = ENSocial/ENSocialLoginProviderProtocol.h; sourceTree = "<group>"; };
+		78E8C7761BD3D0C900034E9C /* ENUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENUser.h; path = ENSocial/ENUser.h; sourceTree = "<group>"; };
+		78E8C7771BD3D0C900034E9C /* ENUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENUser.m; path = ENSocial/ENUser.m; sourceTree = "<group>"; };
+		78E8C7781BD3D0C900034E9C /* ENWechatLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENWechatLoginProvider.h; path = ENSocial/ENWechatLoginProvider.h; sourceTree = "<group>"; };
+		78E8C7791BD3D0C900034E9C /* ENWechatLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENWechatLoginProvider.m; path = ENSocial/ENWechatLoginProvider.m; sourceTree = "<group>"; };
 		78FCE9851BD2A686008A68F6 /* ENShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENShare.h; path = ENSocial/ENShare.h; sourceTree = "<group>"; };
 		78FCE9861BD2A686008A68F6 /* ENShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENShare.m; path = ENSocial/ENShare.m; sourceTree = "<group>"; };
 		9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENBasePreferenceCell.xib; sourceTree = "<group>"; };
@@ -579,6 +579,15 @@
 		784790C31BCD514F0058C7D2 /* ENSocial */ = {
 			isa = PBXGroup;
 			children = (
+				78E8C7711BD3D0C900034E9C /* ENFacebookLoginProvider.h */,
+				78E8C7721BD3D0C900034E9C /* ENFacebookLoginProvider.m */,
+				78E8C7731BD3D0C900034E9C /* ENSocialLoginManager.h */,
+				78E8C7741BD3D0C900034E9C /* ENSocialLoginManager.m */,
+				78E8C7751BD3D0C900034E9C /* ENSocialLoginProviderProtocol.h */,
+				78E8C7761BD3D0C900034E9C /* ENUser.h */,
+				78E8C7771BD3D0C900034E9C /* ENUser.m */,
+				78E8C7781BD3D0C900034E9C /* ENWechatLoginProvider.h */,
+				78E8C7791BD3D0C900034E9C /* ENWechatLoginProvider.m */,
 				78FCE9851BD2A686008A68F6 /* ENShare.h */,
 				78FCE9861BD2A686008A68F6 /* ENShare.m */,
 				784790CD1BCFE0D10058C7D2 /* ENSocial.h */,
@@ -594,22 +603,6 @@
 				7854ACD71B981C530036BCA8 /* ENLoginViewController.m */,
 			);
 			name = Login;
-			sourceTree = "<group>";
-		};
-		7854ACDB1B99296B0036BCA8 /* Social Login */ = {
-			isa = PBXGroup;
-			children = (
-				7854ACDC1B9929C60036BCA8 /* ENSocialLoginManager.h */,
-				7854ACDD1B9929C60036BCA8 /* ENSocialLoginManager.m */,
-				7854ACDF1B992AC10036BCA8 /* ENUser.h */,
-				7854ACE01B992AC10036BCA8 /* ENUser.m */,
-				7854ACE21B992D800036BCA8 /* ENSocialLoginProviderProtocol.h */,
-				7854ACE31B9946690036BCA8 /* ENWechatLoginProvider.h */,
-				7854ACE41B9946690036BCA8 /* ENWechatLoginProvider.m */,
-				7854ACE61B9982B50036BCA8 /* ENFacebookLoginProvider.h */,
-				7854ACE71B9982B50036BCA8 /* ENFacebookLoginProvider.m */,
-			);
-			name = "Social Login";
 			sourceTree = "<group>";
 		};
 		9B0336321B5D3F4A001F5A32 /* EWBlur */ = {
@@ -881,7 +874,6 @@
 		DA5B745718F239B700BB5F8E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7854ACDB1B99296B0036BCA8 /* Social Login */,
 				9BE71C181B7FA20A00509457 /* ENRestaurant.h */,
 				9BE71C191B7FA20A00509457 /* ENRestaurant.m */,
 				9BE71C1A1B7FA20A00509457 /* ENServer.h */,
@@ -1208,12 +1200,12 @@
 				9BE71C511B7FA2F400509457 /* TMRowItem.m in Sources */,
 				09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */,
 				0949581B1B019AC70022E4B4 /* TMAlertTransitioningDelegate.m in Sources */,
-				7854ACE51B9946690036BCA8 /* ENWechatLoginProvider.m in Sources */,
 				09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */,
 				9BE71C581B7FA2F400509457 /* TMRightDetailTableViewCell.m in Sources */,
 				9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */,
 				9BF9C2851B6680AE00B051B1 /* ENPreferenceCollectionViewCell.m in Sources */,
 				9BE71C561B7FA2F400509457 /* TMTableViewDelegate.m in Sources */,
+				78E8C77B1BD3D0C900034E9C /* ENSocialLoginManager.m in Sources */,
 				9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */,
 				9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */,
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
@@ -1236,12 +1228,10 @@
 				784D1AAF1BB59CED001147AA /* CALayer+UIColor.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
 				9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */,
-				7854ACDE1B9929C60036BCA8 /* ENSocialLoginManager.m in Sources */,
 				9BE71C531B7FA2F400509457 /* TMSectionItem.m in Sources */,
 				9BE71C211B7FA21800509457 /* EnShapeView.m in Sources */,
 				7854ACEB1B9ABB370036BCA8 /* ENMyProfileViewController.m in Sources */,
 				09B9F8FA1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */,
-				7854ACE11B992AC10036BCA8 /* ENUser.m in Sources */,
 				09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */,
 				9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */,
 				0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */,
@@ -1250,13 +1240,13 @@
 				09CFCBEC1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m in Sources */,
 				9BE71C131B7FA1E700509457 /* JSONValueTransformer+UIImage.m in Sources */,
 				9BE71C171B7FA1E700509457 /* UIWindow+Extensions.m in Sources */,
-				7854ACE81B9982B50036BCA8 /* ENFacebookLoginProvider.m in Sources */,
 				9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */,
 				9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */,
 				9BE71C4D1B7FA2F400509457 /* TMLabelRowItem.m in Sources */,
 				9B74EADE1B52444F00A14BC9 /* ENBasePreferenceViewCell.m in Sources */,
 				094958181B019A350022E4B4 /* TMAlertPresentationController.m in Sources */,
 				09502FBF1AF5680D00922908 /* ENFeedbackViewController.m in Sources */,
+				78E8C77D1BD3D0C900034E9C /* ENWechatLoginProvider.m in Sources */,
 				78FCE9871BD2A686008A68F6 /* ENShare.m in Sources */,
 				9BE71C541B7FA2F400509457 /* TMTableViewBuilder.m in Sources */,
 				9BE71C141B7FA1E700509457 /* NSError+EatNow.m in Sources */,
@@ -1268,6 +1258,8 @@
 				9BEBE7951B7FE09D006F844C /* GNMapOpenerService.m in Sources */,
 				9BE71C151B7FA1E700509457 /* NSError+TMError.m in Sources */,
 				094958111B018E300022E4B4 /* TMAlertController.m in Sources */,
+				78E8C77A1BD3D0C900034E9C /* ENFacebookLoginProvider.m in Sources */,
+				78E8C77C1BD3D0C900034E9C /* ENUser.m in Sources */,
 				9BEBE7921B7FE09D006F844C /* GNGoogleMapOpenerService.m in Sources */,
 				9BEBE7941B7FE09D006F844C /* GNMapOpenerItem.m in Sources */,
 			);

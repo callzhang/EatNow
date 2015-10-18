@@ -251,24 +251,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
- 
-    DDLogDebug(@"open url:%@",url);
-    DDLogDebug(@"source app:%@",sourceApplication);
-    
-    if ([sourceApplication isEqualToString:@"com.tencent.xin"]) {
-        //return [WXApi handleOpenURL:url delegate:self];
-        return [self handleDeepLinkUrl:url];
-    }
-    else if( [sourceApplication isEqualToString:@"com.facebook.Facebook"]){
-        return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                              openURL:url
-                                                    sourceApplication:sourceApplication
-                                                           annotation:annotation];
-    }
-    else{
-        return [self handleDeepLinkUrl:url];
-    }
-    
+    return [[ENSocial sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
 
@@ -285,48 +268,7 @@
     DDLogDebug(@"Wechat onResp");
 }
 
-#pragma mark - URL handling
 
-- (BOOL)handleDeepLinkUrl:(NSURL *)url
-{
-    if (![url.scheme isEqualToString:@"eatnow"]) {
-        
-        return NO;
-    }
-    
-    ENRestaurant *restaurant = [self parseRestaurantFromUrl:url];
-    if (!restaurant) {
-        return NO;
-    }
-    
-    [self.mainViewController showRestaurantAsFrontCard:restaurant];
-    
-    return YES;
-    
-}
-
-- (ENRestaurant *)parseRestaurantFromUrl:(NSURL *)url
-{
-    NSAssert(url.query, @"Invalid deep link url");
-    
-    // Get url data
-    NSArray *params = [url.query componentsSeparatedByString:@"="];
-    if (params.count != 2) {
-        DDLogError(@"Invalid deep link parameter string");
-        return nil;
-    }
-    
-    NSString *dataString = params[1];
-    dataString = [dataString URLDecodedString];
-    
-    NSDictionary *json = [dataString toJson];
-    if (!json) {
-        return nil;
-    }
-    
-    return [[ENRestaurant alloc] initRestaurantWithDictionary:json];
-    
-}
 
 
 #pragma mark - Tools

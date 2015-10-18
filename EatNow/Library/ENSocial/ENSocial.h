@@ -10,10 +10,13 @@
 
 @interface ENSocial : NSObject
 
++ (instancetype)sharedInstance;
+
 + (void)registerWechatApp:(NSString *)appId;
 
-+ (void)registerFacebookApp:(NSString *)appId;
-
-+ (BOOL)handleOpenUrl:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation;
 
 @end
