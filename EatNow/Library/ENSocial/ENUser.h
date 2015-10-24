@@ -18,4 +18,8 @@
 
 @property (nonatomic, copy) NSString *email;
 
+@property (nonatomic, copy) NSString *age;
+
+@property (nonatomic, copy) NSString *gender;
+
 @end

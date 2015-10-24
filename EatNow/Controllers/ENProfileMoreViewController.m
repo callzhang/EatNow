@@ -8,8 +8,10 @@
 
 #import "ENProfileMoreViewController.h"
 #import "ENPreferenceMoreTableViewCell.h"
+#import "ENSocialLoginManager.h"
 
-@interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate>
+@interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate,
+UITableViewDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -54,6 +56,35 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        for (id<ENSocialLoginProviderProtocol> provider in [[ENSocialLoginManager sharedInstance] providers]) {
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:provider.displayName style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [provider loginWithHandler:^(ENSocialLoginResponse *resp, NSError *error) {
+                    
+                    DDLogWarn(@"Login complete");
+                    
+                }];
+                
+            }];
+            
+            [alertController addAction:action];
+        }
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:cancelAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
+}
+
 #pragma mark - Setup
 
 - (void)setup
@@ -63,8 +94,8 @@
     
     _items = [[NSMutableArray alloc] initWithCapacity:6];
     
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Linked Account" andValue:@"Facebook"]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Email" andValue:@"leizhang@gmail.com"]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Linked Account" andValue:@"Link"]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Email" andValue:@"Enter"]];
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" andValue:@""]];
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" andValue:@""]];
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" andValue:@""]];

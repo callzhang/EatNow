@@ -7,13 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class ENToken, ENUser;
+#import "ENUser.h"
+#import "ENToken.h"
 
 /**
  *  Response of social login
  */
 @interface ENSocialLoginResponse : NSObject
+
+- (instancetype)initWithToken:(ENToken *)token andUser:(ENUser *)user;
 
 @property (nonatomic,strong) ENToken *token;
 

@@ -70,7 +70,7 @@
     [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
     
     //Wechat
-    [ENSocial registerWechatApp:@"wxe9edec710a521a3f"];
+    [ENSocial registerWechatApp:@"wx542360b55f95c47e"];
     // Secret : 6f3735c124d9e664b71eab538285e777
     
     //Facebook

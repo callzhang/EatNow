@@ -14,10 +14,13 @@
  *  Token string
  */
 @property (nonatomic, copy) NSString *token;
+
+@property (nonatomic, strong) NSDate *refreshDate;
+
 /**
- *  Token expired million seconds since 1970/1/1
+ *  The date which the token would expired.
  */
-@property (nonatomic, assign) NSUInteger expired;
+@property (nonatomic, assign) NSDate *expirationDate;
 
 /**
  *  Refresh token

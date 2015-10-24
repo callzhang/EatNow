@@ -9,19 +9,14 @@
 #import "ENWechatLoginProvider.h"
 #import "WXApi.h"
 
-//TODO: Store information in plist.
-static NSString* const kWXAppId = @"wxe9edec710a521a3f";
-static NSString* const kWXSecret = @"6f3735c124d9e664b71eab538285e777";
-
-//App ID:wx99ee7ef09c01de75
-//AppKey:3bfefd8b9832d2bb315ea1e008283b26
-
-//static NSString* const kWXAppId = @"wx99ee7ef09c01de75";
-//static NSString* const kWXSecret = @"3bfefd8b9832d2bb315ea1e008283b26";
+static NSString* const kWXAppId = @"wx542360b55f95c47e";
+static NSString* const kWXSecret = @"8803996156a3ebcd554dc735b7248ad6";
 
 static
 
 @interface ENWechatLoginProvider () <WXApiDelegate>
+
+@property (nonatomic, copy) ENSocialLoginHandler handler;
 
 @end
 
@@ -37,8 +32,10 @@ static
     return NSLocalizedString(@"WechatLogin", nil);
 }
 
-- (void)loginWithHandler:(ENSocialLoginHandler)handler
+- (void)loginWithHandler:(ENSocialLoginHandler)handleFunction
 {
+    self.handler = handleFunction;
+    
     [self sendAuthRequest];
 }
 
@@ -46,9 +43,14 @@ static
 {
     SendAuthResp *authResp = (SendAuthResp *)resp;
     if (authResp.errCode == 0) {
-        [self getToekenByCode:authResp.code];
+        [self getTokenByCode:authResp.code];
     }
     else{
+    
+        NSString *errorDesc = [NSString stringWithFormat:@"Wechat SendAuthResponse error with code = %d", authResp.errCode];
+        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : errorDesc };
+        NSError *error = [NSError errorWithDomain:@"com.eatnow.social.error.login" code:authResp.errCode userInfo:userInfo];
+        [self callHandlerInMainThreadWithResponse:nil andError:error];
         DDLogError(@"Get wechat auth code error");
     }
 
@@ -66,7 +68,7 @@ static
 
 }
 
-- (void)getToekenByCode:(NSString *)code
+- (void)getTokenByCode:(NSString *)code
 {
     NSString *urlString = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",kWXAppId,kWXSecret,code];
     
@@ -78,25 +80,14 @@ static
         
         if (error) {
             DDLogError(@"Get wechat token error:%@",error);
+            [self callHandlerInMainThreadWithResponse:nil andError:error];
             return;
         }
         
         NSError *jsonError = nil;
         NSDictionary *token = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
         
-//        {
-//            "access_token":"ACCESS_TOKEN",
-//            "expires_in":7200,
-//            "refresh_token":"REFRESH_TOKEN",
-//            "openid":"OPENID",
-//            "scope":"SCOPE",
-//            "unionid":"o6_bmasdasdsad6_2sgVt7hMZOPfL"
-//        }
-        
-//        {"errcode":40029,"errmsg":"invalid code"}
-        
         [self getUserInfoByToken:token];
-        
 
     }];
     
@@ -106,6 +97,71 @@ static
 
 - (void)getUserInfoByToken:(NSDictionary *)token
 {
+    NSString *accessToken = [token[@"access_token"] copy];
+    NSString *openId = [token[@"openid"] copy];
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@", accessToken, openId];
+    
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if (error) {
+            DDLogError(@"Get wechat token error:%@",error);
+            [self callHandlerInMainThreadWithResponse:nil andError:error];
+            return;
+        }
+        
+        NSError *jsonError = nil;
+        NSDictionary *userJson = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+        
+        ENToken *enToken = [ENWechatLoginProvider tokenFromJson:token];
+        ENUser *user = [ENWechatLoginProvider userFromJson:userJson];
+        
+        ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithToken:enToken andUser:user];
+        
+        [self callHandlerInMainThreadWithResponse:resp andError:nil];
+        
+    }];
+    
+    [task resume];
+}
+
+- (void)callHandlerInMainThreadWithResponse:(ENSocialLoginResponse *)resp andError:(NSError *)error
+{
+    if (!self.handler) {
+        return;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        self.handler(resp,error);
+        
+    });
+    
+}
+
++ (ENToken *)tokenFromJson:(NSDictionary *)tokenJson
+{
+    ENToken *token = [ENToken new];
+    
+    token.token = [tokenJson[@"access_token"] copy];
+    //token.expired = [tokenJson[@"expires_in"] integerValue];
+    token.refreshToken = [tokenJson[@"refresh_token"] copy];
+    
+    return token;
+}
+
++ (ENUser *)userFromJson:(NSDictionary *)userJson
+{
+    ENUser *user = [ENUser new];
+    user.userId = userJson[@"openid"];
+    user.name = userJson[@"nickname"];
+    user.avatarUrl = userJson[@"headimgurl"];
+    
+    return user;
 }
 
 @end

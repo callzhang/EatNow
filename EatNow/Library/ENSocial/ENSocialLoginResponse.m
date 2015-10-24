@@ -10,4 +10,14 @@
 
 @implementation ENSocialLoginResponse
 
+-(instancetype)initWithToken:(ENToken *)token andUser:(ENUser *)user
+{
+    if (self = [super init]) {
+        _token = token;
+        _user = user;
+    }
+    
+    return self;
+}
+
 @end
