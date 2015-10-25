@@ -109,7 +109,7 @@ UITableViewDelegate,UIActionSheetDelegate>
                              @"provider": provider.name,
                              @"token": resp.token.token,
                              @"expiration" : [resp.token.expirationDate ISO8601],
-                             @"refresh_token" : resp.token.refreshToken,
+                             @"refresh_token" : resp.token.refreshToken?:@"",
                              @"open_id" : resp.user.userId
                              };
     
@@ -142,9 +142,9 @@ UITableViewDelegate,UIActionSheetDelegate>
     [user setObject:vendorList forKey:@"vendor"];
     
     //Update user info
-    [user setObject:[resp.user.name copy] forKey:@"username"];
-    [user setObject:[resp.user.avatarUrl copy] forKey:@"profile_url"];
-    [user setObject:[resp.user.location copy] forKey:@"address"];
+    [user setObject:resp.user.name forKey:@"username"];
+    [user setObject:resp.user.avatarUrl forKey:@"profile_url"];
+    [user setObject:resp.user.location?:@"" forKey:@"address"];
     if (resp.user.age) {
         NSInteger age = [resp.user.age integerValue];
         [user setObject:@(age) forKey:@"age"];

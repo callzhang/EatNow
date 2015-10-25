@@ -13,6 +13,7 @@
 #import "ENHistoryViewController.h"
 #import "ENServerManager.h"
 #import <GNMapOpener.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface ENMyProfileViewController ()<SUNSlideSwitchViewDelegate>
 
@@ -47,10 +48,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:kUserUpdated object:self queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
-        [self showUserInfo];
-    }];
+        
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUserUpdated) name:kUserUpdated object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -88,6 +87,11 @@
     item.name = restaurantVC.restaurant.name;
     item.directionsType = GNMapOpenerDirectionsTypeWalk;
     [[GNMapOpener sharedInstance] openItem:item presetingViewController:self];
+}
+
+- (void)onUserUpdated
+{
+    [self showUserInfo];
 }
 
 #pragma mark - SUNSlideSwitchViewDelegate
@@ -206,9 +210,11 @@
 
 - (void)showUserInfo
 {
-//    NSDictionary *user = [ENServerManager shared].me;
-//    
-//    NSString *avatarString = user[@"profile_url"];
+    NSDictionary *user = [ENServerManager shared].me;
+    
+    NSString *avatarString = user[@"profile_url"];
+    [self.headerView setImageWithURL:[NSURL URLWithString:avatarString]];
+    self.nameLabel.text = user[@"username"];
 
 }
 

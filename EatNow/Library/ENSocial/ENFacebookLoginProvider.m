@@ -115,6 +115,7 @@
     user.gender = [fbUser objectForKey:@"gender"];
     user.avatarUrl = [fbUser valueForKeyPath:@"picture.data.url"];
     user.age = [NSString stringWithFormat:@"%@", [fbUser valueForKeyPath:@"age_range.min"]];
+    user.location = [fbUser objectForKey:@"locale"];
     
     return user;
 }
