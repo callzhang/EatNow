@@ -9,10 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "ENUser.h"
 #import "ENSocialLoginProviderProtocol.h"
+#import "ENWechatLoginProvider.h"
 
 @interface ENSocialLoginManager : NSObject
 
 + (instancetype)sharedInstance;
+
+/**
+ *  Wechat provider
+ */
+@property (nonatomic,readonly,strong) ENWechatLoginProvider *wechatProvider;
 
 /**
  *  Supported social login providers

@@ -56,6 +56,7 @@
     ENFacebookLoginProvider *fbProvider = [ENFacebookLoginProvider new];
     
     _providers = @[wechatProvider,fbProvider];
+    _wechatProvider = wechatProvider;
 }
 
 @end

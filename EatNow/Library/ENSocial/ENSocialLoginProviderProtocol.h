@@ -28,11 +28,4 @@ typedef void(^ENSocialLoginHandler)(ENSocialLoginResponse *resp, NSError *error)
  */
 - (void)loginWithHandler:(ENSocialLoginHandler)handler;
 
-/**
- *  Handle response from url
- *
- *  @param resp The response
- */
-- (void)handleResponse:(id)resp;
-
 @end

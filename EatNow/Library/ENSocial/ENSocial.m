@@ -78,9 +78,7 @@ static NSString* const kEatnowScheme = @"eatnow";
 - (void)onResp:(BaseResp *)resp
 {
     if ([resp isKindOfClass:[SendAuthResp class]]) {
-        
-        id<ENSocialLoginProviderProtocol> provider = [[ENSocialLoginManager sharedInstance] findProviderByName:kWechatApplication];
-        [provider handleResponse:resp];
+        [[[ENSocialLoginManager sharedInstance] wechatProvider] handleResponse:resp];
     }
 }
 

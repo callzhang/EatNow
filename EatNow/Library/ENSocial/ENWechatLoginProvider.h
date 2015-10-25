@@ -11,4 +11,11 @@
 
 @interface ENWechatLoginProvider : NSObject <ENSocialLoginProviderProtocol>
 
+/**
+ *  Handle response from url
+ *
+ *  @param resp The response
+ */
+- (void)handleResponse:(id)resp;
+
 @end

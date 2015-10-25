@@ -92,7 +92,7 @@
          
          ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithToken:_token andUser:user];
          [self reportCompletionWithResult:resp andError:nil];
-    }];
+    }]; 
     
 }
 
