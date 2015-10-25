@@ -11,6 +11,7 @@
 #import "CALayer+UIColor.h"
 #import <BlocksKit.h>
 #import "ENHistoryViewController.h"
+#import "ENServerManager.h"
 #import <GNMapOpener.h>
 
 @interface ENMyProfileViewController ()<SUNSlideSwitchViewDelegate>
@@ -41,6 +42,22 @@
     [super viewDidLoad];
     
     [self setupUI];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kUserUpdated object:self queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+        [self showUserInfo];
+    }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -185,6 +202,14 @@
             obj.alpha = 0.0f;
         }];
     }
+}
+
+- (void)showUserInfo
+{
+//    NSDictionary *user = [ENServerManager shared].me;
+//    
+//    NSString *avatarString = user[@"profile_url"];
+
 }
 
 @end
