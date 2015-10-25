@@ -22,4 +22,8 @@
 
 @property (nonatomic, copy) NSString *gender;
 
+@property (nonatomic, copy) NSString *location;
+
+- (NSString *)userBriefInfo;
+
 @end

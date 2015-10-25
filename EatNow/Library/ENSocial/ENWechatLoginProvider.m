@@ -156,10 +156,27 @@ static
 
 + (ENUser *)userFromJson:(NSDictionary *)userJson
 {
+//    {
+//        city = Xiamen;
+//        country = CN;
+//        headimgurl = "http://wx.qlogo.cn/mmopen/VLjDyM7pibyJEvKkJM8rmGynvCS301eccPs3lBVIEBFQ1CicaAETNsQnd3vI6U5UkvhGMiaR7x8OKymDRA6cCZSJA/0";
+//        language = "zh_CN";
+//        nickname = "\Ud83d\Udc9d\U2026\U5c0f\U6768\U7709";
+//        openid = "oSEfTwDtJtNHCodhr7XAN-xa_kiw";
+//        privilege =     (
+//        );
+//        province = Fujian;
+//        sex = 2;
+//        unionid = "o69-Njl8LOcdE2SdUh2UNhAgiWH8";
+//    }
+    
     ENUser *user = [ENUser new];
     user.userId = userJson[@"openid"];
     user.name = userJson[@"nickname"];
     user.avatarUrl = userJson[@"headimgurl"];
+    user.location = [NSString stringWithFormat:@"%@,%@", userJson[@"province"],userJson[@"city"]];
+    NSInteger sex = [userJson[@"sex"] integerValue];
+    user.gender = sex == 1 ? @"male" : @"female";
     
     return user;
 }

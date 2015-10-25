@@ -12,7 +12,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "ENSocialLoginManager.h"
 
-static NSString* const kWechatApplication = @"com.tecent.xin";
+static NSString* const kWechatApplication = @"com.tencent.xin";
 static NSString* const kFacebookApplication = @"com.facebook.Facebook";
 static NSString* const kEatnowScheme = @"eatnow";
 
