@@ -9,6 +9,8 @@
 #import "ENProfileMoreViewController.h"
 #import "ENPreferenceMoreTableViewCell.h"
 #import "ENSocialLoginManager.h"
+#import "NSDate+Extension.h"
+#import "ENServerManager.h"
 
 @interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate,
 UITableViewDelegate,UIActionSheetDelegate>
@@ -60,9 +62,15 @@ UITableViewDelegate,UIActionSheetDelegate>
 {
     if (indexPath.row == 0) {
         
-        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(ENSocialLoginResponse *resp, NSError *error) {
+        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(id provider,ENSocialLoginResponse *resp, NSError *error) {
             
+            if (error) {
+                DDLogError(@"Social login error = %@",error);
+                return;
+            }
             
+            DDLogDebug(@"Social login success");
+            [self updateMeWithLoginProvider:provider andResponse:resp];
             
         }];
         
@@ -87,5 +95,65 @@ UITableViewDelegate,UIActionSheetDelegate>
 }
 
 #pragma mark - Private
+
+- (void)updateMeWithLoginProvider:(id<ENSocialLoginProviderProtocol>)provider andResponse:(ENSocialLoginResponse *)resp
+{
+    
+    if (![ENServerManager shared].me) {
+        DDLogError(@"No local user info in social login");
+    }
+    
+    NSMutableDictionary *user = [[NSMutableDictionary alloc] initWithDictionary:[ENServerManager shared].me];
+    // Update token
+    NSDictionary *vendor = @{
+                             @"provider": provider.name,
+                             @"token": resp.token.token,
+                             @"expiration" : [resp.token.expirationDate ISO8601],
+                             @"refresh_token" : resp.token.refreshToken,
+                             @"open_id" : resp.user.userId
+                             };
+    
+    NSArray *vendorList = [user objectForKey:@"vendor"];
+    if (!vendorList) {
+        [user setObject:@[vendor] forKey:@"vendor"];
+    }
+    else{
+        
+        NSMutableArray *mVendorList = [[NSMutableArray alloc] initWithArray:vendorList];
+        
+        NSInteger idx = -1;
+        for (NSInteger i = 0; i < mVendorList.count; i++) {
+            NSDictionary *v = mVendorList[i];
+            if ([v[@"provider"] isEqualToString:vendor[@"provider"]]) {
+                idx = i;
+                break;
+            }
+        }
+        
+        if (idx >= 0) {
+            mVendorList[idx] = vendor;
+        }
+        else{
+            [mVendorList addObject:vendor];
+        }
+        
+        vendorList = mVendorList;
+    }
+    [user setObject:vendorList forKey:@"vendor"];
+    
+    //Update user info
+    [user setObject:[resp.user.name copy] forKey:@"username"];
+    [user setObject:[resp.user.avatarUrl copy] forKey:@"profile_url"];
+    [user setObject:[resp.user.location copy] forKey:@"address"];
+    if (resp.user.age) {
+        NSInteger age = [resp.user.age integerValue];
+        [user setObject:@(age) forKey:@"age"];
+    }
+    
+    [ENServerManager shared].me = user;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserUpdated object:nil];
+   
+}
 
 @end

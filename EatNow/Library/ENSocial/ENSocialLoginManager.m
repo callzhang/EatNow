@@ -56,10 +56,10 @@
         
         UIAlertAction *action = [UIAlertAction actionWithTitle:provider.displayName style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            [provider loginWithHandler:^(ENSocialLoginResponse *resp, NSError *error) {
+            [provider loginWithHandler:^(id provider, ENSocialLoginResponse *resp, NSError *error) {
                 
                 if (handler) {
-                    handler(resp,error);
+                    handler(provider, resp,error);
                 }
                 
             }];

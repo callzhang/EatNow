@@ -137,7 +137,8 @@ static
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        self.handler(resp,error);
+        self.handler(self,resp,error);
+        self.handler = nil;
         
     });
     
@@ -148,7 +149,8 @@ static
     ENToken *token = [ENToken new];
     
     token.token = [tokenJson[@"access_token"] copy];
-    //token.expired = [tokenJson[@"expires_in"] integerValue];
+    NSTimeInterval expireSeconds = [tokenJson[@"expires_in"] integerValue];
+    token.expirationDate = [NSDate dateWithTimeIntervalSinceNow:expireSeconds];
     token.refreshToken = [tokenJson[@"refresh_token"] copy];
     
     return token;

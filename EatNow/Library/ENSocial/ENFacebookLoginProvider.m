@@ -100,7 +100,8 @@
 {
     if (_handler) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            _handler(result,error);
+            _handler(self,result,error);
+            _handler = nil;
         });
     }
 }

@@ -20,7 +20,7 @@
 /**
  *  The date which the token would expired.
  */
-@property (nonatomic, assign) NSDate *expirationDate;
+@property (nonatomic, strong) NSDate *expirationDate;
 
 /**
  *  Refresh token

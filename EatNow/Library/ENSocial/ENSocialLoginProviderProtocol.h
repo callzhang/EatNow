@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ENSocialLoginResponse.h"
 
-typedef void(^ENSocialLoginHandler)(ENSocialLoginResponse *resp, NSError *error);
+typedef void(^ENSocialLoginHandler)(id provider, ENSocialLoginResponse *resp, NSError *error);
 
 @protocol ENSocialLoginProviderProtocol <NSObject>
 
