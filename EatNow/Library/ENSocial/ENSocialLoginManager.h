@@ -28,4 +28,6 @@
 
 - (id<ENSocialLoginProviderProtocol>)findProviderByName:(NSString *)providerName;
 
+- (void)presentLoginActionSheetInViewController:(UIViewController *)viewController withCompletionHandler:(ENSocialLoginHandler)handler;
+
 @end

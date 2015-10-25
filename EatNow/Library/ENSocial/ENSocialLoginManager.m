@@ -48,6 +48,33 @@
     return nil;
 }
 
+- (void)presentLoginActionSheetInViewController:(UIViewController *)viewController withCompletionHandler:(ENSocialLoginHandler)handler
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (id<ENSocialLoginProviderProtocol> provider in [[ENSocialLoginManager sharedInstance] providers]) {
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:provider.displayName style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [provider loginWithHandler:^(ENSocialLoginResponse *resp, NSError *error) {
+                
+                if (handler) {
+                    handler(resp,error);
+                }
+                
+            }];
+            
+        }];
+        
+        [alertController addAction:action];
+    }
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    
+    [viewController presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - Private
 
 - (void)setup

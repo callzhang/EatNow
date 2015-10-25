@@ -60,28 +60,12 @@ UITableViewDelegate,UIActionSheetDelegate>
 {
     if (indexPath.row == 0) {
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        for (id<ENSocialLoginProviderProtocol> provider in [[ENSocialLoginManager sharedInstance] providers]) {
+        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(ENSocialLoginResponse *resp, NSError *error) {
             
-            UIAlertAction *action = [UIAlertAction actionWithTitle:provider.displayName style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
-                [provider loginWithHandler:^(ENSocialLoginResponse *resp, NSError *error) {
-                    
-                    DDLogWarn(@"Login complete");
-                    
-                }];
-                
-            }];
             
-            [alertController addAction:action];
-        }
+            
+        }];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-        [alertController addAction:cancelAction];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-
     }
 }
 
@@ -101,5 +85,7 @@ UITableViewDelegate,UIActionSheetDelegate>
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" andValue:@""]];
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" andValue:@""]];
 }
+
+#pragma mark - Private
 
 @end
