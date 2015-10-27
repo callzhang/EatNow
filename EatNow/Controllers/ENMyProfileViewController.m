@@ -215,7 +215,28 @@
     NSString *avatarString = user[@"profile_url"];
     [self.headerView setImageWithURL:[NSURL URLWithString:avatarString]];
     self.nameLabel.text = user[@"username"];
+    
+    NSMutableString *briefInfo = [[NSMutableString alloc] init];
+    
+    if (user[@"sex"]) {
+        [briefInfo appendString:user[@"sex"]];
+    }
 
+    if (user[@"age"]) {
+        if (briefInfo.length > 0) {
+            [briefInfo appendString:@","];
+        }
+        [briefInfo appendString:[NSString stringWithFormat:@"%d",[user[@"age"] integerValue]]];
+    }
+    
+    if (user[@"address"]) {
+        if (briefInfo.length > 0) {
+            [briefInfo appendString:@","];
+        }
+        [briefInfo appendString:[NSString stringWithFormat:@"%@",user[@"address"]]];
+    }
+    
+    self.detailLabel.text = briefInfo;
 }
 
 @end
