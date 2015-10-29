@@ -152,6 +152,7 @@ UITableViewDelegate,UIActionSheetDelegate>
     
     [ENServerManager shared].me = user;
     
+    //Post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:kUserUpdated object:nil];
    
 }

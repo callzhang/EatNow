@@ -43,6 +43,8 @@
     [super viewDidLoad];
     
     [self setupUI];
+    
+    [self showUserInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -212,6 +214,10 @@
 {
     NSDictionary *user = [ENServerManager shared].me;
     
+    if (!user) {
+        return;
+    }
+    
     NSString *avatarString = user[@"profile_url"];
     [self.headerView setImageWithURL:[NSURL URLWithString:avatarString]];
     self.nameLabel.text = user[@"username"];
@@ -226,7 +232,7 @@
         if (briefInfo.length > 0) {
             [briefInfo appendString:@","];
         }
-        [briefInfo appendString:[NSString stringWithFormat:@"%d",[user[@"age"] integerValue]]];
+        [briefInfo appendString:[NSString stringWithFormat:@"%ld",[user[@"age"] integerValue]]];
     }
     
     if (user[@"address"]) {
