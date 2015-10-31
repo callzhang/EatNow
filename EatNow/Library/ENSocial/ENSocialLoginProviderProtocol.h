@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ENSocialLoginResponse.h"
 
+static NSString * const kENSocialLoginErrorDomain = @"com.eatnow.social.login";
+
 typedef void(^ENSocialLoginHandler)(id provider, ENSocialLoginResponse *resp, NSError *error);
 
 @protocol ENSocialLoginProviderProtocol <NSObject>

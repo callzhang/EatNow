@@ -49,7 +49,7 @@ static
     
         NSString *errorDesc = [NSString stringWithFormat:@"Wechat SendAuthResponse error with code = %d", authResp.errCode];
         NSDictionary *userInfo = @{ NSLocalizedDescriptionKey : errorDesc };
-        NSError *error = [NSError errorWithDomain:@"com.eatnow.social.error.login" code:authResp.errCode userInfo:userInfo];
+        NSError *error = [NSError errorWithDomain:kENSocialLoginErrorDomain code:authResp.errCode userInfo:userInfo];
         [self callHandlerInMainThreadWithResponse:nil andError:error];
         DDLogError(@"Get wechat auth code error");
     }
