@@ -10,8 +10,6 @@
 
 @interface ENShare : NSObject
 
-+ (instancetype)sharedInstance;
-
-- (void)shareText:(NSString *)text image:(UIImage *)img andLink:(NSURL *)link inViewController:(UIViewController *)vc;
++ (void)shareText:(NSString *)text image:(UIImage *)img andLink:(NSURL *)link inViewController:(UIViewController *)vc;
 
 @end

@@ -11,19 +11,7 @@
 
 @implementation ENShare
 
-+ (instancetype)sharedInstance
-{
-    static ENShare *instance;
-    static dispatch_once_t token;
-    
-    dispatch_once(&token, ^{
-        instance = [ENShare new];
-    });
-    
-    return instance;
-}
-
-- (void)shareText:(NSString *)text image:(UIImage *)img andLink:(NSURL *)link inViewController:(UIViewController *)vc
++ (void)shareText:(NSString *)text image:(UIImage *)img andLink:(NSURL *)link inViewController:(UIViewController *)vc
 {
     NSArray *activities = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
     // UIActivityViewController would convert the image to jpeg format, therefore it would loose transparent background.

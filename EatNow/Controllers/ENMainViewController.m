@@ -497,8 +497,7 @@
     
     UIImage *cardImage = [restaurantVC.info toImage];
     
-    
-    [[ENShare sharedInstance] shareText:shareDesc image:cardImage andLink:shareUrl inViewController:self];
+    [ENShare shareText:shareDesc image:cardImage andLink:shareUrl inViewController:self];
 }
 
 #pragma mark - Main methods
