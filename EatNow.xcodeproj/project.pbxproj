@@ -69,6 +69,7 @@
 		788734C01BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */; };
 		789DCA6A1BCFF68900B932DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
 		789DCA6D1BD1B79B00B932DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
+		78E0B5031BE2682600A73E2E /* SUNSlideSwitchViewBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E0B5021BE2682600A73E2E /* SUNSlideSwitchViewBorder.m */; };
 		78E8C77A1BD3D0C900034E9C /* ENFacebookLoginProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7721BD3D0C900034E9C /* ENFacebookLoginProvider.m */; };
 		78E8C77B1BD3D0C900034E9C /* ENSocialLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7741BD3D0C900034E9C /* ENSocialLoginManager.m */; };
 		78E8C77C1BD3D0C900034E9C /* ENUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7771BD3D0C900034E9C /* ENUser.m */; };
@@ -285,6 +286,8 @@
 		788734BE1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceMoodPickerDataSource.h; sourceTree = "<group>"; };
 		788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceMoodPickerDataSource.m; sourceTree = "<group>"; };
 		789DCA691BCFF68900B932DD /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		78E0B5011BE2682600A73E2E /* SUNSlideSwitchViewBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUNSlideSwitchViewBorder.h; path = SlideSwitch/SUNSlideSwitchViewBorder.h; sourceTree = "<group>"; };
+		78E0B5021BE2682600A73E2E /* SUNSlideSwitchViewBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUNSlideSwitchViewBorder.m; path = SlideSwitch/SUNSlideSwitchViewBorder.m; sourceTree = "<group>"; };
 		78E8C7711BD3D0C900034E9C /* ENFacebookLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENFacebookLoginProvider.h; path = ENSocial/ENFacebookLoginProvider.h; sourceTree = "<group>"; };
 		78E8C7721BD3D0C900034E9C /* ENFacebookLoginProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENFacebookLoginProvider.m; path = ENSocial/ENFacebookLoginProvider.m; sourceTree = "<group>"; };
 		78E8C7731BD3D0C900034E9C /* ENSocialLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENSocialLoginManager.h; path = ENSocial/ENSocialLoginManager.h; sourceTree = "<group>"; };
@@ -567,6 +570,8 @@
 			children = (
 				7810AE141BC259DA00625941 /* SUNSlideSwitchView.h */,
 				7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */,
+				78E0B5011BE2682600A73E2E /* SUNSlideSwitchViewBorder.h */,
+				78E0B5021BE2682600A73E2E /* SUNSlideSwitchViewBorder.m */,
 			);
 			name = SlideSwitch;
 			sourceTree = "<group>";
@@ -1202,6 +1207,7 @@
 				9BAE96151AFEB49300FF746B /* CrashlyticsLogger.m in Sources */,
 				092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */,
 				9BE71C161B7FA1E700509457 /* UIImage+Resizing.m in Sources */,
+				78E0B5031BE2682600A73E2E /* SUNSlideSwitchViewBorder.m in Sources */,
 				7810AE191BC350E500625941 /* ENProfileMoreViewController.m in Sources */,
 				09B9F8FE1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
 				9BE71C071B7FA08700509457 /* NYXImagesHelper.m in Sources */,
