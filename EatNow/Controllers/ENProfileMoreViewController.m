@@ -119,11 +119,11 @@ UITableViewDelegate,UIActionSheetDelegate>
     }
     else{
         
-        NSMutableArray *mVendorList = [[NSMutableArray alloc] initWithArray:vendorList];
+        NSMutableArray *mutableVendorList = [[NSMutableArray alloc] initWithArray:vendorList];
         
         NSInteger idx = -1;
-        for (NSInteger i = 0; i < mVendorList.count; i++) {
-            NSDictionary *v = mVendorList[i];
+        for (NSInteger i = 0; i < mutableVendorList.count; i++) {
+            NSDictionary *v = mutableVendorList[i];
             if ([v[@"provider"] isEqualToString:vendor[@"provider"]]) {
                 idx = i;
                 break;
@@ -131,13 +131,13 @@ UITableViewDelegate,UIActionSheetDelegate>
         }
         
         if (idx >= 0) {
-            mVendorList[idx] = vendor;
+            mutableVendorList[idx] = vendor;
         }
         else{
-            [mVendorList addObject:vendor];
+            [mutableVendorList addObject:vendor];
         }
         
-        vendorList = mVendorList;
+        vendorList = mutableVendorList;
     }
     [user setObject:vendorList forKey:@"vendor"];
     
