@@ -7,24 +7,27 @@
 //
 
 #import "ENFacebookLoginProvider.h"
+#import "extobjc.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
+@interface ENFacebookLoginProvider ()
+
+@property (nonatomic,copy) ENSocialLoginHandler handler;
+@property (nonatomic,strong) FBSDKLoginManager *loginManager;
+
+@property (nonatomic,strong) ENToken *token;
+
+@end
 
 @implementation ENFacebookLoginProvider
-{
-    ENSocialLoginHandler _handler;
-    FBSDKLoginManager *_loginManager;
-    
-    ENToken *_token;
-}
 
 #pragma mark - Lifecycle
 
 - (instancetype)init
 {
     if (self = [super init]) {
-        _loginManager = [FBSDKLoginManager new];
+        self.loginManager = [FBSDKLoginManager new];
     }
     
     return self;
@@ -46,13 +49,15 @@
 
 - (void)loginWithHandler:(ENSocialLoginHandler)handler
 {
-    _handler = [handler copy];
-    
-    [_loginManager logInWithReadPermissions: @[@"public_profile",@"email", @"user_friends"]
+    self.handler = handler;
+    @weakify(self);
+    [self.loginManager logInWithReadPermissions: @[@"public_profile",@"email", @"user_friends"]
      handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
          
+         @strongify(self);
+         
          if (error) {
-             [self reportCompletionWithResult:result andError:error];
+             [self reportCompletionWithResult:result error:error];
              return;
          }
          
@@ -68,14 +73,13 @@
 
 - (void)logout
 {
-    [_loginManager logOut];
+    [self.loginManager logOut];
 }
 
 #pragma mark - Private
 
 - (void)requestUserInfo
 {
-
     NSDictionary *params = @{ @"fields" : @"id,name,email,gender,location,picture,birthday,age_range"};
     
     [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:params]
@@ -83,20 +87,20 @@
         
          if (error) {
              DDLogError(@"Fetch facebook user error = %@", error);
-             [self reportCompletionWithResult:result andError:error];
+             [self reportCompletionWithResult:result error:error];
              return;
          }
          
          DDLogDebug(@"Fetch fb user : %@", result);
          ENUser *user = [ENFacebookLoginProvider FBUserToENUser:result];
          
-         ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithToken:_token andUser:user];
-         [self reportCompletionWithResult:resp andError:nil];
+         ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithToken:_token user:user];
+         [self reportCompletionWithResult:resp error:nil];
     }]; 
     
 }
 
-- (void)reportCompletionWithResult:(id)result andError:(NSError *)error
+- (void)reportCompletionWithResult:(id)result error:(NSError *)error
 {
     if (_handler) {
         dispatch_async(dispatch_get_main_queue(), ^{

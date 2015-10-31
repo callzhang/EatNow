@@ -10,7 +10,7 @@
 
 @interface ENProfileItem : NSObject
 
-- (instancetype)initWithTitle:(NSString *)title andValue:(NSString *)value;
+- (instancetype)initWithTitle:(NSString *)title value:(NSString *)value;
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *value;

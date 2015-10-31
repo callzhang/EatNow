@@ -62,7 +62,7 @@ UITableViewDelegate,UIActionSheetDelegate>
 {
     if (indexPath.row == 0) {
         
-        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(id provider,ENSocialLoginResponse *resp, NSError *error) {
+        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(id provider, ENSocialLoginResponse *resp, NSError *error) {
             
             if (error) {
                 DDLogError(@"Social login error = %@",error);
@@ -86,12 +86,12 @@ UITableViewDelegate,UIActionSheetDelegate>
     
     _items = [[NSMutableArray alloc] initWithCapacity:6];
     
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Linked Account" andValue:@"Link"]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Email" andValue:@"Enter"]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" andValue:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" andValue:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" andValue:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" andValue:@""]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Linked Account" value:@"Link"]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Email" value:@"Enter"]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" value:@""]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" value:@""]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" value:@""]];
 }
 
 #pragma mark - Private

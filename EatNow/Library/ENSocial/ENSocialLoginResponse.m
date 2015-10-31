@@ -10,7 +10,7 @@
 
 @implementation ENSocialLoginResponse
 
--(instancetype)initWithToken:(ENToken *)token andUser:(ENUser *)user
+-(instancetype)initWithToken:(ENToken *)token user:(ENUser *)user
 {
     if (self = [super init]) {
         _token = token;

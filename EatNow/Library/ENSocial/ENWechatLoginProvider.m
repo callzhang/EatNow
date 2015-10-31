@@ -120,7 +120,7 @@ static
         ENToken *enToken = [ENWechatLoginProvider tokenFromJson:token];
         ENUser *user = [ENWechatLoginProvider userFromJson:userJson];
         
-        ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithToken:enToken andUser:user];
+        ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithToken:enToken user:user];
         
         [self callHandlerInMainThreadWithResponse:resp andError:nil];
         

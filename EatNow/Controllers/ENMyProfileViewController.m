@@ -44,7 +44,7 @@
     
     [self setupUI];
     
-    [self showUserInfo];
+    [self updateUserLabelAndAvatar];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,7 +93,9 @@
 
 - (void)onUserUpdated
 {
-    [self showUserInfo];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateUserLabelAndAvatar];
+    });
 }
 
 #pragma mark - SUNSlideSwitchViewDelegate
@@ -210,7 +212,7 @@
     }
 }
 
-- (void)showUserInfo
+- (void)updateUserLabelAndAvatar
 {
     NSDictionary *user = [ENServerManager shared].me;
     
