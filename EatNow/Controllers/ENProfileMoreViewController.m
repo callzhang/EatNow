@@ -113,9 +113,9 @@ UITableViewDelegate,UIActionSheetDelegate>
                              @"open_id" : resp.user.userId
                              };
     
-    NSArray *vendorList = [user objectForKey:@"vendor"];
+    NSArray *vendorList = [user objectForKey:@"vendors"];
     if (!vendorList) {
-        [user setObject:@[vendor] forKey:@"vendor"];
+        [user setObject:@[vendor] forKey:@"vendors"];
     }
     else{
         
@@ -139,7 +139,7 @@ UITableViewDelegate,UIActionSheetDelegate>
         
         vendorList = mutableVendorList;
     }
-    [user setObject:vendorList forKey:@"vendor"];
+    [user setObject:vendorList forKey:@"vendors"];
     
     //Update user info
     [user setObject:resp.user.name forKey:@"username"];
