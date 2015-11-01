@@ -70,7 +70,7 @@ UITableViewDelegate,UIActionSheetDelegate>
             }
             
             DDLogDebug(@"Social login success");
-            [self updateMeWithResponse:resp];
+            [[ENServerManager shared] updateUserVendorWithResponse:resp completion:nil];
             
         }];
         
@@ -92,69 +92,6 @@ UITableViewDelegate,UIActionSheetDelegate>
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" value:@""]];
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""]];
     [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" value:@""]];
-}
-
-#pragma mark - Private
-
-- (void)updateMeWithResponse:(ENSocialLoginResponse *)resp
-{
-    
-    if (![ENServerManager shared].me) {
-        DDLogError(@"No local user info in social login");
-    }
-    
-    NSMutableDictionary *user = [[NSMutableDictionary alloc] initWithDictionary:[ENServerManager shared].me];
-    // Update token
-    NSDictionary *vendor = @{
-                             @"provider": resp.providerName,
-                             @"token": resp.token.token,
-                             @"expiration" : [resp.token.expirationDate ISO8601],
-                             @"refresh_token" : resp.token.refreshToken?:@"",
-                             @"open_id" : resp.user.userId
-                             };
-    
-    NSArray *vendorList = [user objectForKey:@"vendors"];
-    if (!vendorList) {
-        [user setObject:@[vendor] forKey:@"vendors"];
-    }
-    else{
-        
-        NSMutableArray *mutableVendorList = [[NSMutableArray alloc] initWithArray:vendorList];
-        
-        NSInteger idx = -1;
-        for (NSInteger i = 0; i < mutableVendorList.count; i++) {
-            NSDictionary *v = mutableVendorList[i];
-            if ([v[@"provider"] isEqualToString:vendor[@"provider"]]) {
-                idx = i;
-                break;
-            }
-        }
-        
-        if (idx >= 0) {
-            mutableVendorList[idx] = vendor;
-        }
-        else{
-            [mutableVendorList addObject:vendor];
-        }
-        
-        vendorList = mutableVendorList;
-    }
-    [user setObject:vendorList forKey:@"vendors"];
-    
-    //Update user info
-    [user setObject:resp.user.name forKey:@"username"];
-    [user setObject:resp.user.avatarUrl forKey:@"profile_url"];
-    [user setObject:resp.user.location?:@"" forKey:@"address"];
-    if (resp.user.age) {
-        NSInteger age = [resp.user.age integerValue];
-        [user setObject:@(age) forKey:@"age"];
-    }
-    
-    [ENServerManager shared].me = user;
-    
-    //Post notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:kUserUpdated object:nil];
-   
 }
 
 @end

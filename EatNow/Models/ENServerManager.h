@@ -30,6 +30,7 @@ extern NSString * const kBasePreferenceUpdated;
 #import "ENRestaurant.h"
 #import "ENServer.h"
 #import "GCDSingleton.h"
+#import "ENSocialLoginResponse.h"
 
 @class CLLocation;
 @interface ENServerManager : NSObject
@@ -60,6 +61,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
 - (void)searchRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
+/**
+ *  Update or insert user vendor.
+ */
+- (void)updateUserVendorWithResponse:(ENSocialLoginResponse *)response completion:(void (^)(NSError *error))block;
 
 #pragma mark - User actions
 - (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(ErrorBlock)block;

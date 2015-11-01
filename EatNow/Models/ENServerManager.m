@@ -175,6 +175,84 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
 }
 
+- (void)updateUserVendorWithResponse:(ENSocialLoginResponse *)response completion:(void (^)(NSError *))block
+{
+    NSParameterAssert(response);
+    
+    NSMutableDictionary *user = [[NSMutableDictionary alloc] initWithDictionary:self.me];
+    // Update token
+    NSDictionary *vendor = @{
+                             @"provider": response.providerName,
+                             @"token": response.token.token,
+                             @"expiration" : [response.token.expirationDate ISO8601],
+                             @"refresh_token" : response.token.refreshToken?:@"",
+                             @"open_id" : response.user.userId
+                             };
+    
+    NSString *vendorsKey = @"vendors";
+    
+    NSArray *vendorList = [user objectForKey:vendorsKey];
+    if (!vendorList) {
+        [user setObject:@[vendor] forKey:vendorsKey];
+    }
+    else{
+        
+        NSMutableArray *mutableVendorList = [[NSMutableArray alloc] initWithArray:vendorList];
+        
+        NSInteger idx = -1;
+        for (NSInteger i = 0; i < mutableVendorList.count; i++) {
+            NSDictionary *v = mutableVendorList[i];
+            if ([v[@"provider"] isEqualToString:vendor[@"provider"]]) {
+                idx = i;
+                break;
+            }
+        }
+        
+        if (idx >= 0) {
+            mutableVendorList[idx] = vendor;
+        }
+        else{
+            [mutableVendorList addObject:vendor];
+        }
+        
+        vendorList = mutableVendorList;
+    }
+    [user setObject:vendorList forKey:vendorsKey];
+    
+    //Update user info
+    [user setObject:response.user.name forKey:@"username"];
+    [user setObject:response.user.avatarUrl forKey:@"profile_url"];
+    [user setObject:response.user.location?:@"" forKey:@"address"];
+    if (response.user.age) {
+        NSInteger age = [response.user.age integerValue];
+        [user setObject:@(age) forKey:@"age"];
+    }
+    
+    
+    [[Mixpanel sharedInstance] timeEvent:@"Update user"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    DDLogVerbose(@"Update user : %@",user);
+    NSString *url = [NSString stringWithFormat:@"%@/user/%@",kServerUrl, self.myID];
+    [manager PUT:url parameters:user success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [[Mixpanel sharedInstance] track:@"Update user"];
+        
+        [ENServerManager shared].me = user;
+        //Post notification
+        [[NSNotificationCenter defaultCenter] postNotificationName:kUserUpdated object:nil];
+        
+        if(block) block(nil);
+        DDLogVerbose(@"Updated user vendor");
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if(block) block(error);
+        DDLogError(@"Failed to update user vendor: %@", error.localizedDescription);
+    }];
+}
+
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *))block{
     NSParameterAssert(restaurant);
     NSParameterAssert([dic.allKeys containsObject:@"img_url"]);
