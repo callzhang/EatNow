@@ -62,7 +62,7 @@ UITableViewDelegate,UIActionSheetDelegate>
 {
     if (indexPath.row == 0) {
         
-        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(id provider, ENSocialLoginResponse *resp, NSError *error) {
+        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(ENSocialLoginResponse *resp, NSError *error) {
             
             if (error) {
                 DDLogError(@"Social login error = %@",error);
@@ -70,7 +70,7 @@ UITableViewDelegate,UIActionSheetDelegate>
             }
             
             DDLogDebug(@"Social login success");
-            [self updateMeWithLoginProvider:provider response:resp];
+            [self updateMeWithResponse:resp];
             
         }];
         
@@ -96,7 +96,7 @@ UITableViewDelegate,UIActionSheetDelegate>
 
 #pragma mark - Private
 
-- (void)updateMeWithLoginProvider:(id<ENSocialLoginProviderProtocol>)provider response:(ENSocialLoginResponse *)resp
+- (void)updateMeWithResponse:(ENSocialLoginResponse *)resp
 {
     
     if (![ENServerManager shared].me) {
@@ -106,7 +106,7 @@ UITableViewDelegate,UIActionSheetDelegate>
     NSMutableDictionary *user = [[NSMutableDictionary alloc] initWithDictionary:[ENServerManager shared].me];
     // Update token
     NSDictionary *vendor = @{
-                             @"provider": provider.name,
+                             @"provider": resp.providerName,
                              @"token": resp.token.token,
                              @"expiration" : [resp.token.expirationDate ISO8601],
                              @"refresh_token" : resp.token.refreshToken?:@"",

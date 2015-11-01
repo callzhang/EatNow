@@ -11,7 +11,7 @@
 
 static NSString * const kENSocialLoginErrorDomain = @"com.eatnow.social.login";
 
-typedef void(^ENSocialLoginHandler)(id provider, ENSocialLoginResponse *resp, NSError *error);
+typedef void(^ENSocialLoginHandler)(ENSocialLoginResponse *resp, NSError *error);
 
 @protocol ENSocialLoginProviderProtocol <NSObject>
 

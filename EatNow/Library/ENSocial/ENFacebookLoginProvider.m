@@ -94,7 +94,7 @@
          DDLogDebug(@"Fetch fb user : %@", result);
          ENUser *user = [ENFacebookLoginProvider FBUserToENUser:result];
          
-         ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithToken:_token user:user];
+         ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithProviderName:self.name token:_token user:user];
          [self reportCompletionWithResult:resp error:nil];
     }]; 
     
@@ -104,7 +104,7 @@
 {
     if (_handler) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            _handler(self,result,error);
+            _handler(result, error);
             _handler = nil;
         });
     }
