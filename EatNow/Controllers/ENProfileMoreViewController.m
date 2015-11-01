@@ -70,7 +70,7 @@ UITableViewDelegate,UIActionSheetDelegate>
             }
             
             DDLogDebug(@"Social login success");
-            [self updateMeWithLoginProvider:provider andResponse:resp];
+            [self updateMeWithLoginProvider:provider response:resp];
             
         }];
         
@@ -96,7 +96,7 @@ UITableViewDelegate,UIActionSheetDelegate>
 
 #pragma mark - Private
 
-- (void)updateMeWithLoginProvider:(id<ENSocialLoginProviderProtocol>)provider andResponse:(ENSocialLoginResponse *)resp
+- (void)updateMeWithLoginProvider:(id<ENSocialLoginProviderProtocol>)provider response:(ENSocialLoginResponse *)resp
 {
     
     if (![ENServerManager shared].me) {
