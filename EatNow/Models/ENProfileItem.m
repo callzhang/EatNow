@@ -10,7 +10,7 @@
 
 @implementation ENProfileItem
 
-- (instancetype)initWithTitle:(NSString *)title andValue:(NSString *)value
+- (instancetype)initWithTitle:(NSString *)title value:(NSString *)value
 {
     if (self = [super init]) {
         _title = title;

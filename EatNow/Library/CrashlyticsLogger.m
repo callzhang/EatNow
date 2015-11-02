@@ -7,7 +7,7 @@
 
 #import "CrashlyticsLogger.h"
 
-OBJC_EXTERN void CLSLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
+//OBJC_EXTERN void CLSLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
 
 @implementation CrashlyticsLogger
 
@@ -22,7 +22,7 @@ OBJC_EXTERN void CLSLog(NSString *format, ...) NS_FORMAT_FUNCTION(1,2);
     
     if (logMsg)
     {
-        CLSLog(@"%@",logMsg);
+        //CLSLog(@"%@",logMsg);
     }
 }
 

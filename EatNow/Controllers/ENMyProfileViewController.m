@@ -11,7 +11,9 @@
 #import "CALayer+UIColor.h"
 #import <BlocksKit.h>
 #import "ENHistoryViewController.h"
+#import "ENServerManager.h"
 #import <GNMapOpener.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface ENMyProfileViewController ()<SUNSlideSwitchViewDelegate>
 
@@ -41,6 +43,22 @@
     [super viewDidLoad];
     
     [self setupUI];
+    
+    [self updateUserLabelAndAvatar];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+        
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onUserUpdated) name:kUserUpdated object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -71,6 +89,13 @@
     item.name = restaurantVC.restaurant.name;
     item.directionsType = GNMapOpenerDirectionsTypeWalk;
     [[GNMapOpener sharedInstance] openItem:item presetingViewController:self];
+}
+
+- (void)onUserUpdated
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateUserLabelAndAvatar];
+    });
 }
 
 #pragma mark - SUNSlideSwitchViewDelegate
@@ -185,6 +210,41 @@
             obj.alpha = 0.0f;
         }];
     }
+}
+
+- (void)updateUserLabelAndAvatar
+{
+    NSDictionary *user = [ENServerManager shared].me;
+    
+    if (!user) {
+        return;
+    }
+    
+    NSString *avatarString = user[@"profile_url"];
+    [self.headerView setImageWithURL:[NSURL URLWithString:avatarString]];
+    self.nameLabel.text = user[@"username"];
+    
+    NSMutableString *briefInfo = [[NSMutableString alloc] init];
+    
+    if (user[@"sex"]) {
+        [briefInfo appendString:user[@"sex"]];
+    }
+
+    if (user[@"age"]) {
+        if (briefInfo.length > 0) {
+            [briefInfo appendString:@","];
+        }
+        [briefInfo appendString:[NSString stringWithFormat:@"%ld",[user[@"age"] integerValue]]];
+    }
+    
+    if (user[@"address"]) {
+        if (briefInfo.length > 0) {
+            [briefInfo appendString:@","];
+        }
+        [briefInfo appendString:[NSString stringWithFormat:@"%@",user[@"address"]]];
+    }
+    
+    self.detailLabel.text = briefInfo;
 }
 
 @end

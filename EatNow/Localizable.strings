@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  EatNow
+
+  Created by GaoYongqing on 10/18/15.
+  Copyright © 2015 modocache. All rights reserved.
+*/
+
+"WechatLogin" = "Wechat Login";
+"FacebookLogin" = "Facebook Login";

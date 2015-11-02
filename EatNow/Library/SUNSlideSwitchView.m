@@ -7,6 +7,7 @@
 //
 
 #import "SUNSlideSwitchView.h"
+#import "SUNSlideSwitchViewBorder.h"
 
 static const CGFloat kHeightOfTopScrollView = 44.0f;
 static const CGFloat kWidthOfButtonMargin = 16.0f;
@@ -15,8 +16,7 @@ static const NSUInteger kTagOfRightSideButton = 999;
 
 @implementation SUNSlideSwitchView
 {
-    CAShapeLayer *_triangleLayer;
-    CAShapeLayer *_borderLayer;
+    SUNSlideSwitchViewBorder *_borderLayer;
 }
 
 #pragma mark - 初始化参数
@@ -49,7 +49,13 @@ static const NSUInteger kTagOfRightSideButton = 999;
     [_rootScrollView.panGestureRecognizer addTarget:self action:@selector(scrollHandlePan:)];
     [self addSubview:_rootScrollView];
     
-    [self createIndicatorLayers];
+    // create border
+    _borderLayer = [[SUNSlideSwitchViewBorder alloc] init];
+    _borderLayer.bounds = _topScrollView.bounds;
+    _borderLayer.frame = CGRectMake(0, 0, _topScrollView.bounds.size.width, _topScrollView.bounds.size.height);
+    _borderLayer.indicatorBackgroundColor = _rootScrollView.backgroundColor;
+    [_borderLayer setNeedsDisplayOnBoundsChange:YES];
+    [_topScrollView.layer addSublayer:_borderLayer];
     
     _viewArray = [[NSMutableArray alloc] init];
     
@@ -119,6 +125,10 @@ static const NSUInteger kTagOfRightSideButton = 999;
         //调整顶部滚动视图选中按钮位置
         UIButton *button = (UIButton *)[_topScrollView viewWithTag:_userSelectedChannelID];
         [self adjustScrollViewContentX:button];
+        
+        DDLogDebug(@"x : %f",button.center.x);
+        _borderLayer.indicatorX = button.center.x;
+        _borderLayer.frame = CGRectMake(0, 0, _topScrollView.bounds.size.width, _topScrollView.bounds.size.height);
         
     }
 }
@@ -196,7 +206,7 @@ static const NSUInteger kTagOfRightSideButton = 999;
             _shadowImageView.frame = CGRectMake(kWidthOfButtonMargin, 0, textSize.width, _shadowImage.size.height);
             button.selected = YES;
             
-            _triangleLayer.frame = CGRectMake(button.center.x - _triangleLayer.bounds.size.width / 2.0, button.frame.size.height - _triangleLayer.frame.size.height, _triangleLayer.frame.size.width, _triangleLayer.frame.size.height);
+            _borderLayer.indicatorX = button.center.x;
         }
         [button setTitle:vc.title forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:kFontSizeOfTabButton];
@@ -211,44 +221,6 @@ static const NSUInteger kTagOfRightSideButton = 999;
     //设置顶部滚动视图的内容总尺寸
     _topScrollView.contentSize = CGSizeMake(topScrollViewContentWidth, kHeightOfTopScrollView);
 }
-
-- (void)createIndicatorLayers
-{
-    CGSize triangleSize = CGSizeMake(16,8);
-
-    CGMutablePathRef trianglePath = CGPathCreateMutable();
-    CGPathMoveToPoint(trianglePath,NULL,0.0,triangleSize.height);
-    CGPathAddLineToPoint(trianglePath, NULL, triangleSize.width / 2.0, 0);
-    CGPathAddLineToPoint(trianglePath, NULL, triangleSize.width, triangleSize.height);
-    CGPathCloseSubpath(trianglePath);
-    _triangleLayer = [CAShapeLayer layer];
-    [_triangleLayer setPath:trianglePath];
-    _triangleLayer.frame = CGRectMake(0, 0, triangleSize.width, triangleSize.height);
-    _triangleLayer.fillColor = _rootScrollView.backgroundColor.CGColor;
-    _triangleLayer.strokeColor = nil;
-    CGPathRelease(trianglePath);
-    [_topScrollView.layer addSublayer:_triangleLayer];
-    
-    DDLogWarn(@"top size:%@", NSStringFromCGSize(_topScrollView.bounds.size));
-    
-//    //Add border
-//    CGSize size = _topScrollView.bounds.size;
-//    
-//    CGMutablePathRef path = CGPathCreateMutable();
-//    CGPathMoveToPoint(path,NULL,0.0,size.height);
-//    CGPathAddLineToPoint(path, NULL, 10, size.height - 10);
-//    CGPathAddLineToPoint(path, NULL, 20, size.height);
-//    CGPathAddLineToPoint(path, NULL, size.width, size.height);
-//    CAShapeLayer *borderLineLayer = [CAShapeLayer layer];
-//    [borderLineLayer setPath:path];
-//    borderLineLayer.strokeColor = self.tabViewBorderColor.CGColor;
-//    borderLineLayer.lineWidth = 1.0f;
-//    borderLineLayer.fillColor = nil;
-//    [_topScrollView.layer addSublayer:borderLineLayer];
-//    CGPathRelease(path);
-}
-
-
 
 #pragma mark - 顶部滚动视图逻辑方法
 
@@ -277,26 +249,18 @@ static const NSUInteger kTagOfRightSideButton = 999;
     if (!sender.selected) {
         sender.selected = YES;
         
-        [UIView animateWithDuration:1 animations:^{
-            
-            [_shadowImageView setFrame:CGRectMake(sender.frame.origin.x, 0, sender.frame.size.width, _shadowImage.size.height)];
-
-            _triangleLayer.frame = CGRectMake(sender.center.x - _triangleLayer.bounds.size.width / 2.0, sender.frame.size.height - _triangleLayer.frame.size.height, _triangleLayer.frame.size.width, _triangleLayer.frame.size.height);
-     
-            
-        } completion:^(BOOL finished) {
-            if (finished) {
-                //设置新页出现
-                if (!_isRootScroll) {
-                    [_rootScrollView setContentOffset:CGPointMake((sender.tag - 100)*self.bounds.size.width, 0) animated:YES];
-                }
-                _isRootScroll = NO;
-                
-                if (self.slideSwitchViewDelegate && [self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchView:didselectTab:)]) {
-                    [self.slideSwitchViewDelegate slideSwitchView:self didselectTab:_userSelectedChannelID - 100];
-                }
-            }
-        }];
+        //设置三角形位置
+        _borderLayer.indicatorX = sender.center.x;
+        
+        //设置新页出现
+        if (!_isRootScroll) {
+            [_rootScrollView setContentOffset:CGPointMake((sender.tag - 100)*self.bounds.size.width, 0) animated:YES];
+        }
+        _isRootScroll = NO;
+        
+        if (self.slideSwitchViewDelegate && [self.slideSwitchViewDelegate respondsToSelector:@selector(slideSwitchView:didselectTab:)]) {
+            [self.slideSwitchViewDelegate slideSwitchView:self didselectTab:_userSelectedChannelID - 100];
+        }
         
     }
     //重复点击选中按钮

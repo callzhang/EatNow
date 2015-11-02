@@ -8,8 +8,12 @@
 
 #import "ENProfileMoreViewController.h"
 #import "ENPreferenceMoreTableViewCell.h"
+#import "ENSocialLoginManager.h"
+#import "NSDate+Extension.h"
+#import "ENServerManager.h"
 
-@interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate>
+@interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate,
+UITableViewDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
@@ -54,6 +58,25 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        
+        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(id provider, ENSocialLoginResponse *resp, NSError *error) {
+            
+            if (error) {
+                DDLogError(@"Social login error = %@",error);
+                return;
+            }
+            
+            DDLogDebug(@"Social login success");
+            [self updateMeWithLoginProvider:provider andResponse:resp];
+            
+        }];
+        
+    }
+}
+
 #pragma mark - Setup
 
 - (void)setup
@@ -63,12 +86,75 @@
     
     _items = [[NSMutableArray alloc] initWithCapacity:6];
     
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Linked Account" andValue:@"Facebook"]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Email" andValue:@"leizhang@gmail.com"]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" andValue:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" andValue:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" andValue:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" andValue:@""]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Linked Account" value:@"Link"]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Email" value:@"Enter"]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" value:@""]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" value:@""]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""]];
+    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" value:@""]];
+}
+
+#pragma mark - Private
+
+- (void)updateMeWithLoginProvider:(id<ENSocialLoginProviderProtocol>)provider andResponse:(ENSocialLoginResponse *)resp
+{
+    
+    if (![ENServerManager shared].me) {
+        DDLogError(@"No local user info in social login");
+    }
+    
+    NSMutableDictionary *user = [[NSMutableDictionary alloc] initWithDictionary:[ENServerManager shared].me];
+    // Update token
+    NSDictionary *vendor = @{
+                             @"provider": provider.name,
+                             @"token": resp.token.token,
+                             @"expiration" : [resp.token.expirationDate ISO8601],
+                             @"refresh_token" : resp.token.refreshToken?:@"",
+                             @"open_id" : resp.user.userId
+                             };
+    
+    NSArray *vendorList = [user objectForKey:@"vendors"];
+    if (!vendorList) {
+        [user setObject:@[vendor] forKey:@"vendors"];
+    }
+    else{
+        
+        NSMutableArray *mutableVendorList = [[NSMutableArray alloc] initWithArray:vendorList];
+        
+        NSInteger idx = -1;
+        for (NSInteger i = 0; i < mutableVendorList.count; i++) {
+            NSDictionary *v = mutableVendorList[i];
+            if ([v[@"provider"] isEqualToString:vendor[@"provider"]]) {
+                idx = i;
+                break;
+            }
+        }
+        
+        if (idx >= 0) {
+            mutableVendorList[idx] = vendor;
+        }
+        else{
+            [mutableVendorList addObject:vendor];
+        }
+        
+        vendorList = mutableVendorList;
+    }
+    [user setObject:vendorList forKey:@"vendors"];
+    
+    //Update user info
+    [user setObject:resp.user.name forKey:@"username"];
+    [user setObject:resp.user.avatarUrl forKey:@"profile_url"];
+    [user setObject:resp.user.location?:@"" forKey:@"address"];
+    if (resp.user.age) {
+        NSInteger age = [resp.user.age integerValue];
+        [user setObject:@(age) forKey:@"age"];
+    }
+    
+    [ENServerManager shared].me = user;
+    
+    //Post notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:kUserUpdated object:nil];
+   
 }
 
 @end
