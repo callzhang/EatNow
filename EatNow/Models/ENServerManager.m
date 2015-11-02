@@ -180,6 +180,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSParameterAssert(response);
     
     NSMutableDictionary *user = [[NSMutableDictionary alloc] initWithDictionary:self.me];
+    
     // Update token
     NSDictionary *vendor = @{
                              @"provider": response.providerName,
@@ -228,6 +229,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         [user setObject:@(age) forKey:@"age"];
     }
     
+    [ENServerManager shared].me = user;
+    
+    // Remove all_history since it's too large and not need to be updated.
+    [user removeObjectForKey:@"all_history"];
     
     [[Mixpanel sharedInstance] timeEvent:@"Update user"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -239,12 +244,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         
         [[Mixpanel sharedInstance] track:@"Update user"];
         
-        [ENServerManager shared].me = user;
         //Post notification
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserUpdated object:nil];
         
         if(block) block(nil);
-        DDLogVerbose(@"Updated user vendor");
+        DDLogVerbose(@"Updated user vendor success.");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
