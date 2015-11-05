@@ -70,7 +70,7 @@ UITableViewDelegate,UIActionSheetDelegate>
             }
             
             DDLogDebug(@"Social login success");
-            [[ENServerManager shared] updateUserVendorWithResponse:resp completion:nil];
+            [[ENServerManager shared] insertOrUpdateUserVendorWithResponse:resp completion:nil];
             
         }];
         

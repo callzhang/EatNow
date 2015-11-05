@@ -222,7 +222,7 @@
     
     NSString *avatarString = user[@"profile_url"];
     [self.headerView setImageWithURL:[NSURL URLWithString:avatarString]];
-    self.nameLabel.text = user[@"username"];
+    self.nameLabel.text = user[@"name"];
     
     NSMutableString *briefInfo = [[NSMutableString alloc] init];
     

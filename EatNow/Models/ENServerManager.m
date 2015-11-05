@@ -175,7 +175,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
 }
 
-- (void)updateUserVendorWithResponse:(ENSocialLoginResponse *)response completion:(void (^)(NSError *))block
+- (void)insertOrUpdateUserVendorWithResponse:(ENSocialLoginResponse *)response completion:(void (^)(NSError *))block
 {
     NSParameterAssert(response);
     
@@ -217,11 +217,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         }
         
         vendorList = mutableVendorList;
+        [user setObject:vendorList forKey:vendorsKey];
     }
-    [user setObject:vendorList forKey:vendorsKey];
-    
+
     //Update user info
-    [user setObject:response.user.name forKey:@"username"];
+    [user setObject:response.user.name forKey:@"name"];
     [user setObject:response.user.avatarUrl forKey:@"profile_url"];
     [user setObject:response.user.location?:@"" forKey:@"address"];
     if (response.user.age) {
