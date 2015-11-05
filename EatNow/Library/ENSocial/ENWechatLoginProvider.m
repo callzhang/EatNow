@@ -120,7 +120,7 @@ static
         ENToken *enToken = [ENWechatLoginProvider tokenFromJson:token];
         ENUser *user = [ENWechatLoginProvider userFromJson:userJson];
         
-        ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithToken:enToken user:user];
+        ENSocialLoginResponse *resp = [[ENSocialLoginResponse alloc] initWithProviderName:self.name token:enToken user:user];
         
         [self callHandlerInMainThreadWithResponse:resp andError:nil];
         
@@ -137,7 +137,7 @@ static
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        self.handler(self,resp,error);
+        self.handler(resp, error);
         self.handler = nil;
         
     });

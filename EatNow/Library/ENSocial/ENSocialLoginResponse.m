@@ -10,11 +10,12 @@
 
 @implementation ENSocialLoginResponse
 
--(instancetype)initWithToken:(ENToken *)token user:(ENUser *)user
+-(instancetype)initWithProviderName:(NSString *)providerName token:(ENToken *)token user:(ENUser *)user
 {
     if (self = [super init]) {
         _token = token;
         _user = user;
+        _providerName = [providerName copy];
     }
     
     return self;

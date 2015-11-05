@@ -15,7 +15,9 @@
  */
 @interface ENSocialLoginResponse : NSObject
 
-- (instancetype)initWithToken:(ENToken *)token user:(ENUser *)user;
+- (instancetype)initWithProviderName:(NSString *)providerName token:(ENToken *)token user:(ENUser *)user;
+
+@property (nonatomic,copy) NSString *providerName;
 
 @property (nonatomic,strong) ENToken *token;
 

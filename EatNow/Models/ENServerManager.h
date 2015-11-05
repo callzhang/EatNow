@@ -7,8 +7,8 @@
 //
 
 #define kMaxSelectedRestaurantRetainTime			3600
-#define kServerUrl                  @"http://api.eatnow.cc"
-#define kServerUrl2                  @"http://eat-now.herokuapp.com"
+#define kServerUrl2                  @"http://api.eatnow.cc"
+#define kServerUrl                  @"http://eat-now.herokuapp.com"
 
 //#define kCuisineNames               @[@"Afghan", @"African", @"American", @"Asian", @"Australian", @"Bakery", @"Bars", @"Belgian", @"Brasseries", @"Brazilian", @"Breakfast", @"British", @"Buffets", @"Cafes", @"Cambodian", @"Caribbean", @"Central_European", @"Chinese", @"Coffee", @"Creperie", @"Cuban", @"Delis", @"Dessert", @"Eastern_European", @"Ethiopian", @"Fast_Food", @"Filipino", @"Food_Truck", @"French", @"German", @"Greek", @"Halal", @"Hawaiian", @"Healthy", @"Himalayan", @"Indian", @"Indonesian", @"Italian", @"Japanese", @"Korean", @"Kosher", @"Latin_American", @"Malaysian", @"Mediterranean", @"Mexican", @"Middle_Eastern", @"Modern", @"Mongolian", @"Moroccan", @"Night_Life", @"Northern_European", @"Pakistani", @"Persian", @"Polish", @"Russian", @"Seafood", @"South_American", @"Southern", @"Spanish", @"Steakhouses", @"Tea_Rooms", @"Thai", @"Turkish", @"Vegetarian", @"Vietnamese"]
 
@@ -30,6 +30,7 @@ extern NSString * const kBasePreferenceUpdated;
 #import "ENRestaurant.h"
 #import "ENServer.h"
 #import "GCDSingleton.h"
+#import "ENSocialLoginResponse.h"
 
 @class CLLocation;
 @interface ENServerManager : NSObject
@@ -60,6 +61,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
 - (void)searchRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
 - (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
+/**
+ *  Update or insert user vendor.
+ */
+- (void)insertOrUpdateUserVendorWithResponse:(ENSocialLoginResponse *)response completion:(void (^)(NSError *error))block;
 
 #pragma mark - User actions
 - (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(ErrorBlock)block;
