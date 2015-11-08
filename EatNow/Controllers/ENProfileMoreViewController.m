@@ -11,18 +11,17 @@
 #import "ENSocialLoginManager.h"
 #import "NSDate+Extension.h"
 #import "ENServerManager.h"
+#import "BlocksKit+UIKit.h"
 
 @interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate,
 UITableViewDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *items;
 
 @end
 
 @implementation ENProfileMoreViewController
-{
-    NSMutableArray *_items;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,7 +44,7 @@ UITableViewDelegate,UIActionSheetDelegate>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _items.count;
+    return self.items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -53,28 +52,18 @@ UITableViewDelegate,UIActionSheetDelegate>
     static NSString *identifier = @"ENPreferenceMoreTableViewCell";
     ENPreferenceMoreTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     
-    cell.item = _items[indexPath.row];
+    cell.item = self.items[indexPath.row];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        
-        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(ENSocialLoginResponse *resp, NSError *error) {
-            
-            if (error) {
-                DDLogError(@"Social login error = %@",error);
-                return;
-            }
-            
-            DDLogDebug(@"Social login success");
-            [[ENServerManager shared] insertOrUpdateUserVendorWithResponse:resp completion:nil];
-            
-        }];
-        
+    ENPreferenceMoreTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell.item.actionBlock) {
+        cell.item.actionBlock(cell);
     }
+
 }
 
 #pragma mark - Setup
@@ -83,15 +72,58 @@ UITableViewDelegate,UIActionSheetDelegate>
 {
     // This will remove extra separators from tableview
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.items = [[NSMutableArray alloc] initWithCapacity:6];
     
-    _items = [[NSMutableArray alloc] initWithCapacity:6];
+    NSDictionary *user = [ENServerManager shared].me;
     
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Linked Account" value:@"Link"]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Email" value:@"Enter"]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" value:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" value:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""]];
-    [_items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" value:@""]];
+    // Link item
+    @weakify(self);
+    ENProfileItem *linkItem = [[ENProfileItem alloc] initWithTitle:@"Linked Account" value:@"Link"];
+    linkItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        
+        @strongify(self);
+        [[ENSocialLoginManager sharedInstance] presentLoginActionSheetInViewController:self withCompletionHandler:^(ENSocialLoginResponse *resp, NSError *error) {
+            
+            if (error) {
+                DDLogError(@"Social login error = %@",error);
+                return;
+            }
+            
+            cell.item.value = resp.providerName;
+            cell.valueLabel.text = resp.providerName;
+            
+            DDLogDebug(@"Social login success");
+            [[ENServerManager shared] insertOrUpdateUserVendorWithResponse:resp completion:nil];
+            
+        }];
+
+    };
+    [self.items addObject:linkItem];
+    
+    NSString *email = user[@"emai"]?:@"Enter";
+    // Email item
+    ENProfileItem *emailItem = [[ENProfileItem alloc] initWithTitle:@"Email" value:email];
+    emailItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        
+        UIAlertView *alertView = [UIAlertView bk_alertViewWithTitle:@"Email" message:nil];
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alertView bk_setCancelButtonWithTitle:@"Cancel" handler:nil];
+        [alertView bk_addButtonWithTitle:@"Ok" handler:^{
+            UITextField *textField = [alertView textFieldAtIndex:0];
+            if (textField.text) {
+                cell.item.value = textField.text;
+                cell.valueLabel.text = cell.item.value;
+            }
+        }];
+        [alertView show];
+        
+    };
+    [self.items addObject:emailItem];
+    
+    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" value:@""]];
+    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" value:@""]];
+    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""]];
+    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" value:@""]];
 }
 
 @end

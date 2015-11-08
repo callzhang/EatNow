@@ -34,7 +34,7 @@
 #import "NSTimer+BlocksKit.h"
 #import "ENUtil.h"
 #import "UIView+Extend.h"
-#import "ATConnect.h"
+//#import "ATConnect.h"
 #import "ENRatingView.h"
 #import "ENProfileViewController.h"
 #import "ENFeedbackViewController.h"

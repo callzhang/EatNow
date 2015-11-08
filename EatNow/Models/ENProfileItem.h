@@ -14,5 +14,6 @@
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *value;
+@property (nonatomic, copy) SenderBlock actionBlock;
 
 @end

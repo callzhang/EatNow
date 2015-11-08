@@ -254,23 +254,6 @@
     return [[ENSocial sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
-
-
-#pragma mark - WeChat delegate
-
-- (void)onReq:(BaseReq *)req
-{
-    DDLogDebug(@"Wechat onReq");
-}
-
-- (void)onResp:(BaseResp *)resp
-{
-    DDLogDebug(@"Wechat onResp");
-}
-
-
-
-
 #pragma mark - Tools
 - (void)initilizeLogging {
     [DDLog addLogger:[DDASLLogger sharedInstance]];

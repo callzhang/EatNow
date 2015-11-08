@@ -43,5 +43,6 @@
 #import "FBTweak.h"
 #import "FBTweakStore.h"
 #import "FBTweakInline.h"
+#import <libextobjc/extobjc.h>
 #endif
 
