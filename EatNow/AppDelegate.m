@@ -50,6 +50,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "NSString+Extend.h"
 #import "ENSocial.h"
+#import "ENProxy.h"
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 
@@ -83,6 +84,8 @@
     [Parse setApplicationId:@"T3xvBQKPYCh6mtwPDcyuTP1GltTITXmWye7wuYr1"
                   clientKey:@"ZC3AoPat2ctcQ5iX7r7QvypyiiXmX0vuIlqZ2urs"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];// [Optional] Track statistics around application opens.
+    
+    [[ENProxy shared] checkShouldRedirect];
     
     [ENLocationManager registerLocationDeniedHandler:^{
         [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {

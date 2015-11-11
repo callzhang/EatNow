@@ -66,6 +66,7 @@
 		7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD01B929B4E0036BCA8 /* NSDictionary+Extend.m */; };
 		7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */; };
 		7854ACEB1B9ABB370036BCA8 /* ENMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */; };
+		785857341BEF315A00D2CE74 /* ENProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 785857331BEF315A00D2CE74 /* ENProxy.m */; };
 		788734C01BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */; };
 		789DCA6A1BCFF68900B932DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
 		789DCA6D1BD1B79B00B932DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
@@ -283,6 +284,8 @@
 		7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extend.m"; sourceTree = "<group>"; };
 		7854ACE91B9ABB370036BCA8 /* ENMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMyProfileViewController.h; sourceTree = "<group>"; };
 		7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMyProfileViewController.m; sourceTree = "<group>"; };
+		785857321BEF315A00D2CE74 /* ENProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENProxy.h; sourceTree = "<group>"; };
+		785857331BEF315A00D2CE74 /* ENProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENProxy.m; sourceTree = "<group>"; };
 		788734BE1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceMoodPickerDataSource.h; sourceTree = "<group>"; };
 		788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceMoodPickerDataSource.m; sourceTree = "<group>"; };
 		789DCA691BCFF68900B932DD /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -898,6 +901,8 @@
 				9B0537841ADD8E120037A38C /* ENMapManager.m */,
 				78470A371BC49FF8009FD166 /* ENProfileItem.h */,
 				78470A381BC49FF8009FD166 /* ENProfileItem.m */,
+				785857321BEF315A00D2CE74 /* ENProxy.h */,
+				785857331BEF315A00D2CE74 /* ENProxy.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1240,6 +1245,7 @@
 				9BE71C4F1B7FA2F400509457 /* TMRowItem+AFNetworking.m in Sources */,
 				09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */,
 				9BE71C1D1B7FA20A00509457 /* ENRestaurant.m in Sources */,
+				785857341BEF315A00D2CE74 /* ENProxy.m in Sources */,
 				784D1AAF1BB59CED001147AA /* CALayer+UIColor.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
 				9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */,

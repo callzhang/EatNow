@@ -27,6 +27,7 @@
 #import "PureLayout.h"
 #import "TOWebViewController.h"
 #import "ENAppSettings.h"
+#import "ENProxy.h"
 
 @import AddressBook;
 
@@ -551,6 +552,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     UIImageView *imageView = self.imageViewsInImageScrollView[index];
     NSParameterAssert(imageView);
     NSString *url = self.restaurant.imageUrls[index];
+    url = [[ENProxy shared] redirectedUrlWithOriginalUrl:url];
     @weakify(imageView);
     [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"eat-now-monogram"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         @strongify(imageView);
