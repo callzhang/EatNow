@@ -12,6 +12,7 @@
 #import "NSDate+Extension.h"
 #import "ENServerManager.h"
 #import "BlocksKit+UIKit.h"
+#import "ATConnect.h"
 
 @interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate,
 UITableViewDelegate,UIActionSheetDelegate>
@@ -120,10 +121,31 @@ UITableViewDelegate,UIActionSheetDelegate>
     };
     [self.items addObject:emailItem];
     
-    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" value:@""]];
-    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" value:@""]];
-    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""]];
-    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" value:@""]];
+    //Feedback
+    ENProfileItem *feedbackItem = [[ENProfileItem alloc] initWithTitle:@"Feedback" value:@""];
+    feedbackItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        [[ATConnect sharedConnection] presentMessageCenterFromViewController:self];
+    };
+    [self.items addObject:feedbackItem];
+    
+    ENProfileItem *surveyItem = [[ENProfileItem alloc] initWithTitle:@"Survey" value:@""];
+    surveyItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        [[ATConnect sharedConnection] engage:@"completed_in_app_purchase" fromViewController:self];
+    };
+    [self.items addObject:surveyItem];
+    
+    ENProfileItem *rateItem = [[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""];
+    rateItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        [[ATConnect sharedConnection] openAppStore];
+    };
+    [self.items addObject:rateItem];
+    
+    ENProfileItem *logoutItem = [[ENProfileItem alloc] initWithTitle:@"Logout" value:@""];
+    logoutItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        //TODO: Add logout
+    };
+    [self.items addObject:logoutItem];
+    
 }
 
 @end
