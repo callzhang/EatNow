@@ -948,9 +948,7 @@
 }
 
 - (void)setupNoRestaurantStatus {
-    NSMutableAttributedString *text = [[[NSAttributedString alloc] initWithString:@"Too bad. Eat Now didn’t find any restaurant nearby. :(" attributes:@{}] mutableCopy];
-    [text addAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"OpenSans" size:28]} range:NSMakeRange(0, 8)];
-    [text addAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"OpenSans-Light" size:20]} range:NSMakeRange(6, text.length - 6)];
+    NSMutableAttributedString *text = [[[NSAttributedString alloc] initWithString:@"Too bad. Eat Now didn’t find any restaurant nearby. :(" attributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"OpenSans-Light" size:20]}] mutableCopy];
     self.noRestaurantsLabel.attributedText = text;
 }
 
