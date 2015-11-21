@@ -54,6 +54,9 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
+  - Crashlytics (3.4.1):
+    - Fabric (~> 1.6.0)
+  - Fabric (1.6.1)
   - FBSDKCoreKit (4.5.1):
     - Bolts (~> 1.1)
     - FBSDKCoreKit/arc (= 4.5.1)
@@ -138,6 +141,8 @@ DEPENDENCIES:
   - BlocksKit (~> 2.2)
   - Bolts (~> 1.3.0)
   - CocoaLumberjack (~> 2.0)
+  - Crashlytics (~> 3.4.1)
+  - Fabric (~> 1.6.1)
   - FBSDKCoreKit (~> 4.5.1)
   - FBSDKLoginKit (~> 4.5.1)
   - FBSDKShareKit (~> 4.5.1)
@@ -167,6 +172,8 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
+  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
+  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
   FBSDKShareKit: 642034ac9f30793dfd897851b724bb4281750266
@@ -188,4 +195,4 @@ SPEC CHECKSUMS:
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   WeixinActivity: 4c5d4be4dff83d90376f3d5ba2fa6ba410e88b9e
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0
