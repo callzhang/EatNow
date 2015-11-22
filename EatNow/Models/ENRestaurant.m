@@ -325,12 +325,11 @@
     //Price
     [description appendString:self.pricesText];
     [description appendString:@"\n"];
-    // Location
-    [description appendString:self.streetText];
+    // Distance
+    [description appendString:self.distanceStr];
     [description appendString:@"\n"];
     //Phone
     [description appendString:self.phone];
-    
     
     return description;
 }
