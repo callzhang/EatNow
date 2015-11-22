@@ -10,6 +10,17 @@
 
 @interface ENShare : NSObject
 
+/**
+ *  Share text to SNS. Usually we don't specify a title, the default title is [AppName] Share in Wechat. If we do want to specify a title, call this method.
+ *
+ *  @param text  The text detail to share.
+ *  @param title The sharing title
+ *  @param img   The share thumbnail
+ *  @param link  The link
+ *  @param vc    The parent view controller to show in.
+ */
++ (void)shareText:(NSString *)text withTitle:(NSString *)title image:(UIImage *)img andLink:(NSURL *)link inViewController:(UIViewController *)vc;
+
 + (void)shareText:(NSString *)text image:(UIImage *)img andLink:(NSURL *)link inViewController:(UIViewController *)vc;
 
 @end
