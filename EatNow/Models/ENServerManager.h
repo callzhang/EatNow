@@ -14,7 +14,7 @@
 
 #define kBasePreferences             @[@"African", @"American", @"Brazilian", @"Caribbean", @"Chinese", @"Cuban", @"French", @"German", @"Greek", @"Indian", @"Italian", @"Japanese", @"Korean", @"Latin_American", @"Malaysian", @"Mediterranean", @"Mexican", @"Middle_Eastern", @"Russian", @"Spanish", @"Thai", @"Turkish", @"Vietnamese"]
 #define kBasePreferencesValue        @[@"African", @"American", @"Brazilian", @"Caribbean", @"Chinese", @"Cuban", @"French", @"German", @"Greek", @"Indian", @"Italian", @"Japanese", @"Korean", @"Latin American", @"Malaysian", @"Mediterranean", @"Mexican", @"Middle Eastern", @"Russian", @"Spanish", @"Thai", @"Turkish", @"Vietnamese"]
-#define kMoods @[@"Automatic",@"Exciting", @"Happy",@"Romantic",@"Lonely",@"Sad"]
+#define  kMoodList @[@"A first meal(close and fast)",@"A popular place(higher score and reviewed by many)",@"For date night(fine dining)",@"Dinner(I can work a little more and pay above my average budget)",@"Green(veggie)",@"Meat lover",@"Soupy(Pho)",@"Explore(Places I've never been)",@"Low calorie(be healthy)",@"Small bites(like Tapas bar)",@"Strong and heavy(Indian and Szechuan food)",@"Happy hour(bars)",@"Good view(roof top)"]
 
 extern NSString * const kHistroyUpdated;
 extern NSString * const kRatingUpdated;

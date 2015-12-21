@@ -230,7 +230,7 @@
     [self setupNoRestaurantStatus];
     
     //mood
-    [self.moodButton setTitle:kMoods[ENAppSetting.mood] forState:UIControlStateNormal];
+    [self.moodButton setTitle:kMoodList[ENAppSetting.mood] forState:UIControlStateNormal];
     
     //fetch user first
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {

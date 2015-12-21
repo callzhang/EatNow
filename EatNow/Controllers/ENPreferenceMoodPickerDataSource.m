@@ -10,17 +10,15 @@
 #import "ENServerManager.h"
 
 @implementation ENPreferenceMoodPickerDataSource
-{
-}
 
 - (NSUInteger)numberOfItemsInPickerView:(AKPickerView *)pickerView
 {
-    return kMoods.count;
+    return kMoodList.count;
 }
 
 - (NSString *)pickerView:(AKPickerView *)pickerView titleForItem:(NSInteger)item
 {
-    return kMoods[item];
+    return kMoodList[item];
 }
 
 
