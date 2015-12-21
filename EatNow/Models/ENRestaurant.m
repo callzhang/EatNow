@@ -54,6 +54,7 @@
 	if (self.cuisines.firstObject == [NSNull null]) self.cuisines = [list valueForKey:@"global"];
     //self.images = [NSMutableArray array];
 	self.imageUrls = json[@"food_image_url"];
+    self.photos = json[@"photos"];
 	self.phone = [json valueForKeyPath:@"contact.formattedPhone"];
 	self.name = json[@"name"];
 	self.price = json[@"price"];

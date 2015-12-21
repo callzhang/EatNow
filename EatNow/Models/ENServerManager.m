@@ -93,11 +93,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 						  @"time": [NSDate date].ISO8601
                           //@"radius":@500
                           };
-    DDLogInfo(@"Request restaurant: %@", dic);
+    DDLogInfo(@"Begin Request restaurant: %@", dic);
     NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"search"];
     [manager GET:path parameters:dic
           success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-              DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
+              DDLogInfo(@"End get restaurant list %ld", (unsigned long)responseObject.count);
               //mix panel
               [[Mixpanel sharedInstance] track:@"Search restaurant" properties:@{@"location": @{@"latitude": @(currenLocation.coordinate.latitude),
                                                                                                 @"longitude": @(currenLocation.coordinate.longitude)},

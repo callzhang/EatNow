@@ -116,9 +116,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
-    [self.map removeFromSuperview];
-    self.map = nil;
-    self.mapManager = nil;
     self.imageViewsInImageScrollView = nil;
 }
 
@@ -372,6 +369,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)closeMap {
+    
+    [self.map removeFromSuperview];
+    self.map = nil;
+    self.mapManager = nil;
+    
     [UIView collapse:self.mapIcon view:self.map animated:YES completion:^{
         self.map.hidden = YES;
         [self.mapManager cancelRouting];

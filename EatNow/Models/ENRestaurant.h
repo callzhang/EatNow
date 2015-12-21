@@ -31,6 +31,8 @@
 @property (nonatomic, copy) NSString *name;
 //@property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSArray *imageUrls;
+// Use photos to replace imageUrls
+@property (nonatomic, strong) NSDictionary *photos;
 @property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, strong) NSNumber *rating;
 @property (nonatomic, strong) UIColor *ratingColor;
