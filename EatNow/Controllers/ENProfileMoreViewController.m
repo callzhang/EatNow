@@ -101,7 +101,7 @@ UITableViewDelegate,UIActionSheetDelegate>
     };
     [self.items addObject:linkItem];
     
-    NSString *email = user[@"emai"]?:@"Enter";
+    NSString *email = user[@"email"]?:@"Enter";
     // Email item
     ENProfileItem *emailItem = [[ENProfileItem alloc] initWithTitle:@"Email" value:email];
     emailItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
@@ -114,6 +114,8 @@ UITableViewDelegate,UIActionSheetDelegate>
             if (textField.text) {
                 cell.item.value = textField.text;
                 cell.valueLabel.text = cell.item.value;
+                
+                [[ENServerManager shared] updateUserWithProperties:@{@"email" : cell.item.value} completion:nil];
             }
         }];
         [alertView show];

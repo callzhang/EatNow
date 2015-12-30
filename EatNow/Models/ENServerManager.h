@@ -66,6 +66,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
  */
 - (void)insertOrUpdateUserVendorWithResponse:(ENSocialLoginResponse *)response completion:(void (^)(NSError *error))block;
 
+- (void)updateUserWithProperties:(NSDictionary *)updatedProperties completion:(void (^)(NSError *error))block;
+
 #pragma mark - User actions
 - (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(ErrorBlock)block;
 - (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block;
