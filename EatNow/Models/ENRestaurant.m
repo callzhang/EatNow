@@ -52,9 +52,22 @@
 	NSArray *list = json[@"categories"];
     self.cuisines = [list valueForKey:@"shortName"];
 	if (self.cuisines.firstObject == [NSNull null]) self.cuisines = [list valueForKey:@"global"];
-    //self.images = [NSMutableArray array];
-	self.imageUrls = json[@"food_image_url"];
     self.photos = json[@"photos"];
+    NSInteger photoCount = [self.photos[@"count"] integerValue];
+    NSMutableArray *imageUrlList = [[NSMutableArray alloc] initWithCapacity:photoCount];
+    CGFloat imgWidth = [UIScreen mainScreen].bounds.size.width * 2;
+    NSString *capSize = [NSString stringWithFormat:@"cap%ld", (long)imgWidth];
+    @autoreleasepool {
+        for (NSInteger i = 0; i < photoCount; i++) {
+            NSDictionary *item = [self.photos[@"items"] objectAtIndex:i];
+            NSString *prefix = item[@"prefix"];
+            NSString *suffix = item[@"suffix"];
+            NSString *url = [NSString stringWithFormat:@"%@%@%@",prefix,capSize,suffix];
+            imageUrlList[i] = url;
+        }
+    }
+    self.imageUrls = imageUrlList;
+    
 	self.phone = [json valueForKeyPath:@"contact.formattedPhone"];
 	self.name = json[@"name"];
 	self.price = json[@"price"];
