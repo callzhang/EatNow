@@ -72,7 +72,7 @@
         self.distance = @(d);
     }
     self.walkDuration = NSTimeIntervalSince1970;
-    self.venderUrl = json[@"vendorUrl"];
+    self.venderUrl = [NSString stringWithFormat:@"%@%@",@"http://foursquare.com/v/", self.foursquareID];
 	//score
 	NSDictionary *scores = json[@"score"];
 	if (scores) {
@@ -154,7 +154,7 @@
     for (NSString *key in self.cuisines) {
         [string appendFormat:@"%@, ", key];
     }
-    return [string substringToIndex:string.length-2];
+    return string.length==0?@"Restaurant":[string substringToIndex:string.length-2];
 }
 
 - (NSString *)foursquareID{

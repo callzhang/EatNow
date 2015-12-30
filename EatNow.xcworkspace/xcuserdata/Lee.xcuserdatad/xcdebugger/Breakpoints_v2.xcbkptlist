@@ -71,7 +71,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "160"
             endingLineNumber = "160"
-            landmarkName = "-applicationWillEnterForeground:"
+            landmarkName = "-installTweak"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,22 +89,6 @@
             startingLineNumber = "147"
             endingLineNumber = "147"
             landmarkName = "-setImageWithURLRequest:placeholderImage:success:failure:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EatNow/Controllers/ENRestaurantViewController.m"
-            timestampString = "461653570.925495"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
-            landmarkName = "-activateImageScrollViewToIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

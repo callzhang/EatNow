@@ -94,6 +94,7 @@
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
 @property (nonatomic, assign) BOOL showLocationRequestTime;
+@property (nonatomic, assign) BOOL showServerRequestTime;
 
 //animation
 @property (nonatomic, assign) float cardShowInterval;
@@ -210,7 +211,8 @@
     //tweak
     FBTweakBind(self, showScore, @"Algorithm", @"Inspect", @"Show score", NO);
     FBTweakBind(self, showFeedback, @"Main view", @"Feedback", @"Show feedback", YES);
-    FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", NO);
+    FBTweakBind(self, showLocationRequestTime, @"Server", @"Location", @"Show request time", NO);
+    FBTweakBind(self, showServerRequestTime, @"Server", @"Server", @"Show request time", NO);
     FBTweakBind(self, maxCards, @"Animation", @"Card animation", @"Max cards", 12);
     FBTweakBind(self, maxCardsToAnimate, @"Animation", @"Card animation", @"Cards to animate", 6);
     FBTweakBind(self, cardShowInterval, @"Animation", @"Card animation", @"Cards show interval", 0.2);
@@ -511,13 +513,19 @@
     [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         if (self.showLocationRequestTime) {
-            NSString *str = [NSString stringWithFormat:@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:start]];
+            NSString *str = [NSString stringWithFormat:@"It took %.1fs to get location", [[NSDate date] timeIntervalSinceDate:start]];
             [ENUtil showText:str];
         }
+        NSDate *serverStart = [NSDate date];
         if (location) {
             [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
                 @strongify(self);
                 self.isSearchingFromServer = NO;
+                if (self.showServerRequestTime) {
+                    NSString *str = [NSString stringWithFormat:@"Server response time %.1fs", [[NSDate date] timeIntervalSinceDate:serverStart]];
+                    [ENUtil showText:str];
+                }
+                
                 if (success) {
                     self.restaurants = response.mutableCopy;
                     if (self.restaurants.count == 0) {

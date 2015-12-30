@@ -200,6 +200,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self activateImageScrollViewToIndex: MIN(self.restaurant.imageUrls.count-1, 3)];
     }
     
+    //parse image
+    [self parseVendorImages];
+    
+    //update image count
+    [self updateImageCount];
+    
     //start to calculate
     self.mapManager = [[ENMapManager alloc] initWithMap:nil];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(MKRoute *route, NSError *error) {
@@ -225,13 +231,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)didChangeToDetailView{
-    //parse image
-    if (self.status == ENRestaurantViewStatusDetail){
-        [self parseVendorImages];
-    }
     
     //fill images
-    //[self fillImageScrollViewWithAllImageViews];
     [self activateImageScrollViewToIndex:MIN(self.restaurant.imageUrls.count-1, 3)];
     self.imageScrollView.scrollEnabled = YES;
     
@@ -398,7 +399,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         if (self.openTime.text) {
             self.openInfo.alpha = 1;
         }
-        //self.imageCount.alpha = 0;
+        self.imageCount.alpha = 1;
         self.goButton.alpha = 0;
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
@@ -411,7 +412,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
-        //self.imageCount.alpha = 1;
+        self.imageCount.alpha = 1;
     }
     else if (self.status == ENRestaurantViewStatusMinimum) {
         self.distanceInfo.alpha = 0;
@@ -577,9 +578,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)updateImageCount{
     NSUInteger current = self.currentImageIndex + 1;
-    NSUInteger imageCount = self.imageViewsInImageScrollView.count;
+    //NSUInteger imageCount = self.imageViewsInImageScrollView.count;
     NSUInteger total = self.restaurant.imageUrls.count;
-    if (imageCount <= 1) {
+    if (total <= 1) {
         self.imageCount.text = @"";
     }else {
         self.imageCount.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)current, (unsigned long)total];
@@ -611,7 +612,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
             if (imageUrls.count > 1) {
                 //show image
-                //[self fillImageScrollViewWithAllImageViews];
+                [self activateImageScrollViewToIndex:MIN(self.restaurant.imageUrls.count-1, 3)];
+                [self updateImageCount];
                 //update to server
                 [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
             }
