@@ -450,7 +450,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
 }
 
-- (void)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
+- (AMRatingControl *)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
     UIImage *emptyImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-grey"];
     UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-yellow"];
     AMRatingControl *imagesRatingControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
@@ -458,8 +458,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                                                                           solidImage:solidImageOrNil
                                                                         andMaxRating:5];
     [imagesRatingControl setStarSpacing:3];
-    imagesRatingControl.rating = rating + 3;
+    imagesRatingControl.rating = rating;
     [view addSubview:imagesRatingControl];
+    
+    return imagesRatingControl;
 }
 
 #pragma mark - Couch View
@@ -771,9 +773,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
              @{@"type": @"score",
                 @"cellID": @"rating",
                 @"layout": ^(UITableViewCell *cell){
+                
                     //Set rating from history
                     UIView *ratingView = [cell viewWithTag:99];
-                    [self addRatingOnView:ratingView withRating:ratingValue];
+                    AMRatingControl *ratingControl = [self addRatingOnView:ratingView withRating:ratingValue];
+                    ratingControl.editingDidEndBlock = ^(NSUInteger rating){
+                        [weakSelf updateCurrentRestaurantRating:rating];
+                    };
                     
                     //set time
                     NSDate *time = history[@"time"];
@@ -878,4 +884,28 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //deselect
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#pragma mark - Private
+
+- (void)updateCurrentRestaurantRating:(NSUInteger)rating
+{
+    NSDictionary *history = [self getHistoryByRestaurantId:self.restaurant.ID];
+    [[ENServerManager shared] updateHistory:history withRating:rating completion:^(NSError *error) {
+        DDLogError(@"updateHistory rating error = %@",error);
+    }];
+}
+
+- (NSDictionary *)getHistoryByRestaurantId:(NSString *)restaurantId
+{
+    NSArray *histories = [ENServerManager shared].history;
+    for (NSDictionary *history in histories) {
+        NSDictionary *restaurant = history[@"restaurant"];
+        if ([restaurant[@"_id"] isEqualToString:restaurantId]) {
+            return history;
+        }
+    }
+    
+    return nil;
+}
+
 @end

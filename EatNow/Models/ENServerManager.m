@@ -360,8 +360,16 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     
     NSParameterAssert(rate>= 1 && rate <= 5);
     
+    @weakify(self);
     NSString *url = [NSString stringWithFormat:@"%@/user/%@/history/%@",kServerUrl, self.myID, historyID];
     [manager PUT:url parameters:@{@"like": @(rate - 3)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @strongify(self);
+        
+        // Update local cache
+        NSMutableDictionary *userRating = [self.userRating[restaurant.ID] mutableCopy];
+        userRating[@"rating"] = @(rate);
+        self.userRating[restaurant.ID] = userRating;
+        
         if(block) block(nil);
         
         [[Mixpanel sharedInstance] track:@"Update rating"
