@@ -731,6 +731,22 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [weakSelf presentViewController:nav animated:YES completion:nil];
         }}];
     }
+    //delivery
+    if (weakSelf.restaurant.delivery) {
+        [info addObject:@{@"type": @"url",
+                          @"cellID": @"cell",
+                          @"image": @"eat-now-card-details-view-menu-icon",
+                          @"title": @"Delivery",
+                          @"action": ^{
+            TOWebViewController *vc = [[TOWebViewController alloc] initWithURLString:weakSelf.restaurant.delivery[@"url"]];
+            vc.showPageTitles = YES;
+            vc.showUrlWhileLoading = NO;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            [weakSelf presentViewController:nav animated:YES completion:nil];
+        }}];
+    }
+
+    
 //    if (weakSelf.restaurant.reviews) {
 //        [info addObject:@{@"type": @"reviews",
 //                          @"cellID": @"cell",

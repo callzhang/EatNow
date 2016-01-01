@@ -97,6 +97,8 @@
 		self.score = totalScore;
 	}
     
+    self.delivery = [json objectForKey:@"delivery"];
+    
     @try{
         self.mobileMenuURL = json[@"menu"][@"mobileUrl"];
     }

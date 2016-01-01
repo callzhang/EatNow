@@ -53,6 +53,7 @@
 @property (nonatomic, strong) NSString *facebook;
 @property (nonatomic, strong) NSString *venderUrl;
 @property (nonatomic, strong) NSString *mobileMenuURL;
+@property (nonatomic, strong) NSDictionary *delivery;
 /**
  *  apple watch image is set after resize to smaller size in ResturantInterfaceController
  */
