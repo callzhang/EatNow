@@ -7,6 +7,7 @@
 //
 
 #import "ENMyProfileViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "SUNSlideSwitchView.h"
 #import "CALayer+UIColor.h"
 #import <BlocksKit.h>
@@ -139,6 +140,9 @@
     self.switchView.tabViewBorderColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.45];
     [self.switchView buildUI];
     
+    self.headerView.layer.masksToBounds = YES;
+    self.headerView.layer.cornerRadius = self.headerView.bounds.size.width / 2.0f;
+    
     self.currentMode = ENMainViewControllerModeStart;
 }
 
@@ -234,7 +238,11 @@
         if (briefInfo.length > 0) {
             [briefInfo appendString:@","];
         }
-        [briefInfo appendString:[NSString stringWithFormat:@"%ld",[user[@"age"] integerValue]]];
+        id ageObj = [user objectForKey:@"age"];
+        if (ageObj) {
+            [briefInfo appendString:[NSString stringWithFormat:@"%d",[ageObj integerValue]]];
+        }
+        
     }
     
     if (user[@"address"]) {

@@ -6,5 +6,5 @@
   Copyright © 2015 modocache. All rights reserved.
 */
 
-"WechatLogin" = "Wechat Login";
-"FacebookLogin" = "Facebook Login";
+"WechatLogin" = "Wechat";
+"FacebookLogin" = "Facebook";

@@ -76,10 +76,14 @@ UITableViewDelegate,UIActionSheetDelegate>
     self.items = [[NSMutableArray alloc] initWithCapacity:6];
     
     NSDictionary *user = [ENServerManager shared].me;
+    if (!user) {
+        return;
+    }
     
     // Link item
     @weakify(self);
-    ENProfileItem *linkItem = [[ENProfileItem alloc] initWithTitle:@"Linked Account" value:@"Link"];
+    NSString *providerName = [self getLinkedProviderNameForUser:user];
+    ENProfileItem *linkItem = [[ENProfileItem alloc] initWithTitle:@"Linked Account" value:providerName];
     linkItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
         
         @strongify(self);
@@ -91,7 +95,8 @@ UITableViewDelegate,UIActionSheetDelegate>
             }
             
             cell.item.value = resp.providerName;
-            cell.valueLabel.text = resp.providerName;
+            id<ENSocialLoginProviderProtocol> provider = [[ENSocialLoginManager sharedInstance] findProviderByName:resp.providerName];
+            cell.valueLabel.text = provider.displayName;
             
             DDLogDebug(@"Social login success");
             [[ENServerManager shared] insertOrUpdateUserVendorWithResponse:resp completion:nil];
@@ -148,6 +153,20 @@ UITableViewDelegate,UIActionSheetDelegate>
     };
     [self.items addObject:logoutItem];
     
+}
+
+- (NSString *)getLinkedProviderNameForUser:(NSDictionary *)user
+{
+    NSArray *vendors = user[@"vendors"];
+    if (!vendors) {
+        return @"Link";
+    }
+    
+    NSDictionary *vendor = vendors[0];
+    NSString *providerName = vendor[@"provider"];
+    id<ENSocialLoginProviderProtocol> provider = [[ENSocialLoginManager sharedInstance] findProviderByName:providerName];
+    
+    return provider.displayName;
 }
 
 @end
