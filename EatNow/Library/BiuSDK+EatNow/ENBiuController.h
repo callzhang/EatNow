@@ -9,8 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <Bolts.h>
 
+@class BiuUser;
+
 @interface ENBiuController : NSObject
 + (instancetype)shared;
 
 - (BFTask *)getFriendActions;
+- (BFTask *)getUserByIDAsync:(NSString *)userID;
+- (BiuUser *)getUserByID:(NSString *)userID;
+- (BFTask *)getCountOfFriends;
 @end
+
+
+UIImage *ENImageFromBase64String(NSString *string);

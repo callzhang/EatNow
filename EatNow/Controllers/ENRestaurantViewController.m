@@ -28,6 +28,9 @@
 #import "TOWebViewController.h"
 #import "ENAppSettings.h"
 #import "ENProxy.h"
+#import "ENBiuController.h"
+#import "UserAction.h"
+#import "BiuUser.h"
 
 @import AddressBook;
 
@@ -62,6 +65,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) UILabel *mapDistanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageCount;
 @property (assign, nonatomic) BOOL autoScroll;
+@property (weak, nonatomic) IBOutlet UILabel *biuFriendsCountLabel;
 
 //autolayout
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoHightRatio;//normal 0.45
@@ -111,6 +115,14 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     
     //tweak
     FBTweakBind(self, canSwipeOnCardView, @"Restaurant View", @"Image", @"Can swipe on card view", NO);
+    
+    [[[ENBiuController shared] getCountOfFriends] continueWithSuccessBlock:^id(BFTask *task) {
+        NSNumber *count = task.result;
+        if ([count integerValue] != 0) {
+            self.biuFriendsCountLabel.text = [NSString stringWithFormat:@"%@ 个好友去过", count];
+        }
+        return nil;
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -121,9 +133,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 //initialization method
 - (void)setRestaurant:(ENRestaurant *)restaurant{
-	_restaurant = restaurant;
+    _restaurant = restaurant;
     //table view data
-	[self prepareData];
+    [self prepareData];
     [self activateImageScrollViewToIndex:0];
     
     //UI
@@ -134,9 +146,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     self.walkingDistance.text = _restaurant.distanceStr;
     self.openTime.text = restaurant.openInfo;
     if (restaurant.ratingColor) self.rating.backgroundColor = restaurant.ratingColor;
-	
-	//go button
-	[self updateGoButton];
+    
+    //go button
+    [self updateGoButton];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -157,10 +169,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self updateLayout];
     } completion:^(BOOL finished) {
         switch (status) {
-//            case ENRestaurantViewStatusCard:{
-//                //[self didChangeToCardView];
-//                //break; //DO not call break to execute default
-//            }
+                //            case ENRestaurantViewStatusCard:{
+                //                //[self didChangeToCardView];
+                //                //break; //DO not call break to execute default
+                //            }
             case ENRestaurantViewStatusDetail:
             case ENRestaurantViewStatusHistoryDetail:{
                 [self didChangeToDetailView];
@@ -304,7 +316,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                 }
             }];
         }]];
-
+        
         
         alertController.iconStyle = TMAlertControlerIconStyleQustion;
         
@@ -533,7 +545,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [self loadImageForIndexIfNeeded:i];
         }
     }
-
+    
     [self setupScrollViewConstraints];
     self.imageScrollViewPageControl.numberOfPages = self.imageViewsInImageScrollView.count;
     [self updateImageCount];
@@ -696,7 +708,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                 }]];
                 [weakSelf presentViewController:alert animated:YES completion:nil];
             }
-            }}];
+        }}];
     }
     if (weakSelf.restaurant.url) {
         [info addObject:@{@"type": @"url",
@@ -747,18 +759,18 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [weakSelf presentViewController:nav animated:YES completion:nil];
         }}];
     }
-
     
-//    if (weakSelf.restaurant.reviews) {
-//        [info addObject:@{@"type": @"reviews",
-//                          @"cellID": @"cell",
-//                          @"image": @"eat-now-card-details-view-twitter-icon",
-//                          @"title": [NSString stringWithFormat:@"%@ tips", weakSelf.restaurant.reviews],
-//                          @"accessory": @"disclosure",
-//                          @"action": ^{
-//            [ENUtil showText:@"Coming soon"];
-//        }}];
-//    }
+    
+    //    if (weakSelf.restaurant.reviews) {
+    //        [info addObject:@{@"type": @"reviews",
+    //                          @"cellID": @"cell",
+    //                          @"image": @"eat-now-card-details-view-twitter-icon",
+    //                          @"title": [NSString stringWithFormat:@"%@ tips", weakSelf.restaurant.reviews],
+    //                          @"accessory": @"disclosure",
+    //                          @"action": ^{
+    //            [ENUtil showText:@"Coming soon"];
+    //        }}];
+    //    }
     
     //rating
     NSDictionary *histories = [ENServerManager shared].userRating;
@@ -771,33 +783,33 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         if (reviewed.boolValue) {
             [info addObject:
              @{@"type": @"score",
-                @"cellID": @"rating",
-                @"layout": ^(UITableViewCell *cell){
+               @"cellID": @"rating",
+               @"layout": ^(UITableViewCell *cell){
                 
-                    //Set rating from history
-                    UIView *ratingView = [cell viewWithTag:99];
-                    AMRatingControl *ratingControl = [self addRatingOnView:ratingView withRating:ratingValue];
-                    ratingControl.editingDidEndBlock = ^(NSUInteger rating){
-                        [weakSelf updateCurrentRestaurantRating:rating];
-                    };
-                    
-                    //set time
-                    NSDate *time = history[@"time"];
-                    UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];
-                    timeLabel.text = [NSString stringWithFormat:@"%@", time.string];
-                },
-                  @"image": @"eat-now-card-details-view-feedback-icon",
-                  @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
-            }];
+                //Set rating from history
+                UIView *ratingView = [cell viewWithTag:99];
+                AMRatingControl *ratingControl = [weakSelf addRatingOnView:ratingView withRating:ratingValue];
+                ratingControl.editingDidEndBlock = ^(NSUInteger rating){
+                    [weakSelf updateCurrentRestaurantRating:rating];
+                };
+                
+                //set time
+                NSDate *time = history[@"time"];
+                UILabel *timeLabel = (UILabel *)[cell viewWithTag:88];
+                timeLabel.text = [NSString stringWithFormat:@"%@", time.string];
+            },
+               @"image": @"eat-now-card-details-view-feedback-icon",
+               @"detail": [NSString stringWithFormat:@"%@", weakSelf.restaurant.scoreComponentsText]
+               }];
         }
         
     }
     //score
     if (self.mainVC.showScore) {
         if (weakSelf.restaurant.score) {
-			float original_score = [(NSNumber *)[weakSelf.restaurant.json valueForKeyPath:@"score.original_score"] floatValue];
-			float total = weakSelf.restaurant.score.floatValue;
-			float perc = total/original_score-1;
+            float original_score = [(NSNumber *)[weakSelf.restaurant.json valueForKeyPath:@"score.original_score"] floatValue];
+            float total = weakSelf.restaurant.score.floatValue;
+            float perc = total/original_score-1;
             [info addObject:@{@"type": @"score",
                               @"cellID":@"subtitle",
                               @"title": [NSString stringWithFormat:@"Total score: %.1f(%.0f%%)", total, perc*100],
@@ -805,6 +817,58 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                               }];
         }
     }
+    
+    [info addObject:@{
+                      @"type": @"friends",
+                      @"cellID": @"friends",
+                      @"layout": ^(UITableViewCell *cell) {
+        UIView *friendsContentView = [cell.contentView viewWithTag:9931];
+        
+        for (UIView *view in friendsContentView.subviews) {
+            [view removeFromSuperview];
+        }
+        
+        [[[ENBiuController shared] getFriendActions] continueWithSuccessBlock:^id(BFTask *task) {
+            NSArray *results = task.result;
+            NSMutableArray *images = [NSMutableArray array];
+            for (UserAction *action in results) {
+                BiuUser *user = [[ENBiuController shared] getUserByID:action.userId];
+                UIImage *image = ENImageFromBase64String(user.avatar);
+                if (image) {
+                    [images addObject:image];
+                }
+            }
+            
+            UIImageView *previousImageView = nil;
+            CGFloat widthAndHeight = 40;
+            for (UIImage *image in images) {
+                UIImageView *view = [[UIImageView alloc] initWithImage:image];
+                view.layer.cornerRadius = widthAndHeight / 2.0;
+                view.layer.masksToBounds = YES;
+                [friendsContentView addSubview:view];
+                
+                [view autoSetDimension:ALDimensionHeight toSize:widthAndHeight];
+                [view autoSetDimension:ALDimensionWidth toSize:widthAndHeight];
+                [view autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+                
+                if (!previousImageView) {
+                    [view autoPinEdgeToSuperviewEdge:ALEdgeLeading];
+                }
+                else {
+                    [view autoPinEdge:ALEdgeLeading toEdge:ALEdgeTrailing ofView:previousImageView withOffset:2];
+                }
+                
+                //                if (image == [images objectAtIndex:images.count - 1]) {
+                //                    [view autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
+                //                }
+                
+                
+                previousImageView = view;
+            }
+            return nil;
+        }];
+    }
+                      }];
     
     //footer
     [info addObject:@{

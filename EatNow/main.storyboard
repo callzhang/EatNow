@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -23,6 +24,7 @@
             <string>Entypo</string>
         </mutableArray>
         <mutableArray key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
             <string>OpenSans-Light</string>
@@ -1274,6 +1276,17 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                 <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <size key="shadowOffset" width="0.0" height="1"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2z-OG-00a" userLabel="biu-friends">
+                                                <rect key="frame" x="10" y="130" width="269" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="269" id="AVE-ui-wjm"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="14"/>
+                                                <color key="textColor" red="0.29660934209823608" green="0.85805076360702515" blue="0.13280826807022095" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <size key="shadowOffset" width="0.0" height="1"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="The Spotted Pig" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Wt9-vs-bTu" userLabel="venueName">
                                                 <rect key="frame" x="10" y="10" width="234" height="45"/>
                                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="32"/>
@@ -1422,9 +1435,11 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                             <constraint firstAttribute="trailing" secondItem="uVW-6x-hlL" secondAttribute="trailing" constant="8" id="eFQ-2t-Edj"/>
                                             <constraint firstItem="5im-Zl-NK2" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" id="hXB-sd-9Mv"/>
                                             <constraint firstItem="uVW-6x-hlL" firstAttribute="leading" secondItem="fsH-Ee-d2j" secondAttribute="leading" constant="8" id="isy-Ep-wMl"/>
+                                            <constraint firstItem="d2z-OG-00a" firstAttribute="leading" secondItem="9rp-Qh-TDe" secondAttribute="leading" id="j81-9f-Zml"/>
                                             <constraint firstItem="cy3-AH-BuV" firstAttribute="top" secondItem="fsH-Ee-d2j" secondAttribute="top" id="jhw-3v-zwX"/>
                                             <constraint firstItem="9rp-Qh-TDe" firstAttribute="top" secondItem="45L-e4-Y8S" secondAttribute="bottom" constant="6" id="mSB-Dy-jqW"/>
                                             <constraint firstItem="DBA-UH-kFT" firstAttribute="top" secondItem="uVW-6x-hlL" secondAttribute="bottom" constant="6" id="oVy-Yd-48E"/>
+                                            <constraint firstItem="d2z-OG-00a" firstAttribute="top" secondItem="9rp-Qh-TDe" secondAttribute="bottom" constant="10" id="sUY-QH-LXY"/>
                                             <constraint firstItem="45L-e4-Y8S" firstAttribute="top" secondItem="Wt9-vs-bTu" secondAttribute="bottom" constant="4" id="uyj-EB-nfZ"/>
                                             <constraint firstAttribute="trailing" secondItem="dXg-UU-T47" secondAttribute="trailing" constant="8" id="vxJ-fF-SmK"/>
                                             <constraint firstAttribute="bottom" secondItem="l8B-bX-ZHI" secondAttribute="bottom" id="wk9-0t-gbL"/>
@@ -1548,7 +1563,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1985" contentMode="scaleToFill" image="eat-now-card-details-view-phone-icon" translatesAutoresizingMaskIntoConstraints="NO" id="kGJ-s0-Mdj">
-                                                            <rect key="frame" x="10" y="14" width="25" height="25"/>
+                                                            <rect key="frame" x="8" y="14" width="25" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="25" id="eVW-5l-8vk"/>
                                                                 <constraint firstAttribute="height" constant="25" id="pYj-nS-qq7"/>
@@ -1556,7 +1571,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="kGJ-s0-Mdj" firstAttribute="leading" secondItem="hdv-9Z-DdU" secondAttribute="leading" constant="10" id="E0F-ZU-LKo"/>
+                                                        <constraint firstItem="kGJ-s0-Mdj" firstAttribute="centerX" secondItem="hdv-9Z-DdU" secondAttribute="leading" constant="20" id="E0F-ZU-LKo"/>
                                                         <constraint firstAttribute="centerY" secondItem="nsb-6D-B8K" secondAttribute="centerY" id="LCY-z1-6pQ"/>
                                                         <constraint firstAttribute="centerY" secondItem="B5R-Xp-eui" secondAttribute="centerY" id="QZI-Qi-CoJ"/>
                                                         <constraint firstAttribute="centerYWithinMargins" secondItem="kGJ-s0-Mdj" secondAttribute="centerYWithinMargins" id="SKG-ef-oHh"/>
@@ -1573,17 +1588,25 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1985" contentMode="scaleToFill" image="eat-now-card-details-view-phone-icon" translatesAutoresizingMaskIntoConstraints="NO" id="CbS-MX-rWo">
-                                                            <rect key="frame" x="10" y="14" width="25" height="25"/>
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1985" contentMode="scaleToFill" image="eat-now-user-group" translatesAutoresizingMaskIntoConstraints="NO" id="CbS-MX-rWo">
+                                                            <rect key="frame" x="10" y="16" width="20" height="20"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="25" id="gkl-Ch-1Wc"/>
-                                                                <constraint firstAttribute="width" constant="25" id="hnm-Ey-q3D"/>
+                                                                <constraint firstAttribute="height" constant="20" id="gkl-Ch-1Wc"/>
+                                                                <constraint firstAttribute="width" constant="20" id="hnm-Ey-q3D"/>
                                                             </constraints>
                                                         </imageView>
+                                                        <view tag="9931" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yql-pN-LGS" userLabel="friendsContentView">
+                                                            <rect key="frame" x="40" y="0.0" width="280" height="52"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </view>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="CbS-MX-rWo" firstAttribute="leading" secondItem="Dhh-TG-vGy" secondAttribute="leading" constant="10" id="fWH-rJ-vnU"/>
+                                                        <constraint firstItem="yql-pN-LGS" firstAttribute="leading" secondItem="CbS-MX-rWo" secondAttribute="trailing" constant="10" id="Lpj-sq-YjT"/>
+                                                        <constraint firstAttribute="trailing" secondItem="yql-pN-LGS" secondAttribute="trailing" id="byg-fD-8W7"/>
+                                                        <constraint firstItem="CbS-MX-rWo" firstAttribute="centerX" secondItem="Dhh-TG-vGy" secondAttribute="leading" constant="20" id="fWH-rJ-vnU"/>
+                                                        <constraint firstAttribute="bottom" secondItem="yql-pN-LGS" secondAttribute="bottom" id="gGW-do-Wxa"/>
                                                         <constraint firstAttribute="centerYWithinMargins" secondItem="CbS-MX-rWo" secondAttribute="centerYWithinMargins" id="m6s-YI-GGe"/>
+                                                        <constraint firstItem="yql-pN-LGS" firstAttribute="top" secondItem="Dhh-TG-vGy" secondAttribute="top" id="x1H-Hx-F47"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -1695,6 +1718,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="550"/>
                     <connections>
+                        <outlet property="biuFriendsCountLabel" destination="d2z-OG-00a" id="3f8-Ku-7Yo"/>
                         <outlet property="card" destination="H4b-9y-85a" id="iTa-Bb-ThL"/>
                         <outlet property="couchImageView" destination="lcB-7S-wdq" id="T7w-4p-7nZ"/>
                         <outlet property="couchView" destination="iIM-RD-XLL" id="0d8-AI-AZV"/>
@@ -2032,6 +2056,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
         <image name="eat-now-default-background" width="750" height="1334"/>
         <image name="eat-now-history-view-image-dark-overlay" width="1" height="85"/>
         <image name="eat-now-monogram" width="335" height="412"/>
+        <image name="eat-now-user-group" width="26" height="26"/>
         <image name="eatnew-card-details-view-go-button" width="155" height="49"/>
         <image name="gradient 2" width="10" height="314"/>
         <image name="weixin-login-button" width="118" height="24"/>
