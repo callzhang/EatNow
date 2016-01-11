@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "eat-now-user-group.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "User Group-52 (1).png",
+      "filename" : "eat-now-user-group@2x.png",
       "scale" : "2x"
     },
     {

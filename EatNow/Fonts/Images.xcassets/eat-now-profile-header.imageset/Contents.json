@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "eat-now-profile-header.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "eatnow-profile-header.png",
+      "filename" : "eat-now-profile-header@2x.png",
       "scale" : "2x"
     },
     {
