@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^JCTagListViewBlock)(BOOL selected, NSInteger index);
+typedef void (^JCTagListViewBlock)(NSInteger index);
 
 @interface JCTagListView : UIView
 
 @property (nonatomic, assign) BOOL canSeletedTags;
 
 @property (nonatomic, strong) NSMutableArray *tags;
-//@property (nonatomic, strong, readonly) NSMutableArray *seletedTags;
+@property (nonatomic, strong, readonly) NSMutableArray *seletedTags;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 

@@ -13,7 +13,6 @@
     NSString *title;
     UIImage *image;
     NSURL *url;
-    NSString *desc;
     enum WXScene scene;
 }
 

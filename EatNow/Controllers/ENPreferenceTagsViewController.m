@@ -30,10 +30,10 @@
     self.tagView.canSeletedTags = YES;
     [self.tagView.tags addObjectsFromArray:kBasePreferencesValue];
     self.tagView.collectionView.backgroundColor = [UIColor clearColor];
-    [self.tagView setCompletionBlockWithSeleted:^(BOOL selected, NSInteger index) {
-        DDLogDebug(@"%@%ld", selected?@"Select":@"De-select", (long)index);
-    }];
-        
+//    [self.tagView setCompletionBlockWithSeleted:^(BOOL selected, NSInteger index) {
+//        DDLogDebug(@"%@%ld", selected?@"Select":@"De-select", (long)index);
+//    }];
+    
     self.tagView.backgroundColor = [UIColor clearColor];
     
     //set text

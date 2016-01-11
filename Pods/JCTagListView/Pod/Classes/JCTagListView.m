@@ -47,7 +47,7 @@ static NSString * const reuseIdentifier = @"tagListViewItemId";
 
 - (void)setup
 {
-    //_seletedTags = [NSMutableArray array];
+    _seletedTags = [NSMutableArray array];
     
     self.tags = [NSMutableArray array];
     
@@ -60,7 +60,6 @@ static NSString * const reuseIdentifier = @"tagListViewItemId";
     self.collectionView.showsVerticalScrollIndicator = NO;
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerClass:[JCTagCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    self.collectionView.allowsMultipleSelection = YES;
     [self addSubview:self.collectionView];
 }
 
@@ -89,9 +88,7 @@ static NSString * const reuseIdentifier = @"tagListViewItemId";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     JCTagCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithWhite:1 alpha:0.2];
-    //cell.contentView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.6].CGColor;
-    //cell.contentView.layer.borderWidth = 0.5;
+    cell.backgroundColor = [UIColor whiteColor];
     cell.title = self.tags[indexPath.item];
     
     return cell;
@@ -99,22 +96,23 @@ static NSString * const reuseIdentifier = @"tagListViewItemId";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    JCTagCell *cell = (JCTagCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithRed:0 green:0.2 blue:0.8 alpha:0.8];
-    //[_seletedTags addObject:self.tags[indexPath.item]];
+    if (self.canSeletedTags) {
+        JCTagCell *cell = (JCTagCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        
+        if ([_seletedTags containsObject:self.tags[indexPath.item]]) {
+            cell.backgroundColor = [UIColor whiteColor];
+            
+            [_seletedTags removeObject:self.tags[indexPath.item]];
+        }
+        else {
+            cell.backgroundColor = [UIColor colorWithRed:217/255.0f green:217/255.0f blue:217/255.0f alpha:1];
+            
+            [_seletedTags addObject:self.tags[indexPath.item]];
+        }
+    }
     
     if (self.seletedBlock) {
-        self.seletedBlock(YES, indexPath.item);
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    JCTagCell *cell = (JCTagCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithWhite:1 alpha:0.2];
-    //[_seletedTags removeObject:self.tags[indexPath.item]];
-    if (self.seletedBlock) {
-        self.seletedBlock(NO, indexPath.item);
+        self.seletedBlock(indexPath.item);
     }
 }
 
