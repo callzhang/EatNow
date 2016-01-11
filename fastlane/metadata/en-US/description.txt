@@ -1,0 +1,9 @@
+Eat Now is the restaurant discovery app. It features restaurant recommendations based on your preferences without the need to search, type or filter. Each time you use the app we'll learn a little more about you which means the next round of restaurant recommendations will be more "you" . 
+
+Eat Now is also available on the Apple Watch.
+
+• Instant Recommendation
+Eating out tonight but don't know where to go? That's where we come in. Simply open the app and recommended restaurants are presented right away! Flick through the options and make your own choices! Or if you prefer EatNow pushes recommendations to you based on your location. 
+
+• Effortless Personalization
+Personalization happens automatically in the background! Each time you choose a restaurant, Eat Now learns more about your taste and makes better suggestions next around! So just keep using the app and enjoy!
