@@ -841,18 +841,18 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         block(cell);
     }
     
-    if (![cell isKindOfClass:[ENRestaurantTableViewCell class]]) {
+    if ([cell isKindOfClass:[ENRestaurantTableViewCell class]]) {
+        ENRestaurantTableViewCell *restrantCell = (ENRestaurantTableViewCell *)cell;
+        restrantCell.cellTitleLabel.text = info[@"title"];
+        restrantCell.iconImageView.image = [UIImage imageNamed:info[@"image"]];
+    }
+    else {
         if (info[@"title"]) cell.textLabel.text = info[@"title"];
         if (info[@"detail"]) cell.detailTextLabel.text = info[@"detail"];
         if (info[@"image"]) {
             UIImageView *iconImageView = (UIImageView *) [cell viewWithTag:1985];
             iconImageView.image = [UIImage imageNamed:info[@"image"]];
         }
-    }
-    else {
-        ENRestaurantTableViewCell *restrantCell = (ENRestaurantTableViewCell *)cell;
-        restrantCell.cellTitleLabel.text = info[@"title"];
-        restrantCell.iconImageView.image = [UIImage imageNamed:info[@"image"]];
     }
     cell.selectedBackgroundView = [[UIView alloc] init];
     cell.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];

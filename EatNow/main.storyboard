@@ -1566,8 +1566,29 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                     </constraints>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="subtitle" textLabel="K3q-bS-1FS" detailTextLabel="SsN-xo-SjL" style="IBUITableViewCellStyleSubtitle" id="Rq8-Tw-Sbf">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="friends" id="3jm-yI-0XH" userLabel="friends">
                                                 <rect key="frame" x="0.0" y="187" width="320" height="53"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3jm-yI-0XH" id="Dhh-TG-vGy">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1985" contentMode="scaleToFill" image="eat-now-card-details-view-phone-icon" translatesAutoresizingMaskIntoConstraints="NO" id="CbS-MX-rWo">
+                                                            <rect key="frame" x="10" y="14" width="25" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="gkl-Ch-1Wc"/>
+                                                                <constraint firstAttribute="width" constant="25" id="hnm-Ey-q3D"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="CbS-MX-rWo" firstAttribute="leading" secondItem="Dhh-TG-vGy" secondAttribute="leading" constant="10" id="fWH-rJ-vnU"/>
+                                                        <constraint firstAttribute="centerYWithinMargins" secondItem="CbS-MX-rWo" secondAttribute="centerYWithinMargins" id="m6s-YI-GGe"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="subtitle" textLabel="K3q-bS-1FS" detailTextLabel="SsN-xo-SjL" style="IBUITableViewCellStyleSubtitle" id="Rq8-Tw-Sbf">
+                                                <rect key="frame" x="0.0" y="240" width="320" height="53"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rq8-Tw-Sbf" id="6sh-N7-1t9">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
@@ -1591,7 +1612,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="foursquare" rowHeight="114" id="FHG-s6-G6I" customClass="ENFoursquareViewCell">
-                                                <rect key="frame" x="0.0" y="240" width="320" height="114"/>
+                                                <rect key="frame" x="0.0" y="293" width="320" height="114"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FHG-s6-G6I" id="V81-DL-DqA">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="113"/>
