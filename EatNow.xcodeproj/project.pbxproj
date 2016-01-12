@@ -23,10 +23,10 @@
 		092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
 		092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */; };
 		092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
-		092A36721C406ED100EA5A5C /* libbiuSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 092A36711C406ED100EA5A5C /* libbiuSdk.a */; };
 		092A36771C406F2000EA5A5C /* ENBiuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092A36761C406F2000EA5A5C /* ENBiuController.m */; };
 		092A367B1C4072A900EA5A5C /* ENBiuError.m in Sources */ = {isa = PBXBuildFile; fileRef = 092A367A1C4072A900EA5A5C /* ENBiuError.m */; };
 		0935BB081B0D637B00735CE0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC71ACCC5E700B989FF /* Interface.storyboard */; };
+		0936854C1C44D523006A205D /* libbiuSdkAll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0936854B1C44D523006A205D /* libbiuSdkAll.a */; };
 		093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */; };
 		09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB41ACCC5E700B989FF /* InterfaceController.m */; };
 		09432CBD1ACCC5E700B989FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CBC1ACCC5E700B989FF /* Images.xcassets */; };
@@ -195,11 +195,11 @@
 		092A366E1C406ED100EA5A5C /* BiuSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuSdk.h; sourceTree = "<group>"; };
 		092A366F1C406ED100EA5A5C /* BiuUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuUser.h; sourceTree = "<group>"; };
 		092A36701C406ED100EA5A5C /* UserAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAction.h; sourceTree = "<group>"; };
-		092A36711C406ED100EA5A5C /* libbiuSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbiuSdk.a; sourceTree = "<group>"; };
 		092A36751C406F2000EA5A5C /* ENBiuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENBiuController.h; sourceTree = "<group>"; };
 		092A36761C406F2000EA5A5C /* ENBiuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENBiuController.m; sourceTree = "<group>"; };
 		092A36791C4072A900EA5A5C /* ENBiuError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENBiuError.h; sourceTree = "<group>"; };
 		092A367A1C4072A900EA5A5C /* ENBiuError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENBiuError.m; sourceTree = "<group>"; };
+		0936854B1C44D523006A205D /* libbiuSdkAll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbiuSdkAll.a; sourceTree = "<group>"; };
 		093E86991AFEA31800CAF489 /* ENLostConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENLostConnectionViewController.h; sourceTree = "<group>"; };
 		093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLostConnectionViewController.m; sourceTree = "<group>"; };
 		09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "EatNow WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -447,11 +447,11 @@
 				78FCE9841BD2A40F008A68F6 /* libc++.tbd in Frameworks */,
 				9B23A9BE1A27E04100549871 /* CoreLocation.framework in Frameworks */,
 				DA5B73EB18F233EF00BB5F8E /* CoreGraphics.framework in Frameworks */,
-				092A36721C406ED100EA5A5C /* libbiuSdk.a in Frameworks */,
 				781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */,
 				DA5B73ED18F233EF00BB5F8E /* UIKit.framework in Frameworks */,
 				DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */,
 				81A3D2C363DEADF2EE7675EE /* libPods-EatNow.a in Frameworks */,
+				0936854C1C44D523006A205D /* libbiuSdkAll.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,7 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				092A366B1C406ED100EA5A5C /* include */,
-				092A36711C406ED100EA5A5C /* libbiuSdk.a */,
+				0936854B1C44D523006A205D /* libbiuSdkAll.a */,
 			);
 			path = BiuSDK;
 			sourceTree = "<group>";
@@ -1227,7 +1227,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "./Framework/Fabric.framework/run 6ec9eab6ca26fcd18d51d0322752b861c63bc348 62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744";
+			shellScript = "# ./Framework/Fabric.framework/run 6ec9eab6ca26fcd18d51d0322752b861c63bc348 62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744";
 		};
 		B555B621FBBFF7CD7CA6907F /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1498,7 +1498,6 @@
 				);
 				INFOPLIST_FILE = "EatNow WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
