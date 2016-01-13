@@ -3,62 +3,57 @@
   <testsuite name="run">
     
       
-      <testcase name="0: Verifying required fastlane version" time="0.000259">
+      <testcase name="0: Verifying required fastlane version" time="0.000388">
         
       </testcase>
     
       
-      <testcase name="1: default_platform" time="0.00014">
+      <testcase name="1: default_platform" time="0.000144">
         
       </testcase>
     
       
-      <testcase name="2: Switch to ios build_app lane" time="0.000146">
+      <testcase name="2: Switch to ios build_app lane" time="0.000202">
         
       </testcase>
     
       
-      <testcase name="3: cocoapods" time="19.801978">
+      <testcase name="3: cocoapods" time="26.112632">
         
       </testcase>
     
       
-      <testcase name="4: sigh" time="12.865173">
+      <testcase name="4: sigh" time="7.039307">
         
       </testcase>
     
       
-      <testcase name="5: sigh" time="7.487968">
+      <testcase name="5: increment_build_number" time="1.65514">
         
       </testcase>
     
       
-      <testcase name="6: increment_build_number" time="1.495834">
+      <testcase name="6: gym" time="89.410659">
         
       </testcase>
     
       
-      <testcase name="7: gym" time="84.750914">
+      <testcase name="7: crashlytics" time="7.572425">
         
       </testcase>
     
       
-      <testcase name="8: crashlytics" time="7.819621">
+      <testcase name="8: commit_version_bump" time="0.605039">
         
       </testcase>
     
       
-      <testcase name="9: commit_version_bump" time="1.24866">
+      <testcase name="9: add_git_tag" time="0.010031">
         
       </testcase>
     
       
-      <testcase name="10: add_git_tag" time="0.011283">
-        
-      </testcase>
-    
-      
-      <testcase name="11: push_to_git_remote" time="0.91312">
+      <testcase name="10: push_to_git_remote" time="0.942829">
         
       </testcase>
     

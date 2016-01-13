@@ -45,7 +45,8 @@ private_lane :build_app do |options|
     # Download the provisioning profile
     sigh(
       output_path: "./fastlane/profiles",
-      app_identifier: "com.leizh.EatNow"
+      app_identifier: "com.leizh.EatNow",
+      adhoc: true
       )
 
     increment_build_number # version bump
