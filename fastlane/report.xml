@@ -3,19 +3,62 @@
   <testsuite name="run">
     
       
-      <testcase name="0: Verifying required fastlane version" time="0.000285">
+      <testcase name="0: Verifying required fastlane version" time="0.000259">
         
       </testcase>
     
       
-      <testcase name="1: default_platform" time="0.000208">
+      <testcase name="1: default_platform" time="0.00014">
         
       </testcase>
     
       
-      <testcase name="2: crashlytics" time="0.067754">
+      <testcase name="2: Switch to ios build_app lane" time="0.000146">
         
-          <failure message="/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/actions/actions_helper.rb:35:in `execute_action'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/runner.rb:128:in `block in execute_action'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/runner.rb:127:in `chdir'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/runner.rb:127:in `execute_action'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/fast_file.rb:149:in `method_missing'&#10;Fastfile:82:in `block (2 levels) in parsing_binding'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/lane.rb:36:in `call'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/lane.rb:36:in `call'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/runner.rb:52:in `block in execute'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/runner.rb:46:in `chdir'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/runner.rb:46:in `execute'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/lane_manager.rb:46:in `cruise_lane'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/lib/fastlane/command_line_handler.rb:30:in `handle'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/bin/fastlane:37:in `block (2 levels) in run'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/commander-4.3.5/lib/commander/command.rb:178:in `call'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/commander-4.3.5/lib/commander/command.rb:178:in `call'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/commander-4.3.5/lib/commander/command.rb:153:in `run'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/commander-4.3.5/lib/commander/runner.rb:428:in `run_active_command'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/commander-4.3.5/lib/commander/runner.rb:68:in `run!'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/commander-4.3.5/lib/commander/delegates.rb:15:in `run!'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/bin/fastlane:155:in `run'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/gems/fastlane-1.50.0/bin/fastlane:161:in `&lt;top (required)&gt;'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/bin/fastlane:23:in `load'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/bin/fastlane:23:in `&lt;main&gt;'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/bin/ruby_executable_hooks:15:in `eval'&#10;/Users/caoer115/.rvm/gems/ruby-2.0.0-p598/bin/ruby_executable_hooks:15:in `&lt;main&gt;'&#10;&#10;[31mCould not find option 'notification' in the list of available options: ipa_path, apk_path, crashlytics_path, api_token, build_secret, notes_path, notes, groups, emails, notifications, debug[0m" />
+      </testcase>
+    
+      
+      <testcase name="3: cocoapods" time="19.801978">
+        
+      </testcase>
+    
+      
+      <testcase name="4: sigh" time="12.865173">
+        
+      </testcase>
+    
+      
+      <testcase name="5: sigh" time="7.487968">
+        
+      </testcase>
+    
+      
+      <testcase name="6: increment_build_number" time="1.495834">
+        
+      </testcase>
+    
+      
+      <testcase name="7: gym" time="84.750914">
+        
+      </testcase>
+    
+      
+      <testcase name="8: crashlytics" time="7.819621">
+        
+      </testcase>
+    
+      
+      <testcase name="9: commit_version_bump" time="1.24866">
+        
+      </testcase>
+    
+      
+      <testcase name="10: add_git_tag" time="0.011283">
+        
+      </testcase>
+    
+      
+      <testcase name="11: push_to_git_remote" time="0.91312">
         
       </testcase>
     

@@ -40,7 +40,7 @@ private_lane :build_app do |options|
     cocoapods
 
     # Download the provisioning profile for the app
-    sigh(output_path: "./fastlane/profiles") # Distribution Profile
+    # sigh(output_path: "./fastlane/profiles") # Distribution Profile
 
     # Download the provisioning profile
     sigh(
@@ -86,13 +86,14 @@ lane :fabric_test do
     )
 end
 
-lane :fabric_notification do
+lane :fabric do
  build_app
 
  crashlytics(
     api_token: '6ec9eab6ca26fcd18d51d0322752b861c63bc348',
     build_secret: '62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744',
-    notifications: true
+    notifications: true,
+    groups: 'bujiong'
     )
 
  commit_version_bump(
@@ -106,13 +107,14 @@ lane :fabric_notification do
  push_to_git_remote
 end
 
-lane :fabric do 
+lane :fabric_silent do 
  build_app
 
  crashlytics(
     api_token: '6ec9eab6ca26fcd18d51d0322752b861c63bc348',
     build_secret: '62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744',
-    notifications: false
+    notifications: false,
+    groups: 'bujiong'
     )
 
  commit_version_bump(
