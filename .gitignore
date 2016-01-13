@@ -32,3 +32,6 @@ KZBootstrapUserMacros.h
 *.xcuserstate
 
 *.xcbkptlist
+*.ipa
+*.dSym.zip
+

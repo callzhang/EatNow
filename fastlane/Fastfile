@@ -24,20 +24,21 @@ default_platform :ios
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    cocoapods
     
     # increment_build_number
 
     # xctool # run the tests of your app
-  end
+end
 
-  desc "Runs all the tests"
-  lane :test do
+desc "Runs all the tests"
+lane :test do
     # snapshot
-  end
+end
 
-  desc "Responsible for building and signing the app"
-  private_lane :build_app do |options|
+desc "Responsible for building and signing the app"
+private_lane :build_app do |options|
+    cocoapods
+
     # Download the provisioning profile for the app
     sigh(output_path: "./fastlane/profiles") # Distribution Profile
 
@@ -56,12 +57,12 @@ platform :ios do
       workspace: "EatNow.xcworkspace",
       scheme: "EatNow"
       )
-  end
+end
 
 
-  desc "Submit a new Beta Build to Apple TestFlight"
-  desc "This will also make sure the profile is up to date"
-  lane :beta do
+desc "Submit a new Beta Build to Apple TestFlight"
+desc "This will also make sure the profile is up to date"
+lane :beta do
     build_app
 
     pilot
@@ -75,16 +76,65 @@ platform :ios do
     add_git_tag(tag: "testflight-#{build_number}")
 
     push_to_git_remote
-  end
+end
 
-  desc "Deploy a new version to the App Store"
-  lane :deploy do
+lane :fabric_test do 
+ crashlytics(
+    api_token: '6ec9eab6ca26fcd18d51d0322752b861c63bc348',
+    build_secret: '62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744',
+    notifications: false
+    )
+end
+
+lane :fabric_notification do
+ build_app
+
+ crashlytics(
+    api_token: '6ec9eab6ca26fcd18d51d0322752b861c63bc348',
+    build_secret: '62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744',
+    notifications: true
+    )
+
+ commit_version_bump(
+    message: 'Build Version Bump by fastlane',
+    force: true
+    )
+
+ build_number = Actions.lane_context[Actions::SharedValues::BUILD_NUMBER]
+ add_git_tag(tag: "testflight-#{build_number}")
+
+ push_to_git_remote
+end
+
+lane :fabric do 
+ build_app
+
+ crashlytics(
+    api_token: '6ec9eab6ca26fcd18d51d0322752b861c63bc348',
+    build_secret: '62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744',
+    notifications: false
+    )
+
+ commit_version_bump(
+    message: 'Build Version Bump by fastlane',
+    force: true
+    )
+
+ build_number = Actions.lane_context[Actions::SharedValues::BUILD_NUMBER]
+ add_git_tag(tag: "testflight-#{build_number}")
+
+ push_to_git_remote
+
+end
+
+desc "Deploy a new version to the App Store"
+lane :deploy do
     # snapshot
     sigh
     gym # Build your app - more options available
     deliver(force: true)
     # frameit
-  end
+end
 
   # You can define as many lanes as you want
 
