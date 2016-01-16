@@ -256,13 +256,13 @@
     [self.KVOController observe:self keyPaths:@[@keypath(self.needShowRestaurant), @keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
-            self.shareButton.enabled = YES;
+            self.shareButton.hidden = NO;
             self.loadingIndicator.hidden = YES;
             //DDLogInfo(@"show loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
         else {
             self.reloadButton.enabled = NO;
-            self.shareButton.enabled = NO;
+            self.shareButton.hidden = YES;
             //self.loadingIndicator.alpha = 1;
             self.searchView.hidden = YES;
             self.loadingIndicator.hidden = NO;
