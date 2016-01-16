@@ -226,7 +226,11 @@
     
     NSString *avatarString = user[@"profile_url"];
     [self.headerView setImageWithURL:[NSURL URLWithString:avatarString]];
-    self.nameLabel.text = user[@"name"];
+    NSString *name = user[@"name"];
+    if (!name || name.length == 0) {
+        name = @"Name";
+    }
+    self.nameLabel.text = name;
     
     NSMutableString *briefInfo = [[NSMutableString alloc] init];
     
@@ -240,7 +244,8 @@
         }
         id ageObj = [user objectForKey:@"age"];
         if (ageObj) {
-            [briefInfo appendString:[NSString stringWithFormat:@"%d",[ageObj integerValue]]];
+            NSInteger age = [ageObj integerValue];
+            [briefInfo appendString:[NSString stringWithFormat:@"%ld",age]];
         }
         
     }
@@ -252,7 +257,11 @@
         [briefInfo appendString:[NSString stringWithFormat:@"%@",user[@"address"]]];
     }
     
-    self.detailLabel.text = briefInfo;
+    if (!briefInfo || briefInfo.length == 0) {
+        [briefInfo appendString:@"No details"];
+    }
+    
+    self.detailLabel.text = [briefInfo copy];
 }
 
 @end
