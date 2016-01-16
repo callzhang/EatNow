@@ -118,6 +118,10 @@
     }
 }
 
+- (IBAction)onPickLocation:(id)sender
+{
+}
+
 - (void)setTextForPreference:(NSDictionary *)preference {
     if ([ENServerManager shared].history.count == 0) {
         //no history

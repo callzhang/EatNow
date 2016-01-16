@@ -31,6 +31,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *closeButton;
 @property (nonatomic, weak) IBOutlet UIButton *closeMapButton;
 @property (nonatomic, weak) IBOutlet UIButton *openInMapsButton;
+@property (nonatomic, weak) IBOutlet UIButton *deleteButton;
 @property (nonatomic, strong) ENHistoryViewController *historyViewController;
 
 @end
@@ -90,6 +91,11 @@
     item.name = restaurantVC.restaurant.name;
     item.directionsType = GNMapOpenerDirectionsTypeWalk;
     [[GNMapOpener sharedInstance] openItem:item presetingViewController:self];
+}
+
+- (IBAction)onDeleteHistoryButton:(id)sender
+{
+    [self.historyViewController deleteHistory];
 }
 
 - (void)onUserUpdated
