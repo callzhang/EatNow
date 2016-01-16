@@ -730,7 +730,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             vc.showPageTitles = YES;
             vc.showUrlWhileLoading = NO;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            [weakSelf presentViewController:nav animated:YES completion:nil];
+            UIViewController *mainVC = (UIViewController *)weakSelf.mainVC;
+            [mainVC presentViewController:nav animated:YES completion:nil];
         }}];
     }
     //delivery
@@ -744,7 +745,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             vc.showPageTitles = YES;
             vc.showUrlWhileLoading = NO;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            [weakSelf presentViewController:nav animated:YES completion:nil];
+            UIViewController *mainVC = (UIViewController *)weakSelf.mainVC;
+            [mainVC presentViewController:nav animated:YES completion:nil];
         }}];
     }
 
