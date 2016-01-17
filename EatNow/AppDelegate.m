@@ -51,6 +51,7 @@
 #import "NSString+Extend.h"
 #import "ENSocial.h"
 #import "ENProxy.h"
+#import "ENLocationReporter.h"
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 
@@ -107,6 +108,9 @@
         [UIWindow mainWindow].rootViewController = self.mainViewController;
         [[UIWindow mainWindow] makeKeyAndVisible];
         [self installTweak];
+        
+        // Waked up by significant loation changed
+        [[ENLocationReporter shared] startMonitor];
     }
     
     self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];

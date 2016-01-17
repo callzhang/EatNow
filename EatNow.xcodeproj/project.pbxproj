@@ -67,6 +67,7 @@
 		7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACD31B92A1D70036BCA8 /* NSString+Extend.m */; };
 		7854ACEB1B9ABB370036BCA8 /* ENMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */; };
 		785857341BEF315A00D2CE74 /* ENProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 785857331BEF315A00D2CE74 /* ENProxy.m */; };
+		786AFC901C4B3C5900CA467B /* ENLocationReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 786AFC8F1C4B3C5900CA467B /* ENLocationReporter.m */; };
 		788734C01BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */; };
 		789DCA6A1BCFF68900B932DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
 		789DCA6D1BD1B79B00B932DD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
@@ -286,6 +287,8 @@
 		7854ACEA1B9ABB370036BCA8 /* ENMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMyProfileViewController.m; sourceTree = "<group>"; };
 		785857321BEF315A00D2CE74 /* ENProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENProxy.h; sourceTree = "<group>"; };
 		785857331BEF315A00D2CE74 /* ENProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENProxy.m; sourceTree = "<group>"; };
+		786AFC8E1C4B3C5900CA467B /* ENLocationReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENLocationReporter.h; sourceTree = "<group>"; };
+		786AFC8F1C4B3C5900CA467B /* ENLocationReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLocationReporter.m; sourceTree = "<group>"; };
 		788734BE1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceMoodPickerDataSource.h; sourceTree = "<group>"; };
 		788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceMoodPickerDataSource.m; sourceTree = "<group>"; };
 		789DCA691BCFF68900B932DD /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -895,14 +898,16 @@
 				9BE71C1A1B7FA20A00509457 /* ENServer.h */,
 				9BE71C1B1B7FA20A00509457 /* ENServerManager.h */,
 				9BE71C1C1B7FA20A00509457 /* ENServerManager.m */,
-				092974611AD09D4300DDC35C /* ENLocationManager.m */,
 				092974601AD09D4300DDC35C /* ENLocationManager.h */,
+				092974611AD09D4300DDC35C /* ENLocationManager.m */,
 				9B0537831ADD8E120037A38C /* ENMapManager.h */,
 				9B0537841ADD8E120037A38C /* ENMapManager.m */,
 				78470A371BC49FF8009FD166 /* ENProfileItem.h */,
 				78470A381BC49FF8009FD166 /* ENProfileItem.m */,
 				785857321BEF315A00D2CE74 /* ENProxy.h */,
 				785857331BEF315A00D2CE74 /* ENProxy.m */,
+				786AFC8E1C4B3C5900CA467B /* ENLocationReporter.h */,
+				786AFC8F1C4B3C5900CA467B /* ENLocationReporter.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1276,6 +1281,7 @@
 				9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */,
 				09CFCBEC1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m in Sources */,
 				9BE71C131B7FA1E700509457 /* JSONValueTransformer+UIImage.m in Sources */,
+				786AFC901C4B3C5900CA467B /* ENLocationReporter.m in Sources */,
 				78E8C7831BD3DF0E00034E9C /* ENSocialLoginResponse.m in Sources */,
 				9BE71C171B7FA1E700509457 /* UIWindow+Extensions.m in Sources */,
 				9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */,

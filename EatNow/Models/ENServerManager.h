@@ -75,4 +75,5 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 - (void)clearSelectedRestaurant;
 - (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(ErrorBlock)block;
 - (void)updateBasePreference:(NSDictionary *)preference completion:(ErrorBlock)block;
+- (void)updateLocation:(CLLocation *)location completion:(ErrorBlock)completion;
 @end
