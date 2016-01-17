@@ -43,7 +43,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENProxy);
         NSString *responseText = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         self.shouldRedirect = ([responseText rangeOfString:@"CN"].location != NSNotFound);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Check is in china error: %@", error);
+        DDLogError(@"Check is in china error: %@", error);
     }];
 }
 
