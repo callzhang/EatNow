@@ -18,6 +18,8 @@
 
 @implementation ENLocationReporter
 
+GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationReporter)
+
 - (void)startMonitor
 {
     if (!_locationManager) {

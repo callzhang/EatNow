@@ -423,8 +423,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         //self.imageCount.alpha = 0;
         NSDictionary *history = [ENServerManager shared].userRating;
         NSDictionary *rating = history[self.restaurant.ID];
-        NSNumber *rate = rating[@"rating"];
         if (rating) {
+            NSNumber *rate = rating[@"rating"];
             self.userRatingView.alpha = 1;
             [self addRatingOnView:self.userRatingView withRating:rate.integerValue];
         }
