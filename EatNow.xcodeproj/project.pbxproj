@@ -153,6 +153,10 @@
 		DA5B740218F233EF00BB5F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B740118F233EF00BB5F8E /* XCTest.framework */; };
 		DA5B740318F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B740418F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
+		EDF60BE31C7C489700FA0BCA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDC1C7C489700FA0BCA /* Location.swift */; };
+		EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */; };
+		EDF60BE51C7C489700FA0BCA /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */; };
+		EDF60BE61C7C489700FA0BCA /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -431,6 +435,11 @@
 		DA5B740118F233EF00BB5F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DA5B745518F239B700BB5F8E /* ENMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainViewController.h; sourceTree = "<group>"; };
 		DA5B745618F239B700BB5F8E /* ENMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainViewController.m; sourceTree = "<group>"; };
+		EDF60BDC1C7C489700FA0BCA /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		EDF60BDD1C7C489700FA0BCA /* LocationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPicker.h; sourceTree = "<group>"; };
+		EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
+		EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchResultsViewController.swift; sourceTree = "<group>"; };
+		EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -860,6 +869,7 @@
 		DA5B745418F239B700BB5F8E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				EDF60BD91C7C489700FA0BCA /* LocationPicker */,
 				9B03362D1B5B2F02001F5A32 /* ENPreferenceTagsViewController.h */,
 				9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */,
 				788734BE1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.h */,
@@ -937,6 +947,18 @@
 				78470A351BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		EDF60BD91C7C489700FA0BCA /* LocationPicker */ = {
+			isa = PBXGroup;
+			children = (
+				EDF60BDC1C7C489700FA0BCA /* Location.swift */,
+				EDF60BDD1C7C489700FA0BCA /* LocationPicker.h */,
+				EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */,
+				EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */,
+				EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */,
+			);
+			path = LocationPicker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1229,6 +1251,7 @@
 				9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */,
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				9B85D0331A8EB6BB0014DBED /* ENUtil.m in Sources */,
+				EDF60BE31C7C489700FA0BCA /* Location.swift in Sources */,
 				9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */,
 				091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */,
 				784790CF1BCFE0D10058C7D2 /* ENSocial.m in Sources */,
@@ -1267,7 +1290,9 @@
 				9BE71C4D1B7FA2F400509457 /* TMLabelRowItem.m in Sources */,
 				9B74EADE1B52444F00A14BC9 /* ENBasePreferenceViewCell.m in Sources */,
 				094958181B019A350022E4B4 /* TMAlertPresentationController.m in Sources */,
+				EDF60BE61C7C489700FA0BCA /* SearchHistoryManager.swift in Sources */,
 				09502FBF1AF5680D00922908 /* ENFeedbackViewController.m in Sources */,
+				EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */,
 				78E8C77D1BD3D0C900034E9C /* ENWechatLoginProvider.m in Sources */,
 				78FCE9871BD2A686008A68F6 /* ENShare.m in Sources */,
 				9BE71C541B7FA2F400509457 /* TMTableViewBuilder.m in Sources */,
@@ -1282,6 +1307,7 @@
 				094958111B018E300022E4B4 /* TMAlertController.m in Sources */,
 				78E8C77A1BD3D0C900034E9C /* ENFacebookLoginProvider.m in Sources */,
 				78E8C77C1BD3D0C900034E9C /* ENUser.m in Sources */,
+				EDF60BE51C7C489700FA0BCA /* LocationSearchResultsViewController.swift in Sources */,
 				9BEBE7921B7FE09D006F844C /* GNGoogleMapOpenerService.m in Sources */,
 				9BEBE7941B7FE09D006F844C /* GNMapOpenerItem.m in Sources */,
 			);

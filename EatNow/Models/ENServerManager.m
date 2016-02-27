@@ -25,7 +25,8 @@ NSString * const kUserUpdated = @"user_updated";
 NSString * const kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
 NSString * const kShouldShowTutorial = @"shouldShowTutorial";
 NSString * const kBasePreferenceUpdated = @"basePreferenceUpdated";
-
+NSString * const kChangeLocationUpdated = @"changeLocationUpdated";
+NSString * const kCancelChangeLocationUpdated = @"CancelChangeLocationUpdated";
 @import CoreLocation;
 
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>

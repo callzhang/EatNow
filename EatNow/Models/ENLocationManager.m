@@ -64,9 +64,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     
 	//request
     @weakify(self);
-    
     [[self class] setCachedCurrentLocation:nil];
-    
     [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyBlock timeout:kENLocationRequestTimeout delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         if (currentLocation) {

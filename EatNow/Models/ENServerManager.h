@@ -23,7 +23,8 @@ extern NSString * const kUserUpdated;
 extern NSString * const kShouldShowNiceChoiceKey;
 extern NSString * const kShouldShowTutorial;
 extern NSString * const kBasePreferenceUpdated;
-
+extern NSString * const kChangeLocationUpdated;
+extern NSString * const kCancelChangeLocationUpdated;
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 #import "ENDefines.h"

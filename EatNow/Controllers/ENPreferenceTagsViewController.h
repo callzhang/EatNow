@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef void(^CloseBlock)(BOOL close);
 
 @interface ENPreferenceTagsViewController : UIViewController
 

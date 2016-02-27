@@ -12,14 +12,21 @@
 #import "ENAppSettings.h"
 #import <AKPickerView.h>
 #import "ENPreferenceMoodPickerDataSource.h"
-
+#import "EatNow-Swift.h"
 @interface ENPreferenceTagsViewController () <AKPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet JCTagListView *tagView;
 @property (assign, nonatomic) BOOL preSelected;
+@property (assign, nonatomic) BOOL presendChange; //changelocation
 @property (weak, nonatomic) IBOutlet UILabel *tasteDescription;
 @property (weak, nonatomic) IBOutlet UIView *pickerContainer;
 @property (strong, nonatomic) AKPickerView *pickerView;
 @property (strong, nonatomic) ENPreferenceMoodPickerDataSource *pickerViewDataSource;
+
+//add by geng
+@property (weak, nonatomic) IBOutlet UIButton *currentLocation;
+@property (weak, nonatomic) IBOutlet UIButton *changeLocation;
+
+
 @end
 
 @implementation ENPreferenceTagsViewController
@@ -37,22 +44,37 @@
     self.tagView.backgroundColor = [UIColor clearColor];
     
     //set text
+    @weakify(self);
     NSDictionary *preference = [ENServerManager shared].preference;
     if (preference) {
         [self setTextForPreference:preference];
     } else {
         [[NSNotificationCenter defaultCenter] addObserverForName:kPreferenceUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+            @strongify(self)
             NSDictionary *pref = note.object;
             [self setTextForPreference:pref];
         }];
     }
     
+    // cancel change location
+    [[NSNotificationCenter defaultCenter] addObserverForName:kCancelChangeLocationUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+        @strongify(self)
+        self.presendChange = false;
+    }];
+    
     [self setupMoodPickerView];
     
 }
 
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    if (self.presendChange) {
+        [self close:nil];
+        return;
+    }
     if (self.preSelected) {
         DDLogVerbose(@"Already preselected");
         return;
@@ -70,10 +92,15 @@
             [self.tagView.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForRow:idx inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
         }
     }];
+    
+    
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
-    
+    if (self.presendChange) {
+        return;
+    }
     NSInteger previousMood = ENAppSetting.mood;
     ENAppSetting.mood = self.pickerView.selectedItem;
     
@@ -91,6 +118,7 @@
         DDLogVerbose(@"Skip updating same base pref");
         return;
     }
+  
     [[ENServerManager shared] updateBasePreference:pref completion:^(NSError *error) {
         //DDLogVerbose(@"Base preference updated: %@", pref);
         if (error) {
@@ -117,6 +145,17 @@
 
     }
 }
+
+//add by geng
+- (IBAction)changeCurrentLocation:(id)sender {
+    self.presendChange = true;
+    LocationPickerViewController *pickerVc = [[LocationPickerViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:pickerVc];
+    [self presentViewController:nav animated:true completion:nil];
+}
+
+
+
 
 - (void)setTextForPreference:(NSDictionary *)preference {
     if ([ENServerManager shared].history.count == 0) {

@@ -303,6 +303,14 @@
         //refresh
         [self onReloadButton:nil];
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kChangeLocationUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSDictionary * locationInfo = note.userInfo;
+        //refresh
+        [self searchRestaurantsAtLocation:locationInfo[@"location"] WithCompletion:nil];
+        
+        
+    }];
 	
     //load restaurants from server
     //[self searchNewRestaurantsWithCompletion:nil];
@@ -356,6 +364,7 @@
 - (IBAction)onSettingButton:(id)sender {
     
     ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
+  
     [self presentWithBlur:vc withCompletion:nil];
     
 }
@@ -515,22 +524,7 @@
             [ENUtil showText:str];
         }
         if (location) {
-            [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
-                @strongify(self);
-                self.isSearchingFromServer = NO;
-                if (success) {
-                    self.restaurants = response.mutableCopy;
-                    if (self.restaurants.count == 0) {
-                        [self showNoRestaurantStatus];
-                    }
-                    self.needShowRestaurant = YES;//need to place after the _restaurants is assigned
-                }else {
-                    self.needShowRestaurant = NO;
-                    [self handleError:error];
-                }
-                
-                if(block) block(response, error);
-            }];
+            [self searchRestaurantsAtLocation:location WithCompletion:block];
         }
         else {
             self.isSearchingFromServer = NO;
@@ -539,6 +533,28 @@
             if(block) block(nil, error);
         }
     } ];
+}
+
+- (void)searchRestaurantsAtLocation:(CLLocation*)location WithCompletion:(void (^)(NSArray *response, NSError *error))block{
+    
+    NSLog(@"====%f,%f",location.coordinate.latitude,location.coordinate.longitude);
+    @weakify(self);
+    [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+        @strongify(self);
+        self.isSearchingFromServer = NO;
+        if (success) {
+            self.restaurants = response.mutableCopy;
+            if (self.restaurants.count == 0) {
+                [self showNoRestaurantStatus];
+            }
+            self.needShowRestaurant = YES;//need to place after the _restaurants is assigned
+        }else {
+            self.needShowRestaurant = NO;
+            [self handleError:error];
+        }
+        
+        if(block) block(response, error);
+    }];
 }
 
 - (void)showAllRestaurantCards{
