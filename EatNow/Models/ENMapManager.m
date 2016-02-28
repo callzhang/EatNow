@@ -23,12 +23,17 @@
     if (self) {
         self.map = map;
         self.firstTimeRoute = YES;
+        
+      
     }
     return self;
 }
 
 - (void)findDirectionsTo:(CLLocation *)location completion:(void (^)(MKDirectionsResponse *response, NSError *error))block{
     [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        
+        NSLog(@"from = %f,%f to = %f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude,location.coordinate.latitude,location.coordinate.longitude);
+        
         if (currentLocation) {
             MKPlacemark *fromPlacemark = [[MKPlacemark alloc] initWithCoordinate:currentLocation.coordinate addressDictionary:nil];
             MKMapItem *fromItem = [[MKMapItem alloc] initWithPlacemark:fromPlacemark];
@@ -49,6 +54,9 @@
 - (void)findDirectionsFrom:(MKMapItem *)source to:(MKMapItem *)destination completion:(void (^)(MKDirectionsResponse *response, NSError *error))block{
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     request.source = source;
+//    NSLog(@"%f,%f,%f",source.placemark.location.horizontalAccuracy,source.placemark.location.course,source.placemark.location.speed);
+    
+
     request.destination = destination;
     CLLocation *loc = destination.placemark.location;
     CLLocationDistance dist = [loc distanceFromLocation:source.placemark.location];
@@ -56,6 +64,16 @@
         request.transportType = MKDirectionsTransportTypeWalking;
     }
     request.requestsAlternateRoutes = YES;
+    
+    //TODO:只能判断误差不定路径规划
+    if (source.placemark.location.horizontalAccuracy <= 0 || source.placemark.location.horizontalAccuracy > 50) {
+//        NSLog(@"%f,%f",source.placemark.location.coordinate.latitude,source.placemark.location.coordinate.longitude);
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(source.placemark.location.coordinate.latitude, source.placemark.location.coordinate.longitude);
+        CLLocation *myloc = [[CLLocation alloc]initWithCoordinate:coordinate altitude:dist horizontalAccuracy:50 verticalAccuracy:0.00000 course:-1.000000 speed:0.00000 timestamp:[NSDate date]];
+        MKPlacemark *fromPlacemark = [[MKPlacemark alloc] initWithCoordinate:myloc.coordinate addressDictionary:nil];
+        MKMapItem *fromItem = [[MKMapItem alloc] initWithPlacemark:fromPlacemark];
+        request.source = fromItem;
+    }
     
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     
