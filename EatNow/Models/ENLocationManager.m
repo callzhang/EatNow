@@ -47,6 +47,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     self = [super init];
     if (self) {
         self.locationManager = [INTULocationManager sharedInstance];
+        
     }
     return self;
 }

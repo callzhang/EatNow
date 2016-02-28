@@ -367,7 +367,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [self showWalkingTime];
         }
     }];
-    
+
     self.mainVC.currentMode = ENMainViewControllerModeMap;
 }
 

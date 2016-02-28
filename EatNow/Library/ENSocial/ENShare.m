@@ -11,11 +11,11 @@
 
 @implementation ENShare
 
-+ (void)shareText:(NSString *)text image:(UIImage *)img andLink:(NSURL *)link inViewController:(UIViewController *)vc
++ (void)shareText:(NSString *)text image:(UIImage *)img andLink:(NSURL *)link withdeepLink:(NSURL*)deepLink inViewController:(UIViewController *)vc
 {
     NSArray *activities = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
     // UIActivityViewController would convert the image to jpeg format, therefore it would loose transparent background.
-    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[text, img, link] applicationActivities:activities];
+    UIActivityViewController *shareVC = [[UIActivityViewController alloc] initWithActivityItems:@[text, img, link,deepLink] applicationActivities:activities];
     
     shareVC.excludedActivityTypes = @[UIActivityTypePrint,
                                       UIActivityTypeAddToReadingList,

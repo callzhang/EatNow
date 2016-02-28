@@ -104,6 +104,8 @@ static id _sharedInstance;
     self = [super init];
     if (self) {
         _locationManager = [[CLLocationManager alloc] init];
+        [_locationManager requestWhenInUseAuthorization];
+        [_locationManager requestAlwaysAuthorization];
         _locationManager.delegate = self;
         _locationRequests = [NSMutableArray array];
     }

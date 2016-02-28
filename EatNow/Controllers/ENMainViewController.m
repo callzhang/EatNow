@@ -503,10 +503,10 @@
     NSString *urlString = [NSString stringWithFormat:@"http://eat-now.herokuapp.com/home/restaurant/#/%@",restaurant.ID];
     DDLogDebug(@"Share url :%@",urlString);
     NSURL *shareUrl = [NSURL URLWithString:urlString];
-    
+    NSURL *deepLink = [NSURL URLWithString:@"eatnow://"];
     UIImage *cardImage = [restaurantVC.info toImage];
     
-    [ENShare shareText:shareDesc image:cardImage andLink:shareUrl inViewController:self];
+    [ENShare shareText:shareDesc image:cardImage andLink:shareUrl withdeepLink:deepLink inViewController:self];
 }
 
 #pragma mark - Main methods
@@ -920,6 +920,7 @@
 
 - (void)handleError:(NSError *)error {
     if (!error) {
+        self.shareButton.enabled = YES;
         return;
     }
     if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == EatNowErrorTypeLocaltionNotAvailable) {
@@ -927,10 +928,12 @@
         
         self.loadingInfo.text = @"Sorry, I cannot determine your location. \n\nPlease try again later.";
         self.loadingInfo.hidden = NO;
+         self.shareButton.enabled = NO;
     } else {
         //handle server error
         self.loadingInfo.text = @"Sorry, I cannot connect to server. \n\nPlease try again later.";
         self.loadingInfo.hidden = NO;
+         self.shareButton.enabled = NO;
         
     }
 }
