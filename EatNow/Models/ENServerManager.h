@@ -25,6 +25,7 @@ extern NSString * const kShouldShowTutorial;
 extern NSString * const kBasePreferenceUpdated;
 extern NSString * const kChangeLocationUpdated;
 extern NSString * const kCancelChangeLocationUpdated;
+extern NSString * const kOpenDeepLinkForRestaurant;
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 #import "ENDefines.h"

@@ -27,6 +27,9 @@ NSString * const kShouldShowTutorial = @"shouldShowTutorial";
 NSString * const kBasePreferenceUpdated = @"basePreferenceUpdated";
 NSString * const kChangeLocationUpdated = @"changeLocationUpdated";
 NSString * const kCancelChangeLocationUpdated = @"CancelChangeLocationUpdated";
+NSString * const kOpenDeepLinkForRestaurant = @"openDeepLinkForRestaurant";
+
+
 @import CoreLocation;
 
 @interface ENServerManager()<CLLocationManagerDelegate, UIAlertViewDelegate>

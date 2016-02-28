@@ -254,8 +254,25 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    if ([url.absoluteString hasPrefix:@"eatnow"]) {
+        NSLog(@"%@",url.absoluteString);
+        [[NSNotificationCenter defaultCenter]postNotificationName:kOpenDeepLinkForRestaurant object:self userInfo:[self getRestaurant:url.absoluteString]];
+        
+    }
     return [[ENSocial sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
+
+//TODO:get restaurant
+- (NSDictionary *)getRestaurant:(NSString *)dataString{
+    NSArray* dataArray = [dataString componentsSeparatedByString:@"/"];
+    NSArray*location = [dataArray[3] componentsSeparatedByString:@","];
+    
+    NSDictionary *data = @{@"ID":dataArray[2],
+                           @"lat":location[0],
+                           @"lon":location[1]};
+    return data;
+}
+
 
 #pragma mark - Tools
 - (void)initilizeLogging {
