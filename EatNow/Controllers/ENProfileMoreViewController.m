@@ -158,7 +158,7 @@ UITableViewDelegate,UIActionSheetDelegate>
 - (NSString *)getLinkedProviderNameForUser:(NSDictionary *)user
 {
     NSArray *vendors = user[@"vendors"];
-    if (!vendors) {
+    if (!vendors || vendors.count == 0) {
         return @"Link";
     }
     

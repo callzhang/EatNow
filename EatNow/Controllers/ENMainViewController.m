@@ -61,6 +61,8 @@
 @property (nonatomic, strong) NSMutableArray *historyToReview;
 @property (nonatomic, strong) ENLocationManager *locationManager;
 @property (nonatomic, strong) ENServerManager *serverManager;
+
+@property (nonatomic, strong) ENRestaurant *currentRestaurant;
 //UIDynamics
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 @property (nonatomic, strong) UIAttachmentBehavior *attachment;
@@ -256,13 +258,13 @@
     [self.KVOController observe:self keyPaths:@[@keypath(self.needShowRestaurant), @keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
-            self.shareButton.enabled = YES;
+            self.shareButton.hidden = NO;
             self.loadingIndicator.hidden = YES;
             //DDLogInfo(@"show loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
         else {
             self.reloadButton.enabled = NO;
-            self.shareButton.enabled = NO;
+            self.shareButton.hidden = YES;
             //self.loadingIndicator.alpha = 1;
             self.searchView.hidden = YES;
             self.loadingIndicator.hidden = NO;
@@ -305,7 +307,27 @@
         //refresh
         [self onReloadButton:nil];
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:kChangeLocationUpdated object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSDictionary * locationInfo = note.userInfo;
+        //refresh
+        [self searchRestaurantsAtLocation:locationInfo[@"location"] WithCompletion:nil];
+    }];
 	
+    //deeplink 跳转
+    [[NSNotificationCenter defaultCenter] addObserverForName:kOpenDeepLinkForRestaurant object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSDictionary * restaurantInfo = note.userInfo;
+        if (self.cards.count == 0) { //no card
+            
+        }else{
+            if (self.currentRestaurant) {
+                if (![self.currentRestaurant.ID isEqualToString:restaurantInfo[@"ID"]]) {//add the card
+                    
+                }
+            }
+        }
+    }];
+    
     //load restaurants from server
     //[self searchNewRestaurantsWithCompletion:nil];
     
@@ -358,6 +380,7 @@
 - (IBAction)onSettingButton:(id)sender {
     
     ENPreferenceTagsViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENPreferenceTagsViewController"];
+  
     [self presentWithBlur:vc withCompletion:nil];
     
 }
@@ -496,10 +519,13 @@
     NSString *urlString = [NSString stringWithFormat:@"http://eat-now.herokuapp.com/home/restaurant/#/%@",restaurant.ID];
     DDLogDebug(@"Share url :%@",urlString);
     NSURL *shareUrl = [NSURL URLWithString:urlString];
+    NSString *deepLinkurl = [NSString stringWithFormat:@"eatnow://%@/%lf,%lf",restaurant.ID,restaurant.location.coordinate.latitude,restaurant.location.coordinate.longitude];
     
+    NSURL *deepLink = [NSURL URLWithString:deepLinkurl];
     UIImage *cardImage = [restaurantVC.info toImage];
     
-    [ENShare shareText:shareDesc withTitle:restaurant.name image:cardImage andLink:shareUrl inViewController:self];
+
+    [ENShare shareText:shareDesc withTitle:restaurant.name image:cardImage andLink:shareUrl withdeepLink:deepLink inViewController:self];
 }
 
 #pragma mark - Main methods
@@ -518,6 +544,7 @@
         }
         NSDate *serverStart = [NSDate date];
         if (location) {
+//<<<<<<< HEAD
             [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
                 @strongify(self);
                 self.isSearchingFromServer = NO;
@@ -539,6 +566,9 @@
                 
                 if(block) block(response, error);
             }];
+//=======
+//            [self searchRestaurantsAtLocation:location WithCompletion:block];
+//>>>>>>> master
         }
         else {
             self.isSearchingFromServer = NO;
@@ -547,6 +577,31 @@
             if(block) block(nil, error);
         }
     } ];
+}
+
+- (void)searchRestaurantsAtLocation:(CLLocation*)location WithCompletion:(void (^)(NSArray *response, NSError *error))block{
+    
+    NSLog(@"====%f,%f",location.coordinate.latitude,location.coordinate.longitude);
+    @weakify(self);
+    [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+        @strongify(self);
+        self.isSearchingFromServer = NO;
+        if (success) {
+            self.restaurants = response.mutableCopy;
+            if (self.restaurants.count == 0) {
+                [self showNoRestaurantStatus];
+            }else{
+                self.currentRestaurant = self.restaurants[0];
+            
+            }
+            self.needShowRestaurant = YES;//need to place after the _restaurants is assigned
+        }else {
+            self.needShowRestaurant = NO;
+            [self handleError:error];
+        }
+        
+        if(block) block(response, error);
+    }];
 }
 
 - (void)showAllRestaurantCards{
@@ -733,6 +788,7 @@
 {
     if (self.cards.count == 0) {
         [self.restaurants insertObject:restaurant atIndex:0];
+        self.currentRestaurant = self.restaurants[0];
         [self showAllRestaurantCards];
         return;
     }
@@ -746,6 +802,7 @@
     
     // Create a new card
     [self.restaurants insertObject:restaurant atIndex:0];
+    self.currentRestaurant = self.restaurants[0];
     ENRestaurantViewController *card = [self popResuturantViewWithFrame:[self cardViewFrame]];
     // Make the card as top card
     [self.cards removeObject:card];
@@ -798,6 +855,10 @@
                     self.loadingInfo.text = @"\n\nSeems you didn’t like any of the recommendations. Press Refresh and try your luck again?";
                     self.loadingInfo.hidden = NO;
                     self.shareButton.enabled = NO;
+                }else{
+                    //当前的卡片
+                    ENRestaurantViewController *currentCard = leftcards[0];
+                    self.currentRestaurant = currentCard.restaurant;
                 }
             }];
         }
@@ -912,6 +973,7 @@
 
 - (void)handleError:(NSError *)error {
     if (!error) {
+        self.shareButton.enabled = YES;
         return;
     }
     if ([error.domain isEqualToString:kEatNowErrorDomain] && error.code == EatNowErrorTypeLocaltionNotAvailable) {
@@ -919,10 +981,12 @@
         
         self.loadingInfo.text = @"Sorry, I cannot determine your location. \n\nPlease try again later.";
         self.loadingInfo.hidden = NO;
+         self.shareButton.enabled = NO;
     } else {
         //handle server error
         self.loadingInfo.text = @"Sorry, I cannot connect to server. \n\nPlease try again later.";
         self.loadingInfo.hidden = NO;
+         self.shareButton.enabled = NO;
         
     }
 }

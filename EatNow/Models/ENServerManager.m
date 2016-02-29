@@ -25,6 +25,10 @@ NSString * const kUserUpdated = @"user_updated";
 NSString * const kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
 NSString * const kShouldShowTutorial = @"shouldShowTutorial";
 NSString * const kBasePreferenceUpdated = @"basePreferenceUpdated";
+NSString * const kChangeLocationUpdated = @"changeLocationUpdated";
+NSString * const kCancelChangeLocationUpdated = @"CancelChangeLocationUpdated";
+NSString * const kOpenDeepLinkForRestaurant = @"openDeepLinkForRestaurant";
+
 
 @import CoreLocation;
 
@@ -268,6 +272,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         if(block) block(error);
         DDLogError(@"Failed to update restaurant: %@", error.localizedDescription);
     }];
+}
+
+- (void)updateLocation:(CLLocation *)location completion:(ErrorBlock)completion{
+    //TODO: Yongqiang please add server API here
+    DDLogError(@"yongqiang add API call");
 }
 
 #pragma mark - User actions

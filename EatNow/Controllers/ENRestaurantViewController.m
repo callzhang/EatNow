@@ -377,7 +377,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             [self showWalkingTime];
         }
     }];
-    
+
     self.mainVC.currentMode = ENMainViewControllerModeMap;
 }
 
@@ -435,8 +435,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         //self.imageCount.alpha = 0;
         NSDictionary *history = [ENServerManager shared].userRating;
         NSDictionary *rating = history[self.restaurant.ID];
-        NSNumber *rate = rating[@"rating"];
         if (rating) {
+            NSNumber *rate = rating[@"rating"];
             self.userRatingView.alpha = 1;
             [self addRatingOnView:self.userRatingView withRating:rate.integerValue];
         }
@@ -742,7 +742,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             vc.showPageTitles = YES;
             vc.showUrlWhileLoading = NO;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            [weakSelf presentViewController:nav animated:YES completion:nil];
+            UIViewController *mainVC = (UIViewController *)weakSelf.mainVC;
+            [mainVC presentViewController:nav animated:YES completion:nil];
         }}];
     }
     //delivery
@@ -756,7 +757,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             vc.showPageTitles = YES;
             vc.showUrlWhileLoading = NO;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            [weakSelf presentViewController:nav animated:YES completion:nil];
+            UIViewController *mainVC = (UIViewController *)weakSelf.mainVC;
+            [mainVC presentViewController:nav animated:YES completion:nil];
         }}];
     }
     

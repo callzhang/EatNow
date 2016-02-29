@@ -23,7 +23,9 @@ extern NSString * const kUserUpdated;
 extern NSString * const kShouldShowNiceChoiceKey;
 extern NSString * const kShouldShowTutorial;
 extern NSString * const kBasePreferenceUpdated;
-
+extern NSString * const kChangeLocationUpdated;
+extern NSString * const kCancelChangeLocationUpdated;
+extern NSString * const kOpenDeepLinkForRestaurant;
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 #import "ENDefines.h"
@@ -75,4 +77,5 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 - (void)clearSelectedRestaurant;
 - (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(ErrorBlock)block;
 - (void)updateBasePreference:(NSDictionary *)preference completion:(ErrorBlock)block;
+- (void)updateLocation:(CLLocation *)location completion:(ErrorBlock)completion;
 @end
