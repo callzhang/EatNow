@@ -220,7 +220,7 @@
     FBTweakBind(self, cardShowInterval, @"Animation", @"Card animation", @"Cards show interval", 0.2);
     FBTweakBind(self, cardShowIntervalDiminishingDelta, @"Animation", @"Card animation", @"Diminishing delta", 0.03);
     FBTweakBind(self, backgroundImageDelay, @"Animation", @"Backdound blur", @"Backgound delay", 3.0);
-    FBTweakBind(self, panGustureSnapBackDistance, @"Animation", @"Snap", @"Snap back distance", 100);
+    FBTweakBind(self, panGustureSnapBackDistance, @"Animation", @"Snap", @"Snap back distance", 200);
     FBTweakBind(self, snapDamping, @"Animation", @"Snap", @"Snap damping", 0.8);
     
     [[Mixpanel sharedInstance] timeEvent:@"Card shown"];
@@ -706,8 +706,8 @@
     }
     
     //change z-index
-    [card.view.superview insertSubview:card.view belowSubview:self.cards.lastObject];
-  
+    [card.view.superview insertSubview:card.view belowSubview:((UIViewController *) self.cards.lastObject).view];
+
     //recycle front card to last
     [self.cards removeObjectAtIndex:0];
     [self.cards addObject:card];
@@ -728,17 +728,8 @@
     //notify next card
     [self.firstRestaurantViewController didChangedToFrontCard];
     
-    //delay
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:0.5 animations:^{
-            card.view.alpha = 0;
-        } completion:^(BOOL finished) {
-            [_gravity removeItem:card.view];
-            [_dynamicItem removeItem:card.view];
-            [card.view removeFromSuperview];
-            if(completion) completion(self.cards);
-        }];
-    });
+    //completion
+    if(completion) completion(self.cards);
 }
 
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity completion:(void (^)(NSArray *leftcards))completion {
@@ -901,10 +892,10 @@
         [_animator removeBehavior:_attachment];
         CGPoint translation = [gesture translationInView:self.view];
         BOOL canSwipe = card.canSwipe;
-        BOOL panDistanceLargeEnough = sqrtf(pow(translation.x, 2) + pow(translation.y, 2)) > _panGustureSnapBackDistance;
+        CGPoint velocity = [gesture velocityInView:self.view];
+        BOOL panDistanceLargeEnough = sqrtf(pow(translation.x, 2) + pow(translation.y, 2) + pow(velocity.x, 2) + pow(velocity.y, 2)) > _panGustureSnapBackDistance;
         if (canSwipe && panDistanceLargeEnough) {
             //add dynamic item behavior
-            CGPoint velocity = [gesture velocityInView:self.view];
             [self recycleCardWithVelocity:velocity completion:^(NSArray *leftcards) {
                 if (leftcards.count == 0) {
                     //show loading info
@@ -913,7 +904,7 @@
                     self.shareButton.enabled = NO;
                 }else{
                     //当前的卡片
-                    ENRestaurantViewController *currentCard = leftcards[0];
+                    ENRestaurantViewController *currentCard = leftcards.firstObject;
                     self.currentRestaurant = currentCard.restaurant;
                 }
             }];
