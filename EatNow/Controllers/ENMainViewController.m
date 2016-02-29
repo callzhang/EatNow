@@ -524,11 +524,8 @@
     NSURL *deepLink = [NSURL URLWithString:deepLinkurl];
     UIImage *cardImage = [restaurantVC.info toImage];
     
-<<<<<<< HEAD
-    [ENShare shareText:shareDesc withTitle:restaurant.name image:cardImage andLink:shareUrl inViewController:self];
-=======
-    [ENShare shareText:shareDesc image:cardImage andLink:shareUrl withdeepLink:deepLink inViewController:self];
->>>>>>> master
+
+    [ENShare shareText:shareDesc withTitle:restaurant.name image:cardImage andLink:shareUrl withdeepLink:deepLink inViewController:self];
 }
 
 #pragma mark - Main methods
@@ -547,7 +544,7 @@
         }
         NSDate *serverStart = [NSDate date];
         if (location) {
-<<<<<<< HEAD
+//<<<<<<< HEAD
             [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
                 @strongify(self);
                 self.isSearchingFromServer = NO;
@@ -569,9 +566,9 @@
                 
                 if(block) block(response, error);
             }];
-=======
-            [self searchRestaurantsAtLocation:location WithCompletion:block];
->>>>>>> master
+//=======
+//            [self searchRestaurantsAtLocation:location WithCompletion:block];
+//>>>>>>> master
         }
         else {
             self.isSearchingFromServer = NO;

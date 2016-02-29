@@ -274,6 +274,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
 }
 
+- (void)updateLocation:(CLLocation *)location completion:(ErrorBlock)completion{
+    //TODO: Yongqiang please add server API here
+    DDLogError(@"yongqiang add API call");
+}
+
 #pragma mark - User actions
 - (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(void (^)(NSError *error))block{
 	NSParameterAssert(!self.selectedRestaurant);

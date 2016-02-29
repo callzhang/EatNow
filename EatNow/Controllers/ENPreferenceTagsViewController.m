@@ -146,12 +146,12 @@
     }
 }
 
-<<<<<<< HEAD
+
 - (IBAction)onPickLocation:(id)sender
 {
 }
 
-=======
+
 //add by geng
 - (IBAction)changeCurrentLocation:(id)sender {
     self.presendChange = true;
@@ -162,8 +162,6 @@
 
 
 
-
->>>>>>> master
 - (void)setTextForPreference:(NSDictionary *)preference {
     if ([ENServerManager shared].history.count == 0) {
         //no history
