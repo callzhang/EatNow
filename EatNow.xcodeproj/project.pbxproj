@@ -152,14 +152,11 @@
 		DA5B740218F233EF00BB5F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B740118F233EF00BB5F8E /* XCTest.framework */; };
 		DA5B740318F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B740418F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
-<<<<<<< HEAD
 		F5A5E4DFBC7A93E43A701F8E /* libPods-EatNow WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */; };
-=======
 		EDF60BE31C7C489700FA0BCA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDC1C7C489700FA0BCA /* Location.swift */; };
 		EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */; };
 		EDF60BE51C7C489700FA0BCA /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */; };
 		EDF60BE61C7C489700FA0BCA /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */; };
->>>>>>> master
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -430,15 +427,12 @@
 		DA5B740118F233EF00BB5F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DA5B745518F239B700BB5F8E /* ENMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainViewController.h; sourceTree = "<group>"; };
 		DA5B745618F239B700BB5F8E /* ENMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainViewController.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EatNow WatchKit Extension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-=======
 		EDF60BDC1C7C489700FA0BCA /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		EDF60BDD1C7C489700FA0BCA /* LocationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPicker.h; sourceTree = "<group>"; };
 		EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchResultsViewController.swift; sourceTree = "<group>"; };
 		EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
->>>>>>> master
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
