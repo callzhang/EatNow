@@ -7,6 +7,7 @@
 //
 
 #import "ENMyProfileViewController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "SUNSlideSwitchView.h"
 #import "CALayer+UIColor.h"
 #import <BlocksKit.h>
@@ -30,6 +31,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *closeButton;
 @property (nonatomic, weak) IBOutlet UIButton *closeMapButton;
 @property (nonatomic, weak) IBOutlet UIButton *openInMapsButton;
+@property (nonatomic, weak) IBOutlet UIButton *deleteButton;
 @property (nonatomic, strong) ENHistoryViewController *historyViewController;
 
 @end
@@ -91,6 +93,11 @@
     [[GNMapOpener sharedInstance] openItem:item presetingViewController:self];
 }
 
+- (IBAction)onDeleteHistoryButton:(id)sender
+{
+    [self.historyViewController deleteHistory];
+}
+
 - (void)onUserUpdated
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -138,6 +145,9 @@
     self.switchView.tabItemSelectedColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
     self.switchView.tabViewBorderColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.45];
     [self.switchView buildUI];
+    
+    self.headerView.layer.masksToBounds = YES;
+    self.headerView.layer.cornerRadius = self.headerView.bounds.size.width / 2.0f;
     
     self.currentMode = ENMainViewControllerModeStart;
 }
@@ -222,7 +232,11 @@
     
     NSString *avatarString = user[@"profile_url"];
     [self.headerView setImageWithURL:[NSURL URLWithString:avatarString]];
-    self.nameLabel.text = user[@"name"];
+    NSString *name = user[@"name"];
+    if (!name || name.length == 0) {
+        name = @"Name";
+    }
+    self.nameLabel.text = name;
     
     NSMutableString *briefInfo = [[NSMutableString alloc] init];
     
@@ -234,7 +248,12 @@
         if (briefInfo.length > 0) {
             [briefInfo appendString:@","];
         }
-        [briefInfo appendString:[NSString stringWithFormat:@"%ld",[user[@"age"] integerValue]]];
+        id ageObj = [user objectForKey:@"age"];
+        if (ageObj) {
+            NSInteger age = [ageObj integerValue];
+            [briefInfo appendString:[NSString stringWithFormat:@"%ld",age]];
+        }
+        
     }
     
     if (user[@"address"]) {
@@ -244,7 +263,11 @@
         [briefInfo appendString:[NSString stringWithFormat:@"%@",user[@"address"]]];
     }
     
-    self.detailLabel.text = briefInfo;
+    if (!briefInfo || briefInfo.length == 0) {
+        [briefInfo appendString:@"No details"];
+    }
+    
+    self.detailLabel.text = [briefInfo copy];
 }
 
 @end

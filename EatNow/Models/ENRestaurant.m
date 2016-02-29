@@ -52,8 +52,22 @@
 	NSArray *list = json[@"categories"];
     self.cuisines = [list valueForKey:@"shortName"];
 	if (self.cuisines.firstObject == [NSNull null]) self.cuisines = [list valueForKey:@"global"];
-    //self.images = [NSMutableArray array];
-	self.imageUrls = json[@"food_image_url"];
+    self.photos = json[@"photos"];
+    NSInteger photoCount = [self.photos[@"count"] integerValue];
+    NSMutableArray *imageUrlList = [[NSMutableArray alloc] initWithCapacity:photoCount];
+    CGFloat imgWidth = [UIScreen mainScreen].bounds.size.width * 2;
+    NSString *capSize = [NSString stringWithFormat:@"cap%ld", (long)imgWidth];
+    @autoreleasepool {
+        for (NSInteger i = 0; i < photoCount; i++) {
+            NSDictionary *item = [self.photos[@"items"] objectAtIndex:i];
+            NSString *prefix = item[@"prefix"];
+            NSString *suffix = item[@"suffix"];
+            NSString *url = [NSString stringWithFormat:@"%@%@%@",prefix,capSize,suffix];
+            imageUrlList[i] = url;
+        }
+    }
+    self.imageUrls = imageUrlList;
+    
 	self.phone = [json valueForKeyPath:@"contact.formattedPhone"];
 	self.name = json[@"name"];
 	self.price = json[@"price"];
@@ -71,7 +85,7 @@
         self.distance = @(d);
     }
     self.walkDuration = NSTimeIntervalSince1970;
-    self.venderUrl = json[@"vendorUrl"];
+    self.venderUrl = [NSString stringWithFormat:@"%@%@",@"http://foursquare.com/v/", self.foursquareID];
 	//score
 	NSDictionary *scores = json[@"score"];
 	if (scores) {
@@ -82,6 +96,8 @@
         }
 		self.score = totalScore;
 	}
+    
+    self.delivery = [json objectForKey:@"delivery"];
     
     @try{
         self.mobileMenuURL = json[@"menu"][@"mobileUrl"];
@@ -153,7 +169,7 @@
     for (NSString *key in self.cuisines) {
         [string appendFormat:@"%@, ", key];
     }
-    return [string substringToIndex:string.length-2];
+    return string.length==0?@"Restaurant":[string substringToIndex:string.length-2];
 }
 
 - (NSString *)foursquareID{
@@ -325,12 +341,11 @@
     //Price
     [description appendString:self.pricesText];
     [description appendString:@"\n"];
-    // Location
-    [description appendString:self.streetText];
+    // Distance
+    [description appendString:self.distanceStr];
     [description appendString:@"\n"];
     //Phone
     [description appendString:self.phone];
-    
     
     return description;
 }

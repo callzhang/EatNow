@@ -116,9 +116,6 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
-    [self.map removeFromSuperview];
-    self.map = nil;
-    self.mapManager = nil;
     self.imageViewsInImageScrollView = nil;
 }
 
@@ -203,6 +200,12 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         [self activateImageScrollViewToIndex: MIN(self.restaurant.imageUrls.count-1, 3)];
     }
     
+    //parse image
+    [self parseVendorImages];
+    
+    //update image count
+    [self updateImageCount];
+    
     //start to calculate
     self.mapManager = [[ENMapManager alloc] initWithMap:nil];
     [self.mapManager estimatedWalkingTimeToLocation:_restaurant.location completion:^(MKRoute *route, NSError *error) {
@@ -228,13 +231,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)didChangeToDetailView{
-    //parse image
-    if (self.status == ENRestaurantViewStatusDetail){
-        [self parseVendorImages];
-    }
     
     //fill images
-    //[self fillImageScrollViewWithAllImageViews];
     [self activateImageScrollViewToIndex:MIN(self.restaurant.imageUrls.count-1, 3)];
     self.imageScrollView.scrollEnabled = YES;
     
@@ -372,6 +370,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 - (void)closeMap {
+    
+    [self.map removeFromSuperview];
+    self.map = nil;
+    self.mapManager = nil;
+    
     [UIView collapse:self.mapIcon view:self.map animated:YES completion:^{
         self.map.hidden = YES;
         [self.mapManager cancelRouting];
@@ -396,7 +399,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         if (self.openTime.text) {
             self.openInfo.alpha = 1;
         }
-        //self.imageCount.alpha = 0;
+        self.imageCount.alpha = 1;
         self.goButton.alpha = 0;
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
@@ -409,7 +412,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         self.rating.alpha = 1;
         self.userRatingView.alpha = 0;
         self.price.alpha = 1;
-        //self.imageCount.alpha = 1;
+        self.imageCount.alpha = 1;
     }
     else if (self.status == ENRestaurantViewStatusMinimum) {
         self.distanceInfo.alpha = 0;
@@ -420,8 +423,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         //self.imageCount.alpha = 0;
         NSDictionary *history = [ENServerManager shared].userRating;
         NSDictionary *rating = history[self.restaurant.ID];
-        NSNumber *rate = rating[@"rating"];
         if (rating) {
+            NSNumber *rate = rating[@"rating"];
             self.userRatingView.alpha = 1;
             [self addRatingOnView:self.userRatingView withRating:rate.integerValue];
         }
@@ -447,7 +450,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
 }
 
-- (void)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
+- (AMRatingControl *)addRatingOnView:(UIView *)view withRating:(NSInteger)rating{
     UIImage *emptyImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-grey"];
     UIImage *solidImageOrNil = [UIImage imageNamed:@"eat-now-card-details-view-rating-star-yellow"];
     AMRatingControl *imagesRatingControl = [[AMRatingControl alloc] initWithLocation:CGPointMake(0, 0)
@@ -455,8 +458,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                                                                           solidImage:solidImageOrNil
                                                                         andMaxRating:5];
     [imagesRatingControl setStarSpacing:3];
-    imagesRatingControl.rating = rating + 3;
+    imagesRatingControl.rating = rating;
     [view addSubview:imagesRatingControl];
+    
+    return imagesRatingControl;
 }
 
 #pragma mark - Couch View
@@ -575,9 +580,9 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)updateImageCount{
     NSUInteger current = self.currentImageIndex + 1;
-    NSUInteger imageCount = self.imageViewsInImageScrollView.count;
+    //NSUInteger imageCount = self.imageViewsInImageScrollView.count;
     NSUInteger total = self.restaurant.imageUrls.count;
-    if (imageCount <= 1) {
+    if (total <= 1) {
         self.imageCount.text = @"";
     }else {
         self.imageCount.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)current, (unsigned long)total];
@@ -609,7 +614,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             }
             if (imageUrls.count > 1) {
                 //show image
-                //[self fillImageScrollViewWithAllImageViews];
+                [self activateImageScrollViewToIndex:MIN(self.restaurant.imageUrls.count-1, 3)];
+                [self updateImageCount];
                 //update to server
                 [[ENServerManager shared] updateRestaurant:self.restaurant withInfo:@{@"img_url":imageUrls} completion:nil];
             }
@@ -724,9 +730,27 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             vc.showPageTitles = YES;
             vc.showUrlWhileLoading = NO;
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            [weakSelf presentViewController:nav animated:YES completion:nil];
+            UIViewController *mainVC = (UIViewController *)weakSelf.mainVC;
+            [mainVC presentViewController:nav animated:YES completion:nil];
         }}];
     }
+    //delivery
+    if (weakSelf.restaurant.delivery) {
+        [info addObject:@{@"type": @"url",
+                          @"cellID": @"cell",
+                          @"image": @"eat-now-card-details-view-menu-icon",
+                          @"title": @"Delivery",
+                          @"action": ^{
+            TOWebViewController *vc = [[TOWebViewController alloc] initWithURLString:weakSelf.restaurant.delivery[@"url"]];
+            vc.showPageTitles = YES;
+            vc.showUrlWhileLoading = NO;
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+            UIViewController *mainVC = (UIViewController *)weakSelf.mainVC;
+            [mainVC presentViewController:nav animated:YES completion:nil];
+        }}];
+    }
+
+    
 //    if (weakSelf.restaurant.reviews) {
 //        [info addObject:@{@"type": @"reviews",
 //                          @"cellID": @"cell",
@@ -751,9 +775,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
              @{@"type": @"score",
                 @"cellID": @"rating",
                 @"layout": ^(UITableViewCell *cell){
+                
                     //Set rating from history
                     UIView *ratingView = [cell viewWithTag:99];
-                    [self addRatingOnView:ratingView withRating:ratingValue];
+                    AMRatingControl *ratingControl = [self addRatingOnView:ratingView withRating:ratingValue];
+                    ratingControl.editingDidEndBlock = ^(NSUInteger rating){
+                        [weakSelf updateCurrentRestaurantRating:rating];
+                    };
                     
                     //set time
                     NSDate *time = history[@"time"];
@@ -858,4 +886,28 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //deselect
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#pragma mark - Private
+
+- (void)updateCurrentRestaurantRating:(NSUInteger)rating
+{
+    NSDictionary *history = [self getHistoryByRestaurantId:self.restaurant.ID];
+    [[ENServerManager shared] updateHistory:history withRating:rating completion:^(NSError *error) {
+        DDLogError(@"updateHistory rating error = %@",error);
+    }];
+}
+
+- (NSDictionary *)getHistoryByRestaurantId:(NSString *)restaurantId
+{
+    NSArray *histories = [ENServerManager shared].history;
+    for (NSDictionary *history in histories) {
+        NSDictionary *restaurant = history[@"restaurant"];
+        if ([restaurant[@"_id"] isEqualToString:restaurantId]) {
+            return history;
+        }
+    }
+    
+    return nil;
+}
+
 @end

@@ -97,11 +97,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 						  @"time": [NSDate date].ISO8601
                           //@"radius":@500
                           };
-    DDLogInfo(@"Request restaurant: %@", dic);
+    DDLogInfo(@"Begin Request restaurant: %@", dic);
     NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"search"];
     [manager GET:path parameters:dic
           success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-              DDLogVerbose(@"GET restaurant list %ld", (unsigned long)responseObject.count);
+              DDLogInfo(@"End get restaurant list %ld", (unsigned long)responseObject.count);
               //mix panel
               [[Mixpanel sharedInstance] track:@"Search restaurant" properties:@{@"location": @{@"latitude": @(currenLocation.coordinate.latitude),
                                                                                                 @"longitude": @(currenLocation.coordinate.longitude)},
@@ -183,7 +183,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 {
     NSParameterAssert(response);
     
-    NSMutableDictionary *user = [[NSMutableDictionary alloc] initWithDictionary:self.me];
+    NSMutableDictionary *user = [[NSMutableDictionary alloc] init];
     
     // Update token
     NSDictionary *vendor = @{
@@ -195,35 +195,18 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
                              };
     
     NSString *vendorsKey = @"vendors";
-    
     NSArray *vendorList = [user objectForKey:vendorsKey];
-    if (!vendorList) {
-        [user setObject:@[vendor] forKey:vendorsKey];
+    NSInteger vendorIndex = [self indexOfProvider:response.providerName inVendorList:vendorList];
+    if (vendorIndex == NSNotFound) {
+        vendorList = @[vendor];
     }
     else{
-        
-        NSMutableArray *mutableVendorList = [[NSMutableArray alloc] initWithArray:vendorList];
-        
-        NSInteger idx = -1;
-        for (NSInteger i = 0; i < mutableVendorList.count; i++) {
-            NSDictionary *v = mutableVendorList[i];
-            if ([v[@"provider"] isEqualToString:vendor[@"provider"]]) {
-                idx = i;
-                break;
-            }
-        }
-        
-        if (idx >= 0) {
-            mutableVendorList[idx] = vendor;
-        }
-        else{
-            [mutableVendorList addObject:vendor];
-        }
-        
+        NSMutableArray *mutableVendorList = [vendorList mutableCopy];
+        mutableVendorList[vendorIndex] = vendor;
         vendorList = mutableVendorList;
-        [user setObject:vendorList forKey:vendorsKey];
     }
-
+    [user setObject:vendorList forKey:vendorsKey];
+    
     //Update user info
     [user setObject:response.user.name forKey:@"name"];
     [user setObject:response.user.avatarUrl forKey:@"profile_url"];
@@ -233,31 +216,37 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         [user setObject:@(age) forKey:@"age"];
     }
     
-    [ENServerManager shared].me = user;
-    
-    // Remove all_history since it's too large and not need to be updated.
-    [user removeObjectForKey:@"all_history"];
-    
+    [self updateUserWithProperties:user completion:block];
+}
+
+- (void)updateUserWithProperties:(NSDictionary *)updatedProperties completion:(void (^)(NSError *))block
+{
     [[Mixpanel sharedInstance] timeEvent:@"Update user"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    DDLogVerbose(@"Update user : %@",user);
+    DDLogDebug(@"Before udpate : %@",self.me);
+    
+    DDLogVerbose(@"Update user : %@",updatedProperties);
     NSString *url = [NSString stringWithFormat:@"%@/user/%@",kServerUrl, self.myID];
-    [manager PUT:url parameters:user success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:url parameters:updatedProperties success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        DDLogDebug(@"Response user : %@", responseObject);
+        
+        self.me = responseObject;
+
         
         [[Mixpanel sharedInstance] track:@"Update user"];
-        
         //Post notification
         [[NSNotificationCenter defaultCenter] postNotificationName:kUserUpdated object:nil];
         
         if(block) block(nil);
-        DDLogVerbose(@"Updated user vendor success.");
+        DDLogVerbose(@"Updated user success.");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         if(block) block(error);
-        DDLogError(@"Failed to update user vendor: %@", error.localizedDescription);
+        DDLogError(@"Failed to update user: %@", error.localizedDescription);
     }];
 }
 
@@ -283,6 +272,11 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         if(block) block(error);
         DDLogError(@"Failed to update restaurant: %@", error.localizedDescription);
     }];
+}
+
+- (void)updateLocation:(CLLocation *)location completion:(ErrorBlock)completion{
+    //TODO: Yongqiang please add server API here
+    DDLogError(@"yongqiang add API call");
 }
 
 #pragma mark - User actions
@@ -375,8 +369,16 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     
     NSParameterAssert(rate>= 1 && rate <= 5);
     
+    @weakify(self);
     NSString *url = [NSString stringWithFormat:@"%@/user/%@/history/%@",kServerUrl, self.myID, historyID];
     [manager PUT:url parameters:@{@"like": @(rate - 3)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        @strongify(self);
+        
+        // Update local cache
+        NSMutableDictionary *userRating = [self.userRating[restaurant.ID] mutableCopy];
+        userRating[@"rating"] = @(rate);
+        self.userRating[restaurant.ID] = userRating;
+        
         if(block) block(nil);
         
         [[Mixpanel sharedInstance] track:@"Update rating"
@@ -558,5 +560,22 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }
     return base.copy;
 }
+
+- (NSInteger)indexOfProvider:(NSString *)provider inVendorList:(NSArray *)vendorList
+{
+    if (!vendorList || vendorList.count == 0) {
+        return NSNotFound;
+    }
+    
+    for (NSInteger i = 0; i < vendorList.count; i++) {
+        NSDictionary *vendor = vendorList[i];
+        if ([vendor[@"provider"] isEqualToString:provider]) {
+            return i;
+        }
+    }
+    
+    return NSNotFound;
+}
+
 @end
 

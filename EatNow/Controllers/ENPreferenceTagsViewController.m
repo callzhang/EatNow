@@ -146,6 +146,12 @@
     }
 }
 
+
+- (IBAction)onPickLocation:(id)sender
+{
+}
+
+
 //add by geng
 - (IBAction)changeCurrentLocation:(id)sender {
     self.presendChange = true;
@@ -153,7 +159,6 @@
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:pickerVc];
     [self presentViewController:nav animated:true completion:nil];
 }
-
 
 
 

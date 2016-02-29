@@ -12,6 +12,7 @@
 #import "NSDate+Extension.h"
 #import "ENServerManager.h"
 #import "BlocksKit+UIKit.h"
+#import "ATConnect.h"
 
 @interface ENProfileMoreViewController () <UITableViewDataSource,UITabBarControllerDelegate,
 UITableViewDelegate,UIActionSheetDelegate>
@@ -75,10 +76,14 @@ UITableViewDelegate,UIActionSheetDelegate>
     self.items = [[NSMutableArray alloc] initWithCapacity:6];
     
     NSDictionary *user = [ENServerManager shared].me;
+    if (!user) {
+        return;
+    }
     
     // Link item
     @weakify(self);
-    ENProfileItem *linkItem = [[ENProfileItem alloc] initWithTitle:@"Linked Account" value:@"Link"];
+    NSString *providerName = [self getLinkedProviderNameForUser:user];
+    ENProfileItem *linkItem = [[ENProfileItem alloc] initWithTitle:@"Linked Account" value:providerName];
     linkItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
         
         @strongify(self);
@@ -90,7 +95,8 @@ UITableViewDelegate,UIActionSheetDelegate>
             }
             
             cell.item.value = resp.providerName;
-            cell.valueLabel.text = resp.providerName;
+            id<ENSocialLoginProviderProtocol> provider = [[ENSocialLoginManager sharedInstance] findProviderByName:resp.providerName];
+            cell.valueLabel.text = provider.displayName;
             
             DDLogDebug(@"Social login success");
             [[ENServerManager shared] insertOrUpdateUserVendorWithResponse:resp completion:nil];
@@ -100,7 +106,7 @@ UITableViewDelegate,UIActionSheetDelegate>
     };
     [self.items addObject:linkItem];
     
-    NSString *email = user[@"emai"]?:@"Enter";
+    NSString *email = user[@"email"]?:@"Enter";
     // Email item
     ENProfileItem *emailItem = [[ENProfileItem alloc] initWithTitle:@"Email" value:email];
     emailItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
@@ -113,6 +119,8 @@ UITableViewDelegate,UIActionSheetDelegate>
             if (textField.text) {
                 cell.item.value = textField.text;
                 cell.valueLabel.text = cell.item.value;
+                
+                [[ENServerManager shared] updateUserWithProperties:@{@"email" : cell.item.value} completion:nil];
             }
         }];
         [alertView show];
@@ -120,10 +128,45 @@ UITableViewDelegate,UIActionSheetDelegate>
     };
     [self.items addObject:emailItem];
     
-    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Feedback" value:@""]];
-    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Survey" value:@""]];
-    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""]];
-    [self.items addObject:[[ENProfileItem alloc] initWithTitle:@"Logout" value:@""]];
+    //Feedback
+    ENProfileItem *feedbackItem = [[ENProfileItem alloc] initWithTitle:@"Feedback" value:@""];
+    feedbackItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        [[ATConnect sharedConnection] presentMessageCenterFromViewController:self];
+    };
+    [self.items addObject:feedbackItem];
+    
+    ENProfileItem *surveyItem = [[ENProfileItem alloc] initWithTitle:@"Survey" value:@""];
+    surveyItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        [[ATConnect sharedConnection] engage:@"completed_in_app_purchase" fromViewController:self];
+    };
+    [self.items addObject:surveyItem];
+    
+    ENProfileItem *rateItem = [[ENProfileItem alloc] initWithTitle:@"Rate Eat Now" value:@""];
+    rateItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        [[ATConnect sharedConnection] openAppStore];
+    };
+    [self.items addObject:rateItem];
+    
+    ENProfileItem *logoutItem = [[ENProfileItem alloc] initWithTitle:@"Logout" value:@""];
+    logoutItem.actionBlock = ^(ENPreferenceMoreTableViewCell *cell){
+        //TODO: Add logout
+    };
+    [self.items addObject:logoutItem];
+    
+}
+
+- (NSString *)getLinkedProviderNameForUser:(NSDictionary *)user
+{
+    NSArray *vendors = user[@"vendors"];
+    if (!vendors || vendors.count == 0) {
+        return @"Link";
+    }
+    
+    NSDictionary *vendor = vendors[0];
+    NSString *providerName = vendor[@"provider"];
+    id<ENSocialLoginProviderProtocol> provider = [[ENSocialLoginManager sharedInstance] findProviderByName:providerName];
+    
+    return provider.displayName;
 }
 
 @end

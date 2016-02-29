@@ -37,6 +37,7 @@
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems
 {
+    desc = nil;
     for (id activityItem in activityItems) {
         if ([activityItem isKindOfClass:[UIImage class]]) {
             image = activityItem;
@@ -45,7 +46,15 @@
             url = activityItem;
         }
         if ([activityItem isKindOfClass:[NSString class]]) {
-            title = activityItem;
+            
+            // Add an item starts with DESC: to distinguish description and title.
+            NSRange descriptionRange = [activityItem rangeOfString:@"DESC:"];
+            if (descriptionRange.location != NSNotFound) {
+                desc = [activityItem substringFromIndex:descriptionRange.location];
+            }
+            else{
+                title = activityItem;
+            }
         }
     }
 }
@@ -70,8 +79,13 @@
 //    req.bText = NO;
     req.message = WXMediaMessage.message;
     if (scene == WXSceneSession) {
-        req.message.title = [NSString stringWithFormat:NSLocalizedString(@"%@ Share",nil), NSLocalizedStringFromTable(@"CFBundleDisplayName", @"InfoPlist", nil)];
-        req.message.description = title;
+        if (desc) {
+            req.message.description = desc;
+            req.message.title = title;
+        }else{
+            req.message.title = [NSString stringWithFormat:NSLocalizedString(@"%@ Share",nil), NSLocalizedStringFromTable(@"CFBundleDisplayName", @"InfoPlist", nil)];
+            req.message.description = title;
+        }
     } else {
         req.message.title = title;
     }

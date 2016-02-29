@@ -31,6 +31,8 @@
 @property (nonatomic, copy) NSString *name;
 //@property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSArray *imageUrls;
+// Use photos to replace imageUrls
+@property (nonatomic, strong) NSDictionary *photos;
 @property (nonatomic, strong) NSArray *cuisines;
 @property (nonatomic, strong) NSNumber *rating;
 @property (nonatomic, strong) UIColor *ratingColor;
@@ -51,6 +53,7 @@
 @property (nonatomic, strong) NSString *facebook;
 @property (nonatomic, strong) NSString *venderUrl;
 @property (nonatomic, strong) NSString *mobileMenuURL;
+@property (nonatomic, strong) NSDictionary *delivery;
 /**
  *  apple watch image is set after resize to smaller size in ResturantInterfaceController
  */

@@ -96,6 +96,7 @@
 @property (nonatomic, weak) UIVisualEffectView *visualEffectView;
 @property (nonatomic, strong) EnShapeView *dotFrameView;
 @property (nonatomic, assign) BOOL showLocationRequestTime;
+@property (nonatomic, assign) BOOL showServerRequestTime;
 
 //animation
 @property (nonatomic, assign) float cardShowInterval;
@@ -212,7 +213,8 @@
     //tweak
     FBTweakBind(self, showScore, @"Algorithm", @"Inspect", @"Show score", NO);
     FBTweakBind(self, showFeedback, @"Main view", @"Feedback", @"Show feedback", YES);
-    FBTweakBind(self, showLocationRequestTime, @"Location", @"request", @"Show request time", NO);
+    FBTweakBind(self, showLocationRequestTime, @"Server", @"Location", @"Show request time", NO);
+    FBTweakBind(self, showServerRequestTime, @"Server", @"Server", @"Show request time", NO);
     FBTweakBind(self, maxCards, @"Animation", @"Card animation", @"Max cards", 12);
     FBTweakBind(self, maxCardsToAnimate, @"Animation", @"Card animation", @"Cards to animate", 6);
     FBTweakBind(self, cardShowInterval, @"Animation", @"Card animation", @"Cards show interval", 0.2);
@@ -232,7 +234,7 @@
     [self setupNoRestaurantStatus];
     
     //mood
-    [self.moodButton setTitle:kMoods[ENAppSetting.mood] forState:UIControlStateNormal];
+    [self.moodButton setTitle:kMoodList[ENAppSetting.mood] forState:UIControlStateNormal];
     
     //fetch user first
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
@@ -256,13 +258,13 @@
     [self.KVOController observe:self keyPaths:@[@keypath(self.needShowRestaurant), @keypath(self.isSearchingFromServer), @keypath(self.isDismissingCard), @keypath(self.isShowingCards)] options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew block:^(id observer, id object, NSDictionary *change) {
         if (!self.isSearchingFromServer && !self.isShowingCards && !self.isDismissingCard) {
             self.reloadButton.enabled = YES;
-            self.shareButton.enabled = YES;
+            self.shareButton.hidden = NO;
             self.loadingIndicator.hidden = YES;
             //DDLogInfo(@"show loding indicator :%@ %@ %@", @(self.isSearchingFromServer), @(self.isShowingCards), @(self.isDismissingCard));
         }
         else {
             self.reloadButton.enabled = NO;
-            self.shareButton.enabled = NO;
+            self.shareButton.hidden = YES;
             //self.loadingIndicator.alpha = 1;
             self.searchView.hidden = YES;
             self.loadingIndicator.hidden = NO;
@@ -522,7 +524,8 @@
     NSURL *deepLink = [NSURL URLWithString:deepLinkurl];
     UIImage *cardImage = [restaurantVC.info toImage];
     
-    [ENShare shareText:shareDesc image:cardImage andLink:shareUrl withdeepLink:deepLink inViewController:self];
+
+    [ENShare shareText:shareDesc withTitle:restaurant.name image:cardImage andLink:shareUrl withdeepLink:deepLink inViewController:self];
 }
 
 #pragma mark - Main methods
@@ -536,11 +539,36 @@
     [self.locationManager getLocationWithCompletion:^(CLLocation *location, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         @strongify(self);
         if (self.showLocationRequestTime) {
-            NSString *str = [NSString stringWithFormat:@"It took %.0fs to get location", [[NSDate date] timeIntervalSinceDate:start]];
+            NSString *str = [NSString stringWithFormat:@"It took %.1fs to get location", [[NSDate date] timeIntervalSinceDate:start]];
             [ENUtil showText:str];
         }
+        NSDate *serverStart = [NSDate date];
         if (location) {
-            [self searchRestaurantsAtLocation:location WithCompletion:block];
+//<<<<<<< HEAD
+            [self.serverManager searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+                @strongify(self);
+                self.isSearchingFromServer = NO;
+                if (self.showServerRequestTime) {
+                    NSString *str = [NSString stringWithFormat:@"Server response time %.1fs", [[NSDate date] timeIntervalSinceDate:serverStart]];
+                    [ENUtil showText:str];
+                }
+                
+                if (success) {
+                    self.restaurants = response.mutableCopy;
+                    if (self.restaurants.count == 0) {
+                        [self showNoRestaurantStatus];
+                    }
+                    self.needShowRestaurant = YES;//need to place after the _restaurants is assigned
+                }else {
+                    self.needShowRestaurant = NO;
+                    [self handleError:error];
+                }
+                
+                if(block) block(response, error);
+            }];
+//=======
+//            [self searchRestaurantsAtLocation:location WithCompletion:block];
+//>>>>>>> master
         }
         else {
             self.isSearchingFromServer = NO;
@@ -992,9 +1020,7 @@
 }
 
 - (void)setupNoRestaurantStatus {
-    NSMutableAttributedString *text = [[[NSAttributedString alloc] initWithString:@"Too bad. Eat Now didn’t find any restaurant nearby. :(" attributes:@{}] mutableCopy];
-    [text addAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"OpenSans" size:28]} range:NSMakeRange(0, 8)];
-    [text addAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"OpenSans-Light" size:20]} range:NSMakeRange(6, text.length - 6)];
+    NSMutableAttributedString *text = [[[NSAttributedString alloc] initWithString:@"Too bad. Eat Now didn’t find any restaurant nearby. :(" attributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"OpenSans-Light" size:20]}] mutableCopy];
     self.noRestaurantsLabel.attributedText = text;
 }
 

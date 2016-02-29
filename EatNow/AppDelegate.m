@@ -31,12 +31,12 @@
 #import "ATConnect.h"
 #import "UIImageView+AFNetworking.h"
 #import "WatchKitAction.h"
-//#import "CrashlyticsLogger.h"
-//#import <Fabric/Fabric.h>
+#import "CrashlyticsLogger.h"
+#import <Fabric/Fabric.h>
 #import "DDLog.h"
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
-//#import <Crashlytics/crashlytics.h>
+#import <Crashlytics/crashlytics.h>
 #import "ENLostConnectionViewController.h"
 #import "Mixpanel.h"
 #import "BlocksKit+UIKit.h"
@@ -51,6 +51,7 @@
 #import "NSString+Extend.h"
 #import "ENSocial.h"
 #import "ENProxy.h"
+#import "ENLocationReporter.h"
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 
@@ -66,8 +67,9 @@
     
     //plugin init
     [ATConnect sharedConnection].apiKey = @"43aadd17c4e966f98753bcb1250e78d00c68731398a9b60dc7c456d2682415fc";
-    //[Fabric with:@[CrashlyticsKit]];
-    //[Fabric sharedSDK].debug = YES;
+    [ATConnect sharedConnection].appID = @"946591471";
+    [Fabric with:@[CrashlyticsKit]];
+    [Fabric sharedSDK].debug = YES;
     [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
     
     //Wechat
@@ -106,6 +108,9 @@
         [UIWindow mainWindow].rootViewController = self.mainViewController;
         [[UIWindow mainWindow] makeKeyAndVisible];
         [self installTweak];
+        
+        // Waked up by significant loation changed
+        [[ENLocationReporter shared] startMonitor];
     }
     
     self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
