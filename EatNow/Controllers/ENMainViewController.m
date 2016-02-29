@@ -220,7 +220,7 @@
     FBTweakBind(self, cardShowInterval, @"Animation", @"Card animation", @"Cards show interval", 0.2);
     FBTweakBind(self, cardShowIntervalDiminishingDelta, @"Animation", @"Card animation", @"Diminishing delta", 0.03);
     FBTweakBind(self, backgroundImageDelay, @"Animation", @"Backdound blur", @"Backgound delay", 3.0);
-    FBTweakBind(self, panGustureSnapBackDistance, @"Animation", @"Snap", @"Snap back distance", 50);
+    FBTweakBind(self, panGustureSnapBackDistance, @"Animation", @"Snap", @"Snap back distance", 100);
     FBTweakBind(self, snapDamping, @"Animation", @"Snap", @"Snap damping", 0.8);
     
     [[Mixpanel sharedInstance] timeEvent:@"Card shown"];
@@ -646,7 +646,7 @@
             [self addChildViewController:card];
             [self.cardContainer addSubview:card.view];
             [card.view addGestureRecognizer:self.panGesture];
-            if ([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
+            if([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
             [card didChangedToFrontCard];
         }
         else{
@@ -683,6 +683,62 @@
             self.isShowingCards = NO;
         });
     }
+}
+
+- (void)recycleCardWithVelocity:(CGPoint)velocity completion:(void (^)(NSArray *leftcards))completion {
+    if (!self.firstRestaurantViewController) {
+        DDLogError(@"No card left to recycle");
+        return;
+    }
+    
+    [[Mixpanel sharedInstance].people increment:@"dismiss" by:@1];
+    [[Mixpanel sharedInstance] track:@"Dismiss" properties:@{@"index": @(_maxCards - _cards.count + 1),
+                                                             @"session": [ENServerManager shared].session}];
+    ENRestaurantViewController *card = self.firstRestaurantViewController;
+    //DDLogInfo(@"Dismiss card %@", frontCard.restaurant.name);
+    //add dynamics
+    //[self.animator removeBehavior:card.snap];
+    //[self.gravity addItem:card.view];
+    [self.dynamicItem addItem:card.view];
+    //add initial velocity
+    if (velocity.x) {
+        [self.dynamicItem addLinearVelocity:velocity forItem:card.view];
+    }
+    
+    //change z-index
+    [card.view.superview insertSubview:card.view belowSubview:self.cards.lastObject];
+  
+    //recycle front card to last
+    [self.cards removeObjectAtIndex:0];
+    [self.cards addObject:card];
+    
+    //snap back to center
+    [self snapCardToCenter:card];
+    
+    //add pan gesture to next
+    [card.view removeGestureRecognizer:self.panGesture];
+    if ([card isKindOfClass:[ENRestaurantViewController class]]) {
+        [card.info removeGestureRecognizer:self.tapGesture];
+    }
+    [self.firstRestaurantViewController.view addGestureRecognizer:self.panGesture];
+    if ([self.firstRestaurantViewController isKindOfClass:[ENRestaurantViewController class]]) {
+        [self.firstRestaurantViewController.info addGestureRecognizer:self.tapGesture];
+    }
+    
+    //notify next card
+    [self.firstRestaurantViewController didChangedToFrontCard];
+    
+    //delay
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.5 animations:^{
+            card.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [_gravity removeItem:card.view];
+            [_dynamicItem removeItem:card.view];
+            [card.view removeFromSuperview];
+            if(completion) completion(self.cards);
+        }];
+    });
 }
 
 - (void)dismissFrontCardWithVelocity:(CGPoint)velocity completion:(void (^)(NSArray *leftcards))completion {
@@ -849,7 +905,7 @@
         if (canSwipe && panDistanceLargeEnough) {
             //add dynamic item behavior
             CGPoint velocity = [gesture velocityInView:self.view];
-            [self dismissFrontCardWithVelocity:velocity completion:^(NSArray *leftcards) {
+            [self recycleCardWithVelocity:velocity completion:^(NSArray *leftcards) {
                 if (leftcards.count == 0) {
                     //show loading info
                     self.loadingInfo.text = @"\n\nSeems you didn’t like any of the recommendations. Press Refresh and try your luck again?";
@@ -898,13 +954,12 @@
     //card.view.transform = CGAffineTransformMakeRotation(initialAngle);
     //move to center
     [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:_snapDamping initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        CGRect frame = card.view.frame;
-        frame.origin = self.cardView.frame.origin;
-        card.view.frame = frame;
-        card.view.transform = CGAffineTransformMakeRotation(0);
-    } completion:^(BOOL finished) {
+            CGRect frame = card.view.frame;
+            frame.origin = self.cardView.frame.origin;
+            card.view.frame = frame;
+            card.view.transform = CGAffineTransformMakeRotation(0);
+        } completion:^(BOOL finished) {
     }];
-    
 }
 
 #pragma mark - Internal Methods
