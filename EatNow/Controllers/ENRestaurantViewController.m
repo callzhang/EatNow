@@ -31,6 +31,7 @@
 #import "ENBiuController.h"
 #import "UserAction.h"
 #import "BiuUser.h"
+#import "BiuUserViewController.h"
 
 @import AddressBook;
 
@@ -80,6 +81,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (nonatomic, strong) MKRoute *lastRouting;
 @property (nonatomic, strong) NSMutableArray *imageViewsLoaded;
 @property (nonatomic, assign) BOOL canSwipeOnCardView;
+//key is the tag of button, value is a BiuUser
+@property (nonatomic, strong) NSDictionary *userProfileButtonToUserMapping;
 @end
 
 
@@ -476,6 +479,20 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     return imagesRatingControl;
 }
 
+- (void)didClickUserProfileButton:(UIButton *)sender {
+    NSInteger tag = sender.tag;
+    BiuUser *user = self.userProfileButtonToUserMapping[@(tag)];
+    if (user) {
+        //TODO: show user profle
+        BiuUserViewController *vc = [[BiuUserViewController alloc] init];
+        vc.user = user;
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+        vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:vc action:@selector(dismiss)];
+        
+        [self presentViewController:nav animated:YES completion:nil];
+    }
+}
+
 #pragma mark - Couch View
 
 - (void)showCouchView
@@ -832,21 +849,40 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         
         [[[ENBiuController shared] getFriendActions] continueWithSuccessBlock:^id(BFTask *task) {
             NSArray *results = task.result;
+            NSMutableDictionary *mapping = [NSMutableDictionary dictionary];
             NSMutableArray *images = [NSMutableArray array];
-            for (UserAction *action in results) {
+            for (int i = 0; i < results.count; i ++) {
+                UserAction *action = results[i];
                 BiuUser *user = [[ENBiuController shared] getUserByID:action.userId];
+                //setup mapping
+                mapping[@(i)] = user;
                 UIImage *image = ENImageFromBase64String(user.avatar);
                 if (image) {
                     [images addObject:image];
                 }
             }
             
-            UIImageView *previousImageView = nil;
+            //add count label
+            UILabel *label = [[UILabel alloc] init];
+            label.text = [NSString stringWithFormat:@"...%@人推荐", @(results.count)];
+            [friendsContentView addSubview:label];
+            label.font = [UIFont systemFontOfSize:11];
+            label.textColor = [UIColor colorWithWhite:0.1 alpha:1];
+            [label autoPinEdgeToSuperviewEdge:ALEdgeTrailing withInset:4];
+            [label autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+            
+            UIView *previousImageView = nil;
             CGFloat widthAndHeight = 40;
-            for (UIImage *image in images) {
-                UIImageView *view = [[UIImageView alloc] initWithImage:image];
+            //add user avatar button
+            for (int i = 0; i < images.count; i ++) {
+                UIImage *image = images[i];
+                UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
+                [view setImage:image forState:UIControlStateNormal];
                 view.layer.cornerRadius = widthAndHeight / 2.0;
                 view.layer.masksToBounds = YES;
+                [view addTarget:self action:@selector(didClickUserProfileButton:) forControlEvents:UIControlEventTouchUpInside];
+                view.tag = i;
+                
                 [friendsContentView addSubview:view];
                 
                 [view autoSetDimension:ALDimensionHeight toSize:widthAndHeight];
@@ -867,6 +903,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
                 
                 previousImageView = view;
             }
+            self.userProfileButtonToUserMapping = mapping;
             return nil;
         }];
     }

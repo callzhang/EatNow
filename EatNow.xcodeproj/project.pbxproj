@@ -44,6 +44,8 @@
 		09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C831AD497F8007147B2 /* TextfieldWithInset.swift */; };
 		09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C841AD497F8007147B2 /* WJCustomizeView.swift */; };
 		09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C851AD497F8007147B2 /* ApplicationButton.swift */; };
+		09800F261C85852E00669561 /* BiuUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09800F241C85852E00669561 /* BiuUserViewController.m */; };
+		09800F271C85852E00669561 /* BiuUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09800F251C85852E00669561 /* BiuUserViewController.xib */; };
 		0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
 		0982B45E1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
 		09B9F8FA1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8F91AF1B6D800DE92C6 /* ENHistoryRowItem.m */; };
@@ -152,11 +154,11 @@
 		DA5B740218F233EF00BB5F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B740118F233EF00BB5F8E /* XCTest.framework */; };
 		DA5B740318F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B740418F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
-		F5A5E4DFBC7A93E43A701F8E /* libPods-EatNow WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */; };
 		EDF60BE31C7C489700FA0BCA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDC1C7C489700FA0BCA /* Location.swift */; };
 		EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */; };
 		EDF60BE51C7C489700FA0BCA /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */; };
 		EDF60BE61C7C489700FA0BCA /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */; };
+		F5A5E4DFBC7A93E43A701F8E /* libPods-EatNow WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +238,9 @@
 		09777C831AD497F8007147B2 /* TextfieldWithInset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldWithInset.swift; sourceTree = "<group>"; };
 		09777C841AD497F8007147B2 /* WJCustomizeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WJCustomizeView.swift; sourceTree = "<group>"; };
 		09777C851AD497F8007147B2 /* ApplicationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationButton.swift; sourceTree = "<group>"; };
+		09800F231C85852E00669561 /* BiuUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuUserViewController.h; sourceTree = "<group>"; };
+		09800F241C85852E00669561 /* BiuUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiuUserViewController.m; sourceTree = "<group>"; };
+		09800F251C85852E00669561 /* BiuUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BiuUserViewController.xib; sourceTree = "<group>"; };
 		0982B45B1AD9A7D700982740 /* ResturantDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResturantDetailInterfaceController.h; sourceTree = "<group>"; };
 		0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResturantDetailInterfaceController.m; sourceTree = "<group>"; };
 		09B9F8F81AF1B6D800DE92C6 /* ENHistoryRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryRowItem.h; sourceTree = "<group>"; };
@@ -427,12 +432,12 @@
 		DA5B740118F233EF00BB5F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DA5B745518F239B700BB5F8E /* ENMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainViewController.h; sourceTree = "<group>"; };
 		DA5B745618F239B700BB5F8E /* ENMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainViewController.m; sourceTree = "<group>"; };
-		FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EatNow WatchKit Extension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF60BDC1C7C489700FA0BCA /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		EDF60BDD1C7C489700FA0BCA /* LocationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPicker.h; sourceTree = "<group>"; };
 		EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchResultsViewController.swift; sourceTree = "<group>"; };
 		EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
+		FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EatNow WatchKit Extension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -538,6 +543,7 @@
 		092A36741C406EF900EA5A5C /* BiuSDK+EatNow */ = {
 			isa = PBXGroup;
 			children = (
+				09800F1B1C8584DA00669561 /* Controller */,
 				092A36751C406F2000EA5A5C /* ENBiuController.h */,
 				092A36761C406F2000EA5A5C /* ENBiuController.m */,
 				092A36791C4072A900EA5A5C /* ENBiuError.h */,
@@ -606,6 +612,16 @@
 				0949581A1B019AC70022E4B4 /* TMAlertTransitioningDelegate.m */,
 			);
 			path = AlertController;
+			sourceTree = "<group>";
+		};
+		09800F1B1C8584DA00669561 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				09800F231C85852E00669561 /* BiuUserViewController.h */,
+				09800F241C85852E00669561 /* BiuUserViewController.m */,
+				09800F251C85852E00669561 /* BiuUserViewController.xib */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		7810AE131BC2524C00625941 /* SlideSwitch */ = {
@@ -1169,6 +1185,7 @@
 				091C0B3C1AF9616200838096 /* OpenSans-Light.ttf in Resources */,
 				9B2205E71B7705BD0088DC96 /* Launch Screen.xib in Resources */,
 				091C0B3B1AF9616200838096 /* OpenSans-Italic.ttf in Resources */,
+				09800F271C85852E00669561 /* BiuUserViewController.xib in Resources */,
 				9BE71C5B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib in Resources */,
 				091C0B3E1AF9616200838096 /* OpenSans-Regular.ttf in Resources */,
 				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,
@@ -1406,6 +1423,7 @@
 				EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */,
 				78E8C77D1BD3D0C900034E9C /* ENWechatLoginProvider.m in Sources */,
 				78FCE9871BD2A686008A68F6 /* ENShare.m in Sources */,
+				09800F261C85852E00669561 /* BiuUserViewController.m in Sources */,
 				9BE71C541B7FA2F400509457 /* TMTableViewBuilder.m in Sources */,
 				9BE71C141B7FA1E700509457 /* NSError+EatNow.m in Sources */,
 				9B03363B1B5D3F73001F5A32 /* UIViewController+Blur.m in Sources */,
