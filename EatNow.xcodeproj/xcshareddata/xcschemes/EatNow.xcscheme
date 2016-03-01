@@ -21,11 +21,11 @@
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
-            buildForTesting = "YES"
+            buildForTesting = "NO"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
+            buildForProfiling = "NO"
             buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA5B73E418F233EF00BB5F8E"
@@ -35,8 +35,8 @@
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForTesting = "NO"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">

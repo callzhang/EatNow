@@ -1671,6 +1671,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1696,7 +1697,7 @@
 					"$(PROJECT_DIR)/EatNow/Library/BiuSDK",
 				);
 				PRODUCT_NAME = EatNow;
-				PROVISIONING_PROFILE = "$(PROFILE_UUID)";
+				PROVISIONING_PROFILE = "19477384-0e30-4095-a380-bc72f7a01492";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
@@ -1716,6 +1717,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Lei Zhang (SDR7T9YB58)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Lei Zhang (SDR7T9YB58)";
+				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1731,7 +1733,7 @@
 					"$(PROJECT_DIR)/EatNow/Library/BiuSDK",
 				);
 				PRODUCT_NAME = EatNow;
-				PROVISIONING_PROFILE = "$(PROFILE_UUID)";
+				PROVISIONING_PROFILE = "19477384-0e30-4095-a380-bc72f7a01492";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
@@ -1762,6 +1764,7 @@
 		DA5B741618F233EF00BB5F8E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Lei Zhang (SDR7T9YB58)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
