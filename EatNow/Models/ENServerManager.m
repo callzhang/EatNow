@@ -172,7 +172,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         [[Mixpanel sharedInstance] track:@"Get user"];
 
         NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error.localizedDescription];
-        DDLogError(s);
+         DDLogError(@"%@",s);
         if (block) {
             block(nil, error);
         }
@@ -318,7 +318,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
                                                                            @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude)}];
         block(error);
         NSString *s = [NSString stringWithFormat:@"%@", error];
-        DDLogError(s);
+         DDLogError(@"%@",s);
     }];
 }
 
@@ -512,6 +512,32 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
     
 }
+
+//TODO:getRestaurant by ID
+- (void)getRestaurantbyId:(NSString *)ID withRestaurant:(RestaurantBlock)response completion:(ErrorBlock)completion{
+
+    NSParameterAssert(ID);
+    NSString *url = [NSString stringWithFormat:@"%@/restaurant/%@",kServerUrl, ID];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"========%@",responseObject);
+        ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:responseObject];
+        if (response) {
+            response(restaurant);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        
+        completion(error);
+        NSString *s = [NSString stringWithFormat:@"%@", error];
+        DDLogError(@"%@",s);
+    }];
+
+
+}
+
 
 #pragma mark - Tools
 - (NSString *)myID{

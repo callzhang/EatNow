@@ -270,11 +270,7 @@
 //TODO:get restaurant
 - (NSDictionary *)getRestaurant:(NSString *)dataString{
     NSArray* dataArray = [dataString componentsSeparatedByString:@"/"];
-    NSArray*location = [dataArray[3] componentsSeparatedByString:@","];
-    
-    NSDictionary *data = @{@"ID":dataArray[2],
-                           @"lat":location[0],
-                           @"lon":location[1]};
+    NSDictionary *data = @{@"ID":dataArray[3]};
     return data;
 }
 

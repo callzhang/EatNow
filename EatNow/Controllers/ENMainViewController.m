@@ -120,6 +120,15 @@
     return self.cards.firstObject;
 }
 
+- (NSMutableArray *)cards{
+    if (!_cards) {
+        _cards = [[NSMutableArray alloc]init];
+    }
+    return _cards;
+}
+
+
+
 - (void)setRestaurants:(NSMutableArray *)restaurants{
     if (restaurants.count > _maxCards) {
         DDLogInfo(@"Trunked restaurant list from %@ to %lu", @(restaurants.count), (unsigned long)_maxCards);
@@ -235,7 +244,8 @@
     
     //mood
     [self.moodButton setTitle:kMoodList[ENAppSetting.mood] forState:UIControlStateNormal];
-    
+    self.moodButton.titleLabel.adjustsFontSizeToFitWidth = true;
+
     //fetch user first
     [[ENServerManager shared] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
         if (user) {
@@ -318,11 +328,12 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:kOpenDeepLinkForRestaurant object:nil queue:nil usingBlock:^(NSNotification *note) {
         NSDictionary * restaurantInfo = note.userInfo;
         if (self.cards.count == 0) { //no card
+            [self getTheCard:restaurantInfo[@"ID"]withCardState:0];
             
         }else{
             if (self.currentRestaurant) {
                 if (![self.currentRestaurant.ID isEqualToString:restaurantInfo[@"ID"]]) {//add the card
-                    
+                   [self getTheCard:restaurantInfo[@"ID"]withCardState:1];
                 }
             }
         }
@@ -362,6 +373,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRestauranntViewImageDidChangeNotification:) name:kRestaurantViewImageChangedNotification object:nil];
     
     [self setupDotFrameView];
+    
+   
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -422,6 +435,7 @@
 
 - (IBAction)onSearchButton:(id)sender
 {
+
     [self onReloadButton:sender];
 }
 
@@ -519,8 +533,7 @@
     NSString *urlString = [NSString stringWithFormat:@"http://eat-now.herokuapp.com/home/restaurant/#/%@",restaurant.ID];
     DDLogDebug(@"Share url :%@",urlString);
     NSURL *shareUrl = [NSURL URLWithString:urlString];
-    NSString *deepLinkurl = [NSString stringWithFormat:@"eatnow://%@/%lf,%lf",restaurant.ID,restaurant.location.coordinate.latitude,restaurant.location.coordinate.longitude];
-    
+    NSString *deepLinkurl = [NSString stringWithFormat:@"eatnow://restaurat/%@",restaurant.ID];
     NSURL *deepLink = [NSURL URLWithString:deepLinkurl];
     UIImage *cardImage = [restaurantVC.info toImage];
     
@@ -557,6 +570,8 @@
                     self.restaurants = response.mutableCopy;
                     if (self.restaurants.count == 0) {
                         [self showNoRestaurantStatus];
+                    }else{
+                        self.currentRestaurant = self.restaurants[0];
                     }
                     self.needShowRestaurant = YES;//need to place after the _restaurants is assigned
                 }else {
@@ -784,15 +799,37 @@
 //    [super updateViewConstraints];
 //}
 
+- (void)showRestaurantAsNoCard:(ENRestaurant *)restaurant{
+
+    if (self.restaurants == nil) {
+        self.restaurants = [[NSMutableArray alloc]init];
+    }
+    [self.restaurants insertObject:restaurant atIndex:0];
+    ENRestaurantViewController *card = [self popResuturantViewWithFrame:[self initialCardFrame]];
+    card.view.hidden = YES;
+    self.loadingInfo.text = @"";
+    self.isShowingCards = YES;
+    [self addChildViewController:card];
+    [self.cardContainer addSubview:card.view];
+    [card.view addGestureRecognizer:self.panGesture];
+    if ([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
+    [card didChangedToFrontCard];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_cardShowInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        card.view.hidden = NO;
+        [self showCardToCenter:card];
+    });
+    
+    //finish
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(( _cardShowInterval + 1) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.isShowingCards = NO;
+    });
+
+
+}
+
+
 - (void)showRestaurantAsFrontCard:(ENRestaurant *)restaurant
 {
-    if (self.cards.count == 0) {
-        [self.restaurants insertObject:restaurant atIndex:0];
-        self.currentRestaurant = self.restaurants[0];
-        [self showAllRestaurantCards];
-        return;
-    }
-    
     // Remove old card gestures
     ENRestaurantViewController *topCard = [self firstRestaurantViewController];
     [topCard.view removeGestureRecognizer:self.panGesture];
@@ -803,7 +840,7 @@
     // Create a new card
     [self.restaurants insertObject:restaurant atIndex:0];
     self.currentRestaurant = self.restaurants[0];
-    ENRestaurantViewController *card = [self popResuturantViewWithFrame:[self cardViewFrame]];
+    ENRestaurantViewController *card = [self popResuturantViewWithFrame:[self initialCardFrame]];
     // Make the card as top card
     [self.cards removeObject:card];
     [self.cards insertObject:card atIndex:0];
@@ -815,6 +852,15 @@
     if ([card isKindOfClass:[ENRestaurantViewController class]]) [[(ENRestaurantViewController *)card info] addGestureRecognizer:self.tapGesture];
     
     [card didChangedToFrontCard];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(_cardShowInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        card.view.hidden = NO;
+        [self showCardToCenter:card];
+    });
+    
+    //finish
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(( _cardShowInterval + 1) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.isShowingCards = NO;
+    });
     
 }
 
@@ -1026,6 +1072,7 @@
 
 #pragma mark - 
 - (void)setupDotFrameView {
+    
     CGRect cardFrame = self.cardView.bounds;
     CGFloat shrink = 2;
     cardFrame = CGRectMake(cardFrame.origin.x + shrink, cardFrame.origin.y + shrink, cardFrame.size.width - shrink*2, cardFrame.size.height - shrink*2);
@@ -1046,6 +1093,27 @@
     else {
         self.dotFrameView.shapeLayer.path = [UIBezierPath bezierPathWithRoundedRect:cardFrame cornerRadius:16].CGPath;
     }
+}
+
+#pragma mark - deeplink get the card
+- (void)getTheCard:(NSString *)ID withCardState:(NSInteger)state{
+    @weakify(self);
+    [self.serverManager getRestaurantbyId:ID withRestaurant:^(ENRestaurant *restaurant){
+        @strongify(self);
+       
+        if (state == 0) {
+            [self showRestaurantAsNoCard:restaurant];
+        }
+        else{
+              [self showRestaurantAsFrontCard:restaurant];
+            
+        }
+    } completion:^(NSError *error){
+    
+    
+    
+    
+    }];
 }
 
 #pragma mark - Search view
