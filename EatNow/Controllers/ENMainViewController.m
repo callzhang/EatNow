@@ -707,6 +707,8 @@
     
     //change z-index
     [card.view.superview insertSubview:card.view belowSubview:((UIViewController *) self.cards.lastObject).view];
+    
+    card.shadowView.hidden = YES;
 
     //recycle front card to last
     [self.cards removeObjectAtIndex:0];
