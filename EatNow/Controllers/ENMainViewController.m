@@ -528,6 +528,13 @@
     [ENShare shareText:shareDesc withTitle:restaurant.name image:cardImage andLink:shareUrl withdeepLink:deepLink inViewController:self];
 }
 
+- (IBAction)onBiuHomeButton:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] init];
+    alert.message = @"TODO: 显示不囧首页";
+    [alert addButtonWithTitle:@"OK"];
+    [alert show];
+}
+
 #pragma mark - Main methods
 
 - (void)searchNewRestaurantsWithCompletion:(void (^)(NSArray *response, NSError *error))block {

@@ -189,6 +189,14 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tT5-uY-qhM" userLabel="history">
                                 <rect key="frame" x="16" y="82" width="288" height="394"/>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWl-Ee-9Gy">
+                                <rect key="frame" x="15" y="5" width="51" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="不囧" image="biu-back-arrow"/>
+                                <connections>
+                                    <action selector="onBiuHomeButton:" destination="N2Z-hj-BcO" eventType="touchUpInside" id="4XM-eY-YV9"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNF-QT-1bI" userLabel="detail">
                                 <rect key="frame" x="16" y="20" width="288" height="456"/>
                                 <subviews>
@@ -435,6 +443,7 @@
                             <constraint firstItem="bQj-FE-IWf" firstAttribute="centerX" secondItem="D4e-Sg-nPl" secondAttribute="centerX" id="S0l-t1-pMu"/>
                             <constraint firstItem="q0J-Z4-Pim" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" id="TIz-2d-3aG"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="centerY" secondItem="TEb-SL-p86" secondAttribute="centerY" id="TyN-vp-ESS"/>
+                            <constraint firstItem="GWl-Ee-9Gy" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="5" id="U4P-Ga-2xB"/>
                             <constraint firstItem="McB-7e-y9E" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="16" id="W67-VS-ClU"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="McB-7e-y9E" secondAttribute="bottom" constant="16" id="Z3Q-lf-14d"/>
                             <constraint firstItem="0ai-QC-a0l" firstAttribute="top" secondItem="tT5-uY-qhM" secondAttribute="bottom" constant="92" id="c1r-cs-GQE"/>
@@ -445,6 +454,7 @@
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="top" secondItem="kgo-mR-Ptp" secondAttribute="bottom" constant="82" id="lDz-H5-rBd"/>
                             <constraint firstItem="tT5-uY-qhM" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leadingMargin" id="pjo-mg-XiM"/>
                             <constraint firstItem="bQj-FE-IWf" firstAttribute="centerY" secondItem="McB-7e-y9E" secondAttribute="centerY" id="sNG-GL-Hz9"/>
+                            <constraint firstItem="GWl-Ee-9Gy" firstAttribute="leading" secondItem="Z8L-6K-Fh8" secondAttribute="leading" constant="15" id="tEg-fE-5uy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tT5-uY-qhM" secondAttribute="trailing" id="wVd-oh-Khx"/>
                             <constraint firstItem="Fcq-QR-9Zu" firstAttribute="leading" secondItem="TEb-SL-p86" secondAttribute="trailing" id="xuy-Sl-O0u"/>
                             <constraint firstItem="D4e-Sg-nPl" firstAttribute="centerY" secondItem="Fcq-QR-9Zu" secondAttribute="centerY" id="yvw-as-gOE"/>
@@ -2062,6 +2072,7 @@ b3IgeW91LhHigKgRDVBsZWFzZSBjaGVjayB5b3VyIGNvbm5lY3Rpb24gYW5kIHRyeSBhZ2Fpbi4
     </scenes>
     <resources>
         <image name="animatedLoading.gif" width="198" height="198"/>
+        <image name="biu-back-arrow" width="21" height="21"/>
         <image name="eat-now-card-deck-view-couchmark-1" width="206" height="162"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-lower" width="1" height="206"/>
         <image name="eat-now-card-deck-view-image-dark-overlay-upper" width="1" height="206"/>
