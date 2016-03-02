@@ -67,7 +67,6 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENLocationManager)
     @weakify(self);
     [[self class] setCachedCurrentLocation:nil];
     [[INTULocationManager sharedInstance] requestLocationWithDesiredAccuracy:INTULocationAccuracyBlock timeout:kENLocationRequestTimeout delayUntilAuthorized:YES block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-#define LOCATION_DEBUG 1
 #ifdef LOCATION_DEBUG
         currentLocation = [[CLLocation alloc] initWithLatitude:40.730079 longitude:-73.990807];
 #endif
