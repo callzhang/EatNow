@@ -154,6 +154,7 @@
 		DA5B740218F233EF00BB5F8E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B740118F233EF00BB5F8E /* XCTest.framework */; };
 		DA5B740318F233EF00BB5F8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73E818F233EF00BB5F8E /* Foundation.framework */; };
 		DA5B740418F233EF00BB5F8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5B73EC18F233EF00BB5F8E /* UIKit.framework */; };
+		EDF59B5A1C8B596100C80144 /* ENDeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EDF59B591C8B596100C80144 /* ENDeepLink.m */; };
 		EDF60BE31C7C489700FA0BCA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDC1C7C489700FA0BCA /* Location.swift */; };
 		EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */; };
 		EDF60BE51C7C489700FA0BCA /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */; };
@@ -439,6 +440,8 @@
 		DA5B740118F233EF00BB5F8E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DA5B745518F239B700BB5F8E /* ENMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainViewController.h; sourceTree = "<group>"; };
 		DA5B745618F239B700BB5F8E /* ENMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainViewController.m; sourceTree = "<group>"; };
+		EDF59B581C8B596100C80144 /* ENDeepLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENDeepLink.h; sourceTree = "<group>"; };
+		EDF59B591C8B596100C80144 /* ENDeepLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENDeepLink.m; sourceTree = "<group>"; };
 		EDF60BDC1C7C489700FA0BCA /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		EDF60BDD1C7C489700FA0BCA /* LocationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPicker.h; sourceTree = "<group>"; };
 		EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
@@ -667,6 +670,7 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				EDF59B571C8B594100C80144 /* DeepLink */,
 				784790C31BCD514F0058C7D2 /* ENSocial */,
 				7810AE131BC2524C00625941 /* SlideSwitch */,
 				781BF0171B8A1E930005B9EA /* WeChatSDK_1.5 */,
@@ -954,6 +958,15 @@
 				78470A351BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		EDF59B571C8B594100C80144 /* DeepLink */ = {
+			isa = PBXGroup;
+			children = (
+				EDF59B581C8B596100C80144 /* ENDeepLink.h */,
+				EDF59B591C8B596100C80144 /* ENDeepLink.m */,
+			);
+			name = DeepLink;
 			sourceTree = "<group>";
 		};
 		EDF60BD91C7C489700FA0BCA /* LocationPicker */ = {
@@ -1286,6 +1299,7 @@
 				7854ACD41B92A1D70036BCA8 /* NSString+Extend.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
+				EDF59B5A1C8B596100C80144 /* ENDeepLink.m in Sources */,
 				78E8C7861BD3E5A000034E9C /* ENToken.m in Sources */,
 				093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */,
 				094958151B0190E80022E4B4 /* TMAlertAction.m in Sources */,

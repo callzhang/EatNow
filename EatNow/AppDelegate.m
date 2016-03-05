@@ -52,7 +52,7 @@
 #import "ENSocial.h"
 #import "ENProxy.h"
 #import "ENLocationReporter.h"
-
+#import "ENDeepLink.h"
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 
 @property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
@@ -261,18 +261,13 @@
 {
     if ([url.absoluteString hasPrefix:@"eatnow"]) {
         NSLog(@"%@",url.absoluteString);
-        [[NSNotificationCenter defaultCenter]postNotificationName:kOpenDeepLinkForRestaurant object:self userInfo:[self getRestaurant:url.absoluteString]];
+        [ENDeepLink linktoRestaurantCard:url.absoluteString];
         
     }
     return [[ENSocial sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
-//TODO:get restaurant
-- (NSDictionary *)getRestaurant:(NSString *)dataString{
-    NSArray* dataArray = [dataString componentsSeparatedByString:@"/"];
-    NSDictionary *data = @{@"ID":dataArray[3]};
-    return data;
-}
+
 
 
 #pragma mark - Tools
