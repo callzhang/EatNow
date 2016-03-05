@@ -158,6 +158,7 @@
 		EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */; };
 		EDF60BE51C7C489700FA0BCA /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */; };
 		EDF60BE61C7C489700FA0BCA /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */; };
+		EDFA86FB1C86CF06003DF2F0 /* LocationCurrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFA86FA1C86CF06003DF2F0 /* LocationCurrentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -443,6 +444,7 @@
 		EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchResultsViewController.swift; sourceTree = "<group>"; };
 		EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
+		EDFA86FA1C86CF06003DF2F0 /* LocationCurrentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCurrentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -962,6 +964,7 @@
 				EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */,
 				EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */,
 				EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */,
+				EDFA86FA1C86CF06003DF2F0 /* LocationCurrentView.swift */,
 			);
 			path = LocationPicker;
 			sourceTree = "<group>";
@@ -1292,6 +1295,7 @@
 				785857341BEF315A00D2CE74 /* ENProxy.m in Sources */,
 				784D1AAF1BB59CED001147AA /* CALayer+UIColor.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
+				EDFA86FB1C86CF06003DF2F0 /* LocationCurrentView.swift in Sources */,
 				9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */,
 				9BE71C531B7FA2F400509457 /* TMSectionItem.m in Sources */,
 				9BE71C211B7FA21800509457 /* EnShapeView.m in Sources */,

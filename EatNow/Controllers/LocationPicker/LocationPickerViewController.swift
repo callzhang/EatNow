@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-public class LocationPickerViewController: UIViewController {
+public class LocationPickerViewController: UIViewController,LocationCurrentViewDelegate {
 	struct CurrentLocationListener {
 		let once: Bool
 		let action: (CLLocation) -> ()
@@ -37,6 +37,7 @@ public class LocationPickerViewController: UIViewController {
 	/// default: "Search History"
 	public var searchHistoryLabel = "Search History"
 	
+    
 	lazy public var currentLocationButtonBackground: UIColor = {
 		if let navigationBar = self.navigationController?.navigationBar,
 			barTintColor = navigationBar.barTintColor {
@@ -56,6 +57,7 @@ public class LocationPickerViewController: UIViewController {
 		didSet {
 			if isViewLoaded() {
 				searchBar.text = location.flatMap({ $0.title }) ?? ""
+                
 				updateAnnotation()
 			}
 		}
@@ -68,9 +70,9 @@ public class LocationPickerViewController: UIViewController {
 	let geocoder = CLGeocoder()
 	var localSearch: MKLocalSearch?
 	var searchTimer: NSTimer?
-	
+	var isLocaton = true
 	var currentLocationListeners: [CurrentLocationListener] = []
-	
+	var currentLocation = MKUserLocation()
 	var mapView: MKMapView!
 	var locationButton: UIButton?
 	
@@ -94,7 +96,7 @@ public class LocationPickerViewController: UIViewController {
 		searchBar.placeholder = self.searchBarPlaceholder
 		return searchBar
 	}()
-	
+	let currentPicker = LocationCurrentView(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
 	deinit {
 		searchTimer?.invalidate()
 		localSearch?.cancel()
@@ -120,18 +122,21 @@ public class LocationPickerViewController: UIViewController {
             locationButton = button
         }
 
-    
+        currentPicker.center = CGPointMake(UIScreen.mainScreen().bounds.width/2, UIScreen.mainScreen().bounds.height/2)
+        currentPicker.hidden = true
+        self.view.addSubview(currentPicker)
     }
 	
 	public override func viewDidLoad() {
 		super.viewDidLoad()
 		self.loadMapView()
 		locationManager.delegate = self
+        currentPicker.delegate = self
 		mapView.delegate = self
 		searchBar.delegate = self
 		
 		// gesture recognizer for adding by tap
-		mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "addLocation:"))
+//		mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "addLocation:"))
 		
 		// search
 		navigationItem.titleView = searchBar
@@ -143,12 +148,15 @@ public class LocationPickerViewController: UIViewController {
         
 		// user location
 		mapView.userTrackingMode = .Follow
-		mapView.showsUserLocation = showCurrentLocationInitially || showCurrentLocationButton
-
-		mapView.mapType = .Standard
+		mapView.showsUserLocation = true
+        
+        mapView.mapType = .Standard
 		if useCurrentLocationAsHint {
 			getCurrentLocation()
 		}
+        
+        
+        
 	}
 	
      func back(){
@@ -191,7 +199,9 @@ public class LocationPickerViewController: UIViewController {
 	}
 	
 	func currentLocationPressed() {
-		showCurrentLocation()
+//		showCurrentLocation()
+        showCoordinates(currentLocation.coordinate)
+        currentPicker.showAddress("我的位置")
 	}
 	
 	func showCurrentLocation(animated: Bool = true) {
@@ -203,27 +213,53 @@ public class LocationPickerViewController: UIViewController {
 	}
 	
 	func updateAnnotation() {
-		mapView.removeAnnotations(mapView.annotations)
-		if let location = location {
-			mapView.addAnnotation(location)
-			mapView.selectAnnotation(location, animated: true)
-		}
+        if let _ = location?.address{
+            currentPicker.showAddress((location?.address)!)
+
+        }
+        
+//		mapView.removeAnnotations(mapView.annotations)
+//		if let location = location {
+//			mapView.addAnnotation(location)
+//			mapView.selectAnnotation(location, animated: true)
+//		}
 	}
 	
 	func showCoordinates(coordinate: CLLocationCoordinate2D, animated: Bool = true) {
-		let region = MKCoordinateRegionMakeWithDistance(coordinate, resultRegionDistance, resultRegionDistance)
+//		var region = MKCoordinateRegionMakeWithDistance(coordinate, resultRegionDistance, resultRegionDistance)
+        
+        var region = MKCoordinateRegion()
+        var span = MKCoordinateSpan()
+        span.latitudeDelta = 0.01;
+        span.longitudeDelta = 0.01;
+        region.center = coordinate
+        region.span = span
 		mapView.setRegion(region, animated: animated)
 	}
 }
 
 extension LocationPickerViewController: CLLocationManagerDelegate {
+    public func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        
+        if isLocaton{
+            showCoordinates(userLocation.coordinate)
+            isLocaton = false
+            currentPicker.hidden = false
+            currentPicker.showAddress("我的位置")
+        }
+        currentLocation = userLocation
+//        showCoordinates(userLocation.coordinate)
+        
+        
+    }
+    
 	public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		guard let location = locations.first else { return }
-		for listener in currentLocationListeners {
-			listener.action(location)
-		}
-		currentLocationListeners = currentLocationListeners.filter { !$0.once }
-		manager.stopUpdatingLocation()
+//		guard let location = locations.first else { return }
+//		for listener in currentLocationListeners {
+//			listener.action(location)
+//		}
+//		currentLocationListeners = currentLocationListeners.filter { !$0.once }
+//		manager.stopUpdatingLocation()
 	}
 }
 
@@ -289,6 +325,9 @@ extension LocationPickerViewController: UISearchResultsUpdating {
 			self.historyManager.addToHistory(location)
 		}
 	}
+    
+    
+   
 }
 
 // MARK: Selecting location with gesture
@@ -333,7 +372,7 @@ extension LocationPickerViewController {
 
 extension LocationPickerViewController: MKMapViewDelegate {
     
-    
+  
     
 	public func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 		if annotation is MKUserLocation { return nil }
@@ -361,21 +400,63 @@ extension LocationPickerViewController: MKMapViewDelegate {
 			navigation.popViewControllerAnimated(true)
 		} else {
             
-			presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-            //TODO:selected location
-            if location != nil {
-                print("===="+String(location!.location.coordinate.latitude)+","+String(location!.location.coordinate.longitude))
-                let locationInfo:NSDictionary = ["address":location!.address,"location":location!.location]
-                NSNotificationCenter.defaultCenter().postNotificationName("changeLocationUpdated", object: nil, userInfo: locationInfo as [NSObject : AnyObject])
-            }
+		
+            self.selectedCurrentLocation()
             
 		}
 	}
+    
+    func selectedCurrentLocation(){
+        	presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    //TODO:selected location
+        if location != nil {
+            print("===="+String(location!.location.coordinate.latitude)+","+String(location!.location.coordinate.longitude))
+            let locationInfo:NSDictionary = ["address":location!.address,"location":location!.location]
+            NSNotificationCenter.defaultCenter().postNotificationName("changeLocationUpdated", object: nil, userInfo: locationInfo as [NSObject : AnyObject])
+        }
+    }
+    
 	
 	public func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
 		let pins = mapView.annotations.filter { $0 is MKPinAnnotationView }
 		assert(pins.count <= 1, "Only 1 pin annotation should be on map at a time")
 	}
+    
+    
+    public func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let centerCoordinate = mapView.region.center
+        
+        self.location = nil
+        
+        // add point annotation to map
+        let location = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
+        
+        geocoder.cancelGeocode()
+        geocoder.reverseGeocodeLocation(location) { response, error in
+            if let error = error {
+                // show error and remove annotation
+                let alert = UIAlertController(title: nil, message: error.localizedDescription, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { _ in }))
+             
+            } else if let placemark = response?.first {
+                // get POI name from placemark if any
+                let name = placemark.areasOfInterest?.first
+                // pass user selected location too
+                self.location = Location(name: name, location: location, placemark: placemark)
+                if let _ = self.location?.address{
+                     self.currentPicker.showAddress((self.location?.address)!)
+                }
+               
+            }
+        }
+    }
+//    - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+//    MKCoordinateRegion region;
+//    CLLocationCoordinate2D centerCoordinate = mapView.region.center;
+//    region.center= centerCoordinate;
+//    
+//    NSLog(@" regionDidChangeAnimated %f,%f",centerCoordinate.latitude, centerCoordinate.longitude);
+//    }
 }
 
 // MARK: UISearchBarDelegate
