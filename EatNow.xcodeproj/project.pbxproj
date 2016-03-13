@@ -1050,19 +1050,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = modocache;
 				TargetAttributes = {
 					09432CAD1ACCC5E700B989FF = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = 7HDAS685HR;
 					};
 					09432CBF1ACCC5E700B989FF = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = 7HDAS685HR;
 					};
 					DA5B73E418F233EF00BB5F8E = {
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = 7HDAS685HR;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1449,10 +1449,7 @@
 				INFOPLIST_FILE = "EatNow WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
@@ -1473,10 +1470,7 @@
 				INFOPLIST_FILE = "EatNow WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
@@ -1578,7 +1572,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Framework",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1622,7 +1615,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Framework",
 				);
 				INFOPLIST_FILE = "EatNow/EatNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1645,11 +1637,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1665,11 +1653,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				PRODUCT_NAME = EatNowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
