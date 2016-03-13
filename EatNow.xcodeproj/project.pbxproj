@@ -23,15 +23,13 @@
 		092974621AD09D4300DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
 		092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */; };
 		092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 092974611AD09D4300DDC35C /* ENLocationManager.m */; };
-		092A36771C406F2000EA5A5C /* ENBiuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 092A36761C406F2000EA5A5C /* ENBiuController.m */; };
-		092A367B1C4072A900EA5A5C /* ENBiuError.m in Sources */ = {isa = PBXBuildFile; fileRef = 092A367A1C4072A900EA5A5C /* ENBiuError.m */; };
 		0935BB081B0D637B00735CE0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC71ACCC5E700B989FF /* Interface.storyboard */; };
-		0936854C1C44D523006A205D /* libbiuSdkAll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0936854B1C44D523006A205D /* libbiuSdkAll.a */; };
 		093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */; };
 		09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CB41ACCC5E700B989FF /* InterfaceController.m */; };
 		09432CBD1ACCC5E700B989FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CBC1ACCC5E700B989FF /* Images.xcassets */; };
 		09432CC11ACCC5E700B989FF /* EatNow WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 09432CC01ACCC5E700B989FF /* EatNow WatchKit App.app */; };
 		09432CCB1ACCC5E700B989FF /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CCA1ACCC5E700B989FF /* WatchImages.xcassets */; };
+		09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */; };
 		094958111B018E300022E4B4 /* TMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949580F1B018E300022E4B4 /* TMAlertController.m */; };
 		094958121B018E300022E4B4 /* TMAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 094958101B018E300022E4B4 /* TMAlertController.xib */; };
@@ -44,18 +42,24 @@
 		09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C831AD497F8007147B2 /* TextfieldWithInset.swift */; };
 		09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C841AD497F8007147B2 /* WJCustomizeView.swift */; };
 		09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09777C851AD497F8007147B2 /* ApplicationButton.swift */; };
-		09800F261C85852E00669561 /* BiuUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09800F241C85852E00669561 /* BiuUserViewController.m */; };
-		09800F271C85852E00669561 /* BiuUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09800F251C85852E00669561 /* BiuUserViewController.xib */; };
 		0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
 		0982B45E1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */; };
+		09B85D751C9594C600F0C0B3 /* BiuUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B85D671C9594C600F0C0B3 /* BiuUserViewController.m */; };
+		09B85D761C9594C600F0C0B3 /* BiuUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09B85D681C9594C600F0C0B3 /* BiuUserViewController.xib */; };
+		09B85D771C9594C600F0C0B3 /* ENBiuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B85D6A1C9594C600F0C0B3 /* ENBiuController.m */; };
+		09B85D781C9594C600F0C0B3 /* ENBiuError.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B85D6C1C9594C600F0C0B3 /* ENBiuError.m */; };
+		09B85D791C9594C600F0C0B3 /* libbiuSdkAll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B85D741C9594C600F0C0B3 /* libbiuSdkAll.a */; };
 		09B9F8FA1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8F91AF1B6D800DE92C6 /* ENHistoryRowItem.m */; };
+		09B9F8FB1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8F91AF1B6D800DE92C6 /* ENHistoryRowItem.m */; };
 		09B9F8FE1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8FD1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m */; };
+		09B9F8FF1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8FD1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m */; };
 		09CFCBEC1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 09CFCBEB1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m */; };
 		09DC93281AE2C94F0054D665 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
 		09DC93291AE2CBE20054D665 /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
 		09DC932A1AE2D8F60054D665 /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
 		09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */; };
 		09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */; };
+		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */; };
 		7810AE191BC350E500625941 /* ENProfileMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE181BC350E500625941 /* ENProfileMoreViewController.m */; };
 		781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 781BF0181B8A1E930005B9EA /* libWeChatSDK.a */; };
@@ -82,7 +86,6 @@
 		78E8C7861BD3E5A000034E9C /* ENToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E8C7851BD3E5A000034E9C /* ENToken.m */; };
 		78FCE9841BD2A40F008A68F6 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DCA691BCFF68900B932DD /* libc++.tbd */; };
 		78FCE9871BD2A686008A68F6 /* ENShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FCE9861BD2A686008A68F6 /* ENShare.m */; };
-		81A3D2C363DEADF2EE7675EE /* libPods-EatNow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 084471D399269E59292194D8 /* libPods-EatNow.a */; };
 		9B03362C1B58C725001F5A32 /* ENBasePreferenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B03362B1B58C725001F5A32 /* ENBasePreferenceCell.xib */; };
 		9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B03362E1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m */; };
 		9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0336341B5D3F73001F5A32 /* EWBlurAnimator.m */; };
@@ -105,6 +108,7 @@
 		9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9795291AD8B40D00136764 /* ENRestaurantViewController.m */; };
 		9BAE96151AFEB49300FF746B /* CrashlyticsLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BAE96141AFEB49300FF746B /* CrashlyticsLogger.m */; };
 		9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BAE96181AFEC0C900FF746B /* AppDelegate.m */; };
+		9BB789A41AD384BC00998D8F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB789A31AD384BC00998D8F /* libPods.a */; };
 		9BC51BFD1AE6DACD00E3B0FE /* animatedLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */; };
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
 		9BE71C071B7FA08700509457 /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C061B7FA08700509457 /* NYXImagesHelper.m */; };
@@ -134,6 +138,7 @@
 		9BE71C5B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BE71C4B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib */; };
 		9BEBE77F1B7FDED7006F844C /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C1C1B7FA20A00509457 /* ENServerManager.m */; };
 		9BEBE7801B7FDED8006F844C /* ENServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C1C1B7FA20A00509457 /* ENServerManager.m */; };
+		9BEBE7811B7FDEEB006F844C /* TMRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C331B7FA2F400509457 /* TMRowItem.m */; };
 		9BEBE7821B7FDF31006F844C /* ENRestaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C191B7FA20A00509457 /* ENRestaurant.m */; };
 		9BEBE7831B7FDF33006F844C /* ENRestaurant.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C191B7FA20A00509457 /* ENRestaurant.m */; };
 		9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE7861B7FE09D006F844C /* GNAppleMapOpenerService.m */; };
@@ -158,7 +163,6 @@
 		EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */; };
 		EDF60BE51C7C489700FA0BCA /* LocationSearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */; };
 		EDF60BE61C7C489700FA0BCA /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */; };
-		F5A5E4DFBC7A93E43A701F8E /* libPods-EatNow WatchKit Extension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +173,13 @@
 			remoteGlobalIDString = 09432CBF1ACCC5E700B989FF;
 			remoteInfo = "EatNow WatchKit App";
 		};
+		789DCA6B1BCFF6A400B932DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA5B73DD18F233EF00BB5F8E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09432CAD1ACCC5E700B989FF;
+			remoteInfo = "EatNow WatchKit Extension";
+		};
 		DA5B740518F233EF00BB5F8E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA5B73DD18F233EF00BB5F8E /* Project object */;
@@ -178,8 +189,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		09432CD51ACCC5E700B989FF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		084471D399269E59292194D8 /* libPods-EatNow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EatNow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		091C0B2D1AF9616200838096 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		091C0B2E1AF9616200838096 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		091C0B2F1AF9616200838096 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -198,15 +222,6 @@
 		092974611AD09D4300DDC35C /* ENLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLocationManager.m; sourceTree = "<group>"; };
 		092974701AD0C3CE00DDC35C /* ResturantInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResturantInterfaceController.h; sourceTree = "<group>"; };
 		092974711AD0C3CE00DDC35C /* ResturantInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResturantInterfaceController.m; sourceTree = "<group>"; };
-		092A366D1C406ED100EA5A5C /* AsyncCallResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncCallResult.h; sourceTree = "<group>"; };
-		092A366E1C406ED100EA5A5C /* BiuSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuSdk.h; sourceTree = "<group>"; };
-		092A366F1C406ED100EA5A5C /* BiuUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuUser.h; sourceTree = "<group>"; };
-		092A36701C406ED100EA5A5C /* UserAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAction.h; sourceTree = "<group>"; };
-		092A36751C406F2000EA5A5C /* ENBiuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENBiuController.h; sourceTree = "<group>"; };
-		092A36761C406F2000EA5A5C /* ENBiuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENBiuController.m; sourceTree = "<group>"; };
-		092A36791C4072A900EA5A5C /* ENBiuError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENBiuError.h; sourceTree = "<group>"; };
-		092A367A1C4072A900EA5A5C /* ENBiuError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENBiuError.m; sourceTree = "<group>"; };
-		0936854B1C44D523006A205D /* libbiuSdkAll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbiuSdkAll.a; sourceTree = "<group>"; };
 		093E86991AFEA31800CAF489 /* ENLostConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENLostConnectionViewController.h; sourceTree = "<group>"; };
 		093E869A1AFEA31800CAF489 /* ENLostConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLostConnectionViewController.m; sourceTree = "<group>"; };
 		09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "EatNow WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,11 +253,20 @@
 		09777C831AD497F8007147B2 /* TextfieldWithInset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldWithInset.swift; sourceTree = "<group>"; };
 		09777C841AD497F8007147B2 /* WJCustomizeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WJCustomizeView.swift; sourceTree = "<group>"; };
 		09777C851AD497F8007147B2 /* ApplicationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationButton.swift; sourceTree = "<group>"; };
-		09800F231C85852E00669561 /* BiuUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuUserViewController.h; sourceTree = "<group>"; };
-		09800F241C85852E00669561 /* BiuUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiuUserViewController.m; sourceTree = "<group>"; };
-		09800F251C85852E00669561 /* BiuUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BiuUserViewController.xib; sourceTree = "<group>"; };
 		0982B45B1AD9A7D700982740 /* ResturantDetailInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResturantDetailInterfaceController.h; sourceTree = "<group>"; };
 		0982B45C1AD9A7D700982740 /* ResturantDetailInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResturantDetailInterfaceController.m; sourceTree = "<group>"; };
+		09B85D661C9594C600F0C0B3 /* BiuUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuUserViewController.h; sourceTree = "<group>"; };
+		09B85D671C9594C600F0C0B3 /* BiuUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BiuUserViewController.m; sourceTree = "<group>"; };
+		09B85D681C9594C600F0C0B3 /* BiuUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BiuUserViewController.xib; sourceTree = "<group>"; };
+		09B85D691C9594C600F0C0B3 /* ENBiuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENBiuController.h; sourceTree = "<group>"; };
+		09B85D6A1C9594C600F0C0B3 /* ENBiuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENBiuController.m; sourceTree = "<group>"; };
+		09B85D6B1C9594C600F0C0B3 /* ENBiuError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENBiuError.h; sourceTree = "<group>"; };
+		09B85D6C1C9594C600F0C0B3 /* ENBiuError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENBiuError.m; sourceTree = "<group>"; };
+		09B85D701C9594C600F0C0B3 /* AsyncCallResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncCallResult.h; sourceTree = "<group>"; };
+		09B85D711C9594C600F0C0B3 /* BiuSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuSdk.h; sourceTree = "<group>"; };
+		09B85D721C9594C600F0C0B3 /* BiuUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BiuUser.h; sourceTree = "<group>"; };
+		09B85D731C9594C600F0C0B3 /* UserAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAction.h; sourceTree = "<group>"; };
+		09B85D741C9594C600F0C0B3 /* libbiuSdkAll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbiuSdkAll.a; sourceTree = "<group>"; };
 		09B9F8F81AF1B6D800DE92C6 /* ENHistoryRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryRowItem.h; sourceTree = "<group>"; };
 		09B9F8F91AF1B6D800DE92C6 /* ENHistoryRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENHistoryRowItem.m; sourceTree = "<group>"; };
 		09B9F8FC1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENHistoryHeaderRowItem.h; sourceTree = "<group>"; };
@@ -255,7 +279,9 @@
 		09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantTableViewCell.m; sourceTree = "<group>"; };
 		09E463F31AFB0CE400389E0B /* UITableViewCell+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Extension.h"; sourceTree = "<group>"; };
 		09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Extension.m"; sourceTree = "<group>"; };
-		1B29B9D2924EFD3A06669361 /* Pods-EatNow WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EatNow WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-EatNow WatchKit Extension/Pods-EatNow WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
+		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7810AE141BC259DA00625941 /* SUNSlideSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SUNSlideSwitchView.h; sourceTree = "<group>"; };
 		7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SUNSlideSwitchView.m; sourceTree = "<group>"; };
 		7810AE171BC350E500625941 /* ENProfileMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENProfileMoreViewController.h; sourceTree = "<group>"; };
@@ -287,7 +313,6 @@
 		788734BE1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceMoodPickerDataSource.h; sourceTree = "<group>"; };
 		788734BF1BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceMoodPickerDataSource.m; sourceTree = "<group>"; };
 		789DCA691BCFF68900B932DD /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		78A3F1F0E996FD2DA3ED6F86 /* Pods-EatNow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EatNow.release.xcconfig"; path = "Pods/Target Support Files/Pods-EatNow/Pods-EatNow.release.xcconfig"; sourceTree = "<group>"; };
 		78E0B5011BE2682600A73E2E /* SUNSlideSwitchViewBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUNSlideSwitchViewBorder.h; path = SlideSwitch/SUNSlideSwitchViewBorder.h; sourceTree = "<group>"; };
 		78E0B5021BE2682600A73E2E /* SUNSlideSwitchViewBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUNSlideSwitchViewBorder.m; path = SlideSwitch/SUNSlideSwitchViewBorder.m; sourceTree = "<group>"; };
 		78E8C7711BD3D0C900034E9C /* ENFacebookLoginProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENFacebookLoginProvider.h; path = ENSocial/ENFacebookLoginProvider.h; sourceTree = "<group>"; };
@@ -418,8 +443,6 @@
 		9BEBE7901B7FE09D006F844C /* OpenInGoogleMapsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInGoogleMapsController.m; sourceTree = "<group>"; };
 		9BF9C2831B6680AE00B051B1 /* ENPreferenceCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPreferenceCollectionViewCell.h; sourceTree = "<group>"; };
 		9BF9C2841B6680AE00B051B1 /* ENPreferenceCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPreferenceCollectionViewCell.m; sourceTree = "<group>"; };
-		CD752C7CE9F8CE742BE8B8C3 /* Pods-EatNow WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EatNow WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EatNow WatchKit Extension/Pods-EatNow WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
-		D573ED9AE15C177EBE52719B /* Pods-EatNow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EatNow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EatNow/Pods-EatNow.debug.xcconfig"; sourceTree = "<group>"; };
 		DA5B73E518F233EF00BB5F8E /* EatNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5B73E818F233EF00BB5F8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -437,7 +460,6 @@
 		EDF60BDE1C7C489700FA0BCA /* LocationPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		EDF60BDF1C7C489700FA0BCA /* LocationSearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchResultsViewController.swift; sourceTree = "<group>"; };
 		EDF60BE01C7C489700FA0BCA /* SearchHistoryManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
-		FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EatNow WatchKit Extension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,14 +468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				789DCA6A1BCFF68900B932DD /* libc++.tbd in Frameworks */,
-				F5A5E4DFBC7A93E43A701F8E /* libPods-EatNow WatchKit Extension.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D1832BE4840B51559D9D18AA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				9BB789A41AD384BC00998D8F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,8 +482,8 @@
 				781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */,
 				DA5B73ED18F233EF00BB5F8E /* UIKit.framework in Frameworks */,
 				DA5B73E918F233EF00BB5F8E /* Foundation.framework in Frameworks */,
-				81A3D2C363DEADF2EE7675EE /* libPods-EatNow.a in Frameworks */,
-				0936854C1C44D523006A205D /* libbiuSdkAll.a in Frameworks */,
+				49A483B402C049E28055919D /* libPods.a in Frameworks */,
+				09B85D791C9594C600F0C0B3 /* libbiuSdkAll.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,46 +525,6 @@
 				091F49D31AED799D0064A4C8 /* WatchKitAction.m */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		092A366A1C406ED100EA5A5C /* BiuSDK */ = {
-			isa = PBXGroup;
-			children = (
-				092A366B1C406ED100EA5A5C /* include */,
-				0936854B1C44D523006A205D /* libbiuSdkAll.a */,
-			);
-			path = BiuSDK;
-			sourceTree = "<group>";
-		};
-		092A366B1C406ED100EA5A5C /* include */ = {
-			isa = PBXGroup;
-			children = (
-				092A366C1C406ED100EA5A5C /* biuSdk */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		092A366C1C406ED100EA5A5C /* biuSdk */ = {
-			isa = PBXGroup;
-			children = (
-				092A366D1C406ED100EA5A5C /* AsyncCallResult.h */,
-				092A366E1C406ED100EA5A5C /* BiuSdk.h */,
-				092A366F1C406ED100EA5A5C /* BiuUser.h */,
-				092A36701C406ED100EA5A5C /* UserAction.h */,
-			);
-			path = biuSdk;
-			sourceTree = "<group>";
-		};
-		092A36741C406EF900EA5A5C /* BiuSDK+EatNow */ = {
-			isa = PBXGroup;
-			children = (
-				09800F1B1C8584DA00669561 /* Controller */,
-				092A36751C406F2000EA5A5C /* ENBiuController.h */,
-				092A36761C406F2000EA5A5C /* ENBiuController.m */,
-				092A36791C4072A900EA5A5C /* ENBiuError.h */,
-				092A367A1C4072A900EA5A5C /* ENBiuError.m */,
-			);
-			path = "BiuSDK+EatNow";
 			sourceTree = "<group>";
 		};
 		09432CAF1ACCC5E700B989FF /* EatNow WatchKit Extension */ = {
@@ -614,14 +589,63 @@
 			path = AlertController;
 			sourceTree = "<group>";
 		};
-		09800F1B1C8584DA00669561 /* Controller */ = {
+		09B85D641C9594C600F0C0B3 /* BiuSDK+EatNow */ = {
 			isa = PBXGroup;
 			children = (
-				09800F231C85852E00669561 /* BiuUserViewController.h */,
-				09800F241C85852E00669561 /* BiuUserViewController.m */,
-				09800F251C85852E00669561 /* BiuUserViewController.xib */,
+				09B85D651C9594C600F0C0B3 /* Controller */,
+				09B85D691C9594C600F0C0B3 /* ENBiuController.h */,
+				09B85D6A1C9594C600F0C0B3 /* ENBiuController.m */,
+				09B85D6B1C9594C600F0C0B3 /* ENBiuError.h */,
+				09B85D6C1C9594C600F0C0B3 /* ENBiuError.m */,
+			);
+			path = "BiuSDK+EatNow";
+			sourceTree = "<group>";
+		};
+		09B85D651C9594C600F0C0B3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				09B85D661C9594C600F0C0B3 /* BiuUserViewController.h */,
+				09B85D671C9594C600F0C0B3 /* BiuUserViewController.m */,
+				09B85D681C9594C600F0C0B3 /* BiuUserViewController.xib */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		09B85D6D1C9594C600F0C0B3 /* BiuSDK */ = {
+			isa = PBXGroup;
+			children = (
+				09B85D6E1C9594C600F0C0B3 /* include */,
+				09B85D741C9594C600F0C0B3 /* libbiuSdkAll.a */,
+			);
+			path = BiuSDK;
+			sourceTree = "<group>";
+		};
+		09B85D6E1C9594C600F0C0B3 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				09B85D6F1C9594C600F0C0B3 /* biuSdk */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		09B85D6F1C9594C600F0C0B3 /* biuSdk */ = {
+			isa = PBXGroup;
+			children = (
+				09B85D701C9594C600F0C0B3 /* AsyncCallResult.h */,
+				09B85D711C9594C600F0C0B3 /* BiuSdk.h */,
+				09B85D721C9594C600F0C0B3 /* BiuUser.h */,
+				09B85D731C9594C600F0C0B3 /* UserAction.h */,
+			);
+			path = biuSdk;
+			sourceTree = "<group>";
+		};
+		69B6DAD60DF0A19A4F479B77 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				77248163766928A19BFE31E1 /* Pods.debug.xcconfig */,
+				4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		7810AE131BC2524C00625941 /* SlideSwitch */ = {
@@ -635,14 +659,13 @@
 			name = SlideSwitch;
 			sourceTree = "<group>";
 		};
-		781BF0171B8A1E930005B9EA /* WeChatSDK */ = {
+		781BF0171B8A1E930005B9EA /* WeChatSDK_1.5 */ = {
 			isa = PBXGroup;
 			children = (
 				781BF0181B8A1E930005B9EA /* libWeChatSDK.a */,
 				781BF01A1B8A1E930005B9EA /* WXApi.h */,
 				781BF01B1B8A1E930005B9EA /* WXApiObject.h */,
 			);
-			name = WeChatSDK;
 			path = WeChatSDK_1.5;
 			sourceTree = "<group>";
 		};
@@ -710,11 +733,11 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				092A36741C406EF900EA5A5C /* BiuSDK+EatNow */,
-				092A366A1C406ED100EA5A5C /* BiuSDK */,
+				09B85D641C9594C600F0C0B3 /* BiuSDK+EatNow */,
+				09B85D6D1C9594C600F0C0B3 /* BiuSDK */,
 				784790C31BCD514F0058C7D2 /* ENSocial */,
 				7810AE131BC2524C00625941 /* SlideSwitch */,
-				781BF0171B8A1E930005B9EA /* WeChatSDK */,
+				781BF0171B8A1E930005B9EA /* WeChatSDK_1.5 */,
 				9BEBE7841B7FE09D006F844C /* GNMapOpener */,
 				9BE71C261B7FA2F400509457 /* TableViewBuilder */,
 				9BE71C051B7FA08700509457 /* NYXImagesHelper.h */,
@@ -850,17 +873,6 @@
 			path = Extensins;
 			sourceTree = "<group>";
 		};
-		CF35C2A782E43E4A1C05C1A9 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D573ED9AE15C177EBE52719B /* Pods-EatNow.debug.xcconfig */,
-				78A3F1F0E996FD2DA3ED6F86 /* Pods-EatNow.release.xcconfig */,
-				CD752C7CE9F8CE742BE8B8C3 /* Pods-EatNow WatchKit Extension.debug.xcconfig */,
-				1B29B9D2924EFD3A06669361 /* Pods-EatNow WatchKit Extension.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		DA5B73DC18F233EF00BB5F8E = {
 			isa = PBXGroup;
 			children = (
@@ -869,7 +881,7 @@
 				09432CC41ACCC5E700B989FF /* EatNow WatchKit App */,
 				DA5B73E718F233EF00BB5F8E /* Frameworks */,
 				DA5B73E618F233EF00BB5F8E /* Products */,
-				CF35C2A782E43E4A1C05C1A9 /* Pods */,
+				69B6DAD60DF0A19A4F479B77 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -894,8 +906,7 @@
 				DA5B73EA18F233EF00BB5F8E /* CoreGraphics.framework */,
 				DA5B73EC18F233EF00BB5F8E /* UIKit.framework */,
 				DA5B740118F233EF00BB5F8E /* XCTest.framework */,
-				084471D399269E59292194D8 /* libPods-EatNow.a */,
-				FF1019CA03F99285ABC10812 /* libPods-EatNow WatchKit Extension.a */,
+				374A6AE5BCA048DDAD2A8A49 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1032,12 +1043,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 09432CD21ACCC5E700B989FF /* Build configuration list for PBXNativeTarget "EatNow WatchKit Extension" */;
 			buildPhases = (
-				B555B621FBBFF7CD7CA6907F /* Check Pods Manifest.lock */,
 				09432CAA1ACCC5E700B989FF /* Sources */,
 				09432CAB1ACCC5E700B989FF /* Frameworks */,
 				09432CAC1ACCC5E700B989FF /* Resources */,
-				B73A1C9083161AD3019C4DEA /* Embed Pods Frameworks */,
-				2D18D940238C300A653C2D3E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1054,7 +1062,6 @@
 			buildConfigurationList = 09432CCF1ACCC5E700B989FF /* Build configuration list for PBXNativeTarget "EatNow WatchKit App" */;
 			buildPhases = (
 				09432CBE1ACCC5E700B989FF /* Resources */,
-				D1832BE4840B51559D9D18AA /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1069,17 +1076,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA5B741118F233EF00BB5F8E /* Build configuration list for PBXNativeTarget "EatNow" */;
 			buildPhases = (
-				F8DE595EF8511D7AA1C58395 /* Check Pods Manifest.lock */,
+				7989DD9D1D4541818B62EB58 /* Check Pods Manifest.lock */,
 				DA5B73E118F233EF00BB5F8E /* Sources */,
 				DA5B73E218F233EF00BB5F8E /* Frameworks */,
 				DA5B73E318F233EF00BB5F8E /* Resources */,
+				A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */,
+				09432CD51ACCC5E700B989FF /* Embed App Extensions */,
 				9BAE960E1AFEB22500FF746B /* ShellScript */,
-				6106D19AC4CDFDB581CF8042 /* Embed Pods Frameworks */,
-				2E23D0ED3264E43BB4424379 /* Copy Pods Resources */,
+				24235F7FE3CB570F1BE70C02 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				789DCA6C1BCFF6A400B932DD /* PBXTargetDependency */,
 			);
 			name = EatNow;
 			productName = LikedOrNope;
@@ -1111,19 +1120,19 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = modocache;
 				TargetAttributes = {
 					09432CAD1ACCC5E700B989FF = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = 7HDAS685HR;
 					};
 					09432CBF1ACCC5E700B989FF = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = 7HDAS685HR;
 					};
 					DA5B73E418F233EF00BB5F8E = {
-						DevelopmentTeam = SDR7T9YB58;
+						DevelopmentTeam = 7HDAS685HR;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1185,7 +1194,7 @@
 				091C0B3C1AF9616200838096 /* OpenSans-Light.ttf in Resources */,
 				9B2205E71B7705BD0088DC96 /* Launch Screen.xib in Resources */,
 				091C0B3B1AF9616200838096 /* OpenSans-Italic.ttf in Resources */,
-				09800F271C85852E00669561 /* BiuUserViewController.xib in Resources */,
+				09B85D761C9594C600F0C0B3 /* BiuUserViewController.xib in Resources */,
 				9BE71C5B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib in Resources */,
 				091C0B3E1AF9616200838096 /* OpenSans-Regular.ttf in Resources */,
 				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,
@@ -1215,37 +1224,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2D18D940238C300A653C2D3E /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EatNow WatchKit Extension/Pods-EatNow WatchKit Extension-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2E23D0ED3264E43BB4424379 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EatNow/Pods-EatNow-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6106D19AC4CDFDB581CF8042 /* Embed Pods Frameworks */ = {
+		24235F7FE3CB570F1BE70C02 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1257,7 +1236,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EatNow/Pods-EatNow-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7989DD9D1D4541818B62EB58 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		9BAE960E1AFEB22500FF746B /* ShellScript */ = {
@@ -1271,51 +1265,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "# ./Framework/Fabric.framework/run 6ec9eab6ca26fcd18d51d0322752b861c63bc348 62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744";
+			shellScript = "./Framework/Fabric.framework/run 6ec9eab6ca26fcd18d51d0322752b861c63bc348 62daabb6809cba6858b14be1c7271e7ecad241fda41e4bf70463be17fc210744";
 		};
-		B555B621FBBFF7CD7CA6907F /* Check Pods Manifest.lock */ = {
+		A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B73A1C9083161AD3019C4DEA /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EatNow WatchKit Extension/Pods-EatNow WatchKit Extension-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F8DE595EF8511D7AA1C58395 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1329,11 +1293,14 @@
 				9BEBE7821B7FDF31006F844C /* ENRestaurant.m in Sources */,
 				9BEBE77F1B7FDED7006F844C /* ENServerManager.m in Sources */,
 				092974721AD0C3CE00DDC35C /* ResturantInterfaceController.m in Sources */,
+				09B9F8FF1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
 				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
 				090B2E0B1AED876B00ABAA99 /* WatchKitAction.m in Sources */,
 				092974731AD0C7D200DDC35C /* ENLocationManager.m in Sources */,
+				9BEBE7811B7FDEEB006F844C /* TMRowItem.m in Sources */,
 				09DC93291AE2CBE20054D665 /* NSDate+Extension.m in Sources */,
 				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
+				09B9F8FB1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */,
 				09757F8C1ADC97EE002B1515 /* NiceChoiceInterfaceController.m in Sources */,
 				09DC932A1AE2D8F60054D665 /* ENMapManager.m in Sources */,
 			);
@@ -1347,6 +1314,7 @@
 				9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */,
 				78470A361BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m in Sources */,
 				9B1658C01AE4B5330035572C /* UIView+Material.m in Sources */,
+				09B85D781C9594C600F0C0B3 /* ENBiuError.m in Sources */,
 				9B03363A1B5D3F73001F5A32 /* EWBlurNavigationControllerDelegate.m in Sources */,
 				7854ACD11B929B4E0036BCA8 /* NSDictionary+Extend.m in Sources */,
 				9BE71C1E1B7FA20A00509457 /* ENServerManager.m in Sources */,
@@ -1371,7 +1339,6 @@
 				9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */,
 				9BF9C2851B6680AE00B051B1 /* ENPreferenceCollectionViewCell.m in Sources */,
 				9BE71C561B7FA2F400509457 /* TMTableViewDelegate.m in Sources */,
-				092A367B1C4072A900EA5A5C /* ENBiuError.m in Sources */,
 				78E8C77B1BD3D0C900034E9C /* ENSocialLoginManager.m in Sources */,
 				9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */,
 				9B0537851ADD8E120037A38C /* ENMapManager.m in Sources */,
@@ -1380,7 +1347,6 @@
 				EDF60BE31C7C489700FA0BCA /* Location.swift in Sources */,
 				9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */,
 				091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */,
-				092A36771C406F2000EA5A5C /* ENBiuController.m in Sources */,
 				784790CF1BCFE0D10058C7D2 /* ENSocial.m in Sources */,
 				7854ACC21B8F63820036BCA8 /* ENAppSettings.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
@@ -1409,6 +1375,7 @@
 				9BE71C4C1B7FA2F400509457 /* FBKVOController+Binding.m in Sources */,
 				9B1658BD1AE4613D0035572C /* UIView+Extend.m in Sources */,
 				09CFCBEC1B04268200A17F7A /* CGGeometry+MEDConvenienceAdditions.m in Sources */,
+				09B85D751C9594C600F0C0B3 /* BiuUserViewController.m in Sources */,
 				9BE71C131B7FA1E700509457 /* JSONValueTransformer+UIImage.m in Sources */,
 				786AFC901C4B3C5900CA467B /* ENLocationReporter.m in Sources */,
 				78E8C7831BD3DF0E00034E9C /* ENSocialLoginResponse.m in Sources */,
@@ -1423,7 +1390,6 @@
 				EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */,
 				78E8C77D1BD3D0C900034E9C /* ENWechatLoginProvider.m in Sources */,
 				78FCE9871BD2A686008A68F6 /* ENShare.m in Sources */,
-				09800F261C85852E00669561 /* BiuUserViewController.m in Sources */,
 				9BE71C541B7FA2F400509457 /* TMTableViewBuilder.m in Sources */,
 				9BE71C141B7FA1E700509457 /* NSError+EatNow.m in Sources */,
 				9B03363B1B5D3F73001F5A32 /* UIViewController+Blur.m in Sources */,
@@ -1435,6 +1401,7 @@
 				9BE71C151B7FA1E700509457 /* NSError+TMError.m in Sources */,
 				094958111B018E300022E4B4 /* TMAlertController.m in Sources */,
 				78E8C77A1BD3D0C900034E9C /* ENFacebookLoginProvider.m in Sources */,
+				09B85D771C9594C600F0C0B3 /* ENBiuController.m in Sources */,
 				78E8C77C1BD3D0C900034E9C /* ENUser.m in Sources */,
 				EDF60BE51C7C489700FA0BCA /* LocationSearchResultsViewController.swift in Sources */,
 				9BEBE7921B7FE09D006F844C /* GNGoogleMapOpenerService.m in Sources */,
@@ -1460,6 +1427,11 @@
 			isa = PBXTargetDependency;
 			target = 09432CBF1ACCC5E700B989FF /* EatNow WatchKit App */;
 			targetProxy = 09432CC21ACCC5E700B989FF /* PBXContainerItemProxy */;
+		};
+		789DCA6C1BCFF6A400B932DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09432CAD1ACCC5E700B989FF /* EatNow WatchKit Extension */;
+			targetProxy = 789DCA6B1BCFF6A400B932DD /* PBXContainerItemProxy */;
 		};
 		DA5B740618F233EF00BB5F8E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1490,6 +1462,7 @@
 /* Begin XCBuildConfiguration section */
 		09432CD01ACCC5E700B989FF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1514,6 +1487,7 @@
 		};
 		09432CD11ACCC5E700B989FF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -1535,7 +1509,7 @@
 		};
 		09432CD31ACCC5E700B989FF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CD752C7CE9F8CE742BE8B8C3 /* Pods-EatNow WatchKit Extension.debug.xcconfig */;
+			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1548,12 +1522,9 @@
 				);
 				INFOPLIST_FILE = "EatNow WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-weak_framework",
-					"\"UIKit\"",
-				);
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
@@ -1562,7 +1533,7 @@
 		};
 		09432CD41ACCC5E700B989FF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B29B9D2924EFD3A06669361 /* Pods-EatNow WatchKit Extension.release.xcconfig */;
+			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1572,6 +1543,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				INFOPLIST_FILE = "EatNow WatchKit Extension/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1582,7 +1554,6 @@
 		};
 		DA5B740F18F233EF00BB5F8E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D573ED9AE15C177EBE52719B /* Pods-EatNow.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1599,7 +1570,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 39;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1642,7 +1613,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 39;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREFIX_HEADER = "EatNow/EatNow-Prefix.pch";
@@ -1663,7 +1634,7 @@
 		};
 		DA5B741218F233EF00BB5F8E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D573ED9AE15C177EBE52719B /* Pods-EatNow.debug.xcconfig */;
+			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1671,12 +1642,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Framework",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -1697,7 +1666,7 @@
 					"$(PROJECT_DIR)/EatNow/Library/BiuSDK",
 				);
 				PRODUCT_NAME = EatNow;
-				PROVISIONING_PROFILE = "19477384-0e30-4095-a380-bc72f7a01492";
+				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
@@ -1709,20 +1678,18 @@
 		};
 		DA5B741318F233EF00BB5F8E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78A3F1F0E996FD2DA3ED6F86 /* Pods-EatNow.release.xcconfig */;
+			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Lei Zhang (SDR7T9YB58)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Lei Zhang (SDR7T9YB58)";
-				CODE_SIGN_RESOURCE_RULES_PATH = "$(SDKROOT)/ResourceRules.plist";
-				ENABLE_BITCODE = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Framework",
 				);
 				INFOPLIST_FILE = "EatNow/EatNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1733,7 +1700,7 @@
 					"$(PROJECT_DIR)/EatNow/Library/BiuSDK",
 				);
 				PRODUCT_NAME = EatNow;
-				PROVISIONING_PROFILE = "19477384-0e30-4095-a380-bc72f7a01492";
+				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
@@ -1744,12 +1711,9 @@
 		};
 		DA5B741518F233EF00BB5F8E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77248163766928A19BFE31E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1763,13 +1727,9 @@
 		};
 		DA5B741618F233EF00BB5F8E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Lei Zhang (SDR7T9YB58)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				PRODUCT_NAME = EatNowTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
