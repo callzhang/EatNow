@@ -73,11 +73,12 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 #pragma mark - Main method
-//TODO: need to cancel previous operation when multiple requests happens
+// TODO: need to cancel previous operation when multiple requests happens
 - (void)searchRestaurantsAtLocation:(CLLocation *)currenLocation WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block{
     //add to completion block
-    self.session = @(self.session.unsignedIntegerValue +1);
+    self.session = @(self.session.unsignedIntegerValue + 1);
     [[Mixpanel sharedInstance].people increment:@"session" by:@1];
+    
     self.lastLocation = currenLocation;
     if (block) [self.searchCompletionBlocks addObject:block];
     
@@ -86,6 +87,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         return;
     }
     [[Mixpanel sharedInstance] timeEvent:@"Search restaurant"];
+    
+    
     self.fetchStatus = ENResturantDataStatusFetchingRestaurant;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -94,9 +97,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSDictionary *dic = @{@"username":myID,
                           @"latitude":@(currenLocation.coordinate.latitude),
                           @"longitude":@(currenLocation.coordinate.longitude),
-						  @"time": [NSDate date].ISO8601
+//						  @"time": [NSDate date].ISO8601
                           //@"radius":@500
                           };
+    
     DDLogInfo(@"Begin Request restaurant: %@", dic);
     NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"search"];
     [manager GET:path parameters:dic
@@ -134,9 +138,8 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
               self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
               
           }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
-              
-              NSString *str = [NSString stringWithFormat:@"Failed to get restaurant list with Error: %@", error];
-              DDLogError(@"%@", str);
+        
+              DDLogError(@"Failed to get restaurant list with Error: %@", error.localizedDescription);
               //mix panel
               [[Mixpanel sharedInstance] track:@"Search restaurant"];
               
@@ -171,8 +174,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         
         [[Mixpanel sharedInstance] track:@"Get user"];
 
-        NSString *s = [NSString stringWithFormat:@"Failed to get user: %@", error.localizedDescription];
-        DDLogError(s);
+        DDLogError(@"Failed to get user: %@", error.localizedDescription);
         if (block) {
             block(nil, error);
         }
@@ -317,8 +319,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
                                                                            @"latitude": @([ENLocationManager cachedCurrentLocation].coordinate.latitude),
                                                                            @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude)}];
         block(error);
-        NSString *s = [NSString stringWithFormat:@"%@", error];
-        DDLogError(s);
+        DDLogError(@"%@", error);
     }];
 }
 

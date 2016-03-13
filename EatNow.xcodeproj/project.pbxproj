@@ -54,6 +54,9 @@
 		09DC932A1AE2D8F60054D665 /* ENMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0537841ADD8E120037A38C /* ENMapManager.m */; };
 		09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */; };
 		09E463F51AFB0CE400389E0B /* UITableViewCell+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */; };
+		1E22DF0D1C94572B004C233F /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 09DC93271AE2C94F0054D665 /* NSDate+Extension.m */; };
+		1E22DF121C959203004C233F /* ENUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B85D0321A8EB6BB0014DBED /* ENUtil.m */; };
+		1E52D40C1C944CE5000EEBAC /* ENNetworkingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E52D40B1C944CE5000EEBAC /* ENNetworkingTest.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */; };
 		7810AE191BC350E500625941 /* ENProfileMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE181BC350E500625941 /* ENProfileMoreViewController.m */; };
@@ -262,6 +265,7 @@
 		09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantTableViewCell.m; sourceTree = "<group>"; };
 		09E463F31AFB0CE400389E0B /* UITableViewCell+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Extension.h"; sourceTree = "<group>"; };
 		09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Extension.m"; sourceTree = "<group>"; };
+		1E52D40B1C944CE5000EEBAC /* ENNetworkingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENNetworkingTest.m; path = "Unit Test/Model Test/ENNetworkingTest.m"; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -571,6 +575,22 @@
 			path = AlertController;
 			sourceTree = "<group>";
 		};
+		1E52D4091C944C79000EEBAC /* Unit Test */ = {
+			isa = PBXGroup;
+			children = (
+				1E52D40A1C944CA3000EEBAC /* Model Test */,
+			);
+			name = "Unit Test";
+			sourceTree = "<group>";
+		};
+		1E52D40A1C944CA3000EEBAC /* Model Test */ = {
+			isa = PBXGroup;
+			children = (
+				1E52D40B1C944CE5000EEBAC /* ENNetworkingTest.m */,
+			);
+			name = "Model Test";
+			sourceTree = "<group>";
+		};
 		69B6DAD60DF0A19A4F479B77 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -809,6 +829,7 @@
 				DA5B73EE18F233EF00BB5F8E /* EatNow */,
 				09432CAF1ACCC5E700B989FF /* EatNow WatchKit Extension */,
 				09432CC41ACCC5E700B989FF /* EatNow WatchKit App */,
+				1E52D4091C944C79000EEBAC /* Unit Test */,
 				DA5B73E718F233EF00BB5F8E /* Frameworks */,
 				DA5B73E618F233EF00BB5F8E /* Products */,
 				69B6DAD60DF0A19A4F479B77 /* Pods */,
@@ -1340,6 +1361,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BEBE7801B7FDED8006F844C /* ENServerManager.m in Sources */,
+				1E52D40C1C944CE5000EEBAC /* ENNetworkingTest.m in Sources */,
+				1E22DF0D1C94572B004C233F /* NSDate+Extension.m in Sources */,
+				1E22DF121C959203004C233F /* ENUtil.m in Sources */,
 				9BEBE7981B7FE15B006F844C /* ENMapManager.m in Sources */,
 				9BEBE7971B7FE155006F844C /* ENLocationManager.m in Sources */,
 				9BEBE7831B7FDF33006F844C /* ENRestaurant.m in Sources */,
