@@ -29,7 +29,7 @@ void ENLogError(NSString *fmt,...){
 #ifdef DEBUG
 	ENAlert(contents);
 #endif
-	DDLogError(contents);
+	DDLogError(@"%@", contents);
 }
 
 @implementation ENUtil

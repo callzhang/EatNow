@@ -23,10 +23,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONModel.h"
 @import CoreLocation;
 @import MapKit;
 
-@interface ENRestaurant : NSObject
+@interface ENRestaurant : JSONModel
 @property (nonatomic, strong) NSString *ID;
 @property (nonatomic, copy) NSString *name;
 //@property (nonatomic, strong) NSMutableArray *images;
@@ -83,3 +84,5 @@
 - (NSString *)shareDescription;
 
 @end
+
+

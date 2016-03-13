@@ -149,6 +149,25 @@
     [application registerForRemoteNotifications];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
+    
+    // Test
+    /*
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:22.492058 longitude:113.935189];
+    
+    DDLogInfo(@"Location: (%f, %f)", location.coordinate.longitude, location.coordinate.latitude);
+    
+    [[ENServerManager sharedInstance] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
+        DDLogInfo(@"%@", user);
+    }];
+    
+    
+    [[ENServerManager sharedInstance] searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
+        
+        DDLogInfo(@"%@", response);
+        
+    }];
+     */
+    
     return YES;
 }
 
