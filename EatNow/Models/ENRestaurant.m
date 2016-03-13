@@ -33,6 +33,22 @@
 #import "NSDate+MTDates.h"
 @import AddressBook;
 
+@implementation JSONValueTransformer (CustomTransformer)
+
+//- (CLLocation *)CLLocationFromNSString:(NSString *)string {
+//    
+//}
+
+- (NSString *)JSONObjectFromCLLocation:(CLLocation *)location {
+    return [NSString stringWithFormat:@"{\"location\":{\"lat\":\"%f\",\"lng\":\"%f\"}}", location.coordinate.latitude, location.coordinate.longitude];
+}
+
+- (NSString *)JSONObjectFromUIColor:(UIColor *)color {
+    return @"{}";
+}
+
+@end
+
 @implementation ENRestaurant
 //ZITAO: change to initRestaurantWithDictionary, the param is not s NSData?
 - (instancetype)initRestaurantWithDictionary:(NSDictionary *)json{

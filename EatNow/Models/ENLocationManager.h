@@ -18,8 +18,12 @@ typedef void (^ENLocationCompletionBlock)(CLLocation *currentLocation, INTULocat
 #define kENLocationRequestTimeout   10
 
 @interface ENLocationManager : NSObject
+
 @property (nonatomic, assign) ENLocationStatus locationStatus;
+
 GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENLocationManager)
+
+
 - (void)getLocationWithCompletion:(ENLocationCompletionBlock)completion;
 
 + (INTULocationServicesState)locationServicesState;
