@@ -66,6 +66,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 @property (weak, nonatomic) UILabel *mapDistanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageCount;
 @property (assign, nonatomic) BOOL autoScroll;
+
+
+@property (weak, nonatomic) IBOutlet UIView *friendsCountInfoView;
+
 @property (weak, nonatomic) IBOutlet UILabel *biuFriendsCountLabel;
 
 //autolayout
@@ -243,6 +247,8 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     if (!(status & ENCouchStatusSwipeCard)) {
         self.couchView.hidden = NO;
     }
+    
+
 }
 
 - (void)didChangeToDetailView{
@@ -250,7 +256,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     //fill images
     [self activateImageScrollViewToIndex:MIN(self.restaurant.imageUrls.count-1, 3)];
     self.imageScrollView.scrollEnabled = YES;
-    
+
     //add map to view and hide
     self.map = [[MKMapView alloc] initWithFrame:self.view.bounds];
     self.map.region = MKCoordinateRegionMakeWithDistance(self.restaurant.location.coordinate, 1000, 1000);
@@ -411,6 +417,11 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
         if (self.walkingDistance.text) {
             self.distanceInfo.alpha = 1;
         }
+        
+        if (self.biuFriendsCountLabel.text) {
+            self.friendsCountInfoView.alpha = 1;
+        }
+        
         if (self.openTime.text) {
             self.openInfo.alpha = 1;
         }
@@ -422,6 +433,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
     else if (self.status == ENRestaurantViewStatusDetail) {
         self.distanceInfo.alpha = 0;
+        self.friendsCountInfoView.alpha = 0;
         self.openInfo.alpha = 0;
         self.goButton.alpha = 1;
         self.rating.alpha = 1;
@@ -431,6 +443,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     }
     else if (self.status == ENRestaurantViewStatusMinimum) {
         self.distanceInfo.alpha = 0;
+        self.friendsCountInfoView.alpha = 0;
         self.openInfo.alpha = 0;
         self.goButton.alpha = 0;
         self.rating.alpha = 0;
@@ -873,8 +886,13 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
             
             UIView *previousImageView = nil;
             CGFloat widthAndHeight = 40;
+            
+            NSInteger count = images.count;
+            if (count > 5) {
+                count = 5;
+            }
             //add user avatar button
-            for (int i = 0; i < images.count; i ++) {
+            for (int i = 0; i < count; i ++) {
                 UIImage *image = images[i];
                 UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
                 [view setImage:image forState:UIControlStateNormal];
