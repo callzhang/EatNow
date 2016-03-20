@@ -61,13 +61,21 @@
     self.ID = json[@"_id"];
 	self.url = json[@"url"];
 	self.rating = (NSNumber *)json[@"rating"];
+    
+    
     NSString *colorStr = json[@"ratingColor"];
     UIColor *ratingColor = [ENRestaurant colorFromHexString:colorStr];
     if (ratingColor) self.ratingColor = ratingColor;
+    
+    
 	self.reviews = (NSNumber *)json[@"ratingSignals"];
+    
+    
 	NSArray *list = json[@"categories"];
     self.cuisines = [list valueForKey:@"shortName"];
 	if (self.cuisines.firstObject == [NSNull null]) self.cuisines = [list valueForKey:@"global"];
+    
+    
     self.photos = json[@"photos"];
     NSInteger photoCount = [self.photos[@"count"] integerValue];
     NSMutableArray *imageUrlList = [[NSMutableArray alloc] initWithCapacity:photoCount];
@@ -84,17 +92,22 @@
     }
     self.imageUrls = imageUrlList;
     
+    
 	self.phone = [json valueForKeyPath:@"contact.formattedPhone"];
 	self.name = json[@"name"];
 	self.price = json[@"price"];
 	self.openInfo = [json valueForKeyPath:@"hours.status"];
 	self.tips	= [json valueForKeyPath:@"stats.tipCount"];
+    
+    
 	//location
 	NSDictionary *address = json[@"location"];
 	CLLocationDegrees lat = [(NSNumber *)address[@"lat"] doubleValue];
 	CLLocationDegrees lon = [(NSNumber *)address[@"lng"] doubleValue];
 	CLLocation *loc = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
 	self.location = loc;
+    
+    
     self.distance = (NSNumber *)address[@"distance"];
     if (!_distance) {
         float d = [loc distanceFromLocation:[ENLocationManager cachedCurrentLocation]];
@@ -102,6 +115,8 @@
     }
     self.walkDuration = NSTimeIntervalSince1970;
     self.venderUrl = [NSString stringWithFormat:@"%@%@",@"http://foursquare.com/v/", self.foursquareID];
+    
+    
 	//score
 	NSDictionary *scores = json[@"score"];
 	if (scores) {

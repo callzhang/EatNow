@@ -18,16 +18,20 @@
 #import "NSDate+MTDates.h"
 #import "Mixpanel.h"
 
-NSString * const kHistroyUpdated = @"history_updated";
-NSString * const kRatingUpdated = @"rating_updated";
-NSString * const kPreferenceUpdated = @"preference_updated";
-NSString * const kUserUpdated = @"user_updated";
-NSString * const kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
-NSString * const kShouldShowTutorial = @"shouldShowTutorial";
-NSString * const kBasePreferenceUpdated = @"basePreferenceUpdated";
-NSString * const kChangeLocationUpdated = @"changeLocationUpdated";
-NSString * const kCancelChangeLocationUpdated = @"CancelChangeLocationUpdated";
-NSString * const kOpenDeepLinkForRestaurant = @"openDeepLinkForRestaurant";
+NSString *const kServerUrl = @"http://eat-now.herokuapp.com";
+
+NSString *const kHistroyUpdated = @"history_updated";
+NSString *const kRatingUpdated = @"rating_updated";
+NSString *const kPreferenceUpdated = @"preference_updated";
+NSString *const kUserUpdated = @"user_updated";
+NSString *const kShouldShowNiceChoiceKey = @"shouldShowNiceChoice";
+NSString *const kShouldShowTutorial = @"shouldShowTutorial";
+NSString *const kBasePreferenceUpdated = @"basePreferenceUpdated";
+NSString *const kChangeLocationUpdated = @"changeLocationUpdated";
+NSString *const kCancelChangeLocationUpdated = @"CancelChangeLocationUpdated";
+NSString *const kOpenDeepLinkForRestaurant = @"openDeepLinkForRestaurant";
+
+const int kMaxSelectedRestaurantRetainTime = 3600;
 
 
 @import CoreLocation;
