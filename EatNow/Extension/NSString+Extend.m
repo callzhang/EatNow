@@ -47,7 +47,7 @@
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
     
     if (error) {
-        DDLogError(@"Convert to json error:%@",error);
+//        DDLogError(@"Convert to json error:%@",error);
         return nil;
     }
     

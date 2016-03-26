@@ -280,13 +280,13 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
 }
 
-- (void)updateLocation:(CLLocation *)location completion:(ErrorBlock)completion{
+- (void)updateLocation:(CLLocation *)location completion:(void(^)(NSError *error))completion{
     //TODO: Yongqiang please add server API here
     DDLogError(@"yongqiang add API call");
 }
 
 #pragma mark - User actions
-- (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(void (^)(NSError *error))block{
+- (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(void(^)(NSError *error))block{
 	NSParameterAssert(!self.selectedRestaurant);
     NSParameterAssert(value > 0);
     self.selectedRestaurant = restaurant;
@@ -327,7 +327,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     }];
 }
 
-- (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block{
+- (void)cancelHistory:(NSString *)historyID completion:(void(^)(NSError *error))block{
     NSParameterAssert(historyID);
     [[Mixpanel sharedInstance] timeEvent:@"Cancel history"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -364,7 +364,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 	self.selectedTime = nil;
 }
 
-- (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(ErrorBlock)block {
+- (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(void(^)(NSError *error))block {
     NSString *historyID = history[@"_id"];
     ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:history[@"restaurant"]];
     
@@ -502,7 +502,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     [[NSNotificationCenter defaultCenter] postNotificationName:kPreferenceUpdated object:preference];
 }
 
-- (void)updateBasePreference:(NSDictionary *)preference completion:(ErrorBlock)block{
+- (void)updateBasePreference:(NSDictionary *)preference completion:(void(^)(NSError *error))block{
     self.basePreference = preference;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     //manager.responseSerializer = [AFJSONResponseSerializer serializer];

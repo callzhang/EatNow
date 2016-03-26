@@ -29,7 +29,7 @@ typedef enum{
 //    blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 //    alpha:1.0]
 
-extern DDLogLevel const ddLogLevel;
+//extern DDLogLevel const ddLogLevel;
 void ENLogError(NSString *fmt, ...);
 
 @interface ENUtil : UIView

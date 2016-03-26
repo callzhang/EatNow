@@ -247,7 +247,6 @@
 		09502FBE1AF5680D00922908 /* ENFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENFeedbackViewController.m; sourceTree = "<group>"; };
 		09757F8A1ADC97EE002B1515 /* NiceChoiceInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiceChoiceInterfaceController.h; sourceTree = "<group>"; };
 		09757F8B1ADC97EE002B1515 /* NiceChoiceInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiceChoiceInterfaceController.m; sourceTree = "<group>"; };
-		09777C821AD497F7007147B2 /* EatNow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EatNow-Bridging-Header.h"; sourceTree = "<group>"; };
 		09777C831AD497F8007147B2 /* TextfieldWithInset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextfieldWithInset.swift; sourceTree = "<group>"; };
 		09777C841AD497F8007147B2 /* WJCustomizeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WJCustomizeView.swift; sourceTree = "<group>"; };
 		09777C851AD497F8007147B2 /* ApplicationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationButton.swift; sourceTree = "<group>"; };
@@ -266,6 +265,7 @@
 		09E463F31AFB0CE400389E0B /* UITableViewCell+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Extension.h"; sourceTree = "<group>"; };
 		09E463F41AFB0CE400389E0B /* UITableViewCell+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Extension.m"; sourceTree = "<group>"; };
 		1E52D40B1C944CE5000EEBAC /* ENNetworkingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENNetworkingTest.m; sourceTree = "<group>"; };
+		1E5B773F1CA7099D0061915E /* EatNow-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EatNow-Bridging-Header.h"; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -359,7 +359,6 @@
 		9BAE96181AFEC0C900FF746B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9BAE96191AFEC0C900FF746B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9BB789A31AD384BC00998D8F /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
-		9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWBlockTypes.h; sourceTree = "<group>"; };
 		9BC51BFC1AE6DACD00E3B0FE /* animatedLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animatedLoading.gif; sourceTree = "<group>"; };
 		9BE6BC651A211F8A00CF57F5 /* main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = main.storyboard; sourceTree = "<group>"; };
 		9BE71C051B7FA08700509457 /* NYXImagesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYXImagesHelper.h; sourceTree = "<group>"; };
@@ -908,7 +907,6 @@
 				9B1180F61A8E96FB00756E8F /* ENDefines.h */,
 				9B85D0311A8EB6BB0014DBED /* ENUtil.h */,
 				9B85D0321A8EB6BB0014DBED /* ENUtil.m */,
-				9BC00A781ADF47C200C41AE5 /* EWBlockTypes.h */,
 				9BE71C091B7FA1E700509457 /* JSONValueTransformer+UIImage.h */,
 				9BE71C0A1B7FA1E700509457 /* JSONValueTransformer+UIImage.m */,
 				09DC93261AE2C94F0054D665 /* NSDate+Extension.h */,
@@ -996,6 +994,7 @@
 				9BAE96181AFEC0C900FF746B /* AppDelegate.m */,
 				DA5B73F018F233EF00BB5F8E /* EatNow-Info.plist */,
 				DA5B73F618F233EF00BB5F8E /* EatNow-Prefix.pch */,
+				1E5B773F1CA7099D0061915E /* EatNow-Bridging-Header.h */,
 				DA5B73F118F233EF00BB5F8E /* InfoPlist.strings */,
 				DA5B73F418F233EF00BB5F8E /* main.m */,
 			);
@@ -1055,7 +1054,6 @@
 				1E91661A1C9EC7AD0050E389 /* ENRestaurantTableViewCell */,
 				1E9166211C9EC8170050E389 /* EnShapeView */,
 				09777C851AD497F8007147B2 /* ApplicationButton.swift */,
-				09777C821AD497F7007147B2 /* EatNow-Bridging-Header.h */,
 				09777C831AD497F8007147B2 /* TextfieldWithInset.swift */,
 				09777C841AD497F8007147B2 /* WJCustomizeView.swift */,
 			);
@@ -1121,7 +1119,6 @@
 				A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */,
 				09432CD51ACCC5E700B989FF /* Embed App Extensions */,
 				9BAE960E1AFEB22500FF746B /* ShellScript */,
-				24235F7FE3CB570F1BE70C02 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1261,21 +1258,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		24235F7FE3CB570F1BE70C02 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7989DD9D1D4541818B62EB58 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1712,7 +1694,7 @@
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Supporting Files/EatNow-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -1746,7 +1728,7 @@
 				PROVISIONING_PROFILE = "";
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
 				SKIP_INSTALL = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Views/EatNow-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "EatNow/Supporting Files/EatNow-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

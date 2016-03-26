@@ -13,7 +13,7 @@
 #import "JGProgressHUDSuccessIndicatorView.h"
 #import "JGProgressHUDErrorIndicatorView.h"
 #import "JGProgressHUDFadeZoomAnimation.h"
-#import "AppDelegate.h"
+//#import "AppDelegate.h"
 #import "NSDate+Extension.h"
 #import "UIWindow+Extensions.h"
 
@@ -29,7 +29,7 @@ void ENLogError(NSString *fmt,...){
 #ifdef DEBUG
 	ENAlert(contents);
 #endif
-	DDLogError(@"%@", contents);
+//	DDLogError(@"%@", contents);
 }
 
 @implementation ENUtil

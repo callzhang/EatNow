@@ -41,6 +41,7 @@ extern const int kMaxSelectedRestaurantRetainTime;
 
 
 @class CLLocation;
+
 @interface ENServerManager : NSObject
 //@property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, assign) ENResturantDataStatus fetchStatus;
@@ -68,21 +69,21 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS_HEADER(ENServerManager)
 //functions
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block;
 - (void)searchRestaurantsAtLocation:(CLLocation *)location WithCompletion:(void (^)(BOOL success, NSError *error, NSArray *response))block;
-- (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void (^)(NSError *error))block;
+- (void)updateRestaurant:(ENRestaurant *)restaurant withInfo:(NSDictionary *)dic completion:(void(^)(NSError *error))block;
 /**
  *  Update or insert user vendor.
  */
-- (void)insertOrUpdateUserVendorWithResponse:(ENSocialLoginResponse *)response completion:(void (^)(NSError *error))block;
+- (void)insertOrUpdateUserVendorWithResponse:(ENSocialLoginResponse *)response completion:(void(^)(NSError *error))block;
 
-- (void)updateUserWithProperties:(NSDictionary *)updatedProperties completion:(void (^)(NSError *error))block;
+- (void)updateUserWithProperties:(NSDictionary *)updatedProperties completion:(void(^)(NSError *error))block;
 
 #pragma mark - User actions
-- (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(ErrorBlock)block;
-- (void)cancelHistory:(NSString *)historyID completion:(ErrorBlock)block;
+- (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(void(^)(NSError *error))block;
+- (void)cancelHistory:(NSString *)historyID completion:(void(^)(NSError *error))block;
 - (BOOL)canSelectNewRestaurant;
 - (void)clearSelectedRestaurant;
-- (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(ErrorBlock)block;
-- (void)updateBasePreference:(NSDictionary *)preference completion:(ErrorBlock)block;
-- (void)updateLocation:(CLLocation *)location completion:(ErrorBlock)completion;
+- (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(void(^)(NSError *error))block;
+- (void)updateBasePreference:(NSDictionary *)preference completion:(void(^)(NSError *error))block;
+- (void)updateLocation:(CLLocation *)location completion:(void(^)(NSError *error))completion;
 
 @end

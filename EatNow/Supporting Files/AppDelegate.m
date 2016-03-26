@@ -63,110 +63,15 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     [self initilizeLogging];
-    
-    //plugin init
-    [ATConnect sharedConnection].apiKey = @"43aadd17c4e966f98753bcb1250e78d00c68731398a9b60dc7c456d2682415fc";
-    [ATConnect sharedConnection].appID = @"946591471";
-    [Fabric with:@[CrashlyticsKit]];
-    [Fabric sharedSDK].debug = YES;
-    [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
-    
-    //Wechat
-    [ENSocial registerWechatApp:@"wx542360b55f95c47e"];
-    // Secret : 6f3735c124d9e664b71eab538285e777
-    
-    //Facebook
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                             didFinishLaunchingWithOptions:launchOptions];
-    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
-    
-    //Parse
-    [Parse enableLocalDatastore];
-    [Parse setApplicationId:@"T3xvBQKPYCh6mtwPDcyuTP1GltTITXmWye7wuYr1"
-                  clientKey:@"ZC3AoPat2ctcQ5iX7r7QvypyiiXmX0vuIlqZ2urs"];
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];// [Optional] Track statistics around application opens.
-    
+    [self prepareSocialAndAnalyticsWithApplication:application options:launchOptions];
     [[ENProxy shared] checkShouldRedirect];
-    
-    [ENLocationManager registerLocationDeniedHandler:^{
-        [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-            }
-        }];
-    }];
-    
-    [ENLocationManager registerLocationDeniedHandler:^{
-        [UIAlertView bk_showAlertViewWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." cancelButtonTitle:nil otherButtonTitles:@[@"Setting"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-        }];
-    }];
-    
-    if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
-        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
-        [UIWindow mainWindow].rootViewController = self.mainViewController;
-        [[UIWindow mainWindow] makeKeyAndVisible];
-        [self installTweak];
-        
-        // Waked up by significant loation changed
-        [[ENLocationReporter shared] startMonitor];
-    }
-    
-    self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
-//    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
-    self.lostConnectionViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    
-    //Internet connection
-    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-            case AFNetworkReachabilityStatusNotReachable: {
-                if (self.lostConnectionViewController.presentingViewController) {
-                    return ;
-                }
-#ifdef DEBUG
-                return;
-#endif
-                UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
-//                if ([activeController isKindOfClass:[UINavigationController class]]) {
-//                    activeController = [(UINavigationController*) activeController visibleViewController];
-//                }
-                [activeController presentViewController:self.lostConnectionViewController animated:YES completion:nil];
-                break;
-            }
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-            case AFNetworkReachabilityStatusReachableViaWiFi: {
-               [self.lostConnectionViewController.presentingViewController dismissViewControllerAnimated:YES completion:^{
-               }];
-            }
-                break;
-        }
-    }];
-    
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring]; 
-    
+    [self prepareLocation];
+    [self startMonitoring];
+
     [application registerForRemoteNotifications];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    
-    
-    // Test
-    /*
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:22.492058 longitude:113.935189];
-    
-    DDLogInfo(@"Location: (%f, %f)", location.coordinate.longitude, location.coordinate.latitude);
-    
-    [[ENServerManager sharedInstance] getUserWithCompletion:^(NSDictionary *user, NSError *error) {
-        DDLogInfo(@"%@", user);
-    }];
-    
-    
-    [[ENServerManager sharedInstance] searchRestaurantsAtLocation:location WithCompletion:^(BOOL success, NSError *error, NSArray *response) {
-        
-        DDLogInfo(@"%@", response);
-        
-    }];
-     */
     
     return YES;
 }
@@ -174,34 +79,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [FBSDKAppEvents activateApp];
-}
-
-- (void)installTweak {
-    @weakify(self);
-    UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
-        @strongify(self);
-        [self showTweakPanel];
-    }];
-    longGesture.numberOfTouchesRequired = 2;
-    longGesture.minimumPressDuration = 1;
-    [[UIWindow mainWindow] addGestureRecognizer:longGesture];
-    
-    //reset stored value
-    //[[FBTweakStore sharedInstance] reset];
-    //DLogInfo(@"FBTweak stored value resetted");
-}
-
-- (void)showTweakPanel{
-    FBTweakViewController *viewController = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
-    viewController.tweaksDelegate = self;
-    UIViewController *topController = self.window.rootViewController;
-    if (![topController isKindOfClass:NSClassFromString(@"_FBTweakCategoryViewController")]) {
-        [topController presentViewController:viewController animated:YES completion:nil];
-    }
-}
-
-- (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
-    [tweakViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -286,16 +163,7 @@
     return [[ENSocial sharedInstance] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
 }
 
-//TODO:get restaurant
-- (NSDictionary *)getRestaurant:(NSString *)dataString{
-    NSArray* dataArray = [dataString componentsSeparatedByString:@"/"];
-    NSArray*location = [dataArray[3] componentsSeparatedByString:@","];
-    
-    NSDictionary *data = @{@"ID":dataArray[2],
-                           @"lat":location[0],
-                           @"lon":location[1]};
-    return data;
-}
+
 
 
 #pragma mark - Tools
@@ -323,4 +191,129 @@
     //crashlytics logger
     //[DDLog addLogger:[CrashlyticsLogger sharedInstance]];
 }
+
+//TODO:get restaurant
+- (NSDictionary *)getRestaurant:(NSString *)dataString{
+    NSArray* dataArray = [dataString componentsSeparatedByString:@"/"];
+    NSArray*location = [dataArray[3] componentsSeparatedByString:@","];
+    
+    NSDictionary *data = @{@"ID":dataArray[2],
+                           @"lat":location[0],
+                           @"lon":location[1]};
+    return data;
+}
+
+- (void)installTweak {
+    @weakify(self);
+    UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] bk_initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        @strongify(self);
+        [self showTweakPanel];
+    }];
+    longGesture.numberOfTouchesRequired = 2;
+    longGesture.minimumPressDuration = 1;
+    [[UIWindow mainWindow] addGestureRecognizer:longGesture];
+    
+    //reset stored value
+    //[[FBTweakStore sharedInstance] reset];
+    //DLogInfo(@"FBTweak stored value resetted");
+}
+
+- (void)showTweakPanel{
+    FBTweakViewController *viewController = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
+    viewController.tweaksDelegate = self;
+    UIViewController *topController = self.window.rootViewController;
+    if (![topController isKindOfClass:NSClassFromString(@"_FBTweakCategoryViewController")]) {
+        [topController presentViewController:viewController animated:YES completion:nil];
+    }
+}
+
+- (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
+    [tweakViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)prepareSocialAndAnalyticsWithApplication:(UIApplication *)application options:(NSDictionary *)launchOptions {
+    //plugin init
+    [ATConnect sharedConnection].apiKey = @"43aadd17c4e966f98753bcb1250e78d00c68731398a9b60dc7c456d2682415fc";
+    [ATConnect sharedConnection].appID = @"946591471";
+    [Fabric with:@[CrashlyticsKit]];
+    [Fabric sharedSDK].debug = YES;
+    [Mixpanel sharedInstanceWithToken:@"c75539720b4a190037fd1d4f0d9c7a56"];
+    
+    //Wechat
+    [ENSocial registerWechatApp:@"wx542360b55f95c47e"];
+    // Secret : 6f3735c124d9e664b71eab538285e777
+    
+    //Facebook
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+    
+    //Parse
+    [Parse enableLocalDatastore];
+    [Parse setApplicationId:@"T3xvBQKPYCh6mtwPDcyuTP1GltTITXmWye7wuYr1"
+                  clientKey:@"ZC3AoPat2ctcQ5iX7r7QvypyiiXmX0vuIlqZ2urs"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];// [Optional] Track statistics around application opens.
+}
+
+- (void)prepareLocation {
+    [ENLocationManager registerLocationDeniedHandler:^{
+        [UIAlertView bk_showAlertViewWithTitle:@"Location Services Not Enabled" message:@"The app can’t access your current location.\n\nTo enable, please turn on location access in the Settings app under Location Services." cancelButtonTitle:@"Cancel" otherButtonTitles:@[@"OK"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+            }
+        }];
+    }];
+    
+    [ENLocationManager registerLocationDeniedHandler:^{
+        [UIAlertView bk_showAlertViewWithTitle:@"Location disabled" message:@"Location service is needed to provide you the best restaurants around you. Click [Setting] to update the authorization." cancelButtonTitle:nil otherButtonTitles:@[@"Setting"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }];
+    }];
+    
+    if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
+        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
+        [UIWindow mainWindow].rootViewController = self.mainViewController;
+        [[UIWindow mainWindow] makeKeyAndVisible];
+        [self installTweak];
+        
+        // Waked up by significant loation changed
+        [[ENLocationReporter shared] startMonitor];
+    }
+}
+
+- (void)startMonitoring {
+    self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
+//    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    self.lostConnectionViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    
+    //Internet connection
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case AFNetworkReachabilityStatusUnknown:
+            case AFNetworkReachabilityStatusNotReachable: {
+                if (self.lostConnectionViewController.presentingViewController) {
+                    return ;
+                }
+#ifdef DEBUG
+                return;
+#endif
+                UIViewController *activeController = [UIApplication sharedApplication].keyWindow.rootViewController;
+//                if ([activeController isKindOfClass:[UINavigationController class]]) {
+//                    activeController = [(UINavigationController*) activeController visibleViewController];
+//                }
+                [activeController presentViewController:self.lostConnectionViewController animated:YES completion:nil];
+                break;
+            }
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+            case AFNetworkReachabilityStatusReachableViaWiFi: {
+                [self.lostConnectionViewController.presentingViewController dismissViewControllerAnimated:YES completion:^{
+                }];
+            }
+                break;
+        }
+    }];
+    
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+}
+
 @end

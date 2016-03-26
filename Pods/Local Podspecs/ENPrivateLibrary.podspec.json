@@ -1,0 +1,21 @@
+{
+  "name": "ENPrivateLibrary",
+  "version": "0.1.0",
+  "summary": "A short description of ENPrivateLibrary.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/ENPrivateLibrary",
+  "license": "MIT",
+  "authors": {
+    "Veracruz": "veracruz_zhao@126.com"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "ENPrivateLibrary": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}

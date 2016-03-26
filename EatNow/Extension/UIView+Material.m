@@ -10,7 +10,7 @@
 #define kAnimationDuration    0.5// match this to the value of the UIView animateWithDuration: call
 
 @implementation UIView (Material)
-+ (void)collapse:(UIView *)button view:(UIView *)view animated:(BOOL)animated completion:(VoidBlock)block {
++ (void)collapse:(UIView *)button view:(UIView *)view animated:(BOOL)animated completion:(void(^)())block {
     
     CGFloat radius = sqrtf(powf(button.frame.origin.x + button.frame.size.width / 2, 2) + powf(button.frame.origin.y + button.frame.size.height / 2, 2)) ;
     CGFloat scale = radius / MIN(button.bounds.size.width, button.bounds.size.height) * 3;
@@ -43,7 +43,7 @@
     [self collapse:button view:view animated:YES completion:nil];
 }
 
-+ (void)expand:(UIView *)button view:(UIView *)view animated:(BOOL)animated completion:(VoidBlock)block {
++ (void)expand:(UIView *)button view:(UIView *)view animated:(BOOL)animated completion:(void(^)())block {
     
     
     CGFloat radius = sqrtf(powf(button.frame.origin.x + button.frame.size.width / 2, 2) + powf(button.frame.origin.y + button.frame.size.height / 2, 2)) ;
@@ -78,7 +78,7 @@
     [CATransaction commit];
 }
 
-+ (void)expand:(UIView *)button view:(UIView *)view completion:(VoidBlock)block {
++ (void)expand:(UIView *)button view:(UIView *)view completion:(void(^)())block {
     [self expand:button view:view animated:YES completion:block];
 }
 

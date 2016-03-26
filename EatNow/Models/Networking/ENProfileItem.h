@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^ENProfileItemActionBlock)(id sender);
+
 @interface ENProfileItem : NSObject
 
 - (instancetype)initWithTitle:(NSString *)title value:(NSString *)value;
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *value;
-@property (nonatomic, copy) SenderBlock actionBlock;
+@property (nonatomic, copy) ENProfileItemActionBlock actionBlock;
 
 @end

@@ -103,8 +103,13 @@
         
         for (NSDictionary *restaurantDictionary in responseObject) {
             ENRestaurant *model = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurantDictionary];
-            DDLogInfo(@"%@", model.toDictionary[@"name"]);
+            DDLogInfo(@"%@", model.scoreComponentsText);
         }
+        
+//        ENRestaurant *model = [[ENRestaurant alloc] initRestaurantWithDictionary:responseObject[0]];
+//        DDLogInfo(@"Restaurant JSON Dictionary: %@", model.json);
+        
+//        DDLogInfo(@"%@", model.twitter);
         
         [expectation fulfill];
         
