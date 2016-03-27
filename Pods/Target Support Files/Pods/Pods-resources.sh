@@ -98,6 +98,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "WeixinActivity/WeixinActivity/Resources/icon_timeline-8@2x.png"
   install_resource "WeixinActivity/WeixinActivity/Resources/icon_timeline.png"
   install_resource "WeixinActivity/WeixinActivity/Resources/icon_timeline@2x.png"
+  install_resource "${BUILT_PRODUCTS_DIR}/ENPrivateLibrary.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/JCTagListView.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/ApptentiveResources.bundle"
 fi
@@ -142,6 +143,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "WeixinActivity/WeixinActivity/Resources/icon_timeline-8@2x.png"
   install_resource "WeixinActivity/WeixinActivity/Resources/icon_timeline.png"
   install_resource "WeixinActivity/WeixinActivity/Resources/icon_timeline@2x.png"
+  install_resource "${BUILT_PRODUCTS_DIR}/ENPrivateLibrary.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/JCTagListView.bundle"
   install_resource "${BUILT_PRODUCTS_DIR}/ApptentiveResources.bundle"
 fi
