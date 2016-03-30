@@ -262,6 +262,34 @@
 		1E5653EEBE2880BC9D89E760B8C3F165 /* ATInfoViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4D5003CC0EE283E4765169357AC58F3 /* ATInfoViewController_iPad.xib */; };
 		1E629D34A8878BC7458DB85ECBD3E054 /* PFACLPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = EDADFDB7256293085007C892FD758558 /* PFACLPrivate.h */; };
 		1E6D50E14A428B8F1D007576DF781025 /* TOActivityChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC116BBD9F29A4D986B645FAAC53E91 /* TOActivityChrome.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		1E7427F01CAC0B08004DC6C8 /* ENPriceModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7427EE1CAC0B08004DC6C8 /* ENPriceModel.h */; };
+		1E7427F11CAC0B08004DC6C8 /* ENPriceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7427EF1CAC0B08004DC6C8 /* ENPriceModel.m */; };
+		1E7427F51CAC0B9F004DC6C8 /* ENContactModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7427F31CAC0B9F004DC6C8 /* ENContactModel.h */; };
+		1E7427F61CAC0B9F004DC6C8 /* ENContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7427F41CAC0B9F004DC6C8 /* ENContactModel.m */; };
+		1E7427FA1CAC0BF8004DC6C8 /* ENRestaurantModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7427F81CAC0BF8004DC6C8 /* ENRestaurantModel.h */; };
+		1E7427FB1CAC0BF8004DC6C8 /* ENRestaurantModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7427F91CAC0BF8004DC6C8 /* ENRestaurantModel.m */; };
+		1E7427FF1CAC0C85004DC6C8 /* ENLocationModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7427FD1CAC0C85004DC6C8 /* ENLocationModel.h */; };
+		1E7428001CAC0C85004DC6C8 /* ENLocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7427FE1CAC0C85004DC6C8 /* ENLocationModel.m */; };
+		1E7428041CAC0F21004DC6C8 /* ENCategoryModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7428021CAC0F21004DC6C8 /* ENCategoryModel.h */; };
+		1E7428051CAC0F21004DC6C8 /* ENCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7428031CAC0F21004DC6C8 /* ENCategoryModel.m */; };
+		1E7428091CAC0FB8004DC6C8 /* ENStatsModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7428071CAC0FB8004DC6C8 /* ENStatsModel.h */; };
+		1E74280A1CAC0FB8004DC6C8 /* ENStatsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7428081CAC0FB8004DC6C8 /* ENStatsModel.m */; };
+		1E74280E1CAC10B7004DC6C8 /* ENPhotosModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E74280C1CAC10B7004DC6C8 /* ENPhotosModel.h */; };
+		1E74280F1CAC10B7004DC6C8 /* ENPhotosModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E74280D1CAC10B7004DC6C8 /* ENPhotosModel.m */; };
+		1E7428131CAC10FF004DC6C8 /* ENPhotosItemModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7428111CAC10FF004DC6C8 /* ENPhotosItemModel.h */; };
+		1E7428141CAC10FF004DC6C8 /* ENPhotosItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7428121CAC10FF004DC6C8 /* ENPhotosItemModel.m */; };
+		1E7428181CAC11DB004DC6C8 /* ENTagsModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7428161CAC11DB004DC6C8 /* ENTagsModel.h */; };
+		1E7428191CAC11DB004DC6C8 /* ENTagsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7428171CAC11DB004DC6C8 /* ENTagsModel.m */; };
+		1E74281D1CAC1269004DC6C8 /* ENTagsDetailModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E74281B1CAC1269004DC6C8 /* ENTagsDetailModel.h */; };
+		1E74281E1CAC1269004DC6C8 /* ENTagsDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E74281C1CAC1269004DC6C8 /* ENTagsDetailModel.m */; };
+		1E7428221CAC127C004DC6C8 /* ENTagsDetailJustificationModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7428201CAC127C004DC6C8 /* ENTagsDetailJustificationModel.h */; };
+		1E7428231CAC127C004DC6C8 /* ENTagsDetailJustificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7428211CAC127C004DC6C8 /* ENTagsDetailJustificationModel.m */; };
+		1E7428271CAC128D004DC6C8 /* ENTagsFailedModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E7428251CAC128D004DC6C8 /* ENTagsFailedModel.h */; };
+		1E7428281CAC128D004DC6C8 /* ENTagsFailedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7428261CAC128D004DC6C8 /* ENTagsFailedModel.m */; };
+		1E74282C1CAC1398004DC6C8 /* ENAttributesModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E74282A1CAC1398004DC6C8 /* ENAttributesModel.h */; };
+		1E74282D1CAC1398004DC6C8 /* ENAttributesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E74282B1CAC1398004DC6C8 /* ENAttributesModel.m */; };
+		1E7428311CAC1448004DC6C8 /* ENScoreModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E74282F1CAC1448004DC6C8 /* ENScoreModel.h */; };
+		1E7428321CAC1448004DC6C8 /* ENScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7428301CAC1448004DC6C8 /* ENScoreModel.m */; };
 		1E9720A4FC03AF864FFDEAD3F6AF1208 /* NSData+RACSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C64B1FBDB89B8A5C8E6F402C907526D8 /* NSData+RACSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1EB31912881A5EAED6CE9856AFDC9342 /* _FBTweakTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 897683FC6AEB52FA43CCA28915EC5E7A /* _FBTweakTableViewCell.h */; };
 		1EC465DCF71E38893D9CF72B76FE41E7 /* FBSDKLogo.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EC4528A543933D4BC30E3A0AC45791A /* FBSDKLogo.h */; };
@@ -2583,6 +2611,34 @@
 		1E1479D47F8E9C0607DE2698D4F39B7D /* GPUImageThresholdEdgeDetectionFilter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPUImageThresholdEdgeDetectionFilter.h; path = framework/Source/GPUImageThresholdEdgeDetectionFilter.h; sourceTree = "<group>"; };
 		1E40FAB2647F513CF988A7B6D162A649 /* dot.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
 		1E4EB1FD9ACB6FB685D94C92C5F10A85 /* JGProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JGProgressHUD.m; path = JGProgressHUD/JGProgressHUD/JGProgressHUD.m; sourceTree = "<group>"; };
+		1E7427EE1CAC0B08004DC6C8 /* ENPriceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPriceModel.h; sourceTree = "<group>"; };
+		1E7427EF1CAC0B08004DC6C8 /* ENPriceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPriceModel.m; sourceTree = "<group>"; };
+		1E7427F31CAC0B9F004DC6C8 /* ENContactModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENContactModel.h; sourceTree = "<group>"; };
+		1E7427F41CAC0B9F004DC6C8 /* ENContactModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENContactModel.m; sourceTree = "<group>"; };
+		1E7427F81CAC0BF8004DC6C8 /* ENRestaurantModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantModel.h; sourceTree = "<group>"; };
+		1E7427F91CAC0BF8004DC6C8 /* ENRestaurantModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantModel.m; sourceTree = "<group>"; };
+		1E7427FD1CAC0C85004DC6C8 /* ENLocationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENLocationModel.h; sourceTree = "<group>"; };
+		1E7427FE1CAC0C85004DC6C8 /* ENLocationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLocationModel.m; sourceTree = "<group>"; };
+		1E7428021CAC0F21004DC6C8 /* ENCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENCategoryModel.h; sourceTree = "<group>"; };
+		1E7428031CAC0F21004DC6C8 /* ENCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENCategoryModel.m; sourceTree = "<group>"; };
+		1E7428071CAC0FB8004DC6C8 /* ENStatsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENStatsModel.h; sourceTree = "<group>"; };
+		1E7428081CAC0FB8004DC6C8 /* ENStatsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENStatsModel.m; sourceTree = "<group>"; };
+		1E74280C1CAC10B7004DC6C8 /* ENPhotosModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPhotosModel.h; sourceTree = "<group>"; };
+		1E74280D1CAC10B7004DC6C8 /* ENPhotosModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPhotosModel.m; sourceTree = "<group>"; };
+		1E7428111CAC10FF004DC6C8 /* ENPhotosItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPhotosItemModel.h; sourceTree = "<group>"; };
+		1E7428121CAC10FF004DC6C8 /* ENPhotosItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPhotosItemModel.m; sourceTree = "<group>"; };
+		1E7428161CAC11DB004DC6C8 /* ENTagsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTagsModel.h; sourceTree = "<group>"; };
+		1E7428171CAC11DB004DC6C8 /* ENTagsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENTagsModel.m; sourceTree = "<group>"; };
+		1E74281B1CAC1269004DC6C8 /* ENTagsDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTagsDetailModel.h; sourceTree = "<group>"; };
+		1E74281C1CAC1269004DC6C8 /* ENTagsDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENTagsDetailModel.m; sourceTree = "<group>"; };
+		1E7428201CAC127C004DC6C8 /* ENTagsDetailJustificationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTagsDetailJustificationModel.h; sourceTree = "<group>"; };
+		1E7428211CAC127C004DC6C8 /* ENTagsDetailJustificationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENTagsDetailJustificationModel.m; sourceTree = "<group>"; };
+		1E7428251CAC128D004DC6C8 /* ENTagsFailedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTagsFailedModel.h; sourceTree = "<group>"; };
+		1E7428261CAC128D004DC6C8 /* ENTagsFailedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENTagsFailedModel.m; sourceTree = "<group>"; };
+		1E74282A1CAC1398004DC6C8 /* ENAttributesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENAttributesModel.h; sourceTree = "<group>"; };
+		1E74282B1CAC1398004DC6C8 /* ENAttributesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENAttributesModel.m; sourceTree = "<group>"; };
+		1E74282F1CAC1448004DC6C8 /* ENScoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENScoreModel.h; sourceTree = "<group>"; };
+		1E7428301CAC1448004DC6C8 /* ENScoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENScoreModel.m; sourceTree = "<group>"; };
 		1E7B9BE845C205E5B9477C54137FE401 /* GPUImagePolarPixellateFilter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPUImagePolarPixellateFilter.h; path = framework/Source/GPUImagePolarPixellateFilter.h; sourceTree = "<group>"; };
 		1E8742F26AA18DCBFC5C9453F5A55FB3 /* PFHash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFHash.m; path = Parse/Internal/PFHash.m; sourceTree = "<group>"; };
 		1EF6501D4008F378F3313393E5A56565 /* ATJSONSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATJSONSerialization.h; path = ApptentiveConnect/source/Misc/ATJSONSerialization.h; sourceTree = "<group>"; };
@@ -5104,6 +5160,41 @@
 			path = FBSDKCoreKit;
 			sourceTree = "<group>";
 		};
+		1E7427ED1CAC0AD6004DC6C8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1E7427EE1CAC0B08004DC6C8 /* ENPriceModel.h */,
+				1E7427EF1CAC0B08004DC6C8 /* ENPriceModel.m */,
+				1E7427F31CAC0B9F004DC6C8 /* ENContactModel.h */,
+				1E7427F41CAC0B9F004DC6C8 /* ENContactModel.m */,
+				1E7427FD1CAC0C85004DC6C8 /* ENLocationModel.h */,
+				1E7427FE1CAC0C85004DC6C8 /* ENLocationModel.m */,
+				1E7428021CAC0F21004DC6C8 /* ENCategoryModel.h */,
+				1E7428031CAC0F21004DC6C8 /* ENCategoryModel.m */,
+				1E7428071CAC0FB8004DC6C8 /* ENStatsModel.h */,
+				1E7428081CAC0FB8004DC6C8 /* ENStatsModel.m */,
+				1E74280C1CAC10B7004DC6C8 /* ENPhotosModel.h */,
+				1E74280D1CAC10B7004DC6C8 /* ENPhotosModel.m */,
+				1E7428111CAC10FF004DC6C8 /* ENPhotosItemModel.h */,
+				1E7428121CAC10FF004DC6C8 /* ENPhotosItemModel.m */,
+				1E7428161CAC11DB004DC6C8 /* ENTagsModel.h */,
+				1E7428171CAC11DB004DC6C8 /* ENTagsModel.m */,
+				1E74281B1CAC1269004DC6C8 /* ENTagsDetailModel.h */,
+				1E74281C1CAC1269004DC6C8 /* ENTagsDetailModel.m */,
+				1E7428201CAC127C004DC6C8 /* ENTagsDetailJustificationModel.h */,
+				1E7428211CAC127C004DC6C8 /* ENTagsDetailJustificationModel.m */,
+				1E7428251CAC128D004DC6C8 /* ENTagsFailedModel.h */,
+				1E7428261CAC128D004DC6C8 /* ENTagsFailedModel.m */,
+				1E74282A1CAC1398004DC6C8 /* ENAttributesModel.h */,
+				1E74282B1CAC1398004DC6C8 /* ENAttributesModel.m */,
+				1E74282F1CAC1448004DC6C8 /* ENScoreModel.h */,
+				1E7428301CAC1448004DC6C8 /* ENScoreModel.m */,
+				1E7427F81CAC0BF8004DC6C8 /* ENRestaurantModel.h */,
+				1E7427F91CAC0BF8004DC6C8 /* ENRestaurantModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		1E97C1E14A05FF26B8BF0B5A1DD93E63 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -6527,6 +6618,7 @@
 		A632FDBC235CB3000AA10DF06D6EF596 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				1E7427ED1CAC0AD6004DC6C8 /* Models */,
 				4C0750AF99E8BFC99853130C0DFF4A90 /* ENProfileItem.h */,
 				1D847FF0B95CBA096D76243DC6FB51A9 /* ENProfileItem.m */,
 				BBEA2F98765986E351B06FC138E7F227 /* ENProxy.h */,
@@ -9121,6 +9213,7 @@
 				93875841C5D0D53C6411D54CBC7BDEC0 /* CGGeometry+MEDConvenienceAdditions.h in Headers */,
 				F5CD5BA93536325837BA1C7673945E5D /* ENAppSettings.h in Headers */,
 				45BEA58C085DDC439081F08C8054B9E7 /* ENDefines.h in Headers */,
+				1E74282C1CAC1398004DC6C8 /* ENAttributesModel.h in Headers */,
 				A3773807C74EF959A22872E7C1A3B30E /* ENFacebookLoginProvider.h in Headers */,
 				7B915F32F1F8E1E7198C757A84DE9624 /* ENLocationManager.h in Headers */,
 				33F2C14A0CCAED67A4BEB29D8E157A02 /* ENLocationReporter.h in Headers */,
@@ -9128,7 +9221,9 @@
 				ABA1DE665D2B67570B6A2C8F91C22FA5 /* ENProfileItem.h in Headers */,
 				5696407D8C1D8ED3470415D4C887D985 /* ENProxy.h in Headers */,
 				75A8B35150A61F9D43567259253DB36F /* ENRestaurant.h in Headers */,
+				1E7427FF1CAC0C85004DC6C8 /* ENLocationModel.h in Headers */,
 				21D48857F9CB9CF548D60B47AE6BA76C /* ENServer.h in Headers */,
+				1E7428311CAC1448004DC6C8 /* ENScoreModel.h in Headers */,
 				B0B56A5729756CEBADBF02F0F02A8901 /* ENServerManager.h in Headers */,
 				80EC24A4503FA2E3A88CAA6A9184E594 /* ENShare.h in Headers */,
 				B48F05220B68589F9BC4D4A22030A390 /* ENSocial.h in Headers */,
@@ -9136,9 +9231,13 @@
 				04C200A680304B908CBA46A2E87AB188 /* ENSocialLoginProviderProtocol.h in Headers */,
 				4A3DF81102882076CC0BA70BD3F88CB6 /* ENSocialLoginResponse.h in Headers */,
 				0095FB1B448AC48D36E797436965FD53 /* ENToken.h in Headers */,
+				1E74281D1CAC1269004DC6C8 /* ENTagsDetailModel.h in Headers */,
+				1E7428091CAC0FB8004DC6C8 /* ENStatsModel.h in Headers */,
+				1E7427F51CAC0B9F004DC6C8 /* ENContactModel.h in Headers */,
 				463BDBDB94E89B8014EB7D9131E4E669 /* ENUser.h in Headers */,
 				9690AAED2F923A1508B3219C97DD52FC /* ENUtil.h in Headers */,
 				75BF697DC510CD2AA5A663B0798927EB /* ENWechatLoginProvider.h in Headers */,
+				1E7428221CAC127C004DC6C8 /* ENTagsDetailJustificationModel.h in Headers */,
 				1DA89AC2554B66DF17F05E8F227AB208 /* GCDSingleton.h in Headers */,
 				B366EDD538DE1C89801D4D960FF654BC /* JSONValueTransformer+UIImage.h in Headers */,
 				EC228CEA595987AB771CC1D6ED636C00 /* NSDate+Extension.h in Headers */,
@@ -9148,10 +9247,17 @@
 				1FC292EB993488478E7E1774BFD9F908 /* NSString+Extend.h in Headers */,
 				814EF3F23E3C2C8841F9E044154E9F50 /* NYXImagesHelper.h in Headers */,
 				B2A52C2D11810CE72DFC3CB50BF14F83 /* UIImage+Resizing.h in Headers */,
+				1E7428041CAC0F21004DC6C8 /* ENCategoryModel.h in Headers */,
+				1E7427F01CAC0B08004DC6C8 /* ENPriceModel.h in Headers */,
 				380FE353D5EE1CEE33E26E9ECD7B9B13 /* UITableViewCell+Extension.h in Headers */,
+				1E7427FA1CAC0BF8004DC6C8 /* ENRestaurantModel.h in Headers */,
+				1E74280E1CAC10B7004DC6C8 /* ENPhotosModel.h in Headers */,
 				CA76A5458A510F184C57E1308E23EB66 /* UIView+Extend.h in Headers */,
+				1E7428131CAC10FF004DC6C8 /* ENPhotosItemModel.h in Headers */,
 				21402460FC78E97403A518A635EA6D7C /* UIView+Material.h in Headers */,
+				1E7428181CAC11DB004DC6C8 /* ENTagsModel.h in Headers */,
 				C044FAA4EBFD59588DBAF925B438AEA4 /* UIWindow+Extensions.h in Headers */,
+				1E7428271CAC128D004DC6C8 /* ENTagsFailedModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10572,37 +10678,51 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E74280A1CAC0FB8004DC6C8 /* ENStatsModel.m in Sources */,
 				C73EF48F65F8017BF3078912AF3930D5 /* CALayer+UIColor.m in Sources */,
 				4556DE8BC8005D208494AD6F981AE855 /* CGGeometry+MEDConvenienceAdditions.m in Sources */,
 				4F7454712CADB6E620AD12BD5A68205A /* ENAppSettings.m in Sources */,
+				1E7427F61CAC0B9F004DC6C8 /* ENContactModel.m in Sources */,
 				B8C05C5E52F07F960FD6C8AB1688B72D /* ENFacebookLoginProvider.m in Sources */,
 				BDEE32FD65843AA1D51692F6F2D7D41B /* ENLocationManager.m in Sources */,
+				1E74282D1CAC1398004DC6C8 /* ENAttributesModel.m in Sources */,
 				402708B7D880CD2903468154D990547E /* ENLocationReporter.m in Sources */,
 				D1DF600A7191D8561610F32EA479EF0D /* ENMapManager.m in Sources */,
 				88EE4EE27E0D4DC987E54C43DC3C2D75 /* ENPrivateLibrary-dummy.m in Sources */,
+				1E7427F11CAC0B08004DC6C8 /* ENPriceModel.m in Sources */,
 				C95729C5EA05CBD1691D643908B84348 /* ENProfileItem.m in Sources */,
 				78F0F16A913AD21F520277E3560C6D55 /* ENProxy.m in Sources */,
 				147C40B22A3240B2294D6A301B5B1E70 /* ENRestaurant.m in Sources */,
 				2767054437C125C2E8E5C4BC688268CC /* ENServerManager.m in Sources */,
+				1E7428191CAC11DB004DC6C8 /* ENTagsModel.m in Sources */,
 				55A8A63AE5EDD62DB8456D51806D88BF /* ENShare.m in Sources */,
 				FC0FA72E12CC723A46FF6F971A09947B /* ENSocial.m in Sources */,
 				4899F193294833DBE31D548BF2703507 /* ENSocialLoginManager.m in Sources */,
+				1E7428001CAC0C85004DC6C8 /* ENLocationModel.m in Sources */,
+				1E74281E1CAC1269004DC6C8 /* ENTagsDetailModel.m in Sources */,
 				50DC3203FDEDE5C7D909032E2B342584 /* ENSocialLoginResponse.m in Sources */,
 				A40040D63BF54C5151D42E500DD536D5 /* ENToken.m in Sources */,
 				F51ABE85DA5B3A6C753D324EAEB69468 /* ENUser.m in Sources */,
 				625F9F32942298F530E61B8BAD8F8985 /* ENUtil.m in Sources */,
+				1E7428231CAC127C004DC6C8 /* ENTagsDetailJustificationModel.m in Sources */,
+				1E7428321CAC1448004DC6C8 /* ENScoreModel.m in Sources */,
+				1E7428281CAC128D004DC6C8 /* ENTagsFailedModel.m in Sources */,
 				E559C250F0578F73A1594F6A24DF31FB /* ENWechatLoginProvider.m in Sources */,
 				836248157A5A53653D0E0995C7CFD553 /* JSONValueTransformer+UIImage.m in Sources */,
 				74360FFB470BC731DD01C216E02448F1 /* NSDate+Extension.m in Sources */,
+				1E74280F1CAC10B7004DC6C8 /* ENPhotosModel.m in Sources */,
 				362B26EA65181AD3C1A3229016AF54CE /* NSDictionary+Extend.m in Sources */,
 				CA98D1168CDF74B2EA9098679B40024E /* NSError+EatNow.m in Sources */,
 				0477AA75AD82569B3A8E9C599C56A5BF /* NSError+TMError.m in Sources */,
+				1E7428051CAC0F21004DC6C8 /* ENCategoryModel.m in Sources */,
 				8577542F937E9833FE0F5A35983F21F3 /* NSString+Extend.m in Sources */,
+				1E7427FB1CAC0BF8004DC6C8 /* ENRestaurantModel.m in Sources */,
 				6323FE238020FAC7FC98C7740AEFF9A0 /* NYXImagesHelper.m in Sources */,
 				54DD61DB6F10C92C95DEB7543EC23799 /* UIImage+Resizing.m in Sources */,
 				F2E4B778E95033C2F3A5F10D8BE8C4E3 /* UITableViewCell+Extension.m in Sources */,
 				C8367539E452B86F7449E48FD09A473E /* UIView+Extend.m in Sources */,
 				EB77CAC94231B1464CAE543513E1A4EC /* UIView+Material.m in Sources */,
+				1E7428141CAC10FF004DC6C8 /* ENPhotosItemModel.m in Sources */,
 				453DD2E26405F764E48DC1FF1A8FF6BB /* UIWindow+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

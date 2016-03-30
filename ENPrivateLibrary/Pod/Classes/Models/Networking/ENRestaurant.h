@@ -28,22 +28,33 @@
 @import MapKit;
 
 @interface ENRestaurant : JSONModel
-@property (nonatomic, strong) NSString *ID;
+
+//#pragam mark - Properties
+
+@property (nonatomic, strong) NSNumber *rating;
+@property (nonatomic, strong) UIColor *ratingColor;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, strong) NSDictionary *delivery;
+
+// old properties, will be deprecated
+@property (nonatomic, strong) CLLocation *location;
+
+
+@property (nonatomic, strong) NSString *ID;
+
 //@property (nonatomic, strong) NSMutableArray *images;
 @property (nonatomic, strong) NSArray *imageUrls;
 // Use photos to replace imageUrls
 @property (nonatomic, strong) NSDictionary *photos;
 @property (nonatomic, strong) NSArray *cuisines;
-@property (nonatomic, strong) NSNumber *rating;
-@property (nonatomic, strong) UIColor *ratingColor;
+
 @property (nonatomic, strong) NSDictionary *price;
 @property (nonatomic, strong) NSNumber *reviews;
 @property (nonatomic, strong) NSNumber *tips;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *phone;
 @property (nonatomic, strong) NSString *phoneNumber;
-@property (nonatomic, strong) CLLocation *location;
+
 @property (nonatomic, strong) NSNumber *score;
 @property (nonatomic, strong) NSDictionary *json;
 @property (nonatomic, strong) NSString *openInfo;
@@ -54,7 +65,7 @@
 @property (nonatomic, strong) NSString *facebook;
 @property (nonatomic, strong) NSString *venderUrl;
 @property (nonatomic, strong) NSString *mobileMenuURL;
-@property (nonatomic, strong) NSDictionary *delivery;
+
 /**
  *  apple watch image is set after resize to smaller size in ResturantInterfaceController
  */

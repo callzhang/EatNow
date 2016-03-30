@@ -103,7 +103,8 @@
         
         for (NSDictionary *restaurantDictionary in responseObject) {
             ENRestaurant *model = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurantDictionary];
-            DDLogInfo(@"%@", model.scoreComponentsText);
+            DDLogInfo(@"%@", model.json);
+            
         }
         
 //        ENRestaurant *model = [[ENRestaurant alloc] initRestaurantWithDictionary:responseObject[0]];
@@ -129,7 +130,7 @@
     XCTestExpectation *expectation = [self expectationWithDescription:@"get location"];
     [[ENLocationManager sharedInstance] getLocationWithCompletion:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
         XCTAssert(status == INTULocationStatusSuccess);
-        DDLogInfo(@"Location Status: %ld", status);
+        DDLogInfo(@"Location Status: %ld", (long)status);
         DDLogInfo(@"Current Location: %f, %f", currentLocation.coordinate.longitude, currentLocation.coordinate.latitude);
         [expectation fulfill];
     }];
