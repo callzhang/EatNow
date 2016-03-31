@@ -1,0 +1,254 @@
+
+{
+  "_id": "556ffc322a44c82200dd605d",
+  "id": "53a6a989498e56d991782b25",
+  "__v": 5,
+  "crawled": true,
+  "rating": 8.4,
+  "ratingColor": "73CF42",
+  "name": "Doors Chillout Lounge 多思",
+  "delivery":"??",
+  "hasMenu": "??",
+  "hours": {
+    "timeframes": [],
+    "popular": []
+  },
+  "popular": {
+    "timeframes": []
+  },
+  "vendorUrl": "https://foursquare.com/v/53a6a989498e56d991782b25",
+  "price": {
+    "tier": 2,
+    "currency": "¥",
+    "message": "Moderate"
+  },
+  "contact": {
+    "phone": "+8675586308114",
+    "facebook": "841518602539368",
+    "formattedPhone": "+86 755 8630 8114"
+  },
+  
+  "location": {
+    "city": "深圳市",
+    "cc": "CN",
+    "country": "中国",
+    "postalCode": "518021",
+    "state": "广东",
+    "address": "No:6-20, Hi-Mart, Xuefu Lu | Nanshan District, Shenzhen, China",
+    "lat": 22.529607133061763,
+    "lng": 113.92455470084728,
+    "formattedAddress": [
+      "No:6-20, Hi-Mart, Xuefu Lu | Nanshan District, Shenzhen, China",
+      "深圳市",
+      "广东, 518021",
+      "中国"
+    ]
+  },
+  "food_image_url": [
+    "https://irs1.4sqi.net/img/general/width640/97232694_DEfN9nZjpSExumCmD_IAGqSHMGJyQayy1S8BfeAf2l0.jpg",
+    "https://irs1.4sqi.net/img/general/width640/97232694_SIcRT8knmduxn3T8koW-1W9AOmP_prWXXRzuIjqoWbg.png",
+    "https://irs0.4sqi.net/img/general/width640/33469898_eTuhrLRuJmdaqFhGQ7u06MTKyj_oWBEGoR_IsBKiZCc.jpg"
+  ],
+  "categories": [
+    {
+      "name": "Turkish Restaurant",
+      "global": "Turkish",
+      "primary": true,
+      "shortName": "Turkish",
+      "_id": "5601575e78381921003c9ff7",
+      "id": "4f04af1f2fb6e1c99f3db0bb"
+    }
+  ],
+  "stats": {
+    "tipCount": "35",
+    "checkinsCount": "178",
+    "usersCount": "69"
+  },
+  "photos": {
+    "count": 192,
+    "updated": "2015-11-19T13:08:32.580Z",
+    "items": [
+      {
+        "description": "",
+        "createdAt": "+047524-10-20T04:16:40.000Z",
+        "type": "",
+        "prefix": "https://irs1.4sqi.net/img/general/",
+        "width": 877,
+        "height": 874,
+        "tags": [],
+        "suffix": "/97232694_DEfN9nZjpSExumCmD_IAGqSHMGJyQayy1S8BfeAf2l0.jpg"
+      },
+      {
+        "description": "",
+        "createdAt": "+046675-06-17T14:56:40.000Z",
+        "type": "",
+        "prefix": "https://irs2.4sqi.net/img/general/",
+        "width": 500,
+        "height": 493,
+        "tags": [],
+        "suffix": "/94582823_ppgUWUHqmMwMyLCT5432WjaMEm0lIrrs-YsiR0JAQPM.jpg"
+      },
+      {
+        "description": "",
+        "createdAt": "+046520-04-16T07:36:40.000Z",
+        "type": "",
+        "prefix": "https://irs0.4sqi.net/img/general/",
+        "width": 720,
+        "height": 960,
+        "tags": [],
+        "suffix": "/33469898_eTuhrLRuJmdaqFhGQ7u06MTKyj_oWBEGoR_IsBKiZCc.jpg"
+      }
+    ]
+  },
+  "tags": {
+    "count": 20,
+    "updated": "2015-12-10T00:19:17.069Z",
+    "popularity": 0.9040640428795111,
+    "failed": [],
+    "details": [
+      {
+        "tag": "good for dates",
+        "score": 4761,
+        "_id": "56464a470e4f1f752c0b9586",
+        "justifications": [
+          {
+            "type": "agree",
+            "total": "481",
+            "text": "476 out of 481 people say this place is good for dates",
+            "count": "476"
+          },
+          {
+            "type": "mentioned",
+            "total": "1",
+            "text": "1 person mentioned good for dates while checking in on Swarm",
+            "count": "1"
+          }
+        ]
+      },
+      {
+        "tag": "chicken salad",
+        "score": 50,
+        "_id": "56464a470e4f1f752c0b9574",
+        "justifications": [
+          {
+            "type": "recommend",
+            "total": "50",
+            "text": "50 people recommend the chicken salad",
+            "count": "50"
+          }
+        ]
+      },
+      {
+        "tag": "fresh baked breads",
+        "score": 40,
+        "_id": "56464a470e4f1f752c0b9573",
+        "justifications": [
+          {
+            "type": "recommend",
+            "total": "40",
+            "text": "40 people recommend the fresh baked breads",
+            "count": "40"
+          }
+        ]
+      }
+    ],
+    "items": [
+      "good for dates",
+      "lively",
+      "romantic",
+      "fancy",
+      "good for a late night",
+      "trendy",
+      "healthy food",
+      "cozy",
+      "good for groups",
+      "authentic",
+      "quiet",
+      "family-friendly",
+      "casual",
+      "good for a quick meal",
+      "pizza",
+      "kebabs",
+      "seafood",
+      "steak",
+      "chicken salad",
+      "fresh baked breads"
+    ]
+  },
+  "attributes": {
+    "updated": "2016-01-28T13:04:10.960Z",
+    "items": {
+      "reservations": {
+        "Reservations": true
+      },
+      "payments": {
+        "Credit Cards": true
+      },
+      "outdoorSeating": {
+        "Outdoor Seating": true
+      },
+      "privateRoom": {
+        "Private Room": true
+      },
+      "music": {
+        "Live Music": true,
+        "Jukebox": true
+      },
+      "wifi": {
+        "Wi-Fi": true
+      },
+      "serves": {
+        "Breakfast": true,
+        "Brunch": true,
+        "Lunch": true,
+        "Dinner": true,
+        "Dessert": true,
+        "Happy Hour": true,
+        "Bar Snacks": true,
+        "Tasting Menu": true
+      },
+      "drinks": {
+        "Beer": true,
+        "Wine": true,
+        "Full Bar": true,
+        "Cocktails": true
+      },
+      "diningOptions": {
+        "Table Service": true,
+        "Bar Service": true,
+        "Take-out": true,
+        "Delivery": true
+      },
+      "parking": {
+        "Street Parking": true
+      },
+      "coatCheck": {
+        "Coat Check": true
+      },
+      "restroom": {
+        "Restroom": true
+      },
+      "wheelchairAccessible": {
+        "Wheelchair Accessible": true
+      },
+      "smoking": {
+        "Smoking": true
+      }
+    }
+  },
+  "score": {
+    "total_score": 54.35835172921266,
+    "mode_score": 0,
+    "time_score": 15,
+    "price_score": 10,
+    "comment_score": 0,
+    "distance_score": 7.358351729212656,
+    "cuisine_score": 0,
+    "rating_score": 22,
+    "avgDistance": 300,
+    "avgPrice": 2.3,
+    "avgRating": 7,
+    "local_time": "14:03:00",
+    "avgLike": 1
+  },
+}

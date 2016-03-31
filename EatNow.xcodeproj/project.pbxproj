@@ -48,6 +48,8 @@
 		09B9F8FF1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 09B9F8FD1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m */; };
 		09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */; };
 		1E52D40C1C944CE5000EEBAC /* ENNetworkingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E52D40B1C944CE5000EEBAC /* ENNetworkingTest.m */; };
+		1E6DF2A11CAD4F29009C8841 /* test_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E6DF2A01CAD4F29009C8841 /* test_data.json */; };
+		1E6DF2A31CAD4F4F009C8841 /* ENRestaurantModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6DF2A21CAD4F4F009C8841 /* ENRestaurantModelTest.m */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */; };
 		7810AE191BC350E500625941 /* ENProfileMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE181BC350E500625941 /* ENProfileMoreViewController.m */; };
@@ -217,6 +219,8 @@
 		09E463F11AFB0AC200389E0B /* ENRestaurantTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantTableViewCell.m; sourceTree = "<group>"; };
 		1E52D40B1C944CE5000EEBAC /* ENNetworkingTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENNetworkingTest.m; sourceTree = "<group>"; };
 		1E5B773F1CA7099D0061915E /* EatNow-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EatNow-Bridging-Header.h"; sourceTree = "<group>"; };
+		1E6DF2A01CAD4F29009C8841 /* test_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_data.json; sourceTree = "<group>"; };
+		1E6DF2A21CAD4F4F009C8841 /* ENRestaurantModelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantModelTest.m; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -481,7 +485,9 @@
 		1E52D40A1C944CA3000EEBAC /* Model Test */ = {
 			isa = PBXGroup;
 			children = (
+				1E6DF2A01CAD4F29009C8841 /* test_data.json */,
 				1E52D40B1C944CE5000EEBAC /* ENNetworkingTest.m */,
+				1E6DF2A21CAD4F4F009C8841 /* ENRestaurantModelTest.m */,
 			);
 			path = "Model Test";
 			sourceTree = "<group>";
@@ -1045,6 +1051,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E6DF2A11CAD4F29009C8841 /* test_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1188,6 +1195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E52D40C1C944CE5000EEBAC /* ENNetworkingTest.m in Sources */,
+				1E6DF2A31CAD4F4F009C8841 /* ENRestaurantModelTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
