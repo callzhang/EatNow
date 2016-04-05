@@ -12,7 +12,7 @@
 @interface ENPhotosModel : JSONModel
 
 @property (nonatomic, strong) NSNumber *count;
-@property (nonatomic, strong) NSDate *updated;
+//@property (nonatomic, strong) NSDate *updated;
 @property (nonatomic, strong) NSArray <ENPhotosItemModel *> *items;
 
 @end

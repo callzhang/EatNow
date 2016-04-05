@@ -89,7 +89,6 @@
         DDLogInfo(@"model.stats.usersCount : %@", model.stats.usersCount);
         
         DDLogInfo(@"model.photos.count : %@", model.photos.count);
-        DDLogInfo(@"model.photos.updated : %@", model.photos.updated);
         DDLogInfo(@"model.photos.items.firstObject.type : %@", model.photos.items.firstObject.type);
         DDLogInfo(@"model.photos.items.firstObject.createAt : %@", model.photos.items.firstObject.createAt);
         DDLogInfo(@"model.photos.items.firstObject.prefix : %@", model.photos.items.firstObject.prefix);
@@ -100,7 +99,6 @@
         DDLogInfo(@"model.photos.items.firstObject.descriptionString : %@", model.photos.items.firstObject.descriptionString);
         
         DDLogInfo(@"model.tags.count : %@", model.tags.count);
-        DDLogInfo(@"model.tags.updated : %@", model.tags.updated);
         DDLogInfo(@"model.tags.items.firstObject : %@", model.tags.items.firstObject);
         DDLogInfo(@"model.tags.details.firstObject.tag : %@", model.tags.details.firstObject.tag);
         DDLogInfo(@"model.tags.details.firstObject.score : %@", model.tags.details.firstObject.score);
@@ -112,7 +110,7 @@
         DDLogInfo(@"model.tags.failed.firstObject.identifier : %@", model.tags.failed.firstObject.identifier);
         DDLogInfo(@"model.tags.failed.firstObject.reason : %@", model.tags.failed.firstObject.reason);
         
-        DDLogInfo(@"model.attributes.updated : %@", model.attributes.updated);
+        DDLogInfo(@"model.attributes.items : %@", model.attributes.items.allKeys.firstObject);
         
         DDLogInfo(@"model.score.totalScore : %@", model.score.totalScore);
         DDLogInfo(@"model.score.modeScore : %@", model.score.modeScore);

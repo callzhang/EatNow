@@ -13,7 +13,7 @@
 @interface ENTagsModel : JSONModel
 
 @property (nonatomic, strong) NSNumber *count;
-@property (nonatomic, strong) NSDate *updated;
+//@property (nonatomic, strong) NSDate *updated;
 @property (nonatomic, strong) NSArray <NSString *> *items;
 @property (nonatomic, strong) NSArray <ENTagsDetailModel *> *details;
 @property (nonatomic, strong) NSArray <ENTagsFailedModel *> *failed;

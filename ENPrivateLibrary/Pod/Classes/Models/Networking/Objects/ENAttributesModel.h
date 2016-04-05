@@ -10,7 +10,8 @@
 
 @interface ENAttributesModel : JSONModel
 
-@property (nonatomic, strong) NSDate *updated;
+//@property (nonatomic, strong) NSDate *updated;
+@property (nonatomic, strong) NSDictionary *items;
 // TODO: items
 
 @end
