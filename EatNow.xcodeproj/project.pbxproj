@@ -29,6 +29,9 @@
 		09432CCB1ACCC5E700B989FF /* WatchImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09432CCA1ACCC5E700B989FF /* WatchImages.xcassets */; };
 		09432CCE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09432CAE1ACCC5E700B989FF /* EatNow WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */; };
+		0943AB761CBE92D500F98A93 /* FBKVOController+Binding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0943AB711CBE92D500F98A93 /* FBKVOController+Binding.m */; };
+		0943AB771CBE92D500F98A93 /* TMBlockExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0943AB731CBE92D500F98A93 /* TMBlockExecutor.m */; };
+		0943AB781CBE92D500F98A93 /* TMTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = 0943AB751CBE92D500F98A93 /* TMTuple.m */; };
 		094958111B018E300022E4B4 /* TMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949580F1B018E300022E4B4 /* TMAlertController.m */; };
 		094958121B018E300022E4B4 /* TMAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 094958101B018E300022E4B4 /* TMAlertController.xib */; };
 		094958151B0190E80022E4B4 /* TMAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 094958141B0190E80022E4B4 /* TMAlertAction.m */; };
@@ -85,23 +88,6 @@
 		9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BE6BC651A211F8A00CF57F5 /* main.storyboard */; };
 		9BE71C071B7FA08700509457 /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C061B7FA08700509457 /* NYXImagesHelper.m */; };
 		9BE71C211B7FA21800509457 /* EnShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C201B7FA21800509457 /* EnShapeView.m */; };
-		9BE71C4C1B7FA2F400509457 /* FBKVOController+Binding.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C281B7FA2F400509457 /* FBKVOController+Binding.m */; };
-		9BE71C4D1B7FA2F400509457 /* TMLabelRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C2B1B7FA2F400509457 /* TMLabelRowItem.m */; };
-		9BE71C4E1B7FA2F400509457 /* TMRightDetailRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C2D1B7FA2F400509457 /* TMRightDetailRowItem.m */; };
-		9BE71C4F1B7FA2F400509457 /* TMRowItem+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C2F1B7FA2F400509457 /* TMRowItem+AFNetworking.m */; };
-		9BE71C501B7FA2F400509457 /* TMRowItem+Protected.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C311B7FA2F400509457 /* TMRowItem+Protected.m */; };
-		9BE71C511B7FA2F400509457 /* TMRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C331B7FA2F400509457 /* TMRowItem.m */; };
-		9BE71C521B7FA2F400509457 /* TMTextFieldRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C351B7FA2F400509457 /* TMTextFieldRowItem.m */; };
-		9BE71C531B7FA2F400509457 /* TMSectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C391B7FA2F400509457 /* TMSectionItem.m */; };
-		9BE71C541B7FA2F400509457 /* TMTableViewBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C3C1B7FA2F400509457 /* TMTableViewBuilder.m */; };
-		9BE71C551B7FA2F400509457 /* TMTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C401B7FA2F400509457 /* TMTableViewDataSource.m */; };
-		9BE71C561B7FA2F400509457 /* TMTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C421B7FA2F400509457 /* TMTableViewDelegate.m */; };
-		9BE71C571B7FA2F400509457 /* UITableView+RegisterRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C441B7FA2F400509457 /* UITableView+RegisterRowItem.m */; };
-		9BE71C581B7FA2F400509457 /* TMRightDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C471B7FA2F400509457 /* TMRightDetailTableViewCell.m */; };
-		9BE71C591B7FA2F400509457 /* TMRightDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BE71C481B7FA2F400509457 /* TMRightDetailTableViewCell.xib */; };
-		9BE71C5A1B7FA2F400509457 /* TMTextLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C4A1B7FA2F400509457 /* TMTextLabelTableViewCell.m */; };
-		9BE71C5B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9BE71C4B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib */; };
-		9BEBE7811B7FDEEB006F844C /* TMRowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BE71C331B7FA2F400509457 /* TMRowItem.m */; };
 		9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE7861B7FE09D006F844C /* GNAppleMapOpenerService.m */; };
 		9BEBE7921B7FE09D006F844C /* GNGoogleMapOpenerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE7881B7FE09D006F844C /* GNGoogleMapOpenerService.m */; };
 		9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBE78A1B7FE09D006F844C /* GNMapOpener.m */; };
@@ -193,6 +179,12 @@
 		09432CCA1ACCC5E700B989FF /* WatchImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchImages.xcassets; sourceTree = "<group>"; };
 		09432CD61ACCCACB00B989FF /* ENWMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENWMapInterfaceController.h; sourceTree = "<group>"; };
 		09432CD71ACCCACB00B989FF /* ENWMapInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENWMapInterfaceController.m; sourceTree = "<group>"; };
+		0943AB701CBE92D500F98A93 /* FBKVOController+Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBKVOController+Binding.h"; sourceTree = "<group>"; };
+		0943AB711CBE92D500F98A93 /* FBKVOController+Binding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBKVOController+Binding.m"; sourceTree = "<group>"; };
+		0943AB721CBE92D500F98A93 /* TMBlockExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMBlockExecutor.h; sourceTree = "<group>"; };
+		0943AB731CBE92D500F98A93 /* TMBlockExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBlockExecutor.m; sourceTree = "<group>"; };
+		0943AB741CBE92D500F98A93 /* TMTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTuple.h; sourceTree = "<group>"; };
+		0943AB751CBE92D500F98A93 /* TMTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTuple.m; sourceTree = "<group>"; };
 		0949580E1B018E300022E4B4 /* TMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAlertController.h; sourceTree = "<group>"; };
 		0949580F1B018E300022E4B4 /* TMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAlertController.m; sourceTree = "<group>"; };
 		094958101B018E300022E4B4 /* TMAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMAlertController.xib; sourceTree = "<group>"; };
@@ -281,40 +273,6 @@
 		9BE71C081B7FA1B200509457 /* GCDSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDSingleton.h; sourceTree = "<group>"; };
 		9BE71C1F1B7FA21800509457 /* EnShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnShapeView.h; sourceTree = "<group>"; };
 		9BE71C201B7FA21800509457 /* EnShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnShapeView.m; sourceTree = "<group>"; };
-		9BE71C271B7FA2F400509457 /* FBKVOController+Binding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBKVOController+Binding.h"; sourceTree = "<group>"; };
-		9BE71C281B7FA2F400509457 /* FBKVOController+Binding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBKVOController+Binding.m"; sourceTree = "<group>"; };
-		9BE71C2A1B7FA2F400509457 /* TMLabelRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMLabelRowItem.h; sourceTree = "<group>"; };
-		9BE71C2B1B7FA2F400509457 /* TMLabelRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMLabelRowItem.m; sourceTree = "<group>"; };
-		9BE71C2C1B7FA2F400509457 /* TMRightDetailRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRightDetailRowItem.h; sourceTree = "<group>"; };
-		9BE71C2D1B7FA2F400509457 /* TMRightDetailRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRightDetailRowItem.m; sourceTree = "<group>"; };
-		9BE71C2E1B7FA2F400509457 /* TMRowItem+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TMRowItem+AFNetworking.h"; sourceTree = "<group>"; };
-		9BE71C2F1B7FA2F400509457 /* TMRowItem+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TMRowItem+AFNetworking.m"; sourceTree = "<group>"; };
-		9BE71C301B7FA2F400509457 /* TMRowItem+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TMRowItem+Protected.h"; sourceTree = "<group>"; };
-		9BE71C311B7FA2F400509457 /* TMRowItem+Protected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TMRowItem+Protected.m"; sourceTree = "<group>"; };
-		9BE71C321B7FA2F400509457 /* TMRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRowItem.h; sourceTree = "<group>"; };
-		9BE71C331B7FA2F400509457 /* TMRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRowItem.m; sourceTree = "<group>"; };
-		9BE71C341B7FA2F400509457 /* TMTextFieldRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTextFieldRowItem.h; sourceTree = "<group>"; };
-		9BE71C351B7FA2F400509457 /* TMTextFieldRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTextFieldRowItem.m; sourceTree = "<group>"; };
-		9BE71C371B7FA2F400509457 /* TMSectionItem+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TMSectionItem+Protected.h"; sourceTree = "<group>"; };
-		9BE71C381B7FA2F400509457 /* TMSectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMSectionItem.h; sourceTree = "<group>"; };
-		9BE71C391B7FA2F400509457 /* TMSectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMSectionItem.m; sourceTree = "<group>"; };
-		9BE71C3A1B7FA2F400509457 /* TMSectionItem+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TMSectionItem+Protected.h"; sourceTree = "<group>"; };
-		9BE71C3B1B7FA2F400509457 /* TMTableViewBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTableViewBuilder.h; sourceTree = "<group>"; };
-		9BE71C3C1B7FA2F400509457 /* TMTableViewBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTableViewBuilder.m; sourceTree = "<group>"; };
-		9BE71C3D1B7FA2F400509457 /* TMTableViewBuilderHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTableViewBuilderHeader.h; sourceTree = "<group>"; };
-		9BE71C3E1B7FA2F400509457 /* TMTableViewBuilderMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTableViewBuilderMacro.h; sourceTree = "<group>"; };
-		9BE71C3F1B7FA2F400509457 /* TMTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTableViewDataSource.h; sourceTree = "<group>"; };
-		9BE71C401B7FA2F400509457 /* TMTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTableViewDataSource.m; sourceTree = "<group>"; };
-		9BE71C411B7FA2F400509457 /* TMTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTableViewDelegate.h; sourceTree = "<group>"; };
-		9BE71C421B7FA2F400509457 /* TMTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTableViewDelegate.m; sourceTree = "<group>"; };
-		9BE71C431B7FA2F400509457 /* UITableView+RegisterRowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+RegisterRowItem.h"; sourceTree = "<group>"; };
-		9BE71C441B7FA2F400509457 /* UITableView+RegisterRowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+RegisterRowItem.m"; sourceTree = "<group>"; };
-		9BE71C461B7FA2F400509457 /* TMRightDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMRightDetailTableViewCell.h; sourceTree = "<group>"; };
-		9BE71C471B7FA2F400509457 /* TMRightDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMRightDetailTableViewCell.m; sourceTree = "<group>"; };
-		9BE71C481B7FA2F400509457 /* TMRightDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMRightDetailTableViewCell.xib; sourceTree = "<group>"; };
-		9BE71C491B7FA2F400509457 /* TMTextLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTextLabelTableViewCell.h; sourceTree = "<group>"; };
-		9BE71C4A1B7FA2F400509457 /* TMTextLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTextLabelTableViewCell.m; sourceTree = "<group>"; };
-		9BE71C4B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMTextLabelTableViewCell.xib; sourceTree = "<group>"; };
 		9BEBE7851B7FE09D006F844C /* GNAppleMapOpenerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAppleMapOpenerService.h; sourceTree = "<group>"; };
 		9BEBE7861B7FE09D006F844C /* GNAppleMapOpenerService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAppleMapOpenerService.m; sourceTree = "<group>"; };
 		9BEBE7871B7FE09D006F844C /* GNGoogleMapOpenerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNGoogleMapOpenerService.h; sourceTree = "<group>"; };
@@ -456,6 +414,19 @@
 				09432CC61ACCC5E700B989FF /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0943AB6F1CBE92D500F98A93 /* Binding */ = {
+			isa = PBXGroup;
+			children = (
+				0943AB701CBE92D500F98A93 /* FBKVOController+Binding.h */,
+				0943AB711CBE92D500F98A93 /* FBKVOController+Binding.m */,
+				0943AB721CBE92D500F98A93 /* TMBlockExecutor.h */,
+				0943AB731CBE92D500F98A93 /* TMBlockExecutor.m */,
+				0943AB741CBE92D500F98A93 /* TMTuple.h */,
+				0943AB751CBE92D500F98A93 /* TMTuple.m */,
+			);
+			path = Binding;
 			sourceTree = "<group>";
 		};
 		0949580D1B018E180022E4B4 /* AlertController */ = {
@@ -644,11 +615,11 @@
 		9BAE96081AFEA2EB00FF746B /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				0943AB6F1CBE92D500F98A93 /* Binding */,
 				0949580D1B018E180022E4B4 /* AlertController */,
 				9B0336321B5D3F4A001F5A32 /* EWBlur */,
 				9BEBE7841B7FE09D006F844C /* GNMapOpener */,
 				7810AE131BC2524C00625941 /* SlideSwitch */,
-				9BE71C261B7FA2F400509457 /* TableViewBuilder */,
 				781BF0171B8A1E930005B9EA /* WeChatSDK_1.5 */,
 				9BAE96131AFEB49300FF746B /* CrashlyticsLogger.h */,
 				9BAE96141AFEB49300FF746B /* CrashlyticsLogger.m */,
@@ -657,71 +628,6 @@
 				9BE71C061B7FA08700509457 /* NYXImagesHelper.m */,
 			);
 			path = Library;
-			sourceTree = "<group>";
-		};
-		9BE71C261B7FA2F400509457 /* TableViewBuilder */ = {
-			isa = PBXGroup;
-			children = (
-				9BE71C291B7FA2F400509457 /* RowItems */,
-				9BE71C361B7FA2F400509457 /* SectionItems */,
-				9BE71C451B7FA2F400509457 /* Views */,
-				9BE71C271B7FA2F400509457 /* FBKVOController+Binding.h */,
-				9BE71C281B7FA2F400509457 /* FBKVOController+Binding.m */,
-				9BE71C3A1B7FA2F400509457 /* TMSectionItem+Protected.h */,
-				9BE71C3B1B7FA2F400509457 /* TMTableViewBuilder.h */,
-				9BE71C3C1B7FA2F400509457 /* TMTableViewBuilder.m */,
-				9BE71C3D1B7FA2F400509457 /* TMTableViewBuilderHeader.h */,
-				9BE71C3E1B7FA2F400509457 /* TMTableViewBuilderMacro.h */,
-				9BE71C3F1B7FA2F400509457 /* TMTableViewDataSource.h */,
-				9BE71C401B7FA2F400509457 /* TMTableViewDataSource.m */,
-				9BE71C411B7FA2F400509457 /* TMTableViewDelegate.h */,
-				9BE71C421B7FA2F400509457 /* TMTableViewDelegate.m */,
-				9BE71C431B7FA2F400509457 /* UITableView+RegisterRowItem.h */,
-				9BE71C441B7FA2F400509457 /* UITableView+RegisterRowItem.m */,
-			);
-			path = TableViewBuilder;
-			sourceTree = "<group>";
-		};
-		9BE71C291B7FA2F400509457 /* RowItems */ = {
-			isa = PBXGroup;
-			children = (
-				9BE71C2A1B7FA2F400509457 /* TMLabelRowItem.h */,
-				9BE71C2B1B7FA2F400509457 /* TMLabelRowItem.m */,
-				9BE71C2C1B7FA2F400509457 /* TMRightDetailRowItem.h */,
-				9BE71C2D1B7FA2F400509457 /* TMRightDetailRowItem.m */,
-				9BE71C2E1B7FA2F400509457 /* TMRowItem+AFNetworking.h */,
-				9BE71C2F1B7FA2F400509457 /* TMRowItem+AFNetworking.m */,
-				9BE71C301B7FA2F400509457 /* TMRowItem+Protected.h */,
-				9BE71C311B7FA2F400509457 /* TMRowItem+Protected.m */,
-				9BE71C321B7FA2F400509457 /* TMRowItem.h */,
-				9BE71C331B7FA2F400509457 /* TMRowItem.m */,
-				9BE71C341B7FA2F400509457 /* TMTextFieldRowItem.h */,
-				9BE71C351B7FA2F400509457 /* TMTextFieldRowItem.m */,
-			);
-			path = RowItems;
-			sourceTree = "<group>";
-		};
-		9BE71C361B7FA2F400509457 /* SectionItems */ = {
-			isa = PBXGroup;
-			children = (
-				9BE71C371B7FA2F400509457 /* TMSectionItem+Protected.h */,
-				9BE71C381B7FA2F400509457 /* TMSectionItem.h */,
-				9BE71C391B7FA2F400509457 /* TMSectionItem.m */,
-			);
-			path = SectionItems;
-			sourceTree = "<group>";
-		};
-		9BE71C451B7FA2F400509457 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				9BE71C461B7FA2F400509457 /* TMRightDetailTableViewCell.h */,
-				9BE71C471B7FA2F400509457 /* TMRightDetailTableViewCell.m */,
-				9BE71C481B7FA2F400509457 /* TMRightDetailTableViewCell.xib */,
-				9BE71C491B7FA2F400509457 /* TMTextLabelTableViewCell.h */,
-				9BE71C4A1B7FA2F400509457 /* TMTextLabelTableViewCell.m */,
-				9BE71C4B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		9BEBE7841B7FE09D006F844C /* GNMapOpener */ = {
@@ -918,6 +824,7 @@
 				A91FF65CB21B4CFABCB79ED0 /* Copy Pods Resources */,
 				09432CD51ACCC5E700B989FF /* Embed App Extensions */,
 				9BAE960E1AFEB22500FF746B /* ShellScript */,
+				8D3E0B3DDB7AEDFDA5D600EA /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1028,10 +935,8 @@
 				091C0B3C1AF9616200838096 /* OpenSans-Light.ttf in Resources */,
 				9B2205E71B7705BD0088DC96 /* Launch Screen.xib in Resources */,
 				091C0B3B1AF9616200838096 /* OpenSans-Italic.ttf in Resources */,
-				9BE71C5B1B7FA2F400509457 /* TMTextLabelTableViewCell.xib in Resources */,
 				091C0B3E1AF9616200838096 /* OpenSans-Regular.ttf in Resources */,
 				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,
-				9BE71C591B7FA2F400509457 /* TMRightDetailTableViewCell.xib in Resources */,
 				091C0B381AF9616200838096 /* OpenSans-BoldItalic.ttf in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 				091C0B401AF9616200838096 /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -1071,6 +976,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8D3E0B3DDB7AEDFDA5D600EA /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9BAE960E1AFEB22500FF746B /* ShellScript */ = {
@@ -1113,7 +1033,6 @@
 				09B9F8FF1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
 				09432CB51ACCC5E700B989FF /* InterfaceController.m in Sources */,
 				090B2E0B1AED876B00ABAA99 /* WatchKitAction.m in Sources */,
-				9BEBE7811B7FDEEB006F844C /* TMRowItem.m in Sources */,
 				09432CD91ACCCB0700B989FF /* ENWMapInterfaceController.m in Sources */,
 				09B9F8FB1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */,
 				09757F8C1ADC97EE002B1515 /* NiceChoiceInterfaceController.m in Sources */,
@@ -1124,63 +1043,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BE71C5A1B7FA2F400509457 /* TMTextLabelTableViewCell.m in Sources */,
+				0943AB771CBE92D500F98A93 /* TMBlockExecutor.m in Sources */,
 				9B03362F1B5B2F02001F5A32 /* ENPreferenceTagsViewController.m in Sources */,
 				78470A361BC49C52009FD166 /* ENPreferenceMoreTableViewCell.m in Sources */,
 				9B03363A1B5D3F73001F5A32 /* EWBlurNavigationControllerDelegate.m in Sources */,
-				9BE71C571B7FA2F400509457 /* UITableView+RegisterRowItem.m in Sources */,
 				09777C881AD497F8007147B2 /* ApplicationButton.swift in Sources */,
-				9BE71C501B7FA2F400509457 /* TMRowItem+Protected.m in Sources */,
-				9BE71C4E1B7FA2F400509457 /* TMRightDetailRowItem.m in Sources */,
 				788734C01BAE96BE00D86BDE /* ENPreferenceMoodPickerDataSource.m in Sources */,
 				9BAE96151AFEB49300FF746B /* CrashlyticsLogger.m in Sources */,
 				78E0B5031BE2682600A73E2E /* SUNSlideSwitchViewBorder.m in Sources */,
 				7810AE191BC350E500625941 /* ENProfileMoreViewController.m in Sources */,
 				09B9F8FE1AF1B7A500DE92C6 /* ENHistoryHeaderRowItem.m in Sources */,
 				9BE71C071B7FA08700509457 /* NYXImagesHelper.m in Sources */,
-				9BE71C511B7FA2F400509457 /* TMRowItem.m in Sources */,
 				09E463F21AFB0AC200389E0B /* ENRestaurantTableViewCell.m in Sources */,
 				0949581B1B019AC70022E4B4 /* TMAlertTransitioningDelegate.m in Sources */,
-				9BE71C581B7FA2F400509457 /* TMRightDetailTableViewCell.m in Sources */,
+				0943AB761CBE92D500F98A93 /* FBKVOController+Binding.m in Sources */,
 				9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */,
 				9BF9C2851B6680AE00B051B1 /* ENPreferenceCollectionViewCell.m in Sources */,
-				9BE71C561B7FA2F400509457 /* TMTableViewDelegate.m in Sources */,
 				9B9424081AE0450300411D1F /* ENHistoryViewController.m in Sources */,
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				EDF60BE31C7C489700FA0BCA /* Location.swift in Sources */,
 				9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */,
 				091C0B431AF966CA00838096 /* ENGetLocationViewController.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
-				9BE71C551B7FA2F400509457 /* TMTableViewDataSource.m in Sources */,
 				7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */,
+				0943AB781CBE92D500F98A93 /* TMTuple.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
 				093E869B1AFEA31800CAF489 /* ENLostConnectionViewController.m in Sources */,
 				094958151B0190E80022E4B4 /* TMAlertAction.m in Sources */,
-				9BE71C4F1B7FA2F400509457 /* TMRowItem+AFNetworking.m in Sources */,
 				09777C871AD497F8007147B2 /* WJCustomizeView.swift in Sources */,
 				9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */,
-				9BE71C531B7FA2F400509457 /* TMSectionItem.m in Sources */,
 				9BE71C211B7FA21800509457 /* EnShapeView.m in Sources */,
 				7854ACEB1B9ABB370036BCA8 /* ENMyProfileViewController.m in Sources */,
 				09B9F8FA1AF1B6D800DE92C6 /* ENHistoryRowItem.m in Sources */,
 				09777C861AD497F8007147B2 /* TextfieldWithInset.swift in Sources */,
 				9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */,
 				0970EDE01AD9B1EC005B861F /* ENMainViewController.m in Sources */,
-				9BE71C4C1B7FA2F400509457 /* FBKVOController+Binding.m in Sources */,
 				9B1658C31AECA8AF0035572C /* ENRatingView.m in Sources */,
 				9B97952A1AD8B40D00136764 /* ENRestaurantViewController.m in Sources */,
-				9BE71C4D1B7FA2F400509457 /* TMLabelRowItem.m in Sources */,
 				9B74EADE1B52444F00A14BC9 /* ENBasePreferenceViewCell.m in Sources */,
 				094958181B019A350022E4B4 /* TMAlertPresentationController.m in Sources */,
 				EDF60BE61C7C489700FA0BCA /* SearchHistoryManager.swift in Sources */,
 				09502FBF1AF5680D00922908 /* ENFeedbackViewController.m in Sources */,
 				EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */,
-				9BE71C541B7FA2F400509457 /* TMTableViewBuilder.m in Sources */,
 				9B03363B1B5D3F73001F5A32 /* UIViewController+Blur.m in Sources */,
 				9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */,
 				9B03363E1B5D40C2001F5A32 /* UIView+screenshot.m in Sources */,
-				9BE71C521B7FA2F400509457 /* TMTextFieldRowItem.m in Sources */,
 				9B141DDA1A901F5700EB2CC8 /* ENProfileViewController.m in Sources */,
 				9BEBE7951B7FE09D006F844C /* GNMapOpenerService.m in Sources */,
 				094958111B018E300022E4B4 /* TMAlertController.m in Sources */,
