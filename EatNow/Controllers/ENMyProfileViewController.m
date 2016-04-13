@@ -251,7 +251,7 @@
         id ageObj = [user objectForKey:@"age"];
         if (ageObj) {
             NSInteger age = [ageObj integerValue];
-            [briefInfo appendString:[NSString stringWithFormat:@"%ld",age]];
+            [briefInfo appendString:[NSString stringWithFormat:@"%ld",(long)age]];
         }
         
     }

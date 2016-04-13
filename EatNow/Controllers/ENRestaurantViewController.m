@@ -144,7 +144,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 }
 
 #pragma mark - State change
-- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block{
+- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(void(^)())block{
     
     float duration = animate ? 0.5 : 0;
     float damping = 0.7;
@@ -839,8 +839,10 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
     NSDictionary *info = self.restautantInfo[indexPath.row];
     cell = [tableView dequeueReusableCellWithIdentifier:info[@"cellID"]];
     if (info[@"layout"]) {
-        tableViewCellLayoutBlock block = info[@"layout"];
+        
+        void(^block)(UITableViewCell *cell) = info[@"layout"];
         block(cell);
+        
     }
     
     if (![cell isKindOfClass:[ENRestaurantTableViewCell class]]) {
@@ -878,7 +880,7 @@ NSString *const kMapViewDidDismiss = @"map_view_did_dismiss";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *info = self.restautantInfo[indexPath.row];
-    VoidBlock action = info[@"action"];
+    void (^action)() = info[@"action"];
     if (action) {
         action();
     }

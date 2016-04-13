@@ -13,7 +13,7 @@
 #import "extobjc.h"
 #import "WatchKitAction.h"
 
-DDLogLevel const ddLogLevel = DDLogLevelVerbose;
+//DDLogLevel const ddLogLevel = DDLogLevelVerbose;
 
 @interface InterfaceController()
 @property (nonatomic, strong) ENLocationManager *locationManager;

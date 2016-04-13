@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, ENRestaurantViewStatus){
 @property (nonatomic, weak) id<ENContainerViewControllerProtocol> mainVC;
 
 + (instancetype)viewController;
-- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(VoidBlock)block;
+- (void)switchToStatus:(ENRestaurantViewStatus)status withFrame:(CGRect)frame animated:(BOOL)animate completion:(void(^)())block;
 - (void)didChangedToFrontCard;
 - (void)updateLayout;
 

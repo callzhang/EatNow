@@ -56,6 +56,8 @@ PODS:
     - CocoaLumberjack/Default
   - Crashlytics (3.4.1):
     - Fabric (~> 1.6.0)
+  - ENPrivateLibrary (0.1.0):
+    - AFNetworking (~> 2.5.4)
   - Fabric (1.6.1)
   - FBSDKCoreKit (4.5.1):
     - Bolts (~> 1.1)
@@ -134,7 +136,7 @@ PODS:
   - WeixinActivity/Weixin (1.2.0)
 
 DEPENDENCIES:
-  - AFNetworking
+  - AFNetworking (~> 2.5.4)
   - AKPickerView (~> 0.2.6)
   - AMRatingControl (~> 1.3)
   - apptentive-ios (~> 1.7)
@@ -142,18 +144,19 @@ DEPENDENCIES:
   - Bolts (~> 1.3.0)
   - CocoaLumberjack (~> 2.0)
   - Crashlytics (~> 3.4.1)
+  - ENPrivateLibrary (from `./ENPrivateLibrary`)
   - Fabric (~> 1.6.1)
   - FBSDKCoreKit (~> 4.5.1)
   - FBSDKLoginKit (~> 4.5.1)
   - FBSDKShareKit (~> 4.5.1)
-  - GPUImage
+  - GPUImage (~> 0.1.7)
   - hpple (~> 0.2)
   - INTULocationManager (~> 3.0.1)
-  - JCTagListView
-  - JGProgressHUD
+  - JCTagListView (~> 0.0.3)
+  - JGProgressHUD (~> 1.2.6)
   - JSONModel (~> 1.0.2)
   - KVOController (~> 1.0.3)
-  - libextobjc
+  - libextobjc (~> 0.4.1)
   - Mixpanel (~> 2.8.3)
   - MTDates (~> 1.0)
   - Parse (~> 1.9.0)
@@ -164,6 +167,10 @@ DEPENDENCIES:
   - UITableView-NXEmptyView (~> 0.1.7)
   - WeixinActivity (~> 1.2.0)
 
+EXTERNAL SOURCES:
+  ENPrivateLibrary:
+    :path: ./ENPrivateLibrary
+
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AKPickerView: e31dcb9572c04d8439512315798862d9eb84b18f
@@ -173,6 +180,7 @@ SPEC CHECKSUMS:
   Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
   Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
+  ENPrivateLibrary: 5dbc25247ecec09edaf1f9d2b4c74a729f1b254f
   Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   FBSDKCoreKit: f335eaf6865e1e1597dee1debfb533045500da47
   FBSDKLoginKit: 225cc9a388a92916ee3f3bb14422017b6e44b65b
@@ -195,4 +203,4 @@ SPEC CHECKSUMS:
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   WeixinActivity: 4c5d4be4dff83d90376f3d5ba2fa6ba410e88b9e
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.2

@@ -1,0 +1,6 @@
+framework module apptentive_ios {
+  umbrella header "apptentive-ios-umbrella.h"
+
+  export *
+  module * { export * }
+}

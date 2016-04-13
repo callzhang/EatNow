@@ -1,0 +1,1 @@
+../../../../../Pod/Classes/Models/Extension/NSString+Extend.h
