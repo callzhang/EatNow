@@ -19,6 +19,7 @@
 #import "ENHistoryHeaderRowItem.h"
 #import "ENHistoryRowItem.h"
 #import <UITableView-NXEmptyView/UITableView+NXEmptyView.h>
+#import "TMKit.h"
 
 NSString * const kHistoryDetailCardDidShow = @"history_detail_view_did_show";
 NSString * const kHistoryTableViewDidShow = @"history_table_view_did_show";
