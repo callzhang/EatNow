@@ -32,6 +32,7 @@
 		0943AB761CBE92D500F98A93 /* FBKVOController+Binding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0943AB711CBE92D500F98A93 /* FBKVOController+Binding.m */; };
 		0943AB771CBE92D500F98A93 /* TMBlockExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0943AB731CBE92D500F98A93 /* TMBlockExecutor.m */; };
 		0943AB781CBE92D500F98A93 /* TMTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = 0943AB751CBE92D500F98A93 /* TMTuple.m */; };
+		0943AB7B1CBF877B00F98A93 /* UIColor+PXColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 0943AB7A1CBF877B00F98A93 /* UIColor+PXColors.m */; };
 		094958111B018E300022E4B4 /* TMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0949580F1B018E300022E4B4 /* TMAlertController.m */; };
 		094958121B018E300022E4B4 /* TMAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 094958101B018E300022E4B4 /* TMAlertController.xib */; };
 		094958151B0190E80022E4B4 /* TMAlertAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 094958141B0190E80022E4B4 /* TMAlertAction.m */; };
@@ -185,6 +186,8 @@
 		0943AB731CBE92D500F98A93 /* TMBlockExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMBlockExecutor.m; sourceTree = "<group>"; };
 		0943AB741CBE92D500F98A93 /* TMTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMTuple.h; sourceTree = "<group>"; };
 		0943AB751CBE92D500F98A93 /* TMTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMTuple.m; sourceTree = "<group>"; };
+		0943AB791CBF877B00F98A93 /* UIColor+PXColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PXColors.h"; sourceTree = "<group>"; };
+		0943AB7A1CBF877B00F98A93 /* UIColor+PXColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PXColors.m"; sourceTree = "<group>"; };
 		0949580E1B018E300022E4B4 /* TMAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMAlertController.h; sourceTree = "<group>"; };
 		0949580F1B018E300022E4B4 /* TMAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMAlertController.m; sourceTree = "<group>"; };
 		094958101B018E300022E4B4 /* TMAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TMAlertController.xib; sourceTree = "<group>"; };
@@ -624,6 +627,8 @@
 				9BAE96131AFEB49300FF746B /* CrashlyticsLogger.h */,
 				9BAE96141AFEB49300FF746B /* CrashlyticsLogger.m */,
 				9BE71C081B7FA1B200509457 /* GCDSingleton.h */,
+				0943AB791CBF877B00F98A93 /* UIColor+PXColors.h */,
+				0943AB7A1CBF877B00F98A93 /* UIColor+PXColors.m */,
 				9BE71C051B7FA08700509457 /* NYXImagesHelper.h */,
 				9BE71C061B7FA08700509457 /* NYXImagesHelper.m */,
 			);
@@ -1085,6 +1090,7 @@
 				094958181B019A350022E4B4 /* TMAlertPresentationController.m in Sources */,
 				EDF60BE61C7C489700FA0BCA /* SearchHistoryManager.swift in Sources */,
 				09502FBF1AF5680D00922908 /* ENFeedbackViewController.m in Sources */,
+				0943AB7B1CBF877B00F98A93 /* UIColor+PXColors.m in Sources */,
 				EDF60BE41C7C489700FA0BCA /* LocationPickerViewController.swift in Sources */,
 				9B03363B1B5D3F73001F5A32 /* UIViewController+Blur.m in Sources */,
 				9B94240B1AE053F200411D1F /* ENHistoryViewCell.m in Sources */,
