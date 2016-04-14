@@ -11,6 +11,7 @@
 #import "ENServerManager.h"
 #import "ENLocationManager.h"
 #import "ENRestaurant.h"
+#import "ENRestaurantModel.h"
 #import "NSDate+Extension.h"
 #import "ENLocationManager.h"
 #import "ENMapManager.h"
@@ -49,7 +50,7 @@
 - (void)testRestaurantSearching {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
-
+    
     DDLogInfo(@"Location: (%f, %f)", _simulateLocation.coordinate.longitude, _simulateLocation.coordinate.latitude);
     
     XCTestExpectation *userExpectation = [self expectationWithDescription:@"get user expactation"];
@@ -69,8 +70,8 @@
         
         XCTAssert(success);
         
-        for (ENRestaurant *restaurant in response) {
-            DDLogInfo(@"%@", restaurant.name);
+        for (ENRestaurantModel *restaurant in response) {
+            DDLogInfo(@"Restaurant ID: %@", restaurant.identifier);
         }
         
         [restaurantExpectation fulfill];
@@ -90,11 +91,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSString *myID = [ENUtil myUUID];
     NSDictionary *parameters = @{@"username":myID,
-                          @"latitude":@(_simulateLocation.coordinate.latitude),
-                          @"longitude":@(_simulateLocation.coordinate.longitude),
-                          //@"time": [NSDate date].ISO8601
-                          //@"radius":@500
-                          };
+                                 @"latitude":@(_simulateLocation.coordinate.latitude),
+                                 @"longitude":@(_simulateLocation.coordinate.longitude),
+                                 //@"time": [NSDate date].ISO8601
+                                 //@"radius":@500
+                                 };
     NSString *url = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"search"];
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"get restaurant"];
@@ -102,15 +103,16 @@
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
         
         for (NSDictionary *restaurantDictionary in responseObject) {
-            ENRestaurant *model = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurantDictionary];
-            DDLogInfo(@"%@", model.json);
-            
+            NSError *error;
+            ENRestaurantModel *model = [[ENRestaurantModel alloc] initWithDictionary:restaurantDictionary error:&error];
+            if (error) {
+                DDLogError(@"%@", error.localizedDescription);
+            }
+            else {
+                DDLogInfo(@"Restaurant ID: %@", model.identifier);
+            }
+            XCTAssertNil(error);
         }
-        
-//        ENRestaurant *model = [[ENRestaurant alloc] initRestaurantWithDictionary:responseObject[0]];
-//        DDLogInfo(@"Restaurant JSON Dictionary: %@", model.json);
-        
-//        DDLogInfo(@"%@", model.twitter);
         
         [expectation fulfill];
         
@@ -134,7 +136,7 @@
         DDLogInfo(@"Current Location: %f, %f", currentLocation.coordinate.longitude, currentLocation.coordinate.latitude);
         [expectation fulfill];
     }];
-
+    
     [self waitForExpectationsWithTimeout:EXPECTATION_TIME_OUT handler:^(NSError * _Nullable error) {
         if (error) {
             DDLogError(@"%@", error.localizedDescription);
@@ -169,12 +171,12 @@
 }
 
 /*
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
-}
+ - (void)testPerformanceExample {
+ // This is an example of a performance test case.
+ [self measureBlock:^{
+ // Put the code you want to measure the time of here.
+ }];
+ }
  */
 
 @end

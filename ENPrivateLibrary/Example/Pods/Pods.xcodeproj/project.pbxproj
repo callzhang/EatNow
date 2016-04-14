@@ -296,6 +296,8 @@
 		1E6DF3141CAD5293009C8841 /* ENTagsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6DF2F81CAD5293009C8841 /* ENTagsModel.m */; };
 		1E90C12CF93646BA084DB9BA063D335B /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CEFAE1D94D262650D0E1153F2A057 /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		1E9F67F491398CDC61EA24910D7F95B2 /* RACDynamicSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = CA1850D1CA4798140E79078DF5DF26FF /* RACDynamicSequence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EEBAB371CBF973D0000B396 /* NSString+HEXColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEBAB351CBF973D0000B396 /* NSString+HEXColor.h */; };
+		1EEBAB381CBF973D0000B396 /* NSString+HEXColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBAB361CBF973D0000B396 /* NSString+HEXColor.m */; };
 		1F459210BA49CA188A573BCDB5E88431 /* ATDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04582B9AE0744F66FFE2F9A862936CBA /* ATDataManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1F50768021117862B406C37C6784F929 /* FBSDKGraphRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2FD14CE39CE6AC52FD033ECC3C1388 /* FBSDKGraphRequest.m */; };
 		1FC3B30950241247836FBE92688E890D /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = A9D5BFED693A6991313BB74737C4EB30 /* UIActivityIndicatorView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2776,6 +2778,8 @@
 		1E8D4BC6A1EE6B2438673731D5110550 /* GPUImageCropFilter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPUImageCropFilter.h; path = framework/Source/GPUImageCropFilter.h; sourceTree = "<group>"; };
 		1E93478594C7467EF52C73C7FBF768B4 /* ATDeviceUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATDeviceUpdater.h; path = "ApptentiveConnect/source/Message Center/Persistence/ATDeviceUpdater.h"; sourceTree = "<group>"; };
 		1EB8B828243B39CDFE1467875BDFA060 /* GPUImageMotionDetector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPUImageMotionDetector.h; path = framework/Source/GPUImageMotionDetector.h; sourceTree = "<group>"; };
+		1EEBAB351CBF973D0000B396 /* NSString+HEXColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HEXColor.h"; sourceTree = "<group>"; };
+		1EEBAB361CBF973D0000B396 /* NSString+HEXColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HEXColor.m"; sourceTree = "<group>"; };
 		1EF949926B203734EB12B35FB8EA894C /* PFLocationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFLocationManager.m; path = Parse/Internal/PFLocationManager.m; sourceTree = "<group>"; };
 		1F7651E1C5B6F30DA87824DC3D6E4D9E /* TFHppleElement.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
 		1F781CF7B58F76E93BE9B918EF7D98B5 /* XPathQuery.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
@@ -8060,6 +8064,8 @@
 		D12D74594C580329E76C01A6FF33B6EE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				1EEBAB351CBF973D0000B396 /* NSString+HEXColor.h */,
+				1EEBAB361CBF973D0000B396 /* NSString+HEXColor.m */,
 				D78F6CC9D3E40F0FB216F738EE56D006 /* CALayer+UIColor.h */,
 				F82DA11107B60128551A429D3A1DF6A3 /* CALayer+UIColor.m */,
 				4B29E21EEB419E9B6E9AE6A5CD80E1A1 /* CGGeometry+MEDConvenienceAdditions.h */,
@@ -9396,6 +9402,7 @@
 				CE352DBE06F7B5F5C5270004868865B1 /* CALayer+UIColor.h in Headers */,
 				2BA4CEBEE51461A14C209DC79F144F09 /* CGGeometry+MEDConvenienceAdditions.h in Headers */,
 				1E6DF3071CAD5293009C8841 /* ENRestaurantModel.h in Headers */,
+				1EEBAB371CBF973D0000B396 /* NSString+HEXColor.h in Headers */,
 				E473E9A2094E360105C476C68166F6B9 /* ENAppSettings.h in Headers */,
 				B821683C7F01787F2DC5E45C7BAB9D84 /* ENDefines.h in Headers */,
 				0439532FA0AB3C335C477ABC69FCAD3E /* ENFacebookLoginProvider.h in Headers */,
@@ -10665,6 +10672,7 @@
 				1E6DF3101CAD5293009C8841 /* ENTagsDetailModel.m in Sources */,
 				C45CFD8D66EE29ECFEA4875F36E8B2CC /* NYXImagesHelper.m in Sources */,
 				7DDAC92807968972B6DECE90CE7E4856 /* UIImage+Resizing.m in Sources */,
+				1EEBAB381CBF973D0000B396 /* NSString+HEXColor.m in Sources */,
 				1E6DF2FA1CAD5293009C8841 /* ENAttributesModel.m in Sources */,
 				80908CB770267D553C15ECA04F88AF55 /* UITableViewCell+Extension.m in Sources */,
 				A1FC49539CF63BA23CE382A3301244C2 /* UIView+Extend.m in Sources */,

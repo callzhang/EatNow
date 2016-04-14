@@ -10,6 +10,7 @@
 #import "ENServerManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "ENRestaurant.h"
+#import "ENRestaurantModel.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FBKVOController.h"
 #import "ENLocationManager.h"
@@ -68,9 +69,9 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         
         //indicator
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-		
-		//manager
-		//_requestManager = [AFHTTPRequestOperationManager manager];
+        
+        //manager
+        //_requestManager = [AFHTTPRequestOperationManager manager];
         
         //defaults
         [[NSUserDefaults standardUserDefaults] registerDefaults:@{kShouldShowNiceChoiceKey: @YES,
@@ -104,61 +105,63 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSDictionary *dic = @{@"username":myID,
                           @"latitude":@(currenLocation.coordinate.latitude),
                           @"longitude":@(currenLocation.coordinate.longitude),
-//						  @"time": [NSDate date].ISO8601
+                          //						  @"time": [NSDate date].ISO8601
                           //@"radius":@500
                           };
     
     DDLogInfo(@"Begin Request restaurant: %@", dic);
     NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"search"];
     [manager GET:path parameters:dic
-          success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
-              DDLogInfo(@"End get restaurant list %ld", (unsigned long)responseObject.count);
-              //mix panel
-              [[Mixpanel sharedInstance] track:@"Search restaurant" properties:@{@"location": @{@"latitude": @(currenLocation.coordinate.latitude),
-                                                                                                @"longitude": @(currenLocation.coordinate.longitude)},
-                                                                                 @"latitude": @(currenLocation.coordinate.latitude),
-                                                                                 @"longitude": @(currenLocation.coordinate.longitude),
-                                                                                 @"success": @YES}];
-              
-              //process data
-              NSMutableArray *mutableResturants = [NSMutableArray array];
-              for (NSDictionary *restaurant_json in responseObject) {
-				  ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurant_json];
-                  if (restaurant) {
-                      [mutableResturants addObject:restaurant];
-				  }else{
-					  DDLogError(@"Invalid restaurant data: %@", restaurant_json);
-				  }
-              }
-              
-              //server returned sorted from high to low
-              [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
-              
-              //completion
-              for (id completion in self.searchCompletionBlocks) {
-                  void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
-                  cachedCompletion(YES, nil, mutableResturants.copy);
-              }
-              [self.searchCompletionBlocks removeAllObjects];
-              
-              //change status
-              self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
-              
-          }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
-        
-              DDLogError(@"Failed to get restaurant list with Error: %@", error.localizedDescription);
-              //mix panel
-              [[Mixpanel sharedInstance] track:@"Search restaurant"];
-              
-              for (id completion in self.searchCompletionBlocks) {
-                  void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
-                  cachedCompletion(NO, error, nil);
-              }
-              
-              [self.searchCompletionBlocks removeAllObjects];
-              
-              self.fetchStatus = ENResturantDataStatusError;
-          }];
+         success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
+             DDLogInfo(@"End get restaurant list %ld", (unsigned long)responseObject.count);
+             //mix panel
+             [[Mixpanel sharedInstance] track:@"Search restaurant" properties:@{@"location": @{@"latitude": @(currenLocation.coordinate.latitude),
+                                                                                               @"longitude": @(currenLocation.coordinate.longitude)},
+                                                                                @"latitude": @(currenLocation.coordinate.latitude),
+                                                                                @"longitude": @(currenLocation.coordinate.longitude),
+                                                                                @"success": @YES}];
+             
+             //process data
+             NSMutableArray *mutableResturants = [NSMutableArray array];
+             for (NSDictionary *restaurant_json in responseObject) {
+                 NSError *error;
+                 ENRestaurantModel *model = [[ENRestaurantModel alloc] initWithDictionary:restaurant_json error:&error];
+                 if (error) {
+                     DDLogError(@"Invalid restaurant json: %@", error.localizedDescription);
+                 }
+                 else{
+                     [mutableResturants addObject:model];
+                 }
+             }
+             
+             //server returned sorted from high to low
+             [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score.totalScore" ascending:NO]]];
+             
+             //completion
+             for (id completion in self.searchCompletionBlocks) {
+                 void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
+                 cachedCompletion(YES, nil, mutableResturants.copy);
+             }
+             [self.searchCompletionBlocks removeAllObjects];
+             
+             //change status
+             self.fetchStatus = ENResturantDataStatusFetchedRestaurant;
+             
+         }failure:^(AFHTTPRequestOperation *operation,NSError *error) {
+             
+             DDLogError(@"Failed to get restaurant list with Error: %@", error.localizedDescription);
+             //mix panel
+             [[Mixpanel sharedInstance] track:@"Search restaurant"];
+             
+             for (id completion in self.searchCompletionBlocks) {
+                 void (^cachedCompletion)(BOOL, NSError*, NSArray*) = completion;
+                 cachedCompletion(NO, error, nil);
+             }
+             
+             [self.searchCompletionBlocks removeAllObjects];
+             
+             self.fetchStatus = ENResturantDataStatusError;
+         }];
 }
 
 - (void)getUserWithCompletion:(void (^)(NSDictionary *user, NSError *error))block{
@@ -167,10 +170,10 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     NSString *url = [NSString stringWithFormat:@"%@/user/%@",kServerUrl, self.myID];
     DDLogInfo(@"Requesting user: %@", url);
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *user) {
-		NSParameterAssert([user isKindOfClass:[NSDictionary class]]);
+        NSParameterAssert([user isKindOfClass:[NSDictionary class]]);
         [[Mixpanel sharedInstance] track:@"Get user"];
         //more data logics are embedded in user setter
-		self.me = user;
+        self.me = user;
         
         //return
         if (block) {
@@ -180,7 +183,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         [[Mixpanel sharedInstance] track:@"Get user"];
-
+        
         DDLogError(@"Failed to get user: %@", error.localizedDescription);
         if (block) {
             block(nil, error);
@@ -243,7 +246,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
         DDLogDebug(@"Response user : %@", responseObject);
         
         self.me = responseObject;
-
+        
         
         [[Mixpanel sharedInstance] track:@"Update user"];
         //Post notification
@@ -290,7 +293,7 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 
 #pragma mark - User actions
 - (void)selectRestaurant:(ENRestaurant *)restaurant like:(float)value completion:(void(^)(NSError *error))block{
-	NSParameterAssert(!self.selectedRestaurant);
+    NSParameterAssert(!self.selectedRestaurant);
     NSParameterAssert(value > 0);
     self.selectedRestaurant = restaurant;
     self.selectedTime = [NSDate date];
@@ -298,14 +301,14 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
     [[Mixpanel sharedInstance] timeEvent:@"Select restaurant"];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *dic = @{@"username": self.myID,
-						  @"restaurantId": restaurant.ID,
-						  @"like": @(value),
-						  @"date": [NSDate date].ISO8601,
+                          @"restaurantId": restaurant.ID,
+                          @"like": @(value),
+                          @"date": [NSDate date].ISO8601,
                           @"location": @{@"latitude": @([ENLocationManager cachedCurrentLocation].coordinate.latitude),
                                          @"longitude": @([ENLocationManager cachedCurrentLocation].coordinate.longitude),
                                          @"distance": restaurant.distance}
                           };
-						  
+    
     DDLogVerbose(@"Select restaurant: %@", dic);
     NSString *path = [NSString stringWithFormat:@"%@/%@", kServerUrl, @"select"];
     [manager POST:path parameters:dic success:^(AFHTTPRequestOperation *operation, NSDictionary *history) {
@@ -351,20 +354,20 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
 }
 
 - (BOOL)canSelectNewRestaurant{
-	if (self.selectedRestaurant) {
-		if ([[NSDate date] timeIntervalSinceDate:self.selectedTime] < kMaxSelectedRestaurantRetainTime) {
-			return NO;
-		}
-		else{
-			[self clearSelectedRestaurant];
-		}
-	}
-	return YES;
+    if (self.selectedRestaurant) {
+        if ([[NSDate date] timeIntervalSinceDate:self.selectedTime] < kMaxSelectedRestaurantRetainTime) {
+            return NO;
+        }
+        else{
+            [self clearSelectedRestaurant];
+        }
+    }
+    return YES;
 }
 
 - (void)clearSelectedRestaurant{
-	self.selectedRestaurant = nil;
-	self.selectedTime = nil;
+    self.selectedRestaurant = nil;
+    self.selectedTime = nil;
 }
 
 - (void)updateHistory:(NSDictionary *)history withRating:(float)rate completion:(void(^)(NSError *error))block {

@@ -25,7 +25,7 @@
 #import "ENMainViewController.h"
 #import "ENRestaurant.h"
 #import "ENServerManager.h"
-#import "FBKVOController.h"
+#import "NSObject+FBKVOController.h"
 #import "ENProfileViewController.h"
 #import "ENLocationManager.h"
 #import "UIAlertView+BlocksKit.h"
