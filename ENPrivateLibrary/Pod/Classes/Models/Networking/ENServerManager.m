@@ -10,6 +10,7 @@
 #import "ENServerManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "ENRestaurant.h"
+#import "ENRestaurantModel.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "FBKVOController.h"
 #import "ENLocationManager.h"
@@ -123,16 +124,17 @@ GCD_SYNTHESIZE_SINGLETON_FOR_CLASS(ENServerManager)
               //process data
               NSMutableArray *mutableResturants = [NSMutableArray array];
               for (NSDictionary *restaurant_json in responseObject) {
-				  ENRestaurant *restaurant = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurant_json];
-                  if (restaurant) {
-                      [mutableResturants addObject:restaurant];
+                  NSError *error;
+                  ENRestaurantModel *model = [[ENRestaurantModel alloc] initWithDictionary:restaurant_json error:&error];
+                  if (error) {
+                      DDLogError(@"Invalid restaurant json: %@", error.localizedDescription);
 				  }else{
-					  DDLogError(@"Invalid restaurant data: %@", restaurant_json);
+                      [mutableResturants addObject:model];
 				  }
               }
               
               //server returned sorted from high to low
-              [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score" ascending:NO]]];
+              [mutableResturants sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"score.totalScore" ascending:NO]]];
               
               //completion
               for (id completion in self.searchCompletionBlocks) {

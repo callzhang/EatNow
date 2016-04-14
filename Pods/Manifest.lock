@@ -169,7 +169,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   ENPrivateLibrary:
-    :path: ./ENPrivateLibrary
+    :path: "./ENPrivateLibrary"
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -203,4 +203,4 @@ SPEC CHECKSUMS:
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   WeixinActivity: 4c5d4be4dff83d90376f3d5ba2fa6ba410e88b9e
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

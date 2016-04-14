@@ -11,6 +11,7 @@
 #import "ENServerManager.h"
 #import "ENLocationManager.h"
 #import "ENRestaurant.h"
+#import "ENRestaurantModel.h"
 #import "NSDate+Extension.h"
 #import "ENLocationManager.h"
 #import "ENMapManager.h"
@@ -69,8 +70,8 @@
         
         XCTAssert(success);
         
-        for (ENRestaurant *restaurant in response) {
-            DDLogInfo(@"%@", restaurant.name);
+        for (ENRestaurantModel *restaurant in response) {
+            DDLogInfo(@"Restaurant ID: %@", restaurant.identifier);
         }
         
         [restaurantExpectation fulfill];
@@ -102,15 +103,15 @@
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
         
         for (NSDictionary *restaurantDictionary in responseObject) {
-            ENRestaurant *model = [[ENRestaurant alloc] initRestaurantWithDictionary:restaurantDictionary];
-            DDLogInfo(@"%@", model.json);
-            
+            NSError *error;
+            ENRestaurantModel *model = [[ENRestaurantModel alloc] initWithDictionary:restaurantDictionary error:&error];
+            if (error) {
+                DDLogError(@"%@", error.localizedDescription);
+            } else {
+                DDLogInfo(@"Restaurant ID: %@", model.identifier);
+            }
+            XCTAssertNil(error);
         }
-        
-//        ENRestaurant *model = [[ENRestaurant alloc] initRestaurantWithDictionary:responseObject[0]];
-//        DDLogInfo(@"Restaurant JSON Dictionary: %@", model.json);
-        
-//        DDLogInfo(@"%@", model.twitter);
         
         [expectation fulfill];
         
