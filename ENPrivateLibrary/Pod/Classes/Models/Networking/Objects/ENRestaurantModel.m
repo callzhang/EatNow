@@ -7,7 +7,7 @@
 //
 
 #import "ENRestaurantModel.h"
-#import "NSString+HEXColor.h"
+#import "UIColor+PXColors.h"
 
 @implementation ENRestaurantModel
 
@@ -41,7 +41,7 @@
 
 // TODO: incomplete function
 - (void)setRatingColorWithNSString:(NSString *)string{
-    self.ratingColor = string.colorFromHEXString;
+    self.ratingColor = [UIColor colorWithHexString:string];
 }
 
 - (void)setCategoriesWithNSArray:(NSArray *)array {

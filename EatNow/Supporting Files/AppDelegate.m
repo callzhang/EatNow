@@ -64,7 +64,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [self initilizeLogging];
+    [self initializeLogging];
     [self prepareSocialAndAnalyticsWithApplication:application options:launchOptions];
     [[ENProxy shared] checkShouldRedirect];
     [self prepareLocation];
@@ -167,7 +167,7 @@
 
 
 #pragma mark - Tools
-- (void)initilizeLogging {
+- (void)initializeLogging {
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     DDTTYLogger *log = [DDTTYLogger sharedInstance];
     [DDLog addLogger:log];
@@ -176,11 +176,13 @@
     // because this require some setup for Xcode, commented out here.
     // https://github.com/CocoaLumberjack/CocoaLumberjack/wiki/XcodeColors
     [log setColorsEnabled:YES];
-    [log setForegroundColor:[UIColor redColor] backgroundColor:nil forFlag:DDLogFlagError];
-    [log setForegroundColor:[UIColor colorWithRed:(255/255.0) green:(58/255.0) blue:(159/255.0) alpha:1.0] backgroundColor:nil forFlag:DDLogFlagWarning];
-    [log setForegroundColor:[UIColor orangeColor] backgroundColor:nil forFlag:DDLogFlagInfo];
-    //white for debug
-    [log setForegroundColor:[UIColor darkGrayColor] backgroundColor:nil forFlag:DDLogFlagVerbose];
+    
+    // Set new flat color for console
+    [log setForegroundColor:[UIColor colorWithRed:0.753 green:0.224 blue:0.169 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagError];
+    [log setForegroundColor:[UIColor colorWithRed:0.953 green:0.612 blue:0.071 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagWarning];
+    [log setForegroundColor:[UIColor colorWithRed:0.153 green:0.682 blue:0.376 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagInfo];
+    [log setForegroundColor:[UIColor colorWithRed:0.161 green:0.502 blue:0.725 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagDebug];
+    [log setForegroundColor:[UIColor colorWithRed:0.741 green:0.765 blue:0.780 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagVerbose];
     
     //file logger
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
