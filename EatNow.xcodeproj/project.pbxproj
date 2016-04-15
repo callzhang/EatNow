@@ -42,7 +42,10 @@
 		1E6DF2A11CAD4F29009C8841 /* test_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E6DF2A01CAD4F29009C8841 /* test_data.json */; };
 		1E6DF2A31CAD4F4F009C8841 /* ENRestaurantModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6DF2A21CAD4F4F009C8841 /* ENRestaurantModelTest.m */; };
 		1EEBAB841CC0C7A80000B396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBAB831CC0C7A80000B396 /* Main.storyboard */; };
-		1EEBAB871CC0C8C50000B396 /* ENMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBAB861CC0C8C50000B396 /* ENMainViewController.m */; };
+		1EEBABB61CC115AB0000B396 /* ENMainCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBABB31CC115AB0000B396 /* ENMainCollectionViewModel.m */; };
+		1EEBABB71CC115AB0000B396 /* ENMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBABB51CC115AB0000B396 /* ENMainViewController.m */; };
+		1EEBABBC1CC116410000B396 /* ENMainCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBABBA1CC116410000B396 /* ENMainCollectionViewCell.m */; };
+		1EEBABBD1CC116410000B396 /* ENMainCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EEBABBB1CC116410000B396 /* ENMainCollectionViewCell.xib */; };
 		49A483B402C049E28055919D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374A6AE5BCA048DDAD2A8A49 /* libPods.a */; };
 		7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7810AE151BC259DA00625941 /* SUNSlideSwitchView.m */; };
 		781BF01C1B8A1E930005B9EA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 781BF0181B8A1E930005B9EA /* libWeChatSDK.a */; };
@@ -226,8 +229,13 @@
 		1EEBAB7F1CC0C3B30000B396 /* TextfieldWithInset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldWithInset.swift; sourceTree = "<group>"; };
 		1EEBAB801CC0C3B30000B396 /* WJCustomizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WJCustomizeView.swift; sourceTree = "<group>"; };
 		1EEBAB831CC0C7A80000B396 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		1EEBAB851CC0C8C50000B396 /* ENMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainViewController.h; sourceTree = "<group>"; };
-		1EEBAB861CC0C8C50000B396 /* ENMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainViewController.m; sourceTree = "<group>"; };
+		1EEBABB21CC115AB0000B396 /* ENMainCollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainCollectionViewModel.h; sourceTree = "<group>"; };
+		1EEBABB31CC115AB0000B396 /* ENMainCollectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainCollectionViewModel.m; sourceTree = "<group>"; };
+		1EEBABB41CC115AB0000B396 /* ENMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainViewController.h; sourceTree = "<group>"; };
+		1EEBABB51CC115AB0000B396 /* ENMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainViewController.m; sourceTree = "<group>"; };
+		1EEBABB91CC116410000B396 /* ENMainCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENMainCollectionViewCell.h; sourceTree = "<group>"; };
+		1EEBABBA1CC116410000B396 /* ENMainCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENMainCollectionViewCell.m; sourceTree = "<group>"; };
+		1EEBABBB1CC116410000B396 /* ENMainCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENMainCollectionViewCell.xib; sourceTree = "<group>"; };
 		374A6AE5BCA048DDAD2A8A49 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F1F47372B21FA311B9C376A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		77248163766928A19BFE31E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -604,8 +612,7 @@
 		1EEBAB811CC0C4FB0000B396 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1EEBAB851CC0C8C50000B396 /* ENMainViewController.h */,
-				1EEBAB861CC0C8C50000B396 /* ENMainViewController.m */,
+				1EEBABB11CC115AB0000B396 /* Main */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -613,9 +620,31 @@
 		1EEBAB821CC0C4FB0000B396 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1EEBABB81CC1162A0000B396 /* ENMainCollectionViewCell */,
 				1EEBAB831CC0C7A80000B396 /* Main.storyboard */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1EEBABB11CC115AB0000B396 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				1EEBABB21CC115AB0000B396 /* ENMainCollectionViewModel.h */,
+				1EEBABB31CC115AB0000B396 /* ENMainCollectionViewModel.m */,
+				1EEBABB41CC115AB0000B396 /* ENMainViewController.h */,
+				1EEBABB51CC115AB0000B396 /* ENMainViewController.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		1EEBABB81CC1162A0000B396 /* ENMainCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				1EEBABB91CC116410000B396 /* ENMainCollectionViewCell.h */,
+				1EEBABBA1CC116410000B396 /* ENMainCollectionViewCell.m */,
+				1EEBABBB1CC116410000B396 /* ENMainCollectionViewCell.xib */,
+			);
+			path = ENMainCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		69B6DAD60DF0A19A4F479B77 /* Pods */ = {
@@ -956,6 +985,7 @@
 				78E8C7801BD3D97D00034E9C /* Localizable.strings in Resources */,
 				091C0B3A1AF9616200838096 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				091C0B371AF9616200838096 /* OpenSans-Bold.ttf in Resources */,
+				1EEBABBD1CC116410000B396 /* ENMainCollectionViewCell.xib in Resources */,
 				9BC51BFD1AE6DACD00E3B0FE /* animatedLoading.gif in Resources */,
 				094958121B018E300022E4B4 /* TMAlertController.xib in Resources */,
 				9BE6BC661A211F8A00CF57F5 /* main.storyboard in Resources */,
@@ -1061,7 +1091,8 @@
 				0949581B1B019AC70022E4B4 /* TMAlertTransitioningDelegate.m in Sources */,
 				0943AB761CBE92D500F98A93 /* FBKVOController+Binding.m in Sources */,
 				9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */,
-				1EEBAB871CC0C8C50000B396 /* ENMainViewController.m in Sources */,
+				1EEBABBC1CC116410000B396 /* ENMainCollectionViewCell.m in Sources */,
+				1EEBABB71CC115AB0000B396 /* ENMainViewController.m in Sources */,
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
@@ -1070,6 +1101,7 @@
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,
 				094958151B0190E80022E4B4 /* TMAlertAction.m in Sources */,
+				1EEBABB61CC115AB0000B396 /* ENMainCollectionViewModel.m in Sources */,
 				9BEBE7911B7FE09D006F844C /* GNAppleMapOpenerService.m in Sources */,
 				9B0336391B5D3F73001F5A32 /* EWBlurAnimator.m in Sources */,
 				094958181B019A350022E4B4 /* TMAlertPresentationController.m in Sources */,

@@ -67,8 +67,8 @@
     [self initializeLogging];
     [self prepareSocialAndAnalyticsWithApplication:application options:launchOptions];
     [[ENProxy shared] checkShouldRedirect];
-    [self prepareLocation];
-    [self startMonitoring];
+//    [self prepareLocation];
+//    [self startMonitoring];
 
     [application registerForRemoteNotifications];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
@@ -273,7 +273,7 @@
     }];
     
     if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
-        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
+        self.mainViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
         [UIWindow mainWindow].rootViewController = self.mainViewController;
         [[UIWindow mainWindow] makeKeyAndVisible];
         [self installTweak];
@@ -284,7 +284,7 @@
 }
 
 - (void)startMonitoring {
-    self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
+    self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
 //    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
     self.lostConnectionViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     
