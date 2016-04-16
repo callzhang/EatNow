@@ -8,7 +8,6 @@
 
 #import <XCTest/XCTest.h>
 #import "ENRestaurantModel.h"
-#import "NSString+HEXColor.h"
 
 @interface ENRestaurantModelTest : XCTestCase
 

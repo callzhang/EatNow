@@ -65,12 +65,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self initializeLogging];
-    [self prepareSocialAndAnalyticsWithApplication:application options:launchOptions];
-    [[ENProxy shared] checkShouldRedirect];
+//    [self prepareSocialAndAnalyticsWithApplication:application options:launchOptions];
+//    [[ENProxy shared] checkShouldRedirect];
 //    [self prepareLocation];
 //    [self startMonitoring];
 
-    [application registerForRemoteNotifications];
+//    [application registerForRemoteNotifications];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     return YES;
