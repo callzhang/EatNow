@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ENMainCollectionViewModel : NSObject <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ENMainCollectionViewModel : NSObject
 
 @property (nonatomic, weak) UIViewController *hostController;
 @property (nonatomic, weak) UICollectionView *collectionView;
