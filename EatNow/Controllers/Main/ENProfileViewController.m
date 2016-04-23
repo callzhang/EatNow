@@ -1,49 +1,53 @@
 //
-//  ENMainCollectionViewCell.m
+//  ENProfileViewController.m
 //  EatNow
 //
-//  Created by Veracruz on 16/4/15.
+//  Created by Veracruz on 16/4/23.
 //  Copyright © 2016年 modocache. All rights reserved.
 //
 
-#import "ENMainCollectionViewCell.h"
+#import "ENProfileViewController.h"
 #import "ENLoginView.h"
 
 #define VERTICAL_LINE_TAG 1000
 #define HORIZONTAL_LINE_TAG 1001
 
-@interface ENMainCollectionViewCell ()
+@interface ENProfileViewController ()
 
-@property (strong, nonatomic) IBOutletCollection(UIView) NSArray <UIView *> *placeholderLineViews;
+@property (strong, nonatomic) IBOutlet UIView *upperContainerView;
+
+@property (strong, nonatomic) IBOutlet UIImageView *avatarImageView;
+
+@property (strong, nonatomic) IBOutletCollection(UIView) NSArray <UIView*> *placeholderLineViews;
 @property (strong, nonatomic) NSArray <UIView *> *lineViews;
-@property (strong, nonatomic) IBOutlet UIView *containerView;
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *rateLabels;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) ENLoginView *loginView;
 
 @end
 
-@implementation ENMainCollectionViewCell
+@implementation ENProfileViewController
 
-- (void)awakeFromNib {
-    // Initialization code
-    self.layer.cornerRadius = 15;
-    self.layer.borderWidth = 0.5;
-    self.layer.borderColor = [UIColor colorWithRed:0.639 green:0.643 blue:0.647 alpha:1.000].CGColor;
-    
-    self.layer.shadowColor = [UIColor lightGrayColor].CGColor;
-    self.layer.shadowOpacity = 0.6;
-    self.layer.shadowRadius = 5;
-    self.layer.shadowOffset = CGSizeZero;
-    
-    _containerView.layer.cornerRadius = 15;
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     [self createLines];
-
+    
+    _loginView = [ENLoginView basicLoginView];
+    [_upperContainerView addSubview:_loginView];
 }
 
-- (void)setNeedsLayout {
-    [super setNeedsLayout];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     
     [self layoutLines];
+    _avatarImageView.layer.cornerRadius = _avatarImageView.height / 2.0;
+    
+    _loginView.frame = _upperContainerView.bounds;
+    [_loginView setNeedsDisplay];
 }
 
 - (void)createLines {
@@ -70,9 +74,9 @@
     }
 }
 
-- (IBAction)likeButtonTouched:(id)sender {
-    [[ENLoginView loginView] show];
-}
 
+- (IBAction)dismissButtonTouched:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

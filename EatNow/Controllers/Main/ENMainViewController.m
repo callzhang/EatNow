@@ -22,6 +22,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self.view.window makeKeyAndVisible];
+    
     _collectionViewModel = [[ENMainCollectionViewModel alloc] init];
     _collectionViewModel.hostController = self;
     _collectionViewModel.collectionView = _collectionView;

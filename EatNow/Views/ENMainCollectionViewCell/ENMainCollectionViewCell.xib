@@ -48,6 +48,9 @@ American</string>
                                     <constraint firstAttribute="width" constant="60" id="LtZ-3x-U2k"/>
                                 </constraints>
                                 <state key="normal" image="home-card-like"/>
+                                <connections>
+                                    <action selector="likeButtonTouched:" destination="gTV-IL-0wX" eventType="touchUpInside" id="daj-bF-FfR"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ig9-8A-fpM">
                                 <rect key="frame" x="205" y="378" width="60" height="50"/>
@@ -59,7 +62,7 @@ American</string>
                             </button>
                             <view hidden="YES" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fa1-jd-M9A">
                                 <rect key="frame" x="108" y="344" width="0.5" height="20"/>
-                                <color key="backgroundColor" red="0.72941176470000002" green="0.73333333329999995" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Q0t-gy-lhY"/>
                                     <constraint firstAttribute="width" constant="0.5" id="WlC-bn-VWq"/>
@@ -67,7 +70,7 @@ American</string>
                             </view>
                             <view hidden="YES" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0pC-Rl-cfq">
                                 <rect key="frame" x="216" y="344" width="0.5" height="20"/>
-                                <color key="backgroundColor" red="0.72941176470000002" green="0.73333333329999995" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="K06-zX-dG6"/>
                                     <constraint firstAttribute="width" constant="0.5" id="iXp-t7-Q0E"/>
@@ -75,21 +78,21 @@ American</string>
                             </view>
                             <view hidden="YES" tag="1001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUR-g5-Ybp">
                                 <rect key="frame" x="0.0" y="377" width="325" height="0.5"/>
-                                <color key="backgroundColor" red="0.72941176470588232" green="0.73333333333333328" blue="0.73725490196078436" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="Xwz-pM-dZe"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6h-8D-rpd">
                                 <rect key="frame" x="204" y="377" width="0.5" height="51.5"/>
-                                <color key="backgroundColor" red="0.72941176470000002" green="0.73333333329999995" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="0.5" id="yhr-Zg-fU1"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b5m-Bg-NGe">
                                 <rect key="frame" x="264" y="377" width="0.5" height="51"/>
-                                <color key="backgroundColor" red="0.72941176470000002" green="0.73333333329999995" blue="0.73725490199999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.73333333333333328" green="0.73333333333333328" blue="0.73333333333333328" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="0.5" id="o1I-QN-8Ec"/>
                                 </constraints>
