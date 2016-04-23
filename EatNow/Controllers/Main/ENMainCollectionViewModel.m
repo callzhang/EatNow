@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSMutableArray *restaurants;
 @property (nonatomic, strong) UIView *deleteView;
 @property (nonatomic) BOOL operationLock;
+@property (nonatomic, strong) NSIndexPath *currentOperationIndexPath;
 
 @end
 
@@ -107,20 +108,33 @@
     
     NSIndexPath *indexPath = [_collectionView indexPathForItemAtPoint:[sender locationInView:_collectionView]];
     CGPoint translation = [sender translationInView:_collectionView];
+    UICollectionViewCell *cell;
+    
+    if (_currentOperationIndexPath) {
+        cell = [_collectionView cellForItemAtIndexPath:_currentOperationIndexPath];
+    }
+    
     if (!indexPath) {
+        if (cell) {
+            [UIView animateWithDuration:0.3 delay:0 options:7 >> 16 animations:^{
+                cell.transform = CGAffineTransformIdentity;
+            } completion:nil];
+            [self dismissDeleteTopView];
+            _currentOperationIndexPath = nil;
+        }
+        
         return;
     }
     
-    UICollectionViewCell *cell = [_collectionView cellForItemAtIndexPath:indexPath];
-    
     if (sender.state == UIGestureRecognizerStateBegan) {
+        _currentOperationIndexPath = indexPath;
         [self drawDeleteTopView];
     }
     else if (sender.state == UIGestureRecognizerStateEnded) {
-        if (translation.y < -50) {
-            [_restaurants removeObjectAtIndex:indexPath.row];
+        if (translation.y < -50 && _currentOperationIndexPath) {
+            [_restaurants removeObjectAtIndex:_currentOperationIndexPath.row];
             [_collectionView performBatchUpdates:^{
-                [_collectionView deleteItemsAtIndexPaths:@[indexPath]];
+                [_collectionView deleteItemsAtIndexPaths:@[_currentOperationIndexPath]];
             } completion:nil];
         } else {
             [UIView animateWithDuration:0.3 delay:0 options:7 >> 16 animations:^{
@@ -128,6 +142,7 @@
             } completion:nil];
         }
         [self dismissDeleteTopView];
+        _currentOperationIndexPath = nil;
     }
     else if (sender.state == UIGestureRecognizerStateChanged) {
         cell.transform = CGAffineTransformMakeTranslation(0, translation.y < 0 ? translation.y : 0);

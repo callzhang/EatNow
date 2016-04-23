@@ -37,7 +37,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 #import <Crashlytics/crashlytics.h>
-#import "ENLostConnectionViewController.h"
+//#import "ENLostConnectionViewController.h"
 #import "Mixpanel.h"
 #import "BlocksKit+UIKit.h"
 #import "FBTweakViewController.h"
@@ -55,7 +55,7 @@
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 
-@property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
+//@property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
 @property (nonatomic, strong) ENMainViewController *mainViewController;
 
 @end
@@ -84,11 +84,14 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [[Mixpanel sharedInstance] timeEvent:@"App open"];
     [[ATConnect sharedConnection] engage:@"App open" fromViewController:[UIWindow mainWindow].rootViewController];
+    
+    /*
     if ([ENLocationManager locationServicesState] != INTULocationServicesStateAvailable) {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENGetLocationViewController"];
         vc.modalTransitionStyle = UIModalPresentationOverFullScreen;
         [UIWindow mainWindow].rootViewController = vc;
     }
+     */
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
@@ -283,9 +286,9 @@
     }
 }
 
+/*
 - (void)startMonitoring {
     self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
-//    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
     self.lostConnectionViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     
     //Internet connection
@@ -317,5 +320,6 @@
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
+ */
 
 @end

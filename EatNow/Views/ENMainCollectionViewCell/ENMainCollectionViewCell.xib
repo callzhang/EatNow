@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -171,8 +171,8 @@ American</string>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="home-card-like" width="40" height="36"/>
-        <image name="home-card-share" width="36" height="36"/>
+        <image name="home-card-like" width="20" height="18"/>
+        <image name="home-card-share" width="18" height="18"/>
         <image name="main-cell-placeholder" width="1000" height="644"/>
     </resources>
 </document>
