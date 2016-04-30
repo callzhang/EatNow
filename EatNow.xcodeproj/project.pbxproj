@@ -42,6 +42,8 @@
 		1E52D40C1C944CE5000EEBAC /* ENNetworkingTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E52D40B1C944CE5000EEBAC /* ENNetworkingTest.m */; };
 		1E6DF2A11CAD4F29009C8841 /* test_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E6DF2A01CAD4F29009C8841 /* test_data.json */; };
 		1E6DF2A31CAD4F4F009C8841 /* ENRestaurantModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6DF2A21CAD4F4F009C8841 /* ENRestaurantModelTest.m */; };
+		1E7AF02B1CD4C72C00396A60 /* ENEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7AF02A1CD4C72C00396A60 /* ENEditProfileViewController.m */; };
+		1E7AF02C1CD4CE2700396A60 /* ENPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7AF0271CD4C71C00396A60 /* ENPasswordViewController.m */; };
 		1EA14AE71CCB93F700637EA1 /* ENLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA14AE61CCB93F700637EA1 /* ENLoginView.m */; };
 		1EA14AE91CCB940000637EA1 /* ENLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EA14AE81CCB940000637EA1 /* ENLoginView.xib */; };
 		1EA14AEC1CCBA3DB00637EA1 /* ENProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA14AEB1CCBA3DB00637EA1 /* ENProfileViewController.m */; };
@@ -178,6 +180,10 @@
 		1E5B773F1CA7099D0061915E /* EatNow-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EatNow-Bridging-Header.h"; sourceTree = "<group>"; };
 		1E6DF2A01CAD4F29009C8841 /* test_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test_data.json; sourceTree = "<group>"; };
 		1E6DF2A21CAD4F4F009C8841 /* ENRestaurantModelTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantModelTest.m; sourceTree = "<group>"; };
+		1E7AF0261CD4C71C00396A60 /* ENPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENPasswordViewController.h; sourceTree = "<group>"; };
+		1E7AF0271CD4C71C00396A60 /* ENPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPasswordViewController.m; sourceTree = "<group>"; };
+		1E7AF0291CD4C72C00396A60 /* ENEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENEditProfileViewController.h; sourceTree = "<group>"; };
+		1E7AF02A1CD4C72C00396A60 /* ENEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENEditProfileViewController.m; sourceTree = "<group>"; };
 		1EA14AE51CCB93F700637EA1 /* ENLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENLoginView.h; sourceTree = "<group>"; };
 		1EA14AE61CCB93F700637EA1 /* ENLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLoginView.m; sourceTree = "<group>"; };
 		1EA14AE81CCB940000637EA1 /* ENLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENLoginView.xib; sourceTree = "<group>"; };
@@ -445,6 +451,10 @@
 				1E1F53D91CCB6FD900A647D8 /* ENSettingViewController.m */,
 				1EA14AEA1CCBA3DB00637EA1 /* ENProfileViewController.h */,
 				1EA14AEB1CCBA3DB00637EA1 /* ENProfileViewController.m */,
+				1E7AF0261CD4C71C00396A60 /* ENPasswordViewController.h */,
+				1E7AF0271CD4C71C00396A60 /* ENPasswordViewController.m */,
+				1E7AF0291CD4C72C00396A60 /* ENEditProfileViewController.h */,
+				1E7AF02A1CD4C72C00396A60 /* ENEditProfileViewController.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -888,7 +898,9 @@
 				0943AB761CBE92D500F98A93 /* FBKVOController+Binding.m in Sources */,
 				9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */,
 				1EEBABBC1CC116410000B396 /* ENMainCollectionViewCell.m in Sources */,
+				1E7AF02B1CD4C72C00396A60 /* ENEditProfileViewController.m in Sources */,
 				1EEBABB71CC115AB0000B396 /* ENMainViewController.m in Sources */,
+				1E7AF02C1CD4CE2700396A60 /* ENPasswordViewController.m in Sources */,
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,

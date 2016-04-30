@@ -56,7 +56,7 @@
     _maskView.alpha = 0;
     CGFloat y = self.y;
     self.y = -self.height;
-    [UIView animateWithDuration:0.3 delay:0 options:7 >> 16 animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:7 << 16 animations:^{
         _maskView.alpha = 1;
         self.y = y;
     } completion:nil];
@@ -64,7 +64,7 @@
 }
 
 - (void)hide {
-    [UIView animateWithDuration:0.3 delay:0 options:7 >> 16 animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:7 << 16 animations:^{
         _maskView.alpha = 0;
         self.y = [UIScreen mainScreen].bounds.size.height;
     } completion:^(BOOL finished) {

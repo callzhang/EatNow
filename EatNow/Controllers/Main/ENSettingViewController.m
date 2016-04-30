@@ -8,7 +8,7 @@
 
 #import "ENSettingViewController.h"
 
-#define SettingItem(title, type, value) [[SettingItem alloc] initWithArray:@[title, type, value]]
+#define SettingItem(title, type, value, entry) [[SettingItem alloc] initWithArray:@[title, type, value, entry]]
 #define SettingItemNullValue @""
 
 NSString *const SettingItemTypeBasic = @"basic";
@@ -21,6 +21,7 @@ NSString *const SettingItemTypeSwitch = @"switch";
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) id value; // NSString for detail, NSNumber(BOOL) for switch
+@property (nonatomic, strong) NSString *entryIdentifier;
 
 - (instancetype)initWithArray:(NSArray *)array;
 
@@ -39,18 +40,18 @@ NSString *const SettingItemTypeSwitch = @"switch";
     // Do any additional setup after loading the view.
     
     _settingItems = @[
-                    @[SettingItem(@"Edit Profile", SettingItemTypeIndicator, SettingItemNullValue),
-                      SettingItem(@"Linked Account", SettingItemTypeDetail, @"Facebook"),
-                      SettingItem(@"Change Password", SettingItemTypeIndicator, SettingItemNullValue)],
+                    @[SettingItem(@"Edit Profile", SettingItemTypeIndicator, SettingItemNullValue, @"edit_profile"),
+                      SettingItem(@"Linked Account", SettingItemTypeDetail, @"Facebook", @""),
+                      SettingItem(@"Change Password", SettingItemTypeIndicator, SettingItemNullValue, @"edit_password")],
                     
-                    @[SettingItem(@"Location", SettingItemTypeSwitch, @(YES)),
-                      SettingItem(@"Notification", SettingItemTypeSwitch, @(NO))],
+                    @[SettingItem(@"Location", SettingItemTypeSwitch, @(YES), @""),
+                      SettingItem(@"Notification", SettingItemTypeSwitch, @(NO), @"")],
                     
-                    @[SettingItem(@"Feed Back", SettingItemTypeIndicator, SettingItemNullValue),
-                      SettingItem(@"Survey", SettingItemTypeIndicator, SettingItemNullValue),
-                      SettingItem(@"Rate Eat Now", SettingItemTypeIndicator, SettingItemNullValue)],
+                    @[SettingItem(@"Feed Back", SettingItemTypeIndicator, SettingItemNullValue, @""),
+                      SettingItem(@"Survey", SettingItemTypeIndicator, SettingItemNullValue, @""),
+                      SettingItem(@"Rate Eat Now", SettingItemTypeIndicator, SettingItemNullValue, @"")],
                     
-                    @[SettingItem(@"Log Out", SettingItemTypeBasic, SettingItemNullValue)],
+                    @[SettingItem(@"Log Out", SettingItemTypeBasic, SettingItemNullValue, @"")],
                     ];
 }
 
@@ -61,6 +62,11 @@ NSString *const SettingItemTypeSwitch = @"switch";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    SettingItem *item = _settingItems[indexPath.section][indexPath.row];
+    if (item.entryIdentifier) {
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:item.entryIdentifier] animated:YES];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -121,6 +127,9 @@ NSString *const SettingItemTypeSwitch = @"switch";
         _type = array[1];
         if ([_type isEqualToString:SettingItemTypeDetail] || [_type isEqualToString:SettingItemTypeSwitch]) {
             _value = array[2];
+        }
+        if (((NSString *)array[3]).length > 0) {
+            _entryIdentifier = array[3];
         }
     }
     return self;

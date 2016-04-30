@@ -116,7 +116,7 @@
     
     if (!indexPath) {
         if (cell) {
-            [UIView animateWithDuration:0.3 delay:0 options:7 >> 16 animations:^{
+            [UIView animateWithDuration:0.3 delay:0 options:7 << 16 animations:^{
                 cell.transform = CGAffineTransformIdentity;
             } completion:nil];
             [self dismissDeleteTopView];
@@ -137,7 +137,7 @@
                 [_collectionView deleteItemsAtIndexPaths:@[_currentOperationIndexPath]];
             } completion:nil];
         } else {
-            [UIView animateWithDuration:0.3 delay:0 options:7 >> 16 animations:^{
+            [UIView animateWithDuration:0.3 delay:0 options:7 << 16 animations:^{
                 cell.transform = CGAffineTransformIdentity;
             } completion:nil];
         }
@@ -173,7 +173,7 @@
     
     [_hostController.view insertSubview:_deleteView belowSubview:_collectionView];
     
-    [UIView animateWithDuration:0.3 delay:0 options:7 >> 16 animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:7 << 16 animations:^{
         _deleteView.transform = CGAffineTransformIdentity;
     } completion:nil];
 }
