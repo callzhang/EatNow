@@ -44,6 +44,17 @@
 		1E6DF2A31CAD4F4F009C8841 /* ENRestaurantModelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6DF2A21CAD4F4F009C8841 /* ENRestaurantModelTest.m */; };
 		1E7AF02B1CD4C72C00396A60 /* ENEditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7AF02A1CD4C72C00396A60 /* ENEditProfileViewController.m */; };
 		1E7AF02C1CD4CE2700396A60 /* ENPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7AF0271CD4C71C00396A60 /* ENPasswordViewController.m */; };
+		1E8283A61CDA0C5600BB8EDC /* ENRestaurantMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E8283A41CDA0C5600BB8EDC /* ENRestaurantMainCell.m */; };
+		1E8283A71CDA0C5600BB8EDC /* ENRestaurantMainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E8283A51CDA0C5600BB8EDC /* ENRestaurantMainCell.xib */; };
+		1E8283AB1CDA0C6D00BB8EDC /* ENRestaurantBasicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E8283A91CDA0C6D00BB8EDC /* ENRestaurantBasicCell.m */; };
+		1E8283AC1CDA0C6D00BB8EDC /* ENRestaurantBasicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E8283AA1CDA0C6D00BB8EDC /* ENRestaurantBasicCell.xib */; };
+		1E8283B01CDA0C9200BB8EDC /* ENRestaurantMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E8283AE1CDA0C9200BB8EDC /* ENRestaurantMenuCell.m */; };
+		1E8283B11CDA0C9200BB8EDC /* ENRestaurantMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E8283AF1CDA0C9200BB8EDC /* ENRestaurantMenuCell.xib */; };
+		1E8283B81CDA0CC200BB8EDC /* ENRestaurantScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E8283B61CDA0CC200BB8EDC /* ENRestaurantScrollCell.m */; };
+		1E8283B91CDA0CC200BB8EDC /* ENRestaurantScrollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E8283B71CDA0CC200BB8EDC /* ENRestaurantScrollCell.xib */; };
+		1E8283BC1CDA139400BB8EDC /* ENRestaurantHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E8283BB1CDA139400BB8EDC /* ENRestaurantHeaderView.m */; };
+		1E8283BE1CDA13A400BB8EDC /* ENRestaurantHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1E8283BD1CDA13A400BB8EDC /* ENRestaurantHeaderView.xib */; };
+		1E8283C11CDA15B800BB8EDC /* ENRestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E8283C01CDA15B800BB8EDC /* ENRestaurantViewController.m */; };
 		1EA14AE71CCB93F700637EA1 /* ENLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA14AE61CCB93F700637EA1 /* ENLoginView.m */; };
 		1EA14AE91CCB940000637EA1 /* ENLoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EA14AE81CCB940000637EA1 /* ENLoginView.xib */; };
 		1EA14AEC1CCBA3DB00637EA1 /* ENProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EA14AEB1CCBA3DB00637EA1 /* ENProfileViewController.m */; };
@@ -184,6 +195,23 @@
 		1E7AF0271CD4C71C00396A60 /* ENPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENPasswordViewController.m; sourceTree = "<group>"; };
 		1E7AF0291CD4C72C00396A60 /* ENEditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENEditProfileViewController.h; sourceTree = "<group>"; };
 		1E7AF02A1CD4C72C00396A60 /* ENEditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENEditProfileViewController.m; sourceTree = "<group>"; };
+		1E8283A31CDA0C5600BB8EDC /* ENRestaurantMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantMainCell.h; sourceTree = "<group>"; };
+		1E8283A41CDA0C5600BB8EDC /* ENRestaurantMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantMainCell.m; sourceTree = "<group>"; };
+		1E8283A51CDA0C5600BB8EDC /* ENRestaurantMainCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENRestaurantMainCell.xib; sourceTree = "<group>"; };
+		1E8283A81CDA0C6D00BB8EDC /* ENRestaurantBasicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantBasicCell.h; sourceTree = "<group>"; };
+		1E8283A91CDA0C6D00BB8EDC /* ENRestaurantBasicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantBasicCell.m; sourceTree = "<group>"; };
+		1E8283AA1CDA0C6D00BB8EDC /* ENRestaurantBasicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENRestaurantBasicCell.xib; sourceTree = "<group>"; };
+		1E8283AD1CDA0C9200BB8EDC /* ENRestaurantMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantMenuCell.h; sourceTree = "<group>"; };
+		1E8283AE1CDA0C9200BB8EDC /* ENRestaurantMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantMenuCell.m; sourceTree = "<group>"; };
+		1E8283AF1CDA0C9200BB8EDC /* ENRestaurantMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENRestaurantMenuCell.xib; sourceTree = "<group>"; };
+		1E8283B51CDA0CC200BB8EDC /* ENRestaurantScrollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantScrollCell.h; sourceTree = "<group>"; };
+		1E8283B61CDA0CC200BB8EDC /* ENRestaurantScrollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantScrollCell.m; sourceTree = "<group>"; };
+		1E8283B71CDA0CC200BB8EDC /* ENRestaurantScrollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENRestaurantScrollCell.xib; sourceTree = "<group>"; };
+		1E8283BA1CDA139400BB8EDC /* ENRestaurantHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantHeaderView.h; sourceTree = "<group>"; };
+		1E8283BB1CDA139400BB8EDC /* ENRestaurantHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantHeaderView.m; sourceTree = "<group>"; };
+		1E8283BD1CDA13A400BB8EDC /* ENRestaurantHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENRestaurantHeaderView.xib; sourceTree = "<group>"; };
+		1E8283BF1CDA15B800BB8EDC /* ENRestaurantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENRestaurantViewController.h; sourceTree = "<group>"; };
+		1E8283C01CDA15B800BB8EDC /* ENRestaurantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENRestaurantViewController.m; sourceTree = "<group>"; };
 		1EA14AE51CCB93F700637EA1 /* ENLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENLoginView.h; sourceTree = "<group>"; };
 		1EA14AE61CCB93F700637EA1 /* ENLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENLoginView.m; sourceTree = "<group>"; };
 		1EA14AE81CCB940000637EA1 /* ENLoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENLoginView.xib; sourceTree = "<group>"; };
@@ -412,6 +440,28 @@
 			path = "Model Test";
 			sourceTree = "<group>";
 		};
+		1E8283A21CDA0C1600BB8EDC /* Restaurant Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1E8283A31CDA0C5600BB8EDC /* ENRestaurantMainCell.h */,
+				1E8283A41CDA0C5600BB8EDC /* ENRestaurantMainCell.m */,
+				1E8283A51CDA0C5600BB8EDC /* ENRestaurantMainCell.xib */,
+				1E8283A81CDA0C6D00BB8EDC /* ENRestaurantBasicCell.h */,
+				1E8283A91CDA0C6D00BB8EDC /* ENRestaurantBasicCell.m */,
+				1E8283AA1CDA0C6D00BB8EDC /* ENRestaurantBasicCell.xib */,
+				1E8283AD1CDA0C9200BB8EDC /* ENRestaurantMenuCell.h */,
+				1E8283AE1CDA0C9200BB8EDC /* ENRestaurantMenuCell.m */,
+				1E8283AF1CDA0C9200BB8EDC /* ENRestaurantMenuCell.xib */,
+				1E8283B51CDA0CC200BB8EDC /* ENRestaurantScrollCell.h */,
+				1E8283B61CDA0CC200BB8EDC /* ENRestaurantScrollCell.m */,
+				1E8283B71CDA0CC200BB8EDC /* ENRestaurantScrollCell.xib */,
+				1E8283BA1CDA139400BB8EDC /* ENRestaurantHeaderView.h */,
+				1E8283BB1CDA139400BB8EDC /* ENRestaurantHeaderView.m */,
+				1E8283BD1CDA13A400BB8EDC /* ENRestaurantHeaderView.xib */,
+			);
+			path = "Restaurant Cells";
+			sourceTree = "<group>";
+		};
 		1EA14AE41CCB93E800637EA1 /* ENLoginView */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +483,7 @@
 		1EEBAB821CC0C4FB0000B396 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1E8283A21CDA0C1600BB8EDC /* Restaurant Cells */,
 				1EA14AE41CCB93E800637EA1 /* ENLoginView */,
 				1EEBABB81CC1162A0000B396 /* ENMainCollectionViewCell */,
 				1EEBAB831CC0C7A80000B396 /* Main.storyboard */,
@@ -455,6 +506,8 @@
 				1E7AF0271CD4C71C00396A60 /* ENPasswordViewController.m */,
 				1E7AF0291CD4C72C00396A60 /* ENEditProfileViewController.h */,
 				1E7AF02A1CD4C72C00396A60 /* ENEditProfileViewController.m */,
+				1E8283BF1CDA15B800BB8EDC /* ENRestaurantViewController.h */,
+				1E8283C01CDA15B800BB8EDC /* ENRestaurantViewController.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -790,7 +843,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E8283A71CDA0C5600BB8EDC /* ENRestaurantMainCell.xib in Resources */,
+				1E8283BE1CDA13A400BB8EDC /* ENRestaurantHeaderView.xib in Resources */,
 				9BFD3BAC1A26736000A0D4A9 /* EatNow-Prefix.pch in Resources */,
+				1E8283B11CDA0C9200BB8EDC /* ENRestaurantMenuCell.xib in Resources */,
 				9B74EAE01B5258F900A14BC9 /* Images.xcassets in Resources */,
 				091C0B391AF9616200838096 /* OpenSans-ExtraBold.ttf in Resources */,
 				091C0B3C1AF9616200838096 /* OpenSans-Light.ttf in Resources */,
@@ -798,11 +854,13 @@
 				091C0B3B1AF9616200838096 /* OpenSans-Italic.ttf in Resources */,
 				091C0B3E1AF9616200838096 /* OpenSans-Regular.ttf in Resources */,
 				9B1180F81A8E970700756E8F /* Entypo.ttf in Resources */,
+				1E8283AC1CDA0C6D00BB8EDC /* ENRestaurantBasicCell.xib in Resources */,
 				091C0B381AF9616200838096 /* OpenSans-BoldItalic.ttf in Resources */,
 				DA5B73F318F233EF00BB5F8E /* InfoPlist.strings in Resources */,
 				091C0B401AF9616200838096 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				1EEBAB841CC0C7A80000B396 /* Main.storyboard in Resources */,
 				78E8C7801BD3D97D00034E9C /* Localizable.strings in Resources */,
+				1E8283B91CDA0CC200BB8EDC /* ENRestaurantScrollCell.xib in Resources */,
 				091C0B3A1AF9616200838096 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				091C0B371AF9616200838096 /* OpenSans-Bold.ttf in Resources */,
 				1EA14AE91CCB940000637EA1 /* ENLoginView.xib in Resources */,
@@ -896,16 +954,22 @@
 				1EA14AE71CCB93F700637EA1 /* ENLoginView.m in Sources */,
 				0949581B1B019AC70022E4B4 /* TMAlertTransitioningDelegate.m in Sources */,
 				0943AB761CBE92D500F98A93 /* FBKVOController+Binding.m in Sources */,
+				1E8283A61CDA0C5600BB8EDC /* ENRestaurantMainCell.m in Sources */,
 				9BEBE7931B7FE09D006F844C /* GNMapOpener.m in Sources */,
 				1EEBABBC1CC116410000B396 /* ENMainCollectionViewCell.m in Sources */,
 				1E7AF02B1CD4C72C00396A60 /* ENEditProfileViewController.m in Sources */,
 				1EEBABB71CC115AB0000B396 /* ENMainViewController.m in Sources */,
 				1E7AF02C1CD4CE2700396A60 /* ENPasswordViewController.m in Sources */,
+				1E8283B01CDA0C9200BB8EDC /* ENRestaurantMenuCell.m in Sources */,
+				1E8283C11CDA15B800BB8EDC /* ENRestaurantViewController.m in Sources */,
+				1E8283BC1CDA139400BB8EDC /* ENRestaurantHeaderView.m in Sources */,
 				9BAE961A1AFEC0C900FF746B /* AppDelegate.m in Sources */,
 				9BEBE7961B7FE09D006F844C /* OpenInGoogleMapsController.m in Sources */,
 				0982B45D1AD9A7D700982740 /* ResturantDetailInterfaceController.m in Sources */,
 				7810AE161BC259DA00625941 /* SUNSlideSwitchView.m in Sources */,
 				1EA14AEC1CCBA3DB00637EA1 /* ENProfileViewController.m in Sources */,
+				1E8283AB1CDA0C6D00BB8EDC /* ENRestaurantBasicCell.m in Sources */,
+				1E8283B81CDA0CC200BB8EDC /* ENRestaurantScrollCell.m in Sources */,
 				0943AB781CBE92D500F98A93 /* TMTuple.m in Sources */,
 				DA5B73F518F233EF00BB5F8E /* main.m in Sources */,
 				091F49D41AED799D0064A4C8 /* WatchKitAction.m in Sources */,

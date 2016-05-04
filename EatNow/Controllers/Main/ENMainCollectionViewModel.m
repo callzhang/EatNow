@@ -58,6 +58,10 @@
                       @"placeholder"] mutableCopy];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [_hostController presentViewController:[_hostController.storyboard instantiateViewControllerWithIdentifier:@"restaurant"] animated:YES completion:nil];
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return _restaurants.count;
 }

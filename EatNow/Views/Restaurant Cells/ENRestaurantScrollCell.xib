@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="65" id="KGk-i7-Jjw" customClass="ENRestaurantScrollCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="restaurant-tab-left" translatesAutoresizingMaskIntoConstraints="NO" id="rWE-Ka-mcz">
+                        <rect key="frame" x="5" y="16" width="8" height="33"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="T0a-2b-DsJ"/>
+                            <constraint firstAttribute="width" constant="8" id="rzT-rY-iDz"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="restaurant-tab-right" translatesAutoresizingMaskIntoConstraints="NO" id="V2k-Dw-4Mj">
+                        <rect key="frame" x="307" y="16" width="8" height="33"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="ipD-Nl-hmy"/>
+                            <constraint firstAttribute="width" constant="8" id="pPT-X3-SLj"/>
+                        </constraints>
+                    </imageView>
+                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCs-eI-Ej5">
+                        <rect key="frame" x="13" y="0.0" width="294" height="64.5"/>
+                    </scrollView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="V2k-Dw-4Mj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="2S1-4K-OcF"/>
+                    <constraint firstItem="V2k-Dw-4Mj" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-5" id="5Fr-V6-jG0"/>
+                    <constraint firstItem="zCs-eI-Ej5" firstAttribute="leading" secondItem="rWE-Ka-mcz" secondAttribute="trailing" id="7Ry-m8-EFs"/>
+                    <constraint firstItem="rWE-Ka-mcz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ss4-fq-r2g"/>
+                    <constraint firstAttribute="bottom" secondItem="zCs-eI-Ej5" secondAttribute="bottom" id="hpa-tv-NvA"/>
+                    <constraint firstItem="V2k-Dw-4Mj" firstAttribute="leading" secondItem="zCs-eI-Ej5" secondAttribute="trailing" id="skq-q3-Uvo"/>
+                    <constraint firstItem="rWE-Ka-mcz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="y7V-lO-jmB"/>
+                    <constraint firstItem="zCs-eI-Ej5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="zfN-2l-MpG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="885" y="685.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="restaurant-tab-left" width="17" height="52"/>
+        <image name="restaurant-tab-right" width="17" height="52"/>
+    </resources>
+</document>
