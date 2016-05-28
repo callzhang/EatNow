@@ -37,7 +37,7 @@
 #import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 #import <Crashlytics/crashlytics.h>
-#import "ENLostConnectionViewController.h"
+//#import "ENLostConnectionViewController.h"
 #import "Mixpanel.h"
 #import "BlocksKit+UIKit.h"
 #import "FBTweakViewController.h"
@@ -55,7 +55,7 @@
 
 @interface AppDelegate ()<FBTweakViewControllerDelegate, WXApiDelegate>
 
-@property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
+//@property (nonatomic, strong) ENLostConnectionViewController *lostConnectionViewController;
 @property (nonatomic, strong) ENMainViewController *mainViewController;
 
 @end
@@ -64,13 +64,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [self initilizeLogging];
-    [self prepareSocialAndAnalyticsWithApplication:application options:launchOptions];
-    [[ENProxy shared] checkShouldRedirect];
-    [self prepareLocation];
-    [self startMonitoring];
+    [self initializeLogging];
+//    [self prepareSocialAndAnalyticsWithApplication:application options:launchOptions];
+//    [[ENProxy shared] checkShouldRedirect];
+//    [self prepareLocation];
+//    [self startMonitoring];
 
-    [application registerForRemoteNotifications];
+//    [application registerForRemoteNotifications];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     return YES;
@@ -84,11 +84,14 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [[Mixpanel sharedInstance] timeEvent:@"App open"];
     [[ATConnect sharedConnection] engage:@"App open" fromViewController:[UIWindow mainWindow].rootViewController];
+    
+    /*
     if ([ENLocationManager locationServicesState] != INTULocationServicesStateAvailable) {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENGetLocationViewController"];
         vc.modalTransitionStyle = UIModalPresentationOverFullScreen;
         [UIWindow mainWindow].rootViewController = vc;
     }
+     */
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application{
@@ -167,7 +170,7 @@
 
 
 #pragma mark - Tools
-- (void)initilizeLogging {
+- (void)initializeLogging {
     [DDLog addLogger:[DDASLLogger sharedInstance]];
     DDTTYLogger *log = [DDTTYLogger sharedInstance];
     [DDLog addLogger:log];
@@ -176,11 +179,13 @@
     // because this require some setup for Xcode, commented out here.
     // https://github.com/CocoaLumberjack/CocoaLumberjack/wiki/XcodeColors
     [log setColorsEnabled:YES];
-    [log setForegroundColor:[UIColor redColor] backgroundColor:nil forFlag:DDLogFlagError];
-    [log setForegroundColor:[UIColor colorWithRed:(255/255.0) green:(58/255.0) blue:(159/255.0) alpha:1.0] backgroundColor:nil forFlag:DDLogFlagWarning];
-    [log setForegroundColor:[UIColor orangeColor] backgroundColor:nil forFlag:DDLogFlagInfo];
-    //white for debug
-    [log setForegroundColor:[UIColor darkGrayColor] backgroundColor:nil forFlag:DDLogFlagVerbose];
+    
+    // Set new flat color for console
+    [log setForegroundColor:[UIColor colorWithRed:0.753 green:0.224 blue:0.169 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagError];
+    [log setForegroundColor:[UIColor colorWithRed:0.953 green:0.612 blue:0.071 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagWarning];
+    [log setForegroundColor:[UIColor colorWithRed:0.153 green:0.682 blue:0.376 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagInfo];
+    [log setForegroundColor:[UIColor colorWithRed:0.161 green:0.502 blue:0.725 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagDebug];
+    [log setForegroundColor:[UIColor colorWithRed:0.741 green:0.765 blue:0.780 alpha:1.000] backgroundColor:nil forFlag:DDLogFlagVerbose];
     
     //file logger
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
@@ -271,7 +276,7 @@
     }];
     
     if ([ENLocationManager locationServicesState] == INTULocationServicesStateAvailable) {
-        self.mainViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
+        self.mainViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENMainViewController"];
         [UIWindow mainWindow].rootViewController = self.mainViewController;
         [[UIWindow mainWindow] makeKeyAndVisible];
         [self installTweak];
@@ -281,9 +286,9 @@
     }
 }
 
+/*
 - (void)startMonitoring {
-    self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
-//    self.lostConnectionViewController.modalTransitionStyle = UIModalPresentationOverFullScreen;
+    self.lostConnectionViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ENLostConnectionViewController"];
     self.lostConnectionViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     
     //Internet connection
@@ -315,5 +320,6 @@
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
 }
+ */
 
 @end

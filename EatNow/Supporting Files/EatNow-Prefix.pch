@@ -35,6 +35,7 @@
 #endif
 
 #ifdef __OBJC__
+
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -44,5 +45,10 @@
 #import "FBTweakStore.h"
 #import "FBTweakInline.h"
 #import <libextobjc/extobjc.h>
+#import <UIView+EasyFrame.h>
+
+#define SINGLE_LINE_WIDTH           (1 / [UIScreen mainScreen].scale)
+#define SINGLE_LINE_ADJUST_OFFSET   ((1 / [UIScreen mainScreen].scale) / 2)
+
 #endif
 

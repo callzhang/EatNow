@@ -179,7 +179,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   ENPrivateLibrary:
-    :path: "./ENPrivateLibrary"
+    :path: ./ENPrivateLibrary
   KVOController:
     :git: https://github.com/caoer/KVOController.git
   TMKit:
@@ -227,4 +227,4 @@ SPEC CHECKSUMS:
   UITableView-NXEmptyView: 0bc404cfd9c201af518a63240ac4ac4dad2c69c2
   WeixinActivity: 4c5d4be4dff83d90376f3d5ba2fa6ba410e88b9e
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.2

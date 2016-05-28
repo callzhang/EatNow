@@ -15,10 +15,18 @@
 }
 
 - (void)setJustificationsWithNSArray:(NSArray *)array {
+    if (!array || array.count <= 0) {
+        return;
+    }
     NSMutableArray *justifications = [NSMutableArray array];
     for (NSDictionary *dic in array) {
-        ENTagsDetailJustificationModel *justification = [[ENTagsDetailJustificationModel alloc] initWithDictionary:dic error:NULL];
-        [justifications addObject:justification];
+        NSError *error;
+        ENTagsDetailJustificationModel *justification = [[ENTagsDetailJustificationModel alloc] initWithDictionary:dic error:&error];
+        if (error) {
+            NSLog(@"ENTagsDetailJustificationModel init error: %@", error.localizedDescription);
+        } else {
+            [justifications addObject:justification];
+        }
     }
     self.justifications = [justifications copy];
 }

@@ -294,8 +294,12 @@
 		1E6DF3121CAD5293009C8841 /* ENTagsFailedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6DF2F61CAD5293009C8841 /* ENTagsFailedModel.m */; };
 		1E6DF3131CAD5293009C8841 /* ENTagsModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E6DF2F71CAD5293009C8841 /* ENTagsModel.h */; };
 		1E6DF3141CAD5293009C8841 /* ENTagsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6DF2F81CAD5293009C8841 /* ENTagsModel.m */; };
+		1E6FF61B1CC2582A00FCCE13 /* UIView+EasyFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E6FF6191CC2582A00FCCE13 /* UIView+EasyFrame.h */; };
+		1E6FF61C1CC2582A00FCCE13 /* UIView+EasyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E6FF61A1CC2582A00FCCE13 /* UIView+EasyFrame.m */; };
 		1E90C12CF93646BA084DB9BA063D335B /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CEFAE1D94D262650D0E1153F2A057 /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		1E9F67F491398CDC61EA24910D7F95B2 /* RACDynamicSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = CA1850D1CA4798140E79078DF5DF26FF /* RACDynamicSequence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EEBAB3B1CC0C26E0000B396 /* UIColor+PXColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEBAB391CC0C26E0000B396 /* UIColor+PXColors.h */; };
+		1EEBAB3C1CC0C26E0000B396 /* UIColor+PXColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEBAB3A1CC0C26E0000B396 /* UIColor+PXColors.m */; };
 		1F459210BA49CA188A573BCDB5E88431 /* ATDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04582B9AE0744F66FFE2F9A862936CBA /* ATDataManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1F50768021117862B406C37C6784F929 /* FBSDKGraphRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2FD14CE39CE6AC52FD033ECC3C1388 /* FBSDKGraphRequest.m */; };
 		1FC3B30950241247836FBE92688E890D /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = A9D5BFED693A6991313BB74737C4EB30 /* UIActivityIndicatorView+AFNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2773,9 +2777,13 @@
 		1E6DF2F61CAD5293009C8841 /* ENTagsFailedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENTagsFailedModel.m; sourceTree = "<group>"; };
 		1E6DF2F71CAD5293009C8841 /* ENTagsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENTagsModel.h; sourceTree = "<group>"; };
 		1E6DF2F81CAD5293009C8841 /* ENTagsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENTagsModel.m; sourceTree = "<group>"; };
+		1E6FF6191CC2582A00FCCE13 /* UIView+EasyFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+EasyFrame.h"; sourceTree = "<group>"; };
+		1E6FF61A1CC2582A00FCCE13 /* UIView+EasyFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+EasyFrame.m"; sourceTree = "<group>"; };
 		1E8D4BC6A1EE6B2438673731D5110550 /* GPUImageCropFilter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPUImageCropFilter.h; path = framework/Source/GPUImageCropFilter.h; sourceTree = "<group>"; };
 		1E93478594C7467EF52C73C7FBF768B4 /* ATDeviceUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATDeviceUpdater.h; path = "ApptentiveConnect/source/Message Center/Persistence/ATDeviceUpdater.h"; sourceTree = "<group>"; };
 		1EB8B828243B39CDFE1467875BDFA060 /* GPUImageMotionDetector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GPUImageMotionDetector.h; path = framework/Source/GPUImageMotionDetector.h; sourceTree = "<group>"; };
+		1EEBAB391CC0C26E0000B396 /* UIColor+PXColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PXColors.h"; sourceTree = "<group>"; };
+		1EEBAB3A1CC0C26E0000B396 /* UIColor+PXColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+PXColors.m"; sourceTree = "<group>"; };
 		1EF949926B203734EB12B35FB8EA894C /* PFLocationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PFLocationManager.m; path = Parse/Internal/PFLocationManager.m; sourceTree = "<group>"; };
 		1F7651E1C5B6F30DA87824DC3D6E4D9E /* TFHppleElement.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
 		1F781CF7B58F76E93BE9B918EF7D98B5 /* XPathQuery.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
@@ -5647,6 +5655,15 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		1E6FF6181CC2582A00FCCE13 /* UIView+EasyFrame */ = {
+			isa = PBXGroup;
+			children = (
+				1E6FF6191CC2582A00FCCE13 /* UIView+EasyFrame.h */,
+				1E6FF61A1CC2582A00FCCE13 /* UIView+EasyFrame.m */,
+			);
+			path = "UIView+EasyFrame";
+			sourceTree = "<group>";
+		};
 		1FE9486A77CF03A7C42A6E6C459D272C /* FBSDKShareKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -8060,6 +8077,9 @@
 		D12D74594C580329E76C01A6FF33B6EE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				1E6FF6181CC2582A00FCCE13 /* UIView+EasyFrame */,
+				1EEBAB391CC0C26E0000B396 /* UIColor+PXColors.h */,
+				1EEBAB3A1CC0C26E0000B396 /* UIColor+PXColors.m */,
 				D78F6CC9D3E40F0FB216F738EE56D006 /* CALayer+UIColor.h */,
 				F82DA11107B60128551A429D3A1DF6A3 /* CALayer+UIColor.m */,
 				4B29E21EEB419E9B6E9AE6A5CD80E1A1 /* CGGeometry+MEDConvenienceAdditions.h */,
@@ -9418,6 +9438,7 @@
 				5EB4311DD0BBB3AF69173DC3548C4654 /* ENSocial.h in Headers */,
 				18FE855987F19B10613539DBE863C2E5 /* ENSocialLoginManager.h in Headers */,
 				1E6DF3111CAD5293009C8841 /* ENTagsFailedModel.h in Headers */,
+				1EEBAB3B1CC0C26E0000B396 /* UIColor+PXColors.h in Headers */,
 				7A2C404B64E2E2066EA150FFAFD06B4A /* ENSocialLoginProviderProtocol.h in Headers */,
 				B37753C00517C26120530FD5AD612E91 /* ENSocialLoginResponse.h in Headers */,
 				37F8DDE931390E768922FCDABD68BDF4 /* ENToken.h in Headers */,
@@ -9429,6 +9450,7 @@
 				1E6DF30D1CAD5293009C8841 /* ENTagsDetailJustificationModel.h in Headers */,
 				A8098DEF15F89095CE2AE3517D1E9602 /* NSDate+Extension.h in Headers */,
 				E433857EB183B079202B940CC93B872E /* NSDictionary+Extend.h in Headers */,
+				1E6FF61B1CC2582A00FCCE13 /* UIView+EasyFrame.h in Headers */,
 				38A40DCE6A2F2FDE8AA79DDAF049B68D /* NSError+EatNow.h in Headers */,
 				FA5E54A80E3C691DAE412394F35AE462 /* NSError+TMError.h in Headers */,
 				068EFA108BFB02C58CFB136B98B93E3D /* NSString+Extend.h in Headers */,
@@ -10639,6 +10661,7 @@
 				1E6DF2FC1CAD5293009C8841 /* ENCategoryModel.m in Sources */,
 				412FDE57014A7F2502FB0CCA2CB9A07C /* ENProfileItem.m in Sources */,
 				BBB0E535923B4AB8B3A0828D4A44928C /* ENProxy.m in Sources */,
+				1EEBAB3C1CC0C26E0000B396 /* UIColor+PXColors.m in Sources */,
 				1E6DF30C1CAD5293009C8841 /* ENStatsModel.m in Sources */,
 				D1F3397756327995975EF1783EF37F6C /* ENRestaurant.m in Sources */,
 				18E45C3D9FFC99E3842D468CA490854B /* ENServerManager.m in Sources */,
@@ -10653,6 +10676,7 @@
 				1E6DF30E1CAD5293009C8841 /* ENTagsDetailJustificationModel.m in Sources */,
 				1E6DF3141CAD5293009C8841 /* ENTagsModel.m in Sources */,
 				808F603315AFB2C4629625E4359638E1 /* ENUser.m in Sources */,
+				1E6FF61C1CC2582A00FCCE13 /* UIView+EasyFrame.m in Sources */,
 				F09A240BF4949F833234BC2CB4395D4F /* ENUtil.m in Sources */,
 				CF6B6206B5A6B320D50535613A08B85B /* ENWechatLoginProvider.m in Sources */,
 				1E6DF30A1CAD5293009C8841 /* ENScoreModel.m in Sources */,
