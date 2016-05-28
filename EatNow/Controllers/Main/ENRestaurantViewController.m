@@ -12,9 +12,12 @@
 #import "ENRestaurantMenuCell.h"
 #import "ENRestaurantScrollCell.h"
 
-@interface ENRestaurantViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ENRestaurantViewController () <UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *headerHeightConstraint;
+
+@property (nonatomic) CGFloat gestureStartConstantOfHeaderHeightConstraint;
 
 @end
 
@@ -30,15 +33,41 @@
     [_tableView registerNib:[UINib nibWithNibName:@"ENRestaurantMenuCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"menu"];
     [_tableView registerNib:[UINib nibWithNibName:@"ENRestaurantScrollCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"scroll"];
     _tableView.tableFooterView = [[UIView alloc] init];
-    
+    _tableView.contentInset = UIEdgeInsetsMake([UIScreen mainScreen].bounds.size.width, 0, 0, 0);
+    _tableView.contentOffset = CGPointMake(0, -[UIScreen mainScreen].bounds.size.width);
     _tableView.separatorInset = UIEdgeInsetsZero;
     _tableView.layoutMargins = UIEdgeInsetsZero;
+    
+    [_tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [_tableView removeObserver:self forKeyPath:@"contentOffset"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    CGPoint offset = ((NSValue *)change[@"new"]).CGPointValue;
+    if (-offset.y < [UIScreen mainScreen].bounds.size.width / 2) {
+        offset.y = -[UIScreen mainScreen].bounds.size.width / 2;
+    }
+    _headerHeightConstraint.constant = - offset.y;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -51,7 +80,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0) {   
         return [ENRestaurantMainCell cellHeight];
     }
     
@@ -102,8 +131,7 @@
     
     cell.separatorInset = UIEdgeInsetsZero;
     cell.layoutMargins = UIEdgeInsetsZero;
-    
-    
+
     return cell;
 }
 
